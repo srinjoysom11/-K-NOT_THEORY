@@ -1,0 +1,27 @@
+# --- Copyrighted source material: never commit ---
+# Paper PDFs (fetch them yourself with download_papers.ps1 or via your library)
+papers/
+*.pdf
+# Page renders of the papers (reproductions of copyrighted pages)
+wiki/figures/
+
+# --- Binaries / build output ---
+*.exe
+*.o
+*.obj
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- Local editor / tool settings ---
+.vscode/
+.claude/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Secrets, if any ever appear ---
+.env
+*.key
+*.pem
