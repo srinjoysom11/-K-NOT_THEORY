@@ -442,10 +442,10 @@
  },
  "papers/5_ml_rl/Georgiev-GomezSerrano-Tao-Wagner_2025_Math_exploration_at_scale_AlphaEvolve_2511.02864.pdf": {
   "added": "2026-11-11",
-  "bytes": 12002036,
+  "bytes": 12141713,
   "key": "GGTW25",
-  "note": "",
-  "sha1": "c883d5214c6d79584d1503fc9f32ba57641646a4",
+  "note": "re-downloaded from arXiv 2026-11-12; previous copy was truncated (no xref/trailer)",
+  "sha1": "9761e9c0f5651200924a844d999dd802f8a2f37b",
   "state": "integrated",
   "updated": "2026-11-12"
  },
