@@ -104,23 +104,28 @@ No paper applies RL, deep learning or LLM program search to minimal lattice knot
 
 ## 7. Paywalled — get through the library (DOIs where known)
 
-1. Diao 1993, *Minimal knotted polygons on the cubic lattice*, JKTR 2(4) 413–425, doi 10.1142/S0218216593000234
-2. Diao 1994, *The number of smallest knots on the cubic lattice*, J. Stat. Phys. 74, doi 10.1007/BF02188227 (abstract says 3496 unrooted trefoils vs JvR–R's 3328 — resolve the convention; our enumerator can settle it)
-3. Janse van Rensburg & Promislow 1995, *Minimal knots in the cubic lattice*, JKTR 4
-4. Janse van Rensburg & Whittington 1991, *The BFACF algorithm and knotted polygons*, J. Phys. A 24 5553, doi 10.1088/0305-4470/24/23/021
-5. Scharein et al. 2009, J. Phys. A 42 475006, doi 10.1088/1751-8113/42/47/475006 (an academia.edu copy exists)
-6. Uberti et al. 1998, *Minimal links in the cubic lattice*, IMA Vol. 103, Springer, doi 10.1007/978-1-4612-1712-1_9
-7. Diao & Ernst 1998, *The complexity of lattice knots*, Topol. Appl. 90, doi 10.1016/S0166-8641(97)00178-8
-8. Diao, Ernst & Yu 2004, *Hamiltonian knot projections and lengths of thick knots*, Topol. Appl. 136, doi 10.1016/S0166-8641(03)00182-2
-9. Buck & Simon 1999, *Thickness and crossing number of knots*, Topol. Appl. 91, doi 10.1016/S0166-8641(97)00211-3
-10. Diao 2003, *The lower bounds of the lengths of thick knots*, JKTR 12, doi 10.1142/S0218216503002275
-11. Diao & Ernst 2007, *Total curvature, ropelength and crossing number of thick knots*, Math. Proc. Camb. 143, doi 10.1017/S0305004107000151
-12. Huh & Oh 2005, *Lattice stick numbers of small knots*, JKTR 14
-13. Huh, No, Oh & Rawdon 2015, *Link lengths and their growth powers*, J. Phys. A 48 035202, doi 10.1088/1751-8113/48/3/035202
-14. H. Kim 2025, *Minimum lattice length of 2-bridge knots and links*, Topol. Appl., ScienceDirect pii S0166864125001518
-15. Cantarella, Faber & Mullikin 2004, *Upper bounds for ropelength as a function of crossing number*, Topol. Appl.
-16. Soteros, Sumners & Whittington 1992, *Entanglement complexity of graphs in Z³*, Math. Proc. Camb.
-17. Bae & Park 2000, *An upper bound of arc index of links*, Math. Proc. Camb. 129
+Status 12 Nov 2026 (arXiv checked via its API). **Already in `papers/`:** Diao 1993, Diao 1994, Janse van Rensburg–Promislow 1995, Janse van Rensburg–Whittington 1991, Scharein et al. 2009, Huh–No–Oh–Rawdon 2015, Soteros–Sumners–Whittington 1992, Cantarella–Faber–Mullikin (arXiv math/0210245, now in `download_papers.ps1`).
+
+**Still needed — no arXiv version found:**
+1. Uberti et al. 1998, *Minimal links in the cubic lattice*, IMA Vol. 103, Springer, doi 10.1007/978-1-4612-1712-1_9 — the only source for minimal lattice lengths of links (Borromean rings 36).
+2. Diao 2003, *The lower bounds of the lengths of thick knots*, JKTR 12, doi 10.1142/S0218216503002275 — the 16π·c ≤ L(L − 17.334) bound; settles KA23's "34.7" quote.
+3. Diao, Ernst & Janse van Rensburg, *Thicknesses of knots*, Math. Proc. Camb. Phil. Soc. 126 (1999) 293–310 — source of Len < 14·Rop, used by Diao 2019/2022 for the lattice lower bounds.
+4. Buck & Simon 1999, *Thickness and crossing number of knots*, Topol. Appl. 91, doi 10.1016/S0166-8641(97)00211-3 — the c^{3/4} law constant.
+5. Diao, Ernst & Yu 2004, *Hamiltonian knot projections and lengths of thick knots*, Topol. Appl. 136, doi 10.1016/S0166-8641(03)00182-2 — Len ≤ 136c^{3/2} + ….
+6. Diao & Ernst 1998, *The complexity of lattice knots*, Topol. Appl. 90, doi 10.1016/S0166-8641(97)00178-8 — s_L ≥ 3√(c + 1) + 3.
+7. Diao & Ernst 2007, *Total curvature, ropelength and crossing number of thick knots*, Math. Proc. Camb. 143, doi 10.1017/S0305004107000151.
+8. Huh & Oh 2005, *Lattice stick numbers of small knots*, JKTR 14 859–867 — s_L(3_1) = 12, s_L(4_1) = 14.
+9. Bae & Park 2000, *An upper bound of arc index of links*, Math. Proc. Camb. 129 491–500 — a(K) ≤ c(K) + 2, behind every arc-presentation construction.
+10. H. Kim 2025, *Minimum lattice length of 2-bridge knots and links*, Topol. Appl., ScienceDirect pii S0166864125001518 — Len ≤ 6c + 2m + 2h + 8.
+11. Janse van Rensburg & Promislow 1999, *The curvature of lattice knots*, JKTR 8 463–490 — minimal lattice curvature, s_L(9_47) = 18.
+12. Janse van Rensburg 1999, *Minimal lattice knots*, in *Ideal Knots* (World Scientific, Series on Knots and Everything 19) — step-10 families, α_{3_1} ≤ 17.
+13. Ishihara et al. 2012, full paper on minimal step numbers in slabs (`papers/` has only the technical-report cover page) — the proof that the trefoil needs 26 edges in a 1-slab.
+14. Litherland, Simon, Durumeric & Rawdon 1999, *Thickness of knots*, Topol. Appl. 91 233–244 — the polygonal-approximation lemma behind Rop ≥ π(stick − 1).
+15. Diao, Ernst & Ziegler 2011, *The linearity of the ropelengths of Conway algebraic knots…*, Kobe J. Math. 28 (may be free on the journal site).
+
+**Unpublished, ask the authors:** Ishihara 2009 preprint and Ishihara, Shimokawa & Yamaguchi 2009 preprint (refs [16, 17] of Scharein 2009) — the full proofs that Len(4_1) = 30 and Len(5_1) = 34; Schoen 2026 preprint "Endpoint tangents and a new universal lower bound…" (cited by Klotz 2026; not on arXiv).
+
+**Free after all:** Jin & Park 2010, *Prime knots with arc index up to 11…*, JKTR 19 = arXiv 1010.3005 (not yet in `papers/`).
 
 ## 8. Open gaps — where original results look reachable
 

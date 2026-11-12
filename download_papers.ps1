@@ -1,12 +1,38 @@
 # download_papers.ps1  --  fetches every freely available paper on the MA498 reading list.
 # Run from the MA498-Knots folder in PowerShell:
-#     powershell -ExecutionPolicy Bypass -File .\download_papers.ps1
-# Files go into .\papers\<topic>\.  Already-downloaded files are skipped, so re-running is safe.
-# arXiv asks for <= 1 request / 3 s, so the full run takes ~4 minutes.
+#     powershell -ExecutionPolicy Bypass -File .\download_papers.ps1             # download what is missing or broken
+#     powershell -ExecutionPolicy Bypass -File .\download_papers.ps1 -CheckOnly  # report only, download nothing
+# Files go into .\papers\<topic>\.
+#
+# Idempotent: a file is skipped only if it is a complete PDF (starts with "%PDF", has "%%EOF" near the end).
+# Missing, truncated or non-PDF files are re-fetched into "<name>.part" and moved into place only after the
+# new copy validates, so an interrupted or failed run never replaces a good file and never leaves a partial one.
+# Re-running after success changes nothing. papers\FAILED_downloads.txt lists failures of the latest run only.
+# arXiv asks for <= 1 request / 3 s; the script sleeps 3 s after each arXiv request (a full run takes ~4 min).
+# Paywalled papers (Diao 1993/1994, Scharein 2009, ...) are not fetched; see READING_LIST.md section 7.
+
+param([switch]$CheckOnly)
 
 $ErrorActionPreference = "Continue"
 $root = Join-Path $PSScriptRoot "papers"
 $ua   = "Mozilla/5.0 (MA498 reading list; polite batch download)"
+
+function Test-CompletePdf([string]$path) {
+    if (-not (Test-Path -LiteralPath $path)) { return $false }
+    $len = (Get-Item -LiteralPath $path).Length
+    if ($len -lt 10000) { return $false }
+    $fs = [System.IO.File]::OpenRead($path)
+    try {
+        $head = New-Object byte[] 5
+        [void]$fs.Read($head, 0, 5)
+        $n = [Math]::Min(4096, $len)
+        $tail = New-Object byte[] $n
+        [void]$fs.Seek(-$n, [System.IO.SeekOrigin]::End)
+        [void]$fs.Read($tail, 0, $n)
+    } finally { $fs.Close() }
+    $ascii = [System.Text.Encoding]::ASCII
+    return ($ascii.GetString($head) -eq "%PDF-") -and ($ascii.GetString($tail).Contains("%%EOF"))
+}
 
 # topic | filename | url
 $papers = @(
@@ -44,6 +70,7 @@ $papers = @(
 "3_analytic_bounds|Klotz-Anderson_2023_Ropelength_writhe_12-crossing_2305.17204.pdf|https://arxiv.org/pdf/2305.17204"
 "3_analytic_bounds|Klotz_2026_Pearl_necklace_vs_FCC_lattice_knots_2608.19441.pdf|https://arxiv.org/pdf/2608.19441"
 "3_analytic_bounds|Hong-No-Oh_2012_Upper_bound_lattice_stick_number_1209.0048.pdf|https://arxiv.org/pdf/1209.0048"
+".|0210245v2.pdf|https://arxiv.org/pdf/math/0210245v2"
 "3_analytic_bounds|Huh-Oh_2015_Knots_small_lattice_stick_numbers_1512.03582.pdf|https://arxiv.org/pdf/1512.03582"
 "3_analytic_bounds|Jin-Lee_2011_Arc_index_smaller_than_crossing_number_1106.2723.pdf|https://arxiv.org/pdf/1106.2723"
 # ---------- 4. links ----------
@@ -76,24 +103,45 @@ $papers = @(
 "5_ml_rl|Vandans-et-al_2020_Identifying_knot_types_polymers_ML_PRE.pdf|https://www.math.cuhk.edu.hk/~ztwu/PRE.pdf"
 )
 
-$ok=0; $skip=0; $fail=@()
+$ok=0; $skip=0; $todo=@(); $fail=@()
 foreach ($line in $papers) {
     $topic, $name, $url = $line.Split("|")
     $dir = Join-Path $root $topic
-    if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir | Out-Null }
     $out = Join-Path $dir $name
-    if ((Test-Path $out) -and ((Get-Item $out).Length -gt 10000)) { $skip++; continue }
-    try {
-        Write-Host "GET $name"
-        Invoke-WebRequest -Uri $url -OutFile $out -UserAgent $ua -UseBasicParsing -TimeoutSec 120
-        $ok++
-    } catch {
-        Write-Warning "FAILED: $name  ($url)  $_"
-        $fail += "$name  $url"
-        if (Test-Path $out) { Remove-Item $out }
+    if (Test-CompletePdf $out) { $skip++; continue }
+    $why = if (Test-Path -LiteralPath $out) { "incomplete/corrupt" } else { "missing" }
+    if ($CheckOnly) { Write-Host "WOULD FETCH ($why): $topic\$name"; $todo += $name; continue }
+
+    if (-not (Test-Path -LiteralPath $dir)) { New-Item -ItemType Directory -Path $dir | Out-Null }
+    $part = "$out.part"
+    $done = $false
+    for ($try = 1; $try -le 3 -and -not $done; $try++) {
+        try {
+            Write-Host "GET ($why, try $try) $name"
+            if (Test-Path -LiteralPath $part) { Remove-Item -LiteralPath $part -Force }
+            Invoke-WebRequest -Uri $url -OutFile $part -UserAgent $ua -UseBasicParsing -TimeoutSec 300
+            if (Test-CompletePdf $part) {
+                Move-Item -LiteralPath $part -Destination $out -Force
+                $done = $true
+            } else {
+                Write-Warning "  downloaded file is not a complete PDF"
+            }
+        } catch {
+            Write-Warning "  error: $_"
+        }
+        if ($url -like "*arxiv.org*") { Start-Sleep -Seconds 3 }
+        if (-not $done -and $try -lt 3) { Start-Sleep -Seconds (5 * $try) }
     }
-    if ($url -like "*arxiv.org*") { Start-Sleep -Seconds 3 }
+    if (Test-Path -LiteralPath $part) { Remove-Item -LiteralPath $part -Force }
+    if ($done) { $ok++ } else { Write-Warning "FAILED: $name  ($url)"; $fail += "$name  $url" }
 }
+
 Write-Host ""
-Write-Host "Downloaded $ok, skipped $skip (already present), failed $($fail.Count)."
-if ($fail.Count) { $fail | Set-Content (Join-Path $root "FAILED_downloads.txt"); Write-Host "See papers\FAILED_downloads.txt" }
+$failFile = Join-Path $root "FAILED_downloads.txt"
+if ($CheckOnly) {
+    Write-Host "Check only: $skip complete, $($todo.Count) would be fetched."
+} else {
+    Write-Host "Downloaded $ok, skipped $skip (already complete), failed $($fail.Count)."
+    if ($fail.Count) { $fail | Set-Content -Encoding utf8 $failFile; Write-Host "See papers\FAILED_downloads.txt" }
+    elseif (Test-Path -LiteralPath $failFile) { Remove-Item -LiteralPath $failFile -Force }
+}
