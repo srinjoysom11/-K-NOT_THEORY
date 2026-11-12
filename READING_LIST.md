@@ -125,7 +125,7 @@ Status 12 Nov 2026 (arXiv checked via its API). **Already in `papers/`:** Diao 1
 
 **Unpublished, ask the authors:** Ishihara 2009 preprint and Ishihara, Shimokawa & Yamaguchi 2009 preprint (refs [16, 17] of Scharein 2009) — the full proofs that Len(4_1) = 30 and Len(5_1) = 34; Schoen 2026 preprint "Endpoint tangents and a new universal lower bound…" (cited by Klotz 2026; not on arXiv).
 
-**Free after all:** Jin & Park 2010, *Prime knots with arc index up to 11…*, JKTR 19 = arXiv 1010.3005 (not yet in `papers/`).
+**Free after all:** Jin & Park 2010, *Prime knots with arc index up to 11…*, JKTR 19 = arXiv 1010.3005 (now in `download_papers.ps1`, saved under `papers/3_analytic_bounds/`).
 
 ## 8. Open gaps — where original results look reachable
 
