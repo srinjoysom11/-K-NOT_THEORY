@@ -1,0 +1,25 @@
+knot,alternating,arc_index,len_round1,len_round2,drop,lattice_sticks,verified,check,chain1,chain2,word
+K11a1,Y,13,68,68,0,37,True,snappy+alexander (unchanged word),1:1001,-,nnddsssesswwnnuueendddwswwswuueeedddnwnuuuuwwddsessuunndnneeeesswwnu
+K11a2,Y,13,68,68,0,36,True,snappy+alexander (unchanged word),1:1004,-,wnndeeseddwwuuunueedddwsssuswwnneeeeuuwwwsdddseeuunnnennwwssuussddnw
+K11a3,Y,13,68,66,2,33,True,snappy+alexander,1:1001,1:501013,uswwddwsseennnnnuussdseennwwwwsssedddnnnuusuuwswdddeeeddwnwuueeeuu
+K11a4,Y,13,66,66,0,34,True,snappy+alexander (unchanged word),1:1003,-,ddeeeuuwuunnddsdssddnnwuussswuuunenddnwwsssseennwdwwuueeeeennwwwsd
+K11a5,Y,13,66,66,0,31,True,snappy+alexander (unchanged word),1:1002,-,nwwwuueendddssuuneuuuwwwsddeeeeddswwuuunnnnwwssesuunnddddsssseennd
+K11a6,Y,13,66,66,0,32,True,snappy+alexander (unchanged word),1:1006,-,nwwwwsseendnnuussssueedddnnneuusssswwnneueeddwwwdwwnuuueeddddeeuuw
+K11a7,Y,13,66,66,0,32,True,snappy+alexander (unchanged word),1:1001 2:2004,-,seennwwwwwsuuwsseennneedssswwnnnwwsseuueeddddennnuuwssueeddddwwuue
+K11a8,Y,13,68,66,2,33,True,snappy+alexander,1:1003,1:501005,edsddwwuuuuueeddwdnnuussssddseennndnwwssseuuswwnneeeeddwwuwwwnnuee
+K11a9,Y,13,66,66,0,33,True,snappy+alexander (unchanged word),1:1006,-,swwnneeeeuuwwwsdddseenuunnnnwwnuussddssesuunnndddnnuuswwsseedddssu
+K11a10,Y,13,68,68,0,33,True,snappy+alexander (unchanged word),1:1004,-,nnuuuessssddnnnwwwdnnnuusssueedenndwwwwddseeuuwwuueedssseeeunuwwdddd
+K11a11,Y,13,66,66,0,31,True,snappy+alexander (unchanged word),1:1003,-,ssddnennwwssswwddddeeuuwnwwsseeeeennwwdwsssuunnnuueeesddwddnnuuuuu
+K11a12,Y,13,66,66,0,33,True,snappy+alexander (unchanged word),1:1002,-,eessdwwwnneeenndwwssesuussdwdnnuuunnnnddssueuuwwdddddeeuunuwwwssee
+K11a13,Y,13,66,64,2,32,True,snappy+alexander,1:1002,2:502013,usssedennwwwdssuunnuueeeeddwwusuunndddddssuueunnnwwssswwddeednnu
+K11a14,Y,13,68,68,0,34,True,snappy+alexander (unchanged word),1:1008,-,ueunnddssssuunuuunneddssswwdnnwuueeeedddswwwwuuennddeeueesswwndddwwu
+K11a15,Y,13,68,68,0,33,True,snappy+alexander (unchanged word),1:1003,-,sswwnnnnddssseuuuwwwnddeddeeuuwssswwnneddwwuuueenuussddddwnnnueeeues
+K11a16,Y,13,68,68,0,36,True,snappy+alexander (unchanged word),1:1002,-,ennnunenddssueeddwwwusseennnuwwwwssesuunndddwdssuuuneeedddwwuwwssuee
+K11a17,Y,13,68,68,0,34,True,snappy+alexander (unchanged word),1:1004,-,seenndnwwwuueendddssuuneeesssdwdnnuuuuuwwddeseeeddwwwwuuuennwnwddsss
+K11a18,Y,13,68,68,0,33,True,snappy+alexander (unchanged word),1:1001,-,sssuwwwnnnuusseddddnnueuseeddwwuwwwuueeueeennwwdsssssddnnueuuunndddd
+K11a19,Y,13,68,68,0,32,True,snappy+alexander (unchanged word),1:1002,-,eddswwwdwwuueenneessessdwwwwnnnuusseeeddddwwuuusuunenddsssddnnnnuuue
+K11a20,Y,13,68,68,0,37,True,snappy+alexander (unchanged word),1:1008,-,wwuwswwuueedssddnnnwuussueeeenddwdssuuuunnddsesswwnnndddwwusueeeednn
+K11a21,Y,13,68,68,0,35,True,snappy+alexander (unchanged word),1:1001,-,dddssddnneuussesuunndddwwwuueenneuussseenndwwwnwwsseeuueeddsdwwwuunn
+K11a22,Y,13,66,66,0,31,True,snappy+alexander (unchanged word),1:1001 2:2002,-,wdddeeesuuunndddnnwuussdddssuuneennwwwwswsseenndnnuussssseeennwwuw
+K11a23,Y,13,68,66,2,32,True,snappy+alexander,1:1004,1:501018,ddddwwuuwwsseeeeddwwunueeendnwwssssuunnnnnwwssesuunndddwdssuuuneee
+K11a24,Y,13,68,68,0,31,True,snappy+alexander (unchanged word),1:1001,-,nnwdwwuueeeeuuswwddddennnnuussusseennnwwwdsdddeeuuuuunnddsdwwwssssee
