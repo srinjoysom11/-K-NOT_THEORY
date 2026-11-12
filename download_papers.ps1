@@ -73,6 +73,7 @@ $papers = @(
 ".|0210245v2.pdf|https://arxiv.org/pdf/math/0210245v2"
 "3_analytic_bounds|Huh-Oh_2015_Knots_small_lattice_stick_numbers_1512.03582.pdf|https://arxiv.org/pdf/1512.03582"
 "3_analytic_bounds|Jin-Lee_2011_Arc_index_smaller_than_crossing_number_1106.2723.pdf|https://arxiv.org/pdf/1106.2723"
+"3_analytic_bounds|Jin-Park_2010_Prime_knots_arc_index_up_to_11_1010.3005.pdf|https://arxiv.org/pdf/1010.3005"
 # ---------- 4. links ----------
 "4_links|Hong-No-Oh_2014_Links_small_lattice_stick_numbers_1402.1642.pdf|https://arxiv.org/pdf/1402.1642"
 "4_links|Adams-et-al_2012_Stick_index_knots_links_cubic_lattice_1205.5256.pdf|https://arxiv.org/pdf/1205.5256"
