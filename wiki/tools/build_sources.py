@@ -16,7 +16,8 @@ cites = {}
 for p in pages:
     txt = open(p, encoding='utf8').read()
     rel = os.path.relpath(p, WIKI).replace('\\', '/')
-    for k in set(re.findall(r'\[([A-Za-z]+[0-9]{2}[a-z]*)\]', txt)):
+    known = {r[0] for r in rows}
+    for k in set(re.findall(r'\[([A-Za-z0-9]+)\]', txt)) & known:
         cites.setdefault(k, []).append(rel)
 
 

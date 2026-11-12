@@ -26,7 +26,7 @@ Corresponding ropelength bounds ([HKNO14] Thm 2): Rop ≤ min{ (3/2)c² + (π+6)
 
 ## Ingredients
 
-* **Arc index vs crossing number** (quoted in [HNO14len] Thm 3, [HKNO14] Prop. 3): a(K) ≤ c(K) + 2 for any nontrivial knot (Bae–Park 2000); a(K) ≤ c(K) for non-alternating prime knots (Jin–Park 2010). See [arc-index](../invariants/arc-index.md).
+* **Arc index vs crossing number** (quoted in [HNO14len] Thm 3, [HKNO14] Prop. 3): a(K) ≤ c(K) + 2 for any nontrivial knot (Bae–Park 2000); a(K) ≤ c(K) for non-alternating prime knots (Jin–Park 2010). See [arc-index](../invariants/lattice-stick-number.md#arc-index-the-bridge-to-length-bounds).
 * **Arc presentation → lattice knot** ([HNO14len] §2–3, building on [HNO12stick]): move the binding axis to the line y = x, replace each arc (page k, binding indices i < j) by an x-stick and a y-stick at z-level k, join arcs sharing a binding index by a z-stick. Result is *properly leveled* (each x-level contains exactly two endpoints of x-sticks, etc.). Two sticks are saved at y-level 1 and x-level a; two more if K ≠ T(n+1, n) by using a non-star-shaped arc presentation and lifting one arc. Figures: [HNO14len p3](../figures/HNO14len/p03.png), [p4](../figures/HNO14len/p04.png).
 * **Edge count for a leveled diagram**: at most 2 edges cross between levels 1–2, 4 between 2–3, … growing by 2 towards the middle ⇒ ≤ n²/2 edges per direction.
 * **Grid diagram + two folds** ([HKNO14] §3):

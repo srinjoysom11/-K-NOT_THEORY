@@ -4,28 +4,31 @@ Topic-organised knowledge base distilled from the PDFs under `papers/`. Every cl
 
 ## Topic pages
 
-| page | state |
+| page | contents |
 |---|---|
-| [00-notation.md](00-notation.md) — names of the invariant, ropelength conventions, status vocabulary | written |
+| [00-notation.md](00-notation.md) | names of the invariant, ropelength conventions, status vocabulary — read first |
+| [open-problems.md](open-problems.md) | open questions from all sources, grouped by theme, with suggested targets |
 | **Lattice length** | |
-| [lattice-length/exact-values-and-proofs.md](lattice-length/exact-values-and-proofs.md) — what is proved (24, 30, 34), Diao's proof, 3496 vs 3328, Scharein refinement | written; Scharein Props 1–4 image-checked |
-| [lattice-length/lower-bounds.md](lattice-length/lower-bounds.md) — braid index, alternating 4Len + 6 ≥ c, bridge index, via ropelength | written |
-| [lattice-length/upper-bounds-crossing-number.md](lattice-length/upper-bounds-crossing-number.md) — quadratic and linear bounds, constructions, link growth exponents | written |
-| [lattice-length/tables-minimal-length.md](lattice-length/tables-minimal-length.md) — all 249 prime knots ≤ 10 crossings (generated) | written |
-| [lattice-length/minimal-polygon-census.md](lattice-length/minimal-polygon-census.md) — counts, symmetry classes, writhe, curvature in SC/FCC/BCC; composites | written; **all JvRR11 tables image-verified** |
-| [lattice-length/confinement-slabs.md](lattice-length/confinement-slabs.md) — minimal lengths in slabs of width L | written |
-| lattice-length/compressibility.md | pending [JvRR12comp] |
+| [lattice-length/exact-values-and-proofs.md](lattice-length/exact-values-and-proofs.md) | what is proved (24, 30, 34), Diao's proof, 3496 vs 3328, Scharein refinement |
+| [lattice-length/lower-bounds.md](lattice-length/lower-bounds.md) | braid index, alternating 4·Len + 6 ≥ c, bridge index and minimal edge index, cube knots, via ropelength |
+| [lattice-length/upper-bounds-crossing-number.md](lattice-length/upper-bounds-crossing-number.md) | quadratic and linear bounds, constructions, link growth exponents |
+| [lattice-length/tables-minimal-length.md](lattice-length/tables-minimal-length.md) | all 249 prime knots ≤ 10 crossings (generated) |
+| [lattice-length/minimal-polygon-census.md](lattice-length/minimal-polygon-census.md) | counts, symmetry classes, writhe, curvature in SC/FCC/BCC; composites (all tables image-verified) |
+| [lattice-length/confinement-slabs.md](lattice-length/confinement-slabs.md) | minimal lengths in slabs and minimal counts in cubes |
+| [lattice-length/compressibility.md](lattice-length/compressibility.md) | pressure ensembles on minimal polygons |
 | **Invariants** | |
-| [invariants/lattice-stick-number.md](invariants/lattice-stick-number.md) — s_L exact values, bounds, arc index | written; links section pending [HNO14links], [KN18], [NPP18] |
+| [invariants/lattice-stick-number.md](invariants/lattice-stick-number.md) | s_L exact values and bounds, off-lattice stick numbers, arc index |
 | **Ropelength** | |
-| [ropelength/lower-bounds.md](ropelength/lower-bounds.md) — constants, growth laws, links; R/D convention table | written |
-| ropelength/upper-bounds.md, ropelength/numerics.md | pending [DEPZ09], [KM21], [KT25], [Klotz26llm], [ACPR10] |
-| **Algorithms / stat-mech** | |
-| [algorithms/bfacf-and-gas.md](algorithms/bfacf-and-gas.md) — BFACF moves, ergodicity, GAS, minimal-polygon search | written; FCC/BCC and Ozawa sections pending |
-| [statmech/knot-probabilities.md](statmech/knot-probabilities.md) — scaling ansatz, crossover lengths, universality | written; confinement sections pending |
-| links/, ml-search/, open-problems.md | pending (extracts in progress) |
-
-Links from written pages to pending pages may dangle until those exist.
+| [ropelength/README.md](ropelength/README.md) | index and the radius/diameter trap |
+| [ropelength/lower-bounds.md](ropelength/lower-bounds.md) | constants, c^{3/4} law, alternating knots, links |
+| [ropelength/upper-bounds.md](ropelength/upper-bounds.md) | quadratic, O(c ln⁵ c), linear families, torus constructions |
+| [ropelength/numerics.md](ropelength/numerics.md) | tight values, 12-crossing census, satellites, pearl necklaces, LLM-assisted claims |
+| **Links** | |
+| [links/README.md](links/README.md) | lattice stick numbers of links, lifting lattice diagrams, spatial graphs |
+| **Algorithms, statistics, ML** | |
+| [algorithms/bfacf-and-gas.md](algorithms/bfacf-and-gas.md) | BFACF moves and ergodicity (SC/FCC/BCC), GAS, minimal-polygon search, merge trees and excursions |
+| [statmech/knot-probabilities.md](statmech/knot-probabilities.md) | scaling ansatz, crossover lengths, universality, pattern theorems, confinement |
+| [ml-search/README.md](ml-search/README.md) | RL, PatternBoost, AlphaEvolve, knot recognition, HP-model folding, lessons for search |
 
 ## Supporting material
 
@@ -36,6 +39,10 @@ Links from written pages to pending pages may dangle until those exist.
 * `tools/page_text.sh KEY first last` — per-page text with true PDF page numbers; `tools/render_pages.sh KEY p…` — 80-dpi page renders into `figures/KEY/`.
 * `tools/build_tables.py` — regenerates the minimal-length table page; `tools/build_sources.py` — regenerates SOURCES.md.
 
-## Processing state (11 Nov 2026)
+## Processing state (12 Nov 2026)
 
-66 PDFs registered; 53 have extracts, 13 do not. **See [HANDOFF.md](HANDOFF.md) for what remains and how to continue.**
+All 66 PDFs registered in `manifest.json` have a reviewed extract in `_extracts/` and are cited from at least one topic page (`manifest.py status`: 66 `integrated`). Agent-produced extracts were checked with a statement/table/figure coverage script against the PDF text and read in full during integration; key constants and table cells were spot-checked against page images (findings recorded as ⚠ in each extract's "Extraction notes").
+
+Known caveats: `papers/5_ml_rl/Georgiev-…AlphaEvolve_2511.02864.pdf` (GGTW25) is truncated on disk (re-download from arXiv); `wiki/figures/` is gitignored (page renders of copyrighted papers) — regenerate with `tools/render_pages.sh`.
+
+Adding a paper: drop the PDF under `papers/`, add a `key<TAB>batch<TAB>path` row to `tools/sources.tsv`, run `python wiki/tools/manifest.py sync`, write `_extracts/<Key>.md` per `tools/EXTRACT_SPEC.md`, cite it from a topic page, run `python wiki/tools/build_sources.py`, then `manifest.py set <Key> integrated`.

@@ -34,15 +34,25 @@ Remark 3.3 there: the argument fails for alternating *links*; the conjecture sta
 
 ## 4. Bridge index and the minimal edge index
 
-* α_K := lim Len(K^p)/p (exists by subadditivity) satisfies **α_K ≥ 4(b_K − 1)** in SC, b_K = bridge index ([JvRR11] eq. 10, quoting [JvRP95] and Janse van Rensburg 1996); ≥ 3(b − 1) in FCC and ≥ 2(b − 1) in BCC (argued in [JvRR11]). Since b − 1 is additive under #, this gives Len(K^p) ≥ 4p(b − 1) asymptotically. Known: 4 ≤ α_{3_1} ≤ 17 ([JvRR11] p. 6). (Full statement and proof in [JvRP95] — extract pending.)
-* *My remark:* for a single prime knot the bridge argument yields Len(K) ≳ 4(b − 1), trivially weaker than 24 for all knots with b ≤ 7.
+[JvRP95] (they write M(K) for Len and μ_K for the index):
+* Len is subadditive: Len(K_1#K_2) ≤ Len(K_1) + Len(K_2) (Lemma 1), and **Len(K_1#K_2) ≥ α_{K_1} + α_{K_2} with α_K = 4(b(K) − 1)**, additive because b − 1 is (Lemma 2). Hence the **minimal edge index** μ_K = lim Len(K^n)/n exists, Len(K^n) ≥ nμ_K, and μ_K > 0 for nontrivial K (Thm 3). Properties: μ_{K^n} = nμ_K, μ_{K_1#K_2} ≤ μ_{K_1} + μ_{K_2} (Thm 6); additivity is Conjecture 7.
+* **μ_{3_1} ≤ 17**, via a 17-edge "tight" trefoil with the Kesten property concatenated into long strings (Thm 13 + Fig. 4); so 4 ≤ μ_{3_1} ≤ 17. Numerically Len(3_1^n) ≈ 16.8n + 6.8 (Table II, n ≤ 10); [JvRR11]'s later data give 24 + 16(n − 1) for n ≤ 6 (see [census](minimal-polygon-census.md)).
+* Curvature bound: Len(K) ≥ 2c_p(K)/π ≥ 10 (c_p = minimal lattice curvature) and μ_K ≥ 4 (Thm 14) — weaker than 24.
+* Trivial crossing bound: an M-edge polygon has at most M(M − 3)/2 crossings in a regular projection, so Len ≥ √(2c) (p. 9).
+* Growth of the number of knot types with Len = n: exponential, lim (log Q(n))/n exists (Thm 10, Cor 11); Q ≥ 1.073 from their table.
+* Same index in FCC and BCC: α_K ≥ 3(b − 1) and ≥ 2(b − 1) (argued in [JvRR11] p. 6).
+* *My remark:* for a single prime knot the bridge argument yields Len(K) ≳ 4(b − 1), trivially weaker than 24 for all knots with b ≤ 7; it matters only for long composites.
+
+## 4a. Equivalent formulation: cube knots ([MannML])
+
+**Minimal cube number = 2 × minimal step number** for every knot type in Z³ (Thm 1, proved): a knot made of face-adjacent unit cubes needs exactly twice as many cubes as a lattice polygon needs edges. Conjectured analogue in FCC (Voronoi cells = rhombic dodecahedra): M_K = 2.5·m_K (Conj. 1). So any lower bound for cube knots is a lower bound for Len, and vice versa.
 
 ## 5. Via ropelength
 
 Lattice polygons carry an embedded tube of radius 1/2, so **Rop(K) ≤ 2·Len(K)** in the length/radius convention ([HNOR15] p. 4, [HKNO14] §1). Any ropelength lower bound therefore gives Len(K) ≥ Rop(K)/2:
 
 * Four-thirds law: ((4π/11)·c(K))^{3/4} ≤ Rop(K) as printed in [HNOR15] p. 5 (summarising Buck, Buck–Simon, Cantarella–Kusner–Sullivan), power 3/4 optimal (attained by the (p,q)-Hopf link families of [HNOR15] Thm 2). ⇒ Len(K) ≥ ½((4π/11)c)^{3/4}.
-* [Diao19] quotes Rop ≥ 31.32 for any nontrivial knot and Rop ≥ 1.105 c^{3/4}; convention not stated there (see [00-notation](../00-notation.md#ropelength-radius-vs-diameter)) — do not divide by 2 until the convention is confirmed against [CKS01]/[DDS04] (extracts pending; see [ropelength/](../ropelength/README.md)).
+* Absolute constant: Rop ≥ 31.32 for every nontrivial knot ([DDS04] Cor 9.7, = 15.66 in its diameter units; [Diao19] quotes the same 31.32, confirming it uses length/radius). ⇒ Len(K) ≥ 15.66 — weaker than 24. Details and conventions: [ropelength/lower-bounds](../ropelength/lower-bounds.md).
 * Conversely [Diao19] uses L_c(K) < 14·Rop(K) (from Diao–Ernst–Janse van Rensburg 2002) — an *upper* bound on Len in terms of Rop.
 
 ## 6. Lattice stick number (related)

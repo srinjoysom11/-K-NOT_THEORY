@@ -100,3 +100,4 @@ Numerical search (p. 8–9):
 - ⚠ 5_2 canonical count: 2 396 (Table A1, both R and E) vs 2362 (p. 13 text).
 - ⚠ "tables A1–A4" on p. 3 but no Table A4 heading found.
 - Figure pages rendered: 4, 5, 6, 7, 10, 12, 16, 17.
+- (Reviewer, 12 Nov 2026) [Croll18] p. 6 reports that the appendix's example NEWSUD word for 3_1 is printed 23 characters long (initial "D" omitted, a typo) and corrected it before use.

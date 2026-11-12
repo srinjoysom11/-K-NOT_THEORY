@@ -46,6 +46,26 @@ Amplitude ratios between prime knots appear lattice-independent (SC, FCC, BCC ag
 
 By contrast, **properties at minimal length are not universal** ([JvRR11] §4) — see [minimal-polygon-census](../lattice-length/minimal-polygon-census.md#cross-lattice-conclusions-jvrr11-4).
 
-## Pending sources
+## Rigorous results: almost all long polygons are very knotted ([SSW92])
 
-[SSW92] (entanglement complexity / Kesten pattern theorem for knots and graphs), [JvRW91] (BFACF and knotted polygons), [JvROT25], [JvROT26] (knot probabilities and thermodynamics under confinement), [GJvRR12] (knots in a slab), [BPS26] (spanning pairs) — extracts in progress; this page will be extended.
+* **Pattern theorem** (Kesten for walks; Sumners–Whittington for polygons, quoted): for any Kesten pattern P there is λ_P > 0 such that all but exponentially few n-edge SC polygons contain P at least ⌊λ_P n⌋ times (Thm 2.3).
+* **Every knot type is a tight Kesten pattern** (Thm 2.4; the trefoil by an explicit 18-step walk), so for every K there is ζ_K > 0 with **K appearing at least ⌊ζ_K n⌋ times in the prime factorisation of all but exponentially few n-polygons** (Cor 2.5).
+* **Good measures of knot complexity** F (F(unknot) = 0 and F(nK # L) ≥ nF(K) > 0 for some K; Def 3.1) grow at least linearly: all but exponentially few n-polygons have F > F(K)(n/n_K − 1) (Cor 3.2). Good measures (Thm 3.3): number of prime factors, genus, bridge number − 1, span of any non-trivial Laurent knot polynomial, log(order), crossing number, unknotting number, minor index, braid index − 1.
+* **Graphs** (§4): for every graph type τ with vertex degrees ≤ 6, embeddings in Z³ have the same connective constant κ as walks (Thm 4.2); if τ has no cut edge, all but exponentially few embeddings are knotted (Thm 4.4), and every good measure grows linearly (Thm 4.9); weaker result when τ has a cut edge and a cycle (Thm 4.8).
+* Consequence for this project (*my remark*): minimal-length polygons are exponentially rare among polygons of their length for every nontrivial knot, which is why exhaustive enumeration is limited to small lengths and why sampling must be biased towards short polygons (low BFACF fugacity, GAS anchoring).
+
+## Two-component systems in tubes ([BPS26])
+
+kSAPs = k disjoint polygons spanning a lattice tube T_{N,M}, all with the same span. Results (proved): good measures of knot complexity induce good measures of *spanning-link* complexity (via 2-strand tangle products, Thm 1, Cor 1); all but exponentially few size-m 2SAPs in a tube have F-complexity growing at least linearly in m (Thms 2, 4); bridge number, numbers of p-colourings and the splitting number (Prop 6) are good measures; concatenating two unlinks can produce a non-split link.
+
+## Knots confined in a cube ([JvROT25], [JvROT26])
+
+Model: polygon of length n and fixed knot type K inside a cube of side L ((L+1)³ sites), concentration φ = n/V. GAS/GARM with BFACF moves gives ratios p_{n,L}(K)/p_{m,L}(K), anchored at exhaustive minimal-length counts per cube ([JvROT25] Table I, reproduced in [confinement-slabs](../lattice-length/confinement-slabs.md#confinement-in-a-cube-jvrot25-table-i)). All numerical.
+
+* **Relative knotting probability** ρ_{n,L}(K/0_1) = p_{n,L}(K)/p_{n,L}(0_1) is small — the unknot dominates for L ≤ 14 — and increases with φ along a curve that flattens towards the Hamiltonian (space-filling) limit. L = 8: ρ(3_1^+/0_1) ≈ 0.10 at φ ≈ 0.5 ([JvROT25] p. 13).
+* Extrapolated to φ → 1 (log R_L, Table III): non-trivial knots become more competitive as L grows; log R_L(4_1/3_1^+) → 0; 5_2 beats 5_1; 6_3 is the most likely six-crossing knot (except L = 6); the square knot beats the granny. ⚠ At L = 12 the extrapolation gives log R_12(4_1/0_1) = +0.291(42) > 0 (figure-eight more common than the unknot at φ = 1), in tension with the paper's conclusion that the unknot is most popular for L ≤ 14.
+* Open questions raised there: is the limit R(3_1^+/0_1) < 1, and is it universal?
+* Quoted numerics: tying a trefoil costs ≈ 8 edges (p_{n−ℓ}(0_1) ≃ n^{−1}p_n(3_1) with ℓ ≈ 8); trefoils overtake unknots at n ≈ 169 600 ± 5 600 (consistent with [JvRRgas]'s 170 000); log(μ/μ_{0_1}) = (4.15 ± 0.32)×10⁻⁶.
+* **Thermodynamics** ([JvROT26]): with a chemical potential (fugacity x), the confined lattice knot shows a solvent-rich / polymer-rich phase transition for the unknot and for each fixed knot type. The limiting free energy χ_{0_1}(x) = lim L⁻³ log Z_{0_1,L}(x) exists (Thm 1, proved via a concatenation inequality); small but significant knot-type dependence of the free energy near the critical point (trefoil vs other knots). Open: is the critical point x_K = x_{0_1} (only x_{0_1} ≤ x_K is known)?
+
+Knots squeezed into slabs at *minimal* length: [lattice-length/confinement-slabs](../lattice-length/confinement-slabs.md).

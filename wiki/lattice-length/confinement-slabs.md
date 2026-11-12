@@ -72,7 +72,21 @@ Two toy thermodynamic models built from the minimal data (low-temperature, stiff
 
 Critical Hooke constants where elastic and entropic work are equal: k_c ≈ 0.958 T (3_1), 0.025 T (4_1), 0.240 T (5_1), 0.062 T (5_2), −0.015 T (6_1, negative because stretching to fit S_1 gains entropy).
 
+## Confinement in a cube — [JvROT25] Table I
+
+Number of minimal-length polygons of type K inside an L-box (cube of side L, (L+1)³ sites), by exhaustive enumeration ("strictly speaking lower bounds, but should be exact in most cases"). Selected rows (full table, L = 1…15, in `_extracts/JvROT25.md`):
+
+| L | 0_1 (n=4) | 3_1^+ (24) | 4_1 (30) | 5_1^+ (34) | 5_2^+ (36) | 6_1^+ (40) | 6_2^+ (40) | 6_3 (40) | 3_1^+#3_1^+ (40) | 3_1^+#3_1^− (40) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2 | 36 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 3 | 108 | 2084 | 864 | 0 | 0 | 0 | 0 | 0 | 0 | 108 |
+| 4 | 240 | 15052 | 14048 | 9840 | 123312 | 6144 | 14568 | 4032 | 1332 | 33192 |
+| 8 | 1728 | 375324 | 687744 | 575280 | 8948880 | 465984 | 2115144 | 475008 | 1030860 | 9959832 |
+| 15 | 10800 | 3730676 | 7544160 | 6668976 | 109431192 | 5781672 | 28820928 | 6325776 | 13790712 | 130990392 |
+
+Read-offs (*my remarks*, from the table): the smallest cube holding a minimal trefoil, figure-eight or square knot 3_1^+#3_1^− is L = 3 (4×4×4 sites); 5-crossing knots, 6-crossing knots and the granny 3_1^+#3_1^+ need L = 4. The unknot column is exactly 3L²(L + 1) (placements of a unit square). ⚠ [JvROT26] p. 6 writes p_{4,L}(0_1) = 3L(L − 1)², which matches only if its L counts *sites* per side — the two papers use different L conventions.
+
 ## Related
 
 * Confinement in the statistical sense (knot probabilities in slabs/tubes): [JvROT25], [JvROT26] — see [statmech/knot-probabilities](../statmech/knot-probabilities.md).
-* Compressibility of minimal knots under other geometric constraints: [JvRR12comp] — see [compressibility](compressibility.md) (pending).
+* Compressibility of minimal knots under other geometric constraints: [JvRR12comp] — see [compressibility](compressibility.md).

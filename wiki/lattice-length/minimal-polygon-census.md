@@ -247,3 +247,8 @@ BCC trefoils ([JvRR11] Table 10): p_18 = 1584 (printed 1583 in Table 10), p_20 =
 Properties of minimal lattice knots are **not universal** across SC/FCC/BCC: the ordering of knot types by n_K, the entropy ranking, and writhe details all change (e.g. n_{6_1}=n_{6_2}=n_{6_3}=40 in SC, but 6_3 is longer in FCC and 6_1 shorter in BCC; |W|_{8_3} = 0 in SC and BCC but not FCC; |W|_{4_1} = 0 in BCC only).
 
 Open questions raised: is γ_K > 0 for every non-trivial K? Do chiral knots with |W| < 1 exist at every crossing number ≥ 6? Do the step-10 / step-16 / step-22 patterns persist?
+
+## Other analyses of the minimal polygons
+
+* [Croll18]: binary encodings of NEWSUD words of minimal SC polygons (trefoil and knots ≤ 10 crossings, from [Scharein09]) have high BiEntropy (they look like disordered strings); entropy rises slightly with crossing number and encoding length, and non-alternating 9- and 10-crossing knots are more disordered than alternating ones. Mostly of information-theoretic interest.
+* [MannML]: minimal *cube* knots are exactly twice as long as minimal lattice polygons — see [lower-bounds](lower-bounds.md#4a-equivalent-formulation-cube-knots-mannml).

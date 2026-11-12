@@ -48,6 +48,9 @@ Numerical comparison (not bounds): tight trefoil ≈ 32.66 R ([CKS01] p. 2, Pier
 
 Every tame link type has a ropelength minimizer, and minimizers are C^{1,1} ([CKS01] Thm 7). Thickness = reach = normal injectivity radius (Lemma 2). Conjecture: minimizers are piecewise analytic (Conj. 24).
 
-## Pending
+## Newer and unverified claims
 
-[DEPZ09] (O(c log⁵ c) upper bound), [KM21], [KT25], [Klotz26llm], [Klotz26pearl], [KA23] numerics and [Klotz26tqq] torus links feed [upper-bounds](upper-bounds.md) and [numerics](numerics.md).
+* [Klotz26tqq]: for T(Q, Q) torus links, α = Rop/c^{3/4} > 6.60 + 7.61 Q^{−1/2} (Wegner disk-packing hull bound applied through [CKS01] Thm 10; the author says the derivation's cone-piercing condition is not guaranteed for T(pQ, Q), p > 1).
+* [Klotz26llm] (LLM-assisted, author-flagged as not fully verified): universal 2.0996 c^{3/4} (unverified) and Rop ≥ π(stick − 1) (short derivation) — details and status in [numerics](numerics.md#llm-assisted-lower-bounds-klotz26llm-status-noted).
+
+Upper bounds: [upper-bounds](upper-bounds.md). Computed values: [numerics](numerics.md).
