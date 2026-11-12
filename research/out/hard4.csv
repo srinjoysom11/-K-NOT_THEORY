@@ -1,0 +1,5 @@
+knot,start_length,best_length,literature_bound,verified,check,chain,word
+9_31,98,54,54,True,snappy+alexander,1:701033,ussssuunnnedddwwwsseeneddwwuuuuuueeddwnwwsseeedddwnnnu
+10_27,120,60,60,True,snappy+alexander,1:701014,wnneeseddwwuuuueeeesswdwnneenunwwsdddwsssuunnnneesuussdddwww
+10_72,132,60,60,True,snappy+alexander,1:701018,ddnnwddeeuuuuueedddnwwwwuueeesssddnnuneesswwwwwddennnuussuss
+10_13,124,62,62,True,snappy+alexander,1:701007,nueussdddnwddeeuuuwnnddssswuwuuwwddenneeeeuuswwwdddwwuuesseenn
