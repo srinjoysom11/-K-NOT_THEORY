@@ -1,0 +1,19 @@
+knot,start_length,best_length,literature_bound,verified,check,chain,word
+K11a1,146,68,,True,snappy+alexander,1:1001,nnddsssesswwnnuueendddwswwswuueeedddnwnuuuuwwddsessuunndnneeeesswwnu
+K11a2,158,68,,True,snappy+alexander,1:1004,wnndeeseddwwuuunueedddwsssuswwnneeeeuuwwwsdddseeuunnnennwwssuussddnw
+K11a3,158,68,,True,snappy+alexander,1:1001,ddwsswwnnnueuussddddwwunueednnneuuussddsseennwnnnwwssedeeuuwwwwsseee
+K11a4,166,66,,True,snappy+alexander,1:1003,ddeeeuuwuunnddsdssddnnwuussswuuunenddnwwsssseennwdwwuueeeeennwwwsd
+K11a5,186,66,,True,snappy+alexander,1:1002,nwwwuueendddssuuneuuuwwwsddeeeeddswwuuunnnnwwssesuunnddddsssseennd
+K11a6,134,66,,True,snappy+alexander,1:1006,nwwwwsseendnnuussssueedddnnneuusssswwnneueeddwwwdwwnuuueeddddeeuuw
+K11a7,150,66,,True,snappy+alexander,1:1001 2:2004,seennwwwwwsuuwsseennneedssswwnnnwwsseuueeddddennnuuwssueeddddwwuue
+K11a8,138,68,,True,snappy+alexander,1:1003,sueeuennnnwwsssssddnnuwwnneeeuuuussddddeeuuuswwwnneeeedsswwnnwwwddds
+K11a9,150,66,,True,snappy+alexander,1:1006,swwnneeeeuuwwwsdddseenuunnnnwwnuussddssesuunnndddnnuuswwsseedddssu
+K11a10,170,68,,True,snappy+alexander,1:1004,nnuuuessssddnnnwwwdnnnuusssueedenndwwwwddseeuuwwuueedssseeeunuwwdddd
+K11a11,142,66,,True,snappy+alexander,1:1003,ssddnennwwssswwddddeeuuwnwwsseeeeennwwdwsssuunnnuueeesddwddnnuuuuu
+K11a12,162,66,,True,snappy+alexander,1:1002,eessdwwwnneeenndwwssesuussdwdnnuuunnnnddssueuuwwdddddeeuunuwwwssee
+K11a13,150,66,,True,snappy+alexander,1:1002,nnwddssswwnneddeeuneesswwwnnwwsseuueeeennwwswuueedddddnnuuwssssuun
+K11a14,154,68,,True,snappy+alexander,1:1008,ueunnddssssuunuuunneddssswwdnnwuueeeedddswwwwuuennddeeueesswwndddwwu
+K11a15,166,68,,True,snappy+alexander,1:1003,sswwnnnnddssseuuuwwwnddeddeeuuwssswwnneddwwuuueenuussddddwnnnueeeues
+K11a16,170,68,,True,snappy+alexander,1:1002,ennnunenddssueeddwwwusseennnuwwwwssesuunndddwdssuuuneeedddwwuwwssuee
+K11a17,150,68,,True,snappy+alexander,1:1004,seenndnwwwuueendddssuuneeesssdwdnnuuuuuwwddeseeeddwwwwuuuennwnwddsss
+K11a18,126,68,,True,snappy+alexander,1:1001,sssuwwwnnnuusseddddnnueuseeddwwuwwwuueeueeennwwdsssssddnnueuuunndddd

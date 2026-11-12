@@ -1,0 +1,16 @@
+knot,start_length,best_length,literature_bound,verified,check,chain,word
+8_1,104,50,50,True,snappy+alexander,1:1001,ddeeddnnuuunenddssswwssuunnnddndeeeuuwwwwsseeuuwws
+8_2,104,50,50,True,snappy+alexander,1:1001,unnneeesswddeeuuuwwwwwddeeusuunndddnenuussddesswww
+8_3,112,48,48,True,snappy+alexander,1:1003,dddwwuuwsseennneesseddwwuuuwwddwnneessseenneuuww
+8_4,80,50,50,True,snappy+alexander,1:1001,wwnneeusswwuwssseennnndddssuueuuwwddwswuueeddeednn
+8_5,88,50,50,True,snappy+alexander,1:1001,esseddwwuuuwwnddeeuueneesswwssddnnneuuussddwwwnnne
+8_6,100,50,50,True,snappy+alexander,1:1001,eessswuuunnddddeeusuwwddwwuuueeesdswwnnnwwdsseennn
+8_7,96,48,48,True,snappy+alexander,1:1002,nuneesswwwwnnwuueedddeesuuuwwdddwwuuenneessssddn
+8_8,96,50,50,True,snappy+alexander,1:1001,dnnuuuwssssddnnuwuueenddwnneesssswwwdnneeeeusuwwdd
+8_9,100,50,50,True,snappy+alexander,1:1001,ueeeedddnwwuuuussddnddswsuunnnneessseennwdwsswwnwu
+8_10,88,50,50,True,snappy+alexander,1:1001,wssswwnnneuuussddddwwuunueeeedddwwuuwnneessseednnw
+8_11,96,50,50,True,snappy+alexander,1:1002,uuunwwdsssdeeeunnnwwsuussddndwwuueeeeeddwwussddnnn
+8_12,104,52,52,True,snappy+alexander,1:1001,wwwdnneeeeuuwwnwdddssuuwnnneesswusssddnenuuunneddsss
+8_13,80,50,50,True,snappy+alexander,1:1001,seennndwwwuuwwddeseuueeeeddwwunuussdddwwuwnnneesss
+8_14,104,50,50,True,snappy+alexander,1:1001,wnwddeeesswddwwuuunennddsssssuunndnwwsseeeednnwuuu
+8_15,100,52,52,True,snappy+alexander,1:1001,swuuueeesddwwnnwddeeuuuuussddnendnwwwuswsseennnnddss
