@@ -139,7 +139,47 @@ and that a residual of +3 against the fit is within the real spread of Len.
 
 ### 4.6 The deeper 11-crossing search
 
-RESULTS_PLACEHOLDER
+Every knot of the first table got 40 more annealing runs (2 rounds of 20, the second
+restarting from the best word of the first), about 8.8 billion attempted moves in total.
+`code/analyze_round2.py` re-verified every changed polygon; outputs
+`out/table_11_crossings_v2.csv` (the new table, with words) and `out/round2_summary.md`.
+
+- [C] 552 of 552 knots processed, **0 verification failures**.
+- [C] **30 knots (5.4%) dropped, all by exactly 2**; none by 4 or more. 29 of the 30
+  are alternating (29 / 367 = 7.9%); 1 of 185 non-alternating (0.5%).
+- [C] Distribution of best lengths after the deeper search:
+
+| | 54 | 56 | 58 | 60 | 62 | 64 | 66 | 68 | 70 |
+|---|---|---|---|---|---|---|---|---|---|
+| alternating (367), first table | | | | | | 19 | 165 | 170 | 13 |
+| alternating (367), now | | | | | | 21 | 186 | 151 | 9 |
+| non-alternating (185), first table | 1 | 13 | 20 | 79 | 63 | 9 | | | |
+| non-alternating (185), now | 1 | 13 | 20 | 79 | 64 | 8 | | | |
+
+- [C] By arc index: a = 9: 56-58 (4 knots); a = 10: 54-62 (46); a = 11: 58-64 (135);
+  a = 13: 64-70 (367). The lower envelope of 4.1 is unchanged (64 = 4*13 + 12 at
+  a = 13; 54 = 4*10 + 14 is above the earlier minimum at a = 10).
+- [C] The two published values (K11a367 at 64, K11a247 at 66) did not move.
+- [C] **The fit does flag loose entries, statistically.** Residual of the first-table
+  value against the literature-only fit, and the fraction that dropped:
+
+| residual | knots | dropped | fraction |
+|---|---|---|---|
+| below -1 | 36 | 0 | 0.00 |
+| -1 to 1 | 242 | 2 | 0.01 |
+| 1 to 3 | 248 | 23 | 0.09 |
+| 3 to 5 | 26 | 5 | 0.19 |
+
+  So 28 of the 30 drops came from the half of the table with residual above +1. Mean
+  residual of the 11-crossing table went from +0.35 to +0.24 (literature values: 0 by
+  construction), RMS from 1.43 to 1.38.
+
+Reading: the first table was about 5% loose at this depth, far less than the "probably
+many" feared, and the looseness sits in the alternating knots at 68 and 70. The table
+is not converged: the mean residual is still positive and the 9 knots left at 70 and
+the 151 at 68 are the obvious suspects. These are upper bounds only (PLAN.md rule 2).
+An early partial count (4 drops in the first 28 knots) overstated the rate; the first
+knots in census order happen to be the looser ones.
 
 ## 5. What is new here, and the finer goals
 
@@ -155,10 +195,11 @@ Finer goals, in order:
 - **F1. Finish tightening the 11-crossing table.** Repeat rounds of 40 runs until a
   whole round changes fewer than 1% of the entries; report the drop rate per round as
   the convergence curve. Done when two successive rounds agree on at least 99%.
-- **F2. Use the fit as a stopping rule, not as a target list.** Section 4.5 shows a
-  large residual does not mean a loose value. What the fit can do is tell when a whole
-  table is loose: the mean residual of a converged table should be near 0, as it is for
-  the literature values. Track it per round.
+- **F2. Aim the next rounds with the fit.** For the 2009 values a large residual did
+  not mean a loose value (4.5), but in the 11-crossing table the drop rate rises from
+  0% to 19% with the residual (4.6). Next round: 200 runs each on the 274 knots with
+  residual above +1 (the 9 at length 70 first), instead of 40 runs on all 552. Track
+  the mean residual per round; a converged table should be near 0.
 - **F3. Extend the fit to 12 crossings before searching.** KnotInfo has arc index for
   all 2176 knots; predicted lengths give each knot a target, which turns the 12-crossing
   run into a benchmark with per-knot stopping targets instead of a blind search.
