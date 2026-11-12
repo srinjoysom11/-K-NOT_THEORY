@@ -10,7 +10,9 @@ Fell short: 9_31 (56 vs 54), 10_13 (64 vs 62), 10_27 (62 vs 60), 10_72 (62 vs 60
 
 ## 11-crossing prime knots
 
-knots run: 299 of 552; verified: 299; failed verification: 0
+knots run: 396 of 552; verified: 396; failed verification: 0
 
-alternating (K11a): 64: 8 knots, 66: 142 knots, 68: 140 knots, 70: 9 knots
+alternating (K11a): 64: 19 knots, 66: 165 knots, 68: 170 knots, 70: 13 knots
+
+non-alternating (K11n): 56: 2 knots, 58: 2 knots, 60: 15 knots, 62: 10 knots
 

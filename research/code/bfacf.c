@@ -5,7 +5,7 @@
  * of which is an isotopy across one unit square whose interior and free corners
  * are checked to be unoccupied. Hence the knot type never changes (JvRW91 Thm 3.11).
  *
- * usage: bfacf WORD SEED CYCLES N_HIGH N_LOW ZMAX ZLOW
+ * usage: bfacf WORD SEED CYCLES N_HIGH N_LOW ZMAX ZLOW [last]
  *   WORD   closed word over n,s,e,w,u,d (start vertex irrelevant)
  *   each cycle: N_HIGH attempted moves at z ~ U(0,ZMAX), then N_LOW at z = ZLOW
  *   (protocol of Scharein et al. 2009, section 4).
@@ -142,12 +142,15 @@ int main(int argc, char **argv) {
         int d = dircode(w[i]); x += DX[d]; y += DY[d]; z += DZ[d];
     }
     nxt[last] = first; prv[first] = last;
+    /* optional 8th argument "last": report the LAST polygon of the shortest length seen
+       (instead of the first), which samples different minimal polygons for different seeds */
+    int last_mode = (argc > 8 && strcmp(argv[8], "last") == 0);
     seed_rng(seed);
     snapshot();
     for (long c = 0; c < cycles; c++) {
         double zh = runif() * zmax;
         for (long i = 0; i < nhigh; i++) attempt(zh);
-        for (long i = 0; i < nlow; i++) { attempt(zlow); if (nact < bestn) snapshot(); }
+        for (long i = 0; i < nlow; i++) { attempt(zlow); if (nact < bestn || (last_mode && nact == bestn && (i & 1023) == 0)) snapshot(); }
     }
     printf("BEST %d %s\n", bestn, bestw);
     return 0;
