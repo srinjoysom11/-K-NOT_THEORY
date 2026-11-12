@@ -154,3 +154,97 @@ knot,start_length,best_length,literature_bound,verified,check,chain,word
 10_83,132,62,62,True,snappy+alexander,1:1001,uuussddneeennnnwuusssddddnnuuueuuwwdddssdssuunwwnneeeeeddwwwws
 10_84,128,62,62,True,snappy+alexander,1:1002,sseuuuunndddddwwuuuessseennnedddnnuuwssseuuwwwwddeedeeennwwwws
 10_85,100,60,60,True,snappy+alexander,1:1001,wwwwwuueenndeesssswwnnnddsswuunnuueeesswddddnnuuunuussddeedd
+10_86,112,60,60,True,snappy+alexander,1:1006,dssseuuwwwunnnneesssssddnneddwwuuuuuunnddddseeuuuwwwwddeeend
+10_87,112,62,62,True,snappy+alexander,1:1002,dswwuuueeeeddwwwnddssuueuuunnnnwddssssseennnnuuuwwddeneesswwdd
+10_88,128,62,62,True,snappy+alexander,1:1001,suunueeddwwwwwnneeeeusssswwnnnnndddwssuuuueeddeddwwnuwnneessss
+10_89,128,62,62,True,snappy+alexander,1:1001,sswsssuunnnndddnnuuwssseeesswwwwndnneddssuuuuueeddddwnwwnneuee
+10_90,132,64,64,True,snappy+alexander,1:1001,wssssuuuennneedddwwuuwwsdddeeuuueuuwwdddnwwssueeesdswwnneeennnwd
+10_91,124,62,62,True,snappy+alexander,1:1001,ddddssuuswwnnnnueeessseddnwwwwwuueeeueeddwsdswwnuuunnddnenuuss
+10_92,116,62,62,True,snappy+alexander,1:1001,sssdswsuuneeeunnwdddwwwnuueeeesswuuwwdddddnnuuswsseesuunnnnndd
+10_93,116,62,62,True,snappy+alexander,1:1001,edddeeuuuuuwwdssddneeeunnwwwndneesswwwssueesddnnnnuuusssuwwndd
+10_94,112,62,62,True,snappy+alexander,1:1001,neeennwwwnddessssuuunnuwwddedddeeuuuusuwwdnnneddswwsseeesswuwn
+10_95,112,62,62,True,snappy+alexander,1:1003,ssueeeseennwwwnnwwsseddeeuennwwssssuunnnneesssdddnnwuuuuwwdddw
+10_96,136,64,64,True,snappy+alexander,1:1001,neesssdsdwwnnnueuuwswwddeeeeessuwwwwnnnuuessdddwddeeuussuunndnwn
+10_97,136,62,62,True,snappy+alexander,1:1005,wwwwdssseenneeddwwuwwwuueednndeesssuuuwwddddnneuunuussdsseennn
+10_98,116,62,62,True,snappy+alexander,1:1003,wdsdeennnuusuuwwdddeeeeusuwwddeddwwuussuunnnneedssswwwwnnneess
+10_99,116,62,62,True,snappy+alexander,1:1001,eeennwwwdssdwwuuuueeednnnddssuwwwwsseeeunnueeddddwwwusssuunnde
+10_100,92,62,62,True,snappy+alexander,1:1001,wnddssseeueennwwsuuuwwdddwddeeuussuunnnnddswwusseeesdednnuunww
+10_101,104,62,62,True,snappy+alexander,1:1001,nneeeedddssuwwnwuuuennddssssseennnennwwssuussddddnnueesuuwwwww
+10_102,112,62,62,True,snappy+alexander,1:1001,eeennnuuswwswdddneeeeuuwwnnwwssesssdednnuuuuwnndddddssuunwwsse
+10_103,124,62,62,True,snappy+alexander,1:1001,euesswwnnnwwsssssddnenuuuunnddddwdssuuwunueeeedddwwwwssueeennn
+10_104,136,62,62,True,snappy+alexander,1:1001,wwuuuuesssdddnnnnnuussswuueeddddennwuwwwssuseeesswwdnneeennwdd
+10_105,132,62,62,True,snappy+alexander,1:1002,unndddddeeuuuessdwwnwuwwddeeennnuussssswwunneeeddennwwwwssseuu
+10_106,112,62,62,True,snappy+alexander,1:1001,swwnwwwnneeeuueedddswwssdwdnnuussuunnnneesssdddwwwnuuuueeddees
+10_107,112,62,62,True,snappy+alexander,1:1001 2:2001,ssddsswwnnennneeesssdwwwwwnneesdssuuueendndeeuuwwwwwdddneeuuuu
+10_108,116,60,60,True,snappy+alexander,1:1001,esuuuwswddnnnddssssueeuuwnnwwddddeeuuuneesswwssddnnuwwwnneee
+10_109,116,64,64,True,snappy+alexander,1:1002,uwsssseendddnnuwwwuusueeeeeddwwnnnwwsseuuussdddseeunnnddswwdnnuu
+10_110,136,62,62,True,snappy+alexander,1:1001 2:2002,ssdwwsuunnneeeddwwwwsuuueedddeeddnwwusssuunwwwnneesdddeeunnuus
+10_111,116,62,62,True,snappy+alexander,1:1001,eennnuuwwwwddessueedddnnuwwwsuuennneessseeddwwwdnnuuuuussdddss
+10_112,116,60,60,True,snappy+alexander,1:1001,nnnnwwsssuuueeddwdddnnuuuussswsdddnnneeeuuwwwwsseesdswwnneee
+10_113,104,60,60,True,snappy+alexander,1:1003,deeuuuussdddwwwuuneeeeeddwwwnnnuussdssseennnnwwwwssesuunnddd
+10_114,116,62,62,True,snappy+alexander,1:1001,sdddwwuuuueeeesdswwuwwddednnnnuussssseeunnddnnwwwwsseeeuuunndd
+10_115,140,62,62,True,snappy+alexander,1:1001,wwnndddeeeeuuwwwunwnddeeesssswwnnndnnuusswwsseeuennddddssuuusu
+10_116,92,62,62,True,snappy+alexander,1:1001,ueeeedddsssuwwwnunnnneessssddssuuwnnddnnuusuunndddeeesswwwwwun
+10_117,112,62,62,True,snappy+alexander,1:1001,eeeeuuwwwnnnddssussdddwnnuuuuueeddddssswwnnedeseuuunnnwwwwssed
+10_118,116,64,64,True,snappy+alexander,1:1001,nneeussseeeddwwuwwwwuueeeneddwdssuuswwnnnnedeeessswswwnuuunndddw
+10_119,116,62,62,True,snappy+alexander,1:1001,uuuunuussdddeeddwwwwuuenneeseuuwwwdwddessseennnneuuwsssdwdddnn
+10_120,132,64,64,True,snappy+alexander,1:1001,wdwssssdeeeennnunwwsssssddnnneuuuwwwwddeeeseddwwuuuuunndddeeuunw
+10_121,116,60,60,True,snappy+alexander,1:1001,eeeeennwwwwusssseennnnnddsssdwwunueuuussddddnndeeuuuuswwwwdd
+10_122,116,62,62,True,snappy+alexander,1:1001,ueedednnnwwwwwsseeeeueeddwwwnnnuussssswwnnndddeeeuuuuwwdddssuu
+10_123,116,60,60,True,snappy+alexander,1:1001,eeuuunnnwwssssddddnnuuueeeuuwwwwdddssseennnnuuuussdddwwwddee
+10_124,118,48,48,True,non-hyperbolic: alexander+HFK,1:1001,ddnnuuwuuueeddssddnwwnnuuuesseeddwwwwnnneesusssd
+10_125,118,54,54,True,snappy+alexander,1:1001,nueeenddssuusswwnnunndedseesswwuuwwddennnnueusssdddwwu
+10_126,118,54,54,True,snappy+alexander,1:1001,wwuueennuussdeedssddnwwuuueeeddwwswwnnnuueeusssddnndwd
+10_127,122,56,56,True,snappy+alexander,1:1002,wnneeesdssuunnnwwsddsessddnnnuuuussdwddeedndwwuueeeuuwww
+10_128,136,54,54,True,snappy+alexander,1:1001,euuuwsseennnwwnwddeeeuuuswwwdddeeunuuusssdddwnnnnddsss
+10_129,134,56,56,True,snappy+alexander,1:1001,wwwnunnneesssssddnnnueuusuwwdddeeennwwwuuwswddeeuuessedd
+10_130,130,54,54,True,snappy+alexander,1:1001,uuunnddseeddwwwwuuessedddnnnuwusssseennnnuuswwswdddeeu
+10_131,128,56,56,True,snappy+alexander,1:1003,ueeedssswwnnnnwwsdseenneessswuuunnnddsddeesuuuwwdddwwnuu
+10_132,106,52,52,True,snappy+alexander,1:1001,wwwddeeeennnuwwwssssddnnnueueeeddwwwsuuunnenddsssuus
+10_133,102,54,54,True,snappy+alexander,1:1006,wwndnwwnneuusswsseennunwwddeddssuuuueedddswwwunneeeess
+10_134,100,56,56,True,snappy+alexander,1:1001,wwuusueeddddnnuuuswsseendeesswwnwddeeuuunndwwwsssdeennnw
+10_135,128,58,58,True,snappy+alexander,1:1001,uuuwwddndeeeussswuwnnnwwdsseeeueedddwnnnuuwwssdseeneddwwuu
+10_136,104,54,54,True,snappy+alexander,1:1001,neueusssdddnnnnnwuuusssddddeeuuunnwwwssseendneesswwwwn
+10_137,132,56,56,True,snappy+alexander,1:1001,swwnnnnuuesssdddennnwwswwuueeedddeeuuwuswwwdnnddsesueues
+10_138,136,56,56,True,snappy+alexander,1:1007,nnnwdddsssuunuwwddeeeunnnwwssssueuunnddddeesuuuwwwsseend
+10_139,134,50,50,True,snappy+alexander,1:1001,neesusswwnnneeesssddwwnuuuwwndddeeuuueeedsdwwswwnn
+10_140,124,54,54,True,snappy+alexander,1:1001,sseddneeeuuwwuuwnnddeedsssswwwnneuunennddssssueunndwww
+10_141,112,54,54,True,snappy+alexander,1:1001,dddwwwsdseessuunnnnnddssuswuuseeennwwwddddssuueeunuunn
+10_142,122,54,54,True,snappy+alexander,1:1001,nnwwssdssdeeuuunnnwddwwsssuuneneddesesswwnndwwwuueeeen
+10_143,114,54,54,True,snappy+alexander,1:1001,uussddnenuunnndwwsssseeeennwwwuwwddeeeesuuuwwnnddddssu
+10_144,112,58,58,True,snappy+alexander,1:1001,ennnndddwsdssuunnnneessssuuuwwddwwnneeeddeeuuswwddwwuuusse
+10_145,130,52,52,True,snappy+alexander,1:1001,unndddessuuueeddnwwwwwnneeesuswwsseeennnnwwwsddssueu
+10_146,132,56,56,True,snappy+alexander,1:1001,unnndddedessuuuunnndwwwsseeeesswwnwddeneunuwunnddssssswu
+10_147,102,54,54,True,snappy+alexander,1:1001,wwwwnnueeesswsdssuunnnndddessuuuuwwddddnnuuwssseeedenn
+10_148,134,56,56,True,snappy+alexander,1:1001,ueedsddwnnnuusssseenddnnnwddssuunuwwwsseeneeenddwwwwusuu
+10_149,136,56,56,True,snappy+alexander,1:1002,uwwwwnneeeeuuwwsddedssueuuwwdddnnnenuussssswwnnndddeeeus
+10_150,102,56,56,True,snappy+alexander,1:1001,esddddssuunuuwwndddseeeuennuwwwssseenndnwwwwsseendnnuuus
+10_151,132,56,56,True,snappy+alexander,1:1001 2:2002,sdwddneeuesuseennwwwwwusseeennndddsswuuuueedddswwwnnnuus
+10_152,134,54,54,True,snappy+alexander,1:1001,ssuwwuueeenddwwdsssuunnnwuwssseeneeddwwwuuuseeddnnnndd
+10_153,134,54,54,True,snappy+alexander,1:1001,ueeenunwwwsseeessddwnnnuuussddeddwwwuuuuenndddssswwnne
+10_154,134,56,56,True,snappy+alexander,1:1002,essswsddnnnuuuuwwdsddeeuuuueesddwwwnnneesusssdddnwwunnne
+10_155,90,54,54,True,snappy+alexander,1:1002,nnwwwwnuueeeesswwdddnnuusuwuueedddsswwnnnnuuessssededd
+10_156,114,56,56,True,snappy+alexander,1:1001,nneuuuwwdddswsuseueendddwwuuunwnneesssdseennwwwwwdsseeen
+10_157,112,54,54,True,snappy+alexander,1:1001,nnnwwsssssuunndedndeeuuwwwwdddssuuueeunnndddwwwsseeeeu
+10_158,136,56,56,True,snappy+alexander,1:1003,sdwwwwsseeednnnnwwsssuuunneddddeeuuwussdwdssuunnnwnneees
+10_159,112,56,56,True,snappy+alexander,1:1001,sesdddddwwuuuuenndddssssuunndnwwwuueedeeesswdwwuwnnnuuee
+10_160,114,56,56,True,snappy+alexander,1:1001,essswwwdddeeunuuueeddwddnwnuusuuwsssdddnnneeesswuwwnnnue
+10_161,134,50,50,True,snappy+alexander,1:1001,wssuunnndddnnuuuswsdddsseeuuwwwnnneeesswwdwnneeess
+10_162,112,56,56,True,snappy+alexander,1:1001 2:2002,eeesswwddnwwwuueeednnnddssuwwussseeennuunndddwwdsssuunnu
+10_163,114,56,56,True,snappy+alexander,1:1001,nnddwwsssssuunnnneddsessuwwwwnneeeeeuuwwdsdddwwuuuueeedn
+10_164,112,56,56,True,snappy+alexander,1:1001,wdddessueuuuuwwdddwnnneesssssuunnnendddswwuuwsseeeennwwn
+10_165,136,56,56,True,snappy+alexander,1:1001,uunndwwwddeeenuuuwssdeeeddwwwwunnneeessssswwnnnnddesssuu
+3_1,38,24,24,True,non-hyperbolic: alexander+HFK,1:1001,wsusseddnnuusuwwddeeennw
+4_1,56,30,30,True,snappy+alexander,1:1001,ddnnueussseddnnwuwwsseeneuuwwd
+5_1,58,34,34,True,non-hyperbolic: alexander+HFK,1:1001,nddswsusseennnwwwdsseeuueenddwwuun
+5_2,58,36,36,True,snappy+alexander,1:1001,eennwwuwwddeenuuessddswwnunnddessuus
+6_1,76,40,40,True,snappy+alexander,1:1001,dddssuunwwnneenddswsuuussddneennwwnuuses
+6_2,60,40,40,True,snappy+alexander,1:1001,nwwsssuunndnnuwussddddeeuuunwwwsdseeeden
+6_3,76,40,40,True,snappy+alexander,1:1001,nnenddssuuueuenndwwwddseeeuuwunnddssssww
+7_1,94,44,44,True,non-hyperbolic: alexander+HFK,1:1001,wddeeuuseennndwwsuuwwddesseenuueneddwwunwwss
+7_2,102,46,46,True,snappy+alexander,1:1001,deeuuwnnuussdwwwnneeseeddwsswwuuunnddswsseennd
+7_3,98,44,44,True,snappy+alexander,1:1001,wwddeeesuuwwwuueednnddssddwnnuusssuunnueeddw
+7_4,62,44,44,True,snappy+alexander,1:1002,nuuuwwddswwnneeeeesswwnddwwuuuseennnddswssee
+7_5,78,46,46,True,snappy+alexander,1:1001,uusssueednddssuuwnnuwwddeeddwwnuueeeesswwwdnnn
+7_6,74,46,46,True,snappy+alexander,1:1001,unnddeddswwunnnuussdswwnneeeeusswwwndddeeususu
+7_7,78,44,44,True,snappy+alexander,1:1001,suunnddddssswwnneueeeuuwwwsddddeeuuunnnwwsse
