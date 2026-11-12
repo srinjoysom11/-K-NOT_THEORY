@@ -94,7 +94,7 @@ AlphaEvolve procedure (this is an LLM-guided evolutionary program search, not a 
 | ⟨4,5,6⟩ | 93 [48] | 90 |
 | ⟨5,5,5⟩ | 93 [72] | 93 |
 
-(⚠ In Table 3, the reference for ⟨4,4,7⟩ is "[93, 95]" while Table 2 gives "[93]". Text layer verified for numbers; table glyph header read from text.)
+(⚠ In Table 3, the reference for ⟨4,4,7⟩ is "[93, 95]" while Table 2 gives "[93]". Text layer verified for numbers; table glyph header read from text.) Colours checked on the page image (2026-11-12): 14 green cells (AlphaEvolve surpasses: ⟨2,4,5⟩ 32, ⟨2,4,7⟩ 45, ⟨2,4,8⟩ 51, ⟨2,5,6⟩ 47, ⟨3,4,6⟩ 54, ⟨3,4,7⟩ 63, ⟨3,4,8⟩ 74, ⟨3,5,6⟩ 68, ⟨3,5,7⟩ 80, ⟨4,4,4⟩ 48, ⟨4,4,5⟩ 61, ⟨4,4,7⟩ 85, ⟨4,4,8⟩ 96, ⟨4,5,6⟩ 90) and 2 red cells (⟨4,4,9⟩ 108 vs 104; ⟨6,6,6⟩ 156 vs 153), matching the caption.
 
 **Table 3 (p. 34)** — Full version of Table 2, showing the best ranks obtained by AlphaEvolve for tensor decomposition for all considered parameters. Of the 54 targets, AlphaEvolve matches the state of the art in 38 cases, surpasses it in 14 cases (green), and falls behind in 2 cases (red). In all cases, AlphaEvolve provides exact algorithms, using integer or half-integer entries in the decomposition. For ⟨3,4,7⟩, ⟨4,4,4⟩, and ⟨4,4,8⟩ the algorithms use complex-valued multiplications.
 
@@ -137,7 +137,7 @@ AlphaEvolve procedure (this is an LLM-guided evolutionary program search, not a 
 - **Fig. 1 (p. 3)** — AlphaEvolve high-level overview. *What it shows:* human defines "What?" (evaluation criteria, initial solution, background); AlphaEvolve finds "How?" via prompt sampler, LLM ensemble, program database, evaluator pool.
 - **Fig. 2 (p. 4)** — Expanded view of the AlphaEvolve discovery process. *What it shows:* prompt template and configuration, evaluation code, initial program, and the controller loop pseudo-code. Image: ../figures/Novikov25/p04.png
 - **Fig. 3 (p. 6)** — Illustrative example of applying AlphaEvolve to evolving a supervised learning pipeline: (a) user file with evolve blocks and `evaluate`; (b) assembled prompt; (c) LLM-generated SEARCH/REPLACE diff (ResNet blocks, AdamW).
-- **Fig. 4 (p. 11)** — Changes proposed by AlphaEvolve to discover faster matrix multiplication algorithms (optimizer/initialisation, loss, hyper-parameter sweep; 15 mutations); magnified in Figs 9a-9c (pp. 35-37).
+- **Fig. 4 (p. 11)** — Changes proposed by AlphaEvolve to discover faster matrix multiplication algorithms (optimizer/initialisation, loss, hyper-parameter sweep; 15 mutations); magnified in Figs 9a-9c (pp. 35-37). *Figs 9a–9c (pp. 35–37, 2026-11-12):* magnified program listings of Fig. 4 (left) for the rank-48 ⟨4,4,4⟩ decomposition; verbatim text layer saved to `wiki/data/Novikov25_fig9_program_listings_raw.txt`.
 - **Fig. 5 (p. 12)** — Examples of SOTA-breaking mathematical constructions (analysis / geometry / combinatorics panels with the old → new numbers above). Image: ../figures/Novikov25/p12.png
 - **Fig. 6 (p. 14)** — Left: heuristic function discovered by AlphaEvolve for Borg scheduling; right: heat map of the scoring function over CPU/memory residuals.
 - **Fig. 7 (p. 15)** — Visualization of the tiling heuristic problem for a matrix product C = AB (tile sizes M, N, K).

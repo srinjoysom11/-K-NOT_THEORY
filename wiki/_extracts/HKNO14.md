@@ -84,6 +84,6 @@ None stated explicitly (no conclusion section).
 ## Extraction notes
 - All formulas transcribed from page images pp. 1–8 and spot-checked algebraically: substituting g = c+2 into the g-bounds reproduces the coefficients of Theorems 1–2 exactly; π+6 ≈ 9.1416 and 2π+1/2 ≈ 6.7832 are printed as 9.15 and 6.79 (rounded up), π/2+13 ≈ 14.5708 → 14.58, π+55/4 ≈ 16.8916 → 16.90.
 - ⚠ Proof of Prop. 3 writes "a(K) ≤ c(K)" (Latin a) where α(K) is meant; transcribed as α.
-- ⚠ The Step-1 ropelength bound 2g^2 + (2π−4)g is derived (p. 7) but not included in the final min (p. 8); as printed.
+- The Step-1 ropelength bound 2g^2 + (2π−4)g (p. 8, §4, transcribed in the ropelength bullet above) is derived but not included in the final min, which is taken over Steps 2 and 3 only (as printed).
 - Reference [12] here is the journal version of HNO14len (J. Phys. A 46 (2013) 125001).
 - No tables. Figure pages 2, 3, 5, 7, 8 rendered.

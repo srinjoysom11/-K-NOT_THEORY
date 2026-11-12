@@ -1,0 +1,220 @@
+AlphaEvolve: A coding agent for scientific and algorithmic discovery
+1 @@ -45,9 +45 ,14 @@
+2 # EVOLVE -BLOCK -START
+3 def _get_optimizer (self) -> optax. GradientTransformation :
+4 """ Returns optimizer ."""
+5 - return optax.adam(self.hypers. learning_rate )
+6 + return optax.adamw(
+7 + self.hypers.learning_rate , weight_decay =self.hypers. weight_decay
+8 + )
+9
+10 def _get_init_fn (self) -> jax.nn. initializers .Initializer :
+11 """ Returns initializer function ."""
+12 - return initializers .normal (0.0 , self.hypers.init_scale , jnp.complex64)
+13 + # Initialize with a smaller scale to encourage finding low -rank
+solutions.
+14 + # Increase scale slightly for better exploration.
+15 + scale = self.hypers.init_scale
+16 + return initializers .normal (0 + 1j * 0, scale * 0.2, jnp.complex64)
+17
+18 @@ -80,6 +85 ,66 @@
+19 # Gradient updates .
+20 updates , opt_state = self.opt.update(grads , opt_state , decomposition )
+21 decomposition = optax. apply_updates (decomposition , updates)
+22 + # Add a small amount of gradient noise to help with exploration
+23 + rng , g_noise_rng = jax.random.split(rng)
+24 + decomposition = jax.tree_util.tree_map(
+25 + lambda x: x
+26 + + self.hypers. grad_noise_std * jax.random.normal(g_noise_rng , x.
+shape),
+27 + decomposition ,
+28 + )
+29 +
+30 + # Add noise to the decomposition parameters ( exploration ).
+31 + _, noise_rng = jax.random.split(rng)
+32 + noise_std = self. _linear_schedule (
+33 + global_step , start=self.hypers.noise_std , end =0.0
+34 + )
+35 + decomposition = jax.tree_util.tree_map(
+36 + lambda x: x + noise_std * jax.random.normal(noise_rng , x.shape),
+37 + decomposition ,
+38 + )
+39 +
+40 + # Cyclical annealing for clipping threshold.
+41 + cycle_length = 2000 # Number of steps per cycle
+42 + cycle_progress = (
+43 + global_step % cycle_length
+44 + ) / cycle_length # Normalized progress within the current cycle [0,
+1)
+45 +
+46 + # Map cycle progress to a sinusoidal curve. Ranges from 0 to 1.
+47 + clip_threshold_multiplier = (1 + jnp.cos (2 * jnp.pi * cycle_progress ))
+/ 2
+48 +
+49 + clip_threshold = self.hypers.clip_min + clip_threshold_multiplier * (
+50 + self.hypers.clip_max - self.hypers.clip_min
+51 + )
+52 +
+53 + def soft_clip(x, threshold):
+54 + # Clipping the real and imaginary parts separately.
+55 + x_re = jnp.real(x)
+56 + x_im = jnp.imag(x)
+57 +
+58 + x_re_clipped = jnp.where(
+59 + x_re > threshold , threshold + (x_re - threshold) * 0.1, x_re
+60 + )
+61 + x_re_clipped = jnp.where(
+62 + x_re_clipped < -threshold ,
+63 + -threshold + ( x_re_clipped + threshold) * 0.1,
+64 + x_re_clipped ,
+65 + )
+Figure 9a | Magnified version of Figure 4(left), giving the program that discovers a faster
+algorithm to multiply 4 × 4 matrices (1/3).
+35
+AlphaEvolve: A coding agent for scientific and algorithmic discovery
+66 +
+67 + x_im_clipped = jnp.where(
+68 + x_im > threshold , threshold + (x_im - threshold) * 0.1, x_im
+69 + )
+70 + x_im_clipped = jnp.where(
+71 + x_im_clipped < -threshold ,
+72 + -threshold + ( x_im_clipped + threshold) * 0.1,
+73 + x_im_clipped ,
+74 + )
+75 +
+76 + return x_re_clipped + 1j * x_im_clipped
+77 +
+78 + decomposition = jax.tree_util.tree_map(
+79 + lambda x: soft_clip(x, clip_threshold ), decomposition
+80 + )
+81 +
+82 return decomposition , opt_state , loss
+83
+84 def _loss_fn(
+85 @@ -91,13 +156 ,86 @@
+86 """ Computes ( batched ) loss on learned decomposition ."""
+87 # Compute reconstruction loss.
+88 rec_tensor = self. _decomposition_to_tensor ( decomposition ) # (B, N, M,
+P)
+89 +
+90 + # Add noise to the target tensor (robustness).
+91 + rng , noise_rng = jax.random.split(rng)
+92 + target_noise = self.hypers. target_noise_std * jax.random.normal(
+93 + noise_rng , self. target_tensor .shape
+94 + )
+95 + noisy_target_tensor = self. target_tensor + target_noise
+96 +
+97 + # Hallucination loss ( encourages exploration by randomly replacing
+values)
+98 + hallucination_prob = self.hypers. hallucination_prob
+99 + hallucination_scale = self.hypers. hallucination_scale
+100 +
+101 + def hallucinate (x, hallucination_rng ):
+102 + mask = jax.random.bernoulli(hallucination_rng , p= hallucination_prob )
+103 + noise = hallucination_scale * jax.random.normal(
+104 + hallucination_rng , x.shape
+105 + )
+106 + return jnp.where(mask , noise , x)
+107 +
+108 + _, factor_rng = jax.random.split(rng)
+109 + decomposition = jax.tree_util.tree_map(
+110 + lambda x: hallucinate (x, jax.random.split(factor_rng)[0]) ,
+111 + decomposition ,
+112 + )
+113 +
+114 # Add a batch dimension to `target_tensor ` to ensure correct
+broadcasting .
+115 # Define the loss as the L2 reconstruction error.
+116 - rec_loss = l2_loss_complex (self. target_tensor [None , ...] , rec_tensor)
+117 + rec_loss = l2_loss_complex ( noisy_target_tensor [None , ...] , rec_tensor)
+118
+119 # We must return a real - valued loss.
+120 - return jnp.real(rec_loss)
+121
+122 + # Discretization loss (encourage entries to be multiples of 1/2 or
+integer).
+123 + def dist_to_half_ints (x):
+124 + x_re = jnp.real(x)
+125 + x_im = jnp.imag(x)
+126 + return jnp.minimum(
+127 + jnp.abs(x_re - jnp.round(x_re * 2) / 2),
+128 + jnp.abs(x_im - jnp.round(x_im * 2) / 2),
+129 + )
+130 +
+Figure 9b | Magnified version of Figure 4(left), giving the program that discovers a faster
+algorithm to multiply 4 × 4 matrices (2/3).
+36
+AlphaEvolve: A coding agent for scientific and algorithmic discovery
+131 + def dist_to_ints (x):
+132 + return jnp.abs(x - jnp.round(x))
+133 +
+134 + discretization_loss = 0.0
+135 + for factor in decomposition :
+136 + discretization_loss += jnp.mean( dist_to_half_ints (factor))
+137 + discretization_loss += jnp.mean( dist_to_ints (factor))
+138 +
+139 + discretization_loss /= (
+140 + len( decomposition ) * 2
+141 + ) # average across all factors and loss components
+142 +
+143 + discretization_weight = self. _linear_schedule (
+144 + global_step , start =0.0 , end=self.hypers. discretization_weight
+145 + )
+146 +
+147 + # Cosine annealing for half -integer loss.
+148 + cycle_length = self.config. training_steps // 4 # Number of steps per
+cycle
+149 + cycle_progress = (
+150 + global_step % cycle_length
+151 + ) / cycle_length # Normalized progress within the current cycle [0,
+1)
+152 + half_int_multiplier = (1 + jnp.cos(jnp.pi * cycle_progress )) / 2
+153 + half_int_multiplier = (
+154 + 1 - self.hypers. half_int_start
+155 + ) * half_int_multiplier + self.hypers. half_int_start
+156 +
+157 + total_loss = (
+158 + rec_loss
+159 + + discretization_weight * discretization_loss *
+half_int_multiplier
+160 + )
+161 +
+162 + # Add penalty for large values (stability).
+163 + large_value_penalty = 0.0
+164 + for factor in decomposition :
+165 + large_value_penalty += jnp.mean(jnp.abs(factor) ** 2)
+166 + large_value_penalty /= len( decomposition )
+167 + total_loss += self.hypers. large_value_penalty_weight *
+large_value_penalty
+168 +
+169 + return jnp.real( total_loss)
+170 +
+171
+172 def l2_loss_complex (x: jnp.ndarray , y: jnp.ndarray) -> jnp.ndarray:
+173 """ Elementwise L2 loss for complex numbers ."""
+174 @@ -117,6 +255 ,18 @@
+175 return hyper.zipit ([
+176 - hyper.uniform('init_scale ', hyper.interval (0.2 , 1.5)),
+177 - hyper.uniform(' learning_rate ', hyper.interval (0.05 , 0.3)),
+178 + hyper.uniform('init_scale ', hyper.interval (0.1 , 1.0)),
+179 + hyper.uniform(' learning_rate ', hyper.interval (0.01 , 0.2)),
+180 + hyper.uniform(' discretization_weight ', hyper.interval (0.0 , 0.1)),
+181 + hyper.uniform(' hallucination_prob ', hyper.interval (0.0 , 0.2)),
+182 + hyper.uniform(' hallucination_scale ', hyper.interval (0.0 , 0.2)),
+183 + hyper.uniform('noise_std ', hyper.interval (0.0 , 0.01)),
+184 + hyper.uniform(' target_noise_std ', hyper.interval (0.0 , 0.01)),
+185 + hyper.uniform(' weight_decay ', hyper.interval (0.00001 , 0.001)),
+186 + hyper.uniform('clip_min ', hyper.interval (0.0 , 0.5)),
+187 + hyper.uniform('clip_max ', hyper.interval (1.0 , 3.0)),
+188 + hyper.uniform(' large_value_penalty_weight ', hyper.interval (0.0 ,
+0.01)),
+189 + # Add noise to the gradient to aid in exploration .
+190 + hyper.uniform(' grad_noise_std ', hyper.interval (0.0 , 0.001)),
+191 + hyper.uniform(' half_int_start ', hyper.interval (0.0 , 1.0)),
+192 ])
+193 # EVOLVE -BLOCK -END
+Figure 9c | Magnified version of Figure 4(left), giving the program that discovers a faster
+algorithm to multiply 4 × 4 matrices (3/3). Here hyper is a user-provided library for
+generating hyperparameter sweeps.
+37
+

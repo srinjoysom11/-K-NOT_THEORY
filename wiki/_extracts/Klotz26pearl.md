@@ -92,7 +92,7 @@ LLM role (as stated): ChatGPT "version GPT-5.6 Pro" (p. 1) found the configurati
 | 20 | -65 | 2617 | 256 | 8083 |
 | 21 | 2886 | 7903 | 1889 | 9867 |
 
-**Appendix A (pp. 6–8), coordinate lists (not a numbered table).** Sphere-centre coordinates "determined by the LLM", "equilaterall to approximately 12 decimal places": 5_1 (21 vertices), 5_2 (22), 6_1 (26), 6_2 (26), 6_3 (27), 7_1 (28), 7_2 (29), 7_3 (29), 7_4 (29), 7_5 (30), 7_6 (30), 7_7 (30), 8_1 (32), 8_19 (27), 10_124 (32); partial-lattice configurations: 6_1 (26 vertices, 2–9, 16–23 on lattice), 8_1 (33 vertices, 1–3, 7–21, 26–33 on lattice), 10_124 (32 vertices, 1–2, 6–11, 15–23, 28–32 on lattice). Not transcribed here (see Extraction notes).
+**Appendix A (pp. 6–8), coordinate lists (not a numbered table).** Sphere-centre coordinates "determined by the LLM", "equilaterall to approximately 12 decimal places": 5_1 (21 vertices), 5_2 (22), 6_1 (26), 6_2 (26), 6_3 (27), 7_1 (28), 7_2 (29), 7_3 (29), 7_4 (29), 7_5 (30), 7_6 (30), 7_7 (30), 8_1 (32), 8_19 (27), 10_124 (32); partial-lattice configurations: 6_1 (26 vertices, 2–9, 16–23 on lattice), 8_1 (33 vertices, 1–3, 7–21, 26–33 on lattice), 10_124 (32 vertices, 1–2, 6–11, 15–23, 28–32 on lattice). Not transcribed here (see Extraction notes). *Full coordinates in `wiki/data/Klotz26pearl_appendixA_coordinates.csv` (2026-11-12).*
 
 ## Figures
 - **Fig. 1 (p. 1)** — "An 8_1 knot embedded on an FCC lattice with 34 sites (left) and constructed from 32 tangent spheres (right). Top images show a ball-and-stick visualization, bottom images show space-filling spheres color-coded by index." *What it shows:* tube rendering of 8_1 at top, ball-and-stick FCC (34) vs pearl necklace (32), and space-filling sphere renderings. Image: ../figures/Klotz26pearl/p01.png
@@ -118,7 +118,7 @@ LLM role (as stated): ChatGPT "version GPT-5.6 Pro" (p. 1) found the configurati
 
 ## Extraction notes
 - Pages 1–4, 8–9 viewed as images; Table I and Table II checked cell-by-cell against images. Pages 5–7 (references + coordinate lists) read from text layer only.
-- Appendix A coordinate lists (≈450 numbers per page, two columns interleaved by the text layer) were deliberately not transcribed; consult PDF pp. 6–8 directly if needed.
+- Appendix A coordinate lists (pp. 6–8) transcribed in full (2026-11-12) into `wiki/data/Klotz26pearl_appendixA_coordinates.csv` (18 sets: 15 off-lattice + 3 partial-lattice; every set matches its stated vertex count, and every consecutive edge of every closed polygon has length exactly 2.0, a strong check on the transcription). Source text: `pdftotext -raw`.
 - ⚠ p. 2 refinement step: "plane passing through p⃗" (lower-case p) and final placement "r⃗_{N_P} = b⃗ + h v̂_2" — b⃗ is never defined (P⃗ intended?). Transcribed as printed.
 - ⚠ p. 2–3 says fractions have numerators/denominators "of order 1000", while Table II entries are mostly 4-digit (up to 9991).
 - ⚠ p. 3 text: "an 8_1 in which 26 of 33 sites lay on the lattice" — the stated on-lattice index ranges for 8_1 (1–3, 7–21, 26–33) count 3+15+8 = 26 (consistent). 10_124 ranges (1–2, 6–11, 15–23, 28–32) count 2+6+9+5 = 22 (consistent). 6_1 ranges (2–9, 16–23) = 16 (consistent).

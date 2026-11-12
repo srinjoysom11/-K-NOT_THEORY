@@ -1,0 +1,407 @@
+figure,panel,feature_or_model,length,train_set,test_set,value,quantity
+Fig7,a,LSTM 3 all,128,rho1,rho1,1.0,test accuracy
+Fig7,a,LSTM 3 all,128,rho1,rho2,0.99,test accuracy
+Fig7,a,LSTM 3 all,128,rho1,rho3,0.96,test accuracy
+Fig7,a,LSTM 3 all,128,rho2,rho1,0.99,test accuracy
+Fig7,a,LSTM 3 all,128,rho2,rho2,1.0,test accuracy
+Fig7,a,LSTM 3 all,128,rho2,rho3,0.98,test accuracy
+Fig7,a,LSTM 3 all,128,rho3,rho1,0.98,test accuracy
+Fig7,a,LSTM 3 all,128,rho3,rho2,0.99,test accuracy
+Fig7,a,LSTM 3 all,128,rho3,rho3,0.99,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho1,rho1,0.99,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho1,rho2,0.98,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho1,rho3,0.94,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho2,rho1,0.99,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho2,rho2,0.99,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho2,rho3,0.97,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho3,rho1,0.99,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho3,rho2,0.99,test accuracy
+Fig7,a,LSTM 9 dihedrals,128,rho3,rho3,0.98,test accuracy
+Fig7,b,LSTM 3 all,64,rho1,rho1,0.43,test accuracy
+Fig7,b,LSTM 3 all,64,rho1,rho2,0.45,test accuracy
+Fig7,b,LSTM 3 all,64,rho1,rho3,0.49,test accuracy
+Fig7,b,LSTM 3 all,64,rho2,rho1,0.39,test accuracy
+Fig7,b,LSTM 3 all,64,rho2,rho2,0.41,test accuracy
+Fig7,b,LSTM 3 all,64,rho2,rho3,0.46,test accuracy
+Fig7,b,LSTM 3 all,64,rho3,rho1,0.3,test accuracy
+Fig7,b,LSTM 3 all,64,rho3,rho2,0.32,test accuracy
+Fig7,b,LSTM 3 all,64,rho3,rho3,0.38,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho1,rho1,0.77,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho1,rho2,0.77,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho1,rho3,0.76,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho2,rho1,0.76,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho2,rho2,0.76,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho2,rho3,0.76,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho3,rho1,0.7,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho3,rho2,0.71,test accuracy
+Fig7,b,LSTM 9 dihedrals,64,rho3,rho3,0.7,test accuracy
+Fig7,b,LSTM 3 all,256,rho1,rho1,0.36,test accuracy
+Fig7,b,LSTM 3 all,256,rho1,rho2,0.37,test accuracy
+Fig7,b,LSTM 3 all,256,rho1,rho3,0.29,test accuracy
+Fig7,b,LSTM 3 all,256,rho2,rho1,0.28,test accuracy
+Fig7,b,LSTM 3 all,256,rho2,rho2,0.34,test accuracy
+Fig7,b,LSTM 3 all,256,rho2,rho3,0.32,test accuracy
+Fig7,b,LSTM 3 all,256,rho3,rho1,0.22,test accuracy
+Fig7,b,LSTM 3 all,256,rho3,rho2,0.25,test accuracy
+Fig7,b,LSTM 3 all,256,rho3,rho3,0.29,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho1,rho1,0.45,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho1,rho2,0.45,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho1,rho3,0.35,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho2,rho1,0.36,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho2,rho2,0.4,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho2,rho3,0.39,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho3,rho1,0.27,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho3,rho2,0.32,test accuracy
+Fig7,b,LSTM 9 dihedrals,256,rho3,rho3,0.35,test accuracy
+Fig7,b,LSTM 3 all,512,rho1,rho1,0.29,test accuracy
+Fig7,b,LSTM 3 all,512,rho1,rho2,0.24,test accuracy
+Fig7,b,LSTM 3 all,512,rho1,rho3,0.21,test accuracy
+Fig7,b,LSTM 3 all,512,rho2,rho1,0.28,test accuracy
+Fig7,b,LSTM 3 all,512,rho2,rho2,0.25,test accuracy
+Fig7,b,LSTM 3 all,512,rho2,rho3,0.21,test accuracy
+Fig7,b,LSTM 3 all,512,rho3,rho1,0.23,test accuracy
+Fig7,b,LSTM 3 all,512,rho3,rho2,0.25,test accuracy
+Fig7,b,LSTM 3 all,512,rho3,rho3,0.21,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho1,rho1,0.33,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho1,rho2,0.28,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho1,rho3,0.21,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho2,rho1,0.29,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho2,rho2,0.29,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho2,rho3,0.21,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho3,rho1,0.24,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho3,rho2,0.26,test accuracy
+Fig7,b,LSTM 9 dihedrals,512,rho3,rho3,0.2,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho1,rho1,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho1,rho2,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho1,rho3,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho2,rho1,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho2,rho2,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho2,rho3,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho3,rho1,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho3,rho2,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,64,rho3,rho3,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho1,rho1,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho1,rho2,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho1,rho3,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho2,rho1,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho2,rho2,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho2,rho3,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho3,rho1,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho3,rho2,1,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,64,rho3,rho3,1,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho1,rho1,0.93,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho1,rho2,0.85,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho1,rho3,0.65,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho2,rho1,0.93,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho2,rho2,0.89,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho2,rho3,0.74,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho3,rho1,0.91,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho3,rho2,0.92,test accuracy
+Fig7,c (rescaled),LSTM 3 all,256,rho3,rho3,0.83,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho1,rho1,0.9,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho1,rho2,0.8,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho1,rho3,0.59,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho2,rho1,0.9,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho2,rho2,0.86,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho2,rho3,0.71,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho3,rho1,0.89,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho3,rho2,0.87,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,256,rho3,rho3,0.77,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho1,rho1,0.72,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho1,rho2,0.51,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho1,rho3,0.3,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho2,rho1,0.76,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho2,rho2,0.58,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho2,rho3,0.3,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho3,rho1,0.77,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho3,rho2,0.66,test accuracy
+Fig7,c (rescaled),LSTM 3 all,512,rho3,rho3,0.32,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho1,rho1,0.67,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho1,rho2,0.46,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho1,rho3,0.25,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho2,rho1,0.71,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho2,rho2,0.55,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho2,rho3,0.28,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho3,rho1,0.72,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho3,rho2,0.59,test accuracy
+Fig7,c (rescaled),LSTM 9 dihedrals,512,rho3,rho3,0.29,test accuracy
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,0_1,0_1,1.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,0_1,3_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,0_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,0_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,0_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,3_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,3_1,3_1,0.99,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,3_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,3_1,5_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,3_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,4_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,4_1,3_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,4_1,4_1,1.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,4_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,4_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_1,3_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_1,5_1,0.99,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_2,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_2,3_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_2,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_2,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(a) coordinates,N=N'=128 rho=0.07,128,5_2,5_2,1.0,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,0_1,0_1,0.97,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,0_1,3_1,0.02,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,0_1,4_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,0_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,0_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,3_1,0_1,0.02,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,3_1,3_1,0.93,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,3_1,4_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,3_1,5_1,0.03,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,3_1,5_2,0.02,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,4_1,0_1,-0.01,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,4_1,3_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,4_1,4_1,0.95,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,4_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,4_1,5_2,0.03,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_1,3_1,0.03,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_1,5_1,0.94,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_1,5_2,0.02,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_2,0_1,-0.01,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_2,3_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_2,4_1,0.02,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_2,5_1,0.02,"confusion (row=true, col=prediction)"
+Fig8,(b) 3 distances,N=N'=128 rho=0.07,128,5_2,5_2,0.94,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,0_1,0_1,-0.98,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,0_1,3_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,0_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,0_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,0_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,3_1,0_1,-0.01,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,3_1,3_1,0.98,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,3_1,4_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,3_1,5_1,0.02,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,3_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,4_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,4_1,3_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,4_1,4_1,0.98,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,4_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,4_1,5_2,0.01,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_1,3_1,0.02,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_1,5_1,0.98,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_2,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_2,3_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_2,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_2,5_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(c) 3 dihedrals,N=N'=128 rho=0.07,128,5_2,5_2,0.99,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,0_1,0_1,0.99,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,0_1,3_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,0_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,0_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,0_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,3_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,3_1,3_1,0.98,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,3_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,3_1,5_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,3_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,4_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,4_1,3_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,4_1,4_1,0.99,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,4_1,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,4_1,5_2,0.01,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_1,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_1,3_1,0.01,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_1,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_1,5_1,0.99,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_1,5_2,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_2,0_1,-0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_2,3_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_2,4_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_2,5_1,0.0,"confusion (row=true, col=prediction)"
+Fig8,(d) 9 dihedrals,N=N'=128 rho=0.07,128,5_2,5_2,1.0,"confusion (row=true, col=prediction)"
+Fig10,a,coordinates CNN,128,rho1,rho1,0.85,test accuracy
+Fig10,a,coordinates CNN,128,rho1,rho2,0.8,test accuracy
+Fig10,a,coordinates CNN,128,rho1,rho3,0.62,test accuracy
+Fig10,a,coordinates CNN,128,rho2,rho1,0.79,test accuracy
+Fig10,a,coordinates CNN,128,rho2,rho2,0.84,test accuracy
+Fig10,a,coordinates CNN,128,rho2,rho3,0.72,test accuracy
+Fig10,a,coordinates CNN,128,rho3,rho1,0.52,test accuracy
+Fig10,a,coordinates CNN,128,rho3,rho2,0.7,test accuracy
+Fig10,a,coordinates CNN,128,rho3,rho3,0.81,test accuracy
+Fig10,a,bonds CNN,128,rho1,rho1,0.58,test accuracy
+Fig10,a,bonds CNN,128,rho1,rho2,0.55,test accuracy
+Fig10,a,bonds CNN,128,rho1,rho3,0.43,test accuracy
+Fig10,a,bonds CNN,128,rho2,rho1,0.54,test accuracy
+Fig10,a,bonds CNN,128,rho2,rho2,0.57,test accuracy
+Fig10,a,bonds CNN,128,rho2,rho3,0.43,test accuracy
+Fig10,a,bonds CNN,128,rho3,rho1,0.35,test accuracy
+Fig10,a,bonds CNN,128,rho3,rho2,0.43,test accuracy
+Fig10,a,bonds CNN,128,rho3,rho3,0.55,test accuracy
+Fig10,a,3 distances CNN,128,rho1,rho1,0.72,test accuracy
+Fig10,a,3 distances CNN,128,rho1,rho2,0.67,test accuracy
+Fig10,a,3 distances CNN,128,rho1,rho3,0.53,test accuracy
+Fig10,a,3 distances CNN,128,rho2,rho1,0.69,test accuracy
+Fig10,a,3 distances CNN,128,rho2,rho2,0.69,test accuracy
+Fig10,a,3 distances CNN,128,rho2,rho3,0.59,test accuracy
+Fig10,a,3 distances CNN,128,rho3,rho1,0.62,test accuracy
+Fig10,a,3 distances CNN,128,rho3,rho2,0.65,test accuracy
+Fig10,a,3 distances CNN,128,rho3,rho3,0.62,test accuracy
+Fig10,a,3 angles CNN,128,rho1,rho1,0.8,test accuracy
+Fig10,a,3 angles CNN,128,rho1,rho2,0.74,test accuracy
+Fig10,a,3 angles CNN,128,rho1,rho3,0.54,test accuracy
+Fig10,a,3 angles CNN,128,rho2,rho1,0.76,test accuracy
+Fig10,a,3 angles CNN,128,rho2,rho2,0.77,test accuracy
+Fig10,a,3 angles CNN,128,rho2,rho3,0.65,test accuracy
+Fig10,a,3 angles CNN,128,rho3,rho1,0.65,test accuracy
+Fig10,a,3 angles CNN,128,rho3,rho2,0.72,test accuracy
+Fig10,a,3 angles CNN,128,rho3,rho3,0.69,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho1,rho1,0.85,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho1,rho2,0.82,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho1,rho3,0.68,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho2,rho1,0.84,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho2,rho2,0.84,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho2,rho3,0.75,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho3,rho1,0.81,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho3,rho2,0.82,test accuracy
+Fig10,a,3 dihedrals CNN,128,rho3,rho3,0.78,test accuracy
+Fig10,b,coordinates CNN,64,rho1,rho1,0.94,test accuracy
+Fig10,b,coordinates CNN,64,rho1,rho2,0.93,test accuracy
+Fig10,b,coordinates CNN,64,rho1,rho3,0.88,test accuracy
+Fig10,b,coordinates CNN,64,rho2,rho1,0.92,test accuracy
+Fig10,b,coordinates CNN,64,rho2,rho2,0.93,test accuracy
+Fig10,b,coordinates CNN,64,rho2,rho3,0.94,test accuracy
+Fig10,b,coordinates CNN,64,rho3,rho1,0.6,test accuracy
+Fig10,b,coordinates CNN,64,rho3,rho2,0.66,test accuracy
+Fig10,b,coordinates CNN,64,rho3,rho3,0.8,test accuracy
+Fig10,b,bonds CNN,64,rho1,rho1,0.28,test accuracy
+Fig10,b,bonds CNN,64,rho1,rho2,0.28,test accuracy
+Fig10,b,bonds CNN,64,rho1,rho3,0.27,test accuracy
+Fig10,b,bonds CNN,64,rho2,rho1,0.26,test accuracy
+Fig10,b,bonds CNN,64,rho2,rho2,0.26,test accuracy
+Fig10,b,bonds CNN,64,rho2,rho3,0.25,test accuracy
+Fig10,b,bonds CNN,64,rho3,rho1,0.22,test accuracy
+Fig10,b,bonds CNN,64,rho3,rho2,0.22,test accuracy
+Fig10,b,bonds CNN,64,rho3,rho3,0.22,test accuracy
+Fig10,b,3 distances CNN,64,rho1,rho1,0.82,test accuracy
+Fig10,b,3 distances CNN,64,rho1,rho2,0.8,test accuracy
+Fig10,b,3 distances CNN,64,rho1,rho3,0.77,test accuracy
+Fig10,b,3 distances CNN,64,rho2,rho1,0.72,test accuracy
+Fig10,b,3 distances CNN,64,rho2,rho2,0.73,test accuracy
+Fig10,b,3 distances CNN,64,rho2,rho3,0.76,test accuracy
+Fig10,b,3 distances CNN,64,rho3,rho1,0.66,test accuracy
+Fig10,b,3 distances CNN,64,rho3,rho2,0.67,test accuracy
+Fig10,b,3 distances CNN,64,rho3,rho3,0.7,test accuracy
+Fig10,b,3 angles CNN,64,rho1,rho1,0.95,test accuracy
+Fig10,b,3 angles CNN,64,rho1,rho2,0.94,test accuracy
+Fig10,b,3 angles CNN,64,rho1,rho3,0.92,test accuracy
+Fig10,b,3 angles CNN,64,rho2,rho1,0.92,test accuracy
+Fig10,b,3 angles CNN,64,rho2,rho2,0.93,test accuracy
+Fig10,b,3 angles CNN,64,rho2,rho3,0.93,test accuracy
+Fig10,b,3 angles CNN,64,rho3,rho1,0.8,test accuracy
+Fig10,b,3 angles CNN,64,rho3,rho2,0.83,test accuracy
+Fig10,b,3 angles CNN,64,rho3,rho3,0.88,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho1,rho1,0.97,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho1,rho2,0.96,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho1,rho3,0.94,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho2,rho1,0.96,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho2,rho2,0.96,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho2,rho3,0.95,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho3,rho1,0.92,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho3,rho2,0.92,test accuracy
+Fig10,b,3 dihedrals CNN,64,rho3,rho3,0.92,test accuracy
+Fig10,b,coordinates CNN,256,rho1,rho1,0.67,test accuracy
+Fig10,b,coordinates CNN,256,rho1,rho2,0.52,test accuracy
+Fig10,b,coordinates CNN,256,rho1,rho3,0.4,test accuracy
+Fig10,b,coordinates CNN,256,rho2,rho1,0.69,test accuracy
+Fig10,b,coordinates CNN,256,rho2,rho2,0.6,test accuracy
+Fig10,b,coordinates CNN,256,rho2,rho3,0.45,test accuracy
+Fig10,b,coordinates CNN,256,rho3,rho1,0.57,test accuracy
+Fig10,b,coordinates CNN,256,rho3,rho2,0.66,test accuracy
+Fig10,b,coordinates CNN,256,rho3,rho3,0.52,test accuracy
+Fig10,b,bonds CNN,256,rho1,rho1,0.46,test accuracy
+Fig10,b,bonds CNN,256,rho1,rho2,0.38,test accuracy
+Fig10,b,bonds CNN,256,rho1,rho3,0.24,test accuracy
+Fig10,b,bonds CNN,256,rho2,rho1,0.46,test accuracy
+Fig10,b,bonds CNN,256,rho2,rho2,0.39,test accuracy
+Fig10,b,bonds CNN,256,rho2,rho3,0.23,test accuracy
+Fig10,b,bonds CNN,256,rho3,rho1,0.36,test accuracy
+Fig10,b,bonds CNN,256,rho3,rho2,0.44,test accuracy
+Fig10,b,bonds CNN,256,rho3,rho3,0.25,test accuracy
+Fig10,b,3 distances CNN,256,rho1,rho1,0.51,test accuracy
+Fig10,b,3 distances CNN,256,rho1,rho2,0.41,test accuracy
+Fig10,b,3 distances CNN,256,rho1,rho3,0.31,test accuracy
+Fig10,b,3 distances CNN,256,rho2,rho1,0.51,test accuracy
+Fig10,b,3 distances CNN,256,rho2,rho2,0.42,test accuracy
+Fig10,b,3 distances CNN,256,rho2,rho3,0.33,test accuracy
+Fig10,b,3 distances CNN,256,rho3,rho1,0.5,test accuracy
+Fig10,b,3 distances CNN,256,rho3,rho2,0.45,test accuracy
+Fig10,b,3 distances CNN,256,rho3,rho3,0.36,test accuracy
+Fig10,b,3 angles CNN,256,rho1,rho1,0.58,test accuracy
+Fig10,b,3 angles CNN,256,rho1,rho2,0.42,test accuracy
+Fig10,b,3 angles CNN,256,rho1,rho3,0.3,test accuracy
+Fig10,b,3 angles CNN,256,rho2,rho1,0.59,test accuracy
+Fig10,b,3 angles CNN,256,rho2,rho2,0.5,test accuracy
+Fig10,b,3 angles CNN,256,rho2,rho3,0.39,test accuracy
+Fig10,b,3 angles CNN,256,rho3,rho1,0.55,test accuracy
+Fig10,b,3 angles CNN,256,rho3,rho2,0.52,test accuracy
+Fig10,b,3 angles CNN,256,rho3,rho3,0.43,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho1,rho1,0.65,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho1,rho2,0.52,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho1,rho3,0.38,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho2,rho1,0.66,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho2,rho2,0.57,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho2,rho3,0.45,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho3,rho1,0.64,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho3,rho2,0.59,test accuracy
+Fig10,b,3 dihedrals CNN,256,rho3,rho3,0.48,test accuracy
+Fig10,b,coordinates CNN,512,rho1,rho1,0.47,test accuracy
+Fig10,b,coordinates CNN,512,rho1,rho2,0.37,test accuracy
+Fig10,b,coordinates CNN,512,rho1,rho3,0.27,test accuracy
+Fig10,b,coordinates CNN,512,rho2,rho1,0.52,test accuracy
+Fig10,b,coordinates CNN,512,rho2,rho2,0.41,test accuracy
+Fig10,b,coordinates CNN,512,rho2,rho3,0.28,test accuracy
+Fig10,b,coordinates CNN,512,rho3,rho1,0.54,test accuracy
+Fig10,b,coordinates CNN,512,rho3,rho2,0.44,test accuracy
+Fig10,b,coordinates CNN,512,rho3,rho3,0.3,test accuracy
+Fig10,b,bonds CNN,512,rho1,rho1,0.27,test accuracy
+Fig10,b,bonds CNN,512,rho1,rho2,0.21,test accuracy
+Fig10,b,bonds CNN,512,rho1,rho3,0.2,test accuracy
+Fig10,b,bonds CNN,512,rho2,rho1,0.26,test accuracy
+Fig10,b,bonds CNN,512,rho2,rho2,0.2,test accuracy
+Fig10,b,bonds CNN,512,rho2,rho3,0.2,test accuracy
+Fig10,b,bonds CNN,512,rho3,rho1,0.32,test accuracy
+Fig10,b,bonds CNN,512,rho3,rho2,0.21,test accuracy
+Fig10,b,bonds CNN,512,rho3,rho3,0.2,test accuracy
+Fig10,b,3 distances CNN,512,rho1,rho1,0.35,test accuracy
+Fig10,b,3 distances CNN,512,rho1,rho2,0.27,test accuracy
+Fig10,b,3 distances CNN,512,rho1,rho3,0.2,test accuracy
+Fig10,b,3 distances CNN,512,rho2,rho1,0.35,test accuracy
+Fig10,b,3 distances CNN,512,rho2,rho2,0.27,test accuracy
+Fig10,b,3 distances CNN,512,rho2,rho3,0.19,test accuracy
+Fig10,b,3 distances CNN,512,rho3,rho1,0.36,test accuracy
+Fig10,b,3 distances CNN,512,rho3,rho2,0.28,test accuracy
+Fig10,b,3 distances CNN,512,rho3,rho3,0.19,test accuracy
+Fig10,b,3 angles CNN,512,rho1,rho1,0.37,test accuracy
+Fig10,b,3 angles CNN,512,rho1,rho2,0.27,test accuracy
+Fig10,b,3 angles CNN,512,rho1,rho3,0.22,test accuracy
+Fig10,b,3 angles CNN,512,rho2,rho1,0.43,test accuracy
+Fig10,b,3 angles CNN,512,rho2,rho2,0.33,test accuracy
+Fig10,b,3 angles CNN,512,rho2,rho3,0.23,test accuracy
+Fig10,b,3 angles CNN,512,rho3,rho1,0.42,test accuracy
+Fig10,b,3 angles CNN,512,rho3,rho2,0.33,test accuracy
+Fig10,b,3 angles CNN,512,rho3,rho3,0.21,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho1,rho1,0.44,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho1,rho2,0.31,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho1,rho3,0.22,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho2,rho1,0.48,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho2,rho2,0.36,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho2,rho3,0.22,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho3,rho1,0.47,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho3,rho2,0.36,test accuracy
+Fig10,b,3 dihedrals CNN,512,rho3,rho3,0.22,test accuracy

@@ -87,6 +87,6 @@ None.
 - Later work building on this paper: CEWW24 (PatternBoost, [49] there), GGTW25.
 
 ## Extraction notes
-- All text pages 1–19 read; pp. 20–23 are references and the 146-set (4,4)-system listing (appendix on p. 22–23, not transcribed). Statements checked against page images for Conjecture 2.3 and Conjecture 2.7 (pp. 8, 12).
+- All text pages 1–19 read; pp. 20–23 are references and the 146-set (4,4)-system listing (Appendix A, pp. 22–23) transcribed verbatim to `wiki/data/Wagner21_appendixA_146_set.txt` (2026-11-12; 146 pairs of disjoint 4-subsets of {1,…,11}, counts verified). Statements checked against page images for Conjecture 2.3 and Conjecture 2.7 (pp. 8, 12).
 - Lattice relevance: none to knots or lattice polygons; relevance as an early RL (deep cross-entropy) search-for-constructions paper; search space = binary strings; reward black-box.
 - ⚠ p. 6 threshold notation; ⚠ f(T) formula garbled in text layer.

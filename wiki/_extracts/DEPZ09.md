@@ -99,6 +99,18 @@ None.
 - **Fig. 27 (p. 49)** — "The rectangles R_0, R_1, R_2 and R′. The rectangles R_1 and R_2 are the base rectangles of the boxes B_1 and B_2." Image: ../figures/DEPZ09/p49.png
 - **Fig. 28 (p. 51)** — "Reroute the edges at a vertex to recover the desired under/over crossing." Image: ../figures/DEPZ09/p51.png
 
+
+- **Fig. 14 (p. 31)** — "(2) Create a (rectangular) box B0 which includes both boxes B1 …" (reconnection construction, step 2; top view). Per-figure entry added 2026-11-12 from the caption text layer; the image is in the Figures list above.
+- **Fig. 15 (p. 32)** — "How G1 and G2 are reconnected: The connecting …" (reconnection of the two grid-like graphs through the connecting rectangle).
+- **Fig. 16 (p. 32)** — "The edges on the connecting rectangle of Figure 15 are grid-like and two new blue squares with blue bands and triangles have been created. The Figure is not to scale …".
+- **Fig. 17 (p. 33)** — "Top view of an example for case 5′. In this case the original linear order of the edges at the blue vertex v_b …".
+- **Fig. 18 (p. 34)** — "Shown are the three blue bands B_vb1, B_vb2, … " (extension vectors of the three blue bands).
+- **Fig. 21 (p. 38)** — "An edge path from the base rectangle R1 (or R2) to …" (edge path used in the topology-preservation argument of §7).
+- **Fig. 22 (p. 39)** — "A top view of two nested hooks and their relative positions with the other edges involved in the same blue square: the thick line segment represents the segment L …".
+- **Fig. 23 (p. 39)** — "How a small hook (loop) is isotoped along a blue band into the plane z = 0. The edge on the right is dashed because it might have to be stretched …".
+- **Fig. 24 (p. 40)** — "How G^g_1 looks after it is shrank to fit in R_s".
+- **Fig. 25 (p. 40)** — "By Lemma 2.3, there exists a plane isotopy ξ: R1 × [0,1] → R1 …".
+- **Fig. 26 (p. 41)** — "Two middle steps of the “dragging” isotopy: the graph is in the gray area and not explicitly shown to keep the drawing simple. The blue band on the boundary of R_s …".
 ## Stated limitations, open problems, future work
 - p. 2: "It remains an open question whether O(Cr(K)) is the general ropelength upper bound for any knot K."
 - p. 51–52: Questions 9.2, 9.3, 9.4 remain open; best possible improvement is reducing the power of ln.
