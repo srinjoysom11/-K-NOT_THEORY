@@ -5,7 +5,8 @@
   "key": "CFM02",
   "note": "",
   "sha1": "1c42bf9f14f0ca7b45a0807aaaed62ebdc60b565",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/1_core_lattice_length/Croll_2018_BiEntropy_knots_simple_cubic_lattice_1802.03772.pdf": {
   "added": "2026-11-11",
@@ -13,7 +14,8 @@
   "key": "Croll18",
   "note": "",
   "sha1": "37dd4e741f32605774073cf2b088e155e8e5b689",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/1_core_lattice_length/Gasumova-JvR-Rechnitzer_2012_Lattice_knots_in_a_slab_1204.6674.pdf": {
   "added": "2026-11-11",
@@ -21,7 +23,8 @@
   "key": "GJvRR12",
   "note": "",
   "sha1": "e3e3c80043fe84a1d7b4a5f80332c64b2764365b",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/1_core_lattice_length/Hong-Kim-No-Oh_2014_Min_lattice_length_and_ropelength_1411.1845.pdf": {
   "added": "2026-11-11",
@@ -47,7 +50,8 @@
   "key": "HHKNO14",
   "note": "",
   "sha1": "88350217750954a783e1817863e255a9d07a5fe5",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/1_core_lattice_length/Ishihara-et-al_2012_Min_step_number_knots_in_slabs_TECHREPORT.pdf": {
   "added": "2026-11-11",
@@ -64,7 +68,8 @@
   "key": "JvRR11",
   "note": "",
   "sha1": "e0d7ce23b2bd204504e835cd52d9de85b3e5d7ab",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/1_core_lattice_length/JvR-Rechnitzer_2012_Compressibility_of_minimal_lattice_knots_1203.3212.pdf": {
   "added": "2026-11-11",
@@ -72,7 +77,8 @@
   "key": "JvRR12comp",
   "note": "",
   "sha1": "45497a06ebe6ef5298234f6f0d2f899f593854ca",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/1_core_lattice_length/Mann-McLoudMann_Cube_knots.pdf": {
   "added": "2026-11-11",
@@ -80,7 +86,8 @@
   "key": "MannML",
   "note": "",
   "sha1": "f50c885715df7610dfe28b97bfd7997b9f3e012a",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/2_algorithms/Ashton-Cantarella-Piatek-Rawdon_2010_Knot_tightening_gradient_descent_1002.1723.pdf": {
   "added": "2026-11-11",
@@ -120,7 +127,8 @@
   "key": "JvRR10bfacf",
   "note": "",
   "sha1": "43aa655f74fa92f6cb34442da3117f6dba712f1e",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/2_algorithms/JvR-Rechnitzer_2011_Universality_of_knot_probability_ratios_1101.4047.pdf": {
   "added": "2026-11-11",
@@ -154,7 +162,8 @@
   "key": "Ozawa26geom",
   "note": "",
   "sha1": "240686af8ec1ba7d1efaa8b452041b58028aac8c",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/2_algorithms/Ozawa_2026_Merge_trees_lattice_knot_spaces_BFACF_2605.25322.pdf": {
   "added": "2026-11-11",
@@ -178,7 +187,8 @@
   "key": "CKS01",
   "note": "",
   "sha1": "3ea74ac0a3cb52102abe49a863ef4e26a9fb8ed6",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Denne-Diao-Sullivan_2004_Quadrisecants_ropelength_lower_bounds_math0408026.pdf": {
   "added": "2026-11-11",
@@ -186,7 +196,8 @@
   "key": "DDS04",
   "note": "",
   "sha1": "1affefd5a8a0f9fabe56883b787622841a280404",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Diao-Ernst-Por-Ziegler_2009_Ropelengths_almost_linear_0912.3282.pdf": {
   "added": "2026-11-11",
@@ -194,7 +205,8 @@
   "key": "DEPZ09",
   "note": "",
   "sha1": "25d9dfdc1eb7dfd2e04868e97a66c6f159e95e60",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Diao_2019_Braid_index_bounds_ropelength_below_1901.10663.pdf": {
   "added": "2026-11-11",
@@ -220,7 +232,8 @@
   "key": "HNO12stick",
   "note": "",
   "sha1": "e93327952eb53bba82fd7d90bd445da19139a860",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Huh-Oh_2015_Knots_small_lattice_stick_numbers_1512.03582.pdf": {
   "added": "2026-11-11",
@@ -228,7 +241,8 @@
   "key": "HO15",
   "note": "",
   "sha1": "d6354207472d855662554969840469564c67e6ec",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Jin-Lee_2011_Arc_index_smaller_than_crossing_number_1106.2723.pdf": {
   "added": "2026-11-11",
@@ -236,7 +250,8 @@
   "key": "JL11",
   "note": "",
   "sha1": "21c5c7055b7bc79a43c1b287ab9a9db43b8eb86f",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Klotz-Anderson_2023_Ropelength_writhe_12-crossing_2305.17204.pdf": {
   "added": "2026-11-11",
@@ -253,7 +268,8 @@
   "key": "KM21",
   "note": "",
   "sha1": "a8a58ed90e90155808f73a1f4adfe4dadd8778bd",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Klotz-Thompson_2025_Concentric_helices_torus_knots_2504.00861.pdf": {
   "added": "2026-11-11",
@@ -261,7 +277,8 @@
   "key": "KT25",
   "note": "",
   "sha1": "d132f0839bbabdedb56c41be9676d16fa61184ab",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Klotz_2026_LLM-assisted_advances_ropelength_2611.14234.pdf": {
   "added": "2026-11-11",
@@ -269,7 +286,8 @@
   "key": "Klotz26llm",
   "note": "",
   "sha1": "0457c6f96b4851279d669dd0791c4964e2dcfb7c",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/3_analytic_bounds/Klotz_2026_Pearl_necklace_vs_FCC_lattice_knots_2608.19441.pdf": {
   "added": "2026-11-11",
@@ -304,7 +322,8 @@
   "key": "BPS26",
   "note": "",
   "sha1": "c65f324ca817b766935c5569fed76d1a679eb58d",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/4_links/Hong-No-Oh_2014_Links_small_lattice_stick_numbers_1402.1642.pdf": {
   "added": "2026-11-11",
@@ -328,7 +347,8 @@
   "key": "Klotz26tqq",
   "note": "",
   "sha1": "50c84a9d6311dce3f424062fcbb51a4c43a79ce7",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/4_links/Komendarczyk-Michaelides_2016_Ropelength_finite_type_invariants_links_1604.03870.pdf": {
   "added": "2026-11-11",
@@ -336,7 +356,8 @@
   "key": "KM16",
   "note": "",
   "sha1": "2ad709cf684c355e594bce919aaf538f927e43f0",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/4_links/Naimi-Pavelescu-Pavelescu_2018_Escher_squares_lattice_links_1804.04724.pdf": {
   "added": "2026-11-11",
@@ -352,7 +373,8 @@
   "key": "YLO18",
   "note": "",
   "sha1": "9d446e1bc50456c58e09e0f2d5cfada24d60f0c7",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Applebaum-et-al_2024_Unknotting_number_RL_2409.09032.pdf": {
   "added": "2026-11-11",
@@ -369,7 +391,8 @@
   "key": "BKBO22",
   "note": "",
   "sha1": "b399d5d209564c5fa5e1ab0d0eb37f96fbe6c355",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Cantarella-Schumacher-Shonkwiler_2026_Hard_unknots_often_easy_2607.28772.pdf": {
   "added": "2026-11-11",
@@ -377,7 +400,8 @@
   "key": "CSS26",
   "note": "",
   "sha1": "fc4a56d7f63292f3cae11bef72a1ae51eeae566a",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Charton-Ellenberg-Wagner-Williamson_2024_PatternBoost_2411.00566.pdf": {
   "added": "2026-11-11",
@@ -385,7 +409,8 @@
   "key": "CEWW24",
   "note": "",
   "sha1": "26b6eaaa17c260ec5ea1071fbbf2111247966130",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Davies-Juhasz-Lackenby-Tomasev_2021_Signature_cusp_geometry_2111.15323.pdf": {
   "added": "2026-11-11",
@@ -393,7 +418,8 @@
   "key": "DJLT21",
   "note": "",
   "sha1": "ef8dd2f7ee96115449e60f091820c9ab9fe985ea",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Espitia-Pang-Gumbart_2024_3D_HP_model_deep_RL_2412.20329.pdf": {
   "added": "2026-11-11",
@@ -401,7 +427,8 @@
   "key": "EPG24",
   "note": "",
   "sha1": "80593a44b59789d180c755826219fb9799febc13",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Georgiev-GomezSerrano-Tao-Wagner_2025_Math_exploration_at_scale_AlphaEvolve_2511.02864.pdf": {
   "added": "2026-11-11",
@@ -417,7 +444,8 @@
   "key": "GHRS20",
   "note": "",
   "sha1": "02ac14db7c03fd2fe59aa6aab2498fe4721c689f",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Halverson-Ruehle_2025_Learning_topological_invariance_2504.12390.pdf": {
   "added": "2026-11-11",
@@ -425,7 +453,8 @@
   "key": "HR25",
   "note": "",
   "sha1": "8f1667e64d2885a75d5c602aafe6bb6dff948695",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Novikov-et-al_2025_AlphaEvolve_2506.13131.pdf": {
   "added": "2026-11-11",
@@ -459,7 +488,8 @@
   "key": "Wagner21",
   "note": "",
   "sha1": "250909ee6b3a6529ff6bb6c4b4894f56c9456799",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Wust-Landau_2012_Wang-Landau_lattice_polymers_HP_1207.3974.pdf": {
   "added": "2026-11-11",
@@ -475,7 +505,8 @@
   "key": "Yang22",
   "note": "",
   "sha1": "4a65ce31d314a5feff71ca70d41f015d4d27b1c4",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/5_ml_rl/Zhang-Zhu-Dai_2025_Recognizing_generating_knotted_structures_ML_2501.12780.pdf": {
   "added": "2026-11-11",
@@ -483,7 +514,8 @@
   "key": "ZZD25",
   "note": "",
   "sha1": "777d022b0a257607952ea6c942c9fb376aebcc56",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/diao1993.pdf": {
   "added": "2026-11-11",
@@ -509,7 +541,8 @@
   "key": "HNOR15",
   "note": "",
   "sha1": "5343b8104435244efff67c1b5051e0a06490cb7c",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/rensburg1991.pdf": {
   "added": "2026-11-11",
@@ -517,7 +550,8 @@
   "key": "JvRW91",
   "note": "",
   "sha1": "d934fab16a00da41d6da6303ff7958fb9701cead",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/scharein2009.pdf": {
   "added": "2026-11-11",
@@ -525,7 +559,8 @@
   "key": "Scharein09",
   "note": "",
   "sha1": "658ec0949cb9bd62ee27d03bfd6bbeed7d6e9b44",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/soteros1992.pdf": {
   "added": "2026-11-11",
@@ -533,7 +568,8 @@
   "key": "SSW92",
   "note": "",
   "sha1": "6530ef51072781d3c40de68af8f47a4bc95e8519",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  },
  "papers/vanrensburg1995.pdf": {
   "added": "2026-11-11",
@@ -541,6 +577,7 @@
   "key": "JvRP95",
   "note": "",
   "sha1": "afe5b37852cda3b09c46c047402aea9f5d303679",
-  "state": "todo"
+  "state": "extracted",
+  "updated": "2026-11-11"
  }
 }

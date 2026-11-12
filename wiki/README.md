@@ -36,6 +36,6 @@ Links from written pages to pending pages may dangle until those exist.
 * `tools/page_text.sh KEY first last` — per-page text with true PDF page numbers; `tools/render_pages.sh KEY p…` — 80-dpi page renders into `figures/KEY/`.
 * `tools/build_tables.py` — regenerates the minimal-length table page; `tools/build_sources.py` — regenerates SOURCES.md.
 
-## Processing state (11 Nov 2026, in progress)
+## Processing state (11 Nov 2026)
 
-66 PDFs registered (CFM02 = `papers/0210245v2.pdf` and SSW92 = `papers/soteros1992.pdf` added today). Extraction is running in three batches; each new extract is reviewed against its PDF (statement/table/figure coverage script plus a read of the statements, with image checks of key constants) before it is used in a topic page.
+66 PDFs registered; 53 have extracts, 13 do not. **See [HANDOFF.md](HANDOFF.md) for what remains and how to continue.**
