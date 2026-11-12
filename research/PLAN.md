@@ -22,7 +22,7 @@ Len(K) = least number of unit steps of a simple-cubic lattice polygon of knot ty
 First benchmark numbers [C] (12 hard knots × 20 runs, budget 16 million attempted moves, seeds 1–20):
 Scharein-style annealing solved 129 of 240 runs; the first untuned version of the new "record-to-record" method (z = 0.10, Δ = 4) solved 100 of 240. **So the first new idea, untuned, is worse than the baseline.** Nothing below has been shown to beat annealing yet.
 
-Decisions already taken by the team: no replica exchange / parallel tempering. (For the record: the prior work found was Zhu's 2019 Wang–Landau thesis, which studies writhe and reports no minimal lengths; no replica-exchange paper on this problem was found.)
+Replica exchange is in scope (task T3f). The only related prior work found is Zhu's 2019 Wang–Landau thesis, which studies writhe and reports no minimal lengths; no replica-exchange or parallel-tempering paper aimed at minimal lattice lengths was found. A search finding nothing is not proof of novelty: check again before claiming it in the paper.
 
 ## 1. Rules for every task
 
@@ -85,6 +85,15 @@ Each is a small addition to `code/bench.cpp` plus a sweep; all keep rule 1 intac
 - **T3d. Symmetric search.** Check which literature-minimal polygons of the hard set are invariant under a lattice rotation (`data/rechnitzer_SC_minimal.csv`). If several are, add a mode that applies each move together with its image under that symmetry and searches only symmetric polygons. Files: `code/symmetry_check.py`, then a mode in `bench.cpp`.
 - **T3e. Learned move policy (the machine-learning entry).** A table of acceptance multipliers indexed by a small local context (the move type and the five step letters around the chosen edge). Train by the cross-entropy method: sample tables, score each on the benchmark, keep the top 10%, refit, repeat (Wagner, arXiv 2104.14516). The result is an explicit table a student can read. Files: `code/policy_cem.py`, policy file read by `bench.cpp`.
 
+- **T3f. Replica exchange (parallel tempering) on BFACF.** Add method `rex R ZMIN ZMAX S` to `bench.cpp`.
+  - R copies of the polygon, each with its own `Annealer`, at fixed fugacities z_1 < … < z_R spaced geometrically from ZMIN to ZMAX, all below the critical value 0.2134 (or above it only together with the T3a cap).
+  - Loop: every copy makes S attempted moves at its own fugacity; then propose swapping the polygons of neighbouring copies i and i+1, alternating even and odd pairs.
+  - Swap rule: accept with probability min(1, (z_i / z_j)^(n_j − n_i)), where n is the current length of each polygon. Derivation to include in the write-up: our engine picks a vertex uniformly, so at fixed fugacity the long-run weight of a polygon of length n is proportional to n·zⁿ (compare `wiki/algorithms/bfacf-and-gas.md`, eq. 9 of JvRR10bfacf); in the swap ratio the factors n cancel and only the powers of z remain. Verify this numerically on the trefoil before trusting it: with swaps on, the length histogram of each copy must match the histogram of a single run at the same fugacity.
+  - Budget fairness: every attempted move of every copy counts toward the budget B, so 8 copies get 2 million moves each at the standard setting. Best length is taken over all copies. Swaps are free.
+  - Certificate: each copy only ever makes BFACF moves and a swap only relabels which fugacity a polygon runs at, so rule 1 holds unchanged. Record the RNG seed; use one RNG stream per run so results do not depend on thread timing.
+  - Sweep: R ∈ {4, 8, 16}; ZMIN ∈ {0.01, 0.02}; ZMAX ∈ {0.10, 0.15, 0.20}; S ∈ {100, 1,000, 10,000}. Also log the swap acceptance rate per pair; rates far from 20–50% mean the ladder is badly spaced.
+  - What would make it a result: a clear win over the tuned baseline of T2 on the hard set and on the held-out set. What would make it a non-result: matching the baseline, which is the likely outcome if the difficulty is rarity of the target and not barriers between regions.
+
 Done when (each): sweep CSV in `out/bench/`, a row in the results table, and a one-line verdict against the tuned baseline, including "worse" if it is worse.
 
 ### T4. Methods that leave the BFACF move set (need T1 first)
@@ -118,6 +127,6 @@ Done when: the page shows the two methods already in `out/bench/raw.txt` and upd
 
 ## 4. Order and dependencies
 
-T1 and T2 first, in parallel (different files). Then T3a–T3e in parallel, T5 alongside. T4 after T1. T6 after T2/T3 pick a winner. T7 any time.
+T1 and T2 first, in parallel (different files). Then T3a–T3f in parallel, T5 alongside. T4 after T1. T6 after T2/T3 pick a winner. T7 any time.
 
-Suggested staffing: T2, T3a, T3b, T5, T6 and T7a are mechanical and suit a cheaper model. T1 needs care with builds and with interpreting disagreements. T3c, T3d, T4 and T7b need design judgement; review their output before trusting it.
+Suggested staffing: T2, T3a, T3b, T3f, T5, T6 and T7a are mechanical and suit a cheaper model. T1 needs care with builds and with interpreting disagreements. T3c, T3d, T4 and T7b need design judgement; review their output before trusting it.
