@@ -385,14 +385,14 @@ K11n16,N,11,60,60,60,0,rest,0,-0.95,27,True,snappy+alexander (unchanged word),1:
 K11n17,N,11,62,62,62,0,targeted,0,1.05,29,True,snappy+alexander (unchanged word),1:1001,-,-,ennnwwsssseeeennwddwwuuuesssddnnnneesswuuuwnwwndwddeeuuuussddd
 K11n18,N,11,60,60,60,0,rest,0,-0.95,31,True,snappy+alexander (unchanged word),1:1001,-,-,uneeeeeddwwwuwnneeesssuuwnwndddwssuusesddnnuuuuenndddssswwwn
 K11n19,N,9,56,56,56,0,rest,0,0.64,30,True,snappy+alexander (unchanged word),1:1001,-,-,wuwswddeseuueennndwwwsssseennunnnddssseueuuwwwddddneeuuw
-K11n20,N,10,60,60,60,0,targeted,0,1.84,32,True,snappy+alexander (unchanged word),1:1001,-,-,ueeeddwwwwnddeeuuwuueeuessswwnnnnddsssuwuueedddnndnwdwsssuun
+K11n20,N,10,60,60,60,0,targeted,200,1.84,32,True,snappy+alexander (unchanged word),1:1001,-,-,ueeeddwwwwnddeeuuwuueeuessswwnnnnddsssuwuueedddnndnwdwsssuun
 K11n21,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1007,-,-,ddnnndwwuwnneesssswwdnnneuuussdddeeeuuunwwdwwsseeeeennwwsuss
 K11n22,N,11,62,62,62,0,targeted,0,1.05,32,True,snappy+alexander (unchanged word),1:1001,-,-,esdsesuunnddnwwwssueeeeuuwwwnddddnnuuuuessdswwnnnneesswuwwddee
-K11n23,N,10,60,60,60,0,targeted,0,1.84,30,True,snappy+alexander (unchanged word),1:1003,-,-,dssuuuussddddwnnuneesssswwnnedeeuuwwwnuunnddseeusswwwnneendd
-K11n24,N,10,60,60,60,0,targeted,0,1.84,28,True,snappy+alexander (unchanged word),1:1001,-,-,wnneeeeuuwwdwwsseenddnnuwuussdddssseennnnnuussssdwddneeuuwww
+K11n23,N,10,60,60,60,0,targeted,200,1.84,30,True,snappy+alexander (unchanged word),1:1003,-,-,dssuuuussddddwnnuneesssswwnnedeeuuwwwnuunnddseeusswwwnneendd
+K11n24,N,10,60,60,58,2,targeted,200,-0.16,28,True,snappy+alexander,1:1001,-,4:604021,suswuwwwddeeenuuuuwwddeneessswwwdnnwnneesssssuunnnnwdddeee
 K11n25,N,11,60,60,60,0,rest,0,-0.95,28,True,snappy+alexander (unchanged word),1:1002,-,-,euuusswwwwdddneeuuuussdddennnneeusswwnnwwdssseuesswwnnnnedde
 K11n26,N,11,60,60,60,0,rest,0,-0.95,31,True,snappy+alexander (unchanged word),1:1003,-,-,esuuuwwddddnnuuusuuwwddesseennunwwsswdddseeeunnwwwwsseendnee
-K11n27,N,10,60,60,60,0,targeted,0,1.84,32,True,snappy+alexander (unchanged word),1:1001,-,-,deeeeesswwuwnnnneessuussddnddnnwuuueesswwwwdnnddsesueunuwwwd
+K11n27,N,10,60,60,60,0,targeted,200,1.84,32,True,snappy+alexander (unchanged word),1:1001,-,-,deeeeesswwuwnnnneessuussddnddnnwuuueesswwwwdnnddsesueunuwwwd
 K11n28,N,11,58,58,58,0,rest,0,-2.95,28,True,snappy+alexander (unchanged word),1:1001,-,-,wsuuuunndddwssuuussddeednnnwuwnneesssswdssuunnwwnneeeedddw
 K11n29,N,11,62,62,62,0,targeted,0,1.05,32,True,snappy+alexander (unchanged word),1:1001,-,-,uuneeuuwwdnndwwwssdseennnnuussswdddeeenuuwwwuueeedssddnwnddssu
 K11n30,N,11,60,60,60,0,rest,0,-0.95,31,True,snappy+alexander (unchanged word),1:1003,-,-,uuusseeesddwddnnuuusssddennwwnunneessswwsuuunnddwwnneeseddww
@@ -402,7 +402,7 @@ K11n33,N,11,62,62,62,0,targeted,0,1.05,33,True,snappy+alexander (unchanged word)
 K11n34,N,11,60,60,60,0,rest,0,-0.95,27,True,snappy+alexander (unchanged word),1:1001,-,-,wwwuueeeedddswwuuuunnnddsdwwuueeeeddnwwwusssseennnneesdsswwn
 K11n35,N,11,62,62,62,0,targeted,0,1.05,33,True,snappy+alexander (unchanged word),1:1001,-,-,nnunwwsswuueeeeddwwdwnwuuessseennnnnuussdwdddneeuuuwwusssddded
 K11n36,N,11,62,62,62,0,targeted,0,1.05,31,True,snappy+alexander (unchanged word),1:1001,-,-,nnnuussseddndddwwuuuueeesddwwwwnunennddssueeuuwwnwddeedssssuun
-K11n37,N,10,60,60,60,0,targeted,0,1.84,30,True,snappy+alexander (unchanged word),1:1001,-,-,uwuuneeddwwwwsseeeunnnddsddwwuuessedennnwwssssuuwunnddddeeuu
+K11n37,N,10,60,60,60,0,targeted,200,1.84,30,True,snappy+alexander (unchanged word),1:1001,-,-,uwuuneeddwwwwsseeeunnnddsddwwuuessedennnwwssssuuwunnddddeeuu
 K11n38,N,9,56,56,56,0,rest,0,0.64,28,True,snappy+alexander (unchanged word),1:1001,-,-,uuuseedddwddeeuuusswwnnneendedssswwnnwnuuussseddeennwwww
 K11n39,N,11,60,60,60,0,rest,0,-0.95,27,True,snappy+alexander (unchanged word),1:1001,-,-,eeennwwnuussddddnnueuuswwwddeeeedennwwsssuuuennddddwwwuuusss
 K11n40,N,11,62,62,62,0,targeted,0,1.05,31,True,snappy+alexander (unchanged word),1:1001 3:3008,-,-,wwnnneuueeedsdwwwuwnneesssssddnnnnueusuussddndddwwuuuueeedsdww
@@ -413,7 +413,7 @@ K11n44,N,11,64,64,64,0,targeted,200,3.05,31,True,snappy+alexander (unchanged wor
 K11n45,N,11,62,62,62,0,targeted,0,1.05,30,True,snappy+alexander (unchanged word),1:1001,-,-,ededdnnnwwssssuunnendddwwwussesuunnnddsdwwuueeeeeesswwnwwwuuee
 K11n46,N,11,62,62,62,0,targeted,0,1.05,28,True,snappy+alexander (unchanged word),1:1006,-,-,eneeeddwwwwunneeesssswddnnnuuuussdddesswwnwwnnneeusssswddnnuuu
 K11n47,N,11,62,62,62,0,targeted,0,1.05,31,True,snappy+alexander (unchanged word),1:1001,-,-,uuswsddddeeeuuusuwwwddeeeennwwnuussdssddnnnenuuswwwwssseenndnn
-K11n48,N,10,60,60,60,0,targeted,0,1.84,33,True,snappy+alexander (unchanged word),1:1001,-,-,eenunuunnedddssdwwwwuueedendeeuuuwwwddddssuuuueendnwnwwsdsss
+K11n48,N,10,60,60,60,0,targeted,200,1.84,33,True,snappy+alexander (unchanged word),1:1001,-,-,eenunuunnedddssdwwwwuueedendeeuuuwwwddddssuuuueendnwnwwsdsss
 K11n49,N,10,56,56,56,0,rest,0,-2.16,28,True,snappy+alexander (unchanged word),1:1001,-,-,dwwsswwnnneeeeuesuswwwwdddeeuunnuwusssddnnnndwdssuuueeed
 K11n50,N,10,58,58,58,0,rest,0,-0.16,27,True,snappy+alexander (unchanged word),1:1002,-,-,uunndeddssuuuueeddddssuuunwnnwdwwsseeennnndwwsseeeesswwwwn
 K11n51,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1001,-,-,desswwnnwuwwuueeeesddddwwuuuuunnddswsseeeennndwwssssuunndned
@@ -430,7 +430,7 @@ K11n61,N,10,58,58,58,0,rest,0,-0.16,27,True,snappy+alexander (unchanged word),1:
 K11n62,N,11,60,60,60,0,rest,0,-0.95,33,True,snappy+alexander (unchanged word),1:1001,-,-,ddwwuuuuwwnddsdedssuunnnnddwsssueeenneuuwwddwwwusueenneedsse
 K11n63,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1003 2:2004,-,-,wuuwwdddwwusuueeddsddnnnuuuwssseennneesswddwwwunnneesssseenn
 K11n64,N,11,60,60,60,0,rest,0,-0.95,32,True,snappy+alexander (unchanged word),1:1001,-,-,uuwssseddednnnuusssswwnneuuwnwddeeueeeddwwwwnneeuesssdwwdnnu
-K11n65,N,10,60,60,60,0,targeted,0,1.84,31,True,snappy+alexander (unchanged word),1:1003,-,-,dsdwwwsseednnnnuusssseeenunwwwnwddeeesususwwwdndddeeuuuuunnd
+K11n65,N,10,60,60,60,0,targeted,200,1.84,31,True,snappy+alexander (unchanged word),1:1003,-,-,dsdwwwsseednnnnuusssseeenunwwwnwddeeesususwwwdndddeeuuuuunnd
 K11n66,N,11,62,62,62,0,targeted,0,1.05,32,True,snappy+alexander (unchanged word),1:1001,-,-,wwusseeeeeddwwunuwussswwnneueseddddwwuuuuwnndedddeeeussswwnnnn
 K11n67,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1001,-,-,dwwsuueeeeesswwunnndddsesuuuuwwwddeeddwnwunneeesswwssuunnndd
 K11n68,N,11,62,62,62,0,targeted,0,1.05,30,True,snappy+alexander (unchanged word),1:1003,-,-,wwwddeeeennwwswusssueeneuuwwddddeesuuuwnnnddddsssuunnwnneeussw
@@ -460,34 +460,34 @@ K11n91,N,11,60,60,60,0,rest,0,-0.95,32,True,snappy+alexander (unchanged word),1:
 K11n92,N,10,58,58,58,0,rest,0,-0.16,27,True,snappy+alexander (unchanged word),1:1001,-,-,uussswddnnndwwuueeneesswwwwddeeeesswwwnunnnuuesssdedddnnuu
 K11n93,N,11,62,62,62,0,targeted,0,1.05,33,True,snappy+alexander (unchanged word),1:1001,-,-,wwwnwnneessussseennwuwnneendddswwwuueeesusswdddnnuuuunndddsess
 K11n94,N,11,60,60,60,0,rest,0,-0.95,26,True,snappy+alexander (unchanged word),1:1001,-,-,needdennwwusssssseennnnnwddssssuuuunndddwwwusueeeeeddwwwwunu
-K11n95,N,9,58,58,58,0,targeted,0,2.64,30,True,snappy+alexander (unchanged word),1:1001,-,-,ssswuuunnddddwswuuueeeesswwwndnnneeeddwwuwsseuesuunnndndds
+K11n95,N,9,58,58,58,0,targeted,200,2.64,30,True,snappy+alexander (unchanged word),1:1001,-,-,ssswuuunnddddwswuuueeeesswwwndnnneeeddwwuwsseuesuunnndndds
 K11n96,N,10,58,58,58,0,rest,0,-0.16,29,True,snappy+alexander (unchanged word),1:1001,-,-,nueeseeddwwwuuueessdwdddnnnuusswsseennnnuuuwssddeeddwwwwnu
 K11n97,N,11,58,58,58,0,rest,0,-2.95,26,True,snappy+alexander (unchanged word),1:1001,-,-,wwwddddssuuseeennwwwwnnueesssddswwnneeennuusssdddwnnuueeuu
 K11n98,N,11,60,60,60,0,rest,0,-0.95,30,True,snappy+alexander (unchanged word),1:1001,-,-,uwnwwwwsseendnnuuueedssswwnnwnneessueedddwsswwwnuuueeddddeeu
-K11n99,N,10,60,60,60,0,targeted,0,1.84,34,True,snappy+alexander (unchanged word),1:1001,-,-,usssuunnndnwwwsuueeesedsdwwuwnnnnddesssdeeuuwwuuunnddsdwddee
+K11n99,N,10,60,60,60,0,targeted,200,1.84,34,True,snappy+alexander (unchanged word),1:1001,-,-,usssuunnndnwwwsuueeesedsdwwuwnnnnddesssdeeuuwwuuunnddsdwddee
 K11n100,N,11,60,60,60,0,rest,0,-0.95,30,True,snappy+alexander (unchanged word),1:1001,-,-,unndddnnwwwsseesdssuunnnwndddssuuuueeesddwwwwdnneenuueesswsu
 K11n101,N,11,58,58,58,0,rest,0,-2.95,27,True,snappy+alexander (unchanged word),1:1004 2:2005,-,-,nuuussdddwnnnneessssuunwwndnwwsseeeeeddwnwwwuuuneeddddssuu
 K11n102,N,10,56,56,56,0,rest,0,-2.16,27,True,snappy+alexander (unchanged word),1:1001,-,-,wuuueedsddwwuuueeedddnnwuuuuwsssddnnnwdwssseennnneesswdw
 K11n103,N,11,62,62,62,0,targeted,0,1.05,31,True,snappy+alexander (unchanged word),1:1001,-,-,nuussesddddnenuusssdwwwuuwnnneeeuuwwdsdddeeeeuuwwwswdwsseennnn
 K11n104,N,10,56,56,56,0,rest,0,-2.16,27,True,snappy+alexander (unchanged word),1:1003,-,-,dssswwwnneennnwdwssseeeeuuwwnnwdddsssuuunnddedssuuuunend
 K11n105,N,11,62,62,62,0,targeted,0,1.05,32,True,snappy+alexander (unchanged word),1:1001,-,-,nneesssssddnwnuuuuueeddwswwdndnneuuusessedddwwwwuunneeeeddwwuw
-K11n106,N,10,60,60,60,0,targeted,0,1.84,32,True,snappy+alexander (unchanged word),1:1001,-,-,sseueunnwwwwdsseennennuwuuwssdsddddeeuuuunnnnwwsseueeddwwdds
-K11n107,N,10,60,60,60,0,targeted,0,1.84,30,True,snappy+alexander (unchanged word),1:1001,-,-,ssuuwnndddeeeesswwwnwdddseeuunuuuwwdsdddeneeuuusswddwnnnnuus
+K11n106,N,10,60,60,60,0,targeted,200,1.84,32,True,snappy+alexander (unchanged word),1:1001,-,-,sseueunnwwwwdsseennennuwuuwssdsddddeeuuuunnnnwwsseueeddwwdds
+K11n107,N,10,60,60,60,0,targeted,200,1.84,30,True,snappy+alexander (unchanged word),1:1001,-,-,ssuuwnndddeeeesswwwnwdddseeuunuuuwwdsdddeneeuuusswddwnnnnuus
 K11n108,N,11,62,62,62,0,targeted,0,1.05,31,True,snappy+alexander (unchanged word),1:1005,-,-,dennnwwuuussseennnndwwwsseeeedsddwwuuuuueeddwdnnuwunnddssswsse
 K11n109,N,11,62,62,62,0,targeted,0,1.05,28,True,snappy+alexander (unchanged word),1:1008,-,-,uesssddddnnuunnwuwssseennnedddssuuuuuwwdddseessdwwnneeennwwwuu
-K11n110,N,10,60,60,60,0,targeted,0,1.84,32,True,snappy+alexander (unchanged word),1:1005,-,-,ennwwssssddnenueeeuuwwnwddedssuuuwwwddeeseuuunnenddsssswwnnn
+K11n110,N,10,60,60,60,0,targeted,200,1.84,32,True,snappy+alexander (unchanged word),1:1005,-,-,ennwwssssddnenueeeuuwwnwddedssuuuwwwddeeseuuunnenddsssswwnnn
 K11n111,N,10,54,54,54,0,rest,0,-4.16,22,True,snappy+alexander (unchanged word),1:1001,-,-,dwwwnnuusssseennwnnuusssdddddnnuuwwuueeeddswwwuueeeedd
 K11n112,N,11,60,60,60,0,rest,0,-0.95,33,True,snappy+alexander (unchanged word),1:1001,-,-,wnneeeseddwwwuuussdedssuunnnenenddwsssuuunwndddswssueeennwww
 K11n113,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1003,-,-,ssdednnnuneesswwwwwwnneesuueeedddnwwwssseueunnnwwwsdddeeuuus
 K11n114,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1001,-,-,wwwusswwnnenneeesssuunwnnwwsssdddeeunnueuuwwddddwwuuseeeeedd
 K11n115,N,11,60,60,60,0,rest,0,-0.95,24,True,snappy+alexander (unchanged word),1:1001,-,-,dddwwuuseeeeddwwwwwsseenunnnddsssseennnuussswwwndddeeuuuuunn
 K11n116,N,10,56,56,56,0,rest,0,-2.16,27,True,snappy+alexander (unchanged word),1:1001,-,-,nnunndddsssswwunnneeseuuswwdddwwunuueeddddeenuuuwwwsssee
-K11n117,N,10,60,60,60,0,targeted,0,1.84,26,True,snappy+alexander (unchanged word),1:1001,-,-,nnuussssdddnnneueeuuwwssdwwwnneeesdddwwuuuuueeeddnnddsssuwwn
+K11n117,N,10,60,60,60,0,targeted,200,1.84,26,True,snappy+alexander (unchanged word),1:1001,-,-,nnuussssdddnnneueeuuwwssdwwwnneeesdddwwuuuuueeeddnnddsssuwwn
 K11n118,N,9,56,56,56,0,rest,0,0.64,26,True,snappy+alexander (unchanged word),1:1003,-,-,nedddwwwsuuseeeuuwnnndddssswwwnneeueseuuuwwdddddessuuunn
 K11n119,N,11,62,62,62,0,targeted,0,1.05,28,True,snappy+alexander (unchanged word),1:1002,-,-,euuuwwddwwwnneeseddwwuuuueeeeddwsswwunnnneessssuunnwnddddwssee
 K11n120,N,11,60,60,60,0,rest,0,-0.95,25,True,snappy+alexander (unchanged word),1:1001,-,-,eedddddwwuuuunwwssdeeeeendndwwsssuuunnnnddssseeennuwwwwwsuue
 K11n121,N,11,60,60,60,0,rest,0,-0.95,30,True,snappy+alexander (unchanged word),1:1001 3:3004,-,-,sesswwwununnndeeesswwwwddeesssuunndnnnnuussdwdssddeeuuuunndd
-K11n122,N,10,60,60,60,0,targeted,0,1.84,33,True,snappy+alexander (unchanged word),1:1001,-,-,nnwwssdseeeennwwswuusseddddswsuunndnnnuuueesdddssswwwunuenen
+K11n122,N,10,60,60,60,0,targeted,200,1.84,33,True,snappy+alexander (unchanged word),1:1001,-,-,nnwwssdseeeennwwswuusseddddswsuunndnnnuuueesdddssswwwunuenen
 K11n123,N,11,62,62,62,0,targeted,0,1.05,28,True,snappy+alexander (unchanged word),1:1001,-,-,ssuunndeddwwwwwuueeendnnwwssssseennwnuueeessdwwwdddnnnuuueedss
 K11n124,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1008,-,-,dnnuuuusssddwnnnneessssuunndeddwwwwuuueueeseddwwwwwnneesedsd
 K11n125,N,11,60,60,60,0,rest,0,-0.95,26,True,snappy+alexander (unchanged word),1:1002,-,-,wuuuuunndddwssssuunnneeeedddwwsswwwuueeeenndwwuwnneesssdeddw
@@ -498,21 +498,21 @@ K11n129,N,11,60,60,60,0,rest,0,-0.95,31,True,snappy+alexander (unchanged word),1
 K11n130,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1001,-,-,eeuuuuwwddwdnnnuussssdeeeennwwwwwddeeeusssuunnnwuwwdndeedssd
 K11n131,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1001,-,-,eenndwwwwwsseendnenneesswsswwwnuuueeddddeeuuwunndddwwuuussse
 K11n132,N,10,58,58,58,0,rest,0,-0.16,30,True,snappy+alexander (unchanged word),1:1001,-,-,wwwwuuueneddddsseuuuuwwddnnneesswsdssuunnnwnwwssdeseeeennd
-K11n133,N,10,60,60,60,0,targeted,0,1.84,25,True,snappy+alexander (unchanged word),1:1001,-,-,neesssswwwnnwddeeesuuuunndddwwddsssuunneeeeuuwwwwswdddeeuunn
-K11n134,N,10,60,60,60,0,targeted,0,1.84,29,True,snappy+alexander (unchanged word),1:1005,-,-,wswsdddddnnuuuuseeeddnnwwwwsssuseennnnnddssuswuwwddeeeeunuuu
+K11n133,N,10,60,60,60,0,targeted,200,1.84,25,True,snappy+alexander (unchanged word),1:1001,-,-,neesssswwwnnwddeeesuuuunndddwwddsssuunneeeeuuwwwwswdddeeuunn
+K11n134,N,10,60,60,60,0,targeted,200,1.84,29,True,snappy+alexander (unchanged word),1:1005,-,-,wswsdddddnnuuuuseeeddnnwwwwsssuseennnnnddssuswuwwddeeeeunuuu
 K11n135,N,10,56,56,56,0,rest,0,-2.16,25,True,snappy+alexander (unchanged word),1:1001,-,-,ennnwwussseennnuwwssssdddnwnuuuueeddddeneuuuwwddwwwsseee
 K11n136,N,11,64,64,64,0,targeted,200,3.05,34,True,snappy+alexander (unchanged word),1:1001,-,-,wwuuuwwwsddeeeuesswwnnnnuwuussdddndeneessswuuuwnnwwssdeeneeedddn
 K11n137,N,11,62,62,62,0,targeted,0,1.05,33,True,snappy+alexander (unchanged word),1:1001,-,-,ddeeuuuuuwssddnnnedesdssuunnuussdednndndwwwsswuuueeeeeddwwwwnw
 K11n138,N,10,58,58,58,0,rest,0,-0.16,26,True,snappy+alexander (unchanged word),1:1002,-,-,sddddeeunnnwwwsssuuneendddwwsssueenndeeuuwwwwwdddeeuunuuus
 K11n139,N,10,56,56,56,0,rest,0,-2.16,27,True,snappy+alexander (unchanged word),1:1003,-,-,uuwwuueenneesddnnwwwsseeuuuwwddssddnneenuueesswwwnndddss
 K11n140,N,11,62,62,62,0,targeted,0,1.05,33,True,snappy+alexander (unchanged word),1:1001,-,-,eeeuuwwwndnnuusssesddddnnuwwwnuueeedesssswwnnenuuuwwdddndedssu
-K11n141,N,10,60,60,60,0,targeted,0,1.84,30,True,snappy+alexander (unchanged word),1:1001,-,-,dwwwnnneesseessswwnunneenddnwwwsuuwswddeeuuusseedddnnnuuussd
+K11n141,N,10,60,60,60,0,targeted,200,1.84,30,True,snappy+alexander (unchanged word),1:1001,-,-,dwwwnnneesseessswwnunneenddnwwwsuuwswddeeuuusseedddnnnuuussd
 K11n142,N,10,62,62,62,0,targeted,200,3.84,36,True,snappy+alexander (unchanged word),1:1001,-,-,ddwwuuuuseessddnnwwwwdnneeesssuuenennwwwdwsdsesuunendnnueussdd
 K11n143,N,10,58,58,58,0,rest,0,-0.16,29,True,snappy+alexander (unchanged word),1:1001,-,-,eeennwwsddssuuunnwdddssuuuuneednddnwwwsussseeednnwwwwuueed
 K11n144,N,11,60,60,60,0,rest,0,-0.95,25,True,snappy+alexander (unchanged word),1:1002 2:2004,-,-,eessssdwwwnnnuuseeeeddwwwnuuussdddddeeuuwussddnnnnuuswwwnnee
 K11n145,N,10,56,56,56,0,rest,0,-2.16,26,True,snappy+alexander (unchanged word),1:1002,-,-,ndddessuuunnddnnwwssssseeenunwwwwddeeueenunwwdddsssuuuun
 K11n146,N,11,60,60,60,0,rest,0,-0.95,30,True,snappy+alexander (unchanged word),1:1001,-,-,uwwwwdddeneuuuuuwwddddesseeunnunwwwwsssedennnnuussssdedndeeu
-K11n147,N,10,60,60,60,0,targeted,0,1.84,25,True,snappy+alexander (unchanged word),1:1001,-,-,sssuunnnnnnwwssssdseeeuuwnnwwwddeeeeunnuwwdddsssuuuunndddeds
+K11n147,N,10,60,60,60,0,targeted,200,1.84,25,True,snappy+alexander (unchanged word),1:1001,-,-,sssuunnnnnnwwssssdseeeuuwnnwwwddeeeeunnuwwdddsssuuuunndddeds
 K11n148,N,11,64,64,64,0,targeted,200,3.05,30,True,snappy+alexander (unchanged word),1:1001,-,-,unnnwwssseddddnnuuuuuenedddssdwwwwuueeeesswwwdnnnneueseeddwwussu
 K11n149,N,11,58,58,58,0,rest,0,-2.95,24,True,snappy+alexander (unchanged word),1:1001,-,-,endnwwssswwwnnnneesssuuunwndddddssuuuuneeedddwwwwwuueeeese
 K11n150,N,11,60,60,60,0,rest,0,-0.95,23,True,snappy+alexander (unchanged word),1:1002,-,-,nnwwuuusssssddnnnnuwwssseeeennwwwdnnneessddssuuuuuwwddddneee
@@ -533,21 +533,21 @@ K11n164,N,10,62,62,62,0,targeted,200,3.84,34,True,snappy+alexander (unchanged wo
 K11n165,N,11,62,62,62,0,targeted,0,1.05,29,True,snappy+alexander (unchanged word),1:1001,-,-,eeeuuuuwssddwwwddeeeeuuunwnwddsddssuuuunndeedennwwssssswwnnnnd
 K11n166,N,11,62,62,62,0,targeted,0,1.05,35,True,snappy+alexander (unchanged word),1:1001,-,-,ssuuuueedddessuwwnwwwndneeesssdwwnununeeeesswddwwusuunennndddw
 K11n167,N,11,62,62,62,0,targeted,0,1.05,30,True,snappy+alexander (unchanged word),1:1001,-,-,ddwwwwwddeeesuuuuunnwdwddedddssuuneneuussswwnnnndwdsssuuuneeee
-K11n168,N,11,64,64,64,0,targeted,0,3.05,33,True,snappy+alexander (unchanged word),1:1001,-,-,uuuuwwdddddssuuuuennneesdsswwdnnnwwssswuuenedeedssuwwwnnwddeeene
+K11n168,N,11,64,64,64,0,targeted,200,3.05,33,True,snappy+alexander (unchanged word),1:1001,-,-,uuuuwwdddddssuuuuennneesdsswwdnnnwwssswuuenedeedssuwwwnnwddeeene
 K11n169,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1001,-,-,sdwwdnndwwuueeeusssddnnnnnwwsssdeeeeuuwwwunndddeesdssuunnuus
 K11n170,N,11,62,62,62,0,targeted,0,1.05,29,True,snappy+alexander (unchanged word),1:1001,-,-,ddwswwddnnuuusssseennnnuusswddndwwunuussddddneessuuuwwwnneeeee
 K11n171,N,11,62,62,62,0,targeted,0,1.05,31,True,snappy+alexander (unchanged word),1:1001,-,-,eennwnnndeeuussswswdddnnnueesuseennwwwnnddsssuuuueedddswwwwssu
 K11n172,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1002,-,-,wsuueeeennwwwswuueeedddnwwnwwsseessuunnnwddddeesuuuunndddwss
-K11n173,N,10,60,60,60,0,targeted,0,1.84,27,True,snappy+alexander (unchanged word),1:1002,-,-,eeuuunwndddseeeuuwwwwussddnnnneeessssswwnnnenddsssuuuwnwwdde
-K11n174,N,11,64,64,64,0,targeted,0,3.05,32,True,snappy+alexander (unchanged word),1:1002,-,-,uuuuwwddddessuuunnnndedddsswswuuenneeeuuwwdwwwsseeeennnndwdwsses
+K11n173,N,10,60,60,60,0,targeted,200,1.84,27,True,snappy+alexander (unchanged word),1:1002,-,-,eeuuunwndddseeeuuwwwwussddnnnneeessssswwnnnenddsssuuuwnwwdde
+K11n174,N,11,64,64,64,0,targeted,200,3.05,32,True,snappy+alexander (unchanged word),1:1002,-,-,uuuuwwddddessuuunnnndedddsswswuuenneeeuuwwdwwwsseeeennnndwdwsses
 K11n175,N,11,62,62,62,0,targeted,0,1.05,27,True,snappy+alexander (unchanged word),1:1001,-,-,nnnwwssseuuueedddennuwwwdddeeuusuesswwwwnneddennnuuussssssddnn
 K11n176,N,11,62,62,62,0,targeted,0,1.05,26,True,snappy+alexander (unchanged word),1:1001,-,-,nnndwwwussueeeeddwwwwssseeennwuuunndddddwssuuunnnnddsssessuuen
-K11n177,N,11,64,64,64,0,targeted,0,3.05,29,True,snappy+alexander (unchanged word),1:1001,-,-,sssdddnnuwnnneueeesswwwwnuueeedddssswwwdnneuennnuussssdddnnwuuus
+K11n177,N,11,64,64,64,0,targeted,200,3.05,29,True,snappy+alexander (unchanged word),1:1001,-,-,sssdddnnuwnnneueeesswwwwnuueeedddssswwwdnneuennnuussssdddnnwuuus
 K11n178,N,11,60,60,60,0,rest,0,-0.95,24,True,snappy+alexander (unchanged word),1:1001,-,-,sddddeeeuunwwwwsseeeuennnnwwsssssddnnnnueuuussddddneeuuuwwww
 K11n179,N,11,60,60,60,0,rest,0,-0.95,29,True,snappy+alexander (unchanged word),1:1003,-,-,uuueeddwnwwsdswwnneeedeeuuuwsssddnnnnwdwssseeeuuwwwwndddeeuu
 K11n180,N,11,64,62,62,0,targeted,0,1.05,29,True,snappy+alexander,1:1001,1:501003,-,nneuuwswddnddssswwnuuuueedddswwwnneeeeeuuwnwwssssddddnnuuuseen
 K11n181,N,11,62,62,62,0,targeted,0,1.05,33,True,snappy+alexander (unchanged word),1:1001,-,-,wwssswdddeeuuususeennwwunndddessswwnnwuueeeussddsddwwnnneuuenn
 K11n182,N,11,62,62,62,0,targeted,0,1.05,26,True,snappy+alexander (unchanged word),1:1004,-,-,wddeeennwwwuuueesdddddssuuuuwunndneesdssswwnnnnnddssseeeuuuwww
 K11n183,N,10,58,58,58,0,rest,0,-0.16,31,True,snappy+alexander (unchanged word),1:1002,-,-,unuwusssddnnndwdsssuunnnuusssdwdndeeeuuwwwuuneeeddwwwddeee
-K11n184,N,11,64,64,64,0,targeted,0,3.05,31,True,snappy+alexander (unchanged word),1:1001,-,-,ennddddwwsuuueeesddwwwwwuueeesdddnnunwuwsssseeennnennwwssswsuune
-K11n185,N,11,64,64,64,0,targeted,0,3.05,28,True,snappy+alexander (unchanged word),1:1001,-,-,wdddddssuwuunnnnddssseeeuuuwnnwwwsdddssseeeunnnnwwwwsseeeueneuuw
+K11n184,N,11,64,64,64,0,targeted,200,3.05,31,True,snappy+alexander (unchanged word),1:1001,-,-,ennddddwwsuuueeesddwwwwwuueeesdddnnunwuwsssseeennnennwwssswsuune
+K11n185,N,11,64,64,64,0,targeted,200,3.05,28,True,snappy+alexander (unchanged word),1:1001,-,-,wdddddssuwuunnnnddssseeeuuuwnnwwwsdddssseeeunnnnwwwwsseeeueneuuw
