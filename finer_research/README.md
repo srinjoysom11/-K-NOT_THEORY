@@ -181,6 +181,45 @@ the 151 at 68 are the obvious suspects. These are upper bounds only (PLAN.md rul
 An early partial count (4 drops in the first 28 knots) overstated the rate; the first
 knots in census order happen to be the looser ones.
 
+### 4.7 Third search: finer goals F1 and F2 carried out (13 Nov 2026) [C]
+
+Starting from table v2. The 251 entries more than 1 above the literature fit ("targeted")
+got 200 runs each (5 rounds of 40, loosest first); the other 301 ("rest") got 40 runs
+(2 rounds of 20). `code/analyze_round3.py` re-verified every changed polygon; outputs
+`out/table_11_crossings_v3.csv` (current table, with words) and `out/round3_summary.md`.
+
+- 552 of 552 processed, **0 verification failures**.
+- **17 more bounds lowered, all by exactly 2.**
+
+| group | runs per knot | knots | lowered | fraction |
+|---|---|---|---|---|
+| targeted (residual > +1) | 200 | 251 | 15 | 6.0% |
+| rest | 40 | 301 | 2 | 0.7% |
+
+- 70 -> 68: K11a227, K11a236, K11a298.
+  68 -> 66: K11a14, K11a16, K11a41, K11a45, K11a58, K11a95, K11a104, K11a222.
+  66 -> 64: K11a111, K11a166 (both in the "rest" group).
+  62 -> 60: K11n55, K11n59, K11n181. 60 -> 58: K11n24.
+- Lengths now: alternating 64 (23), 66 (192), 68 (146), 70 (6); non-alternating
+  54 (1), 56 (13), 58 (21), 60 (81), 62 (61), 64 (8).
+- **Convergence curve (F1).** Fraction of the 552 entries lowered by a block of 40 runs:
+  search 2: 5.4%; first 40 runs of search 3: 7 / 552 = 1.3% (5 targeted + 2 rest).
+  Within the targeted group the later blocks of 40 lowered 4, 3, 2 and 1 entries
+  (1.6%, 1.2%, 0.8%, 0.4% of 251). The "rest" group is below the 1% stopping threshold;
+  the targeted group reached it only in its fourth and fifth blocks. F1's criterion
+  (two successive rounds agreeing on 99%) is met by the last two blocks of the targeted
+  group and by the rest group taken alone, but the two 66 -> 64 drops in the rest group
+  show that entries at or below the fit are not immune.
+- **Mean residual (F2).** +0.35 (first table), +0.24 (v2), **+0.18** (v3). Still
+  positive, so by this measure the table is still slightly loose overall; a constant
+  shift between 10 and 11 crossings in the fit cannot be excluded as the cause.
+- The fit aimed the effort correctly at equal depth: in their first 40 runs the targeted
+  entries dropped at 2.0% (5 / 251) and the rest at 0.7% (2 / 301). The gap is small
+  in absolute terms and rests on 7 events.
+
+In total 47 of the 552 first-table bounds have been lowered (30 + 17), every one by 2
+and none twice. All values remain upper bounds (PLAN.md rule 2).
+
 ## 5. What is new here, and the finer goals
 
 New in this folder, as far as the 66 papers in the wiki go (a literature search finding
@@ -188,14 +227,14 @@ nothing is not proof of novelty; re-check before claiming it in a paper):
 - the quantitative link between Len and arc index, and the lower-envelope conjecture;
 - verified grid-diagram lattice seeds for every prime knot up to 11 crossings, and the
   measurement that seed choice does not matter;
-- a tightened 11-crossing table (section 4.6).
+- a tightened 11-crossing table (sections 4.6 and 4.7; current file `out/table_11_crossings_v3.csv`).
 
 Finer goals, in order:
 
-- **F1. Finish tightening the 11-crossing table.** Repeat rounds of 40 runs until a
+- **F1 (run once, see 4.7; not finished). Finish tightening the 11-crossing table.** Repeat rounds of 40 runs until a
   whole round changes fewer than 1% of the entries; report the drop rate per round as
   the convergence curve. Done when two successive rounds agree on at least 99%.
-- **F2. Aim the next rounds with the fit.** For the 2009 values a large residual did
+- **F2 (run, see 4.7). Aim the next rounds with the fit.** For the 2009 values a large residual did
   not mean a loose value (4.5), but in the 11-crossing table the drop rate rises from
   0% to 19% with the residual (4.6). Next round: 200 runs each on the 274 knots with
   residual above +1 (the 9 at length 70 first), instead of 40 runs on all 552. Track
@@ -230,6 +269,11 @@ python finer_research/code/seed_compare.py
 
 # literature outliers: 4 rounds x 100 runs, RNG seeds 700000 + 1000*round + i
 ./bfacf_batch finer_research/out/outliers_in.txt finer_research/out/outliers_raw.txt 4 100 100 100000 60000 0.2 0.02 700000 2
+
+# third search (F1, F2): targeted entries 5 x 40 runs, the rest 2 x 20 runs
+./bfacf_batch finer_research/out/c11_round3_targeted_in.txt finer_research/out/c11_round3_targeted_raw.txt 5 40 100 100000 60000 0.2 0.02 600000 4
+./bfacf_batch finer_research/out/c11_round3_rest_in.txt finer_research/out/c11_round3_rest_raw.txt 2 20 100 100000 60000 0.2 0.02 800000 4
+python finer_research/code/analyze_round3.py
 
 # deeper 11-crossing search: 2 rounds x 20 runs from the words of research/out/c11.csv,
 # RNG seeds 500000 + 1000*round + i

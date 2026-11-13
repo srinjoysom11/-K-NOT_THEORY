@@ -1,17 +1,18 @@
 # Third search on the 11-crossing table (finer goals F1 and F2): summary
 
-knots processed: 152 of 552; verification failures: 0 []
+knots processed: 552 of 552; verification failures: 0 []
 
 | group | runs per knot | knots done | dropped | fraction | by 2 | by 4+ |
 |---|---|---|---|---|---|---|
-| targeted | 200 | 152 | 12 | 0.079 | 12 | 0 |
+| targeted | 200 | 251 | 15 | 0.060 | 15 | 0 |
+| rest | 40 | 301 | 2 | 0.007 | 2 | 0 |
 
-Targeted knots: round (of 5, 40 runs each) of the first improvement: {'1': 4, '2': 2, '3': 3, '4': 2, '5': 1}
+Targeted knots: round (of 5, 40 runs each) of the first improvement: {'1': 5, '2': 4, '3': 3, '4': 2, '5': 1}
 
 ## Convergence curve (fraction of entries lowered per search)
 
 - search 2 (40 runs, all 552): 30 / 552 = 0.054
-- search 3 (200 runs on targeted, 40 on the rest): 12 / 152 = 0.079
+- search 3 (200 runs on targeted, 40 on the rest): 17 / 552 = 0.031
 
 ## Lengths
 
@@ -20,8 +21,8 @@ alternating (367 knots)
 
 | length | first table | v2 | v3 |
 |---|---|---|---|
-| 64 | 19 | 21 | 21 |
-| 66 | 165 | 186 | 194 |
+| 64 | 19 | 21 | 23 |
+| 66 | 165 | 186 | 192 |
 | 68 | 170 | 151 | 146 |
 | 70 | 13 | 9 | 6 |
 
@@ -32,16 +33,16 @@ non-alternating (185 knots)
 | 54 | 1 | 1 | 1 |
 | 56 | 13 | 13 | 13 |
 | 58 | 20 | 20 | 21 |
-| 60 | 79 | 79 | 78 |
-| 62 | 63 | 64 | 64 |
+| 60 | 79 | 79 | 81 |
+| 62 | 63 | 64 | 61 |
 | 64 | 9 | 8 | 8 |
 
 ## Mean residual against the literature-only fit
 
 - first table: +0.349
 - v2: +0.241
-- v3: +0.197
+- v3: +0.179
 
 ## Knots lowered in this search
 
-K11a14 68->66, K11a16 68->66, K11a41 68->66, K11a45 68->66, K11a58 68->66, K11a95 68->66, K11a104 68->66, K11a222 68->66, K11a227 70->68, K11a236 70->68, K11a298 70->68, K11n24 60->58
+K11a14 68->66, K11a16 68->66, K11a41 68->66, K11a45 68->66, K11a58 68->66, K11a95 68->66, K11a104 68->66, K11a111 66->64, K11a166 66->64, K11a222 68->66, K11a227 70->68, K11a236 70->68, K11a298 70->68, K11n24 60->58, K11n55 62->60, K11n59 62->60, K11n181 62->60
