@@ -1,0 +1,47 @@
+# kernel/pass on the 21 published hard unknot diagrams (ml/unknots/all_unknots.txt), run 2026-11-14T04:56:30Z, 4-core box, load 0.26
+## kernel/pass --H 2 --paths 4 < ml/unknots/all_unknots.txt
+real	0m6.099s
+D28                                  28 ->    0
+D43                                  43 ->    0
+H                                     9 ->    0
+J                                     9 ->    0
+Culprit                              10 ->    0
+Monster                              10 ->    0
+Goeritz                              11 ->    0
+Thistlethwaite                       15 ->    0
+Ochiai_I                             16 ->    0
+Tuzun_Sikora_example                 21 ->    0
+Fake_Freedman-He-Wang                32 ->    0
+Freedman-He-Wang                     32 ->    0
+Ochiai_II                            45 ->    0
+Ochiai_II_reduced                    35 ->    0
+Ochiai_III                           67 ->    0
+Ochiai_IV_Suzuki_15_Figure_4         55 ->    0
+Haken                               141 ->    0
+P_Z31                                31 ->    0
+P_Z120                              120 ->  120
+P_Z138                              138 ->  136
+PZ78                                 78 ->    0
+## kernel/pass --H 3 --paths 8 < ml/unknots/all_unknots.txt
+real	0m17.618s
+D28                                  28 ->    0
+D43                                  43 ->    0
+H                                     9 ->    0
+J                                     9 ->    0
+Culprit                              10 ->    0
+Monster                              10 ->    0
+Goeritz                              11 ->    0
+Thistlethwaite                       15 ->    0
+Ochiai_I                             16 ->    0
+Tuzun_Sikora_example                 21 ->    0
+Fake_Freedman-He-Wang                32 ->    0
+Freedman-He-Wang                     32 ->    0
+Ochiai_II                            45 ->    0
+Ochiai_II_reduced                    35 ->    0
+Ochiai_III                           67 ->    0
+Ochiai_IV_Suzuki_15_Figure_4         55 ->    0
+Haken                               141 ->    0
+P_Z31                                31 ->    0
+P_Z120                              120 ->  120
+P_Z138                              138 ->    0
+PZ78                                 78 ->    0

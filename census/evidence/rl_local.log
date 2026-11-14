@@ -1,0 +1,9 @@
+iter   1  success 8/8 (tau=1.0, <= 20 steps)  pg -0.053  il 0.197  5s
+iter   2  success 7/8 (tau=1.0, <= 20 steps)  pg +0.015  il 0.273  37s
+iter   3  success 8/8 (tau=1.0, <= 20 steps)  pg -0.033  il 0.279  10s
+iter   4  success 8/8 (tau=1.0, <= 20 steps)  pg +0.004  il 0.225  18s
+iter   5  success 7/8 (tau=1.0, <= 20 steps)  pg +0.009  il 0.252  27s
+iter   6  success 8/8 (tau=1.0, <= 20 steps)  pg +0.000  il 0.271  1s
+iter   7  success 7/8 (tau=1.0, <= 20 steps)  pg +0.000  il 0.178  16s
+iter   8  success 6/8 (tau=1.0, <= 20 steps)  pg +0.021  il 0.193  37s
+success rate first 5 iters 0.95 -> last 5 iters 0.90
