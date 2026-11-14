@@ -1,0 +1,53 @@
+Independent Python cross-check of the n=24 lists (written from the definitions only; no .cpp read)
+
+Inputs: research/exact/out/n24_nopsi.txt (A, 2592 words), research/exact/out/n24_psi.txt (B, 50 words)
+Code:   research/exact/check/crosscheck.py  (all six tasks; results.json and run_output.txt written next to it)
+Rerun:  cd /home/user/-K-NOT_THEORY/research/exact/check && python3 crosscheck.py | tee run_output.txt
+        (single-threaded, about 2 s)
+
+TASK 1 validation
+  failures: length 0, bad letters 0, not closed 0, self-intersecting 0,
+            start not least in (z,y,x) 0, axis ordering 0   (both files)
+  distinct words: A 2592, B 50
+  (x,y,z) count triples in A: (8,8,8): 2440; (10,8,6): 144; (12,6,6): 8
+
+TASK 2 canonical form up to translation
+  distinct canon(A) = 2592 (expected 2592)
+  distinct canon(B) = 50   (expected 50)
+  B subset of A: yes, 0 B-canons outside A
+
+TASK 3 symmetry expansion
+  distinct canon values over all 48 images of A = 3328 (published 3328: EQUAL)
+  G-orbits hit by A: 75
+  orbit sizes: 48 x65, 24 x7, 16 x2, 8 x1   (sum 3328, orbits pairwise disjoint)
+  A-polygons per orbit (value: number of orbits): 48: 47 orbits; 24: 6; 16: 2; 8: 20
+     (sum 47*48 + 6*24 + 2*16 + 20*8 = 2592)
+  achiral (equal to own mirror up to rotation+translation): 0 (chiral, as expected)
+
+TASK 4 flip graph
+  nodes 3328; flip results 14976; flip results OUTSIDE node set: 0 (expected 0)
+  flip results that are not valid closed SAWs: 0
+  undirected edges 7488
+  connected components: 80
+  component sizes: 305 x8, 18 x48, 1 x24  (sum 3328)
+
+TASK 5 normal-form coverage
+  components containing an A-polygon: 24
+  of those, containing a B-polygon: 24 (expected: all)
+  failing components: 0
+  components with no A-polygon: 56 (the split by size was not tabulated)
+
+TASK 6 pushed-down condition
+  B: pattern corners tested 322, violations 0 (expected 0)
+  A: pattern corners tested 17728
+  A: words with no violation at any corner: 50 of 2592
+     (these 50 canons are exactly the 50 canons of B; the sets are equal)
+  first A word with a violation (example): eennwuuwswddeeuennwwsssd, corner index 8
+
+SUMMARY OF EXPECTATIONS
+  Task 1 all 0 failures: held
+  Task 2 2592 / 50 distinct, B subset of A: held
+  Task 3 total 3328, chiral: held
+  Task 4 0 flip results outside: held
+  Task 5 every A-component has a B-polygon: held
+  Task 6 B violations 0: held; A count 50 (not compared to an expectation)

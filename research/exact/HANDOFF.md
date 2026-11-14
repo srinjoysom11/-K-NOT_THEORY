@@ -43,12 +43,19 @@ Run: `./enum N -out FILE` (options in the header: `-nopsi`, `-plain`, `-noaxes`,
 ## Checks done [C]
 * `./enum N -plain -noaxes`, N = 4..16: 3, 22, 207, 2412, 31754, 452640, 6840774 polygons,
   equal to the known counts of unrooted polygons p_n [E].
-* `./enum N -nopsi`, N <= 22: no survivors. N = 24: 2592 survivors (these are the 24-edge
-  polygons with the axis rule; expanding by symmetry should give 3328, **not yet done**).
-* `./enum 24` (with the normal form): 50 survivors; identical output before and after the
-  bound rewrite.
-* Not yet done: identify the survivors; cross-check `enum` against `raster` on n <= 22;
-  an independent re-implementation of the curtain test.
+* `./enum N` for N = 6..22: no survivors (logs `out/nN_psi.log`). With the lemmas in PROOF.md
+  this is a machine proof that every knot needs at least 24 edges ([Diao93]'s theorem).
+* `./enum 24 -nopsi`: 2592 survivors (`out/n24_nopsi.txt`). Independent Python check
+  (`check/crosscheck.py`, written by a Haiku agent from the definitions only, report in
+  `check/REPORT.txt`): expanding by the 48 lattice symmetries gives exactly **3328** polygons
+  up to translation in **75** symmetry classes, the numbers of [Scharein09]; no corner flip
+  leaves the set; 80 flip classes (8 of size 305, 48 of size 18, 24 of size 1).
+* `./enum 24` (normal form): 50 survivors (`out/n24_psi.txt`), all with Alexander polynomial
+  t^2 - t + 1. They are exactly the 50 words of the 2592 that satisfy the pushed-down condition,
+  and every flip class that meets the 2592 contains one of them (Lemma 2 checked on real data).
+* Output unchanged across five rewrites of the bounds; node counts identical on this
+  container and on the Colab VM.
+* Not yet done: cross-check `enum` against `raster`; Reidemeister-simplified identification.
 
 ## Search-tree size [C] (4 threads, this container)
 | n | nodes, `-nopsi`, first version | nodes, normal form + span/tour bound |

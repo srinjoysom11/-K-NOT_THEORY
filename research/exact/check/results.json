@@ -1,0 +1,60 @@
+{
+  "task1_A_triples": {
+    "(10, 8, 6)": 144,
+    "(12, 6, 6)": 8,
+    "(8, 8, 8)": 2440
+  },
+  "task1_failures": {},
+  "task2": {
+    "A_distinct": 2592,
+    "B_distinct": 50,
+    "B_not_in_A": 0,
+    "B_subset_of_A": true
+  },
+  "task3": {
+    "A_per_orbit_distribution": {
+      "8": 20,
+      "16": 2,
+      "24": 6,
+      "48": 47
+    },
+    "achiral_count": 0,
+    "disjoint": true,
+    "equals_3328": true,
+    "n_orbits": 75,
+    "orbit_size_multiset": {
+      "8": 1,
+      "16": 2,
+      "24": 7,
+      "48": 65
+    },
+    "union": 3328
+  },
+  "task4": {
+    "component_size_multiset": {
+      "1": 24,
+      "18": 48,
+      "305": 8
+    },
+    "components": 80,
+    "edges": 7488,
+    "flip_results": 14976,
+    "invalid_flip_results": 0,
+    "nodes": 3328,
+    "outside": 0
+  },
+  "task5": {
+    "components_with_A": 24,
+    "components_without_A": 56,
+    "failing": [],
+    "n_failing": 0,
+    "with_A_and_B": 24
+  },
+  "task6": {
+    "A_example_violation": "eennwuuwswddeeuennwwsssd",
+    "A_pattern_corners": 17728,
+    "A_words_all_corners_ok": 50,
+    "B_pattern_corners": 322,
+    "B_violations": 0
+  }
+}

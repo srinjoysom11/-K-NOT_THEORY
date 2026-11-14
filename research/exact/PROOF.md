@@ -1,0 +1,121 @@
+# Why the enumeration proves lower bounds on Len(K)
+
+Labels: [E] established with source, [C] computed here, [J] proposal. Everything in sections 1-4
+is elementary and proved in full here, so the only inputs from the literature are the upper
+bounds (explicit polygons) and standard knot theory (an arc pushed across an embedded disk
+whose interior misses the knot gives an isotopic knot).
+
+Throughout, a *polygon* is a closed self-avoiding walk in Z^3 with unit steps, n is its number
+of edges, and knot types are taken **up to mirror image** (a reflection of Z^3 maps polygons
+of K to polygons of the mirror of K, so Len(K) = Len(mirror K)). Steps are written
+e, w = +x, -x; n, s = +y, -y; u, d = +z, -z. A polygon is *shortest* if no polygon of the same
+knot type has fewer edges. The 4-edge square is the only shortest unknot and is excluded
+below (n >= 6).
+
+## 1. Curtain lemma
+
+**Lemma 1.** Let P be a polygon with n >= 6 edges that contains consecutive vertices
+v_0, v_1, ..., v_{k+2} (k >= 1) with v_1 = v_0 + a, v_{k+2} = v_{k+1} - a for a unit vector a,
+and with all k steps from v_1 to v_{k+1} perpendicular to a. If none of the k - 1 points
+v_j - a, 2 <= j <= k, is a vertex of P, then there is a polygon of the same knot type with
+n - 2 edges.
+
+*Proof.* Let g be the path v_1, ..., v_{k+1}; it lies in a plane perpendicular to a and is
+self-avoiding. Let C be the union of the k unit squares with corners
+v_j, v_{j+1}, v_{j+1} - a, v_j - a (1 <= j <= k). C is an embedded disk (the product of the arc g
+with a unit interval). Its boundary consists of the edge v_0 v_1, the path g, the edge
+v_{k+1} v_{k+2}, and the translated path g' = g - a from v_0 to v_{k+2}. The first three lie on P.
+
+A unit lattice edge meets a unit lattice square only in a corner of the square or in one of
+its four sides (the open square contains no lattice point, and an edge perpendicular to the
+square's plane meets that plane in a lattice point). The lattice points of C are the v_j and
+the v_j - a, 1 <= j <= k+1. By hypothesis the points v_j - a, 2 <= j <= k, are not on P, so P
+contains no rung v_j, v_j - a with 2 <= j <= k and no edge of g' (each edge of g' has an end
+point v_j - a with 2 <= j <= k when k >= 2; when k = 1 the single edge of g' is v_0 v_3, and if
+it were an edge of P then P would be the 4-edge square). Hence P meets C exactly in the three
+boundary sides, and the interior vertices of g' are not on P. Replacing those three sides by
+g' is an isotopy of P across the disk C. The result is a self-avoiding lattice polygon with
+(k + 2) - k = 2 fewer edges. []
+
+For k = 1 this is the BFACF move of type -2 (a "U-turn" a, b, -a is never present in a shortest
+polygon).
+
+**Consequence (curtain test).** In a shortest polygon, for every pair of cyclically
+consecutive steps along one axis that point in opposite directions, with k >= 1 steps between
+them, at least one of the k - 1 points "below" the interior of the stretch between them is a
+vertex of the polygon.
+
+## 2. Pushed-down normal form
+
+A *corner flip* at a vertex v with non-collinear neighbours p, q replaces v by v' = p + q - v,
+provided v' is not a vertex. The unit square p, v, q, v' then meets the polygon only in the
+edges pv and vq, so the flip is an isotopy; it keeps the number of edges, and it keeps the
+number of steps along each axis (two consecutive steps are exchanged).
+
+**Lemma 2.** Let K be a knot type and let M' be the set of shortest polygons of K (or its
+mirror) with (#z-steps) <= (#y-steps) <= (#x-steps). M' is not empty (permute the axes). Let
+Psi(P) = sum over vertices of (z - z_min(P)) and Psi2(P) = sum of (y - y_min(P)), and choose
+P in M' minimising Psi and, among those, Psi2 (both are non-negative integers and invariant
+under translation, so the minimum exists). Then in P:
+(a) for consecutive steps (u, h) or (h, d) with h horizontal, and
+(b) for consecutive steps (n, x) or (x, s) with x in {e, w},
+the point v' = p + q - v (p, v, q the three vertices of the corner) is a vertex of P.
+
+*Proof.* M' is closed under corner flips. (a) In both cases one neighbour of v, say p, is
+directly below v, and v' = p + (q - v) lies at the height of p. If v' were free, the flip gives
+P' in M' with the same vertices except v replaced by v'. Since z_v = z_p + 1 > z_min, the vertex
+v is not on the lowest level, and z_{v'} = z_p >= z_min, so z_min is unchanged and
+Psi(P') = Psi(P) - 1, a contradiction. (b) Here one neighbour p has y_p = y_v - 1, and v' has the
+same z as v and y_{v'} = y_p. The flip changes no z-coordinate, so Psi is unchanged, y_min is
+unchanged for the same reason as before, and Psi2 drops by 1, a contradiction. []
+
+## 3. Canonical position
+
+Translate P so that its least vertex in the order (z, then y, then x) is the origin, start the
+word there, and choose the direction so that the first step is smaller than the reverse of the
+last step in the order e < n < u (the two edges at the origin point in two different directions
+among +x, +y, +z, because the origin is the least vertex). None of this changes the polygon.
+
+## 4. Completeness of the search
+
+**Proposition.** Fix an even n >= 6. If some knot type K has Len(K) = n, then the output of
+`enum n` contains a word of a polygon of type K (or its mirror).
+
+*Proof.* Take P as in Lemma 2 and put it in canonical position (section 3). The program
+performs a depth-first search over all self-avoiding walks from the origin that stay among
+points greater than the origin in (z, y, x) order, and discards a walk only when one of the
+following holds for every closed completion of it with n edges:
+1. it contains a U-turn, or a curtain whose test fails (Lemma 1; P is shortest);
+2. a corner of type (a) or (b) has v' not a vertex (Lemma 2);
+3. the axis counts or the direction rule are violated (choice of P, section 3);
+4. it cannot return to the origin in the remaining number of steps, or cannot visit the
+   points that 1 or 2 require to become vertices. The tests used are lower bounds on the
+   remaining walk in the Manhattan metric (single points; span on each axis; minimum spanning
+   tree; an exact search over visiting orders that answers "possible" when it hits its call
+   limit), and the fact that a point that must become a vertex needs two neighbours that are
+   free, the head of the walk, or the origin.
+At a closed polygon the program applies the cyclic versions of 1 and 2 and then a breadth-first
+search over corner flips; if a flip sequence reaches a polygon with a U-turn, that polygon and
+hence P's candidate is not shortest. When the search hits its state limit the polygon is kept.
+P passes every test, so it is printed. []
+
+## 5. From the output to a theorem
+
+Let S(n) be the output for length n. Then:
+* If S(n) is empty for all n < m, no knot type has Len < m... except the unknot (Len 4).
+* If every polygon in S(n), n <= m, has a knot type in a set T, then every knot type outside T
+  has Len > m.
+The identification step is the only place where knot invariants enter. For the statements
+aimed at here it is enough to (i) compute the Alexander polynomial of each survivor and
+(ii) simplify its diagram by Reidemeister moves to at most 5 crossings: the knots with at
+most 5 crossings are 0_1, 3_1, 4_1, 5_1, 5_2 and their Alexander polynomials are pairwise
+different [E: Rolfsen table].
+
+## 6. What is and is not checked by machine
+
+* The search program itself is not formally verified. Guards: plain counts agree with the
+  known numbers of polygons for n <= 16; the output is unchanged across four rewrites of the
+  bounds; an independent Python re-check of the survivors (research/exact/check/).
+* The hash used in the flip search can only make it miss a reduction (keep more polygons).
+* Rule 4's "possible when the limit is hit" and the state limit both err on the side of
+  keeping polygons.

@@ -195,26 +195,28 @@ struct Search {
         return need;
     }
     /* is there an order of visiting one site of each pending set, then the origin, within budget?
-       Manhattan distances, so "no" is a proof that the prefix is dead; gives up (returns true)
-       after a fixed number of calls. */
+       Manhattan distances, so "no" is a proof that the prefix is dead; gives up (returns true,
+       sets gave_up) after TOUR_CAP calls.  On success without giving up, capO/capS hold the order. */
+    int capO[4 * MAXN], capS[4 * MAXN], capTotal;
+    bool gave_up;
     bool tour(int from, int *pl, int np, int used, int budget) {
         if (np == 0) return used + DIST0[from] <= budget;
         if (used + span_need(from, pl, np) > budget) return false;
-        if (++tour_calls > TOUR_CAP) { tour_giveup++; return true; }
+        if (++tour_calls > (unsigned long long)TOUR_CAP) { gave_up = true; return true; }
         /* every remaining set must be reachable on its own; remember the nearest site of each */
         int key[4 * MAXN];
         for (int a = 0; a < np; a++) {
             const Ob &ob = obs[pl[a]];
-            int best = 1 << 20, bestd = 1 << 20;
+            int best = 1 << 20, bestd = 1 << 20, bests = -1;
             for (int t = 0; t < ob.cnt; t++) {
                 int s = ob.site[t], dd = mdist(from, s);
-                if (dd + DIST0[s] < best) best = dd + DIST0[s];
+                if (dd + DIST0[s] < best) { best = dd + DIST0[s]; bests = s; }
                 if (dd < bestd) bestd = dd;
             }
             if (used + best > budget) return false;
+            if (np == 1) { capO[capTotal - 1] = pl[0]; capS[capTotal - 1] = bests; return true; }
             key[a] = bestd;
         }
-        if (np == 1) return true;
         /* branch on the next set to visit, nearest first */
         bool done[4 * MAXN];
         for (int a = 0; a < np; a++) done[a] = false;
@@ -229,10 +231,71 @@ struct Search {
             for (int t = 0; t < ob.cnt; t++) {
                 int s = ob.site[t];
                 int c = used + mdist(from, s);
-                if (c + DIST0[s] <= budget && tour(s, rest, nr, c, budget)) return true;
+                if (c + DIST0[s] <= budget && tour(s, rest, nr, c, budget)) { capO[capTotal - np] = o; capS[capTotal - np] = s; return true; }
             }
         }
         return false;
+    }
+    /* witness tours: wO/wS[i][0..nwit[i]) is an order of sites, one per pending set after i steps,
+       whose length was within budget; nwit[i] = -1 when none is known */
+    int wO[MAXN + 1][4 * MAXN], wS[MAXN + 1][4 * MAXN], nwit[MAXN + 1];
+    bool tour_ok(int i1, int nx, const int *nw, int nn, int R1) {
+        int *o = wO[i1], *sv = wS[i1]; int m = 0;
+        unsigned char pres[4 * MAXN];
+        memset(pres, 0, nobs);
+        for (int a = 0; a < nn; a++) pres[nw[a]] = 1;
+        if (nwit[i1 - 1] > 0) {
+            const int *po = wO[i1 - 1], *ps = wS[i1 - 1];
+            for (int a = 0; a < nwit[i1 - 1]; a++) if (pres[po[a]] == 1) { o[m] = po[a]; sv[m] = ps[a]; m++; pres[po[a]] = 2; }
+        }
+        for (int a = 0; a < nn; a++) {
+            int ob_i = nw[a];
+            if (pres[ob_i] != 1) continue;
+            const Ob &ob = obs[ob_i];
+            int bestc = 1 << 20, bestp = 0, bests = ob.site[0];
+            for (int t = 0; t < ob.cnt; t++) {
+                int s = ob.site[t];
+                for (int q = 0; q <= m; q++) {
+                    int prev = q == 0 ? nx : sv[q - 1];
+                    int c = q == m ? mdist(prev, s) + DIST0[s] - DIST0[prev]
+                                   : mdist(prev, s) + mdist(s, sv[q]) - mdist(prev, sv[q]);
+                    if (c < bestc) { bestc = c; bestp = q; bests = s; }
+                }
+            }
+            for (int q = m; q > bestp; q--) { o[q] = o[q - 1]; sv[q] = sv[q - 1]; }
+            o[bestp] = ob_i; sv[bestp] = bests; m++;
+        }
+        int cost = 0, at = nx;
+        for (int q = 0; q < m; q++) { cost += mdist(at, sv[q]); at = sv[q]; }
+        cost += DIST0[at];
+        if (cost <= R1) { nwit[i1] = m; return true; }
+        /* the cheap witness failed.  Minimum spanning tree over {head, origin, one nearest site per
+           set}: with only single-site sets this is a lower bound for any walk through all of them */
+        {
+            int pts[4 * MAXN + 2], np2 = 0; bool all_single = true;
+            pts[np2++] = nx; pts[np2++] = ORG;
+            for (int a = 0; a < nn; a++) { const Ob &ob = obs[nw[a]]; if (ob.cnt != 1) { all_single = false; continue; } pts[np2++] = ob.site[0]; }
+            (void)all_single;
+            int key[4 * MAXN + 2]; bool in[4 * MAXN + 2];
+            for (int a = 0; a < np2; a++) { key[a] = mdist(pts[0], pts[a]); in[a] = false; }
+            in[0] = true; int total = 0;
+            for (int r = 1; r < np2; r++) {
+                int b = -1;
+                for (int a = 0; a < np2; a++) if (!in[a] && (b < 0 || key[a] < key[b])) b = a;
+                in[b] = true; total += key[b];
+                for (int a = 0; a < np2; a++) if (!in[a]) { int dd = mdist(pts[b], pts[a]); if (dd < key[a]) key[a] = dd; }
+            }
+            if (total > R1) return false;
+        }
+        /* decide exactly */
+        int pl[4 * MAXN];
+        memcpy(pl, nw, nn * sizeof(int));
+        tour_calls = 0; gave_up = false; capTotal = nn;
+        if (!tour(nx, pl, nn, 0, R1)) return false;
+        if (gave_up) { tour_giveup++; nwit[i1] = -1; return true; }
+        for (int q = 0; q < nn; q++) { o[q] = capO[q]; sv[q] = capS[q]; }
+        nwit[i1] = nn;
+        return true;
     }
     /* a single point that must become a vertex; 1 satisfied, 0 pending (stored), -1 impossible */
     int single(int s, Ob &ob) {
@@ -275,17 +338,16 @@ struct Search {
             bool fine = false;
             for (int t = 0; t < ob.cnt && !fine; t++) {
                 int s = ob.site[t];
-                fine = mdist(nx, s) + DIST0[s] <= R1;
+                if (mdist(nx, s) + DIST0[s] > R1) continue;
+                /* the walk must enter and leave s: two neighbours that are free, the head, or the origin */
+                int av = 0;
+                for (int q = 0; q < 6; q++) { int w = s + DELTA[q]; av += (w == nx || w == ORG || (!occ[w] && ALLOWED[w])); }
+                fine = av >= 2;
             }
             if (!fine) return false;
         }
-        if (nn >= 2) {
-            if (span_need(nx, nw, nn) > R1) return false;
-            int pl[4 * MAXN];
-            memcpy(pl, nw, nn * sizeof(int));
-            tour_calls = 0;
-            if (!tour(nx, pl, nn, 0, R1)) return false;
-        }
+        nwit[i + 1] = 0;
+        if (nn >= 2 && !tour_ok(i + 1, nx, nw, nn, R1)) return false;
         return true;
     }
     void leaf() {
@@ -373,7 +435,7 @@ struct Search {
     }
     void start() {
         memset(occ, 0, sizeof occ);
-        nobs = 0; npend[0] = 0; npend[1] = 0;
+        nobs = 0; npend[0] = 0; npend[1] = 0; nwit[0] = 0; nwit[1] = 0;
         for (int A = 0; A < 3; A++) last[A] = first[A] = -1, cnt[A] = 0;
         pos[0] = ORG; occ[ORG] = 1;
     }
@@ -397,6 +459,7 @@ struct Search {
         for (int d = 0; d < 6; d++) {
             int nx = ORG + DELTA[d];
             if (!ALLOWED[nx]) continue;
+            if (d == 4) continue;      /* the direction rule needs first step < reverse of last step, so never u */
             int A = d >> 1;
             dirs[0] = d; pos[1] = nx; occ[nx] = 1; cnt[A] = 1; last[A] = first[A] = 0;
             st.nodes++;
