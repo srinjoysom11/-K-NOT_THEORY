@@ -2,8 +2,10 @@ enum
 enum2
 enum_b
 enum_p
+enum_n
 raster
 *.o
 __pycache__/
 bridge/pretzel/bfacf
 *.tmp
+parts/

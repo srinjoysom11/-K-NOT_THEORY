@@ -138,11 +138,22 @@ refute, not a proof.
   3_1 (0), 8_19 (2: 42 against 40), 8_20, 11n_73, 11n_74 (4). The fifteen 4-bridge knots have
   Len >= 60 against 56.
 * Trefoil sums n = 1..6: gap 0 every time. 3_1 # 4_1: 6. 4_1 # 4_1: 12.
-* Pretzel knots with 4, 5, 6 columns of 3 (or 2) half-twists, built to attack the bound,
-  48 annealing runs each (`bridge/pretzel/REPORT.txt`): best lengths 60, 76, 92 against
-  56, 72, 88. No violation, and the best family costs **exactly 16 edges per extra bridge**,
-  the same slope as trefoil sums. The annealer had not converged (restarts still gained 2),
-  so a gap of 4 is not safe yet.
+* Pretzel and Montesinos knots built to attack the bound, bridge number r = 4..8
+  (`bridge/pretzel/REPORT.txt`, `bridge/pretzel2/REPORT.txt`; 48 to 168 annealing runs per
+  knot, every best polygon checked by Alexander polynomial and SnapPy volume). No violation.
+  The best family, P(3,-3,3,-3,...,2) with alternating signs, gives
+
+  | bridges r | 4 | 5 | 6 | 7 | 8 |
+  |---|---|---|---|---|---|
+  | best length found | 60 | 76 | 92 | 108 | 124 |
+  | 16 r - 8 | 56 | 72 | 88 | 104 | 120 |
+
+  that is 16 r - 4 every time: **exactly 16 edges per extra bridge**, the slope of the trefoil
+  sums. Montesinos knots with a 2/3 tangle reach the same 60 and 76. A further 120 restarts
+  from the best words of four of these knots changed nothing, but restarts from a short
+  polygon are not independent samples, so 16 r - 4 is an upper bound for these knots, not
+  their Len.
+* Smallest known gaps overall: trefoil sums 0, 8_19 = P(-2,3,3) 2, everything else >= 4.
 
 **What I could not do.** A proof for general b. Counting alone stops at 6 b: with exactly
 2 b steps per axis every coordinate takes two values and the polygon sits in a unit cube,
@@ -162,9 +173,9 @@ under both inner ends.
 3. *The case b = 3 by machine.* "Every knot with b >= 3 has Len >= 40" follows from lead 2 at
    n = 38 and would prove Len(3_1 # 3_1) = 40.
 
-**Cheap next tests, each under an hour.** (a) 480 runs instead of 48 on the four pretzels
-with gap 4, and the same families with 7 and 8 columns: does the gap stay 4 or close to 0 or
-go negative? (b) The 12-crossing knots with b = 4 and the 14-crossing ones with b = 5, using
+**Cheap next tests, each under an hour.** (a) Done for r <= 8, see above; next is an
+independent search (fresh diagram seeds, tuned schedule) on the r = 4 knot P(-3,-3,3,2), whose
+bound 56 against 60 is the easiest place for the conjecture to fail. (b) The 12-crossing knots with b = 4 and the 14-crossing ones with b = 5, using
 the diagrams of the census branch. (c) Montesinos knots whose tangles are 2/5 or 3/7 instead
 of 1/3: is there a tangle that buys a bridge for fewer than 16 edges?
 
