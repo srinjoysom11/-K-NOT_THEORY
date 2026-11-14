@@ -28,10 +28,12 @@ values as a by-product.
 | 22 | 1.46e7 | 2.9e6 | 0 |
 | 24 | 6.8e7 | 1.5e7 | 50 (same file as default) |
 | 26 | 4.8e8 (older build) | 6.1e7 | 62 (same file as default) |
-| 28-34 | | about 2.6e8, 1.2e9, 5.5e9, 2.5e10 [J: growth 4.3-4.6 per 2 edges] | |
+| 28 | | 3.2e8 | 98, all trefoil polynomial |
+| 30-34 | | about 1.5e9, 7e9, 3.3e10 [J: growth 4.1 to 5.2 per 2 edges] | |
 
-At 1.6e6 nodes/s on 4 vCPUs that is about 3 min, 13 min, 1 h and 4.5 h: **one working day
-on this container**, or an hour on a 32-core machine. Parts are independent and resumable.
+Measured speed with `-prime` is 3.5e5 nodes/s on 4 vCPUs, so n = 30, 32, 34 need about
+75 min, 6 h and 27 h here: **about a day and a half on this container, or two to three hours
+on 64 cores.** Parts are independent and resumable.
 
 **Steps.**
 1. `ENUM_OPTS=-prime TAG=prime ./run_parts.sh N M R...` for n = 28 (M = 2), 30 (M = 8),

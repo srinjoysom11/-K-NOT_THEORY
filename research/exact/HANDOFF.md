@@ -31,7 +31,7 @@ then Len(K) > m.
 | 24 | 6.8e7 | 50 | all Alexander t^2 - t + 1 (trefoil) |
 | 24, `-nopsi` | 1.0e9 | 2592 | expand by the 48 symmetries to exactly 3328 polygons in 75 classes = [Scharein09]'s numbers |
 | 26 | 4.8e8 (earlier build) | 62 | all trefoil polynomial (non-shortest trefoils the leaf filter cannot shorten) |
-| 28 | not run | | was running on a Colab VM that was reclaimed |
+| 28, `-prime` | 3.2e8 | 98 | all trefoil polynomial; with n <= 26 this excludes a 4_1 polygon below 30 edges |
 | 30 | part 0 of 16 only: 4.3e8 | 18 | 10 are 4_1 (SnapPy m004), 8 trefoil polynomial |
 | 20-26, `-prime` | 7.7e5 to 6.1e7 | 0, 0, 50, 62 | same survivor files as without `-prime` |
 
@@ -82,16 +82,30 @@ python3 identify_words.py out/n30_prime.txt   # expect only the 3_1 and 4_1 poly
 knots, which is what Len(5_2) = 36 needs. Without it the search is complete for all knot
 types and 5 times larger.
 
-Cost [C up to n = 26, J beyond]: nodes grow 4.3- to 4.6-fold per 2 edges; this 4-vCPU
-container does about 1.6e6 nodes/s when nothing else runs.
+Cost, measured up to n = 28 [C], projected beyond [J]. With `-prime` this 4-vCPU container
+does about 3.5e5 nodes/s (the cheap nodes are the ones the lemma removes; the rest are
+costly), and the tree grew 4.1-fold from 24 to 26 and 5.2-fold from 26 to 28.
 
-| n | nodes with `-prime` | time on 4 vCPU | nodes without | time |
-|---|---|---|---|---|
-| 26 | 6.1e7 (measured) | 1 min | 3e8 | 3 min |
-| 28 | about 2.6e8 | 3 min | 1.4e9 | 15 min |
-| 30 | about 1.2e9 | 13 min | 6.9e9 (part 0 of 16 measured: 4.3e8) | 75 min |
-| 32 | about 5.5e9 | 1 h | 3.2e10 | 5.5 h |
-| 34 | about 2.5e10 | 4.5 h | 1.5e11 | 26 h |
+| n | nodes with `-prime` | time on 4 vCPU |
+|---|---|---|
+| 26 | 6.1e7 | 2 min |
+| 28 | 3.2e8 | 15.5 min |
+| 30 | about 1.5e9 | about 75 min |
+| 32 | about 7e9 | about 6 h |
+| 34 | about 3.3e10 | about 27 h |
+
+Without `-prime` (complete for composite knots too) everything is about 5 times larger.
+An earlier version of this file said 4.5 h for n = 34; that used the speed of the
+unpruned search and was wrong.
+
+**Where the time goes [C, gprof at n = 22].** 64 % in the exact search over visiting orders
+(`tour`), 18 % in building and reusing the cheap order (`tour_ok`), 15 % in obligation
+bookkeeping (`update`), 3 % in the walk itself. About 40 % of nodes need the exact search,
+about 66 recursive calls each. Tried and reverted, because output and time were unchanged or
+worse: predecessor / successor / spanning-tree bounds on a distance table before and inside
+the exact search. The infeasible cases are infeasible because of visiting order, which only
+the search sees. So the remaining levers are (a) more cores, (b) a smaller tree (LEADS.md
+lead 2), not a faster bound.
 
 Parts are independent, so more cores shorten this in proportion. Commit `out/` after each
 batch of parts; the logs are the evidence.
