@@ -1,0 +1,17 @@
+n=30 tag=prime parts=8 COMPLETE survivors=190
+N=30 tasks=72313 part=0/8 nodes=187109722 closed=1527 candidates=299 survivors=19 bfs_limit_hits=0 tour_giveups=3678399
+seconds=2197 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
+N=30 tasks=72313 part=1/8 nodes=188195692 closed=1897 candidates=404 survivors=27 bfs_limit_hits=0 tour_giveups=3652662
+seconds=2453 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
+N=30 tasks=72313 part=2/8 nodes=185913068 closed=1896 candidates=379 survivors=22 bfs_limit_hits=0 tour_giveups=3608950
+seconds=1477 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
+N=30 tasks=72313 part=3/8 nodes=185237497 closed=1783 candidates=289 survivors=16 bfs_limit_hits=0 tour_giveups=3631080
+seconds=2448 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
+N=30 tasks=72313 part=4/8 nodes=185530219 closed=1815 candidates=369 survivors=26 bfs_limit_hits=0 tour_giveups=3684143
+seconds=1439 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
+N=30 tasks=72313 part=5/8 nodes=182735181 closed=1773 candidates=323 survivors=24 bfs_limit_hits=0 tour_giveups=3539174
+seconds=1587 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
+N=30 tasks=72313 part=6/8 nodes=188071068 closed=1882 candidates=360 survivors=21 bfs_limit_hits=0 tour_giveups=3772414
+seconds=1921 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
+N=30 tasks=72313 part=7/8 nodes=183094760 closed=1930 candidates=359 survivors=35 bfs_limit_hits=0 tour_giveups=3616961
+seconds=1609 host=github-actions threads=4 opts=-prime commit=f431c5f3c931257aec8b4e9a45a7452062509f71
