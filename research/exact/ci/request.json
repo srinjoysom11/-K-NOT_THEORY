@@ -1,0 +1,6 @@
+{
+  "note": "Pushing a change to this file starts .github/workflows/exact-enum.yml. One entry per length: n, m = number of parts, opts = options for enum, tag = name used in the output files.",
+  "runs": [
+    {"n": 30, "m": 8, "opts": "-prime", "tag": "prime"}
+  ]
+}

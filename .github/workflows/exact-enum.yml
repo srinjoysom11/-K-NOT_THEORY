@@ -1,0 +1,95 @@
+# Runs parts of the exhaustive enumeration (research/exact/enum.cpp) on parallel runners.
+# Started by pushing a change to research/exact/ci/request.json on this branch.
+# Each part is independent; the last job merges the parts and commits them to research/exact/out/.
+name: exact-enum
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: [research/exact/ci/request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          req = json.load(open('research/exact/ci/request.json'))
+          inc = [{"n": r["n"], "m": r["m"], "r": k, "opts": r.get("opts", ""), "tag": r.get("tag", "psi")}
+                 for r in req["runs"] for k in range(r["m"])]
+          print("matrix=" + json.dumps({"include": inc}))
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build and self-test
+        working-directory: research/exact
+        run: |
+          g++ -O3 -march=native -std=c++17 -pthread -o enum enum.cpp
+          ./enum 22 -prime -out /dev/null 2> t.log; cat t.log
+          grep -q "nodes=2916241 closed=13 candidates=0 survivors=0" t.log
+          ./enum 24 -prime -out t24.txt 2> t.log; cmp t24.txt out/n24_psi.txt
+      - name: enumerate
+        working-directory: research/exact
+        run: |
+          base=n${{ matrix.n }}_${{ matrix.tag }}.part${{ matrix.r }}_${{ matrix.m }}
+          s=$(date +%s)
+          ./enum ${{ matrix.n }} ${{ matrix.opts }} -part ${{ matrix.r }} ${{ matrix.m }} -out $base.txt 2> $base.log
+          e=$(date +%s)
+          echo "seconds=$((e-s)) host=github-actions threads=$(nproc) opts=${{ matrix.opts }} commit=$GITHUB_SHA" >> $base.log
+          cat $base.log
+          mkdir -p parts && mv $base.txt $base.log parts/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n${{ matrix.n }}_${{ matrix.tag }}.part${{ matrix.r }}_${{ matrix.m }}
+          path: research/exact/parts/
+          retention-days: 30
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: merge and commit
+        run: |
+          set -e
+          mkdir -p research/exact/out/ci
+          cp artifacts/*.txt artifacts/*.log research/exact/out/ci/ 2>/dev/null || true
+          python3 - <<'PY'
+          import json, glob, os
+          req = json.load(open('research/exact/ci/request.json'))
+          for r in req["runs"]:
+              n, m, tag = r["n"], r["m"], r.get("tag", "psi")
+              parts = [f"research/exact/out/ci/n{n}_{tag}.part{k}_{m}" for k in range(m)]
+              done = [p for p in parts if os.path.exists(p + ".log") and os.path.exists(p + ".txt")]
+              words = sorted({w.strip() for p in done for w in open(p + ".txt") if w.strip()})
+              status = "COMPLETE" if len(done) == m else f"INCOMPLETE {len(done)} of {m} parts"
+              with open(f"research/exact/out/n{n}_{tag}.ci_summary.txt", "w") as f:
+                  f.write(f"n={n} tag={tag} parts={m} {status} survivors={len(words)}\n")
+                  for p in done:
+                      f.write(open(p + ".log").read())
+              if len(done) == m:
+                  open(f"research/exact/out/n{n}_{tag}.txt", "w").write("".join(w + "\n" for w in words))
+              print(n, tag, status, len(words))
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/exact/out
+          git commit -m "exact: enumeration parts from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase origin "$GITHUB_REF_NAME" && git push origin HEAD:"$GITHUB_REF_NAME" && break; sleep 15; done
