@@ -69,6 +69,42 @@ Psi(P') = Psi(P) - 1, a contradiction. (b) Here one neighbour p has y_p = y_v - 
 same z as v and y_{v'} = y_p. The flip changes no z-coordinate, so Psi is unchanged, y_min is
 unchanged for the same reason as before, and Psi2 drops by 1, a contradiction. []
 
+## 2a. Plane-crossing lemma (prime knots)
+
+**Lemma 3.** Let P be a shortest polygon of a **prime** knot and H a lattice mid-plane
+(one coordinate equal to p + 1/2) crossed by exactly two edges of P. Then on one side of H all
+vertices of P lie in the level next to H and form a shortest lattice path between their end
+points. Hence every mid-plane with at least two occupied levels on each side is crossed by at
+least 4 edges (the number of crossings is even).
+
+*Proof.* Let the crossing edges be A'A and B'B with A, B on the same side, let b be the arc of P
+from A to B on that side and a the arc on the other side. H together with the point at infinity
+is a 2-sphere meeting P in two points, so K is the connected sum of the two ball-arc pairs.
+K is prime, so one of them is trivial; say it is the side of b (otherwise exchange the sides).
+Two unknotted arcs in a ball with the same end points are isotopic relative to the boundary.
+Let b' be a shortest lattice path from A to B inside the level of A and B; the arc A'A, b', BB'
+is unknotted in the half-space (it bounds a disk with its projection to H), and that level
+contains no vertex of a. So replacing b by b' gives a polygon of type K with
+|P| - |b| + d(A, B) edges, where d is the Manhattan distance. As P is shortest and
+|b| >= d(A, B), we get |b| = d(A, B): b is a shortest path between two points with the same
+height, so it has no step across levels and lies in the level next to H. []
+
+*Use in the search (`-prime`).* For the walk so far, on each axis count the edges across each
+mid-plane. Every mid-plane between occupied levels must finally be crossed an even number of
+times, at least twice, and at least 4 times if it already has two occupied levels on each
+side. Each later step crosses exactly one mid-plane, so the number of crossings still owed,
+summed over the three axes, is a lower bound on the number of steps left.
+
+*Data [C].* In all 2592 canonical 24-edge trefoils and in the stored polygons of all 249 knots
+of the literature table, a mid-plane crossed by only 2 edges occurs only at an outermost gap
+(it does occur there in 2592 of 2592 and 248 of 249), never further in. So the lemma is sharp
+in this form, and it gives (#steps on an axis) >= 4 (#gaps) - 4, the bounding-box bound of
+[Scharein09] Prop. 2, whose proof was never published.
+
+*Composite knots.* If both sides are knotted, P is a connected sum cut by H and the lemma says
+nothing. With `-prime` the output is therefore complete for prime knot types only. Without it
+the search is complete for all knot types.
+
 ## 3. Canonical position
 
 Translate P so that its least vertex in the order (z, then y, then x) is the origin, start the

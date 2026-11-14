@@ -1,0 +1,63 @@
+LEN(K) vs BRIDGE NUMBER b(K): DATA CHECK
+========================================
+
+Inputs
+- Len, 3..10 crossings: data/rechnitzer_SC_minimal.csv, column best_known_length (249 knots).
+- Len, 11 crossings: finer_research/out/table_11_crossings_v3.csv from origin/finer_research
+  (552 knots). Len = len_round3 = min(len_round1..3) = length of the word column (checked for all rows).
+- Bridge index: database_knotinfo 2026.11.2, link_list(), column bridge_index.
+- Names: 10-crossing names agree exactly between the CSV and KnotInfo (10_1..10_165, Perko pair
+  10_161/10_162 in both). No 10_166 in either. No renumbering was applied.
+  11-crossing names mapped K11a1 -> 11a_1, K11n34 -> 11n_34.
+- Crossing counts from KnotInfo agree with the 11-crossing table (552 = 367 alternating + 185 non-alternating).
+
+Matching
+- 801 Len records, 801 matched to KnotInfo bridge index, 0 unmatched.
+
+Count per bridge index
+- b=2: 186 knots, min Len 24 (3_1)
+- b=3: 600 knots, min Len 42 (8_19)
+- b=4: 15 knots, min Len 60 (11n_73, 11n_74)
+
+slack16 = Len - (16b - 8)
+- Min slack16 = 0 (3_1 only).
+- Violations (slack16 < 0): 0.
+- slack16 == 0: 1 (3_1).
+- Ten smallest slack16 (name, b, Len, slack16):
+  3_1 2 24 0; 8_19 3 42 2; 11n_73 4 60 4; 11n_74 4 60 4; 8_20 3 44 4;
+  11n_71 4 62 6; 11n_72 4 62 6; 11n_75 4 62 6; 11n_76 4 62 6; 11n_77 4 62 6
+- Knots with slack16 <= 2: 3_1 (0), 8_19 (2).
+
+slack12 = Len - 12b
+- Violations (slack12 < 0): 0.
+- slack12 == 0: 1 (3_1).
+- Ten smallest: 3_1 (0), 4_1 (6), 8_19 (6), 8_20 (8), 5_1 (10), 8_21 (10),
+  10_124 (12), 11n_73 (12), 11n_74 (12), 5_2 (12).
+
+Knots with b >= 4 (15 total; all have slack16 >= 4)
+  11n_73 4 60 4; 11n_74 4 60 4; 11n_71 4 62 6; 11n_72 4 62 6; 11n_75 4 62 6;
+  11n_76 4 62 6; 11n_77 4 62 6; 11n_78 4 62 6; 11n_81 4 62 6;
+  11a_231 4 68 12; 11a_263 4 68 12; 11a_43 4 68 12; 11a_44 4 68 12;
+  11a_47 4 68 12; 11a_57 4 68 12
+
+Composite data points (hand-entered, not in the CSV; Len values as supplied)
+  3_1 (trefoil)  b=2  Len=24   slack16=0    slack12=0
+  2 trefoils     b=3  Len=40   slack16=0    slack12=4
+  3 trefoils     b=4  Len=56   slack16=0    slack12=8
+  4 trefoils     b=5  Len=72   slack16=0    slack12=12
+  5 trefoils     b=6  Len=88   slack16=0    slack12=16
+  6 trefoils     b=7  Len=104  slack16=0    slack12=20
+  3_1#4_1        b=3  Len=46   slack16=6    slack12=10
+  4_1#4_1        b=3  Len=52   slack16=12   slack12=16
+  (b of n-trefoil sum = n+1 and b(K1#K2)=b(K1)+b(K2)-1 are consistent with these values.)
+
+Result
+- No knot in the merged data has Len < 16b - 8, and none has Len < 12b.
+- Table values are upper bounds, so this is consistent with the conjecture, not a proof.
+
+Rerun
+  cd /home/user/-K-NOT_THEORY
+  python3 -m pip install --break-system-packages database_knotinfo
+  git show origin/finer_research:finer_research/out/table_11_crossings_v3.csv > research/exact/bridge/table11_v3.csv
+  python3 -I research/exact/bridge/analyze.py
+Outputs: research/exact/bridge/len_vs_bridge.csv (801 rows), research/exact/bridge/analyze.py

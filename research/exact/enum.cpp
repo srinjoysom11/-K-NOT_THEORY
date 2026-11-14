@@ -32,6 +32,11 @@
  *   -plain        no curtain test, no reduction: counts all polygons (validation)
  *   -noaxes       do not use the axis-permutation reduction
  *   -nopsi        do not use the pushed-down normal form
+ *   -prime        use the plane-crossing lemma: every lattice plane with at least two occupied
+ *                 levels on each side is crossed by >= 4 edges.  Proved for shortest polygons of
+ *                 PRIME knots only, so the output is complete for prime knot types only
+ *   -bridge B     only polygons with >= B local maxima along each axis (every polygon of a knot
+ *                 with bridge number >= B is of this kind); used for bounds on such knots
  *   -noreduce     skip the neutral-move reduction at the leaves
  *   -bfs L        state limit for the leaf reduction (default 2000)
  *   -split D      depth at which the search tree is cut into independent tasks (default 9)
@@ -62,6 +67,8 @@ static const int MAXN = 48;
 
 static int N = 0;
 static bool PLAIN = false, AXES = true, REDUCE = true, PSI = true;
+static bool PRIME = false; /* -prime: use the plane-crossing lemma (valid for prime knots only, PROOF.md Lemma 3) */
+static int BRIDGE = 0;   /* -bridge B: keep only polygons with at least B local maxima along every axis */
 static int BFS_LIMIT = 2000, SPLIT = 9, PART_R = 0, PART_M = 1, TOUR_CAP = 3000;
 
 static signed char CX[NS], CY[NS], CZ[NS];
@@ -147,6 +154,18 @@ struct Search {
     int pos[MAXN + 1];
     int dirs[MAXN];
     int last[3], first[3], cnt[3];
+    int rev[3];                 /* sign changes so far among the steps along each axis */
+    int crs[3][64];             /* crs[A][p+32] = edges so far between levels p and p+1 on axis A */
+    int cmn[3], cmx[3], cdef[3];/* extent so far on each axis and the crossings still owed */
+    /* crossings still owed on axis A: interior planes need 4, the two outer ones 2, and every count must end even */
+    int owed(int A) const {
+        int t = 0;
+        for (int p = cmn[A]; p < cmx[A]; p++) {
+            int c = crs[A][p + 32], req = (p > cmn[A] && p < cmx[A] - 1) ? 4 : 2;
+            t += c >= req ? (c & 1) : req - c;
+        }
+        return t;
+    }
     Ob obs[4 * MAXN];            /* pool; obligations created on the current path */
     int nobs = 0;
     int pend[MAXN + 1][4 * MAXN];  /* pend[i] = unsatisfied obligations after i steps */
@@ -350,6 +369,18 @@ struct Search {
         if (nn >= 2 && !tour_ok(i + 1, nx, nw, nn, R1)) return false;
         return true;
     }
+    /* plane counters for a step in direction d from a vertex with coordinate c on axis A */
+    inline void plane_step(int A, int d, int from, int &smn, int &smx, int &sdef, int &pl) {
+        int c = (A == 0 ? CX[from] : A == 1 ? CY[from] : CZ[from]);
+        int c2 = c + ((d & 1) ? -1 : 1);
+        pl = (c < c2 ? c : c2) + 32;
+        smn = cmn[A]; smx = cmx[A]; sdef = cdef[A];
+        crs[A][pl]++;
+        if (c2 < cmn[A]) cmn[A] = c2;
+        if (c2 > cmx[A]) cmx[A] = c2;
+        cdef[A] = owed(A);
+    }
+    inline void plane_undo(int A, int smn, int smx, int sdef, int pl) { crs[A][pl]--; cmn[A] = smn; cmx[A] = smx; cdef[A] = sdef; }
     void leaf() {
         st.closed++;
         if (!PLAIN) {
@@ -368,6 +399,13 @@ struct Search {
             }
         }
         if (AXES && !(cnt[2] <= cnt[1] && cnt[1] <= cnt[0])) return;
+        if (BRIDGE) {
+            for (int A = 0; A < 3; A++) {
+                if (first[A] < 0) return;
+                int cyc = rev[A] + (dirs[last[A]] != dirs[first[A]]);
+                if (cyc < 2 * BRIDGE) return;
+            }
+        }
         st.cand++;
         if (!PLAIN && REDUCE) {
             int v[MAXN];
@@ -398,11 +436,15 @@ struct Search {
                 if ((d ^ 1) <= dirs[0]) continue;               /* direction rule */
                 st.nodes++;
                 int sl = last[A], sf = first[A];
-                dirs[i] = d; pos[i + 1] = nx; cnt[A]++; last[A] = i; if (sf < 0) first[A] = i;
+                int isrev = (sl >= 0 && dirs[sl] == (d ^ 1));
+                dirs[i] = d; pos[i + 1] = nx; cnt[A]++; last[A] = i; if (sf < 0) first[A] = i; rev[A] += isrev;
                 int save = nobs; bool ok = true;
-                if (!PLAIN) ok = update(i, d, nx, sl, 0);
+                int smn = 0, smx = 0, sdef = 0, pl = 0;
+                if (PRIME) { plane_step(A, d, cur, smn, smx, sdef, pl); if (cdef[0] + cdef[1] + cdef[2] > 0) ok = false; }
+                if (ok && !PLAIN) ok = update(i, d, nx, sl, 0);
                 if (ok) leaf();
-                nobs = save; cnt[A]--; last[A] = sl; first[A] = sf;
+                if (PRIME) plane_undo(A, smn, smx, sdef, pl);
+                nobs = save; cnt[A]--; last[A] = sl; first[A] = sf; rev[A] -= isrev;
                 continue;
             }
             if (occ[nx] || !ALLOWED[nx] || DIST0[nx] > R - 1) continue;
@@ -413,15 +455,28 @@ struct Search {
                 if (2 * m + cz > N) continue;
                 if (cz > cy + (R - 1) || cy > cx + (R - 1)) continue;
             }
+            int isrev = (last[A] >= 0 && dirs[last[A]] == (d ^ 1));
+            if (BRIDGE) {
+                /* cyclic sign changes on an axis <= changes so far + future steps on it + 1 */
+                int need = 0;
+                for (int q = 0; q < 3; q++) { int m = 2 * BRIDGE - 1 - rev[q] - (q == A ? isrev : 0); if (m > 0) need += m; }
+                if (need > R - 1) continue;
+            }
+            int smn = 0, smx = 0, sdef = 0, pl = 0;
+            if (PRIME) {
+                plane_step(A, d, cur, smn, smx, sdef, pl);
+                if (cdef[0] + cdef[1] + cdef[2] > R - 1) { plane_undo(A, smn, smx, sdef, pl); continue; }
+            }
             st.nodes++;
             int sl = last[A], sf = first[A], save = nobs;
-            dirs[i] = d; pos[i + 1] = nx; occ[nx] = 1; cnt[A]++; last[A] = i; if (sf < 0) first[A] = i;
+            dirs[i] = d; pos[i + 1] = nx; occ[nx] = 1; cnt[A]++; last[A] = i; if (sf < 0) first[A] = i; rev[A] += isrev;
             bool ok = true;
             if (!PLAIN) ok = update(i, d, nx, sl, R - 1);
             if (ok) {
                 if (i + 1 == split_depth) task(i + 1); else dfs(i + 1);
             }
-            occ[nx] = 0; nobs = save; cnt[A]--; last[A] = sl; first[A] = sf;
+            occ[nx] = 0; nobs = save; cnt[A]--; last[A] = sl; first[A] = sf; rev[A] -= isrev;
+            if (PRIME) plane_undo(A, smn, smx, sdef, pl);
         }
     }
 
@@ -436,7 +491,8 @@ struct Search {
     void start() {
         memset(occ, 0, sizeof occ);
         nobs = 0; npend[0] = 0; npend[1] = 0; nwit[0] = 0; nwit[1] = 0;
-        for (int A = 0; A < 3; A++) last[A] = first[A] = -1, cnt[A] = 0;
+        for (int A = 0; A < 3; A++) last[A] = first[A] = -1, cnt[A] = 0, rev[A] = 0, cmn[A] = cmx[A] = 0, cdef[A] = 0;
+        memset(crs, 0, sizeof crs);
         pos[0] = ORG; occ[ORG] = 1;
     }
     /* replay a prefix, then search below it */
@@ -447,6 +503,8 @@ struct Search {
         for (int i = 0; i < L; i++) {
             int d = pre[i], A = d >> 1, nx = pos[i] + DELTA[d];
             int sl = last[A];
+            rev[A] += (sl >= 0 && dirs[sl] == (d ^ 1));
+            if (PRIME) { int a1, a2, a3, a4; plane_step(A, d, pos[i], a1, a2, a3, a4); }
             dirs[i] = d; pos[i + 1] = nx; occ[nx] = 1; cnt[A]++; last[A] = i; if (first[A] < 0) first[A] = i;
             if (!PLAIN) update(i, d, nx, sl, N - i - 1); else npend[i + 1] = 0;
         }
@@ -462,8 +520,11 @@ struct Search {
             if (d == 4) continue;      /* the direction rule needs first step < reverse of last step, so never u */
             int A = d >> 1;
             dirs[0] = d; pos[1] = nx; occ[nx] = 1; cnt[A] = 1; last[A] = first[A] = 0;
+            int smn = 0, smx = 0, sdef = 0, pl = 0;
+            if (PRIME) plane_step(A, d, ORG, smn, smx, sdef, pl);
             st.nodes++;
             if (depth == 1) task(1); else dfs(1);
+            if (PRIME) plane_undo(A, smn, smx, sdef, pl);
             occ[nx] = 0; cnt[A] = 0; last[A] = first[A] = -1;
         }
         collect = nullptr; split_depth = -1;
@@ -481,6 +542,8 @@ int main(int argc, char **argv) {
         else if (a == "-noaxes") AXES = false;
         else if (a == "-noreduce") REDUCE = false;
         else if (a == "-nopsi") PSI = false;
+        else if (a == "-bridge") BRIDGE = atoi(argv[++i]);
+        else if (a == "-prime") PRIME = true;
         else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
         else if (a == "-tourcap") TOUR_CAP = atoi(argv[++i]);
         else if (a == "-split") SPLIT = atoi(argv[++i]);
