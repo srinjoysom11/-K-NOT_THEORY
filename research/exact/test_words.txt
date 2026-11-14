@@ -1,0 +1,7 @@
+# test: five words from data/rechnitzer_SC_minimal.csv
+
+3_1 wwwdsseennnuusswdddeeuun
+4_1 seeddddwwuuuennddsssueennwwwuu
+5_1 wwnneuusssdddnnuuwnneessswwsseednn
+5_2 seenneuuussddddnwwuuueeessdwwnnnwwds
+6_1 dnnuuunwwwddeeeesswwsuunndddnnuuwssseesd

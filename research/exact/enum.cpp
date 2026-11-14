@@ -1,0 +1,479 @@
+/*
+ * enum.cpp -- exhaustive enumeration of candidate minimal lattice polygons in Z^3.
+ *
+ * Purpose: prove lower bounds on Len(K).  For a given even n the program visits every
+ * n-step self-avoiding polygon in Z^3 (up to translation, direction, and permutation of
+ * the axes) that passes the "curtain test" below, and prints those it cannot shorten.
+ * Every polygon that is a shortest representative of its knot type passes the test and
+ * cannot be shortened, so it is printed (in at least one of its symmetric copies).
+ *
+ * Curtain lemma (proved in research/exact/PROOF.md).  Let a polygon contain consecutive
+ * vertices v0, v1 = v0+a, ..., v_{k+1}, v_{k+2} = v_{k+1}-a, where a is a unit vector and
+ * all k >= 1 steps from v1 to v_{k+1} are perpendicular to a.  If none of the k-1 lattice
+ * points v_j - a (2 <= j <= k) is a vertex of the polygon, then replacing the sub-path by
+ * its translate by -a gives a polygon of the same knot type with 2 fewer edges.
+ * (k = 1 is the BFACF -2 move.)  Hence in a shortest polygon every such sub-path has an
+ * occupied point below its interior.
+ *
+ * Pushed-down normal form (proved in PROOF.md; switch off with -nopsi).  Among all shortest
+ * polygons of a knot type with (#z-steps) <= (#y-steps) <= (#x-steps), take one that minimises
+ * first Psi = sum over vertices of (z - least z) and then Psi2 = sum of (y - least y).  In it no
+ * corner flip (neutral BFACF move) lowers a vertex in z, or keeps z and lowers y.  So for
+ * consecutive steps (u,h), (h,d) with h horizontal, and (n,x), (x,s) with x in {e,w}, the
+ * fourth point of the unit square spanned by the corner must be a vertex of the polygon.
+ * With -nopsi every shortest polygon is listed; without it at least one per knot type.
+ *
+ * Canonical choices (each polygon is reached at least once):
+ *   root      = the vertex that is least in (z, y, x) order, placed at the origin;
+ *   direction = the first step is smaller than the reverse of the last step (e < n < u);
+ *   axes      = (#z-steps) <= (#y-steps) <= (#x-steps)          [switch off with -noaxes]
+ *
+ * usage: enum N [options]
+ *   -plain        no curtain test, no reduction: counts all polygons (validation)
+ *   -noaxes       do not use the axis-permutation reduction
+ *   -nopsi        do not use the pushed-down normal form
+ *   -noreduce     skip the neutral-move reduction at the leaves
+ *   -bfs L        state limit for the leaf reduction (default 2000)
+ *   -split D      depth at which the search tree is cut into independent tasks (default 9)
+ *   -part R M     do only tasks with index = R mod M (for running on several machines)
+ *   -threads T    worker threads (default: hardware concurrency)
+ *   -out FILE     write surviving words to FILE (default: stdout)
+ *
+ * build: g++ -O3 -march=native -std=c++17 -pthread -o enum enum.cpp
+ */
+#include <algorithm>
+#include <atomic>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <mutex>
+#include <string>
+#include <thread>
+#include <unordered_set>
+#include <vector>
+
+static const int S = 64, S2 = S * S, NS = S * S * 32;      /* search grid: 64 x 64 x 32 */
+static const int OX = 32, OY = 32, OZ = 3;
+static const int ORG = OX + S * OY + S2 * OZ;
+static const int DELTA[6] = {1, -1, S, -S, S2, -S2};        /* e w n s u d */
+static const char DC[7] = "ewnsud";
+static const int MAXN = 48;
+
+static int N = 0;
+static bool PLAIN = false, AXES = true, REDUCE = true, PSI = true;
+static int BFS_LIMIT = 2000, SPLIT = 9, PART_R = 0, PART_M = 1, TOUR_CAP = 3000;
+
+static signed char CX[NS], CY[NS], CZ[NS];
+static unsigned char ALLOWED[NS];
+static unsigned char DIST0[NS];
+
+static inline int mdist(int a, int b) {
+    return abs(CX[a] - CX[b]) + abs(CY[a] - CY[b]) + abs(CZ[a] - CZ[b]);
+}
+
+struct Stats {
+    unsigned long long nodes = 0, closed = 0, cand = 0, surv = 0, bfs_over = 0, giveup = 0;
+    void add(const Stats &o) { nodes += o.nodes; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup; }
+};
+
+/* ---------- leaf reduction: breadth-first search over neutral BFACF moves ---------- */
+struct Reducer {
+    static const int R = 64, R3 = R * R * R;
+    std::vector<unsigned char> g;
+    std::vector<int> queue_store;
+    Reducer() : g(R3, 0) {}
+    static inline int rx(int p) { return p % R; }
+    static inline int ry(int p) { return (p / R) % R; }
+    static inline int rz(int p) { return p / (R * R); }
+    static inline bool adjacent(int a, int b) {
+        int d = a > b ? a - b : b - a;
+        if (d == 1) return ry(a) == ry(b) && rz(a) == rz(b);
+        if (d == R) return rz(a) == rz(b);
+        return d == R * R;
+    }
+    static inline bool interior(int p) {
+        int x = rx(p), y = ry(p), z = rz(p);
+        return x > 1 && y > 1 && z > 1 && x < R - 2 && y < R - 2 && z < R - 2;
+    }
+    static uint64_t hash(const int *v, int n) {
+        uint64_t h = 1469598103934665603ULL;
+        for (int i = 0; i < n; i++) { h ^= (uint64_t)v[i] + 0x9e3779b97f4a7c15ULL + (h << 6) + (h >> 2); h *= 1099511628211ULL; }
+        return h;
+    }
+    /* 1 = a shorter polygon of the same type exists, 0 = none found, -1 = limit hit */
+    int reducible(const int *v0, int n, int limit) {
+        std::unordered_set<uint64_t> seen;
+        std::vector<int> &q = queue_store;
+        q.assign(v0, v0 + n);
+        seen.insert(hash(v0, n));
+        size_t head = 0;
+        int cur[MAXN];
+        while (head * n < q.size()) {
+            memcpy(cur, &q[head * n], n * sizeof(int));
+            head++;
+            for (int i = 0; i < n; i++) g[cur[i]] = 1;
+            for (int i = 0; i < n; i++) {
+                int p = cur[(i + n - 1) % n], c = cur[i], nx = cur[(i + 1) % n];
+                if (nx - c == c - p) continue;                      /* straight: no corner */
+                int w = p + nx - c;
+                if (g[w] || !interior(w)) continue;
+                cur[i] = w;
+                /* a U-turn (four consecutive vertices on a unit square) means a -2 move */
+                bool red = false;
+                for (int s = i - 3; s <= i && !red; s++) {
+                    int a = cur[((s % n) + n) % n], b = cur[(((s + 3) % n) + n) % n];
+                    if (adjacent(a, b)) red = true;
+                }
+                if (red) { for (int k = 0; k < n; k++) g[cur[k]] = 0; g[c] = 0; return 1; }
+                uint64_t h = hash(cur, n);
+                if (seen.insert(h).second) {
+                    if ((int)seen.size() > limit) { cur[i] = c; for (int k = 0; k < n; k++) g[cur[k]] = 0; return -1; }
+                    q.insert(q.end(), cur, cur + n);
+                }
+                cur[i] = c;
+            }
+            for (int i = 0; i < n; i++) g[cur[i]] = 0;
+        }
+        return 0;
+    }
+};
+
+/* ---------- the search ---------- */
+struct Ob { int cnt; int site[MAXN]; };
+
+struct Search {
+    unsigned char occ[NS];
+    int pos[MAXN + 1];
+    int dirs[MAXN];
+    int last[3], first[3], cnt[3];
+    Ob obs[4 * MAXN];            /* pool; obligations created on the current path */
+    int nobs = 0;
+    int pend[MAXN + 1][4 * MAXN];  /* pend[i] = unsatisfied obligations after i steps */
+    int npend[MAXN + 1];
+    unsigned long long tour_calls, tour_giveup = 0;
+    Stats st;
+    Reducer red;
+    std::vector<std::string> out;
+
+    Search() { memset(occ, 0, sizeof occ); }
+
+    /* build the curtain obligation for the sub-path from step j to step i (i exclusive of wrap);
+       returns 1 satisfied now, 0 pending (stored in ob), -1 impossible */
+    int curtain(int j, int k, Ob &ob) {
+        /* step j has direction a; the k perpendicular steps follow; interior vertices are
+           pos[j+2 .. j+k] (indices mod N); the sites are those vertices shifted by -a */
+        int back = DELTA[dirs[j] ^ 1];
+        ob.cnt = 0;
+        for (int t = 2; t <= k; t++) {
+            int s = pos[(j + t) % N] + back;
+            if (occ[s]) return 1;
+            if (ALLOWED[s]) ob.site[ob.cnt++] = s;
+        }
+        return ob.cnt ? 0 : -1;
+    }
+
+    /* lower bound on a walk from `from` to the origin that visits every single-site set in pl:
+       on each axis it must cover the span of those sites */
+    inline int span_need(int from, const int *pl, int np) const {
+        int lo[3] = {0, 0, 0}, hi[3] = {0, 0, 0};
+        const int c0[3] = {CX[from], CY[from], CZ[from]};
+        for (int a = 0; a < np; a++) {
+            const Ob &ob = obs[pl[a]];
+            if (ob.cnt != 1) continue;
+            int s = ob.site[0];
+            const int cs[3] = {CX[s], CY[s], CZ[s]};
+            for (int q = 0; q < 3; q++) { if (cs[q] < lo[q]) lo[q] = cs[q]; if (cs[q] > hi[q]) hi[q] = cs[q]; }
+        }
+        int need = 0;
+        for (int q = 0; q < 3; q++) {
+            int l = lo[q] < c0[q] ? lo[q] : c0[q], h = hi[q] > c0[q] ? hi[q] : c0[q];
+            int a1 = (c0[q] - l) + (h - l) + h;        /* to l, then h, then the origin (l <= 0 <= h) */
+            int a2 = (h - c0[q]) + (h - l) + (0 - l);  /* to h, then l, then the origin */
+            need += a1 < a2 ? a1 : a2;
+        }
+        return need;
+    }
+    /* is there an order of visiting one site of each pending set, then the origin, within budget?
+       Manhattan distances, so "no" is a proof that the prefix is dead; gives up (returns true)
+       after a fixed number of calls. */
+    bool tour(int from, int *pl, int np, int used, int budget) {
+        if (np == 0) return used + DIST0[from] <= budget;
+        if (used + span_need(from, pl, np) > budget) return false;
+        if (++tour_calls > TOUR_CAP) { tour_giveup++; return true; }
+        /* every remaining set must be reachable on its own; remember the nearest site of each */
+        int key[4 * MAXN];
+        for (int a = 0; a < np; a++) {
+            const Ob &ob = obs[pl[a]];
+            int best = 1 << 20, bestd = 1 << 20;
+            for (int t = 0; t < ob.cnt; t++) {
+                int s = ob.site[t], dd = mdist(from, s);
+                if (dd + DIST0[s] < best) best = dd + DIST0[s];
+                if (dd < bestd) bestd = dd;
+            }
+            if (used + best > budget) return false;
+            key[a] = bestd;
+        }
+        if (np == 1) return true;
+        /* branch on the next set to visit, nearest first */
+        bool done[4 * MAXN];
+        for (int a = 0; a < np; a++) done[a] = false;
+        for (int r = 0; r < np; r++) {
+            int a = -1;
+            for (int b = 0; b < np; b++) if (!done[b] && (a < 0 || key[b] < key[a])) a = b;
+            done[a] = true;
+            int o = pl[a];
+            int rest[4 * MAXN], nr = 0;
+            for (int b = 0; b < np; b++) if (b != a) rest[nr++] = pl[b];
+            const Ob &ob = obs[o];
+            for (int t = 0; t < ob.cnt; t++) {
+                int s = ob.site[t];
+                int c = used + mdist(from, s);
+                if (c + DIST0[s] <= budget && tour(s, rest, nr, c, budget)) return true;
+            }
+        }
+        return false;
+    }
+    /* a single point that must become a vertex; 1 satisfied, 0 pending (stored), -1 impossible */
+    int single(int s, Ob &ob) {
+        if (occ[s]) return 1;
+        if (!ALLOWED[s]) return -1;
+        ob.cnt = 1; ob.site[0] = s;
+        return 0;
+    }
+    /* obligations created by step i (direction d, from pos[i] to nx); occ[nx] is already set.
+       Fills pend[i+1]; returns false if the prefix is dead. */
+    bool update(int i, int d, int nx, int sl, int R1) {
+        const int *old = pend[i]; int no = npend[i];
+        int *nw = pend[i + 1]; int nn = 0;
+        for (int a = 0; a < no; a++) {
+            const Ob &ob = obs[old[a]];
+            bool sat = false;
+            for (int t = 0; t < ob.cnt; t++) if (ob.site[t] == nx) { sat = true; break; }
+            if (!sat) nw[nn++] = old[a];
+        }
+        if (sl >= 0 && dirs[sl] == (d ^ 1)) {
+            int r = curtain(sl, i - sl - 1, obs[nobs]);
+            if (r == -1) return false;
+            if (r == 0) nw[nn++] = nobs++;
+        }
+        if (PSI && i >= 1) {
+            int p = dirs[i - 1], s = -1;
+            if (p == 4 && d < 4) s = pos[i - 1] + DELTA[d];            /* (u,h) */
+            else if (d == 5 && p < 4) s = nx - DELTA[p];               /* (h,d) */
+            else if (p == 2 && d < 2) s = pos[i - 1] + DELTA[d];       /* (n,x) */
+            else if (d == 3 && p < 2) s = nx - DELTA[p];               /* (x,s) */
+            if (s >= 0) {
+                int r = single(s, obs[nobs]);
+                if (r == -1) return false;
+                if (r == 0) nw[nn++] = nobs++;
+            }
+        }
+        npend[i + 1] = nn;
+        for (int a = 0; a < nn; a++) {
+            const Ob &ob = obs[nw[a]];
+            bool fine = false;
+            for (int t = 0; t < ob.cnt && !fine; t++) {
+                int s = ob.site[t];
+                fine = mdist(nx, s) + DIST0[s] <= R1;
+            }
+            if (!fine) return false;
+        }
+        if (nn >= 2) {
+            if (span_need(nx, nw, nn) > R1) return false;
+            int pl[4 * MAXN];
+            memcpy(pl, nw, nn * sizeof(int));
+            tour_calls = 0;
+            if (!tour(nx, pl, nn, 0, R1)) return false;
+        }
+        return true;
+    }
+    void leaf() {
+        st.closed++;
+        if (!PLAIN) {
+            /* cyclic U-turns across the root */
+            if (dirs[0] == (dirs[N - 2] ^ 1) || dirs[1] == (dirs[N - 1] ^ 1)) return;
+            /* nothing may be left pending */
+            if (npend[N]) return;
+            /* curtains that pass through the root */
+            for (int A = 0; A < 3; A++) {
+                if (first[A] < 0) continue;
+                int jl = last[A], jf = first[A];
+                if (dirs[jl] != (dirs[jf] ^ 1)) continue;
+                int k = (N - jl - 1) + jf;
+                Ob ob;
+                if (curtain(jl, k, ob) != 1) return;
+            }
+        }
+        if (AXES && !(cnt[2] <= cnt[1] && cnt[1] <= cnt[0])) return;
+        st.cand++;
+        if (!PLAIN && REDUCE) {
+            int v[MAXN];
+            const int shift = (32 - OZ) * S2;          /* same x,y; z moved to the middle of the 64^3 grid */
+            for (int i = 0; i < N; i++) v[i] = pos[i] + shift;
+            int r = red.reducible(v, N, BFS_LIMIT);
+            if (r == 1) return;
+            if (r == -1) st.bfs_over++;
+        }
+        st.surv++;
+        if (!PLAIN) {
+            std::string w(N, ' ');
+            for (int i = 0; i < N; i++) w[i] = DC[dirs[i]];
+            out.push_back(w);
+        }
+    }
+
+    void dfs(int i) {
+        int cur = pos[i], R = N - i;
+        int p1 = dirs[i - 1] ^ 1, p2 = i >= 2 ? (dirs[i - 2] ^ 1) : -1;
+        for (int d = 0; d < 6; d++) {
+            if (d == p1) continue;
+            if (!PLAIN && d == p2) continue;
+            int nx = cur + DELTA[d];
+            int A = d >> 1;
+            if (R == 1) {
+                if (nx != ORG) continue;
+                if ((d ^ 1) <= dirs[0]) continue;               /* direction rule */
+                st.nodes++;
+                int sl = last[A], sf = first[A];
+                dirs[i] = d; pos[i + 1] = nx; cnt[A]++; last[A] = i; if (sf < 0) first[A] = i;
+                int save = nobs; bool ok = true;
+                if (!PLAIN) ok = update(i, d, nx, sl, 0);
+                if (ok) leaf();
+                nobs = save; cnt[A]--; last[A] = sl; first[A] = sf;
+                continue;
+            }
+            if (occ[nx] || !ALLOWED[nx] || DIST0[nx] > R - 1) continue;
+            if (AXES) {
+                int cx = cnt[0], cy = cnt[1], cz = cnt[2];
+                if (A == 0) cx++; else if (A == 1) cy++; else cz++;
+                int m = cy > cz ? cy : cz;
+                if (2 * m + cz > N) continue;
+                if (cz > cy + (R - 1) || cy > cx + (R - 1)) continue;
+            }
+            st.nodes++;
+            int sl = last[A], sf = first[A], save = nobs;
+            dirs[i] = d; pos[i + 1] = nx; occ[nx] = 1; cnt[A]++; last[A] = i; if (sf < 0) first[A] = i;
+            bool ok = true;
+            if (!PLAIN) ok = update(i, d, nx, sl, R - 1);
+            if (ok) {
+                if (i + 1 == split_depth) task(i + 1); else dfs(i + 1);
+            }
+            occ[nx] = 0; nobs = save; cnt[A]--; last[A] = sl; first[A] = sf;
+        }
+    }
+
+    /* task splitting */
+    int split_depth = -1;
+    long long task_counter = 0;
+    std::vector<std::vector<int>> *collect = nullptr;
+    void task(int depth) {
+        if (collect) { collect->emplace_back(dirs, dirs + depth); return; }
+        dfs(depth);
+    }
+    void start() {
+        memset(occ, 0, sizeof occ);
+        nobs = 0; npend[0] = 0; npend[1] = 0;
+        for (int A = 0; A < 3; A++) last[A] = first[A] = -1, cnt[A] = 0;
+        pos[0] = ORG; occ[ORG] = 1;
+    }
+    /* replay a prefix, then search below it */
+    void run_prefix(const std::vector<int> &pre) {
+        start();
+        split_depth = -1;
+        int L = (int)pre.size();
+        for (int i = 0; i < L; i++) {
+            int d = pre[i], A = d >> 1, nx = pos[i] + DELTA[d];
+            int sl = last[A];
+            dirs[i] = d; pos[i + 1] = nx; occ[nx] = 1; cnt[A]++; last[A] = i; if (first[A] < 0) first[A] = i;
+            if (!PLAIN) update(i, d, nx, sl, N - i - 1); else npend[i + 1] = 0;
+        }
+        dfs(L);
+    }
+    void collect_prefixes(int depth, std::vector<std::vector<int>> &v) {
+        start();
+        split_depth = depth; collect = &v;
+        /* first step: e or n (u can never be smaller than the reverse of the last step) */
+        for (int d = 0; d < 6; d++) {
+            int nx = ORG + DELTA[d];
+            if (!ALLOWED[nx]) continue;
+            int A = d >> 1;
+            dirs[0] = d; pos[1] = nx; occ[nx] = 1; cnt[A] = 1; last[A] = first[A] = 0;
+            st.nodes++;
+            if (depth == 1) task(1); else dfs(1);
+            occ[nx] = 0; cnt[A] = 0; last[A] = first[A] = -1;
+        }
+        collect = nullptr; split_depth = -1;
+    }
+};
+
+int main(int argc, char **argv) {
+    if (argc < 2) { fprintf(stderr, "usage: enum N [options]\n"); return 1; }
+    N = atoi(argv[1]);
+    int threads = (int)std::thread::hardware_concurrency();
+    const char *outfile = nullptr;
+    for (int i = 2; i < argc; i++) {
+        std::string a = argv[i];
+        if (a == "-plain") PLAIN = true;
+        else if (a == "-noaxes") AXES = false;
+        else if (a == "-noreduce") REDUCE = false;
+        else if (a == "-nopsi") PSI = false;
+        else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
+        else if (a == "-tourcap") TOUR_CAP = atoi(argv[++i]);
+        else if (a == "-split") SPLIT = atoi(argv[++i]);
+        else if (a == "-part") { PART_R = atoi(argv[++i]); PART_M = atoi(argv[++i]); }
+        else if (a == "-threads") threads = atoi(argv[++i]);
+        else if (a == "-out") outfile = argv[++i];
+        else { fprintf(stderr, "unknown option %s\n", a.c_str()); return 1; }
+    }
+    if (N < 4 || N > 40 || (N & 1)) { fprintf(stderr, "N must be even, 4..40\n"); return 1; }
+    if (SPLIT > N - 2) SPLIT = N - 2;
+    if (SPLIT < 1) SPLIT = 1;
+
+    for (int p = 0; p < NS; p++) {
+        int x = p % S - OX, y = (p / S) % S - OY, z = p / S2 - OZ;
+        CX[p] = (signed char)x; CY[p] = (signed char)y; CZ[p] = (signed char)z;
+        int d = abs(x) + abs(y) + abs(z);
+        DIST0[p] = (unsigned char)(d > 255 ? 255 : d);
+        bool lexgt = z > 0 || (z == 0 && (y > 0 || (y == 0 && x > 0)));
+        bool inbox = abs(x) <= 24 && abs(y) <= 24 && z <= 24;
+        ALLOWED[p] = lexgt && inbox;
+    }
+
+    std::vector<std::vector<int>> tasks;
+    Stats total;
+    {
+        Search *s0 = new Search();
+        s0->collect_prefixes(SPLIT, tasks);
+        total.add(s0->st);
+        delete s0;
+    }
+    std::atomic<size_t> next(0);
+    std::mutex mu;
+    std::vector<std::string> words;
+    auto worker = [&]() {
+        Search *s = new Search();
+        for (;;) {
+            size_t t = next++;
+            if (t >= tasks.size()) break;
+            if ((long long)(t % PART_M) != PART_R) continue;
+            s->run_prefix(tasks[t]);
+        }
+        std::lock_guard<std::mutex> lk(mu);
+        s->st.giveup = s->tour_giveup;
+        total.add(s->st);
+        words.insert(words.end(), s->out.begin(), s->out.end());
+        delete s;
+    };
+    std::vector<std::thread> pool;
+    for (int i = 0; i < threads; i++) pool.emplace_back(worker);
+    for (auto &th : pool) th.join();
+
+    std::sort(words.begin(), words.end());
+    FILE *fo = outfile ? fopen(outfile, "w") : stdout;
+    for (auto &w : words) fprintf(fo, "%s\n", w.c_str());
+    if (outfile) fclose(fo);
+    fprintf(stderr, "N=%d tasks=%zu part=%d/%d nodes=%llu closed=%llu candidates=%llu survivors=%llu bfs_limit_hits=%llu tour_giveups=%llu\n",
+            N, tasks.size(), PART_R, PART_M, total.nodes, total.closed, total.cand, total.surv, total.bfs_over, total.giveup);
+    return 0;
+}
