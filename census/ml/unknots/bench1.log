@@ -1,0 +1,51 @@
+== method walk, cap n+3, stage budget 3M proposals, up to 3 consecutive failed stages, 5 seeds
+D28      n=28  walk cap=n+3: solved 5/5  mean proposals 1010635  mean 1113 ms
+D43      n=43  walk cap=n+3: solved 3/5  mean proposals 3434999  mean 4374 ms
+H        n=9   walk cap=n+3: solved 5/5  mean proposals 142  mean 0 ms
+J        n=9   walk cap=n+3: solved 5/5  mean proposals 317  mean 0 ms
+Culprit  n=10  walk cap=n+3: solved 5/5  mean proposals 218  mean 0 ms
+Goeritz  n=11  walk cap=n+3: solved 5/5  mean proposals 556  mean 0 ms
+Fake_Freedman-He-Wang n=32  walk cap=n+3: solved 5/5  mean proposals 1151193  mean 1247 ms
+Freedman-He-Wang n=32  walk cap=n+3: solved 5/5  mean proposals 628424  mean 714 ms
+Ochiai_II n=45  walk cap=n+3: solved 5/5  mean proposals 64508  mean 74 ms
+Ochiai_II_reduced n=35  walk cap=n+3: solved 5/5  mean proposals 7417  mean 8 ms
+Ochiai_IV_Suzuki_15_Figure_4 n=55  walk cap=n+3: solved 5/5  mean proposals 2642240  mean 3654 ms
+Haken    n=141 walk cap=n+3: solved 5/5  mean proposals 106582  mean 214 ms
+P_Z31    n=31  walk cap=n+3: solved 5/5  mean proposals 7133  mean 7 ms
+P_Z120   n=120 walk cap=n+3: solved 0/5  (worst final size 120)
+P_Z138   n=138 walk cap=n+3: solved 0/5  (worst final size 80)
+PZ78     n=78  walk cap=n+3: solved 0/5  (worst final size 78)
+== method sa, cap n+3, stage budget 3M proposals, up to 3 consecutive failed stages, 5 seeds
+D28      n=28  sa cap=n+3: solved 5/5  mean proposals 329877  mean 354 ms
+D43      n=43  sa cap=n+3: solved 1/5  mean proposals 7623286  mean 9641 ms
+H        n=9   sa cap=n+3: solved 5/5  mean proposals 241  mean 0 ms
+J        n=9   sa cap=n+3: solved 5/5  mean proposals 351  mean 0 ms
+Culprit  n=10  sa cap=n+3: solved 5/5  mean proposals 373  mean 0 ms
+Goeritz  n=11  sa cap=n+3: solved 5/5  mean proposals 668  mean 0 ms
+Fake_Freedman-He-Wang n=32  sa cap=n+3: solved 5/5  mean proposals 1525900  mean 1683 ms
+Freedman-He-Wang n=32  sa cap=n+3: solved 5/5  mean proposals 1798639  mean 1903 ms
+Ochiai_II n=45  sa cap=n+3: solved 5/5  mean proposals 23523  mean 33 ms
+Ochiai_II_reduced n=35  sa cap=n+3: solved 5/5  mean proposals 11855  mean 16 ms
+Ochiai_IV_Suzuki_15_Figure_4 n=55  sa cap=n+3: solved 5/5  mean proposals 3587334  mean 5271 ms
+Haken    n=141 sa cap=n+3: solved 5/5  mean proposals 74265  mean 153 ms
+P_Z31    n=31  sa cap=n+3: solved 5/5  mean proposals 4625  mean 5 ms
+P_Z120   n=120 sa cap=n+3: solved 0/5  (worst final size 120)
+P_Z138   n=138 sa cap=n+3: solved 0/5  (worst final size 78)
+PZ78     n=78  sa cap=n+3: solved 0/5  (worst final size 78)
+== method walk, cap n+4, stage budget 3M proposals, up to 3 consecutive failed stages, 5 seeds
+D28      n=28  walk cap=n+4: solved 5/5  mean proposals 498308  mean 600 ms
+D43      n=43  walk cap=n+4: solved 5/5  mean proposals 966897  mean 1299 ms
+H        n=9   walk cap=n+4: solved 5/5  mean proposals 429  mean 0 ms
+J        n=9   walk cap=n+4: solved 5/5  mean proposals 527  mean 0 ms
+Culprit  n=10  walk cap=n+4: solved 5/5  mean proposals 217  mean 0 ms
+Goeritz  n=11  walk cap=n+4: solved 5/5  mean proposals 658  mean 1 ms
+Fake_Freedman-He-Wang n=32  walk cap=n+4: solved 5/5  mean proposals 278334  mean 315 ms
+Freedman-He-Wang n=32  walk cap=n+4: solved 5/5  mean proposals 358763  mean 394 ms
+Ochiai_II n=45  walk cap=n+4: solved 5/5  mean proposals 12974  mean 15 ms
+Ochiai_II_reduced n=35  walk cap=n+4: solved 5/5  mean proposals 11515  mean 13 ms
+Ochiai_IV_Suzuki_15_Figure_4 n=55  walk cap=n+4: solved 5/5  mean proposals 1095710  mean 1540 ms
+Haken    n=141 walk cap=n+4: solved 5/5  mean proposals 116376  mean 231 ms
+P_Z31    n=31  walk cap=n+4: solved 5/5  mean proposals 3104  mean 3 ms
+P_Z120   n=120 walk cap=n+4: solved 0/5  (worst final size 120)
+P_Z138   n=138 walk cap=n+4: solved 0/5  (worst final size 78)
+PZ78     n=78  walk cap=n+4: solved 0/5  (worst final size 78)
