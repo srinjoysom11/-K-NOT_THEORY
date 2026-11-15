@@ -311,7 +311,7 @@ struct Search {
         memcpy(pl, nw, nn * sizeof(int));
         tour_calls = 0; gave_up = false; capTotal = nn;
         if (!tour(nx, pl, nn, 0, R1)) return false;
-        if (gave_up) { tour_giveup++; nwit[i1] = -1; return true; }
+        if (gave_up) { tour_giveup++; nwit[i1] = m; return true; }   /* o, sv keep the insertion order as a seed for the children */
         for (int q = 0; q < nn; q++) { o[q] = capO[q]; sv[q] = capS[q]; }
         nwit[i1] = nn;
         return true;
