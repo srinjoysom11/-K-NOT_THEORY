@@ -2,26 +2,30 @@
  "runs": [
   {
    "engine": "lean",
-   "n": 30,
-   "split": 9,
-   "m": 64,
-   "per_job": 4
-  },
-  {
-   "engine": "lean",
-   "n": 32,
-   "split": 9,
-   "m": 256,
-   "per_job": 4
-  },
-  {
-   "engine": "lean",
    "n": 34,
    "split": 9,
    "m": 1024,
    "per_job": 4,
-   "from": 0,
-   "to": 704
+   "from": 704,
+   "to": 1024
+  },
+  {
+   "engine": "cpp",
+   "n": 30,
+   "m": 16,
+   "per_job": 4
+  },
+  {
+   "engine": "cpp",
+   "n": 32,
+   "m": 64,
+   "per_job": 4
+  },
+  {
+   "engine": "cpp",
+   "n": 34,
+   "m": 256,
+   "per_job": 4
   }
  ]
 }
