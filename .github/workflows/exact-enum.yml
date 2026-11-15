@@ -44,6 +44,8 @@ jobs:
           ./enum 22 -prime -out /dev/null 2> t.log; cat t.log
           grep -q "nodes=2916241 closed=13 candidates=0 survivors=0" t.log
           ./enum 24 -prime -out t24.txt 2> t.log; cmp t24.txt out/n24_psi.txt
+          # the same check with the options of this request (for example a different -tourcap)
+          ./enum 24 ${{ matrix.opts }} -out t24b.txt 2> t.log; cat t.log; cmp t24b.txt out/n24_psi.txt
       - name: enumerate
         working-directory: research/exact
         run: |
