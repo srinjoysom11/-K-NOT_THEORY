@@ -34,7 +34,7 @@ then Len(K) > m.
 | 28, `-prime` | 3.2e8 | 98 | all trefoil polynomial; with n <= 26 this excludes a 4_1 polygon below 30 edges |
 | 30, `-prime` | 1.486e9 (8 parts on GitHub Actions; 3 parts repeated locally, byte-identical) | 190 | 92 are 3_1, 98 are 4_1 (`out/n30_prime.rigorous.txt`); the flip closure of the 98 is 3648 polygons in 76 symmetry classes (`out/n30_4_1.census.txt`), the published count of minimal 4_1 polygons |
 | 32, `-prime` | running on GitHub Actions, 64 parts (run 43675517776) | | |
-| 34, `-prime` | queued on GitHub Actions, 240 parts (run 43675532405) | | |
+| 34, `-prime -tourcap 3` | queued on GitHub Actions, 240 parts (the first submission, run 43675532405 with the old cap, was cancelled) | | |
 | 20-26, `-prime` | 7.7e5 to 6.1e7 | 0, 0, 50, 62 | same survivor files as without `-prime` |
 
 Independent checks: `check/REPORT.txt` (Python written by a Haiku agent from the definitions
@@ -45,8 +45,8 @@ were byte-identical across six rewrites of the bounds.
 
 **Composite knots [C].** `-prime` is complete for prime knots only, but PROOF.md section 2b
 (Lemma 4, programs `arcknot.cpp` and `unknot_cert.cpp`, logs in `out/arc/`) shows that the one
-case it misses needs at least 36 edges. So for n <= 34 the `-prime` output is complete for
-all knot types.
+case it misses needs at least 38 edges (40 if `arcknot 18`, running, finds nothing). So for
+n <= 36 the `-prime` output is complete for all knot types.
 
 **Identification.** `identify_rigorous.py` simplifies each survivor's diagram to at most 5
 crossings and reads the type from the Alexander polynomial; outputs are `out/*.rigorous.txt`.
@@ -125,7 +125,15 @@ Without `-prime` (complete for composite knots too) everything is about 5 times 
 An earlier version of this file said 4.5 h for n = 34; that used the speed of the
 unpruned search and was wrong.
 
-**Where the time goes [C, gprof at n = 22].** 64 % in the exact search over visiting orders
+**`-tourcap 3` makes the search about 10 times faster [C, 15 Nov].** The exact search over
+visiting orders stops after `-tourcap` calls and then answers "possible". The default 3000
+was tuned at n = 22; at n = 28 two thirds of all calls were in searches that gave up anyway.
+n = 28, part 0 of 32, one thread: cap 3000: 131 s, 1.01e7 nodes; 300: 63 s; 100: 41 s;
+30: 26 s; 10: 19 s; 3: 15 s, 1.64e7 nodes; 1: 13.5 s; 0: 13.2 s, 1.81e7 nodes. Survivors
+identical in all cases. Use `-prime -tourcap 3` from now on (about 1.2e6 nodes/s per core
+here). The cost table above is for the old cap; divide the times by about 8.
+
+**Where the time goes [C, gprof at n = 22, old cap].** 64 % in the exact search over visiting orders
 (`tour`), 18 % in building and reusing the cheap order (`tour_ok`), 15 % in obligation
 bookkeeping (`update`), 3 % in the walk itself. About 40 % of nodes need the exact search,
 about 66 recursive calls each. Tried and reverted, because output and time were unchanged or
