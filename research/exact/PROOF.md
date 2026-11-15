@@ -95,6 +95,22 @@ times, at least twice, and at least 4 times if it already has two occupied level
 side. Each later step crosses exactly one mid-plane, so the number of crossings still owed,
 summed over the three axes, is a lower bound on the number of steps left.
 
+*Use in the search (`-stair`).* The lemma says more about an outermost plane. Let c be the
+lowest (or highest) occupied level on some axis, H the mid-plane next to it, and suppose at
+least two occupied levels lie on the other side of H. If H is crossed exactly twice, the side
+with two levels is not the staircase side, so the vertices in level c form one shortest path:
+every stretch of the polygon inside level c is monotone (it never uses two opposite
+directions). So if the walk so far has a stretch inside level c that uses two opposite
+directions, H needs 4 crossings and not 2. If only two levels are occupied on the axis, H needs
+4 crossings when both levels contain such a stretch. The program records such stretches per
+level while the walk grows (only stretches of consecutive steps of the walk are examined, so
+some are missed, which is safe) and raises the number of crossings owed accordingly.
+This stays a lower bound when the walk later goes beyond level c: each new level adds a new
+outermost plane that owes 2 crossings, and H still owes at least 2, so the true number owed is
+at least the one computed with 4 for H.
+Measured [C]: 24 % fewer nodes at n = 24, 22 % at n = 28 (part 0 of 32); the survivors at
+n = 24, 26 and 28 (part 0 of 32) are the same words as without it.
+
 *Data [C].* In all 2592 canonical 24-edge trefoils and in the stored polygons of all 249 knots
 of the literature table, a mid-plane crossed by only 2 edges occurs only at an outermost gap
 (it does occur there in 2592 of 2592 and 248 of 249), never further in. So the lemma is sharp

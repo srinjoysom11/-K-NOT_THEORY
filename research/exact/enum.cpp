@@ -35,6 +35,11 @@
  *   -prime        use the plane-crossing lemma: every lattice plane with at least two occupied
  *                 levels on each side is crossed by >= 4 edges.  Proved for shortest polygons of
  *                 PRIME knots only, so the output is complete for prime knot types only
+ *                 (and for all knot types up to N = 36, PROOF.md section 2b)
+ *   -stair        -prime, and also: if a level is the outermost one on its axis, at least two
+ *                 levels lie on the other side of the plane next to it, and the walk has a
+ *                 stretch inside that level that uses two opposite directions, then that plane
+ *                 is crossed by >= 4 edges (the other half of the plane-crossing lemma)
  *   -bridge B     only polygons with >= B local maxima along each axis (every polygon of a knot
  *                 with bridge number >= B is of this kind); used for bounds on such knots
  *   -noreduce     skip the neutral-move reduction at the leaves
@@ -67,6 +72,7 @@ static const int MAXN = 48;
 
 static int N = 0;
 static bool PLAIN = false, AXES = true, REDUCE = true, PSI = true;
+static bool STAIR = false; /* -stair: outer levels behind a twice-crossed plane are monotone paths (PROOF.md Lemma 3) */
 static bool PRIME = false; /* -prime: use the plane-crossing lemma (valid for prime knots only, PROOF.md Lemma 3) */
 static int BRIDGE = 0;   /* -bridge B: keep only polygons with at least B local maxima along every axis */
 static int BFS_LIMIT = 2000, SPLIT = 9, PART_R = 0, PART_M = 1, TOUR_CAP = 3000;
@@ -155,6 +161,30 @@ struct Search {
     int dirs[MAXN];
     int last[3], first[3], cnt[3];
     int rev[3];                 /* sign changes so far among the steps along each axis */
+    int runm[3];                /* directions used since the last step along axis A (bit d) */
+    unsigned char badl[3][64];  /* badl[A][c+32] = number of non-monotone runs inside level c of axis A */
+    struct StairSave { int rm[3]; int cd[3]; int lev[3]; };
+    static inline bool nonmono(int m) { return (m & (m >> 1) & 0x15) != 0; }
+    inline void stair_step(int A, int d, int from, StairSave &s) {
+        for (int B = 0; B < 3; B++) { s.rm[B] = runm[B]; s.cd[B] = cdef[B]; s.lev[B] = -1; }
+        runm[A] = 0;
+        for (int B = 0; B < 3; B++) {
+            if (B == A) continue;
+            int old = runm[B], nw = old | (1 << d);
+            runm[B] = nw;
+            if (!nonmono(old) && nonmono(nw)) {
+                int c = (B == 0 ? CX[from] : B == 1 ? CY[from] : CZ[from]) + 32;
+                badl[B][c]++; s.lev[B] = c; cdef[B] = owed(B);
+            }
+        }
+    }
+    inline void stair_undo(int A, const StairSave &s) {
+        for (int B = 0; B < 3; B++) {
+            runm[B] = s.rm[B];
+            if (s.lev[B] >= 0) badl[B][s.lev[B]]--;
+            if (B != A) cdef[B] = s.cd[B];
+        }
+    }
     int crs[3][64];             /* crs[A][p+32] = edges so far between levels p and p+1 on axis A */
     int cmn[3], cmx[3], cdef[3];/* extent so far on each axis and the crossings still owed */
     /* crossings still owed on axis A: interior planes need 4, the two outer ones 2, and every count must end even */
@@ -162,6 +192,11 @@ struct Search {
         int t = 0;
         for (int p = cmn[A]; p < cmx[A]; p++) {
             int c = crs[A][p + 32], req = (p > cmn[A] && p < cmx[A] - 1) ? 4 : 2;
+            if (STAIR && req == 2) {
+                if (cmx[A] - cmn[A] == 1) { if (badl[A][cmn[A] + 32] && badl[A][cmx[A] + 32]) req = 4; }
+                else if (p == cmn[A]) { if (badl[A][cmn[A] + 32]) req = 4; }
+                else { if (badl[A][cmx[A] + 32]) req = 4; }
+            }
             t += c >= req ? (c & 1) : req - c;
         }
         return t;
@@ -462,10 +497,11 @@ struct Search {
                 for (int q = 0; q < 3; q++) { int m = 2 * BRIDGE - 1 - rev[q] - (q == A ? isrev : 0); if (m > 0) need += m; }
                 if (need > R - 1) continue;
             }
-            int smn = 0, smx = 0, sdef = 0, pl = 0;
+            int smn = 0, smx = 0, sdef = 0, pl = 0; StairSave ss;
             if (PRIME) {
                 plane_step(A, d, cur, smn, smx, sdef, pl);
-                if (cdef[0] + cdef[1] + cdef[2] > R - 1) { plane_undo(A, smn, smx, sdef, pl); continue; }
+                if (STAIR) stair_step(A, d, cur, ss);
+                if (cdef[0] + cdef[1] + cdef[2] > R - 1) { if (STAIR) stair_undo(A, ss); plane_undo(A, smn, smx, sdef, pl); continue; }
             }
             st.nodes++;
             int sl = last[A], sf = first[A], save = nobs;
@@ -476,6 +512,7 @@ struct Search {
                 if (i + 1 == split_depth) task(i + 1); else dfs(i + 1);
             }
             occ[nx] = 0; nobs = save; cnt[A]--; last[A] = sl; first[A] = sf; rev[A] -= isrev;
+            if (PRIME && STAIR) stair_undo(A, ss);
             if (PRIME) plane_undo(A, smn, smx, sdef, pl);
         }
     }
@@ -492,7 +529,7 @@ struct Search {
         memset(occ, 0, sizeof occ);
         nobs = 0; npend[0] = 0; npend[1] = 0; nwit[0] = 0; nwit[1] = 0;
         for (int A = 0; A < 3; A++) last[A] = first[A] = -1, cnt[A] = 0, rev[A] = 0, cmn[A] = cmx[A] = 0, cdef[A] = 0;
-        memset(crs, 0, sizeof crs);
+        memset(crs, 0, sizeof crs); memset(badl, 0, sizeof badl); runm[0] = runm[1] = runm[2] = 0;
         pos[0] = ORG; occ[ORG] = 1;
     }
     /* replay a prefix, then search below it */
@@ -504,7 +541,7 @@ struct Search {
             int d = pre[i], A = d >> 1, nx = pos[i] + DELTA[d];
             int sl = last[A];
             rev[A] += (sl >= 0 && dirs[sl] == (d ^ 1));
-            if (PRIME) { int a1, a2, a3, a4; plane_step(A, d, pos[i], a1, a2, a3, a4); }
+            if (PRIME) { int a1, a2, a3, a4; plane_step(A, d, pos[i], a1, a2, a3, a4); if (STAIR) { StairSave ss; stair_step(A, d, pos[i], ss); } }
             dirs[i] = d; pos[i + 1] = nx; occ[nx] = 1; cnt[A]++; last[A] = i; if (first[A] < 0) first[A] = i;
             if (!PLAIN) update(i, d, nx, sl, N - i - 1); else npend[i + 1] = 0;
         }
@@ -521,9 +558,12 @@ struct Search {
             int A = d >> 1;
             dirs[0] = d; pos[1] = nx; occ[nx] = 1; cnt[A] = 1; last[A] = first[A] = 0;
             int smn = 0, smx = 0, sdef = 0, pl = 0;
+            StairSave ss;
             if (PRIME) plane_step(A, d, ORG, smn, smx, sdef, pl);
+            if (PRIME && STAIR) stair_step(A, d, ORG, ss);
             st.nodes++;
             if (depth == 1) task(1); else dfs(1);
+            if (PRIME && STAIR) stair_undo(A, ss);
             if (PRIME) plane_undo(A, smn, smx, sdef, pl);
             occ[nx] = 0; cnt[A] = 0; last[A] = first[A] = -1;
         }
@@ -544,6 +584,7 @@ int main(int argc, char **argv) {
         else if (a == "-nopsi") PSI = false;
         else if (a == "-bridge") BRIDGE = atoi(argv[++i]);
         else if (a == "-prime") PRIME = true;
+        else if (a == "-stair") STAIR = PRIME = true;
         else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
         else if (a == "-tourcap") TOUR_CAP = atoi(argv[++i]);
         else if (a == "-split") SPLIT = atoi(argv[++i]);
