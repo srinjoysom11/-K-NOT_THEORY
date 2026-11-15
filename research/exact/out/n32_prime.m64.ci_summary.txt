@@ -1,0 +1,129 @@
+n=32 tag=prime parts=64 COMPLETE survivors=542
+N=32 tasks=72315 part=0/64 nodes=116671297 closed=766 candidates=113 survivors=12 bfs_limit_hits=0 tour_giveups=3611746
+seconds=2438 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=1/64 nodes=120280000 closed=761 candidates=119 survivors=14 bfs_limit_hits=0 tour_giveups=3605433
+seconds=2390 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=2/64 nodes=131221810 closed=1057 candidates=214 survivors=18 bfs_limit_hits=0 tour_giveups=4030498
+seconds=1573 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=3/64 nodes=127350976 closed=800 candidates=138 survivors=19 bfs_limit_hits=0 tour_giveups=3944471
+seconds=2547 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=4/64 nodes=121189497 closed=857 candidates=113 survivors=13 bfs_limit_hits=0 tour_giveups=3781245
+seconds=2470 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=5/64 nodes=117715357 closed=812 candidates=120 survivors=9 bfs_limit_hits=0 tour_giveups=3476736
+seconds=2155 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=6/64 nodes=124266153 closed=915 candidates=131 survivors=6 bfs_limit_hits=0 tour_giveups=3699050
+seconds=1852 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=7/64 nodes=121938103 closed=627 candidates=99 survivors=4 bfs_limit_hits=0 tour_giveups=3845294
+seconds=1675 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=8/64 nodes=124660338 closed=761 candidates=117 survivors=16 bfs_limit_hits=0 tour_giveups=3823119
+seconds=2063 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=9/64 nodes=120302569 closed=699 candidates=97 survivors=5 bfs_limit_hits=0 tour_giveups=3913168
+seconds=2536 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=10/64 nodes=120372625 closed=785 candidates=106 survivors=13 bfs_limit_hits=0 tour_giveups=3850603
+seconds=2518 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=11/64 nodes=129141215 closed=884 candidates=141 survivors=5 bfs_limit_hits=0 tour_giveups=4003148
+seconds=2618 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=12/64 nodes=121688149 closed=802 candidates=110 survivors=6 bfs_limit_hits=0 tour_giveups=3741673
+seconds=2070 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=13/64 nodes=117587373 closed=626 candidates=111 survivors=11 bfs_limit_hits=0 tour_giveups=3714644
+seconds=2016 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=14/64 nodes=122967358 closed=832 candidates=110 survivors=5 bfs_limit_hits=0 tour_giveups=3764754
+seconds=2199 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=15/64 nodes=121983603 closed=883 candidates=107 survivors=6 bfs_limit_hits=0 tour_giveups=4034900
+seconds=1593 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=16/64 nodes=128257650 closed=668 candidates=79 survivors=0 bfs_limit_hits=0 tour_giveups=3913494
+seconds=1534 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=17/64 nodes=122804378 closed=494 candidates=53 survivors=3 bfs_limit_hits=0 tour_giveups=3819070
+seconds=2090 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=18/64 nodes=120859652 closed=653 candidates=81 survivors=12 bfs_limit_hits=0 tour_giveups=3515440
+seconds=1947 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=19/64 nodes=122129257 closed=872 candidates=83 survivors=6 bfs_limit_hits=0 tour_giveups=3645217
+seconds=1979 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=20/64 nodes=118297584 closed=740 candidates=91 survivors=5 bfs_limit_hits=0 tour_giveups=3627020
+seconds=2392 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=21/64 nodes=124427165 closed=1065 candidates=144 survivors=4 bfs_limit_hits=0 tour_giveups=3629538
+seconds=1437 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=22/64 nodes=113449668 closed=453 candidates=82 survivors=3 bfs_limit_hits=0 tour_giveups=3448690
+seconds=1890 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=23/64 nodes=113276597 closed=776 candidates=125 survivors=11 bfs_limit_hits=0 tour_giveups=3422327
+seconds=2204 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=24/64 nodes=120479809 closed=873 candidates=133 survivors=19 bfs_limit_hits=0 tour_giveups=3498650
+seconds=1933 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=25/64 nodes=119404035 closed=651 candidates=79 survivors=10 bfs_limit_hits=0 tour_giveups=3747983
+seconds=2512 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=26/64 nodes=122944897 closed=827 candidates=92 survivors=6 bfs_limit_hits=0 tour_giveups=3782891
+seconds=2641 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=27/64 nodes=124987798 closed=847 candidates=107 survivors=5 bfs_limit_hits=0 tour_giveups=3727791
+seconds=1515 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=28/64 nodes=124723283 closed=865 candidates=118 survivors=5 bfs_limit_hits=0 tour_giveups=3877582
+seconds=1518 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=29/64 nodes=120180340 closed=652 candidates=71 survivors=2 bfs_limit_hits=0 tour_giveups=3846668
+seconds=1442 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=30/64 nodes=121885113 closed=592 candidates=84 survivors=3 bfs_limit_hits=0 tour_giveups=3664336
+seconds=2426 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=31/64 nodes=126171820 closed=937 candidates=161 survivors=16 bfs_limit_hits=0 tour_giveups=4017889
+seconds=2611 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=32/64 nodes=128397714 closed=793 candidates=105 survivors=11 bfs_limit_hits=0 tour_giveups=4005861
+seconds=2111 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=33/64 nodes=122836476 closed=746 candidates=85 survivors=4 bfs_limit_hits=0 tour_giveups=3658324
+seconds=2020 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=34/64 nodes=128699841 closed=589 candidates=111 survivors=8 bfs_limit_hits=0 tour_giveups=3889840
+seconds=2340 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=35/64 nodes=116876599 closed=712 candidates=105 survivors=7 bfs_limit_hits=0 tour_giveups=3515364
+seconds=1945 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=36/64 nodes=121989278 closed=798 candidates=79 survivors=7 bfs_limit_hits=0 tour_giveups=3786741
+seconds=1665 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=37/64 nodes=121172043 closed=737 candidates=106 survivors=14 bfs_limit_hits=0 tour_giveups=3938110
+seconds=2558 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=38/64 nodes=122797209 closed=668 candidates=92 survivors=1 bfs_limit_hits=0 tour_giveups=4055988
+seconds=2174 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=39/64 nodes=118558111 closed=784 candidates=109 survivors=8 bfs_limit_hits=0 tour_giveups=3591758
+seconds=2327 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=40/64 nodes=117289050 closed=610 candidates=99 survivors=2 bfs_limit_hits=0 tour_giveups=3685258
+seconds=1987 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=41/64 nodes=117481890 closed=568 candidates=77 survivors=5 bfs_limit_hits=0 tour_giveups=3754858
+seconds=2485 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=42/64 nodes=119252773 closed=798 candidates=103 survivors=9 bfs_limit_hits=0 tour_giveups=3646367
+seconds=1989 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=43/64 nodes=114636591 closed=735 candidates=168 survivors=17 bfs_limit_hits=0 tour_giveups=3595395
+seconds=1951 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=44/64 nodes=116977290 closed=575 candidates=76 survivors=6 bfs_limit_hits=0 tour_giveups=3426360
+seconds=1895 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=45/64 nodes=114562638 closed=686 candidates=112 survivors=8 bfs_limit_hits=0 tour_giveups=3535787
+seconds=1931 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=46/64 nodes=117700159 closed=699 candidates=65 survivors=5 bfs_limit_hits=0 tour_giveups=3401636
+seconds=2268 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=47/64 nodes=122234549 closed=769 candidates=105 survivors=11 bfs_limit_hits=0 tour_giveups=3824660
+seconds=2076 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=48/64 nodes=120926798 closed=1035 candidates=173 survivors=17 bfs_limit_hits=0 tour_giveups=3654718
+seconds=1573 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=49/64 nodes=120213675 closed=680 candidates=83 survivors=2 bfs_limit_hits=0 tour_giveups=3754830
+seconds=1367 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=50/64 nodes=115447656 closed=861 candidates=204 survivors=8 bfs_limit_hits=0 tour_giveups=3444026
+seconds=2290 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=51/64 nodes=121960585 closed=905 candidates=182 survivors=7 bfs_limit_hits=0 tour_giveups=3688234
+seconds=2436 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=52/64 nodes=119056093 closed=741 candidates=97 survivors=5 bfs_limit_hits=0 tour_giveups=3624327
+seconds=1609 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=53/64 nodes=123465292 closed=877 candidates=152 survivors=6 bfs_limit_hits=0 tour_giveups=3875915
+seconds=2105 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=54/64 nodes=123083892 closed=977 candidates=168 survivors=20 bfs_limit_hits=0 tour_giveups=3623976
+seconds=2383 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=55/64 nodes=123357829 closed=1026 candidates=180 survivors=15 bfs_limit_hits=0 tour_giveups=3725753
+seconds=1917 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=56/64 nodes=122098086 closed=690 candidates=117 survivors=3 bfs_limit_hits=0 tour_giveups=3785218
+seconds=1447 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=57/64 nodes=128124180 closed=920 candidates=127 survivors=7 bfs_limit_hits=0 tour_giveups=3733706
+seconds=2074 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=58/64 nodes=123891657 closed=858 candidates=103 survivors=7 bfs_limit_hits=0 tour_giveups=3731887
+seconds=2108 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=59/64 nodes=118109511 closed=746 candidates=135 survivors=20 bfs_limit_hits=0 tour_giveups=3449974
+seconds=1954 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=60/64 nodes=118926602 closed=649 candidates=64 survivors=5 bfs_limit_hits=0 tour_giveups=3578079
+seconds=1547 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=61/64 nodes=118839164 closed=828 candidates=75 survivors=8 bfs_limit_hits=0 tour_giveups=3581166
+seconds=1924 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=62/64 nodes=122243978 closed=821 candidates=121 survivors=7 bfs_limit_hits=0 tour_giveups=3615846
+seconds=2390 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
+N=32 tasks=72315 part=63/64 nodes=117138288 closed=835 candidates=105 survivors=10 bfs_limit_hits=0 tour_giveups=3529872
+seconds=1616 host=github-actions threads=4 opts=-prime commit=362507682dfce2529e3512787d912d2fb60bcedb
