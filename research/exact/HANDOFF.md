@@ -92,6 +92,33 @@ present, the merged `out/nN_prime.txt`. If parts fail, re-run the failed jobs fr
 Actions page (or push the same request again); finished parts are kept as artifacts for
 30 days. Then run `python3 identify_rigorous.py out/nN_prime.txt`.
 
+**Queue on 15 Nov, 04:50 UTC, and what to do as each run lands.** Runs execute one after
+another (20 jobs at a time): n = 32 (run 43675517776, 64 parts, old cap), n = 34 (run
+43677800789, 240 parts, `-tourcap 3`), n = 36 (250 parts, `-tourcap 3`). Each run ends with a
+commit "exact: enumeration parts from GitHub Actions run ..." on this branch.
+1. After each such commit: `git pull`, look at `out/nN_prime.m*.ci_summary.txt` (first line
+   says COMPLETE or how many parts are missing), then
+   `python3 identify_rigorous.py out/nN_prime.txt` (must end with ALL RESOLVED).
+2. n = 34: expect only 3_1, 4_1, 5_1. Then
+   `python3 check/census_from_survivors.py out/n34_prime.txt --alex "1,-1,1,-1,1"` must give
+   T = 6672 [JvRR11]. With that, the theorem "every knot other than 3_1, 4_1, 5_1 has
+   Len >= 36, so Len(5_2) = 36" is complete (PROOF.md section 5).
+3. n = 36: expect 3_1, 4_1, 5_1, 5_2 only; census of 5_2 with `--alex "2,-3,2"`, the sampled
+   number is 114 912 [JvRR11].
+4. n = 38, not yet submitted. Wait for the part times of n = 36 (in the summary file), then
+   push four requests one after another, each when the previous one has been picked up:
+   `{"runs": [{"n": 38, "m": 1000, "from": 0, "to": 250, "opts": "-prime -tourcap 3", "tag": "prime"}]}`
+   then from 250 to 500, 500 to 750, 750 to 1000. If the slowest n = 36 part took more than
+   60 minutes, use m = 2000 in eight pushes instead (a job is killed at 350 minutes).
+   If no knot outside {3_1, 4_1, 5_1, 5_2} survives at 38, then Len(6_1) = Len(6_2) =
+   Len(6_3) = Len(3_1 # 3_1) = 40. For composite knots at n = 38 the arc lemma is needed
+   for 18 edges (`out/arc/arc18.log`, running locally on 15 Nov; rerun with
+   `./arcknot 18 2> out/arc/arc18.log | ./unknot_cert > out/arc/arc18.unresolved.txt`,
+   a few hours on one core).
+5. A local run of n = 30 and n = 32 with `-tourcap 3` (`queue_c3.sh`, files
+   `out/nN_primec3.part*`) is a cross-check of the old cap against the new one; the sorted
+   union must equal `out/nN_prime.txt`.
+
 **Locally:**
 
 ```
