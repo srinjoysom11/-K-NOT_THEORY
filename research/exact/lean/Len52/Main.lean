@@ -12,25 +12,12 @@
 -/
 import Len52.Statement
 import Len52.NormalForm
-import Len52.Coloring
+import Len52.Cert
 import Len52.SearchProof
 
 namespace Len52
 
 open Len52.Search
-
-/-- the lengths that need a search: every even length from 4 to 34 -/
-def lengths : List Nat := [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34]
-
-/-- the number of parts each length was split into for the computation -/
-def parts (n : Nat) : Nat :=
-  if n = 34 then 1024 else if n = 32 then 256 else if n = 30 then 64 else if n = 28 then 2 else 1
-
-/-- The finite computation: every word that the search returns, for every needed length and every
-    part, has a regular diagram whose Fox 7-colourings are all constant.  Established by running the
-    compiled program (`lake exe certify`) on every part; see PROOF_RIGOROUS.md §8. -/
-def CompCert : Prop :=
-  ∀ n ∈ lengths, ∀ r, r < parts n → ∀ w ∈ (searchPart n 9 (parts n) r).out, colorCheck w = true
 
 theorem no_short (T : List Nat → Prop) (hT : KnotClass T) (hTop : TopHyp T) (hComp : CompCert) :
     ∀ w, T w → 36 ≤ w.length := by
@@ -52,7 +39,7 @@ theorem no_short (T : List Nat → Prop) (hT : KnotClass T) (hTop : TopHyp T) (h
     have hmem : w.length ∈ lengths := by
       simp only [lengths, List.mem_cons, List.not_mem_nil, or_false]
       omega
-    have hP : 0 < parts w.length := by unfold parts; split <;> (try split) <;> (try split) <;> (try split) <;> omega
+    have hP : 0 < parts w.length := parts_pos _
     let r := key ((w.take 9).reverse) % parts w.length
     have hr : r < parts w.length := Nat.mod_lt _ hP
     have hin := search_complete w hS hN (parts w.length) r hP (Or.inr rfl)
