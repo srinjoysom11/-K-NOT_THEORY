@@ -9,6 +9,30 @@ Scope note. The project skill (`.claude/skills/lattice-knot-tables`) lists lower
 as out of scope. The user reopened them on 14 Nov 2026 with the goal "a breakthrough, analytic
 or computational"; this directory is that work. Nothing here changes the Goal 1 tables.
 
+## 0. Formal proof of Len(5_2) = 36 (15 Nov 2026, current work)
+
+Goal set by the user: a rigorous, formal proof with no doubt about pruned branches. State:
+* `formal/PROOF_RIGOROUS.md`: the complete argument (read this first). Two rounds of adversarial
+  review (reports summarised in the commit messages "revision after review round 1/2").
+* `lean/` (plain Lean 4.25.0, no Mathlib). Everything is proved, with no sorry: `no_short` (Main.lean)
+  says `KnotClass T -> TopHyp T -> CompCert -> forall w, T w -> 36 <= |w|`, with axioms
+  propext, Classical.choice and Quot.sound. Build: `cd lean && lake build Len52`.
+  `.github/workflows/lean-proof.yml` rebuilds it on GitHub and prints the axioms.
+* **CompCert is the only open item.** It is equivalent to 1358 Booleans `checkPart n r`
+  (Cert.lean), evaluated by `lake exe checkpart n r`. Proof runs:
+  - local, n <= 28 and n = 30, with `lean/run_local.sh check n M parts...`, logs in out/lean/parts/n*_check.*;
+  - GitHub Actions, engine `check` in `lean/ci/request.json`: run 43735396072 (n = 34, 1024 parts) and
+    run 43735437754 (n = 30, 32, plus the C++ cross-check).
+  When they finish:
+  1. `python3 formal/verify_comp.py` writes out/lean/COMPCERT.txt and must say HOLDS.
+  2. `python3 formal/repro.py 20` re-runs a sample of GitHub parts locally (identical SHA-256 expected).
+  3. Fill in PROOF_RIGOROUS.md §8.1 with the table from COMPCERT.txt.
+* If a GitHub part fails: re-run that job from the Actions page, or run the part locally with
+  run_local.sh. Never change Spec/Diagram/Search/Coloring/Cert/CheckMain/lakefile: the source hash
+  ties every log to them.
+* Not used by this proof: the plane-crossing lemma, the arc lemma, primeness, and the faster `-prime`
+  C++ runs below (they remain as cross-checks).
+
 ## 1. What exists and what it shows
 
 Len(K) = least number of edges of a simple-cubic lattice polygon of knot type K.
