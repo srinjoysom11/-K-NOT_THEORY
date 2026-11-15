@@ -9,3 +9,8 @@ name = "Len52"
 name = "search"
 root = "SearchMain"
 moreLeancArgs = ["-O3", "-march=native"]
+
+[[lean_exe]]
+name = "certify"
+root = "CertifyMain"
+moreLeancArgs = ["-O3", "-march=native"]
