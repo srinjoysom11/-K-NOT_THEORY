@@ -34,9 +34,9 @@ def pd_code(w, D):
     return X
 
 def variants(pd):
-    """all PD codes of the same unoriented diagram under relabelling by rotation (and reversal) of the
-    edge numbering, each as a sorted tuple of crossing 4-tuples normalised to start anywhere is not allowed
-    (PD starts at the incoming under-strand), so only relabellings are applied"""
+    """all PD codes of the same unoriented diagram obtained by renumbering the edges along the knot:
+    a cyclic shift of the labels, optionally after reversing the orientation.  Each code is returned as
+    a sorted tuple of crossing 4-tuples; every 4-tuple still starts at the incoming under-strand."""
     m = 2 * len(pd); out = set()
     for s in range(m):
         for rev in (False, True):

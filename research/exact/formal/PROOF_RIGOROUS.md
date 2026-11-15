@@ -34,9 +34,14 @@ Its *polygon* |w| ⊂ ℝ³ is the union of the n closed unit segments [v_i, v_{
 
 **Lemma 1.1 [P].** For a polygon word, |w| is a simple closed polygonal curve.
 
-*Proof.* Two distinct unit lattice segments meet in at most one common endpoint. If they shared an
-interior point they would be collinear and overlap, and then they would be the same segment,
-because their endpoints are lattice points at distance 1. Segment i has endpoints v_i and v_{i+1}.
+*Proof.* Two distinct unit lattice segments meet in at most one common endpoint:
+* if they are perpendicular, the intersection point has, on each segment's axis, the integer value
+  of the other segment, so it is an endpoint of both;
+* if they are parallel but not collinear, they are disjoint;
+* if they are collinear, two unit segments between consecutive integers overlap only when they are
+  equal, and otherwise meet at most in a shared endpoint.
+
+Segment i has endpoints v_i and v_{i+1}.
 These sets are distinct for i ≠ j, because the v_i are distinct and n ≥ 3. Segments i and j share
 an endpoint only if {v_i, v_{i+1}} ∩ {v_j, v_{j+1}} ≠ ∅, which by distinctness means j = i ± 1
 (mod n). So |w| is a cycle of n segments that meet only consecutively, at single points. ∎
@@ -48,14 +53,22 @@ steps.
 **Knot types.** A knot is a tame simple closed curve in ℝ³; here all knots are polygonal. Two
 knots are *equivalent* (have the same knot type) if there is an orientation-preserving
 homeomorphism of ℝ³ carrying one onto the other. For polygonal knots this is the same as ambient
-isotopy, and the same as being related by a finite sequence of Δ-moves [T: Burde–Zieschang,
-*Knots*, Ch. 1, §1.A–B; Reidemeister, *Knotentheorie* (1932), §1]. A **Δ-move** replaces one edge
-[a, b] of a polygonal knot K by the two edges [a, c], [c, b], or the reverse. It is allowed when
-the closed triangle abc meets K only in [a, b] (resp. in [a, c] ∪ [c, b]).
+isotopy, and the same as being related by finitely many Δ-moves [T: Burde–Zieschang, *Knots*,
+Ch. 1; Reidemeister, *Knotentheorie* (1932), Ch. I].
 
-We use only the easy direction: *a Δ-move does not change the knot type.* (The triangle has a
-neighbourhood in ℝ³ that meets K in a single arc. A homeomorphism supported in that neighbourhood
-pushes one side of the triangle onto the other two, and it is isotopic to the identity.)
+A **Δ-move** replaces one edge [a, b] of a polygonal knot K by the two edges [a, c], [c, b], or the
+reverse. Here a, b, c are not collinear, and the closed triangle abc meets K only in [a, b]
+(resp. in [a, c] ∪ [c, b]).
+
+The proof uses exactly three facts from the topology of knots, each a classical theorem.
+* **(E1)** A Δ-move does not change the knot type. This is elementary: the triangle has a
+  neighbourhood that meets K in a single arc, and a homeomorphism supported there, isotopic to the
+  identity, pushes one side of the triangle onto the other two.
+* **(E2)** The Wirtinger presentation of the knot group, read off a regular diagram (§6).
+* **(E3)** For the upper bound only: two knot diagrams with the same PD code represent the same
+  knot (§9).
+
+The equivalence "homeomorphism ⇔ Δ-moves ⇔ Reidemeister moves" is not used in its hard direction.
 
 Knot types are taken as **unoriented**. The **mirror image** K* of K is its image under a
 reflection of ℝ³.
@@ -64,8 +77,9 @@ reflection of ℝ³.
 type K.
 
 **The knot 5_2** is the type of the diagram with PD code
-`[[1,5,2,4],[3,9,4,8],[5,1,6,10],[7,3,8,2],[9,7,10,6]]` (KnotInfo; Rolfsen's table, *Knots and
-Links*, App. C). A knot and its mirror image have the same Len: a reflection of ℤ³ maps lattice
+`[[1,5,2,4],[3,9,4,8],[5,1,6,10],[7,3,8,2],[9,7,10,6]]` (KnotInfo, https://knotinfo.math.indiana.edu,
+"pd_notation" of 5_2, as shipped in the Python package `database_knotinfo`, read 15 Nov 2026). This
+is the 5-crossing diagram drawn for 5_2 in Rolfsen's table (*Knots and Links*, App. C). A knot and its mirror image have the same Len: a reflection of ℤ³ maps lattice
 polygons to lattice polygons with the same number of edges. So the theorem is about the pair
 𝒦 = {5_2, 5_2*}.
 
@@ -82,8 +96,8 @@ lattice segment. Then E ∩ Q is empty, a corner of Q, or a side of Q.
 
 *Proof.* Let H be the plane of Q.
 * If E is not parallel to H, it is perpendicular to H, since lattice directions are coordinate
-  axes. Then E meets H in at most one point, which is a lattice point because one coordinate of E
-  is constant except along the axis normal to H, and the end values are integers. The only
+  axes. E runs along the normal axis between two consecutive integers, and H lies at an integer
+  level of that axis, so E ∩ H is empty or an endpoint of E, which is a lattice point. The only
   lattice points of Q are its corners.
 * If E is parallel to H but not in H, E ∩ Q = ∅.
 * If E ⊂ H, then in the coordinates of H both E and Q are unions of cells of the unit grid, and a
@@ -217,8 +231,9 @@ moves the letter a one place to the right. After t flips the walk is
 
   v_0, v_2 − a, v_3 − a, …, v_{t+1} − a, v_{t+1}, v_{t+2}, …
 
-The flip number t + 1 is at the vertex v_{t+1}. Its neighbours are v_{t+1} − a and v_{t+2}, which
-lie on different axes, and its new point is v_{t+2} − a. That point is not a vertex of the current
+The flip number t + 1 is at the vertex v_{t+1}. The two edges there have the letters a and
+s_{t+1}, which lie on different axes. The neighbours are v_{t+1} − a and v_{t+2}, and the new point
+is v_{t+1} − a + v_{t+2} − v_{t+1} = v_{t+2} − a. That point is not a vertex of the current
 word:
 * it is not an original vertex, by assumption, since 2 ≤ t + 2 ≤ k;
 * it is not one of the new points v_j − a with j ≤ t + 1, because the v_j are distinct.
@@ -236,13 +251,13 @@ minimality of m. For k = 1 no flips are needed. ∎
 4. If d = s and p ∈ {e, w}, then v_{i+1} − unit(p) is a vertex.
 
 *Proof.* In each case the named point is v′ = v_{i−1} + v_{i+1} − v_i, the new point of the flip
-at vertex i. If it were not a vertex, that flip (Lemma 2.2) would give w′ ∈ T with the same length
+at vertex i. (In cases 2 and 4, v_{i+1} − unit(p) = v_i + unit(d) − unit(p) = v_{i−1} + unit(d).) If it were not a vertex, that flip (Lemma 2.2) would give w′ ∈ T with the same length
 and the same multiset of letters, so w′ ∈ W, with v_i replaced by v′.
 * Case 1: z(v′) = z(v_{i−1}) = z(v_i) − 1.
 * Case 2: z(v′) = z(v_{i+1}) = z(v_i) − 1.
 
-  In both cases v_i is not a lowest vertex (a neighbour is lower), and v′ is not lower than a
-  vertex of w. So z_min is unchanged and Ψ(w′) = Ψ(w) − 1, contradicting the choice of w*.
+  In both cases v_i is not a lowest vertex (a neighbour is lower), and v′ has the height of a
+  vertex of w (v_{i−1} or v_{i+1}), so it is not below z_min. So z_min is unchanged and Ψ(w′) = Ψ(w) − 1, contradicting the choice of w*.
 * Cases 3, 4: z(v′) = z(v_i), so Ψ(w′) = Ψ(w), and y(v′) = y(v_i) − 1 with y_min unchanged by the
   same argument. So Ψ₂(w′) = Ψ₂(w) − 1, contradicting the choice of w*. ∎
 
@@ -265,8 +280,10 @@ and the same multiset of letters, so w′ ∈ W, with v_i replaced by v′.
 ## 5. The search outputs every word with Survive
 
 The program is `Len52.Search.searchPart N 9 M r` (Lean, Search.lean). It is the same algorithm as
-`research/exact/enum.cpp` run with `-tourcap 0 -nomst -noreduce`: the node counts agree exactly at
-every length tried (§8). It runs a depth-first search over walks from the origin, extending a prefix
+`research/exact/enum.cpp` run with `-tourcap 0 -nomst -noreduce`: for unsplit runs (one part) the
+node counts agree exactly at every length tried, and the output words agree at every length (§8).
+(Split runs are not comparable node by node: each Lean part re-counts the tree above the split
+depth.) It runs a depth-first search over walks from the origin, extending a prefix
 by the letters 0, …, 5 in turn and discarding an extension when one of the tests below fails. When
 the walk closes after N steps, the word is output if the final tests pass.
 
@@ -288,7 +305,12 @@ moment the search extends the prefix w_0 … w_{i−1} by the letter d = w_i, it
 |x|, |y| ≤ 31, −3 ≤ z ≤ 28, where packing is injective. The set A of *allowed* points is: greater
 than 0 in (z, y, x) order, |x|, |y| ≤ 24, z ≤ 24. By C3 every vertex other than v_0 is in A.
 
-**Tests on the letter d = w_i, and why each passes for w.**
+**The first step (S0).** The top level tries the first letters 0, …, 5 and skips a first letter
+when v_0 + unit(d) is not in A, or when d = u (4). For w: v_1 is in A by C3. And w_0 ≠ u, because C4
+gives w_0 < rev(w_{N−1}). If w_0 = u, then rev(w_{N−1}) = 5, so w_{N−1} = u, and v_{N−1} = −unit(u)
+would have z = −1, contradicting C3.
+
+**Tests on the letter d = w_i (i ≥ 1), and why each passes for w.**
 
 * **S1.** d ≠ rev(w_{i−1}). Otherwise v_{i+1} = v_{i−1} (if i + 1 = N, then v_{i−1} = v_0 with
   0 < i − 1), against C2.
@@ -400,62 +422,75 @@ element of ℤ/7 so that at every crossing 2·(over-arc) ≡ (incoming under-arc
 Constant colourings always exist. A diagram with c = 0 has only those. (Lean: `foxRows`,
 `HasNontrivialColoring`.)
 
-**Theorem 6.1 [T].** The number c₇(K) of Fox 7-colourings of a regular diagram of a knot K does not
-depend on the diagram, and c₇(K*) = c₇(K).
+**Theorem 6.1 [P from (E2)].** The number c₇(D) of Fox 7-colourings of a regular diagram D of a knot
+K depends only on the knot group G(K) = π₁(ℝ³ ∖ K). In particular it is the same for all regular
+diagrams of K and of K*.
 
-*Proof.* Two regular diagrams of equivalent polygonal knots, projected to the same plane, are
-related by planar isotopy and finitely many Reidemeister moves R1, R2, R3 [T: Reidemeister,
-"Elementare Begründung der Knotentheorie", Abh. Math. Sem. Univ. Hamburg 5 (1927) 24–32;
-Burde–Zieschang, 2nd ed., Def. 1.13 and Prop. 1.14]. (The numbering of Burde–Zieschang was taken
-from lecture notes based on that edition and should be checked against the book.)
+*Proof.*
+1. **A group-theoretic count.** Let D₇ be the dihedral group of order 14, acting on ℤ/7 by the
+   maps t ↦ ±t + c. Its reflections are r_a(t) = 2a − t, a ∈ ℤ/7, and they are pairwise distinct.
+   Let σ: D₇ → ℤ/2 send reflections to 1 and rotations to 0. Let α: G → ℤ/2 be the abelianisation
+   G → H₁(ℝ³ ∖ K) ≅ ℤ followed by reduction mod 2. Reduction mod 2 kills the sign ambiguity of
+   H₁ ≅ ℤ, so α is canonical. Put
 
-Diagrams of the same knot in different directions D are covered by first rotating the knot, which
-is an isotopy. It is therefore enough to check that each move induces a bijection between the
-colouring sets. A move changes the diagram only inside a disc, and the Fox equations do not depend
-on orientations or crossing signs, only on which strand is over.
+   Hom*(G, D₇) = {φ : G → D₇ homomorphism with σ∘φ = α}.
 
-* **Planar isotopy** does not change arcs, crossings or which strand is over.
-* **R1** (a kink). One crossing, whose over-strand lies on the same arc as one of its two
-  under-arcs, a or b. Its equation 2a ≡ a + b forces b ≡ a. So the colourings of the diagram with
-  the kink correspond bijectively to those without it, where a and b are one arc.
-* **R2** (strand X over strand Y twice). Y is cut into y₁, y₂, y₃. The equations 2x ≡ y₁ + y₂ and
-  2x ≡ y₂ + y₃ give y₂ ≡ 2x − y₁ and y₃ ≡ y₁. So the colourings correspond bijectively to those of
-  the diagram where Y is one arc y₁.
-* **R3**. Every R3 disc has a top strand T over the other two, a middle strand M over the bottom
-  strand B, and B under both. Colour the incoming ends t, m, b.
-  - Before the move (M crosses B, then T crosses both): B becomes 2m − b, M becomes 2t − m, then B
-    becomes 2t − (2m − b) = 2t − 2m + b.
-  - After it (T crosses both, then M crosses B): B becomes 2t − b, M becomes 2t − m, then B becomes
-    2(2t − m) − (2t − b) = 2t − 2m + b.
+   Its size depends only on the group G. An equivalence of knots, and also a reflection of ℝ³,
+   restricts to a homeomorphism of the complements, which induces an isomorphism of the knot
+   groups. So |Hom*(G, D₇)| is the same for K, for every knot equivalent to K, and for K*.
+2. **The count equals the number of Fox colourings.** Orient K and take a regular diagram with
+   arcs x₁, …, x_c.
+   - If c = 0, then G ≅ ℤ, and Hom*(G, D₇) consists of the 7 maps sending the generator to a
+     reflection. That is the same number as the colourings of a diagram with one arc.
+   - If c ≥ 1, the Wirtinger presentation [T (E2): Burde–Zieschang, *Knots*, Ch. 3, "Wirtinger
+     presentation"; Rolfsen, *Knots and Links*, Ch. 3 §D; Lickorish, *An Introduction to Knot
+     Theory*, Ch. 11] is
 
-  Outgoing colours agree and the inner arcs are determined, so the colourings correspond.
+       G = ⟨x₁, …, x_c | x_{out} = x_{over}^{ε} x_{in} x_{over}^{−ε}, one relation per crossing⟩,
 
-For the mirror image, reflect the plane of the diagram: over/under and all equations are unchanged,
-and the result is a diagram of K*. ∎
+     with ε = ±1 the sign of the crossing. Every generator x_i is a meridian, and in H₁ ≅ ℤ all of
+     them map to the same generator. So a homomorphism φ: G → D₇ satisfies σ∘φ = α exactly when
+     every φ(x_i) is a reflection, say r_{a_i}.
+   - Since r_b r_a r_b = r_{2b−a} and r_b^{−1} = r_b, the relation at a crossing holds exactly when
+     a_out ≡ 2a_over − a_in, which is the Fox equation 2a_over ≡ a_in + a_out.
+
+   So a ↦ φ with φ(x_i) = r_{a_i} is a bijection from the Fox colourings onto Hom*(G, D₇). ∎
+
+*Second proof (classical, by moves).* Two regular diagrams of equivalent knots in one plane are
+related by planar isotopy and Reidemeister moves [T: Reidemeister, "Elementare Begründung der
+Knotentheorie", Abh. Math. Sem. Univ. Hamburg 5 (1927) 24–32; Burde–Zieschang Ch. 1]. Each move
+gives a bijection of colourings:
+* **R1**: the equation 2a ≡ a + b at the kink forces b ≡ a.
+* **R2**: if X passes over Y twice, the equations give y₂ ≡ 2x − y₁ and y₃ ≡ y₁.
+* **R3**: with T over M over B and incoming colours t, m, b, the outgoing colour of B is
+  2t − 2m + b on both sides, and the inner arcs are determined.
+
+For K*, reflect the plane: the equations are unchanged. This proof needs the hard direction of
+Reidemeister's theorem; the first proof needs only (E2).
 
 **Lemma 6.2 [P].** c₇(5_2) = 49. In particular every regular diagram of a knot of type 5_2 or
 5_2* has a non-constant Fox 7-colouring.
 
-*Proof.* By Theorem 6.1 any one diagram will do. Take the 5-crossing diagram of §9, which is the
-standard diagram. Its Fox matrix, with rows in the order of Lean's `foxRows` and columns the arcs
-0–4, is
+*Proof.* By Theorem 6.1 any one diagram will do. Take the standard diagram, with PD code
+X₁[1,5,2,4], X₂[3,9,4,8], X₃[5,1,6,10], X₄[7,3,8,2], X₅[9,7,10,6]. In X[a,b,c,d], a is the
+incoming under-edge, c the outgoing under-edge, and b, d lie on the over-strand.
+* The under-passages go 1→2, 3→4, 5→6, 7→8 and 9→10. So the arcs are A = {2,3}, B = {4,5},
+  C = {6,7}, D = {8,9}, E = {10,1}.
+* The over-strands are B at X₁, D at X₂, E at X₃, A at X₄ and C at X₅.
+* The Fox equations are
 
-| row | arc 0 | arc 1 | arc 2 | arc 3 | arc 4 |
-|---|---|---|---|---|---|
-| 1 | −1 | 2 | 0 | 0 | −1 |
-| 2 | 2 | 0 | −1 | −1 | 0 |
-| 3 | −1 | −1 | 0 | 2 | 0 |
-| 4 | 0 | −1 | −1 | 0 | 2 |
-| 5 | 0 | 0 | 2 | −1 | −1 |
+  2B = E + A,  2D = A + B,  2E = B + C,  2A = C + D,  2C = D + E  (mod 7).
 
-* x = (0, 1, 3, 4, 2) is a colouring. The five products are 0, −7, 7, 0, 0, all ≡ 0 mod 7.
-* The constant vector (1, 1, 1, 1, 1) is a colouring, and it is independent of x. So the kernel
-  mod 7 has dimension ≥ 2 and the rank is ≤ 3.
-* The minor on rows 1–3 and columns 0–2 is det[[−1,2,0],[2,0,−1],[−1,−1,0]] = 3 ≢ 0 (mod 7). So
-  the rank is ≥ 3.
+Solve: put A = a and B = a + b.
+* The first equation gives E = a + 2b.
+* The second gives 2D = 2a + b, so D = a + 4b, because 2⁻¹ = 4 mod 7.
+* The third gives C = 2E − B = a + 3b.
+* The fourth then reads 2a ≡ 2a + 7b ✓, and the fifth reads 2a + 6b ≡ 2a + 6b ✓.
 
-Hence the rank is 3, and there are 7^{5−3} = 49 colourings, of which 7 are constant.
-[Lean: `w52_coloring` checks the colouring x in the kernel.] ∎
+So the colourings are exactly a·(1,1,1,1,1) + b·(0,1,3,4,2) with a, b ∈ ℤ/7, which gives 49
+colourings, 7 of them constant. (A brute-force count over all 7⁵ assignments gives the same 49; the
+36-edge diagram of §9 has the same Fox matrix up to relabelling. Lean: `w52_coloring` checks the
+non-constant colouring (0,1,3,4,2) of that diagram.) ∎
 
 This is the hypothesis `TopHyp T` of the Lean theorem.
 
@@ -484,45 +519,93 @@ has a non-constant colouring in every regular diagram.
 
 ## 8. The computation [C]
 
-For every even N with 4 ≤ N ≤ 34 and every part r < M_N, every word in the output of
-`searchPart N 9 M_N r` passes colorCheck (Lean: `CompCert`).
+**What has to be computed.** By `compCert_of_checks` (Lean, Cert.lean), CompCert holds as soon as
+`checkPart n r = true` for every n in `lengths` = {4, 6, …, 34} and every r < M_n, where
 
-Commands, results and logs: `research/exact/out/lean/` (filled in by the runs; table in §8.1 when
-complete). Parts for N ≥ 30 run on GitHub Actions (`.github/workflows/lean-enum.yml`), N ≤ 28 in
-the container (`lean/run_local.sh`). Every log records the commit, the node count and the time.
+| n | M_n (`parts n`) |
+|---|---|
+| 4, …, 26 | 1 |
+| 28 | 2 |
+| 30 | 64 |
+| 32 | 256 |
+| 34 | 1024 |
 
-**8.1 Results.** (to be completed when the runs finish)
+and checkPart n r = (searchPart n 9 M_n r).out.all colorCheck. Each of these is a closed Boolean
+term.
 
-**8.2 Independent cross-checks** (not needed for the proof, they test it):
-* (a) The C++ program in cross-check mode gives identical node counts (N ≤ 24 so far) and the same
-  set of output words (union over parts), for every N.
-* (b) For every output word, an independent Python implementation (`formal/projections.py`) of
-  the projection and the colouring count gives 7 colourings. The earlier, faster runs with more
-  pruning identified the same words by Reidemeister simplification as 0_1, 3_1, 4_1, 5_1, none of
-  determinant divisible by 7.
-* (c) End-to-end tests of the search with known counts: the shortest trefoils (3328 polygons, 75
-  classes, n = 24), 4_1 (3648, n = 30), 5_1 (6672, n = 34) and 5_2 (114 912, n = 36) are rebuilt
-  from the outputs by flip closure. A missing flip class would show as a smaller number.
+**How it is computed.** The executable `checkpart n r` (CheckMain.lean) evaluates exactly that term
+(`checkPart_eq`). It prints the returned words, then a final line
+
+  RESULT n=… r=… m=M_n nodes=… words=K ok=B
+
+and exits with status 0 if and only if B = true.
+
+A part counts as **accepted** only if all of the following hold:
+* its log records exit status 0;
+* the output ends with the RESULT line for that (n, r, M_n), with ok=true and exactly K word lines
+  before it;
+* the output's SHA-256 matches the one logged when it was written;
+* the logged commit has every source file of the executable byte-identical to the current one:
+  Spec, Diagram, Search, Coloring, Cert, CheckMain, lakefile.toml, lean-toolchain.
+
+`formal/verify_comp.py` checks these conditions for all 1376 parts and writes
+`out/lean/COMPCERT.txt`.
+
+Where the parts run:
+* n ≤ 28 in the container: `lean/run_local.sh check n 1 0`. It refuses to run with uncommitted
+  sources and rebuilds first.
+* n = 30, 32, 34 on GitHub Actions: `.github/workflows/lean-enum.yml`, engine `check`. It builds
+  from a clean checkout of the commit, using the official Lean 4.25.0 release.
+
+**8.1 Results.** (filled in when the runs finish; see out/lean/COMPCERT.txt)
+
+**8.2 Cross-checks.** These are not needed for the proof; they test it.
+* (a) **C++ program.** The C++ program in cross-check mode (`enum.cpp -tourcap 0 -nomst -noreduce`)
+  is a separate implementation of the same algorithm. For unsplit runs it gives identical node
+  counts, and for every length the same set of words: n = 4–28 so far, with n = 30–34 running.
+* (b) **Python colouring count.** An independent Python projection and colouring count
+  (`formal/projections.py`) finds exactly 7 colourings for every output word. (It was written by
+  the same author as Diagram.lean, so it tests the implementation rather than the definition.)
+* (c) **Survive checker.** An independent Python implementation of Survive
+  (`formal/crosscheck/survive.py`, written by the referee from Spec.lean alone) accepts every
+  output word.
+* (d) **Trefoil census.** The referee's completeness test on trefoils: the flip and symmetry
+  closure of the 50 trefoil outputs at n = 24 is the full set of 3328 shortest trefoils [JvRR11].
+  Every word of it that satisfies Survive is among the outputs.
+* (e) **Earlier runs.** The earlier, more strongly pruned runs (with the plane-crossing lemma;
+  PROOF.md) produced a subset of these words. Reidemeister simplification identified those as
+  0_1, 3_1, 4_1, 5_1 for n ≤ 34. None of these has determinant divisible by 7, which is consistent
+  with (b).
 
 ---------------------------------------------------------------------------------------------------
 
 ## 9. The 36-edge 5_2 (upper bound)
 
-w₃₆ = `eeennuwwwwssseennwuueedddnnuuswsswdd` (36 letters) is a polygon word [Lean: `decide`]. With
-D = (1, −19, 40) its projection is regular with 5 crossings, and its PD code is
+w₃₆ = `eeennuwwwwssseennwuueedddnnuuswsswdd` (36 letters). Lean: `w52`, `w52_eq`, `w52_length`,
+and `w52_polygon`, a kernel-checked polygon word.
+
+With D = (1, −19, 40) its projection is regular with 5 crossings (`w52_crossings`). Its PD code,
+in the convention of §6 Lemma 6.2, is
 
   [[10,3,1,4], [6,1,7,2], [2,7,3,8], [4,9,5,10], [8,5,9,6]].
 
-Relabelling the edges along the orientation, possibly reversed, and taking the mirror image turns
-it into the standard code `[[1,5,2,4],[3,9,4,8],[5,1,6,10],[7,3,8,2],[9,7,10,6]]` of 5_2
-(`formal/pd_certificate.py`, which also shows the code of 5_1 does not match). A PD code determines
-the diagram up to homeomorphism of S², so |w₃₆| has type 5_2 or 5_2*, and Len(5_2) ≤ 36.
-Independently, SnapPy reads the PD code as the manifold m015, the complement of 5_2. Its Fox matrix
-mod 7 (rows from Lean's `foxRows`):
+The standard code of 5_2 is `[[1,5,2,4],[3,9,4,8],[5,1,6,10],[7,3,8,2],[9,7,10,6]]`. Relabelling
+the edges along the orientation, possibly reversed, and taking the mirror image turns our code into
+the standard one. This is checked by `formal/pd_certificate.py`, and in Lean, kernel-checked, by
+`PD.lean` (in progress). As a control, the code of 5_1 does not match.
 
-  [−1, 2, 0, 0, −1], [2, 0, −1, −1, 0], [−1, −1, 0, 2, 0], [0, −1, −1, 0, 2], [0, 0, 2, −1, −1]
+**(E3).** A PD code lists, for each crossing, the four incident edge-ends in counter-clockwise order
+together with the over/under information. So it is a rotation system of the connected 4-valent
+plane graph of the diagram. A rotation system determines a connected plane graph up to an
+orientation-preserving homeomorphism of S² [T: the rotation principle, Mohar–Thomassen, *Graphs on
+Surfaces* (2001), §3.2–3.3]. A homeomorphism of S² that matches the over/under data carries one
+diagram onto the other. Such a homeomorphism is isotopic to the identity, and the isotopy may pass
+an arc of the diagram over the point at infinity, which is an isotopy of the knot in S³, so of the
+knot type in ℝ³. Hence |w₃₆| has type 5_2 or 5_2* (mirror image allowed), and Len(5_2) ≤ 36.
 
-has rank 3 mod 7 (Lemma 6.2). That gives 49 colourings, for example x = (0, 1, 3, 4, 2).
+Independent evidence, not used: SnapPy identifies the complement of the PD code as m015, the
+complement of 5_2. By Gordon–Luecke (*J. Amer. Math. Soc.* 2 (1989) 371–415) the complement
+determines the knot up to mirror image. And the 49 colourings of this diagram (Lemma 6.2) agree.
 
 ---------------------------------------------------------------------------------------------------
 
@@ -530,33 +613,47 @@ has rank 3 mod 7 (Lemma 6.2). That gives 49 colourings, for example x = (0, 1, 3
 
 | statement | Lean name | status |
 |---|---|---|
-| definitions (polygon words, Survive, moves, KnotClass, diagrams, colourings) | Spec.lean, Diagram.lean | read by a human: they are the statement |
-| parity, normal form (Thm 4.6) | `isPolygon_length_even`, `exists_survivor` | (in progress) |
-| completeness of the search (Thm 5.1) | `search_complete` | (in progress) |
-| colouring certificates (Lemma 7.1), unit squares | `colorCheck_sound`, `square_ok` | (in progress) |
-| main theorem: KnotClass T ∧ TopHyp T ∧ CompCert ⇒ ∀ w, T w → 36 ≤ \|w\| | `no_short_5_2` | (in progress) |
-| w₃₆ is a polygon word with a non-constant colouring | `w36_*` | (in progress) |
+| definitions: polygon words, Survive, moves, KnotClass | Spec.lean | statement (read by a human) |
+| definitions: diagrams, Fox equations, colourings, TopHyp | Diagram.lean, Statement.lean | statement |
+| definitions: lengths, parts, CompCert, checkPart | Cert.lean | statement |
+| programs: search, colour certificate | Search.lean, Coloring.lean | definitions the statement refers to |
+| parity; normal form (Thm 4.6) | `isPolygon_length_even`, `exists_survivor` | **proved** |
+| colour certificates (Lemma 7.1); unit squares | `colorCheck_sound`, `square_ok` | **proved** |
+| CompCert from the per-part Booleans | `compCert_of_checks` | **proved** |
+| completeness of the search (Thm 5.1) | `search_complete` | in progress |
+| main theorem: KnotClass T ∧ TopHyp T ∧ CompCert ⇒ ∀ w, T w → 36 ≤ \|w\| | `no_short` (Main.lean) | written; builds once `search_complete` exists |
+| w₃₆: polygon word of length 36 with a non-constant colouring | `w52_length`, `w52_polygon`, `w52_coloring` | **proved** |
+| w₃₆'s diagram has the PD code of 5_2 | `w52_pd` (PD.lean) | in progress |
 
-`#print axioms` for each: only `propext`, `Classical.choice`, `Quot.sound`.
+`#print axioms` for every proved theorem: a subset of {propext, Classical.choice, Quot.sound}. No
+`sorry`, no `native_decide`, no `implemented_by` or `extern` anywhere in the sources (checked with
+grep).
 
 ---------------------------------------------------------------------------------------------------
 
-## 11. What a reader has to trust, and why it is enough
+## 11. What a reader has to trust
 
-1. **The definitions** in Spec.lean and Diagram.lean say what §1 and §6 say. They are short, and
-   §8.2(b) compares them with independent code on every output word.
-2. **Corollary 2.5 and Lemma 6.2** (the hypotheses KnotClass T and TopHyp T). They are proved
-   above from: Δ-moves preserve knot type, rigid motions are isotopies or mirrors, Reidemeister's
-   theorem, and invariance of Fox colourings. These are textbook theorems over 90 years old.
-3. **CompCert**, a finite statement about the program in Search.lean and Coloring.lean. It is
-   established by running that same program, compiled by the Lean 4.25.0 compiler, on every part,
-   with the logs kept. This is the usual trust model for verified programs that are executed: the
-   program's correctness is kernel-checked, while its execution trusts the compiler and the
-   hardware. It is backed by §8.2(a), a separate implementation in C++ that agrees node for node.
-4. **The Lean kernel.**
+1. **The Lean kernel** (Lean 4.25.0), for the theorems of §10.
+2. **The statement files** say what §1 and §6 say: Spec.lean, Diagram.lean, Statement.lean,
+   Cert.lean and the statement of `no_short`. They are short. Cross-checks 8.2(b) and (c) compare
+   them with independent code on every output word.
+3. **Three classical theorems of knot theory**: (E1) Δ-moves are isotopies, (E2) the Wirtinger
+   presentation, and, for the upper bound only, (E3) PD codes determine diagrams. From them, §2 and
+   §6 prove the two hypotheses KnotClass T and TopHyp T of `no_short`.
+4. **Execution of 1376 closed Boolean terms** checkPart n r. They were evaluated by code compiled
+   from the committed sources: the Lean 4.25.0 compiler, its bundled C compiler with `-O3
+   -march=native`, the Lean runtime's primitive operations, and the hardware. The record that the
+   evaluation returned `true` is the logs (exit status, output hash, commit). For n ≥ 30 the logs
+   come from GitHub Actions, so their provenance rests on GitHub's records of the runs. This is the
+   standard trust model for proofs by verified computation that are too large for the kernel. It is
+   backed by cross-check 8.2(a): a separate implementation in C++ agrees node for node.
 
 Nothing else is assumed. In particular:
-* no pruning rule is taken on trust: each is a theorem about Survive (§5), and Survive is a theorem
-  about any shortest 5_2 polygon after the normal-form choice (§4);
-* the skipped branches of the search are exactly the prefixes that no word with Survive has, so a
-  5_2 polygon of length ≤ 34 cannot be hiding in them.
+* No pruning rule is taken on trust. Each one is a theorem about Survive (§5, Lean
+  `search_complete`).
+* Survive is a theorem about a shortest polygon of the class, after the normal-form choice (§4,
+  Lean `exists_survivor`).
+* The skipped branches of the search are exactly the prefixes that no word with Survive has, so a
+  5_2 polygon with at most 34 edges cannot be hiding in them.
+* The plane-crossing lemma, the arc lemma and the primality of 5_2 (PROOF.md §2a–2b) are **not**
+  used.
