@@ -1,0 +1,4 @@
+RESULT n=12 r=0 m=1 nodes=6548 words=0 ok=true
+status=0 binsha=423a9fa22417132991e6dbb27bf1db8e8ada33b2ba54a8a31fdf17597519658a txtsha=f9ee5e8a6af7bab8f365a63b85a2bfb32b795cce47b3aca88f7461922fe6e172
+src=6fec6171a33efcd51724cbbbdfca83a7b19c7163448ef3da75e81e1f080ba0a4 built_at=cad74b968fe0699cecff97ed4acccff5343c0314
+seconds=0 host=vm engine=check commit=cad74b968fe0699cecff97ed4acccff5343c0314
