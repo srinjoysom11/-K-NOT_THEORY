@@ -1,1 +1,1 @@
-{"runs": [{"n": 32, "m": 64, "opts": "-prime", "tag": "prime"}]}
+{"runs": [{"n": 34, "m": 240, "opts": "-prime", "tag": "prime"}]}
