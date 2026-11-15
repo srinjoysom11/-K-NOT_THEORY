@@ -108,8 +108,9 @@ some are missed, which is safe) and raises the number of crossings owed accordin
 This stays a lower bound when the walk later goes beyond level c: each new level adds a new
 outermost plane that owes 2 crossings, and H still owes at least 2, so the true number owed is
 at least the one computed with 4 for H.
-Measured [C]: 24 % fewer nodes at n = 24, 22 % at n = 28 (part 0 of 32); the survivors at
-n = 24, 26 and 28 (part 0 of 32) are the same words as without it.
+Measured [C]: 24 % fewer nodes at n = 24, 22 % at n = 28 (part 0 of 32), 18 % at n = 30
+(2.16e9 against 2.64e9, both with `-tourcap 3`); the survivors at n = 24, 26, 28 (part 0 of
+32) and 30 (all 190) are the same words as without it.
 
 *Data [C].* In all 2592 canonical 24-edge trefoils and in the stored polygons of all 249 knots
 of the literature table, a mid-plane crossed by only 2 edges occurs only at an outermost gap
