@@ -22,7 +22,7 @@ jobs:
       - name: forbidden constructs
         working-directory: research/exact/lean
         run: |
-          ! grep -rnE '\bsorry\b|\badmit\b|^\s*axiom |native_decide|implemented_by|@\[extern|\bunsafe\b|ofReduceBool' Len52/ Len52.lean *Main.lean
+          ! grep -rnE '\bsorry\b|\badmit\b|^\s*axiom |native_decide|implemented_by|@\[extern|\bunsafe\b|ofReduceBool|skipKernelTC|set_option\s+debug|\bopaque\b|\bpartial\b' Len52/ Len52.lean *Main.lean
       - name: build and print axioms
         working-directory: research/exact/lean
         run: |
