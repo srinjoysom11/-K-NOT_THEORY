@@ -1,6 +1,6 @@
 # Handoff: exact minimal lattice lengths by exhaustive enumeration
 
-Branch `claude/great-einstein-snvnnb`. Last updated 15 Nov 2026, about 05:00 UTC.
+Branch `claude/great-einstein-snvnnb`. Last updated 15 Nov 2026, about 13:30 UTC.
 Read in this order: this file, `LEADS.md` (what to do next and why), `PROOF.md` (the lemmas),
 then the header of `enum.cpp`.
 Labels: [E] established with source, [C] computed here (command given), [J] proposal.
@@ -33,9 +33,9 @@ then Len(K) > m.
 | 26 | 4.8e8 (earlier build) | 62 | all trefoil polynomial (non-shortest trefoils the leaf filter cannot shorten) |
 | 28, `-prime` | 3.2e8 | 98 | all trefoil polynomial; with n <= 26 this excludes a 4_1 polygon below 30 edges |
 | 30, `-prime` | 1.486e9 (8 parts on GitHub Actions; 3 parts repeated locally, byte-identical) | 190 | 92 are 3_1, 98 are 4_1 (`out/n30_prime.rigorous.txt`); the flip closure of the 98 is 3648 polygons in 76 symmetry classes (`out/n30_4_1.census.txt`), the published count of minimal 4_1 polygons |
-| 32, `-prime` | running on GitHub Actions, 64 parts (run 43675517776) | | |
-| 34, `-prime -tourcap 3` | queued on GitHub Actions, 240 parts, run 43677800789 (the first submission, run 43675532405 with the old cap, was cancelled) | | |
-| 36, `-prime -tourcap 3` | queued on GitHub Actions, 250 parts (pushed 15 Nov 04:50 UTC) | | |
+| 32, `-prime` | 7.76e9 (64 parts, Actions run 43675517776, 36.5 runner-h) | 542 | 76 3_1, 466 4_1 (`out/n32_prime.rigorous.txt`, ALL RESOLVED) |
+| 34, `-prime -tourcap 3` | 7.74e10 (240 parts, run 43677800789, 12.6 runner-h) | 1398 | 88 0_1, 134 3_1, 1056 4_1, 120 5_1; **no 5_2**. The 120 5_1 words rebuild 6672 polygons in 142 classes (`out/n34_5_1.census.txt`) = [JvRR11] |
+| 36, `-prime -tourcap 3` | 4.33e11 (250 parts, run 43678208728, 78.4 runner-h, slowest part 25 min) | 6662 | 462 0_1, 364 3_1, 2756 4_1, 2068 5_1, 1012 5_2; the 1012 5_2 words rebuild 114 912 polygons in 2396 classes (`out/n36_5_2.census.txt`) = [JvRR11] |
 | 20-26, `-prime` | 7.7e5 to 6.1e7 | 0, 0, 50, 62 | same survivor files as without `-prime` |
 
 Independent checks: `check/REPORT.txt` (Python written by a Haiku agent from the definitions
@@ -53,11 +53,14 @@ n <= 36 the `-prime` output is complete for all knot types.
 crossings and reads the type from the Alexander polynomial; outputs are `out/*.rigorous.txt`.
 A 36-edge 5_2 polygon is in `out/upper_5_2_len36.txt` (from `data/rechnitzer_SC_minimal.csv`).
 
-**Not yet shown.** n = 32 and n = 34 (running). `raster.cpp` (a second enumerator in a
-different order) has not been compared with `enum.cpp` beyond "no survivors for n <= 22".
-So **no new theorem is claimed yet**. If the survivors at 32 and 34 are only 3_1, 4_1, 5_1,
-the statement is: every knot other than 3_1, 4_1, 5_1 needs at least 36 edges, and
-Len(5_2) = 36.
+**Result [C], 15 Nov 2026.** Given the lemmas of PROOF.md and correctness of `enum.cpp`,
+`arcknot.cpp`, `unknot_cert.cpp`: every knot type other than 0_1, 3_1, 4_1, 5_1 has Len >= 36,
+so **Len(5_2) = 36** (upper bound: `out/upper_5_2_len36.txt`); and every knot type other than
+0_1, 3_1, 4_1, 5_1, 5_2 has Len >= 38 (so 6_1, 6_2, 6_3, 3_1 # 3_1 need 38 or 40; best known 40).
+End-to-end checks: the survivors rebuild the published minimal-polygon counts 3328 (3_1, 24),
+3648 (4_1, 30), 6672 (5_1, 34), 114 912 (5_2, 36). Not formally verified and not yet reviewed
+by anyone outside this project; `raster.cpp` has not been compared beyond n = 22.
+Next: n = 38 (section 3, step 4), which needs `out/arc/arc18.*` (running) for composites.
 
 ## 2. Files
 
