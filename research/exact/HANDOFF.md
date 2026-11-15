@@ -34,7 +34,8 @@ then Len(K) > m.
 | 28, `-prime` | 3.2e8 | 98 | all trefoil polynomial; with n <= 26 this excludes a 4_1 polygon below 30 edges |
 | 30, `-prime` | 1.486e9 (8 parts on GitHub Actions; 3 parts repeated locally, byte-identical) | 190 | 92 are 3_1, 98 are 4_1 (`out/n30_prime.rigorous.txt`); the flip closure of the 98 is 3648 polygons in 76 symmetry classes (`out/n30_4_1.census.txt`), the published count of minimal 4_1 polygons |
 | 32, `-prime` | running on GitHub Actions, 64 parts (run 43675517776) | | |
-| 34, `-prime -tourcap 3` | queued on GitHub Actions, 240 parts (the first submission, run 43675532405 with the old cap, was cancelled) | | |
+| 34, `-prime -tourcap 3` | queued on GitHub Actions, 240 parts, run 43677800789 (the first submission, run 43675532405 with the old cap, was cancelled) | | |
+| 36, `-prime -tourcap 3` | queued on GitHub Actions, 250 parts (pushed 15 Nov 04:50 UTC) | | |
 | 20-26, `-prime` | 7.7e5 to 6.1e7 | 0, 0, 50, 62 | same survivor files as without `-prime` |
 
 Independent checks: `check/REPORT.txt` (Python written by a Haiku agent from the definitions
@@ -132,6 +133,19 @@ n = 28, part 0 of 32, one thread: cap 3000: 131 s, 1.01e7 nodes; 300: 63 s; 100:
 30: 26 s; 10: 19 s; 3: 15 s, 1.64e7 nodes; 1: 13.5 s; 0: 13.2 s, 1.81e7 nodes. Survivors
 identical in all cases. Use `-prime -tourcap 3` from now on (about 1.2e6 nodes/s per core
 here). The cost table above is for the old cap; divide the times by about 8.
+Other lengths, one thread: n = 22: 6.2 s -> 2.9 s (cap 10); n = 24: 52 s -> 17 s (cap 10),
+10 s on 4 threads with cap 3 and the same 50 words; n = 26: 444 s -> 98 s (cap 10);
+n = 30, part 5 of 64: cap 3: 43 s, 4.23e7 nodes; cap 10: 58 s, 3.92e7 nodes. So cap 3 is
+still the better choice at n = 30. The tree with cap 3 is 1.3 (n = 22) to 1.8 (n = 30) times
+the tree with cap 3000, and this ratio grows slowly with n.
+Projection [J] with cap 3 on Actions runners (4 threads, half the speed of this container):
+n = 34 about 16 runner-hours, n = 36 about 90, n = 38 about 500.
+
+**Census check at n = 24 [C].** `python3 check/census_from_survivors.py out/n24_psi.txt
+--alex "1,-1,1"`: the 50 survivors give a flip closure of 2592 and, with the 48 symmetries,
+3328 polygons in 75 classes: the published number of shortest trefoils [JvRR11]. With 3648
+at n = 30 for 4_1 this is the end-to-end test of the search: a missed flip class would show
+as a smaller count. The next such test is 6672 for 5_1 at n = 34.
 
 **Where the time goes [C, gprof at n = 22, old cap].** 64 % in the exact search over visiting orders
 (`tour`), 18 % in building and reusing the cheap order (`tour_ok`), 15 % in obligation

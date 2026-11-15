@@ -74,8 +74,17 @@ after triple identification (then it is a different, better paper), or a failed 
 composite knot would be the first evidence-by-proof on the additivity question
 ([JvRP95] Conj. 7).
 
-**The gap.** n = 36 and 38 cost about 20 and 90 times n = 34 at the current growth
-(4.3-4.6 per 2 edges). So the tree must shrink 30- to 100-fold, or the growth rate must drop.
+**The gap (revised 15 Nov).** n = 36 and 38 cost about 5 and 25 times n = 34. Two things
+changed the picture since this lead was written: (i) `-tourcap 3` makes the search 7 to 10
+times faster with the same output (HANDOFF.md section 3), and (ii) GitHub Actions gives 20
+runners at once for free on this public repository. Projected [J] with `-prime -tourcap 3`:
+n = 34 about 16 runner-hours, n = 36 about 90, n = 38 about 500, that is about 1, 5 and 25
+hours of wall time. So n = 38 is now a matter of submitting the requests (HANDOFF.md section
+3), not of new ideas. The ideas below would still pay for n = 40 and beyond.
+
+Composite knots: `-prime` is complete for all knot types up to n = 36 by PROOF.md Lemma 4
+(arcs of at most 17 edges in a half-space are unknotted). For n = 38 the same needs arcs of
+18 edges (`arcknot 18`, see HANDOFF.md).
 
 **What has been tried [C].**
 * Lemma 3 as a bound on crossings still owed: 5-fold, constant in n. Done.
@@ -114,8 +123,9 @@ composite knot would be the first evidence-by-proof on the additivity question
 sequences only and count how many survivors at 26 it removes; that number decides whether
 the library is worth building out. (iii) Only then choose between 2 and 3.
 
-**Odds.** 0.3 for n = 38 within a few weeks of work. **Kill:** if after ideas 1 and 2 the
-growth per 2 edges is still above 4, n = 38 needs about 1e12 nodes and a cluster, not ideas.
+**Odds (revised 15 Nov).** 0.8 for n = 38 within days, by computation alone, as long as the
+Actions runs keep working. The risk is a part that exceeds the 350-minute job limit; use
+M >= 1000 parts for n = 38 (several pushes with `from` / `to`).
 
 ---------------------------------------------------------------------------------------------
 
