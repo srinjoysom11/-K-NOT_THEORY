@@ -1,0 +1,14 @@
+nnuesdseeuuwwwndwdnneesesuswwd
+nnuesdseenuuwwwdwdnneesesuswwd
+nnuesseuuwwnddwdnneesseuuwswdd
+euuueeddnwnnwwssedesuunwnddwss
+eueueeddnwnnwwussdeseunwndwwss
+ennwwusueednndwwwsseeunuussddd
+ennwwusueennwwswddseeunuussddd
+eeuuwwwwnddeneesuswwwwnneeseds
+eeuuwwwwndeneesswwwwnneuesedds
+eeuuwwwwnneedesswwnnnuussdedds
+eennwunuussdddwnneeesuwuwwdssd
+eennwunuusseddwdwnneeusuwswdsd
+eennwwuuussdedndwwnneeususwdsd
+RESULT n=30 r=20 m=64 nodes=593201483 words=13 ok=true

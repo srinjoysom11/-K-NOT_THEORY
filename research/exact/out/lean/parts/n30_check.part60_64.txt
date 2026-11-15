@@ -1,0 +1,16 @@
+nnuususeeddwnwwdnneesseuuwswdd
+nnuususeeddwnwwsseeeennwuwswdd
+nnuususeeeddwwnwwnneesesuswwdd
+nneesuseennwwuswddseenuuswwdwd
+euunwwddnneessuwsuueeddnnwwdss
+euuwwdnnendeesswuwsseennnwdwss
+eeuuswwnunnddessseeuuwwndnwdds
+eeuuswwnunnddessseenuuwwdnwdds
+eeuuswwnunenddssseeuuwwndnwdds
+eeuuswwnunenddssseenuuwwdnwdds
+eennuwnuussdwwddneesueunwwdsds
+eennuwnuuswwddseednneuuswwddss
+eennuwnuuseeddswwdnneuuswwddss
+eennuwnuueeddsswwdnneuuswwddss
+eeenuwnuussddwndeneuuswwnddwss
+RESULT n=30 r=60 m=64 nodes=695091346 words=15 ok=true
