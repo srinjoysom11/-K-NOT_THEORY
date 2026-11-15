@@ -107,17 +107,24 @@ commit "exact: enumeration parts from GitHub Actions run ..." on this branch.
    number is 114 912 [JvRR11].
 4. n = 38, not yet submitted. Wait for the part times of n = 36 (in the summary file), then
    push four requests one after another, each when the previous one has been picked up:
-   `{"runs": [{"n": 38, "m": 1000, "from": 0, "to": 250, "opts": "-prime -tourcap 3", "tag": "prime"}]}`
-   then from 250 to 500, 500 to 750, 750 to 1000. If the slowest n = 36 part took more than
+   `{"runs": [{"n": 38, "m": 1000, "from": 0, "to": 250, "opts": "-stair -tourcap 3", "tag": "stair"}]}`
+   then from 250 to 500, 500 to 750, 750 to 1000. (`-stair` is `-prime` plus the staircase
+   rule of PROOF.md section 2a, about 20 % fewer nodes; use it only once the local n = 32
+   run with it, step 5, has given the same words as `out/n32_prime.txt`.) If the slowest n = 36 part took more than
    60 minutes, use m = 2000 in eight pushes instead (a job is killed at 350 minutes).
    If no knot outside {3_1, 4_1, 5_1, 5_2} survives at 38, then Len(6_1) = Len(6_2) =
    Len(6_3) = Len(3_1 # 3_1) = 40. For composite knots at n = 38 the arc lemma is needed
    for 18 edges (`out/arc/arc18.log`, running locally on 15 Nov; rerun with
    `./arcknot 18 2> out/arc/arc18.log | ./unknot_cert > out/arc/arc18.unresolved.txt`,
    a few hours on one core).
-5. A local run of n = 30 and n = 32 with `-tourcap 3` (`queue_c3.sh`, files
-   `out/nN_primec3.part*`) is a cross-check of the old cap against the new one; the sorted
-   union must equal `out/nN_prime.txt`.
+5. Local cross-checks. n = 30 with `-tourcap 3` (`out/n30_primec3.part*`): done, the same
+   190 words as `out/n30_prime.txt`. n = 30 with `-stair -tourcap 3` (`out/n30_stair.part*`):
+   done, the same 190 words, 2.16e9 nodes against 2.64e9. n = 32 with `-stair -tourcap 3`
+   (`queue_stair.sh`, 32 parts, files `out/n32_stair.part*_32.*`, started 05:07 UTC on
+   15 Nov, about an hour on 4 vCPU): the sorted union must equal `out/n32_prime.txt` from
+   Actions. To resume after an interruption:
+   `ENUM_BIN=./enum ENUM_OPTS="-stair -tourcap 3" TAG=stair ./run_parts.sh 32 32 $(seq 0 31)`
+   (finished parts are skipped).
 
 **Locally:**
 
