@@ -32,12 +32,29 @@ SOURCES = ["research/exact/lean/Len52/Spec.lean", "research/exact/lean/Len52/Dia
            "research/exact/lean/lakefile.toml", "research/exact/lean/lean-toolchain"]
 DIRS = [(7, 13, 31), (-28, -45, 32), (1, -19, 40), (11, -37, 12), (5, 17, 23), (-3, 29, 19)]
 
+def src_hash(paths):
+    """the source hash written by lean/run_local.sh: sha256 over the lines (path, sha256(content))"""
+    h = "".join(f"{p}\n{hashlib.sha256(open(os.path.join(REPO, p), 'rb').read()).hexdigest()}\n" for p in paths)
+    return hashlib.sha256(h.encode()).hexdigest()
+
+def bot_commit(relpath):
+    """for a file committed by the GitHub Actions collect job: (author, run id) of the commit that added it"""
+    r = subprocess.run(["git", "-C", REPO, "log", "--diff-filter=A", "--format=%an|%s", "--", relpath],
+                       capture_output=True, text=True)
+    lines = [l for l in r.stdout.splitlines() if l]
+    if not lines: return None
+    a, msg = lines[-1].split("|", 1)
+    m = re.search(r"GitHub Actions run (\d+)", msg)
+    return a, (m.group(1) if m else None)
+
 def git_show(commit, path):
     r = subprocess.run(["git", "-C", REPO, "show", f"{commit}:{path}"], capture_output=True)
     return r.stdout if r.returncode == 0 else None
 
 def main():
     cur = {p: open(os.path.join(REPO, p), "rb").read() for p in SOURCES}
+    cur_src = src_hash(SOURCES)
+    runs = set()
     commit_ok = {}
     def same_sources(c):
         if c not in commit_ok:
@@ -65,7 +82,16 @@ def main():
             elif (int(res.group(1)), int(res.group(2)), int(res.group(3))) != (n, r, M): why = "RESULT for another part"
             elif res.group(6) != "true": why = "ok=false"
             elif int(res.group(5)) != len(lines) - 1: why = "word count mismatch"
-            elif not same_sources(c.group(1)): why = f"commit {c.group(1)[:8]} has different sources"
+            elif "host=github-actions" in log:
+                # built from a clean checkout of the logged commit; the part must have been committed by the
+                # collect job of a GitHub Actions run (R2-3)
+                bc = bot_commit(os.path.relpath(b + ".log", REPO))
+                if not same_sources(c.group(1)): why = f"commit {c.group(1)[:8]} has different sources"
+                elif not bc or bc[0] != "github-actions[bot]" or not bc[1]: why = "not committed by a GitHub Actions run"
+                else: runs.add(bc[1])
+            else:
+                sm = re.search(r"src=(\w+)", log)
+                if not sm or sm.group(1) != cur_src: why = "local run: source hash missing or different"
             if why: bad.append((r, why)); continue
             words |= set(lines[:-1])
             if M == 1: nodes1 = int(res.group(4))
@@ -91,6 +117,7 @@ def main():
                     done = sum(1 for f in fs if os.path.exists(f + ".log") and "seconds=" in open(f + ".log").read())
                     line += f" | {eng}(M={Mc}): {done}/{Mc} parts"
         out.append(line); allwords += sorted(words)
+    out.append(f"GitHub Actions runs that produced accepted parts: {' '.join(sorted(runs)) or 'none'}")
     out.append(f"COMPCERT (all checkPart n r = true, by the logs above): {'HOLDS' if ok else 'NOT ESTABLISHED'}")
     # cross-checks (b), (c)
     LET = {c: i for i, c in enumerate("ewnsud")}
