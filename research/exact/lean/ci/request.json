@@ -2,8 +2,32 @@
  "runs": [
   {
    "engine": "check",
+   "n": 30,
+   "m": 64,
+   "per_job": 4
+  },
+  {
+   "engine": "check",
+   "n": 32,
+   "m": 256,
+   "per_job": 4
+  },
+  {
+   "engine": "cpp",
+   "n": 30,
+   "m": 16,
+   "per_job": 4
+  },
+  {
+   "engine": "cpp",
+   "n": 32,
+   "m": 64,
+   "per_job": 4
+  },
+  {
+   "engine": "cpp",
    "n": 34,
-   "m": 1024,
+   "m": 256,
    "per_job": 4
   }
  ]
