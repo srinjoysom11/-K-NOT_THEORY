@@ -1,0 +1,11 @@
+name = "len52"
+version = "0.1.0"
+defaultTargets = ["Len52"]
+
+[[lean_lib]]
+name = "Len52"
+
+[[lean_exe]]
+name = "search"
+root = "SearchMain"
+moreLeancArgs = ["-O3", "-march=native"]

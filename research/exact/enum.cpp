@@ -43,6 +43,8 @@
  *   -bridge B     only polygons with >= B local maxima along each axis (every polygon of a knot
  *                 with bridge number >= B is of this kind); used for bounds on such knots
  *   -noreduce     skip the neutral-move reduction at the leaves
+ *   -nomst        no spanning-tree bound; with -tourcap 0 -noreduce this is exactly the algorithm of
+ *                 lean/Len52/Search.lean (same node counts and output: the cross-check mode)
  *   -bfs L        state limit for the leaf reduction (default 2000)
  *   -split D      depth at which the search tree is cut into independent tasks (default 9)
  *   -part R M     do only tasks with index = R mod M (for running on several machines)
@@ -72,6 +74,7 @@ static const int MAXN = 48;
 
 static int N = 0;
 static bool PLAIN = false, AXES = true, REDUCE = true, PSI = true;
+static bool NOMST = false;  /* -nomst: no spanning-tree bound in the visiting-order test (cross-check mode for the Lean search) */
 static bool STAIR = false; /* -stair: outer levels behind a twice-crossed plane are monotone paths (PROOF.md Lemma 3) */
 static bool PRIME = false; /* -prime: use the plane-crossing lemma (valid for prime knots only, PROOF.md Lemma 3) */
 static int BRIDGE = 0;   /* -bridge B: keep only polygons with at least B local maxima along every axis */
@@ -325,7 +328,7 @@ struct Search {
         if (cost <= R1) { nwit[i1] = m; return true; }
         /* the cheap witness failed.  Minimum spanning tree over {head, origin, one nearest site per
            set}: with only single-site sets this is a lower bound for any walk through all of them */
-        {
+        if (!NOMST) {
             int pts[4 * MAXN + 2], np2 = 0; bool all_single = true;
             pts[np2++] = nx; pts[np2++] = ORG;
             for (int a = 0; a < nn; a++) { const Ob &ob = obs[nw[a]]; if (ob.cnt != 1) { all_single = false; continue; } pts[np2++] = ob.site[0]; }
@@ -584,6 +587,7 @@ int main(int argc, char **argv) {
         else if (a == "-nopsi") PSI = false;
         else if (a == "-bridge") BRIDGE = atoi(argv[++i]);
         else if (a == "-prime") PRIME = true;
+        else if (a == "-nomst") NOMST = true;
         else if (a == "-stair") STAIR = PRIME = true;
         else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
         else if (a == "-tourcap") TOUR_CAP = atoi(argv[++i]);
