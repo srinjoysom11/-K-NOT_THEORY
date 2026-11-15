@@ -287,7 +287,7 @@ depth.) It runs a depth-first search over walks from the origin, extending a pre
 by the letters 0, …, 5 in turn and discarding an extension when one of the tests below fails. When
 the walk closes after N steps, the word is output if the final tests pass.
 
-**Theorem 5.1 [P, Lean: `search_complete`, in progress].** Let w satisfy Survive with
+**Theorem 5.1 [P, Lean: `search_complete`].** Let w satisfy Survive with
 |w| = N ≤ 34. Let κ(w) be the key of its prefix of length 9 (the base-6 number, mod M; any value if
 N ≤ 9). Then w is in the output of `searchPart N 9 M κ(w)`. Hence w is in the union of the outputs
 of the parts r = 0, …, M − 1.
@@ -629,12 +629,13 @@ determines the knot up to mirror image. And the 49 colourings of this diagram (L
 | parity; normal form (Thm 4.6) | `isPolygon_length_even`, `exists_survivor` | **proved** |
 | colour certificates (Lemma 7.1); unit squares | `colorCheck_sound`, `square_ok` | **proved** |
 | CompCert from the per-part Booleans | `compCert_of_checks` | **proved** |
-| completeness of the search (Thm 5.1) | `search_complete` | in progress |
-| main theorem: KnotClass T ∧ TopHyp T ∧ CompCert ⇒ ∀ w, T w → 36 ≤ \|w\| | `no_short` (Main.lean) | written; builds once `search_complete` exists |
+| completeness of the search (Thm 5.1) | `search_complete` (SearchProof.lean, SP/) | **proved** |
+| main theorem: KnotClass T ∧ TopHyp T ∧ CompCert ⇒ ∀ w, T w → 36 ≤ \|w\| | `no_short` (Main.lean) | **proved** |
 | w₃₆: polygon word of length 36 with a non-constant colouring | `w52_length`, `w52_polygon`, `w52_coloring` | **proved** |
 | w₃₆'s diagram has the PD code of 5_2 (up to mirror image); controls | `w52_pd_eq`, `w52_pd`, `w52_pd_not51`, `chirality_controls` | **proved** |
 
-`#print axioms` for every proved theorem: a subset of {propext, Classical.choice, Quot.sound}. No
+`#print axioms` for every proved theorem: a subset of {propext, Classical.choice, Quot.sound}; the
+workflow `lean-proof.yml` rebuilds everything from a clean checkout and prints them. No
 `sorry`, no `native_decide`, no `implemented_by` or `extern` anywhere in the sources (checked with
 grep).
 
