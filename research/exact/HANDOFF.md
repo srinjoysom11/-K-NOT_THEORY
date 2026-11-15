@@ -1,6 +1,6 @@
 # Handoff: exact minimal lattice lengths by exhaustive enumeration
 
-Branch `claude/great-einstein-snvnnb`. Last updated 14 Nov 2026, about 22:00 UTC.
+Branch `claude/great-einstein-snvnnb`. Last updated 15 Nov 2026, about 05:00 UTC.
 Read in this order: this file, `LEADS.md` (what to do next and why), `PROOF.md` (the lemmas),
 then the header of `enum.cpp`.
 Labels: [E] established with source, [C] computed here (command given), [J] proposal.
@@ -32,7 +32,9 @@ then Len(K) > m.
 | 24, `-nopsi` | 1.0e9 | 2592 | expand by the 48 symmetries to exactly 3328 polygons in 75 classes = [Scharein09]'s numbers |
 | 26 | 4.8e8 (earlier build) | 62 | all trefoil polynomial (non-shortest trefoils the leaf filter cannot shorten) |
 | 28, `-prime` | 3.2e8 | 98 | all trefoil polynomial; with n <= 26 this excludes a 4_1 polygon below 30 edges |
-| 30 | part 0 of 16 only: 4.3e8 | 18 | 10 are 4_1 (SnapPy m004), 8 trefoil polynomial |
+| 30, `-prime` | 1.486e9 (8 parts on GitHub Actions; 3 parts repeated locally, byte-identical) | 190 | 92 are 3_1, 98 are 4_1 (`out/n30_prime.rigorous.txt`); the flip closure of the 98 is 3648 polygons in 76 symmetry classes (`out/n30_4_1.census.txt`), the published count of minimal 4_1 polygons |
+| 32, `-prime` | running on GitHub Actions, 64 parts (run 43675517776) | | |
+| 34, `-prime` | queued on GitHub Actions, 240 parts (run 43675532405) | | |
 | 20-26, `-prime` | 7.7e5 to 6.1e7 | 0, 0, 50, 62 | same survivor files as without `-prime` |
 
 Independent checks: `check/REPORT.txt` (Python written by a Haiku agent from the definitions
@@ -41,10 +43,20 @@ survivors are exactly the words of the 2592 that satisfy the pushed-down conditi
 in every flip class). Plain polygon counts for n <= 16 equal the known values. Output files
 were byte-identical across six rewrites of the bounds.
 
-**Not yet shown.** Anything at n = 28, 32, 34; the rest of n = 30. Identification so far is
-Alexander polynomial plus SnapPy, not a Reidemeister-simplified diagram. `raster.cpp` (a second
-enumerator in a different order) has not been compared with `enum.cpp` beyond "no survivors
-for n <= 22". So **no new theorem is claimed yet**.
+**Composite knots [C].** `-prime` is complete for prime knots only, but PROOF.md section 2b
+(Lemma 4, programs `arcknot.cpp` and `unknot_cert.cpp`, logs in `out/arc/`) shows that the one
+case it misses needs at least 36 edges. So for n <= 34 the `-prime` output is complete for
+all knot types.
+
+**Identification.** `identify_rigorous.py` simplifies each survivor's diagram to at most 5
+crossings and reads the type from the Alexander polynomial; outputs are `out/*.rigorous.txt`.
+A 36-edge 5_2 polygon is in `out/upper_5_2_len36.txt` (from `data/rechnitzer_SC_minimal.csv`).
+
+**Not yet shown.** n = 32 and n = 34 (running). `raster.cpp` (a second enumerator in a
+different order) has not been compared with `enum.cpp` beyond "no survivors for n <= 22".
+So **no new theorem is claimed yet**. If the survivors at 32 and 34 are only 3_1, 4_1, 5_1,
+the statement is: every knot other than 3_1, 4_1, 5_1 needs at least 36 edges, and
+Len(5_2) = 36.
 
 ## 2. Files
 
@@ -58,6 +70,10 @@ for n <= 22". So **no new theorem is claimed yet**.
 | `check/` | independent cross-check of the n = 24 lists |
 | `bridge/` | bridge number vs Len for 801 knots (KnotInfo data); `bridge/pretzel/` annealing attack on the bridge inequality |
 | `identify_words.py` | Alexander polynomial and SnapPy name for a file of words |
+| `identify_rigorous.py` | simplifies each diagram to at most 5 crossings, then names it by Alexander polynomial |
+| `arcknot.cpp`, `unknot_cert.cpp` | Lemma 4 (PROOF.md 2b): arcs of at most 16 edges in a half-space are unknotted; `./arcknot L \| ./unknot_cert` |
+| `check/census_from_survivors.py` | full census of a knot type at its minimal length from the survivors (flip closure and symmetries) |
+| `.github/workflows/exact-enum.yml`, `ci/request.json` | the enumeration on GitHub Actions (section 3) |
 | `raster.cpp` | site-by-site sweep, same conditions; 3.9e9 nodes at n = 22 against 1.5e7, kept as a negative result and as the starting point for lead 2 |
 | `../colab/colab_il_T4.log` | the one Colab training run (section 5) |
 
@@ -65,6 +81,17 @@ Build: `g++ -O3 -march=native -std=c++17 -pthread -o enum enum.cpp` (binaries ar
 Python: `python3 -m pip install --break-system-packages snappy spherogram database_knotinfo`.
 
 ## 3. How to resume the main computation (lead 1)
+
+**GitHub Actions (what is running now).** `.github/workflows/exact-enum.yml` starts when
+`research/exact/ci/request.json` changes on this branch. One push = one run of at most 256
+jobs; each job builds `enum`, repeats the n = 22 and n = 24 self-tests, runs one part
+(limit 350 minutes; a part of n = 30 in 8 took 24 to 41 minutes), and the last job commits
+`out/ci/*.partR_M.{txt,log}`, `out/nN_prime.ci_summary.txt` and, only if every part is
+present, the merged `out/nN_prime.txt`. If parts fail, re-run the failed jobs from the
+Actions page (or push the same request again); finished parts are kept as artifacts for
+30 days. Then run `python3 identify_rigorous.py out/nN_prime.txt`.
+
+**Locally:**
 
 ```
 cd research/exact

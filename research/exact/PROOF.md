@@ -101,9 +101,58 @@ of the literature table, a mid-plane crossed by only 2 edges occurs only at an o
 in this form, and it gives (#steps on an axis) >= 4 (#gaps) - 4, the bounding-box bound of
 [Scharein09] Prop. 2, whose proof was never published.
 
-*Composite knots.* If both sides are knotted, P is a connected sum cut by H and the lemma says
-nothing. With `-prime` the output is therefore complete for prime knot types only. Without it
-the search is complete for all knot types.
+*Composite knots.* The first half of the proof does not use primeness: for any shortest
+polygon, if one side of a twice-crossed mid-plane is an unknotted ball-arc pair, that side is a
+staircase in the level next to H. So a twice-crossed mid-plane with at least two occupied
+levels on each side has a knotted arc on **both** sides. Section 2b shows this needs at least
+36 edges. With `-prime` alone the output is complete for prime knot types only; with section 2b
+it is complete for all knot types up to n = 34.
+
+## 2b. Short arcs in a half-space are unknotted (composite knots)
+
+Let b be a self-avoiding lattice walk from A to B that stays in the half-space z >= 0 with
+A != B on the level z = 0. Its *closure* C(b) is b, the edge from B down to B - e_z, a
+shortest path in the level z = -1 to A - e_z, and the edge up to A. C(b) is a polygon with
+|b| + d(A, B) + 2 edges (d = Manhattan distance), and the ball-arc pair of b in the half-space
+is knotted exactly when C(b) is a non-trivial knot (any two closing paths below the level
+z = 0 are isotopic there).
+
+**Lemma 4 [C].** If b has at most 16 edges and no U-turn (three consecutive steps a, c, -a),
+then C(b) is unknotted.
+
+*Proof (computer).* If |b| + d + 2 <= 22 then C(b) has fewer than 24 edges and is unknotted
+[E: Diao93; C: section 5, n <= 22]. Otherwise |b| + d >= 22. Up to the 8 symmetries of the
+half-space the first step of b is e or u. `arcknot L` lists all such b with L edges and
+L + d >= 22 and counts the local maxima of C(b) along each axis. A closed curve with one local
+maximum along some direction is unknotted (tilt each level stretch slightly so that the height
+function has one maximum and one minimum: a 1-bridge presentation). The closures with at least
+two maxima along every axis are passed to `unknot_cert`, which shrinks each one to the 4-edge
+square by U-turn removals (Lemma 1, k = 1) and corner flips (section 2). Result:
+
+| L | walks tested (L + d >= 22) | one local maximum on some axis | shrunk to the square | left over |
+|---|---|---|---|---|
+| 11 | 2 047 | 2 047 | 0 | 0 |
+| 12 | 82 757 | 82 757 | 0 | 0 |
+| 13 | 883 811 | 883 811 | 0 | 0 |
+| 14 | 6 238 626 | 6 238 626 | 0 | 0 |
+| 15 | 35 583 605 | 35 567 997 | 15 608 | 0 |
+| 16 | 178 187 146 | 177 874 674 | 312 472 | 0 |
+
+For L <= 10 the condition L + d >= 22 cannot hold (d <= L). Logs: `out/arc/arcL.log`. []
+
+**Corollary.** Let P be a shortest polygon of some knot type and H a mid-plane crossed by
+exactly two edges of P with a knotted arc on both sides. Then P has at least 36 edges.
+
+*Proof.* The two arcs are sub-paths of a shortest polygon, so they have no U-turn (Lemma 1).
+After a symmetry of the lattice each of them is a walk as in Lemma 4, so each has at least 17
+edges, and |P| >= 17 + 17 + 2. []
+
+**Consequence for the search.** Let P be a shortest polygon with n <= 34 edges, of any knot
+type, in the normal form of Lemma 2 and in canonical position. By the Corollary and the remark
+on composite knots in section 2a, every mid-plane of P with at least two occupied levels on
+each side is crossed at least 4 times. That is the only property of P that `-prime` uses beyond
+sections 1, 2 and 3. So for n <= 34 the output of `enum n -prime` contains a polygon of every
+knot type K (prime or composite) with Len(K) = n.
 
 ## 3. Canonical position
 

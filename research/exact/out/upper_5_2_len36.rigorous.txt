@@ -1,0 +1,5 @@
+36	5	[2, -3, 2]	5_2	seenneuuussddddnwwuuueeessdwwnnnwwds
+TALLY
+count	length	verdict
+1	36	5_2
+ALL RESOLVED
