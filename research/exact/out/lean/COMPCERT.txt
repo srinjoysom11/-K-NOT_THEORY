@@ -9,11 +9,11 @@ n=18 parts=1 missing=0 words=0 nodes_sum_over_parts=996110 cpp(M=1):SAME nodes:S
 n=20 parts=1 missing=0 words=0 nodes_sum_over_parts=5378764 cpp(M=1):SAME nodes:SAME
 n=22 parts=1 missing=0 words=0 nodes_sum_over_parts=30829429 cpp(M=1):SAME nodes:SAME
 n=24 parts=1 missing=0 words=56 nodes_sum_over_parts=181235380 cpp(M=1):SAME nodes:SAME
-n=26 parts=1 missing=1 words=0 nodes_sum_over_parts=0 MISSING [0]
-n=28 parts=2 missing=2 words=0 nodes_sum_over_parts=0 MISSING [0, 1]
+n=26 parts=1 missing=0 words=168 nodes_sum_over_parts=1078116768 cpp(M=1):SAME nodes:SAME
+n=28 parts=2 missing=0 words=712 nodes_sum_over_parts=6772583100 cpp(M=1):SAME
 n=30 parts=64 missing=64 words=0 nodes_sum_over_parts=0 MISSING [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 n=32 parts=256 missing=256 words=0 nodes_sum_over_parts=0 MISSING [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 n=34 parts=1024 missing=1024 words=0 nodes_sum_over_parts=0 MISSING [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-certify (verified colorCheck): certify: words=56 pass=56 fail=0
-python colourings: 56 of 56 words have exactly 7 colourings
+certify (verified colorCheck): certify: words=936 pass=936 fail=0
+python colourings: 936 of 936 words have exactly 7 colourings
 COMPCERT NOT ESTABLISHED

@@ -1,0 +1,2 @@
+N=26 tasks=72315 part=0/1 nodes=1078116768 closed=772 candidates=168 survivors=168 bfs_limit_hits=0 tour_giveups=257355460
+seconds=271 host=vm engine=cpp commit=4e35abdd2ea4fac1db61ddb3c9e1c8a1e35a8e7b
