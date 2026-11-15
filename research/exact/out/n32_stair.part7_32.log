@@ -1,0 +1,2 @@
+N=32 tasks=72315 part=7/32 nodes=366394679 closed=1384 candidates=208 survivors=12 bfs_limit_hits=0 tour_giveups=99211402
+seconds=131 host=vm threads=4 opts=-stair -tourcap 3 -threads 3
