@@ -591,8 +591,17 @@ in the convention of §6 Lemma 6.2, is
 
 The standard code of 5_2 is `[[1,5,2,4],[3,9,4,8],[5,1,6,10],[7,3,8,2],[9,7,10,6]]`. Relabelling
 the edges along the orientation, possibly reversed, and taking the mirror image turns our code into
-the standard one. This is checked by `formal/pd_certificate.py`, and in Lean, kernel-checked, by
-`PD.lean` (in progress). As a control, the code of 5_1 does not match.
+the standard one. This is kernel-checked in Lean (PD.lean):
+* `w52_pd_eq`: Lean computes exactly this code from the word;
+* `w52_pd`: it is equivalent to `std52`. Under these conventions it is a relabelling of the mirror
+  of KnotInfo's diagram (`w52_pd_mirror`).
+
+Controls, also kernel-checked:
+* the code of 5_1 does not match (`w52_pd_not51`);
+* without the mirror operation, 3_1, 5_1 and 5_2 are not equivalent to their mirror images, and the
+  amphichiral 4_1 is (`chirality_controls`).
+
+`formal/pd_certificate.py` is an independent Python version.
 
 **(E3).** A PD code lists, for each crossing, the four incident edge-ends in counter-clockwise order
 together with the over/under information. So it is a rotation system of the connected 4-valent
@@ -623,7 +632,7 @@ determines the knot up to mirror image. And the 49 colourings of this diagram (L
 | completeness of the search (Thm 5.1) | `search_complete` | in progress |
 | main theorem: KnotClass T ∧ TopHyp T ∧ CompCert ⇒ ∀ w, T w → 36 ≤ \|w\| | `no_short` (Main.lean) | written; builds once `search_complete` exists |
 | w₃₆: polygon word of length 36 with a non-constant colouring | `w52_length`, `w52_polygon`, `w52_coloring` | **proved** |
-| w₃₆'s diagram has the PD code of 5_2 | `w52_pd` (PD.lean) | in progress |
+| w₃₆'s diagram has the PD code of 5_2 (up to mirror image); controls | `w52_pd_eq`, `w52_pd`, `w52_pd_not51`, `chirality_controls` | **proved** |
 
 `#print axioms` for every proved theorem: a subset of {propext, Classical.choice, Quot.sound}. No
 `sorry`, no `native_decide`, no `implemented_by` or `extern` anywhere in the sources (checked with
