@@ -1,0 +1,43 @@
+name: lean-proof
+# Builds the whole Lean development (research/exact/lean) from a clean checkout with the official
+# Lean 4.25.0 release, checks the sources for forbidden constructs, and prints the axioms of the
+# main theorems.
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: ['research/exact/lean/**.lean', 'research/exact/lean/lakefile.toml', 'research/exact/lean/lean-toolchain']
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: install Lean 4.25.0
+        run: |
+          curl -sSL -o /tmp/lean.tar.zst https://github.com/leanprover/lean4/releases/download/v4.25.0/lean-4.25.0-linux.tar.zst
+          sha256sum /tmp/lean.tar.zst
+          mkdir -p /opt/lean && tar --zstd -xf /tmp/lean.tar.zst -C /opt/lean
+          echo /opt/lean/lean-4.25.0-linux/bin >> "$GITHUB_PATH"
+      - name: forbidden constructs
+        working-directory: research/exact/lean
+        run: |
+          ! grep -rnE '\bsorry\b|\badmit\b|^\s*axiom |native_decide|implemented_by|@\[extern|\bunsafe\b|ofReduceBool' Len52/ Len52.lean *Main.lean
+      - name: build and print axioms
+        working-directory: research/exact/lean
+        run: |
+          lake build Len52
+          cat > /tmp/ax.lean <<'L'
+          import Len52
+          #check @Len52.no_short
+          #print axioms Len52.no_short
+          #print axioms Len52.Search.search_complete
+          #print axioms Len52.exists_survivor
+          #print axioms Len52.compCert_of_checks
+          #print axioms Len52.colorCheck_sound
+          #print axioms Len52.square_ok
+          #print axioms Len52.w52_facts
+          #print axioms Len52.PD.w52_pd
+          L
+          lake env lean /tmp/ax.lean | tee axioms.txt
+          ! grep -E 'sorryAx|ofReduceBool' axioms.txt

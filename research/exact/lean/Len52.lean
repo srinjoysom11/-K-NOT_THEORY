@@ -1,2 +1,9 @@
 import Len52.Spec
 import Len52.Diagram
+import Len52.Statement
+import Len52.NormalForm
+import Len52.Coloring
+import Len52.PD
+import Len52.Cert
+import Len52.SearchProof
+import Len52.Main
