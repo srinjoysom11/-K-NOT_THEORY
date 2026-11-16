@@ -1,0 +1,53 @@
+name: pages
+# Publishes the proof presentation (research/exact/site) to GitHub Pages, with the paper and the
+# computation record it links to.  Layout of the published site:
+#   /            -> redirects to /site/
+#   /site/       the presentation (index.html, css, js, vendored three.js, data.js)
+#   /paper/len52.pdf
+#   /out/lean/COMPCERT.txt
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: ['research/exact/site/**', 'research/exact/paper/len52.pdf', 'research/exact/out/lean/COMPCERT.txt', '.github/workflows/pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: assemble the site
+        run: |
+          set -e
+          S=research/exact
+          mkdir -p _site/site/vendor _site/paper _site/out/lean
+          cp $S/site/index.html $S/site/site.css $S/site/app.js $S/site/knot.js $S/site/gl.js $S/site/data.js _site/site/
+          cp -r $S/site/vendor/three _site/site/vendor/
+          cp $S/paper/len52.pdf _site/paper/ || true
+          cp $S/out/lean/COMPCERT.txt _site/out/lean/ || true
+          cat > _site/index.html <<'HTML'
+          <!doctype html><meta charset="utf-8"><title>The knot 5₂ needs 36 steps</title>
+          <meta http-equiv="refresh" content="0; url=site/"><link rel="canonical" href="site/">
+          <p><a href="site/">The knot 5₂ needs 36 steps</a></p>
+          HTML
+          touch _site/.nojekyll
+          find _site -type f | sort
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
