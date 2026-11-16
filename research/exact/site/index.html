@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-theme="cabinet">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The knot 5₂ needs 36 steps</title>
+<meta name="description" content="A live, three-flavoured presentation of the proof that the knot 5₂ needs exactly 36 unit steps on the cubic lattice, and of how the proof was made and formally checked.">
+<meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Barlow+Condensed:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Spectral+SC:wght@400;600&family=Source+Sans+3:wght@400;600;700&family=STIX+Two+Text:ital@0;1&display=swap">
+<link rel="stylesheet" href="site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 22h8v-8h-6v12h14V8h-8v10' fill='none' stroke='%23c9a45c' stroke-width='3'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#deck">Skip to the presentation</a>
+
+<header class="bar">
+  <a class="brand" href="#title" aria-label="Back to the start">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 22h8v-8h-6v12h14V8h-8v10"/></svg>
+    <span>5₂ · 36</span>
+  </a>
+  <nav class="rail" aria-label="Chapters"><ol id="rail"></ol></nav>
+  <div class="flavour" role="radiogroup" aria-label="Presentation style">
+    <button role="radio" data-set-theme="cabinet" aria-checked="true">Cabinet</button>
+    <button role="radio" data-set-theme="plates" aria-checked="false">Plates</button>
+    <button role="radio" data-set-theme="canon" aria-checked="false">Explainer</button>
+  </div>
+</header>
+
+<main id="deck" tabindex="-1">
+
+<!-- ======================================================================================= -->
+<section class="chapter hero" id="title" data-title="Start">
+  <div class="exhibit" data-exhibit="hero" aria-label="The 36-step polygon, turning, with its knot diagram"></div>
+  <div class="label">
+    <h1>The knot 5₂ needs 36 steps</h1>
+    <p class="lede when-done">Build a knot out of unit sticks laid along the edges of a cubic grid. The knot called 5₂ can be built from 36 sticks. We proved that nobody will ever build it from fewer, and a computer checked every step of the argument.</p>
+    <p class="lede when-open">Build a knot out of unit sticks laid along the edges of a cubic grid. The knot called 5₂ can be built from 36 sticks. The proof that nobody can build it from fewer is written and checked in Lean. It rests on 1358 computer checks, and <b data-fact="partsDone">…</b> of them are in so far.</p>
+    <p class="hint"><button class="begin" data-go="next">Begin</button> <span>or press <kbd>→</kbd> · switch styles top right</span></p>
+    <details class="note"><summary>For the expert</summary>
+      <p><strong>Theorem.</strong> Len(5₂) = 36, where Len(K) is the least number of edges of a polygon in the simple cubic lattice ℤ³ having knot type K. The lower bound is the Lean theorem <code>no_short</code>, whose only computational hypothesis is the truth of 1358 closed Boolean terms, each evaluated by the compiled, verified search program<span class="when-open">; <span data-fact="partsDone">…</span> of them have been evaluated so far, all true</span>.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="sticks" data-title="Sticks">
+  <div class="exhibit" data-exhibit="walk" aria-label="The 36-step polygon built one step at a time"></div>
+  <div class="label">
+    <h2>A knot made of sticks</h2>
+    <p>Each letter is one unit step: <b>e</b> and <b>w</b> go east and west, <b>n</b> and <b>s</b> north and south, <b>u</b> and <b>d</b> up and down. The walk on the left never touches itself and comes back to where it started, so the sticks close into a knot.</p>
+    <p>The question for every knot is the same: how few sticks will do?</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>A <em>polygon word</em> w of length n gives vertices v₀ = 0, v<sub>i+1</sub> = v<sub>i</sub> + w<sub>i</sub>, with v<sub>n</sub> = 0 and v₀ … v<sub>n−1</sub> distinct. Its edges form a simple closed curve. Every polygon word has even length, since each axis is crossed equally often both ways. Len(K) = Len(K*), because a reflection of ℤ³ preserves length.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="known" data-title="Known">
+  <div class="exhibit" data-exhibit="known" aria-label="The knots whose minimal stick number was known"></div>
+  <div class="label">
+    <h2>Three knots had been solved</h2>
+    <p>Finding a short polygon is a matter of luck and patience. Proving that nothing shorter exists is the hard part. Until now that had been done for three knots: the trefoil needs 24 steps, the figure-eight knot 30 and the knot 5₁ needs 34.</p>
+    <p>For 5₂, the next knot in the tables, a 36-step polygon was known. Whether 34 steps could do was open.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>Diao (1993) proved Len(3₁) = 24, and that every non-trivial knot needs at least 24 steps. Scharein, Ishihara, Arsuaga, Diao, Shimokawa and Vazquez (2009) reported Len(4₁) = 30 and Len(5₁) = 34. Upper bounds for knots up to ten crossings come from stochastic searches (Scharein et al. 2009; Janse van Rensburg and Rechnitzer 2011).</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="scale" data-title="Scale">
+  <div class="exhibit" data-exhibit="scale" aria-label="How many polygons exist, against how many walks the search visited"></div>
+  <div class="label">
+    <h2>Why not just try them all?</h2>
+    <p>Lattice polygons with 34 steps number about a billion billion. Checking one every nanosecond would take thirty years.</p>
+    <p>The search visited <b data-fact="nodes">…</b> partial walks in all and still provably missed nothing. It never looks at a polygon unless that polygon could be the one special shortest 5₂ described in the next chapters.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>The number of n-step self-avoiding polygons in ℤ³ grows like μⁿ with μ ≈ 4.684, which at n = 34 is of order 10¹⁸ up to translation. The search counts only canonical prefixes satisfying conditions C1–C7, pruned by tests that are theorems about those conditions.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="moves" data-title="Moves">
+  <div class="exhibit" data-exhibit="moves" aria-label="Interactive corner flips and U-turn removals"></div>
+  <div class="label">
+    <h2>Two moves that never change the knot</h2>
+    <p><b>Flip a corner.</b> Two perpendicular steps can swap order, so the corner jumps across its little square. That is allowed when the fourth corner is empty.</p>
+    <p><b>Cut a U-turn.</b> Three sides of a square can be replaced by the fourth. The knot stays the same and loses two sticks.</p>
+    <p class="try">Click a corner to flip it. Click a U-turn to cut it.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>A unit lattice segment meets a closed unit lattice square in nothing, a corner or a whole side. So in both moves the square meets the polygon only in the edges being replaced, and each move is two Δ-moves across the square's triangles (Lean: <code>KnotClass.flip</code>, <code>KnotClass.uturn</code>).</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="curtain" data-title="Curtain">
+  <div class="exhibit" data-exhibit="curtain" aria-label="Animation of the curtain lemma"></div>
+  <div class="label">
+    <h2>The curtain</h2>
+    <p>Suppose the polygon steps up, wanders sideways, then steps down. If none of the ringed points under the sideways stretch is occupied, flips slide the up-step along until it meets the down-step, and a U-turn cut removes both.</p>
+    <p>So a shortest polygon always has a vertex under every such curtain. Search can test that while the walk is still being built.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p><b>C6.</b> For every letter a followed by k ≥ 1 perpendicular letters and then −a, some point v<sub>i+j</sub> − a with 2 ≤ j ≤ k is a vertex. Proved in Lean (<code>curtainOK_of_min</code>) by induction on k, one flip and a rotation at a time.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="push" data-title="Push down">
+  <div class="exhibit" data-exhibit="push" aria-label="The chosen polygon with every downward corner blocked"></div>
+  <div class="label">
+    <h2>Choose the lowest one</h2>
+    <p>Among all the shortest polygons of the knot, take the one whose vertices sit lowest on average. Then no corner can be flipped downwards, because that would make it lower still. Every corner that points the wrong way has its fourth corner occupied.</p>
+    <p class="try">The highlighted corners could only be pushed down into an occupied point. Drag to turn.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>Permute axes so #z ≤ #y ≤ #x. Minimise Ψ = Σ(z(v) − z<sub>min</sub>), then Ψ₂ = Σ(y(v) − y<sub>min</sub>). A free corner of type (u, horizontal), (horizontal, d), (n, e/w) or (e/w, s) would lower Ψ or Ψ₂ by one (condition <b>C7</b>; Lean: <code>cornerOK_of_min</code>).</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="rules" data-title="Rules">
+  <div class="exhibit" data-exhibit="rules" aria-label="The seven conditions illustrated"></div>
+  <div class="label">
+    <h2>Seven rules for a suspect</h2>
+    <p>Put the lowest polygon in a standard position: its lowest vertex at the origin, a fixed direction of travel, the axes in a fixed order. Then it obeys seven local rules.</p>
+    <p>If 5₂ had a polygon with 34 steps or fewer, some such polygon would obey all seven. So the search only has to find every walk that obeys them.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>C1–C2 polygon word; C3 root least in (z, y, x); C4 w₀ &lt; rev(w<sub>n−1</sub>); C5 #z ≤ #y ≤ #x; C6 curtains; C7 corners. Theorem <code>exists_survivor</code>: every knot class closed under the moves contains, no longer than any given member, a unit square or a word with all seven.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="search" data-title="Search">
+  <div class="exhibit" data-exhibit="search" aria-label="A miniature of the depth-first search"></div>
+  <div class="label">
+    <h2>A search that keeps its promises</h2>
+    <p>The search grows walks one step at a time and backs off the moment a walk cannot be finished legally. When a walk completes a curtain or turns a corner, a rule is not yet broken but owed: some point must become a vertex later. The search writes that down as a <b>promise</b>.</p>
+    <p>A walk dies when it cannot keep a promise in the steps it has left. Lean checks that the real 5₂, if it existed, could never be cut off this way.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>Tests: self-avoidance, root order, distance home, no U-turn, axis counts, reach (each obligation has a site with |head − s|₁ + |s|₁ ≤ R − 1 and two usable neighbours), span (per-axis excursion bound), closing. Invariant: every pending obligation holds a later vertex of the word. Lean: <code>search_complete</code>.</p>
+    </details>
+    <aside class="margin"><b>Making of.</b> Earlier runs used two more lemmas, one valid only for prime knots, and were five times faster. We removed both so that the proof would need nothing we could not check.</aside>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="drawers" data-title="1358 parts">
+  <div class="exhibit" data-exhibit="drawers" aria-label="The 1358 parts of the computation"></div>
+  <div class="label">
+    <h2>1358 drawers</h2>
+    <p>For every even length up to 34, the search was split into parts, and each part ran as one closed check: search, then test every word found. Each cell on the left is one part. It lights when its check came back true.</p>
+    <p><b data-fact="partsDone">…</b> of 1358 parts are in, holding <b data-fact="words">…</b> walks that obey all seven rules.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p><code>CompCert</code> ⇔ ∀ n, r: <code>checkPart n r = true</code> (Lean: <code>compCert_of_checks</code>). A part counts only with exit status 0, the RESULT line for that part, the right word count, a matching SHA-256 and sources byte-identical to the current ones. An independent C++ program gives the same words at every length.</p>
+    </details>
+    <aside class="margin when-done"><b>Making of.</b> Lengths up to 32 ran in a 4-core container. Length 34 ran as 256 jobs on GitHub's free runners, twenty at a time, for a day.</aside>
+    <aside class="margin when-open"><b>Making of.</b> Lengths up to 32 run in a 4-core container. Length 34 runs as 256 jobs on GitHub's free runners, twenty at a time; its cells light up when the run's results are committed.</aside>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="colours" data-title="Colours">
+  <div class="exhibit" data-exhibit="colour52" aria-label="Colour the arcs of the 5₂ diagram"></div>
+  <div class="label">
+    <h2>Seven colours</h2>
+    <p>Draw the knot flat and cut it at each under-crossing into arcs. Paint every arc one of seven colours, numbered 0 to 6. The rule: at each crossing, twice the over-arc's number equals the sum of the two under-arcs' numbers, counting in sevens.</p>
+    <p>Painting everything one colour always works. For 5₂ there are other ways, 49 in all, and any drawing of 5₂ has them.</p>
+    <p class="try">Click an arc to change its colour. A crossing turns solid when its rule holds.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>Fox 7-colourings correspond to homomorphisms from the knot group to the dihedral group D₇ sending meridians to reflections (Wirtinger presentation; r<sub>b</sub>r<sub>a</sub>r<sub>b</sub> = r<sub>2b−a</sub>). So their number is a knot invariant, also for the mirror image. On the standard diagram the solutions are a(1,1,1,1,1) + b(0,1,3,4,2).</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="trefoil" data-title="Suspects">
+  <div class="exhibit" data-exhibit="colourTref" aria-label="A 24-step trefoil found by the search"></div>
+  <div class="label">
+    <h2>Every suspect has an alibi</h2>
+    <p>This 24-step walk obeys all seven rules, so the search found it. It is a trefoil: with three colours it has nine colourings. With seven it has only the seven single-colour ones, so it cannot be 5₂.</p>
+    <p>The same holds for every walk the search found. Each comes with a short certificate, a small matrix whose product with the colouring rules forces all arcs to share one colour.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>For each word: a regular projection, the c × c Fox matrix F mod 7, and an untrusted elimination giving L with (LF) row k ≡ e<sub>k</sub> − e₀. Only the product LF is checked. Lean: <code>colorCheck_sound</code>.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="lean" data-title="Lean">
+  <div class="exhibit" data-exhibit="lean" aria-label="How the formal proof fits together"></div>
+  <div class="label">
+    <h2>What the computer checked</h2>
+    <p>The whole argument is written in Lean, a language in which a proof is a program and a small trusted kernel checks it. The normal form, the completeness of the actual search program and the colouring certificates are all checked theorems.</p>
+    <p>What a reader still trusts: a few pages of definitions, two classical facts about knots, and that the compiled program evaluated 1358 true-or-false questions correctly.</p>
+    <p class="try">Select a box to see its statement.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p><code>no_short : KnotClass T → TopHyp T → CompCert → ∀ w, T w → 36 ≤ w.length</code>. Axioms: propext, Classical.choice, Quot.sound. No sorry, native_decide, implemented_by or extern; a GitHub workflow rebuilds it from a clean checkout. <span data-fact="leanLines">…</span> lines, plain Lean 4.25, no Mathlib.</p>
+    </details>
+    <aside class="margin"><b>Making of.</b> One early version of the search tested the corner rule one vertex too early. Its output matched the C++ program's, but its node counts did not, and the completeness proof could never have gone through.</aside>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter" id="making" data-title="Making of">
+  <div class="exhibit" data-exhibit="timeline" aria-label="How the proof was made"></div>
+  <div class="label">
+    <h2>How we got here</h2>
+    <p>The first answer came from a fast search with extra lemmas, which suggested Len(5₂) = 36. Then the goal changed: a proof nobody could poke holes in.</p>
+    <p>That meant dropping every lemma we could not check, writing the search as a program Lean could reason about, letting an adversarial referee attack each draft, and rerunning everything under a provenance check.</p>
+    <details class="note"><summary>For the expert</summary>
+      <p>Two review rounds (round 1: a pipeline that could accept truncated output, unlisted glue code, citations of the hard direction of Reidemeister's theorem; round 2: local provenance, run traceability, the upper-bound trust list). All were fixed before the final runs.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ======================================================================================= -->
+<section class="chapter hero" id="end" data-title="36">
+  <div class="exhibit" data-exhibit="finale" aria-label="The 36-step polygon and the standard diagram of 5₂"></div>
+  <div class="label">
+    <h2>Thirty-six</h2>
+    <p class="lede">Seen along the direction (3, −2, 8), the 36-step polygon casts exactly the five-crossing diagram that every knot table prints for 5₂.<span class="when-done"> Nothing shorter can.</span></p>
+    <p class="theorem when-done"><b>Theorem.</b> <span class="nowrap">Len(5₂) = 36.</span></p>
+    <p class="theorem when-open"><b>Theorem,</b> once all 1358 checks are in: <span class="nowrap">Len(5₂) = 36.</span> <span class="status">Today: <span data-fact="partsDone">…</span> of 1358.</span></p>
+    <p class="links"><a href="../paper/len52.pdf">The paper</a> · <a href="https://github.com/srinjoysom11/-K-NOT_THEORY/blob/claude/great-einstein-snvnnb/research/exact/formal/PROOF_RIGOROUS.md">The full proof</a> · <a href="https://github.com/srinjoysom11/-K-NOT_THEORY/tree/claude/great-einstein-snvnnb/research/exact/lean">The Lean development</a> · <a href="../out/lean/COMPCERT.txt">The computation record</a></p>
+    <details class="note"><summary>For the expert</summary>
+      <p>The PD code of the diagram along (1, −19, 40) is a relabelling of the mirror of KnotInfo's code for 5₂, checked by the Lean kernel (<code>w52_pd</code>). The upper bound needs no simplification software: one picture a reader can draw.</p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="controls" aria-label="Presentation controls">
+  <button class="nav prev" data-go="prev" aria-label="Previous chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <p class="where" aria-live="polite"><span id="where-n">1</span><span class="of">/</span><span id="where-total">15</span> <span id="where-title"></span></p>
+  <button class="nav next" data-go="next" aria-label="Next chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+</footer>
+
+<noscript><p class="noscript">This presentation draws its exhibits with JavaScript. The text of every chapter is above; the figures need scripts enabled.</p></noscript>
+
+<script type="importmap">{"imports":{"three":"./vendor/three/three.module.min.js","three/addons/":"./vendor/three/addons/"}}</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

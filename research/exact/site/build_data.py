@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+"""Builds site/data.js from the repository's real results (no number on the site is typed by hand).
+Run from anywhere:  python3 research/exact/site/build_data.py"""
+import glob, json, os, re, sys, itertools
+HERE = os.path.dirname(os.path.abspath(__file__))
+EX = os.path.dirname(HERE)
+sys.path.insert(0, os.path.join(EX, "formal"))
+from projections import diagram, verts
+
+LET = "ewnsud"
+W36 = "eeennuwwwwssseennwuueedddnnuuswsswdd"
+LENGTHS = list(range(4, 35, 2))
+def parts(n): return {34: 1024, 32: 256, 30: 64, 28: 2}.get(n, 1)
+
+def best_direction(word, target=None, R=8):
+    best = None
+    for D in itertools.product(range(-R, R + 1), repeat=3):
+        if 0 in D or D[2] <= 0: continue
+        cr = diagram(word, D)
+        if cr is None: continue
+        c = len(cr)
+        if target is not None and c != target: continue
+        V = verts(word)
+        X = [D[2] * p[0] - D[0] * p[2] for p in V]; Y = [D[2] * p[1] - D[1] * p[2] for p in V]
+        w, h = max(X) - min(X), max(Y) - min(Y)
+        # the image of each axis should not be squashed: compare the three projected unit vectors
+        ax = [(D[2], 0), (0, D[2]), (-D[0], -D[1])]
+        L = [(a * a + b * b) ** 0.5 for a, b in ax]
+        score = (c, -min(w, h) / max(w, h) - min(L) / max(L))
+        if best is None or score < best[0]: best = (score, D)
+    return best[1]
+
+def runs():
+    rows = []
+    status = {}
+    for f in glob.glob(os.path.join(EX, "out/lean/parts/n*_check.part*_*.txt")):
+        g = re.search(r"n(\d+)_check\.part(\d+)_(\d+)\.txt$", f)
+        n, r, M = int(g.group(1)), int(g.group(2)), int(g.group(3))
+        lines = open(f).read().strip().splitlines()
+        m = re.fullmatch(r"RESULT n=\d+ r=\d+ m=\d+ nodes=(\d+) words=(\d+) ok=(\w+)", lines[-1] if lines else "")
+        log = f[:-4] + ".log"
+        st = re.search(r"status=(\d+)", open(log).read()) if os.path.exists(log) else None
+        host = "github" if os.path.exists(log) and "github-actions" in open(log).read() else "local"
+        if m and m.group(3) == "true" and st and st.group(1) == "0":
+            status[(n, r)] = (int(m.group(1)), set(lines[:-1]), host)
+    for n in LENGTHS:
+        M = parts(n)
+        got = [status[(n, r)] for r in range(M) if (n, r) in status]
+        words = set().union(*[g[1] for g in got]) if got else set()
+        rows.append({"n": n, "parts": M, "done": len(got), "nodes": sum(g[0] for g in got), "words": len(words),
+                     "cells": "".join(("g" if status[(n, r)][2] == "github" else "l") if (n, r) in status else "." for r in range(M))})
+    return rows
+
+def main():
+    V = verts(W36)
+    cand = [w.strip() for w in open(os.path.join(EX, "out/lean/parts/n24_check.part0_1.txt")) if w.strip() and not w.startswith("RESULT")]
+    # a trefoil-type candidate (the lean output at n = 24 has 50 trefoils and 6 unknots); pick one with a 3-crossing view
+    tref, tD = None, None
+    for w in cand:
+        try:
+            D = best_direction(w, target=3, R=6)
+        except TypeError:
+            continue
+        tref, tD = w, D
+        break
+    def first_of(path, name, target):
+        for line in open(os.path.join(EX, path)):
+            f = line.rstrip("\n").split("\t")
+            if len(f) >= 5 and f[3] == name:
+                try:
+                    return f[4], best_direction(f[4], target=target, R=6)
+                except TypeError:
+                    continue
+        return None, None
+    w41, d41 = first_of("out/n30_prime.rigorous.txt", "4_1", 4)
+    w51, d51 = first_of("out/n34_prime.rigorous.txt", "5_1", 5)
+    data = {
+        "w36": W36, "v36": V, "dirFig": [5, -5, 11], "dirCert": [1, -19, 40], "colouring": [0, 1, 3, 4, 2],
+        # (3,-2,8): the standard 5-crossing diagram with its crossings furthest apart (spread search);
+        # (4,6,9): the same for the trefoil
+        "dirCol": [3, -2, 8], "tref": tref, "trefDir": [4, 6, 9], "vtref": verts(tref),
+        "known": [{"name": "3₁", "word": tref, "dir": tD, "len": 24, "year": "1993", "who": "Diao"},
+                  {"name": "4₁", "word": w41, "dir": d41, "len": 30, "year": "2009", "who": "Scharein et al."},
+                  {"name": "5₁", "word": w51, "dir": d51, "len": 34, "year": "2009", "who": "Scharein et al."},
+                  {"name": "5₂", "word": W36, "dir": [5, -5, 11], "len": 36, "year": "2026", "who": "this work"}],
+        "runs": runs(),
+        "facts": {
+            "leanLines": sum(len(open(f).read().splitlines()) for f in glob.glob(os.path.join(EX, "lean/Len52/**/*.lean"), recursive=True)),
+            "parts": sum(parts(n) for n in LENGTHS),
+        },
+    }
+    data["facts"]["nodes"] = sum(r["nodes"] for r in data["runs"])
+    data["facts"]["words"] = sum(r["words"] for r in data["runs"])
+    data["facts"]["partsDone"] = sum(r["done"] for r in data["runs"])
+    with open(os.path.join(HERE, "data.js"), "w") as fo:
+        fo.write("// generated by build_data.py from the repository's logs; do not edit\n")
+        fo.write("export const DATA = " + json.dumps(data, separators=(",", ":")) + ";\n")
+    print({k: v for k, v in data["facts"].items()}, "tref", tref, tD)
+
+if __name__ == "__main__":
+    main()

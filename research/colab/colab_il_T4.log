@@ -1,0 +1,34 @@
+$ /usr/bin/python3 -m pip -q install regina scipy numpy
+device: cuda Tesla T4 | cpus: 2
+$ /usr/bin/python3 /content/ml/train_il.py /content/ml/expert_train.txt /content/ml/value_net.pt --epochs 20 --device cuda --hidden 96
+60002 states from 819 starts; train 54222, val 5780 (held-out starts)
+epoch 1/20  train 1.509  val 1.379  val MAE 1.76  Spearman 0.456  (6s)
+epoch 2/20  train 1.143  val 1.307  val MAE 1.72  Spearman 0.564  (6s)
+epoch 3/20  train 0.841  val 1.305  val MAE 1.71  Spearman 0.561  (5s)
+epoch 4/20  train 0.673  val 1.299  val MAE 1.71  Spearman 0.580  (6s)
+epoch 5/20  train 0.547  val 1.163  val MAE 1.57  Spearman 0.607  (5s)
+epoch 6/20  train 0.448  val 1.160  val MAE 1.54  Spearman 0.609  (5s)
+epoch 7/20  train 0.361  val 1.244  val MAE 1.62  Spearman 0.621  (6s)
+epoch 8/20  train 0.300  val 1.183  val MAE 1.54  Spearman 0.627  (5s)
+epoch 9/20  train 0.237  val 1.089  val MAE 1.45  Spearman 0.651  (6s)
+epoch 10/20  train 0.191  val 1.111  val MAE 1.46  Spearman 0.651  (5s)
+epoch 11/20  train 0.156  val 1.253  val MAE 1.63  Spearman 0.641  (5s)
+epoch 12/20  train 0.120  val 1.204  val MAE 1.57  Spearman 0.656  (6s)
+epoch 13/20  train 0.094  val 1.283  val MAE 1.65  Spearman 0.648  (5s)
+epoch 14/20  train 0.072  val 1.207  val MAE 1.57  Spearman 0.666  (6s)
+epoch 15/20  train 0.052  val 1.224  val MAE 1.59  Spearman 0.665  (5s)
+epoch 16/20  train 0.037  val 1.243  val MAE 1.61  Spearman 0.660  (5s)
+epoch 17/20  train 0.027  val 1.231  val MAE 1.60  Spearman 0.663  (6s)
+epoch 18/20  train 0.023  val 1.235  val MAE 1.60  Spearman 0.663  (5s)
+epoch 19/20  train 0.021  val 1.244  val MAE 1.61  Spearman 0.662  (6s)
+epoch 20/20  train 0.020  val 1.243  val MAE 1.61  Spearman 0.663  (5s)
+saved /content/ml/value_net.pt
+$ /usr/bin/python3 /content/ml/guided_search.py /content/ml/value_net.pt /content/ml/starts_test.txt --starts 120 --budget 200 --procs 2
+120 held-out hard starts (level 12), budget 200 expansions
+method   @10    @25    @50    @100   @200    mean ms/expansion
+bfs        0.0%   0.0%   0.0%  18.3%  39.2%  0.44
+random     0.8%   7.5%  31.7%  55.0%  82.5%  0.37
+value     15.8%  37.5%  53.3%  75.8%  86.7%  3.89
+MODEL_BEGIN
+MODEL_END
+total 151s

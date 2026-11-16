@@ -1,0 +1,54 @@
+24	3	[1, -1, 1]	3_1	eeeuunwwdsseeennwwsuwwdd
+24	3	[1, -1, 1]	3_1	eeeuuswwdnneeesswwnuwwdd
+24	3	[1, -1, 1]	3_1	eeeuuwwdnwwsseeennuwwsdd
+24	3	[1, -1, 1]	3_1	eeeuuwwdswwnneeessuwwndd
+24	3	[1, -1, 1]	3_1	eennwuuswwddeeuennwwsssd
+24	3	[1, -1, 1]	3_1	eennwuuwwddseeuennwwsssd
+24	3	[1, -1, 1]	3_1	eenuuessdwwnnneesswuwwdd
+24	3	[1, -1, 1]	3_1	eenuuussddwnnneesswuwwdd
+24	3	[1, -1, 1]	3_1	eenuuwussddnnneesswuwwdd
+24	3	[1, -1, 1]	3_1	eenuuwwdwsseennnuussdwdd
+24	3	[1, -1, 1]	3_1	eenuuwwdwsseennnwuussddd
+24	3	[1, -1, 1]	3_1	eenuuwwdwsseennnwwussedd
+24	3	[1, -1, 1]	3_1	eenuuwwwddeeuseennwwwssd
+24	3	[1, -1, 1]	3_1	eenuuwwwdsseennwnuussddd
+24	3	[1, -1, 1]	3_1	eeuneesswwwnndeesuuwwwdd
+24	3	[1, -1, 1]	3_1	eeunnnwwssedeenuuwwddwss
+24	3	[1, -1, 1]	3_1	eeunnnwwssedeeuuwwnddwss
+24	3	[1, -1, 1]	3_1	eeunnwwwsseendeeuuwwwdds
+24	3	[1, -1, 1]	3_1	eeuuenndwwssseennwuwswdd
+24	3	[1, -1, 1]	3_1	eeuuenndwwssseennwuwwdds
+24	3	[1, -1, 1]	3_1	eeuuunnddswsseennuwwswdd
+24	3	[1, -1, 1]	3_1	eeuuunnddswsseennuwwwdds
+24	3	[1, -1, 1]	3_1	eeuuunnddwssseennwuwswdd
+24	3	[1, -1, 1]	3_1	eeuuunnddwssseennwuwwdds
+24	3	[1, -1, 1]	3_1	eeuuuwnnddssseennwuwswdd
+24	3	[1, -1, 1]	3_1	eeuuwnwdwsseennnuusswddd
+24	3	[1, -1, 1]	3_1	eeuuwnwdwsseennnwuussddd
+24	3	[1, -1, 1]	3_1	eeuuwnwdwsseennnwwussedd
+24	3	[1, -1, 1]	3_1	eeuuwnwwdsseennwnuussddd
+24	3	[1, -1, 1]	3_1	eeuuwunnddssseennwuwwdds
+24	3	[1, -1, 1]	3_1	eeuuwwdwnneesssuunndwdds
+24	3	[1, -1, 1]	3_1	eeuuwwdwnneessswuunnddds
+24	3	[1, -1, 1]	3_1	eeuuwwdwnneessswwunnedds
+24	3	[1, -1, 1]	3_1	eneuesswwnnndeesswuuwwdd
+24	3	[1, -1, 1]	3_1	ennuussdswwnneeesuuwwddd
+24	3	[1, -1, 1]	3_1	ennuussdswwnneeeuuwwdsdd
+24	3	[1, -1, 1]	3_1	ennuusssdwwnneeseuuwwddd
+24	3	[1, -1, 1]	3_1	ennuusuwwddeeennwwsussdd
+24	3	[1, -1, 1]	3_1	ennuuuwwddseeennwwsussdd
+24	3	[1, -1, 1]	3_1	euueeddwnwuwsseennndwwss
+24	3	[1, -1, 1]	3_1	euunndnwwsseeenuuwwdddss
+24	3	[1, -1, 1]	3_1	euunndnwwsseeeuuwwdnddss
+24	3	[1, -1, 1]	3_1	euunuwwddeeesswwnunnddss
+24	3	[1, -1, 1]	3_1	euuuwwddeneesswwunnnddss
+24	3	[1, -1, 1]	3_1	euuuwwddneeesswwnunnddss
+24	3	[1, -1, 1]	3_1	neeusswwwnneesdeeuuwwwdd
+24	3	[1, -1, 1]	3_1	nnuusesdswwnneeesuuwwddd
+24	3	[1, -1, 1]	3_1	nnuusessdwwnneeseuuwwddd
+24	3	[1, -1, 1]	3_1	nnuuswsdseennwwwsuueeddd
+24	3	[1, -1, 1]	3_1	nnuuswssdeennwwswuueeddd
+TALLY
+count	length	verdict
+50	24	3_1
+ALL RESOLVED

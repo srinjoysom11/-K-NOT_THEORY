@@ -1,0 +1,93 @@
+PRETZEL2 BRIDGE EXPERIMENT (follow-up to ../pretzel/)
+Goal: find a verified polygon with Len < 16*r-8 (refutes Len(K) >= 16 b(K) - 8). RESULT: none found.
+
+FILES (all new, under research/exact/bridge/pretzel2/)
+  knotlist.py    build helpers (same build/alex code as ../pretzel/build_pretzels.py), task C enumeration,
+                 writes manifest.tsv (name, group, r, bound, crossings, components, tangles, seedlen, seedword)
+  orchestrate.py annealing stages A1/A2, B1/B2, C1 -> runs/all_runs.tsv, runs/orchestrate.log
+  verify2.py     exact checks on best words -> results.csv (adapted from ../pretzel/verify.py)
+  runs/distribution.txt, runs/unique_words.txt  summaries
+
+COMMANDS (from research/exact/bridge/pretzel2/)
+  nice -n 10 python3 knotlist.py
+  nice -n 10 python3 orchestrate.py      # 2 worker processes, each run: nice -n 10 BFACF WORD SEED 100 100000 60000 0.2 0.02
+  nice -n 10 python3 verify2.py
+  BFACF = /home/user/-K-NOT_THEORY/research/exact/bridge/pretzel/bfacf (used as is)
+
+CONSTRUCTION CHECKS (knotlist.py)
+  All 16 knots: 1 component; crossings = sum|p_i| for pretzels; seed word closed, self-avoiding (latticeknot.is_lattice_polygon).
+  Montesinos (task C) crossings equal sum of tangle crossings (no mismatch warnings printed).
+
+TABLE: FINAL RESULTS (best over all runs of this experiment and the start word)
+knot | r | bound | cross | best | slack | runs | alex | vol
+P(3,3,-3,-3,2) | 5 | 72 | 14 | 76 | 4 | 120 | yes | yes
+P(3,-3,3,-3,2) | 5 | 72 | 14 | 76 | 4 | 120 | yes | yes
+P(3,-3,3,-3,3,-2) | 6 | 88 | 17 | 92 | 4 | 120 | yes | yes
+P(-3,-3,3,2) | 4 | 56 | 11 | 60 | 4 | 120 | yes | yes
+P(3,-3,3,-3,3,-3,3) | 7 | 104 | 21 | 114 | 10 | 96 | yes | yes
+P(3,-3,3,-3,3,-3,2) | 7 | 104 | 20 | 108 | 4 | 96 | yes | yes
+P(3,-3,3,-3,3,-3,3,-2) | 8 | 120 | 23 | 124 | 4 | 96 | yes | yes
+P(3,3,-3,-3,3,3,-3,-2) | 8 | 120 | 23 | 126 | 6 | 96 | yes | yes
+M[1/2,1/3,1/3,2/3] | 4 | 56 | 11 | 68 | 12 | 48 | yes | yes
+M[1/2,1/3,1/3,-2/3] | 4 | 56 | 11 | 62 | 6 | 48 | yes | yes
+M[1/2,1/3,-1/3,2/3] | 4 | 56 | 11 | 62 | 6 | 48 | yes | yes
+M[1/2,1/3,-1/3,-2/3] | 4 | 56 | 11 | 60 | 4 | 48 | yes | yes
+M[1/2,1/3,2/3,2/3] | 4 | 56 | 11 | 68 | 12 | 48 | yes | yes
+M[1/2,1/3,2/3,-2/3] | 4 | 56 | 11 | 62 | 6 | 48 | yes | yes
+M[1/2,1/3,1/3,1/3,2/3] | 5 | 72 | 14 | 86 | 14 | 48 | yes | yes
+M[1/2,1/3,1/3,1/3,-2/3] | 5 | 72 | 14 | 80 | 8 | 48 | yes | yes
+M[1/2,1/3,1/3,-1/3,2/3] | 5 | 72 | 14 | 80 | 8 | 48 | yes | yes
+M[1/2,1/3,1/3,-1/3,-2/3] | 5 | 72 | 14 | 76 | 4 | 48 | yes | yes
+M[1/2,1/3,1/3,2/3,2/3] | 5 | 72 | 14 | 84 | 12 | 48 | yes | yes
+M[1/2,1/3,1/3,2/3,-2/3] | 5 | 72 | 14 | 80 | 8 | 48 | yes | yes
+Checks: alex = Alexander polynomial of seed link (up to reversal) for best word; vol = SnapPy volume equal to 6 digits.
+All 16 best words: closed, self-avoiding, length = word length. Every knot hyperbolic (volume computed).
+Note: best for P(3,3,-3,-3,2) and P(3,-3,3,-3,2) equals the prior pretzel-experiment best (76) and P(-3,-3,3,2) equals 60; no improvement.
+
+TASK A: DEEPER SEARCH ON SLACK-4 PRETZELS
+  Start: best word from ../pretzel/results.csv. Stage A1: seeds 201..320 (120 runs each).
+  Restart stage A2 (seeds 321..440) was triggered only if A1 improved the start length. It did not improve for any knot, so A2 was not run.
+  Length distribution, stage A1 (number of runs per final length):
+    P(3,3,-3,-3,2)       76:120
+    P(3,-3,3,-3,2)       76:120
+    P(3,-3,3,-3,3,-2)    92:120
+    P(-3,-3,3,2)         60:120
+  CAVEAT: all 120 runs per knot returned the identical start word (1 distinct word per knot).
+  So A1 gave no independent samples: the annealer, started from these words with this schedule, never reported a different word.
+  The earlier 48-run search from seed words found these values, but the deeper search found nothing new.
+
+TASK B: MORE BRIDGES
+  Stage B1: seed word, seeds 1..48. Stage B2: from the best B1 word, seeds 101..148.
+  Distribution, B1 (runs per final length):
+    P(3,-3,3,-3,3,-3,3)        114:1 116:15 118:13 120:13 122:6
+    P(3,-3,3,-3,3,-3,2)        108:1 110:9 112:19 114:14 116:5
+    P(3,-3,3,-3,3,-3,3,-2)     124:1 126:5 128:9 130:13 132:16 134:3 136:1
+    P(3,3,-3,-3,3,3,-3,-2)     126:1 128:5 130:20 132:16 134:4 136:1 138:1
+  B2 returned the start word unchanged in every run (1 distinct word per knot), same caveat as A1.
+
+TASK C: MONTESINOS KNOTS (r = 4 and r = 5)
+  Tangles: RationalTangle(a,b) for a/b in {1/2,1/3,2/3,2/5,3/5,1/4,3/4} with both signs (14 tangles), numerator closure of the sum.
+  Selection: all multisets of r tangles, sorted by total crossings (sum of single-tangle crossings), keep 1-component links,
+  exclude sums where every tangle is +-1/2 or +-1/3 (pretzel columns 2 or 3). Take the first 6 in sorted order (ties in enumeration order).
+  r = 4: 11 crossings for all 6 picks; r = 5: 14 crossings for all 6 picks.
+  Distribution, C1 (runs per final length), 48 runs from seed word:
+    M[1/2,1/3,1/3,2/3]       68:8 70:37 72:3
+    M[1/2,1/3,1/3,-2/3]      62:40 64:8
+    M[1/2,1/3,-1/3,2/3]      62:43 64:4 66:1
+    M[1/2,1/3,-1/3,-2/3]     60:48
+    M[1/2,1/3,2/3,2/3]       68:29 70:18 72:1
+    M[1/2,1/3,2/3,-2/3]      62:18 64:30
+    M[1/2,1/3,1/3,1/3,2/3]   86:5 88:26 90:17
+    M[1/2,1/3,1/3,1/3,-2/3]  80:8 82:23 84:17
+    M[1/2,1/3,1/3,-1/3,2/3]  80:18 82:23 84:7
+    M[1/2,1/3,1/3,-1/3,-2/3] 76:28 78:18 80:2
+    M[1/2,1/3,1/3,2/3,2/3]   84:1 86:10 88:26 90:11
+    M[1/2,1/3,1/3,2/3,-2/3]  80:2 82:30 84:16
+  Note: RationalTangle(a,b) with a > 1 (e.g. 2/3, 3/5, 3/4) worked as expected; no error.
+  Montesinos with 1/2 and 1/3 columns included, as the selection rule allows; no pure pretzel was selected.
+
+ANSWER TO THE MAIN QUESTION
+  No knot reached best < bound. Smallest slack is 4 (P(3,3,-3,-3,2), P(3,-3,3,-3,2), P(3,-3,3,-3,3,-2), P(-3,-3,3,2),
+  P(3,-3,3,-3,3,-3,2), P(3,-3,3,-3,3,-3,3,-2), M[1/2,1/3,-1/3,-2/3], M[1/2,1/3,1/3,-1/3,-2/3]).
+  Caveats: BFACF is a heuristic annealer; these are upper bounds on Len(K), not minimality proofs.
+  Restart stages (A1, B2) did not move from the start word, so they add no evidence beyond the first-stage runs.

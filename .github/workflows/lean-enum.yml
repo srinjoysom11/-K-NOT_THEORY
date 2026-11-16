@@ -1,0 +1,152 @@
+name: lean-enum
+# The verified search (research/exact/lean/Len52/Search.lean) on GitHub-hosted runners.
+# Started by a change to research/exact/lean/ci/request.json on this branch:
+#   {"runs": [{"engine": "lean", "n": 34, "split": 9, "m": 1024, "per_job": 4, "from": 0, "to": 1024}, ...]}
+# engine "check": `checkpart N R` evaluates the Lean Boolean checkPart N R (search + verified colour test;
+#                prints the words, then RESULT ... ok=B; exit status 0 iff B = true).  This is the proof run.
+# engine "lean": the compiled Lean program `search N SPLIT M R` (parts R of M, split by prefix key);
+# engine "cpp":  research/exact/enum.cpp in its cross-check mode `-tourcap 0 -nomst -noreduce -part R M`
+#                (the same algorithm; parts are split differently, so only the union is compared).
+# Each job runs `per_job` parts in parallel (runners have 4 vCPUs); the last job commits every finished
+# part to research/exact/out/lean/.
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: [research/exact/lean/ci/request.json]
+  workflow_dispatch:
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          req = json.load(open('research/exact/lean/ci/request.json'))
+          inc = []
+          for r in req["runs"]:
+              lo, hi, pj = r.get("from", 0), r.get("to", r["m"]), r.get("per_job", 4)
+              for k in range(lo, hi, pj):
+                  parts = " ".join(str(x) for x in range(k, min(k + pj, hi)))
+                  inc.append({"engine": r["engine"], "n": r["n"], "split": r.get("split", 9),
+                              "m": r["m"], "parts": parts, "first": k})
+          print("matrix=" + json.dumps({"include": inc}))
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: install Lean 4.25.0 (official release from GitHub)
+        if: matrix.engine == 'lean' || matrix.engine == 'check'
+        run: |
+          curl -sSL -o /tmp/lean.tar.zst https://github.com/leanprover/lean4/releases/download/v4.25.0/lean-4.25.0-linux.tar.zst
+          sha256sum /tmp/lean.tar.zst
+          mkdir -p /opt/lean && tar --zstd -xf /tmp/lean.tar.zst -C /opt/lean
+          echo /opt/lean/lean-4.25.0-linux/bin >> "$GITHUB_PATH"
+      - name: build and self-test (Lean)
+        if: matrix.engine == 'lean' || matrix.engine == 'check'
+        working-directory: research/exact/lean
+        run: |
+          lean --version
+          lake build search checkpart
+          ./.lake/build/bin/search 20 9 1 0 > t20.txt 2> t20.log; cat t20.log
+          grep -q 'nodes=5378764 candidates=0' t20.log
+          ./.lake/build/bin/checkpart 20 0 > c20.txt; tail -1 c20.txt
+          grep -q 'RESULT n=20 r=0 m=1 nodes=5378764 words=0 ok=true' c20.txt
+      - name: build and self-test (C++)
+        if: matrix.engine == 'cpp'
+        working-directory: research/exact
+        run: |
+          g++ -O3 -march=native -std=c++17 -pthread -o enum enum.cpp
+          ./enum 20 -tourcap 0 -nomst -noreduce -threads 4 -out t20.txt 2> t20.log; cat t20.log
+          grep -q 'nodes=5378764' t20.log
+      - name: run parts
+        working-directory: research/exact
+        run: |
+          mkdir -p lparts
+          for r in ${{ matrix.parts }}; do
+            base=lparts/n${{ matrix.n }}_${{ matrix.engine }}.part${r}_${{ matrix.m }}
+            (
+              s=$(date +%s)
+              if [ "${{ matrix.engine }}" = check ]; then
+                ./lean/.lake/build/bin/checkpart ${{ matrix.n }} $r > $base.txt 2> $base.log
+              elif [ "${{ matrix.engine }}" = lean ]; then
+                ./lean/.lake/build/bin/search ${{ matrix.n }} ${{ matrix.split }} ${{ matrix.m }} $r > $base.txt 2> $base.log
+              else
+                ./enum ${{ matrix.n }} -tourcap 0 -nomst -noreduce -threads 1 -part $r ${{ matrix.m }} -out $base.txt 2> $base.log
+              fi
+              st=$?
+              e=$(date +%s)
+              bin=./enum; [ "${{ matrix.engine }}" = cpp ] || bin=./lean/.lake/build/bin/$([ "${{ matrix.engine }}" = check ] && echo checkpart || echo search)
+              echo "status=$st binsha=$(sha256sum $bin | cut -c1-64) txtsha=$(sha256sum $base.txt | cut -c1-64)" >> $base.log
+              echo "seconds=$((e-s)) host=github-actions engine=${{ matrix.engine }} commit=$GITHUB_SHA" >> $base.log
+            ) &
+          done
+          wait
+          cat lparts/*.log
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n${{ matrix.n }}_${{ matrix.engine }}_m${{ matrix.m }}_from${{ matrix.first }}
+          path: research/exact/lparts/
+          retention-days: 30
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: merge and commit
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            mkdir -p research/exact/out/lean/parts
+            cp artifacts/*.txt artifacts/*.log research/exact/out/lean/parts/ 2>/dev/null || true
+            python3 - <<'PY'
+          import glob, os, re
+          d = "research/exact/out/lean"
+          sets = set()
+          for f in glob.glob(d + "/parts/n*_*.part*_*.log"):
+              g = re.match(r"n(\d+)_(\w+)\.part(\d+)_(\d+)\.log$", os.path.basename(f))
+              if g: sets.add((int(g.group(1)), g.group(2), int(g.group(4))))
+          for n, eng, m in sorted(sets):
+              parts = [f"{d}/parts/n{n}_{eng}.part{k}_{m}" for k in range(m)]
+              done = [p for p in parts if os.path.exists(p + ".log") and os.path.exists(p + ".txt")
+                      and "seconds=" in open(p + ".log").read()]
+              words = sorted({w.strip() for p in done for w in open(p + ".txt") if w.strip()})
+              nodes = 0
+              for p in done:
+                  mm = re.search(r"nodes=(\d+)", open(p + ".log").read())
+                  if mm: nodes += int(mm.group(1))
+              status = "COMPLETE" if len(done) == m else f"INCOMPLETE {len(done)} of {m} parts"
+              missing = [k for k in range(m) if parts[k] not in done]
+              with open(f"{d}/n{n}_{eng}.m{m}.summary.txt", "w") as f:
+                  f.write(f"n={n} engine={eng} parts={m} {status} words={len(words)} nodes_sum={nodes}\n")
+                  if missing: f.write("missing " + " ".join(map(str, missing[:200])) + "\n")
+              if len(done) == m:
+                  open(f"{d}/n{n}_{eng}.txt", "w").write("".join(w + "\n" for w in words))
+              print(n, eng, m, status, len(words))
+          PY
+            git add research/exact/out/lean
+            git commit -q -m "lean-enum: parts from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1

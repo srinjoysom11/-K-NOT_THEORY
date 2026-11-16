@@ -1,0 +1,17 @@
+read 6662 words from out/n36_prime.txt (0 lines skipped: not made of e/w/n/s/u/d)
+Alexander filter [2, -3, 2] (up to reversal and sign): kept 1012 of 6662 words
+kept words = 1012, distinct seeds (canon) = 1012, n = 36
+flip closure F = 66520
+flip classes inside F = 504; size distribution (size: count) = {2: 24, 4: 32, 7: 8, 9: 8, 13: 8, 14: 48, 15: 8, 16: 24, 22: 8, 24: 16, 25: 8, 32: 56, 54: 48, 69: 48, 90: 24, 100: 8, 132: 8, 162: 16, 404: 48, 522: 8, 548: 48}
+T_rot (24 rotations applied to F) = 114912
+T (48 symmetries applied to F)    = 114912
+flip classes of the full set T = 1320; size distribution (size: count) = {2: 144, 4: 192, 7: 48, 9: 48, 13: 48, 14: 48, 15: 48, 16: 24, 22: 48, 24: 48, 25: 48, 32: 96, 54: 48, 69: 48, 90: 96, 100: 48, 132: 48, 162: 48, 404: 48, 522: 48, 548: 48}
+flip-closure check on 200 random polygons of T: 1112 flip results, 0 outside T (closed)
+G-orbits in final set = 2396; orbit-size distribution (size: count) = {24: 4, 48: 2392}
+achiral polygons (mirror image equals a rotation image) = 0 of 114912
+T equals union of disjoint orbits: True
+
+elapsed 258.8 s
+
+=== SUMMARY ===
+n=36  kept=1012  F=66520  flip_classes=504  T_rot=114912  T=114912  G_orbits=2396  flip_classes_of_T=1320

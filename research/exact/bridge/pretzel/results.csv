@@ -1,0 +1,16 @@
+knot,r,bound,crossings,seed_length,best_length,slack,runs,alexander_matches,volume_matches,best_word
+"P(3,3,3,3,3)",5,72,15,258,90,18,48,yes,yes,sddeeddwwwwuunnndddseeennuusssssuunnwwwwddeessddnnunnnwwsuseeuneeeddwwddssuuuueneddwwuuuus
+"P(3,3,3,-3,-3)",5,72,15,252,82,10,48,yes,yes,nddssssuuueeednnedddnwwwwwuueeussssdwwnneeeeeuuwwdsdddnenuneesswwwwnnnddsesuuuwwun
+"P(3,-3,3,-3,3)",5,72,15,256,82,10,48,yes,yes,wwnnueeedesdswwnnnneueeuuuwwwwsssdddddeeuuuennnnddsswuuuuunndedssswwwwnuueeddddsss
+"P(3,3,3,3,2)",5,72,14,216,84,12,48,yes,yes,ennwwwwwnneedddssuwwsseeeneennwwwwdssuuuunnddnneessssuwunnddsssseeennwuunnddsddssuuu
+"P(3,3,-3,-3,2)",5,72,14,208,76,4,48,yes,yes,wwwuueedsddnnnnuussdwddeeeuennwwssssesddnnuuuuwssdddneennnwuuwwwusssueeeddwn
+"P(3,-3,3,-3,2)",5,72,14,214,76,4,48,yes,yes,eeesswsddnnuuuueussddnnnnwuusssdeedddwwwwnnnuuuneeesswdwwwnneesussddddwwnuue
+"P(3,3,3,3,-2)",5,72,14,220,80,8,48,yes,yes,nuuwsseesswwwwnnedddswsuusseeennddwwuuenneessdswwnnwwwsseeuuunnddwnneeeuussdddnn
+"P(3,3,3,3,3,2)",6,88,17,314,104,16,48,yes,yes,ussswwndneesssuuunnneeesswdwwwunueeddwwddddnnueedesssuuunnnuuussddeddwwunueeddwdwddseeuuwwswwwnneednnuus
+"P(3,3,3,-3,-3,2)",6,88,17,318,94,6,48,yes,yes,eennuwwssssddddennuneessswwnwddeeuuuuwwwsseednnnnuuunnnddsswwddeeeennwwsusessddnnnuuuuwwddssus
+"P(3,-3,3,-3,3,-2)",6,88,17,354,92,4,48,yes,yes,swsuunndddeeeesswwnunnnddsdeeuuwwwwnneedessssuuuwwwwwnnnndddseeeuuwwwwnnedessssuuuwnwddeeees
+"P(3,3,3,2)",4,56,11,166,68,12,48,yes,yes,uwwddssseeednnnddwwuuuseeeddwwnnwwsssueuusesddnnuuennnwwsswwddeeenuu
+"P(3,3,-3,2)",4,56,11,164,62,6,48,yes,yes,wddeeseenuunndddsdwwwuueeeenndwwsssuuseennwwuwwdssddnennuussuw
+"P(3,-3,3,2)",4,56,11,166,62,6,48,yes,yes,desseenunnwwsswddddneeeuuwwwwsseeeenddwwuueuussdddnnnnuusuuwwd
+"P(3,3,3,-2)",4,56,11,164,62,6,48,yes,yes,eennwunndddsssuuuenndwwwwsseeussddndnnnwwusseeneeddwwwuuuussde
+"P(-3,-3,3,2)",4,56,11,166,60,4,48,yes,yes,ddwswwwwuueneddddsswuuunnneeessedddwwuwwnneeesssddnnuwuuuuee

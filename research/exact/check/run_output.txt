@@ -1,0 +1,42 @@
+loaded A=2592 words, B=50 words
+
+== Task 1: validation ==
+failures by kind: none (all 0)
+A distinct input words: 2592  B distinct: 50
+A multiset of (x,y,z) counts: [((8, 8, 8), 2440), ((10, 8, 6), 144), ((12, 6, 6), 8)]
+
+== Task 2: canonical forms up to translation ==
+distinct canon(A) = 2592 (of 2592 words)
+distinct canon(B) = 50 (of 50 words)
+B canons subset of A canons: True (B not in A: 0)
+
+== Task 3: symmetry expansion (G of order 48) ==
+distinct canon values over all images of A (union) = 3328
+  equals published 3328? True
+number of G-orbits hit by A = 75
+orbit sizes multiset (count: size): {48: 65, 24: 7, 16: 2, 8: 1}
+orbits pairwise disjoint (sum of sizes == union): True
+A polygons per orbit (distinct counts): {8: 20, 48: 47, 16: 2, 24: 6}
+achiral polygons (equal to mirror up to rotation+translation): 0
+
+== Task 4: corner-flip graph on the symmetry-expanded node set ==
+nodes = 3328, flip results = 14976
+flip results OUTSIDE node set = 0 (expect 0)
+flip results that are not valid closed SAWs = 0
+undirected edges = 7488
+connected components = 80
+component sizes (count: size): {305: 8, 18: 48, 1: 24}
+
+== Task 5: does every A-containing component contain a B polygon? ==
+components containing an A-polygon = 24
+of those, containing a B-polygon = 24
+components with A but no B: 0
+components with no A-polygon at all: 56
+
+== Task 6: pushed-down condition ==
+B: pattern corners tested = 322, violations = 0 (expect 0)
+A: pattern corners tested = 17728
+A: words with no violation at any corner = 50 of 2592
+  first A word with a violation: eennwuuwswddeeuennwwsssd corner(s) [8]
+
+elapsed 2.0 s

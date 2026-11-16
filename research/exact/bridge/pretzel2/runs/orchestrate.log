@@ -1,0 +1,9 @@
+stage A1: 480 runs in 178s
+A no restart for P(3,3,-3,-3,2)
+A no restart for P(3,-3,3,-3,2)
+A no restart for P(3,-3,3,-3,3,-2)
+A no restart for P(-3,-3,3,2)
+stage B1: 192 runs in 62s
+stage B2: 192 runs in 57s
+stage C1: 576 runs in 174s
+ALL DONE
