@@ -174,7 +174,7 @@
       <details class="note"><summary>Commentary</summary>
         <p><code>CompCert</code> ⇔ ∀ n, r: <code>checkPart n r = true</code> (Lean: <code>compCert_of_checks</code>). A part counts only with exit status 0, the RESULT line for that part, the right word count, a matching SHA-256 and sources byte-identical to the current ones. An independent C++ program gives the same words at every length.</p>
       </details>
-      <aside class="margin when-done"><b>Making of.</b> Lengths up to 32 ran in a 4-core container. Length 34 ran as 256 jobs on GitHub's free runners, twenty at a time, for a day.</aside>
+      <aside class="margin when-done"><b>Making of.</b> Lengths up to 30, and half of 32, ran in a 4-core container. The other half of 32 and all of 34 ran on GitHub's free runners, twenty jobs at a time; length 34 alone took sixteen hours.</aside>
       <aside class="margin when-open"><b>Making of.</b> Lengths up to 32 run in a 4-core container. Length 34 runs as 256 jobs on GitHub's free runners, twenty at a time; its cells light up when the run's results are committed.</aside>
     </div>
     <figure class="figure bare">
