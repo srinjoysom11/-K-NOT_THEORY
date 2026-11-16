@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Static HTML/CSS/JS, no build step, committed to research/exact/site (suitable for GitHub Pages). Libraries only from a CDN with pinned versions if needed.
+Static HTML/CSS/JS, no build step and no libraries, committed to research/exact/site and published by .github/workflows/pages.yml. The engraved model is raw WebGL2 (stage.js) with an SVG fallback.
 
 ## Users
 
@@ -33,4 +33,4 @@ The only explanation of this result. Its distinctive mechanism: a pruned exhaust
 
 ## Accessibility
 
-Must work without WebGL (static fallback image), keyboard navigable, readable at phone width, respects prefers-reduced-motion, sufficient contrast in light and dark.
+Must work without WebGL (the SVG line figure; `?nogl` forces it), keyboard navigable, readable at phone width, respects prefers-reduced-motion, sufficient contrast in light and dark.
