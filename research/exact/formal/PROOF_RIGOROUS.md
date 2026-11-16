@@ -558,8 +558,18 @@ A part counts as **accepted** only if all of the following hold:
 * the output ends with the RESULT line for that (n, r, M_n), with ok=true and exactly K word lines
   before it;
 * the output's SHA-256 matches the one logged when it was written;
-* the logged commit has every source file of the executable byte-identical to the current one:
-  Spec, Diagram, Search, Coloring, Cert, CheckMain, lakefile.toml, lean-toolchain.
+* provenance: the log is GitHub's record of an execution of the frozen code. Precisely, the committed
+  log is byte-identical to the block that the job printed (`cat lparts/*.log`) in GitHub's job log of
+  a successful job of a lean-enum run. That run's head commit is the logged commit, it has every source
+  file of the executable byte-identical to the current one (Spec, Diagram, Search, Coloring, Cert,
+  CheckMain, lakefile.toml, lean-toolchain), and its `run` job in lean-enum.yml is identical to the
+  current one. The job logs are the evidence because the repository owner cannot edit them (only
+  delete them). GitHub keeps them for a limited time, so `formal/gha_archive.py` copies them, with
+  the run and job metadata and the artifact digests, into out/lean/gha_runs/.
+
+  (Exit status: on GitHub the part runs under `bash -e`, so a non-zero exit of checkpart leaves no
+  `status=` line at all and the part is rejected as incomplete. The operative criterion is `ok=true`
+  in the RESULT line, which checkpart prints if and only if the Boolean is true.)
 
 `formal/verify_comp.py` checks these conditions for all 1358 parts and writes
 `out/lean/COMPCERT.txt`.
@@ -601,8 +611,9 @@ c₇(5₂) = 49. By `no_short`, no polygon of length ≤ 34 has the knot type of
 * (c) **Survive checker.** An independent Python implementation of Survive
   (`formal/crosscheck/survive.py`, written by the referee from Spec.lean alone) accepts every
   output word of the accepted parts.
-* (d) **Trefoil census.** The referee's completeness test on trefoils: the flip and symmetry
-  closure of the 50 trefoil outputs at n = 24 is the full set of 3328 shortest trefoils [JvRR11].
+* (d) **Trefoil census.** Of the 56 output words at n = 24, 50 have non-constant 3-colourings
+  (trefoils) and 6 only the 3 constant ones. The referee's completeness test on trefoils: the flip
+  and symmetry closure of these 50 is the full set of 3328 shortest trefoils [JvRR11].
   Every word of it that satisfies Survive is among the outputs.
 * (e) **Earlier runs.** The earlier, more strongly pruned runs (with the plane-crossing lemma;
   PROOF.md) produced a subset of these words. Reidemeister simplification identified those as
@@ -651,7 +662,9 @@ mirroring, then the two knots are equivalent, possibly after mirroring.*
    data. If the mirror operation was used, compose with a reflection of S².
 3. An orientation-preserving homeomorphism of S² is isotopic to the identity [T: Kneser, [Kne26]; or the
    Alexander trick]. Lifting such an isotopy of diagrams
-   gives an isotopy of knots in S³, which may pass an arc over the point at infinity.
+   gives an isotopy of knots in S³, which may pass an arc over the point at infinity. (Steps 3–4 are
+   standard and used only to name K₅₂ as the tabulated 5_2: the bound Len(K₅₂) = 36 for K₅₂ := the
+   type of |w₃₆| does not depend on them.)
 4. A knot is determined up to equivalence by any of its diagrams: two knots with the same diagram
    differ by a vertical isotopy. Knot types in S³ and in ℝ³ are the same [T: Burde–Zieschang,
    *Knots*, Ch. 1; Rolfsen, *Knots and Links*, Ch. 1].
@@ -682,18 +695,26 @@ determines the knot up to mirror image. And the 49 colourings of this diagram (L
 | w₃₆'s diagram has the PD code of 5_2 (up to mirror image); controls | `w52_pd_eq`, `w52_pd`, `w52_pd_not51`, `chirality_controls` | **proved** |
 
 `#print axioms` for every proved theorem: a subset of {propext, Classical.choice, Quot.sound}; the
-workflow `lean-proof.yml` rebuilds everything from a clean checkout and prints them. No
-`sorry`, no `native_decide`, no `implemented_by` or `extern` anywhere in the sources (checked with
-grep).
+workflow `lean-proof.yml` rebuilds everything from a clean checkout and prints them (run
+43927078884, archived in out/lean/gha_runs/). The same run greps the sources for sorry, admit, axiom,
+native_decide, implemented_by, extern, unsafe, ofReduceBool, skipKernelTC, `set_option debug`, opaque
+and partial, and finds none. (Lean's core library does use `implemented_by`, `extern` and `csimp`
+for its compiled code; that matters only for the execution in §11.4, not for the kernel.)
 
 ---------------------------------------------------------------------------------------------------
 
 ## 11. What a reader has to trust
 
 1. **The Lean kernel** (Lean 4.25.0), for the theorems of §10.
-2. **The statement files** say what §1, §6 and §9 say: Spec.lean, Diagram.lean, Statement.lean,
-   Cert.lean, PD.lean (only for the identification K₅₂ = 5_2) and the statement of `no_short`. They
-   are short. `diagram` examines every pair of edges (`nonAdjPairs` and the consecutive pairs), so
+2. **The statement files** say what §1, §6 and §9 say: the definitions that occur in the type of
+   `no_short` (polygon words, the moves and KnotClass in Spec.lean; diagrams, Fox equations and
+   TopHyp in Diagram.lean and Statement.lean; CompCert in Cert.lean), and PD.lean only for the
+   identification K₅₂ = 5_2. They are short. Survive, CurtainOK, CornerOK and LexPos (Spec.lean) are
+   internal: they do not occur in that type, so they need not be trusted, although Spec.lean's header
+   says otherwise. (The headers of the frozen files cannot be corrected without breaking the source
+   hash: Spec.lean's header overstates what must be read, and Diagram.lean's has an incomplete
+   citation "Burde–Zieschang, Def. 1.?". CheckMain.lean spells out `searchPart … |>.out.all
+   colorCheck` instead of calling `checkPart`; the two are equal by `rfl` (`checkPart_eq`).) `diagram` examines every pair of edges (`nonAdjPairs` and the consecutive pairs), so
    it lists every crossing. Cross-checks 8.2(b) and (c) compare
    them with independent code on every output word.
 3. **Classical theorems of knot theory.**
@@ -701,20 +722,24 @@ grep).
      two hypotheses KnotClass T and TopHyp T of `no_short`, for T = the polygons of type K₅₂ or K₅₂*.
    - (E3), from its cited ingredients, only to identify K₅₂ with the 5_2 of the tables (§9).
 4. **Execution of 1358 closed Boolean terms** checkPart n r. They were evaluated by code compiled
-   from the committed sources: the Lean 4.25.0 compiler, its bundled C compiler with `-O3
-   -march=native`, the Lean runtime's primitive operations, and the hardware. The record that the
-   evaluation returned `true` is the logs (exit status, output hash, commit). For n ≥ 30 the logs
-   come from GitHub Actions, so their provenance rests on GitHub's records of the runs. This is the
-   standard trust model for proofs by verified computation that are too large for the kernel. It is
-   backed by cross-check 8.2(a). A separate implementation in C++ gives the same words at every
-length, and the same node counts wherever the runs are unsplit (n ≤ 26).
-Every part's output is deterministic, so anyone can re-run any part and compare its SHA-256 with the
-logged one. A random sample of the GitHub parts was re-run in the container this way (§8.2(f)). The
-whole computation costs about 450 core-hours.
+   from the committed sources: the Lean 4.25.0 compiler (the official release tarball, downloaded
+   by every job from the release URL over HTTPS; its SHA-256 97bee7bd… is logged and was the same in
+   every job), the compiled implementations in Lean's core library (arrays, GMP natural numbers,
+   list sorting, loops), its bundled C compiler with `-O3 -march=native`, the runtime, and the
+   hardware. This is the standard trust model for proofs by verified computation that are too
+   large for the kernel. The record that the evaluation returned `true` is GitHub's job logs
+   (§8, archived in out/lean/gha_runs/). It is backed by cross-check 8.2(a): a separate
+   implementation in C++ (the Lean search is a port of it by the same author) gives the same words at
+   every length, and the same node counts wherever the runs are unsplit (n ≤ 26).
+   Every part's output is deterministic, so anyone can re-run any part and compare its SHA-256 with the
+   logged one (§8.2(f)). The proof runs used about 1190 core-hours (1060 of them for n = 34), the C++
+   cross-check about 290.
 
-5. **The acceptance script and git.** `formal/verify_comp.py` (about 150 lines; its rules are
-   those of §8) and the git history it reads, for the commits and the github-actions[bot] commits
-   that name the runs.
+5. **The acceptance script and the archive.** `formal/verify_comp.py` (about 200 lines; its rules
+   are those of §8), the archived job logs it reads, and git for the sources at the runs' head
+   commits. The archive can be re-fetched from GitHub with `formal/gha_archive.py` while GitHub
+   still holds the logs. Referee round 3 re-did this check with its own script and found every
+   committed GitHub log byte-identical to the job's output.
 
 Nothing else is assumed. In particular:
 * No pruning rule is taken on trust. Each one is a theorem about Survive (§5, Lean

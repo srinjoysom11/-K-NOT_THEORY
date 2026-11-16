@@ -43,8 +43,8 @@
 
 \begin{abstract}
 A knot drawn as a closed walk on the cubic lattice $\Z^3$ needs a certain least number of unit
-steps, its \emph{minimal lattice length}.  This number is known for only three knots: the trefoil
-needs 24 steps, the figure-eight knot 30 and the cinquefoil $5_1$ needs 34.  For every other knot only
+steps, its \emph{minimal lattice length}.  Exact values have been reported for only three knots: the trefoil
+needs 24 steps, the figure-eight knot 30 and the cinquefoil $5_1$ 34.  For every other knot only
 upper bounds were known.  We prove that the knot $5_2$ needs exactly 36 steps.
 
 The proof has three stages.  (1) A normal form: we show that a shortest $5_2$ polygon can be moved,
@@ -54,12 +54,13 @@ at most 34 that satisfy these conditions, pruned only by tests that are theorems
 (3) Certificates: every one of the \NWords{} words the search returns has a regular diagram whose
 Fox $7$-colourings are all constant, while every diagram of $5_2$ has $49$ of them.
 
-Every step is formalised in the Lean~4 proof assistant: the normal-form theorem, the completeness of
-the search program, the soundness of the colouring certificates and the identification of the
-36-step example are kernel-checked, with no axioms beyond Lean's standard three.  The
+The mathematical steps are formalised in the Lean~4 proof assistant: the normal-form theorem, the
+completeness of the search program, the soundness of the colouring certificates, and the comparison
+of the 36-step example's diagram with the standard diagram of $5_2$ are kernel-checked, with no axioms
+beyond Lean's standard three.  The
 computation itself, \num{1358} closed Boolean terms evaluated by the compiled verified program
 (about \NNodes{} search nodes in all), was run on a laptop-sized container and on GitHub's free
-runners, and was cross-checked against an independent C\texttt{++} implementation of the same search.
+runners, and was cross-checked against a separate C\texttt{++} implementation of the same algorithm.
 We describe the mathematics, the search, and the engineering that made a proof of this size
 checkable.
 \end{abstract}
@@ -98,8 +99,8 @@ what distinguishes $5_2$ from every short polygon the search returns.}
 \end{figure}
 
 The upper bound is the polygon of \cref{fig:polygon}.  The content of the theorem is the lower bound:
-\emph{no lattice polygon with 34 or fewer steps is a $5_2$}.  There are of the order of $10^{18}$ lattice
-polygons of length $34$, far too many to enumerate.  Our proof avoids enumerating them by
+\emph{no lattice polygon with 34 or fewer steps is a $5_2$}.  The number of lattice polygons of length
+$34$ grows like $\mu^{34}$ with $\mu\approx4.68$; there are far too many to enumerate.  Our proof avoids enumerating them by
 enumerating only candidates for one carefully chosen shortest representative, and it rules out each
 candidate by a short, independently checkable algebraic certificate.  The proof proceeds in three
 stages, which we describe in turn.
@@ -123,9 +124,13 @@ Our answer is \emph{very little}.  All three stages are formalised in Lean~4~\ci
 (\cref{sec:lean}): the normal-form theorem, the completeness of the actual search program that was
 run, and the soundness of the certificates are theorems checked by the Lean kernel.  What remains
 is (i) a short list of definitions that state the theorem, (ii) two classical facts of knot theory
-($\Delta$-moves preserve knot type; the Wirtinger presentation of the knot group), and (iii) the evaluation of
-\num{1358} closed Boolean terms by the compiled program, which we cross-checked against an
-independent C\texttt{++} implementation that agrees node for node.  In particular, \emph{the pruning
+($\Delta$-moves preserve knot type; the Wirtinger presentation of the knot group), and a third,
+needed only to name the knot type of our 36-step polygon as the $5_2$ of the tables (a diagram's
+planar-diagram code determines the knot up to mirror image), (iii) the evaluation of
+\num{1358} closed Boolean terms by the compiled program, and (iv) the records that this evaluation
+returned true: GitHub's archived job logs (\cref{sec:engineering}).  The evaluation was
+cross-checked against a separate C\texttt{++} implementation of the same algorithm, which returns the
+same words at every length.  In particular, \emph{the pruning
 of the search is not trusted}: every discarded branch is discarded by a test that Lean has proved can
 never discard a $5_2$.
 
@@ -353,8 +358,8 @@ the shallow part of the tree once per part.  No polygon of length $\le 22$ satis
 \section{Stage three: ruling out $5_2$ with Fox colourings}\label{sec:colour}
 
 Each returned word is a lattice polygon of some knot type.  An earlier, unverified identification
-by Reidemeister simplification finds only unknots, trefoils, figure-eight knots and cinquefoils among
-them.  But we do not need to know \emph{which} knot each word is; we only need to know that it is not
+by Reidemeister simplification, applied to the words returned by faster, more strongly pruned runs
+(a subset of the present words), found only unknots, trefoils, figure-eight knots and cinquefoils.  But we do not need to know \emph{which} knot each word is; we only need to know that it is not
 $5_2$.  For this the Fox $7$-colourings suffice, and they come with a certificate that is trivial to
 check.
 
@@ -468,15 +473,14 @@ rebuilds everything from a clean checkout and prints the axioms.
 \paragraph*{The program is the proof object.}  \Cref{thm:complete} is proved about the very program
 that was run.  The search is written in a functional style that the kernel can reason about---walk
 data in immutable lists, explicit structural recursion on the remaining steps---while keeping a
-single mutable occupancy array, which the compiler updates in place.  It is a line-by-line equivalent
-of an independent C\texttt{++} program and visits exactly the same number of nodes
-(\cref{sec:cross}).
+single mutable occupancy array, which the compiler updates in place.  It is a line-by-line port, by the same author, of a C\texttt{++} program, and where the runs are
+unsplit ($n\le26$) both visit exactly the same number of nodes (\cref{sec:cross}).
 
-\paragraph*{A bug that only the proof could find.}  An early version of the Lean search looked up
+\paragraph*{A bug that the output did not show.}  An early version of the Lean search looked up
 the wrong vertex for the corner test C7: an off-by-one index into the reversed position list.  The
 program still ran, and returned the same words as the C\texttt{++} program on every length we tried,
 but it tested C7 at the wrong point, which in principle can discard valid walks.  It was caught
-because the node counts differed from the C\texttt{++} program; a completeness proof would not have
+because the node counts differed from the C\texttt{++} program, and a completeness proof would not have
 gone through.  This is the kind of error that cross-checking outputs alone does not exclude.
 
 %=====================================================================================================
@@ -498,15 +502,20 @@ about sixteen hours of wall time on the free runners.
 \paragraph*{Provenance.}  A part is accepted only if its log records exit status $0$, its output ends
 with the \texttt{RESULT} line for that part with the right number of words before it, the output's
 SHA-256 matches the logged one, and the program was built from sources identical to the current
-ones: for GitHub runs, a clean checkout of the logged commit, with the output files committed back
-by the workflow's bot account in a commit naming the run; for local runs, a hash of the sources computed before the build and re-checked after
-every part.  The output of each part is deterministic, so anyone can re-run any part and compare
-hashes; we did so for a random sample of the GitHub parts.
+ones.  The record that a part was evaluated on GitHub is GitHub's own job log, which the
+repository owner cannot edit: the committed log must be byte-identical to the block that the job
+printed, in a successful job of a run whose head commit has the frozen sources.  The job logs of all
+proof runs are archived in the repository (GitHub keeps them only for a limited time).  The runs'
+own collect jobs could not push to the repository, so a second workflow downloaded their artifacts
+and committed them; the job-log check makes that step irrelevant to the proof.  The output of each
+part is deterministic, so anyone can re-run any part and compare hashes; we did so for a random
+sample of \num{8} GitHub parts, each byte-identical.
 
 \paragraph*{What is trusted.}  The compiled program evaluated the \num{1358} Booleans correctly: this
-rests on the Lean compiler, its C back end, the runtime and the hardware---the usual trust model for
-verified computations too large for the kernel.  It is backed by the independent C\texttt{++} program
-(\cref{sec:cross}).
+rests on the Lean compiler and the compiled implementations in its core library (arrays, big
+natural numbers, list sorting), its C back end, the runtime and the hardware---the usual trust model
+for verified computations too large for the kernel.  It is backed by the separate C\texttt{++}
+program (\cref{sec:cross}).
 
 %=====================================================================================================
 \section{Independent cross-checks}\label{sec:cross}
@@ -514,26 +523,27 @@ verified computations too large for the kernel.  It is backed by the independent
 None of the following is needed for the proof; each tests it.
 \begin{itemize}
 \item \textbf{A second implementation.}  The C\texttt{++} enumerator in its cross-check mode
-implements the same algorithm independently; for every length it returns the same set of words, and
-for unsplit runs ($n\le26$) exactly the same number of nodes.
+implements the same algorithm separately (the Lean search is a port of it by the same author); for
+every length it returns the same set of words, and for unsplit runs ($n\le26$) exactly the same
+number of nodes.  For split runs the two programs split differently, so only the words are compared.
 \item \textbf{Independent re-implementations of the definitions.}  A Python implementation of the
 projection and colouring count finds exactly $7$ colourings for every returned word, and a Python
 implementation of C1--C7 written by the referee from the Lean definitions alone accepts every
 returned word.
-\item \textbf{Known censuses.}  The flip-and-symmetry closure of the 50 trefoils returned at length 24
-is the full set of 3328 shortest trefoil polygons known from~\cite{JvRR11}, and the earlier faster
-runs reproduced the published numbers of shortest $4_1$ (3648) and $5_1$ (6672) polygons in the same
-way.  A missing branch of the search would show up as a missing flip class.
-\item \textbf{Adversarial review.}  The informal proof and the Lean sources were reviewed in two
-rounds by an adversarial referee, who tested completeness on the trefoil census and the colouring
-hypothesis on \num{12750} diagrams of sixty independently generated $5_2$ polygons.
+\item \textbf{The trefoil census.}  Of the 56 words returned at length 24, 50 have non-constant
+$3$-colourings, so they are trefoils (the other 6 have only constant $3$-colourings).  The flip-and-symmetry closure of these 50
+is the full set of 3328 shortest trefoil polygons known from~\cite{JvRR11}; a missing branch of the
+search would show up as a missing flip class.
+\item \textbf{Adversarial review.}  The informal proof, the Lean sources and the computation records
+were reviewed in three rounds by an adversarial referee.  The third round re-checked every accepted
+part against GitHub's job logs independently of our acceptance script.
 \end{itemize}
 
 %=====================================================================================================
 \section{Discussion}\label{sec:discussion}
 
-The value $\Len(5_2)=36$ is the first exact minimal lattice length for a knot beyond the three known
-before, and the first with a fully formal proof.  The method extends.  The faster, unverified version
+The value $\Len(5_2)=36$ is, to our knowledge, the first exact minimal lattice length beyond the
+three reported before, and the first whose mathematical steps are checked by a proof assistant.  The method extends.  The faster, unverified version
 of the search (with the plane-crossing lemma, valid for prime knots, and a computer-checked arc
 lemma for composites) has been run to length 36, where it finds only the unknot, $3_1$, $4_1$, $5_1$
 and $5_2$; this indicates that every other knot needs at least 38 steps.  Making that statement

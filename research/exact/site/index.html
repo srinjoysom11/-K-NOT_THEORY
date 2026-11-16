@@ -63,7 +63,7 @@
 <section class="chapter plate wide" id="known" data-title="Known">
     <div class="text">
       <h2>Three knots had been solved</h2>
-      <p>Finding a short polygon is a matter of luck and patience. Proving that nothing shorter exists is the hard part. Until now that had been done for three knots: the trefoil needs 24 steps, the figure-eight knot 30 and the knot 5₁ needs 34.</p>
+      <p>Finding a short polygon is a matter of luck and patience. Proving that nothing shorter exists is the hard part. Until now exact values had been reported for only three knots: the trefoil needs 24 steps, the figure-eight knot 30 and the knot 5₁ needs 34.</p>
       <p>For 5₂, the next knot in the tables, a 36-step polygon was known. Whether 34 steps could do was open.</p>
       <details class="note"><summary>Commentary</summary>
         <p>Diao (1993) proved Len(3₁) = 24, and that every non-trivial knot needs at least 24 steps. Scharein, Ishihara, Arsuaga, Diao, Shimokawa and Vazquez (2009) reported Len(4₁) = 30 and Len(5₁) = 34. Upper bounds for knots up to ten crossings come from stochastic searches (Scharein et al. 2009; Janse van Rensburg and Rechnitzer 2011).</p>
@@ -218,8 +218,8 @@
 <section class="chapter plate wide" id="lean" data-title="Lean">
     <div class="text">
       <h2>What the computer checked</h2>
-      <p>The whole argument is written in Lean, a language in which a proof is a program and a small trusted kernel checks it. The normal form, the completeness of the actual search program and the colouring certificates are all checked theorems.</p>
-      <p>What a reader still trusts: a few pages of definitions, two classical facts about knots, and that the compiled program evaluated 1358 true-or-false questions correctly.</p>
+      <p>The mathematical argument is written in Lean, a language in which a proof is a program and a small trusted kernel checks it. The normal form, the completeness of the actual search program and the colouring certificates are all checked theorems.</p>
+      <p>What a reader still trusts: a few pages of definitions, two classical facts about knots (and a third, only to give our 36-step knot its name in the tables), that the compiled program evaluated 1358 true-or-false questions correctly, and GitHub's own logs of those runs, which are archived with the proof.</p>
       <p class="try">Select a box to see its statement.</p>
       <details class="note"><summary>Commentary</summary>
         <p><code>no_short : KnotClass T → TopHyp T → CompCert → ∀ w, T w → 36 ≤ w.length</code>. Axioms: propext, Classical.choice, Quot.sound. No sorry, native_decide, implemented_by or extern; a GitHub workflow rebuilds it from a clean checkout. <span data-fact="leanLines">…</span> lines, plain Lean 4.25, no Mathlib.</p>

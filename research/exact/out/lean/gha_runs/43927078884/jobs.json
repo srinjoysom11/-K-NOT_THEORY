@@ -1,0 +1,12 @@
+[
+ {
+  "attempt": 1,
+  "id": 133509274623,
+  "name": "build",
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "cc41c9cfae30d31f54d01f55214e939e64af4688",
+  "started_at": "2026-11-16T18:16:50Z",
+  "completed_at": "2026-11-16T18:17:33Z"
+ }
+]

@@ -1,0 +1,15 @@
+{
+ "id": 43927078884,
+ "name": "lean-proof",
+ "path": ".github/workflows/lean-proof.yml",
+ "head_branch": "claude/great-einstein-snvnnb",
+ "head_sha": "cc41c9cfae30d31f54d01f55214e939e64af4688",
+ "event": "workflow_dispatch",
+ "status": "completed",
+ "conclusion": "success",
+ "run_attempt": 1,
+ "created_at": "2026-11-16T18:16:24Z",
+ "run_started_at": "2026-11-16T18:16:24Z",
+ "updated_at": "2026-11-16T18:17:34Z",
+ "html_url": "https://github.com/srinjoysom11/-K-NOT_THEORY/actions/runs/43927078884"
+}
