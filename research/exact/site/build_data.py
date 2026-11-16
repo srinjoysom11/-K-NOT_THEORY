@@ -76,7 +76,9 @@ def main():
     w51, d51 = first_of("out/n34_prime.rigorous.txt", "5_1", 5)
     data = {
         "w36": W36, "v36": V, "dirFig": [5, -5, 11], "dirCert": [1, -19, 40], "colouring": [0, 1, 3, 4, 2],
-        "tref": tref, "trefDir": tD, "vtref": verts(tref),
+        # (3,-2,8): the standard 5-crossing diagram with its crossings furthest apart (spread search);
+        # (4,6,9): the same for the trefoil
+        "dirCol": [3, -2, 8], "tref": tref, "trefDir": [4, 6, 9], "vtref": verts(tref),
         "known": [{"name": "3₁", "word": tref, "dir": tD, "len": 24, "year": "1993", "who": "Diao"},
                   {"name": "4₁", "word": w41, "dir": d41, "len": 30, "year": "2009", "who": "Scharein et al."},
                   {"name": "5₁", "word": w51, "dir": d51, "len": 34, "year": "2009", "who": "Scharein et al."},

@@ -76,9 +76,9 @@ export async function cabinet(host, V0, D, onCount) {
   const camDir = new THREE.Vector3(-0.42, 0.62, 0.66).normalize();
   const place = () => {
     camera.aspect = W() / H(); camera.updateProjectionMatrix();
-    const dist = R * (camera.aspect < 0.9 ? 8.6 : 6.3);
+    const dist = R * (camera.aspect < 0.9 ? 9.2 : 6.9);
     camera.position.copy(camDir.clone().multiplyScalar(dist));
-    camera.lookAt(d3.clone().multiplyScalar(-1.2));
+    camera.lookAt(d3.clone().multiplyScalar(-1.6));
   };
   place();
 
@@ -96,7 +96,7 @@ export async function cabinet(host, V0, D, onCount) {
     const n = d3, upv = Math.abs(n.y) > 0.99 ? new THREE.Vector3(0, 0, 1) : new THREE.Vector3(0, 1, 0);
     const r = new THREE.Vector3().crossVectors(upv, n).normalize(), u = new THREE.Vector3().crossVectors(n, r);
     const P = pts.map(p => { const v = p.clone().applyQuaternion(q); return [v.dot(r), -v.dot(u), v.dot(n)]; });
-    return crossings(P).length;
+    return P;
   };
 
   let raf = 0, running = false, frame = 0;
@@ -108,7 +108,7 @@ export async function cabinet(host, V0, D, onCount) {
     } else if (idle) yaw += 0.0022;
     model.rotation.set(pitch, yaw, 0, "YXZ");
     renderer.render(scene, camera);
-    if (frame++ % 6 === 0) onCount(shadowCount());
+    if (frame++ % 6 === 0) { const P = shadowCount(); onCount(crossings(P).length, P); }
     raf = requestAnimationFrame(tick);
   };
   const ro = new ResizeObserver(() => { renderer.setSize(W(), H()); place(); if (!running) renderer.render(scene, camera); });

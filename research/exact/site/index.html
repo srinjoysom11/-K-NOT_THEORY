@@ -35,10 +35,11 @@
   <div class="exhibit" data-exhibit="hero" aria-label="The 36-step polygon, turning, with its knot diagram"></div>
   <div class="label">
     <h1>The knot 5₂ needs 36 steps</h1>
-    <p class="lede">Build a knot out of unit sticks laid along the edges of a cubic grid. The knot called 5₂ can be built from 36 sticks. We proved that nobody will ever build it from fewer, and a computer checked every step of the argument.</p>
+    <p class="lede when-done">Build a knot out of unit sticks laid along the edges of a cubic grid. The knot called 5₂ can be built from 36 sticks. We proved that nobody will ever build it from fewer, and a computer checked every step of the argument.</p>
+    <p class="lede when-open">Build a knot out of unit sticks laid along the edges of a cubic grid. The knot called 5₂ can be built from 36 sticks. The proof that nobody can build it from fewer is written and checked in Lean. It rests on 1358 computer checks, and <b data-fact="partsDone">…</b> of them are in so far.</p>
     <p class="hint"><button class="begin" data-go="next">Begin</button> <span>or press <kbd>→</kbd> · switch styles top right</span></p>
     <details class="note"><summary>For the expert</summary>
-      <p><strong>Theorem.</strong> Len(5₂) = 36, where Len(K) is the least number of edges of a polygon in the simple cubic lattice ℤ³ having knot type K. The lower bound is the Lean theorem <code>no_short</code>, whose only computational hypothesis is the truth of 1358 closed Boolean terms, each evaluated by the compiled, verified search program.</p>
+      <p><strong>Theorem.</strong> Len(5₂) = 36, where Len(K) is the least number of edges of a polygon in the simple cubic lattice ℤ³ having knot type K. The lower bound is the Lean theorem <code>no_short</code>, whose only computational hypothesis is the truth of 1358 closed Boolean terms, each evaluated by the compiled, verified search program<span class="when-open">; <span data-fact="partsDone">…</span> of them have been evaluated so far, all true</span>.</p>
     </details>
   </div>
 </section>
@@ -159,7 +160,8 @@
     <details class="note"><summary>For the expert</summary>
       <p><code>CompCert</code> ⇔ ∀ n, r: <code>checkPart n r = true</code> (Lean: <code>compCert_of_checks</code>). A part counts only with exit status 0, the RESULT line for that part, the right word count, a matching SHA-256 and sources byte-identical to the current ones. An independent C++ program gives the same words at every length.</p>
     </details>
-    <aside class="margin"><b>Making of.</b> Lengths up to 32 ran in a 4-core container. Length 34 ran as 256 jobs on GitHub's free runners, twenty at a time, for a day.</aside>
+    <aside class="margin when-done"><b>Making of.</b> Lengths up to 32 ran in a 4-core container. Length 34 ran as 256 jobs on GitHub's free runners, twenty at a time, for a day.</aside>
+    <aside class="margin when-open"><b>Making of.</b> Lengths up to 32 run in a 4-core container. Length 34 runs as 256 jobs on GitHub's free runners, twenty at a time; its cells light up when the run's results are committed.</aside>
   </div>
 </section>
 
@@ -223,8 +225,9 @@
   <div class="exhibit" data-exhibit="finale" aria-label="The 36-step polygon and the standard diagram of 5₂"></div>
   <div class="label">
     <h2>Thirty-six</h2>
-    <p class="lede">Seen along the direction (5, −5, 11), the 36-step polygon casts exactly the five-crossing diagram that every knot table prints for 5₂. Nothing shorter can.</p>
-    <p class="theorem"><b>Theorem.</b> Len(5₂) = 36.</p>
+    <p class="lede">Seen along the direction (3, −2, 8), the 36-step polygon casts exactly the five-crossing diagram that every knot table prints for 5₂.<span class="when-done"> Nothing shorter can.</span></p>
+    <p class="theorem when-done"><b>Theorem.</b> Len(5₂) = 36.</p>
+    <p class="theorem when-open"><b>Theorem,</b> once all 1358 checks are in: Len(5₂) = 36. <span class="status">Today: <span data-fact="partsDone">…</span> of 1358.</span></p>
     <p class="links"><a href="../paper/len52.pdf">The paper</a> · <a href="../formal/PROOF_RIGOROUS.md">The full proof</a> · <a href="../lean/">The Lean development</a> · <a href="../out/lean/COMPCERT.txt">The computation record</a></p>
     <details class="note"><summary>For the expert</summary>
       <p>The PD code of the diagram along (1, −19, 40) is a relabelling of the mirror of KnotInfo's code for 5₂, checked by the Lean kernel (<code>w52_pd</code>). The upper bound needs no simplification software: one picture a reader can draw.</p>

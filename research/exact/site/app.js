@@ -130,16 +130,29 @@ EXHIBITS.hero = host => {
   const nearestAngle = (cur, t) => t + 2 * Math.PI * Math.round((cur - t) / (2 * Math.PI));
   function align() { spin = false; (gl || svgMode).align(); }
 
-  let active = false;
+  let active = false, mounted = [];
   async function mount() {
     const theme = document.documentElement.dataset.theme;
     if (gl) { gl.dispose(); gl = null; }
     if (svgMode) { svgMode.stop(); svgMode = null; }
+    mounted.forEach(m => m.remove()); mounted = [];
     if (theme === "cabinet" && hasGL()) {
       try {
         const mod = await import("./gl.js");
         box.innerHTML = "";
-        gl = await mod.cabinet(box, V36, DATA.dirFig, n => { info.innerHTML = `shadow on the plinth: <b>${n}</b> crossings`; });
+        const card = html("figure", { class: "shadowcard" }, host);
+        const cs2 = el("svg", { viewBox: "0 0 1 1", "aria-hidden": "true" }, card);
+        html("p", {}, card, "The shadow, drawn");
+        gl = await mod.cabinet(box, V36, DATA.dirFig, (n, P) => {
+          info.innerHTML = `shadow on the plinth: <b>${n}</b> crossings`;
+          const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
+          const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+          const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 1.12;
+          cs2.setAttribute("viewBox", `${cx - span / 2} ${cy - span / 2} ${span} ${span}`);
+          const cr = crossings(P);
+          cs2.innerHTML = pieces(P, cr, span * 0.03).map(q => `<line x1="${q.x1}" y1="${q.y1}" x2="${q.x2}" y2="${q.y2}" stroke-width="${span / 70}"/>`).join("");
+        });
+        mounted.push(card);
         if (active) gl.start();
         return;
       } catch (e) { console.warn("WebGL exhibit unavailable, using the drawing", e); }
@@ -527,10 +540,10 @@ EXHIBITS.rules = host => {
     ["C1–C2", "A closed walk that never meets itself.", s => { poly(s, [[1,1],[4,1],[4,3],[3,3],[3,2],[2,2],[2,4],[1,4]], true); }],
     ["C3", "Its lowest vertex sits at the origin.", s => { poly(s, [[1,4],[1,2],[2,2],[2,1],[4,1],[4,4]], true); dot(s, [2, 1], "origin"); hline(s, 1); }],
     ["C4", "It leaves the origin in a fixed direction.", s => { poly(s, [[2,1],[4,1],[4,4],[1,4],[1,2],[2,2]], true); dot(s, [2, 1], "origin"); arrow(s, [2, 1], [3.2, 1]); }],
-    ["C5", "Fewest steps up–down, most east–west.", s => { bars(s, [2, 3, 4]); }],
+    ["C5", "Fewest steps up–down, most east–west.", s => { rods(s, [1.6, 2.6, 3.6]); }],
     ["C6", "A vertex under every curtain.", s => { poly(s, [[0.6,1],[1,1],[1,3],[3,3],[3,1],[3.4,1]]); ring(s, [2, 1], true); }],
     ["C7", "Every downward corner is blocked.", s => { poly(s, [[1,4],[1,3],[3,3]]); ring(s, [1, 2], false); poly(s, [[0.5,2],[1.6,2]]); dot(s, [1, 2], "vx"); }],
-    ["⇒", "If 5₂ had a short polygon, one would obey all seven.", s => { tick(s); }],
+    ["⇒", `If 5₂ had a polygon with 34 steps or fewer, one would obey all seven. ${fmt(DATA.facts.words)} walks do; this 24-step trefoil is one of them.`, s => { survivor(s); }],
   ];
   function svgIn(f) { return el("svg", { class: "fig mini", viewBox: "0 0 5 5", "aria-hidden": "true" }, f); }
   function poly(s, pts, closed) { el(closed ? "polygon" : "polyline", { points: pts.map(p => `${p[0]},${5 - p[1]}`).join(" "), class: "knot", "stroke-width": .16, "stroke-linejoin": "round", fill: "none" }, s); }
@@ -539,7 +552,23 @@ EXHIBITS.rules = host => {
   function hline(s, y) { el("line", { x1: .3, y1: 5 - y + .35, x2: 4.7, y2: 5 - y + .35, class: "ghost", "stroke-width": .06, "stroke-dasharray": ".15 .12" }, s); }
   function arrow(s, a, b) { el("line", { x1: a[0], y1: 5 - a[1], x2: b[0], y2: 5 - b[1], stroke: "var(--accent)", "stroke-width": .14 }, s); el("path", { d: `M${b[0]} ${5 - b[1] - .25} L${b[0] + .35} ${5 - b[1]} L${b[0]} ${5 - b[1] + .25}z`, fill: "var(--accent)" }, s); }
   function bars(s, h) { h.forEach((v, i) => el("rect", { x: .8 + i * 1.3, y: 4.6 - v, width: .8, height: v, fill: `var(--c${[2, 1, 0][i]})` }, s)); ["z", "y", "x"].forEach((t, i) => el("text", { x: 1.2 + i * 1.3, y: 4.95, "text-anchor": "middle", "font-size": .45 }, s).textContent = t); }
-  function tick(s) { el("path", { d: "M1 2.6 L2.1 3.7 L4.2 1.3", fill: "none", stroke: "var(--accent)", "stroke-width": .3, "stroke-linecap": "round", "stroke-linejoin": "round" }, s); }
+  function rods(s, h) {
+    h.forEach((v, i) => {
+      const x = 1 + i * 1.5;
+      el("line", { x1: x, y1: 4.3, x2: x, y2: 4.3 - v, class: "knot", "stroke-width": .26 }, s);
+      el("circle", { cx: x, cy: 4.3 - v, r: .2, class: "vx" }, s);
+      el("text", { x, y: 4.95, "text-anchor": "middle", "font-size": .5 }, s).textContent = ["z", "y", "x"][i];
+    });
+  }
+  function survivor(s) {
+    s.setAttribute("viewBox", "0 0 10 5");
+    const V = centre(verticesOf(DATA.tref)), P = V.map(projAlong(DATA.trefDir));
+    const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
+    const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const k = 4.4 / span, cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+    const Q = P.map(p => [5 + (p[0] - cx) * k, 2.5 + (p[1] - cy) * k, p[2]]);
+    for (const q of pieces(Q, crossings(Q), .12)) el("line", { class: "knot", x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, "stroke-width": .11 }, s);
+  }
   for (const [t, c, draw] of items) {
     const f = html("figure", t === "⇒" ? { class: "wide" } : {}, tray);
     draw(svgIn(f));
@@ -602,7 +631,7 @@ EXHIBITS.search = host => {
     if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
     const c = canvas.getContext("2d"); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, h);
     const ink = cssVar("--ink"), soft = cssVar("--ink-soft"), acc = cssVar("--accent"), alert = cssVar("--alert"), rule = cssVar("--rule");
-    const S = Math.min(w / 16, (h - 90) / 9.5), ox = w * 0.5 - 0.5 * S, oy = h - 120;
+    const S = Math.min(w / 15, h / 8), ox = w * 0.5 - 0.5 * S, oy = h * 0.5 + 3 * S;
     c.strokeStyle = rule; c.lineWidth = 1;
     for (let x = -6; x <= 7; x++) { c.beginPath(); c.moveTo(ox + x * S, oy); c.lineTo(ox + x * S, oy - 6 * S); c.stroke(); }
     for (let y = 0; y <= 6; y++) { c.beginPath(); c.moveTo(ox - 6 * S, oy - y * S); c.lineTo(ox + 7 * S, oy - y * S); c.stroke(); }
@@ -620,7 +649,8 @@ EXHIBITS.search = host => {
       c.fillStyle = cssVar("--origin"); c.beginPath(); c.arc(ox, oy, 5, 0, 7); c.fill();
       if (!current.ok) {
         c.fillStyle = alert; c.font = `600 14px ${cssVar("--font-num")}`;
-        c.fillText(current.why, ox + t[0] * S + 8, oy - t[1] * S - 8);
+        const tw = c.measureText(current.why).width;
+        c.fillText(current.why, Math.max(6, Math.min(w - tw - 6, ox + t[0] * S + 8)), Math.max(16, oy - t[1] * S - 8));
       }
     }
     r.innerHTML = `<b>${fmt(stats.visited)}</b> steps taken · <b>${fmt(stats.tried - stats.visited)}</b> cut off · <b>${fmt(stats.closed)}</b> closed walks found`;
@@ -639,7 +669,7 @@ EXHIBITS.drawers = host => {
   for (const r of rows) {
     html("span", { class: "n" }, wall, `n = ${r.n}`);
     const cells = html("div", { class: "cells", title: `n = ${r.n}: ${r.done} of ${r.parts} parts · ${fmt(r.words)} words · ${fmt(r.nodes)} nodes` }, wall);
-    cells.style.setProperty("--cw", r.parts > 600 ? "5px" : r.parts > 100 ? "6px" : "9px");
+    cells.style.setProperty("--cw", r.parts > 600 ? "7px" : r.parts > 100 ? "8px" : "11px");
     for (const ch of r.cells) html("i", { class: ch === "." ? "" : ch }, cells);
   }
   const lg = html("div", { class: "legend" }, wall);
@@ -706,7 +736,7 @@ function colouringExhibit(host, word, D, opts) {
 
 EXHIBITS.colour52 = host => {
   let api;
-  api = colouringExhibit(host, DATA.w36, DATA.dirFig, {
+  api = colouringExhibit(host, DATA.w36, DATA.dirCol, {
     controls(cs, a, r) {
       chip(cs, "All one colour", () => a.set(new Array(a.arcs.count).fill(3)));
       chip(cs, "Show another way", () => {
@@ -801,7 +831,9 @@ EXHIBITS.timeline = host => {
     ["15 Nov", "Three proofs in parallel", "Agents prove the normal form, the colour certificates and the PD identification, then the completeness of the search: 1736 lines."],
     ["Review, round 1", "Two fatal and nine major objections", "Truncated outputs could pass; glue code was trusted silently; colour invariance leaned on the hard direction of Reidemeister. Fixed: one Boolean per part, a knot-group proof.", "fix"],
     ["Review, round 2", "Provenance", "Local runs named the wrong commit; GitHub runs lacked a trace. Fixed: source hashes before every build, bot commits that name the run.", "fix"],
-    ["15–16 Nov", "1358 checks", "Container for lengths up to 32, GitHub's free runners for length 34. Every part true. An independent C++ run agrees."],
+    ["15–16 Nov", "1358 checks", DATA.facts.partsDone === DATA.facts.parts
+      ? "Container for lengths up to 32, GitHub's free runners for length 34. Every part true. An independent C++ run agrees."
+      : `Container for lengths up to 32, GitHub's free runners for length 34. ${fmt(DATA.facts.partsDone)} of 1358 parts are in, all true; the rest are running.`],
   ];
   const lis = items.map(([t, h, p, cls]) => {
     const li = html("li", cls ? { class: cls } : {}, ol);
@@ -821,7 +853,7 @@ EXHIBITS.finale = host => {
   const k = new LiveKnot(svg, V36, { vertices: false, gap: 0.24, arcs: true });
   const cs = controls(host);
   const r = readout(cs, "readout big");
-  const target = anglesOf(DATA.dirFig);
+  const target = anglesOf(DATA.dirCol);
   let t = 0, colour = null;
   const L = loop(dt => {
     t = Math.min(1, dt / 4.5);
@@ -833,7 +865,7 @@ EXHIBITS.finale = host => {
     }
     k.colour = t >= 1 ? colour : null;
     const { cr } = k.draw(dirFromAngles(az, elv));
-    r.innerHTML = t < 1 ? `<b>${cr.length}</b> crossings` : `<b>5</b> crossings: the standard diagram of 5₂, painted with a colouring that is not one colour`;
+    r.innerHTML = t < 1 ? `<b>${cr.length}</b> crossings` : `<b>5</b> crossings · the standard 5₂ diagram, in a colouring that is not one colour`;
     if (t >= 1) L.stop();
   });
   return { activate() { L.stop(); if (reduced) { t = 1; } L.start(); }, deactivate: L.stop };
@@ -900,6 +932,9 @@ document.addEventListener("keydown", e => {
 });
 window.addEventListener("hashchange", () => { const i = chapters.findIndex(c => "#" + c.id === location.hash); if (i >= 0) go(i, { push: false }); });
 document.addEventListener("visibilitychange", () => { const x = instances.get(current); if (!x) return; document.hidden ? x.deactivate() : x.activate(); });
+
+/* the theorem is stated as proved only when every part of the computation is in */
+document.documentElement.dataset.proof = DATA.facts.partsDone === DATA.facts.parts ? "done" : "open";
 
 /* facts filled from the data */
 $$("[data-fact]").forEach(n => {
