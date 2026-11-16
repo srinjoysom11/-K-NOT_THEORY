@@ -594,8 +594,7 @@ c₇(5₂) = 49. By `no_short`, no polygon of length ≤ 34 has the knot type of
 **8.2 Cross-checks.** These are not needed for the proof; they test it.
 * (a) **C++ program.** The C++ program in cross-check mode (`enum.cpp -tourcap 0 -nomst -noreduce`)
   is a separate implementation of the same algorithm. For unsplit runs it gives identical node
-  counts, and for every length the same set of words: n = 4–32 complete. At n = 34 the parts finished
-  so far agree; see out/lean/COMPCERT.txt for the current count.
+  counts, and for every length the same set of words: every n = 4, …, 34 (out/lean/COMPCERT.txt).
 * (b) **Python colouring count.** An independent Python projection and colouring count
   (`formal/projections.py`) finds exactly 7 colourings for every output word. (It was written by
   the same author as Diagram.lean, so it tests the implementation rather than the definition.)

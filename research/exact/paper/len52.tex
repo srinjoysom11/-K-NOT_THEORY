@@ -59,7 +59,7 @@ the search program, the soundness of the colouring certificates and the identifi
 36-step example are kernel-checked, with no axioms beyond Lean's standard three.  The
 computation itself, \num{1358} closed Boolean terms evaluated by the compiled verified program
 (about \NNodes{} search nodes in all), was run on a laptop-sized container and on GitHub's free
-runners, and was cross-checked node for node against an independent C\texttt{++} implementation.
+runners, and was cross-checked against an independent C\texttt{++} implementation of the same search.
 We describe the mathematics, the search, and the engineering that made a proof of this size
 checkable.
 \end{abstract}
@@ -488,17 +488,18 @@ search for length $n$ restricted to part $r$ and check every returned word.  The
 \texttt{checkpart} evaluates exactly this term, prints the words and a final line
 \texttt{RESULT \dots\ ok=true}, and exits with status $0$ if and only if the term is true.
 
-\paragraph*{Where it ran.}  The total is about \NNodes{} search nodes.  Lengths up to 32 were
-run partly in a 4-core container; length 34 (1024 parts) and half of length 32 ran on GitHub
-Actions, which offers twenty free 4-core runners at a time for public repositories.  At about
-$3\times10^5$ nodes per second per runner core, a part of length 34 takes 40--60 minutes, and the
-whole computation took about a day of wall time.
+\paragraph*{Where it ran.}  The total is about \NNodes{} search nodes.  Lengths up to 30, and
+half of the parts of length 32, ran in a 4-core container; the other half of length 32 and all 1024
+parts of length 34 ran on GitHub Actions, which offers twenty free 4-core runners at a time for
+public repositories.  At about $5\times10^5$ nodes per second per core, a part of length 34 took
+between 40 and 90 minutes for most parts (median one hour); length 34 used about 1060 core-hours,
+roughly half a day of wall time on the free runners.
 
 \paragraph*{Provenance.}  A part is accepted only if its log records exit status $0$, its output ends
 with the \texttt{RESULT} line for that part with the right number of words before it, the output's
 SHA-256 matches the logged one, and the program was built from sources identical to the current
-ones: for GitHub runs, a clean checkout of the logged commit, committed back by the workflow's
-bot account; for local runs, a hash of the sources computed before the build and re-checked after
+ones: for GitHub runs, a clean checkout of the logged commit, with the output files committed back
+by the workflow's bot account in a commit naming the run; for local runs, a hash of the sources computed before the build and re-checked after
 every part.  The output of each part is deterministic, so anyone can re-run any part and compare
 hashes; we did so for a random sample of the GitHub parts.
 
