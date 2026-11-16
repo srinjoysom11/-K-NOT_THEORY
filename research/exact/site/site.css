@@ -95,6 +95,7 @@
 .when-done { display: none; }
 [data-proof="done"] .when-done { display: revert; }
 [data-proof="done"] .when-open { display: none; }
+.nowrap { white-space: nowrap; }
 .theorem .status { display: block; font-family: var(--font-num); font-size: .95rem; color: var(--ink-soft); margin-top: .3rem; }
 
 * { box-sizing: border-box; }
@@ -193,8 +194,8 @@ b, strong { font-weight: 600; }
 
 .exhibit { position: relative; min-height: 0; min-width: 0; }
 .exhibit svg.fig, .exhibit canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.exhibit:has(> .panel-controls) > svg.fig:not(.mini), .exhibit:has(> .panel-controls) > canvas { bottom: 5.6rem; height: auto; }
-[data-theme="plates"] .exhibit:has(> .panel-controls) > svg.fig:not(.mini) { bottom: 6rem; }
+.exhibit:has(> .panel-controls) > svg.fig:not(.mini), .exhibit:has(> .panel-controls) > canvas { bottom: auto; height: calc(100% - 5.6rem); }
+[data-theme="plates"] .exhibit:has(> .panel-controls) > svg.fig:not(.mini), [data-theme="plates"] .exhibit:has(> .panel-controls) > canvas { height: calc(100% - 6rem); }
 
 .label {
   align-self: center; max-width: 34rem; max-height: 100%; overflow-y: auto; padding-right: .25rem;
@@ -360,6 +361,7 @@ b, strong { font-weight: 600; }
 .exhibit .tray svg.fig.mini { position: static; inset: auto; width: 100%; height: 100%; min-height: 0; }
 .tray figcaption { font-size: .86rem; line-height: 1.3; color: var(--ink-soft); }
 .tray figure.wide { grid-column: span 2; }
+[data-theme="cabinet"] .tray, [data-theme="cabinet"] .tl { bottom: 2.4rem; }
 .tray figcaption b { font-family: var(--font-num); color: var(--accent); letter-spacing: .05em; margin-right: .3rem; }
 
 /* computation wall */
@@ -458,8 +460,9 @@ b, strong { font-weight: 600; }
   .tray { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); inset: .6rem .6rem 4.6rem; }
   .chapter, .chapter.hero { grid-template-rows: 56vh auto; row-gap: 1.6rem; }
   [data-theme="plates"] .chapter, [data-theme="plates"] .chapter.hero { row-gap: 3.2rem; }
-  .exhibit svg.fig:not(.mini), .exhibit canvas { bottom: 4.6rem; height: auto; }
-  .exhibit:has(> .panel-controls) > svg.fig:not(.mini), .exhibit:has(> .panel-controls) > canvas { bottom: 6.6rem; }
+  .exhibit svg.fig:not(.mini), .exhibit canvas { bottom: auto; height: calc(100% - 4.6rem); }
+  .exhibit:has(> .panel-controls) > svg.fig:not(.mini), .exhibit:has(> .panel-controls) > canvas,
+  [data-theme="plates"] .exhibit:has(> .panel-controls) > svg.fig:not(.mini), [data-theme="plates"] .exhibit:has(> .panel-controls) > canvas { bottom: auto; height: calc(100% - 6.6rem); }
   .shadowcard { width: 34%; right: .6rem; bottom: .6rem; }
   .shadowcard p { font-size: .62rem; }
   .panel-controls { bottom: .6rem; left: .5rem; right: .5rem; gap: .35rem; }
