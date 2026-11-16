@@ -717,11 +717,10 @@ for its compiled code; that matters only for the execution in §11.4, not for th
    `no_short` (polygon words, the moves and KnotClass in Spec.lean; diagrams, Fox equations and
    TopHyp in Diagram.lean and Statement.lean; CompCert in Cert.lean), and PD.lean only for the
    identification K₅₂ = 5_2. They are short. Survive, CurtainOK, CornerOK and LexPos (Spec.lean) are
-   internal: they do not occur in that type, so they need not be trusted, although Spec.lean's header
-   says otherwise. (The headers of the frozen files cannot be corrected without breaking the source
-   hash: Spec.lean's header overstates what must be read, and Diagram.lean's has an incomplete
-   citation "Burde–Zieschang, Def. 1.?". CheckMain.lean spells out `searchPart … |>.out.all
-   colorCheck` instead of calling `checkPart`; the two are equal by `rfl` (`checkPart_eq`).) `diagram` examines every pair of edges (`nonAdjPairs` and the consecutive pairs), so
+   internal: they do not occur in that type, so they need not be trusted (Spec.lean's header says the
+   same). CheckMain.lean spells out `searchPart … |>.out.all colorCheck` instead of calling
+   `checkPart`, so that the words can be printed without running the search twice; the two are equal
+   by `rfl` (`checkPart_eq`). `diagram` examines every pair of edges (`nonAdjPairs` and the consecutive pairs), so
    it lists every crossing. Cross-checks 8.2(b) and (c) compare
    them with independent code on every output word.
 3. **Classical theorems of knot theory.**
@@ -730,10 +729,10 @@ for its compiled code; that matters only for the execution in §11.4, not for th
    - (E3), from its cited ingredients, only to identify K₅₂ with the 5_2 of the tables (§9).
 4. **Execution of 1358 closed Boolean terms** checkPart n r. They were evaluated by code compiled
    from the committed sources: the Lean 4.25.0 compiler (the official release tarball, downloaded
-   by every job from the release URL over HTTPS; its SHA-256 97bee7bd… is logged and was the same in
-   every job, and the same again when downloaded through a different network path on 16 Nov 2026; the
-   compiler reports commit cdd38ac5, which is the commit of the official tag v4.25.0 in
-   github.com/leanprover/lean4, `git ls-remote`), the compiled implementations in Lean's core library (arrays, GMP natural numbers,
+   by every job from the release URL over HTTPS; every job compares its SHA-256 with the digest
+   GitHub records for the official v4.25.0 release asset, sha256:97bee7bd…, and stops on a mismatch;
+   the compiler reports commit cdd38ac5, which is the commit of the official tag v4.25.0 in
+   github.com/leanprover/lean4), the compiled implementations in Lean's core library (arrays, GMP natural numbers,
    list sorting, loops), its bundled C compiler with `-O3 -march=native`, the runtime, and the
    hardware. This is the standard trust model for proofs by verified computation that are too
    large for the kernel. The record that the evaluation returned `true` is GitHub's job logs
