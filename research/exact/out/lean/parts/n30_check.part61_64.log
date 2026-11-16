@@ -1,4 +1,3 @@
 RESULT n=30 r=61 m=64 nodes=580783012 words=53 ok=true
 status=0 binsha=423a9fa22417132991e6dbb27bf1db8e8ada33b2ba54a8a31fdf17597519658a txtsha=2b55f565bdfba5471b4d2419c673a1a5c96e4fd5b2f8a291a903f86cebaaf875
-src=6fec6171a33efcd51724cbbbdfca83a7b19c7163448ef3da75e81e1f080ba0a4 built_at=cad74b968fe0699cecff97ed4acccff5343c0314
-seconds=625 host=vm engine=check commit=cad74b968fe0699cecff97ed4acccff5343c0314
+seconds=922 host=github-actions engine=check commit=cc41c9cfae30d31f54d01f55214e939e64af4688
