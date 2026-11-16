@@ -1,0 +1,9 @@
+# sample of 8 GitHub parts (seed 2026), re-run at commit 40420bd76a51f34662e9e825da0bebabec5c3cbf with the existing local build of checkpart (sha256 423a9fa22417132991e6dbb27bf1db8e8ada33b2ba54a8a31fdf17597519658a), the binary hash that GitHub jobs of run 43735396072 also logged; the sources are unchanged
+n=34 r=115 m=1024 logged=8efa921a227be4a9 rerun=8efa921a227be4a9 IDENTICAL
+n=34 r=526 m=1024 logged=f12c9add8fd61939 rerun=f12c9add8fd61939 IDENTICAL
+n=34 r=901 m=1024 logged=20c06ed99a2f7b3e rerun=20c06ed99a2f7b3e IDENTICAL
+n=34 r=920 m=1024 logged=c0ce2835770ef25c rerun=c0ce2835770ef25c IDENTICAL
+n=34 r=82 m=1024 logged=4b0cbce14adb68ea rerun=4b0cbce14adb68ea IDENTICAL
+n=34 r=329 m=1024 logged=eefeace53f02e515 rerun=eefeace53f02e515 IDENTICAL
+n=34 r=1011 m=1024 logged=c46235f32fb3f336 rerun=c46235f32fb3f336 IDENTICAL
+n=34 r=733 m=1024 logged=a1929950c8758daa rerun=a1929950c8758daa IDENTICAL

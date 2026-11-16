@@ -3,9 +3,8 @@
 
 For a random sample of accepted GitHub parts (engine check), re-run `checkpart n r` locally (built from the
 current, committed sources) and compare the SHA-256 of the output with the logged one; checkpart's output is
-deterministic.  Also archives, for every GitHub Actions run named by a collect commit, the run and job
-metadata from the GitHub API (run id, head commit, job names, conclusions, timestamps) to
-out/lean/gha_runs/<run>.json.  Appends results to out/lean/REPRO.txt.
+deterministic.  Appends results to out/lean/REPRO.txt.  (The GitHub run records are archived by
+formal/gha_archive.py.)
 usage: formal/repro.py SAMPLE_SIZE [SEED]"""
 import glob, hashlib, json, os, random, re, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); EX = os.path.dirname(HERE); REPO = os.path.dirname(os.path.dirname(EX))
@@ -35,22 +34,7 @@ def main():
     from concurrent.futures import ThreadPoolExecutor
     with ThreadPoolExecutor(max_workers=os.cpu_count() or 1) as ex:
         lines = list(ex.map(rerun, sample))
-    # archive run metadata
-    os.makedirs(os.path.join(EX, "out/lean/gha_runs"), exist_ok=True)
-    r = subprocess.run(["git", "-C", REPO, "log", "--format=%s", "--author=github-actions"], capture_output=True, text=True)
-    for run in sorted(set(re.findall(r"run (\d+)", r.stdout))):
-        jobs = []; page = 1
-        while True:
-            j = json.loads(subprocess.run(["gh", "api", f"repos/srinjoysom11/-K-NOT_THEORY/actions/runs/{run}/jobs?per_page=100&page={page}"],
-                                          capture_output=True, text=True).stdout or "{}")
-            js = j.get("jobs", [])
-            jobs += [{k2: x.get(k2) for k2 in ("id", "name", "status", "conclusion", "started_at", "completed_at", "head_sha")} for x in js]
-            if len(js) < 100: break
-            page += 1
-        meta = json.loads(subprocess.run(["gh", "api", f"repos/srinjoysom11/-K-NOT_THEORY/actions/runs/{run}"],
-                                         capture_output=True, text=True).stdout or "{}")
-        keep = {k2: meta.get(k2) for k2 in ("id", "name", "head_sha", "event", "status", "conclusion", "created_at", "updated_at", "html_url")}
-        json.dump({"run": keep, "jobs": jobs}, open(os.path.join(EX, f"out/lean/gha_runs/{run}.json"), "w"), indent=1)
+    # GitHub run metadata and job logs are archived by formal/gha_archive.py
     with open(os.path.join(EX, "out/lean/REPRO.txt"), "a") as fo:
         fo.write(f"# sample of {len(sample)} GitHub parts (seed {seed}), re-run with checkpart built from {subprocess.run(['git','-C',REPO,'rev-parse','HEAD'],capture_output=True,text=True).stdout.strip()}\n")
         fo.write("\n".join(lines) + "\n")
