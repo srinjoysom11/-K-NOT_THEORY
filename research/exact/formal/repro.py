@@ -13,7 +13,11 @@ BIN = os.path.join(EX, "lean/.lake/build/bin/checkpart")
 
 def main():
     k = int(sys.argv[1]); seed = int(sys.argv[2]) if len(sys.argv) > 2 else 2026
-    subprocess.run(["lake", "build", "checkpart"], cwd=os.path.join(EX, "lean"), check=True, capture_output=True)
+    import shutil
+    if shutil.which("lake"):
+        subprocess.run(["lake", "build", "checkpart"], cwd=os.path.join(EX, "lean"), check=True, capture_output=True)
+    else:  # no toolchain in this container: use the existing build of the (unchanged, hash-checked) sources
+        print("lake not found: using the existing build", BIN, flush=True)
     gh = []
     for f in glob.glob(os.path.join(EX, "out/lean/parts/n*_check.part*_*.log")):
         log = open(f).read()
