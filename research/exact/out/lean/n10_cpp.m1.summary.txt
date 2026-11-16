@@ -1,0 +1,1 @@
+n=10 engine=cpp parts=1 COMPLETE words=0 nodes_sum=1189

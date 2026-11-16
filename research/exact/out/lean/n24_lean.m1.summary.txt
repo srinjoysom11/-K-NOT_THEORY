@@ -1,0 +1,1 @@
+n=24 engine=lean parts=1 COMPLETE words=56 nodes_sum=181235380

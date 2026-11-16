@@ -1,0 +1,5 @@
+euenneesuuwwdseddwnwunueesddnwwwss
+eeunnwwunueedddsswuswwnnneeusswdds
+eenuuswwunnddeneessswwndneuuwswdds
+eenuuswwunndnddsswuueedseennwwwssd
+RESULT n=34 r=246 m=1024 nodes=1371016512 words=4 ok=true

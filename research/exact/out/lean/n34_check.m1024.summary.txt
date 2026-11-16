@@ -1,0 +1,1 @@
+n=34 engine=check parts=1024 COMPLETE words=23094 nodes_sum=1929898505964

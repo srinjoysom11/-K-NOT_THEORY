@@ -1,0 +1,7 @@
+nenueseuuwnndddssswunueneesswwwwdd
+eeneunwnuussddwdneeesswuunnwwdwdss
+eeneunwnuussddwdneeesswuunnwwswdds
+eeneunwnuusswdddneeesswuwnunwdwdss
+eeennunuuswwddsdenneesuuwwdnwdswss
+eeennunuuswwdwdsedenneesuuwwdwdwss
+RESULT n=34 r=676 m=1024 nodes=1736633448 words=6 ok=true

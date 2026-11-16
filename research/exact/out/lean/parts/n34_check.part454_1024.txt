@@ -1,0 +1,1 @@
+RESULT n=34 r=454 m=1024 nodes=1332373749 words=0 ok=true

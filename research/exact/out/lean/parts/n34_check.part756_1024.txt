@@ -1,0 +1,7 @@
+nenuesseednnwwnuusswdsdeenuuswwwdd
+nenuesseednnwwnwuussdsdeenuuswwwdd
+nenuesseednnwwnwwsusesdeenuuswwwdd
+eennuwuneddwssuwnuueedednnwwswdsss
+eennuwuneeddwwssueenuwunnddswwdsss
+eennnuwnuussdwwdseednnwuueesdwwdss
+RESULT n=34 r=756 m=1024 nodes=2019172617 words=6 ok=true

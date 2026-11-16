@@ -1,0 +1,4 @@
+nnwuuseenddnwwwsseueeennwwsuussddd
+nnwuuseenndesswwwdwnneeesuwuussddd
+eennenuwuwwddsesueedennnwwswuswsds
+RESULT n=34 r=906 m=1024 nodes=1569581417 words=3 ok=true
