@@ -1,11 +1,14 @@
 import { DATA } from "./data.js";
 import { verticesOf, centre, crossings, arcsOf, foxOK, countColourings, pieces, projAlong } from "./knot.js";
+import { createStage, viewOf, anglesOf, project, hexToRGB } from "./stage.js";
 
 /* ============================================================== utilities */
 const NS = "http://www.w3.org/2000/svg";
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const QS = new URLSearchParams(location.search);
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const forceSVG = QS.has("nogl");
 const el = (tag, attrs = {}, parent) => {
   const e = document.createElementNS(NS, tag);
   for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
@@ -19,17 +22,21 @@ const html = (tag, attrs = {}, parent, text) => {
   if (parent) parent.appendChild(e);
   return e;
 };
-const fig = (host, vb) => el("svg", { class: "fig", viewBox: vb, preserveAspectRatio: "xMidYMid meet", role: "img" }, host);
-const fmt = n => n.toLocaleString("en-US").replace(/,/g, " ");
-const sci = n => { const e = Math.floor(Math.log10(n)); return `${(n / 10 ** e).toFixed(1)} × 10${sup(e)}`; };
+const fig = (host, vb) => el("svg", { class: "fig", viewBox: vb, preserveAspectRatio: "xMidYMid meet", "aria-hidden": "true" }, host);
+const fmt = n => n.toLocaleString("en-US").replace(/,/g, " ");
 const sup = e => String(e).split("").map(c => "⁰¹²³⁴⁵⁶⁷⁸⁹"[+c] ?? c).join("");
-const roman = n => ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI"][n - 1];
-const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const sci = n => { const e = Math.floor(Math.log10(n)); return `${(n / 10 ** e).toFixed(1)} × 10${sup(e)}`; };
+const roman = n => ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI"][n - 1];
+const cssVar = (name, node = document.documentElement) => getComputedStyle(node).getPropertyValue(name).trim();
 const norm = v => { const l = Math.hypot(...v); return v.map(x => x / l); };
 const cross3 = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const lerp = (a, b, t) => a + (b - a) * t;
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 const ease = t => 1 - Math.pow(1 - t, 3);
+const inOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const ramp = (x, a, b) => clamp((x - a) / (b - a));
+const nearestAngle = (cur, t) => t + 2 * Math.PI * Math.round((cur - t) / (2 * Math.PI));
 
 /* view along direction d (towards the viewer), z up: screen x, screen y (down), depth */
 function basis(d) {
@@ -39,274 +46,261 @@ function basis(d) {
   const r = norm(cross3(up, n)), u = cross3(n, r);
   return p => [dot(r, p), -dot(u, p), dot(n, p)];
 }
-const dirFromAngles = (az, el) => [Math.cos(el) * Math.cos(az), Math.cos(el) * Math.sin(az), Math.sin(el)];
-const anglesOf = d => { const n = norm(d); return [Math.atan2(n[1], n[0]), Math.asin(n[2])]; };
 
-/* a live knot diagram: projects a polygon along any direction and redraws with correct crossings */
-class LiveKnot {
-  constructor(svg, V, { gap = 0.2, pad = 1.25, vertices = false, arcs = false, cls = "knot" } = {}) {
-    this.svg = svg; this.V = centre(V); this.gap = gap; this.vertices = vertices; this.arcs = arcs; this.cls = cls;
-    const R = Math.max(...this.V.map(p => Math.hypot(...p)));
-    this.R = R * pad;
-    svg.setAttribute("viewBox", `${-this.R} ${-this.R} ${2 * this.R} ${2 * this.R}`);
-    this.g = el("g", {}, svg);
-    this.top = el("g", {}, svg);
-  }
-  draw(d, extra) {
-    const B = basis(d), P = this.V.map(B), cr = crossings(P);
-    const arcs = this.arcs ? arcsOf(cr) : null;
-    const ps = pieces(P, cr, this.gap, arcs);
-    let s = "";
-    for (const q of ps) {
-      const style = arcs && this.colour ? ` style="stroke:var(--c${this.colour[q.arc] ?? 0})"` : "";
-      s += `<line class="${this.cls}" x1="${q.x1.toFixed(3)}" y1="${q.y1.toFixed(3)}" x2="${q.x2.toFixed(3)}" y2="${q.y2.toFixed(3)}" stroke-width="${(this.R / 60).toFixed(3)}"${style}/>`;
-    }
-    if (this.vertices) {
-      P.forEach((p, i) => { s += `<circle class="${i === 0 ? "origin" : "vx"}" cx="${p[0].toFixed(3)}" cy="${p[1].toFixed(3)}" r="${(this.R / (i === 0 ? 55 : 95)).toFixed(3)}"/>`; });
-    }
-    this.g.innerHTML = s;
-    if (extra) extra(P, cr, this);
-    return { P, cr, arcs };
-  }
-}
-
-/* drag to turn */
+/* drag to turn; vertical touches still scroll the page */
 function draggable(target, onDrag) {
   let on = false, x = 0, y = 0;
-  target.addEventListener("pointerdown", e => { on = true; x = e.clientX; y = e.clientY; target.setPointerCapture(e.pointerId); });
-  target.addEventListener("pointermove", e => { if (!on) return; onDrag(e.clientX - x, e.clientY - y); x = e.clientX; y = e.clientY; });
+  target.addEventListener("pointerdown", e => { on = true; x = e.clientX; y = e.clientY; try { target.setPointerCapture(e.pointerId); } catch {} });
+  target.addEventListener("pointermove", e => { if (!on) return; onDrag(e.clientX - x, e.clientY - y, e); x = e.clientX; y = e.clientY; });
   const end = () => { on = false; };
   target.addEventListener("pointerup", end); target.addEventListener("pointercancel", end);
-  target.style.touchAction = "none"; target.style.cursor = "grab";
 }
 
 function loop(fn) {
   let id = 0, running = false, t0 = 0;
-  const step = t => { if (!running) return; fn((t - t0) / 1000); id = requestAnimationFrame(step); };
+  let last = 0;
+  const step = t => { if (!running) return; const dt = Math.min(0.06, Math.max(0, (t - last) / 1000)); last = t; fn((t - t0) / 1000, dt); id = requestAnimationFrame(step); };
   return {
-    start() { if (running) return; running = true; t0 = performance.now(); id = requestAnimationFrame(step); },
+    start() { if (running) return; running = true; t0 = last = performance.now(); id = requestAnimationFrame(step); },
     stop() { running = false; cancelAnimationFrame(id); },
+    get running() { return running; },
   };
 }
 
-function controls(host) { return html("div", { class: "panel-controls" }, host); }
-function chip(host, label, onClick, pressed) {
-  const b = html("button", { class: "chip", type: "button" }, host, label);
+/* the foot of a plate: its number, what it reads, what it lets you do */
+const chapters = $$("[data-title]");
+function plateNo(node) { return `Plate ${roman(chapters.indexOf(node.closest("[data-title]")) + 1)}`; }
+function footOf(host) {
+  const figure = host.closest("figure");
+  let foot = $(".foot", figure);
+  if (!foot) {
+    foot = html("figcaption", { class: "foot" }, figure);
+    html("span", { class: "plate-no" }, foot, plateNo(host));
+  }
+  return foot;
+}
+const controls = footOf;
+function chip(foot, label, onClick, pressed) {
+  const box = $(".controls", foot) || html("span", { class: "controls" }, foot);
+  const b = html("button", { class: "chip", type: "button" }, box, label);
   if (pressed !== undefined) b.setAttribute("aria-pressed", String(pressed));
   b.addEventListener("click", onClick);
   return b;
 }
-function readout(host, cls = "readout") { return html("span", { class: cls }, host); }
+function readout(foot) { return html("span", { class: "readout", "aria-live": "off" }, foot); }
 
-/* ============================================================== exhibits */
+/* the two inks, as the engraving shader wants them, read where the figure stands */
+function inksOf(node) {
+  const ink = cssVar("--ink", node), alert = cssVar("--alert", node), paper = cssVar("--paper", node);
+  return { ink: hexToRGB(ink), alert: hexToRGB(alert), css: { ink, alert, paper } };
+}
+const paletteOf = node => [0, 1, 2, 3, 4, 5, 6].map(i => cssVar(`--c${i}`, node));
+
 const V36 = verticesOf(DATA.w36);
 const EXHIBITS = {};
 
-/* ---------------------------------------------------- hero: the polygon turning (SVG; WebGL in the Cabinet) */
-EXHIBITS.hero = host => {
-  let gl = null, svgMode = null;
-  const box = html("div", { style: "position:absolute;inset:0" }, host);
-  const cs = controls(host);
-  const info = readout(cs);
-  const alignBtn = chip(cs, "Align with the 5₂ diagram", () => align());
-  let az = -0.6, elv = 0.62, target = null, spin = !reduced;
-  const fixed = anglesOf(DATA.dirFig);
+/* ============================================================== I, II. the specimen: turning, then laid stick by stick */
+function heroAct(stageEl) {
+  const host = $(".stage-host", stageEl), foot = $(".stage-foot", stageEl), word = $(".wordline", stageEl);
+  const st = createStage(host, { forceSVG });
+  const spec = st.specimen(V36);
+  const inks = inksOf(stageEl);
+  const no = html("span", { class: "plate-no" }, foot, "Plate I");
+  const info = readout(foot);
+  const alignBtn = chip(foot, "Align with the 5₂ diagram", () => align());
+  const letters = [...DATA.w36].map(c => html("span", {}, word, c));
+  const sticks = $("#sticks");
+  const fixed = anglesOf(DATA.dirFig), laid = anglesOf([0.9, -1.25, 0.95]);
+  let az = -0.6, elv = 0.62, target = null, spin = !reduced, offAz = 0, offEl = 0, tIn = 0, lastKey = "", lastK = -1, lastPhase = "";
 
-  function buildSVG() {
-    box.innerHTML = "";
-    const svg = fig(box, "0 0 1 1");
-    const k = new LiveKnot(svg, V36, { vertices: true, gap: 0.22 });
-    draggable(svg, (dx, dy) => { az -= dx * 0.008; elv = Math.max(-1.3, Math.min(1.3, elv + dy * 0.008)); target = null; spin = false; });
-    const L = loop(dt => {
-      if (target) {
-        az = lerp(az, target[0], 0.06); elv = lerp(elv, target[1], 0.06);
-        if (Math.abs(az - target[0]) + Math.abs(elv - target[1]) < 1e-3) { az = target[0]; elv = target[1]; target = null; }
-      } else if (spin) az += 0.0028;
-      const { cr } = k.draw(dirFromAngles(az, elv));
-      info.innerHTML = `<b>${cr.length}</b> crossings in this view`;
-    });
-    return { start: L.start, stop: L.stop, align() { const a = anglesOf(DATA.dirFig); target = [nearestAngle(az, a[0]), a[1]]; } };
-  }
-  const nearestAngle = (cur, t) => t + 2 * Math.PI * Math.round((cur - t) / (2 * Math.PI));
-  function align() { spin = false; (gl || svgMode).align(); }
+  draggable(host, (dx, dy, e) => {
+    const vert = e.pointerType === "touch" ? 0 : dy;
+    if (tIn < 0.5) { az -= dx * 0.008; elv = clamp(elv + vert * 0.008, -0.5, 1.35); target = null; spin = false; }
+    else { offAz -= dx * 0.008; offEl = clamp(offEl + vert * 0.008, -0.7, 0.7); }
+  });
+  function align() { spin = false; target = [nearestAngle(az, fixed[0]), fixed[1]]; }
 
-  let active = false, mounted = [];
-  async function mount() {
-    const theme = document.documentElement.dataset.theme;
-    if (gl) { gl.dispose(); gl = null; }
-    if (svgMode) { svgMode.stop(); svgMode = null; }
-    mounted.forEach(m => m.remove()); mounted = [];
-    if (theme === "cabinet" && hasGL()) {
-      try {
-        const mod = await import("./gl.js");
-        box.innerHTML = "";
-        const card = html("figure", { class: "shadowcard" }, host);
-        const cs2 = el("svg", { viewBox: "0 0 1 1", "aria-hidden": "true" }, card);
-        html("p", {}, card, "The shadow, drawn");
-        gl = await mod.cabinet(box, V36, DATA.dirFig, (n, P) => {
-          info.innerHTML = `shadow on the plinth: <b>${n}</b> crossings`;
-          const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
-          const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
-          const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 1.12;
-          cs2.setAttribute("viewBox", `${cx - span / 2} ${cy - span / 2} ${span} ${span}`);
-          const cr = crossings(P);
-          cs2.innerHTML = pieces(P, cr, span * 0.03).map(q => `<line x1="${q.x1}" y1="${q.y1}" x2="${q.x2}" y2="${q.y2}" stroke-width="${span / 70}"/>`).join("");
-        });
-        mounted.push(card);
-        if (active) gl.start();
-        return;
-      } catch (e) { console.warn("WebGL exhibit unavailable, using the drawing", e); }
+  function frame(_t = 0, dt = 0) {
+    const w = host.clientWidth, h = host.clientHeight, vh = window.innerHeight;
+    if (!w || !h) return;
+    const r = sticks.getBoundingClientRect();
+    const narrow = w <= 860;
+    // on a narrow sheet the specimen is pinned above the text, so progress is read at its lower edge
+    const edge = narrow ? host.getBoundingClientRect().bottom : 0;
+    tIn = narrow ? clamp(1 - (r.top - edge) / (vh * 0.3)) : clamp(1 - r.top / vh);
+    const pb = narrow ? clamp((edge - r.top) / Math.max(1, r.height * 0.8)) : clamp(-r.top / Math.max(1, r.height - vh));
+    if (target) {
+      const k = 1 - Math.exp(-dt * 4.2);
+      az = lerp(az, target[0], k); elv = lerp(elv, target[1], k);
+      if (Math.abs(az - target[0]) + Math.abs(elv - target[1]) < 2e-3) { az = target[0]; elv = target[1]; target = null; }
+    } else if (spin && tIn === 0) az += 0.16 * dt;
+    if (tIn < 0.02) { const k = Math.exp(-dt * 6); offAz *= k; offEl *= k; }
+    const e = reduced ? (tIn > 0.5 ? 1 : 0) : inOut(tIn);
+    const built = reduced ? 36.5 : (tIn < 1 ? lerp(36.5, 0, ramp(tIn, 0.1, 0.9)) : 36.5 * ramp(pb, 0.04, 0.86));
+    const R0 = spec.R;
+    const s0 = narrow ? Math.min(w * 0.94, h * 0.8) / (2 * R0) * 1.04 : Math.min(w * 0.54, h * 0.86) / (2 * R0) * 1.06;
+    const x0 = narrow ? w * 0.5 : w * 0.705, y0 = narrow ? h * 0.42 : h * 0.47;
+    const it = {
+      spec, x: x0, y: lerp(y0, narrow ? h * 0.36 : h * 0.44, e), scale: s0 * lerp(1, narrow ? 0.84 : 0.86, e),
+      az: lerp(az, nearestAngle(az, laid[0]), e) + offAz * e, el: lerp(elv, laid[1], e) + offEl * e,
+      radius: 0.1, amt: 1, build: built, grid: e, shadow: 1 - 0.75 * ramp(lerp(elv, laid[1], e), 0.72, 0.98),
+    };
+    const k = Math.min(36, Math.floor(built));
+    const phase = tIn < 0.5 ? "hero" : "sticks";
+    if (phase !== lastPhase) {
+      lastPhase = phase; lastK = -1;
+      no.textContent = phase === "hero" ? "Plate I" : "Plate II";
+      alignBtn.hidden = phase !== "hero";
+      word.classList.toggle("is-on", phase === "sticks");
     }
-    svgMode = buildSVG();
-    if (active) svgMode.start();
+    if (phase === "hero") {
+      const n = crossings(spec.V.map(p => project(viewOf(it.az, it.el), p))).length;
+      if (n !== lastK) { lastK = n; info.innerHTML = `<b>${n}</b> crossings in this view`; }
+    } else if (k !== lastK) {
+      lastK = k;
+      letters.forEach((sp, i) => { sp.className = i < k - 1 ? "on" : i === k - 1 ? (k >= 36 ? "on" : "now") : ""; });
+      info.innerHTML = k >= 36 ? `<b>36</b> steps · closed` : `<b>${k}</b> of 36 steps`;
+    }
+    const key = [w, h, it.y, it.scale, it.az, it.el, it.build, it.grid].map(v => v.toFixed(4)).join();
+    if (key !== lastKey) { lastKey = key; st.draw([it], inks.ink, inks.alert, inks.css); }
   }
-  mount();
-  document.addEventListener("themechange", mount);
-  return {
-    activate() { active = true; (gl || svgMode)?.start(); },
-    deactivate() { active = false; (gl || svgMode)?.stop(); },
-  };
-};
-function hasGL() {
-  try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch { return false; }
+  const L = loop(frame);
+  frame();
+  return { activate: L.start, deactivate: L.stop };
 }
 
-/* ---------------------------------------------------- the walk, step by step */
-EXHIBITS.walk = host => {
-  const word = html("p", { class: "wordline", "aria-hidden": "true" }, host);
-  const letters = [...DATA.w36].map(c => html("span", {}, word, c));
-  const svg = fig(host, "0 0 1 1");
-  const V = centre(V36);
-  const d = [0.9, -1.25, 0.95];
-  const B = basis(d), P = V.map(B);
-  const R = Math.max(...V.map(p => Math.hypot(...p))) * 1.3;
-  svg.setAttribute("viewBox", `${-R} ${-R * 0.92} ${2 * R} ${2 * R}`);
-  // faint lattice under the polygon
-  const zmin = Math.min(...V.map(p => p[2]));
-  const gl = el("g", {}, svg);
-  for (let x = -4; x <= 4; x++) for (let y = -4; y <= 4; y++) {
-    const a = B([x, y, zmin]), bx = B([x + 1, y, zmin]), by = B([x, y + 1, zmin]);
-    if (x < 4) el("line", { class: "grid", x1: a[0], y1: a[1], x2: bx[0], y2: bx[1], "stroke-width": R / 260 }, gl);
-    if (y < 4) el("line", { class: "grid", x1: a[0], y1: a[1], x2: by[0], y2: by[1], "stroke-width": R / 260 }, gl);
-  }
-  const g = el("g", {}, svg);
-  const cs = controls(host);
-  const r = readout(cs, "readout big");
-  let k = 0, playing = false, timer = 0;
-  const playBtn = chip(cs, "Play", () => toggle());
-  chip(cs, "Step", () => { stop(); step(); });
-  chip(cs, "Reset", () => { stop(); k = 0; render(); });
-  function render() {
-    const n = P.length;
-    // the first k edges; crossings among them only
-    const pts = P.slice(0, Math.min(k + 1, n));
-    if (k >= n) pts.push(P[0]);
-    let s = "";
-    if (k >= n) {
-      const cr = crossings(P);
-      for (const q of pieces(P, cr, 0.22)) s += `<line class="knot" x1="${q.x1}" y1="${q.y1}" x2="${q.x2}" y2="${q.y2}" stroke-width="${R / 75}"/>`;
-    } else {
-      for (let i = 0; i + 1 < pts.length; i++) s += `<line class="knot" x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[i + 1][0]}" y2="${pts[i + 1][1]}" stroke-width="${R / 75}"/>`;
-    }
-    pts.slice(0, Math.min(k + 1, n)).forEach((p, i) => { s += `<circle class="${i === 0 ? "origin" : "vx"}" cx="${p[0]}" cy="${p[1]}" r="${R / (i === 0 ? 70 : 120)}"/>`; });
-    g.innerHTML = s;
-    letters.forEach((sp, i) => { sp.className = i < k - 1 ? "on" : i === k - 1 ? "now" : ""; });
-    r.innerHTML = k >= n ? `<b>36</b> steps · closed` : `<b>${k}</b> of 36 steps`;
-  }
-  function step() { if (k < P.length) { k++; render(); } }
-  function toggle() { playing ? stop() : play(); }
-  function play() {
-    if (k >= P.length) k = 0;
-    playing = true; playBtn.textContent = "Pause"; playBtn.setAttribute("aria-pressed", "true");
-    const tick = () => { step(); if (k < P.length && playing) timer = setTimeout(tick, reduced ? 40 : 220); else stop(); };
-    tick();
-  }
-  function stop() { playing = false; clearTimeout(timer); playBtn.textContent = "Play"; playBtn.setAttribute("aria-pressed", "false"); }
-  render();
-  return { activate() { if (k === 0) setTimeout(play, 500); }, deactivate: stop };
-};
+/* ============================================================== XV. the model turns into the diagram every table prints */
+function finaleAct(stageEl) {
+  const host = $(".stage-host", stageEl), foot = $(".stage-foot", stageEl);
+  const st = createStage(host, { forceSVG });
+  const spec = st.specimen(V36);
+  const inks = inksOf(stageEl), pal = paletteOf(stageEl);
+  html("span", { class: "plate-no" }, foot, "Plate XV");
+  const info = readout(foot);
+  const end = $("#end");
+  const target = anglesOf(DATA.dirCol);
+  // the arcs of the final diagram, and a colouring of them that is not one colour
+  const Pf = spec.V.map(p => project(viewOf(target[0], target[1]), p));
+  const arcs = arcsOf(crossings(Pf));
+  const colouring = countColourings(arcs, 7).nonconst || new Array(arcs.count).fill(0);
+  const cuts = arcs.events.map(q => q[0] + q[1]);
+  const c = cuts.length;
+  const cssCols = Array.from({ length: Math.max(c, 1) }, (_, a) => pal[colouring[a] % 7]);
+  const cols = Array.from({ length: c }, (_, j) => hexToRGB(cssCols[((j - 1) % c + c) % c]));
+  const fx = Pf.map(q => q[0]), fy = Pf.map(q => q[1]);
+  const box = { w: Math.max(...fx) - Math.min(...fx), h: Math.max(...fy) - Math.min(...fy), cx: (Math.max(...fx) + Math.min(...fx)) / 2, cy: (Math.max(...fy) + Math.min(...fy)) / 2 };
+  let offAz = 0, lastKey = "", lastText = "";
+  draggable(host, dx => { offAz -= dx * 0.008; });
 
-/* ---------------------------------------------------- the knots that were known */
+  function frame(_t = 0, dt = 0) {
+    const w = host.clientWidth, h = host.clientHeight, vh = window.innerHeight;
+    if (!w || !h) return;
+    const r = end.getBoundingClientRect(), narrow = w <= 860;
+    const edge = narrow ? host.getBoundingClientRect().bottom : vh * 0.25;
+    let p = clamp((edge - r.top) / Math.max(1, narrow ? r.height * 0.85 : r.height - vh * 0.55));
+    if (reduced) p = p > 0.4 ? 1 : 0;
+    const turn = inOut(ramp(p, 0.02, 0.62)), thin = inOut(ramp(p, 0.58, 0.82)), tint = ramp(p, 0.8, 0.96);
+    offAz *= Math.exp(-dt * (p > 0.5 ? 9 : 0.9));
+    // the room the figure may use: right of the text on a wide sheet, above the caption everywhere
+    const top = narrow ? 8 : 70, bot = narrow ? 62 : 96, rw = narrow ? w * 0.92 : w * 0.5, rh = h - top - bot;
+    const rx = narrow ? w * 0.5 : w * 0.71, ry = top + rh / 2;
+    const s3 = Math.min(rw, rh) / (2 * spec.R) * 1.06, sf = Math.min(rw / box.w, rh / box.h) * 0.94;
+    const s0 = lerp(s3, sf, thin);
+    const it = {
+      spec, x: rx - box.cx * s0 * thin, y: ry - box.cy * s0 * thin, scale: s0,
+      az: lerp(target[0] - 2.2, target[0], turn) + offAz, el: lerp(0.3, target[1], turn),
+      radius: lerp(0.1, 0.036, thin), halo: lerp(1.9, 4.6, thin), solid: thin, amt: 1,
+      shadow: 1 - ramp(p, 0.12, 0.42), bead: 1 - thin, colMix: tint, cuts, cols, cssCols,
+    };
+    const n = crossings(spec.V.map(q => project(viewOf(it.az, it.el), q))).length;
+    const text = tint >= 1 ? `<b>5</b> crossings · the standard 5₂ diagram, in a colouring that is not one colour` : `<b>${n}</b> crossings in this view`;
+    if (text !== lastText) { lastText = text; info.innerHTML = text; }
+    const key = [w, h, it.az, it.el, it.radius, it.colMix, it.shadow].map(v => v.toFixed(4)).join();
+    if (key !== lastKey) { lastKey = key; st.draw([it], inks.ink, inks.alert, inks.css); }
+  }
+  const L = loop(frame);
+  frame();
+  return { activate: L.start, deactivate: L.stop };
+}
+
+/* ============================================================== III. the knots that were known */
 EXHIBITS.known = host => {
-  const svg = fig(host, "0 0 1000 520");
-  const cells = DATA.known;
-  const W = 1000 / cells.length;
-  const nums = [];
-  cells.forEach((k, i) => {
-    const g = el("g", { transform: `translate(${i * W + W / 2} 0)` }, svg);
-    const sub = el("svg", { x: -W / 2 + 14, y: 20, width: W - 28, height: 290, overflow: "visible" }, g);
-    const V = centre(verticesOf(k.word));
-    const B = projAlong(k.dir);
-    const P = V.map(B);
-    const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
-    const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
-    const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 1.12;
-    sub.setAttribute("viewBox", `${cx - span / 2} ${cy - span / 2} ${span} ${span}`);
-    const cr = crossings(P);
-    for (const q of pieces(P, cr, span * 0.022)) el("line", { class: "knot", x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, "stroke-width": span / 85 }, sub);
-    el("text", { class: "kn-label", x: 0, y: 356, "text-anchor": "middle" }, g).textContent = k.name;
-    const t = el("text", { class: "kn-num", x: 0, y: 414, "text-anchor": "middle" }, g);
-    t.textContent = i === 3 ? "≥ ?" : String(k.len);
-    nums.push(t);
-    el("text", { class: "kn-who", x: 0, y: 450, "text-anchor": "middle" }, g).textContent = i === 3 ? "lower bound open" : `${k.year} · ${k.who}`;
+  host.classList.add("known");
+  const stageBox = html("div", { class: "known-stage" }, host);
+  const st = createStage(stageBox, { forceSVG });
+  const inks = inksOf(host);
+  const done = DATA.facts.partsDone === DATA.facts.parts;
+  const cells = DATA.known.map((k, i) => {
+    const c = html("div", { class: "kn" + (i === 3 ? " new" : "") }, host);
+    const box = html("div", { class: "kn-model" }, c);
+    html("p", { class: "kn-name" }, c, k.name);
+    const num = html("p", { class: "kn-num" }, c, i === 3 ? "≥ ?" : String(k.len));
+    const who = html("p", { class: "kn-who" }, c, i === 3 ? "lower bound open" : `${k.year} · ${k.who}`);
+    const a = anglesOf(k.dir);
+    return { spec: st.specimen(verticesOf(k.word)), box, num, who, az: a[0], el: a[1] };
   });
-  el("line", { class: "grid", x1: 40, y1: 470, x2: 960, y2: 470 }, svg);
-  const cs = controls(host);
-  const r = readout(cs);
-  r.textContent = "The shortest polygons found by our own search, seen from a well-chosen side.";
-  let done = false;
-  return {
-    activate() {
-      if (done) return;
-      setTimeout(() => {
-        const t = nums[3]; const sub = t.nextSibling;
-        t.textContent = "36"; t.classList.add("arrive"); sub.textContent = "2026 · proved here"; done = true;
-      }, reduced ? 0 : 1800);
-    },
-    deactivate() {},
-  };
-};
-
-/* ---------------------------------------------------- the scale of the problem */
-EXHIBITS.scale = host => {
-  const svg = fig(host, "0 0 1000 560");
-  const x0 = 70, x1 = 940, emax = 19;
-  const X = e => x0 + (x1 - x0) * e / emax;
-  el("line", { class: "grid", x1: x0, y1: 470, x2: x1, y2: 470 }, svg);
-  for (let e = 0; e <= emax; e++) {
-    el("line", { class: "grid", x1: X(e), y1: 464, x2: X(e), y2: 476 }, svg);
-    if (e % 3 === 0) el("text", { x: X(e), y: 506, "text-anchor": "middle", "font-size": 24 }, svg).textContent = `10${sup(e)}`;
+  let arrived = false, lastKey = "";
+  function frame(t) {
+    const hr = stageBox.getBoundingClientRect();
+    const items = cells.map((c, i) => {
+      const r = c.box.getBoundingClientRect();
+      const sway = reduced ? 0 : 0.2 * Math.sin(t * 0.55 + i * 1.3);
+      return {
+        spec: c.spec, x: r.left - hr.left + r.width / 2, y: r.top - hr.top + r.height * 0.5,
+        scale: Math.min(r.width, r.height) * 0.78 / (2 * c.spec.R), az: c.az + sway, el: c.el, radius: 0.105, amt: 1, shadow: 0, bead: 0,
+      };
+    });
+    const key = items.map(it => [it.x, it.y, it.scale, it.az].map(v => v.toFixed(3)).join()).join(";");
+    if (key !== lastKey) { lastKey = key; st.draw(items, inks.ink, inks.alert, inks.css); }
   }
-  const rows = [
-    { e: 18, label: "lattice polygons with 34 steps (order of magnitude)", cls: "bar-a" },
-    { e: Math.log10(DATA.facts.nodes), label: `partial walks the search visited: ${sci(DATA.facts.nodes)}`, cls: "bar-b" },
-    { e: Math.log10(Math.max(DATA.facts.words, 1)), label: `walks that obey all seven rules: ${fmt(DATA.facts.words)}`, cls: "bar-b" },
-    { e: 0, label: "of them a 5₂: none", cls: "bar-b", zero: true },
-  ];
-  const bars = rows.map((r, i) => {
-    const y = 70 + i * 96;
-    const rect = el("rect", { class: r.cls, x: x0, y, height: 30, width: 0, rx: 2 }, svg);
-    el("text", { x: x0, y: y - 12, "font-size": 26 }, svg).textContent = r.label;
-    return { rect, w: r.zero ? 2 : X(r.e) - x0 };
-  });
-  const cs = controls(host);
-  readout(cs).textContent = "Logarithmic scale: each tick is ten times the one before.";
+  const L = loop(frame);
+  frame(0);
   return {
     activate() {
-      bars.forEach((b, i) => {
-        b.rect.animate([{ width: "0px" }, { width: `${b.w}px` }], { duration: reduced ? 1 : 1400, delay: reduced ? 0 : 250 + i * 220, easing: "cubic-bezier(.16,1,.3,1)", fill: "forwards" });
-        b.rect.setAttribute("width", b.w);
-      });
+      L.start();
+      if (arrived) return;
+      arrived = true;
+      setTimeout(() => {
+        const c = cells[3];
+        // the upper bound is the polygon itself; the lower bound is claimed only when every check is in
+        c.num.textContent = done ? "36" : "≤ 36";
+        c.num.classList.add("arrive");
+        c.who.textContent = done ? "2026 · proved here" : `lower bound: ${fmt(DATA.facts.partsDone)} of ${fmt(DATA.facts.parts)} checks`;
+      }, reduced ? 0 : 1500);
     },
-    deactivate() {},
+    deactivate: L.stop,
   };
 };
 
-/* ---------------------------------------------------- the two moves (interactive, on a flat grid) */
+/* ============================================================== IV. the scale of the problem */
+EXHIBITS.scale = host => {
+  const box = html("div", { class: "scale" }, host);
+  const rows = [
+    { e: 18, cls: "vast", label: `lattice polygons with 34 steps <b>(order of magnitude)</b>` },
+    { e: Math.log10(DATA.facts.nodes), cls: "", label: `partial walks the search visited: <b>${sci(DATA.facts.nodes)}</b>` },
+    { e: Math.log10(Math.max(DATA.facts.words, 1)), cls: "", label: `walks that obey all seven rules: <b>${fmt(DATA.facts.words)}</b>` },
+    { e: 0, cls: "none", label: `of them a 5₂: <b>none</b>` },
+  ];
+  rows.forEach((r, i) => {
+    const row = html("div", { class: "row " + r.cls }, box);
+    html("p", {}, row).innerHTML = r.label;
+    const tr = html("div", { class: "track" }, row);
+    html("i", { style: `--e:${r.e.toFixed(3)};--i:${i}` }, tr);
+  });
+  const axis = html("div", { class: "axis", "aria-hidden": "true" }, box);
+  for (let e = 0; e <= 18; e += 3) html("span", { style: `--e:${e}` }, axis, `10${sup(e)}`);
+  readout(footOf(host)).textContent = "Logarithmic scale: each tick is ten times the one before.";
+  return { activate() { box.classList.add("in"); }, deactivate() {} };
+};
+
+/* ============================================================== V. the two moves (interactive, on a flat grid) */
 EXHIBITS.moves = host => {
   const start = [[0,0],[1,0],[2,0],[3,0],[3,1],[4,1],[4,2],[4,3],[3,3],[3,4],[2,4],[1,4],[1,3],[2,3],[2,2],[1,2],[0,2],[0,1]];
   let pts = start.map(p => p.slice()), shown = pts.map(p => p.slice());
-  const svg = fig(host, "-1.2 -5.1 6.4 6.4");
+  const svg = fig(host, "-1.4 -5.4 6.8 6.8");
+  const defs = el("defs", {}, svg);
+  const pat = el("pattern", { id: "hatch-moves", width: .12, height: .12, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+  el("line", { x1: 0, y1: 0, x2: 0, y2: .12, stroke: "var(--c1)", "stroke-width": .035 }, pat);
   const grid = el("g", {}, svg);
   for (let i = -1; i <= 5; i++) {
     el("line", { class: "grid", x1: i, y1: 1, x2: i, y2: -5, "stroke-width": 0.012 }, grid);
@@ -314,9 +308,8 @@ EXHIBITS.moves = host => {
   }
   const ghost = el("g", {}, svg), g = el("g", {}, svg), hit = el("g", {}, svg);
   const cs = controls(host);
-  const r = readout(cs, "readout big");
+  const r = readout(cs);
   chip(cs, "Reset", () => { pts = start.map(p => p.slice()); shown = pts.map(p => p.slice()); render(); });
-  const key = p => p[0] + "," + p[1];
   const has = p => pts.some(q => q[0] === p[0] && q[1] === p[1]);
   function corners() {
     const n = pts.length, out = [];
@@ -338,28 +331,31 @@ EXHIBITS.moves = host => {
     }
     return out;
   }
+  const body = () => {
+    // a stick drawn as the engraved model is: two contours and a clear middle
+    const d = shown.map(p => `${p[0]},${-p[1]}`).join(" ");
+    let s = `<polygon points="${d}" class="knot" stroke-width="0.15" stroke-linejoin="miter"/><polygon points="${d}" fill="none" stroke="var(--paper-lit)" stroke-width="0.105" stroke-linejoin="miter"/>`;
+    shown.forEach(p => { s += `<circle class="vx" cx="${p[0]}" cy="${-p[1]}" r="0.045"/>`; });
+    return s;
+  };
+  const press = (node, go) => {
+    node.addEventListener("click", go);
+    node.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  };
   function render() {
     const n = shown.length;
-    let s = `<polygon points="${shown.map(p => `${p[0]},${-p[1]}`).join(" ")}" class="knot" stroke-width="0.07" stroke-linejoin="round"/>`;
-    shown.forEach(p => { s += `<circle class="vx" cx="${p[0]}" cy="${-p[1]}" r="0.07"/>`; });
-    g.innerHTML = s;
+    g.innerHTML = body();
     hit.innerHTML = ""; ghost.innerHTML = "";
-    const us = uturns();
-    for (const i of us) {
-      const a = pts[(i - 1 + n) % n], b = pts[(i + 2) % n];
-      const c = el("line", { x1: a[0], y1: -a[1], x2: b[0], y2: -b[1], class: "ghost", "stroke-width": 0.04, "stroke-dasharray": ".1 .08" }, ghost);
-      const p1 = pts[i], p2 = pts[(i + 1) % n];
-      const zone = el("rect", { x: Math.min(a[0], b[0], p1[0], p2[0]) + 0.08, y: -Math.max(a[1], b[1], p1[1], p2[1]) + 0.08, width: 0.84, height: 0.84, fill: "var(--c2)", "fill-opacity": .14, rx: .05, tabindex: 0, role: "button", "aria-label": "Cut this U-turn" }, hit);
-      zone.style.cursor = "pointer";
-      const go = () => cut(i);
-      zone.addEventListener("click", go); zone.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    for (const i of uturns()) {
+      const a = pts[(i - 1 + n) % n], b = pts[(i + 2) % n], p1 = pts[i], p2 = pts[(i + 1) % n];
+      el("line", { x1: a[0], y1: -a[1], x2: b[0], y2: -b[1], class: "ghost", "stroke-width": 0.03, "stroke-dasharray": ".1 .08" }, ghost);
+      const zone = el("rect", { class: "hit uturn", x: Math.min(a[0], b[0], p1[0], p2[0]) + 0.14, y: -Math.max(a[1], b[1], p1[1], p2[1]) + 0.14, width: 0.72, height: 0.72, "stroke-width": .02, tabindex: 0, role: "button", "aria-label": "Cut this U-turn" }, hit);
+      press(zone, () => cut(i));
     }
     for (const c of corners()) {
       const v = pts[c.i];
-      const dot = el("circle", { cx: v[0], cy: -v[1], r: 0.2, fill: c.free ? "var(--accent)" : "var(--alert)", "fill-opacity": c.free ? .22 : .12, stroke: c.free ? "var(--accent)" : "none", "stroke-width": .025, tabindex: 0, role: "button", "aria-label": c.free ? "Flip this corner" : "Blocked corner" }, hit);
-      dot.style.cursor = c.free ? "pointer" : "not-allowed";
-      const go = () => flip(c);
-      dot.addEventListener("click", go); dot.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      const dot = el("circle", { class: "hit corner" + (c.free ? "" : " blocked"), cx: v[0], cy: -v[1], r: 0.21, "stroke-width": .022, tabindex: 0, role: "button", "aria-label": c.free ? "Flip this corner" : "Blocked corner" }, hit);
+      press(dot, () => flip(c));
     }
     r.innerHTML = `<b>${pts.length}</b> sticks`;
   }
@@ -371,19 +367,13 @@ EXHIBITS.moves = host => {
       const x = Math.min(1, (t - t0) / T);
       const k = x >= 1 ? 1 : 1 - Math.exp(-6 * x) * Math.cos(9 * x);
       shown = from.map((p, i) => [lerp(p[0], next[i][0], k), lerp(p[1], next[i][1], k)]);
-      render0();
+      g.innerHTML = body(); hit.innerHTML = "";
       if (x < 1) requestAnimationFrame(f); else { shown = next.map(p => p.slice()); after && after(); render(); }
     };
     requestAnimationFrame(f);
   }
-  const render0 = () => {
-    let s = `<polygon points="${shown.map(p => `${p[0]},${-p[1]}`).join(" ")}" class="knot" stroke-width="0.07" stroke-linejoin="round"/>`;
-    shown.forEach(p => { s += `<circle class="vx" cx="${p[0]}" cy="${-p[1]}" r="0.07"/>`; });
-    g.innerHTML = s; hit.innerHTML = "";
-  };
   function flip(c) {
     if (!c.free) {
-      const v = pts[c.i];
       const b = el("circle", { cx: c.w[0], cy: -c.w[1], r: 0.28, fill: "none", stroke: "var(--alert)", "stroke-width": .05 }, ghost);
       b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, fill: "forwards" });
       r.innerHTML = `<b>blocked</b>: the fourth corner is taken`;
@@ -403,53 +393,58 @@ EXHIBITS.moves = host => {
   return { activate() {}, deactivate() {} };
 };
 
-/* ---------------------------------------------------- the curtain, animated in 3D */
+/* ============================================================== VI. the curtain, animated in 3D */
 EXHIBITS.curtain = host => {
   const svg = fig(host, "0 0 1 1");
-  const d = [1.1, -1.6, 1.25];
-  const B = basis(d);
+  const B = basis([1.1, -1.6, 1.25]);
   const base = [[-2, 0, 0], [-1, 0, 0], [0, 0, 0], [0, 0, 1], [1, 0, 1], [2, 0, 1], [2, 1, 1], [2, 1, 0], [3, 1, 0], [4, 1, 0]];
   // vertices 2..7 are v0..v5 of the curtain (a = up, k = 3 sideways steps)
   const rings = [[1, 0, 0], [2, 0, 0]];
   const other = [[1, -2, 0], [1, -1, 0], [1, 0, 0], [1, 1, 0], [1, 2, 0]];   // another strand, used to block
   const proj = p => B([p[0] - 1, p[1], p[2] - 0.4]);
-  const R = 4.2;
-  svg.setAttribute("viewBox", `${-R} ${-R * 0.75} ${2 * R} ${1.5 * R}`);
-  const gCurt = el("g", {}, svg), gGrid = el("g", {}, svg), gOther = el("g", {}, svg), gPath = el("g", {}, svg), gRing = el("g", {}, svg);
+  const R = 3.5;
+  svg.setAttribute("viewBox", `${-R} ${-R * 0.8} ${2 * R} ${1.6 * R}`);
+  const defs = el("defs", {}, svg);
+  const pat = el("pattern", { id: "hatch-curtain", width: .11, height: .11, patternUnits: "userSpaceOnUse", patternTransform: "rotate(90)" }, defs);
+  el("line", { x1: 0, y1: 0, x2: 0, y2: .11, stroke: "var(--ink)", "stroke-width": .022 }, pat);
+  const gGrid = el("g", {}, svg), gCurt = el("g", {}, svg), gOther = el("g", {}, svg), gPath = el("g", {}, svg), gRing = el("g", {}, svg);
   for (let x = -2; x <= 4; x++) for (let y = -2; y <= 2; y++) {
     const a = proj([x, y, 0]);
     if (x < 4) { const b = proj([x + 1, y, 0]); el("line", { class: "grid", x1: a[0], y1: a[1], x2: b[0], y2: b[1], "stroke-width": .012 }, gGrid); }
     if (y < 2) { const b = proj([x, y + 1, 0]); el("line", { class: "grid", x1: a[0], y1: a[1], x2: b[0], y2: b[1], "stroke-width": .012 }, gGrid); }
   }
   const cs = controls(host);
-  const r = readout(cs, "readout big");
+  const r = readout(cs);
   const playBtn = chip(cs, "Push the curtain down", () => play());
   const blockBtn = chip(cs, "Put a strand under it", () => { blocked = !blocked; blockBtn.setAttribute("aria-pressed", String(blocked)); reset(); }, false);
-  let blocked = false, path = base.map(p => p.slice()), anim = null;
+  let blocked = false, path = base.map(p => p.slice()), anim = null, run = 0;
+  const tube = (P, parent) => {
+    const d = P.map(p => p[0] + "," + p[1]).join(" ");
+    el("polyline", { points: d, class: "knot", "stroke-width": .13, "stroke-linejoin": "round" }, parent);
+    el("polyline", { points: d, fill: "none", stroke: "var(--paper-lit)", "stroke-width": .085, "stroke-linejoin": "round", "stroke-linecap": "round" }, parent);
+  };
   function draw(curtainOn = true) {
     gPath.innerHTML = ""; gRing.innerHTML = ""; gCurt.innerHTML = ""; gOther.innerHTML = "";
-    if (blocked) {
-      const P = other.map(proj);
-      el("polyline", { points: P.map(p => p[0] + "," + p[1]).join(" "), class: "ghost", "stroke-width": .06, "stroke-dasharray": ".12 .1" }, gOther);
-    }
+    if (blocked) tube(other.map(proj), gOther);
     if (curtainOn && path.length === base.length) {
       // the strip under v1..v4
       const top = path.slice(3, 7), bot = top.map(p => [p[0], p[1], p[2] - 1]);
       const poly = [...top, ...bot.reverse()].map(proj);
-      el("polygon", { points: poly.map(p => p[0] + "," + p[1]).join(" "), fill: "var(--accent)", "fill-opacity": .12, stroke: "none" }, gCurt);
+      el("polygon", { points: poly.map(p => p[0] + "," + p[1]).join(" "), fill: "url(#hatch-curtain)", stroke: "none" }, gCurt);
     }
     const P = path.map(proj);
-    el("polyline", { points: P.map(p => p[0] + "," + p[1]).join(" "), class: "knot", "stroke-width": .085, "stroke-linejoin": "round" }, gPath);
-    P.forEach(p => el("circle", { class: "vx", cx: p[0], cy: p[1], r: .065 }, gPath));
+    tube(P, gPath);
+    P.forEach(p => el("circle", { class: "vx", cx: p[0], cy: p[1], r: .04 }, gPath));
     for (const q of rings) {
       const p = proj(q), taken = blocked && q[0] === 1;
-      el("circle", { class: "ring" + (taken ? " taken" : ""), cx: p[0], cy: p[1], r: .17, "stroke-width": .03, "stroke-dasharray": taken ? "none" : ".06 .06" }, gRing);
+      el("circle", { class: "ring" + (taken ? " taken" : ""), cx: p[0], cy: p[1], r: taken ? .1 : .16, "stroke-width": .028, "stroke-dasharray": taken ? "none" : ".06 .06" }, gRing);
     }
   }
-  function tween(from, to, T) {
+  function tween(from, to, T, id) {
     return new Promise(res => {
       const t0 = performance.now();
       const f = t => {
+        if (id !== run) return res();
         const x = Math.min(1, (t - t0) / (reduced ? 1 : T)), k = ease(x);
         path = from.map((p, i) => p.map((c, j) => lerp(c, to[i][j], k)));
         draw(); if (x < 1) anim = requestAnimationFrame(f); else res();
@@ -460,9 +455,11 @@ EXHIBITS.curtain = host => {
   const sleep = ms => new Promise(r => setTimeout(r, reduced ? 0 : ms));
   async function play() {
     reset(); playBtn.disabled = true;
+    const id = run;
     const p0 = base.map(p => p.slice());
     r.innerHTML = "flip 1: the up-step slides along";
     await sleep(300);
+    if (id !== run) return;
     if (blocked) {
       r.innerHTML = "<b>blocked</b>: a vertex sits under the curtain";
       const p = proj([1, 0, 0]);
@@ -471,32 +468,36 @@ EXHIBITS.curtain = host => {
       playBtn.disabled = false; return;
     }
     const p1 = p0.map(p => p.slice()); p1[3] = [1, 0, 0];
-    await tween(p0, p1, 700); await sleep(250);
+    await tween(p0, p1, 700, id); await sleep(250);
+    if (id !== run) return;
     r.innerHTML = "flip 2";
     const p2 = p1.map(p => p.slice()); p2[4] = [2, 0, 0];
-    await tween(p1, p2, 700); await sleep(250);
+    await tween(p1, p2, 700, id); await sleep(250);
+    if (id !== run) return;
     r.innerHTML = "U-turn: up, across, down";
     await sleep(500);
     const p3 = p2.map(p => p.slice()); p3[5] = [2, 0, 0]; p3[6] = [2, 1, 0];
-    await tween(p2, p3, 700);
+    await tween(p2, p3, 700, id);
+    if (id !== run) return;
     path = p3.filter((_, i) => i !== 5 && i !== 6);
     draw(false);
     r.innerHTML = "<b>two sticks shorter</b>, same knot";
     playBtn.disabled = false;
   }
-  function reset() { cancelAnimationFrame(anim); path = base.map(p => p.slice()); draw(); r.innerHTML = blocked ? "a strand passes under the curtain" : "no vertex under the curtain"; }
+  function reset() { run++; cancelAnimationFrame(anim); playBtn.disabled = false; path = base.map(p => p.slice()); draw(); r.innerHTML = blocked ? "a strand passes under the curtain" : "no vertex under the curtain"; }
   reset();
   return { activate() {}, deactivate() { cancelAnimationFrame(anim); } };
 };
 
-/* ---------------------------------------------------- the lowest polygon: downward corners all blocked */
+/* ============================================================== VII. the lowest polygon: downward corners all blocked */
 EXHIBITS.push = host => {
-  const svg = fig(host, "0 0 1 1");
-  const W = DATA.w36, n = W.length;
-  const V = V36;
+  const st = createStage(host, { forceSVG });
+  const spec = st.specimen(V36);
+  const inks = inksOf(host);
+  const marksSvg = el("svg", { class: "marks", "aria-hidden": "true" }, host);
+  const W = DATA.w36, n = W.length, V = V36;
   const key = p => p.join(",");
   const set = new Set(V.map(key));
-  const U = { e: [1, 0, 0], w: [-1, 0, 0], n: [0, 1, 0], s: [0, -1, 0], u: [0, 0, 1], d: [0, 0, -1] };
   const marks = [];
   for (let i = 1; i < n; i++) {
     const p = W[i - 1], d = W[i];
@@ -509,55 +510,63 @@ EXHIBITS.push = host => {
   }
   const zmin = Math.min(...V.map(p => p[2]));
   const psi = V.reduce((s, p) => s + p[2] - zmin, 0);
-  const k = new LiveKnot(svg, V, { vertices: true, gap: 0.2 });
-  const C = (() => { const c = [0, 1, 2].map(j => (Math.min(...V.map(p => p[j])) + Math.max(...V.map(p => p[j]))) / 2); return p => [p[0] - c[0], p[1] - c[1], p[2] - c[2]]; })();
-  let az = -0.9, elv = 0.45, spin = !reduced;
-  draggable(svg, (dx, dy) => { az -= dx * 0.008; elv = Math.max(-1.2, Math.min(1.3, elv + dy * 0.008)); spin = false; });
-  const cs = controls(host);
-  readout(cs, "readout big").innerHTML = `<b>${marks.length}</b> corners could point downwards · <b>${marks.filter(m => m.ok).length}</b> are blocked · Ψ = <b>${psi}</b>`;
-  const L = loop(() => {
-    if (spin) az += 0.003;
-    const B = basis(dirFromAngles(az, elv));
-    k.draw(dirFromAngles(az, elv), () => {
-      let s = "";
-      const sw = k.R / 140;
-      for (const m of marks) {
-        const v = B(C(V[m.i])), w = B(C(m.w));
-        s += `<line x1="${v[0]}" y1="${v[1]}" x2="${w[0]}" y2="${w[1]}" stroke="var(--accent)" stroke-width="${sw}" stroke-dasharray="${sw * 2} ${sw * 2}"/>`;
-        s += `<circle cx="${v[0]}" cy="${v[1]}" r="${k.R / 42}" fill="var(--accent)" fill-opacity=".35" stroke="var(--accent)" stroke-width="${sw}"/>`;
-        s += `<circle cx="${w[0]}" cy="${w[1]}" r="${k.R / 48}" fill="none" stroke="${m.ok ? "var(--ink)" : "var(--alert)"}" stroke-width="${sw * 1.4}"/>`;
-      }
-      k.top.innerHTML = s;
-    });
+  const off = V[0].map((c, k) => c - spec.V[0][k]);
+  const C = p => [p[0] - off[0], p[1] - off[1], p[2] - off[2]];
+  let az = -0.9, elv = 0.5, spin = !reduced, lastKey = "";
+  draggable(host, (dx, dy, e) => { az -= dx * 0.008; if (e.pointerType !== "touch") elv = clamp(elv + dy * 0.008, -0.4, 1.3); spin = false; });
+  readout(footOf(host)).innerHTML = `<b>${marks.length}</b> corners could point downwards · <b>${marks.filter(m => m.ok).length}</b> are blocked · Ψ = <b>${psi}</b>`;
+  const L = loop((_t, dt) => {
+    const w = host.clientWidth, h = host.clientHeight;
+    if (!w || !h) return;
+    if (spin) az += 0.17 * dt;
+    const k = [w, h, az, elv].map(v => v.toFixed(4)).join();
+    if (k === lastKey) return;
+    lastKey = k;
+    const scale = Math.min(w, h) * 0.98 / (2 * spec.R), x = w / 2, y = h * 0.47;
+    st.draw([{ spec, x, y, scale, az, el: elv, radius: 0.1, amt: 1, shadow: 1 - 0.75 * ramp(elv, 0.72, 0.98) }], inks.ink, inks.alert, inks.css);
+    const R = viewOf(az, elv);
+    const at = p => { const q = project(R, C(p)); return [x + q[0] * scale, y + q[1] * scale]; };
+    let s = "";
+    for (const m of marks) {
+      const v = at(V[m.i]), q = at(m.w);
+      s += `<line x1="${v[0].toFixed(1)}" y1="${v[1].toFixed(1)}" x2="${q[0].toFixed(1)}" y2="${q[1].toFixed(1)}" stroke="var(--alert)" stroke-width="1.3" stroke-dasharray="3 4"/>`;
+      s += `<circle cx="${v[0].toFixed(1)}" cy="${v[1].toFixed(1)}" r="${(scale * 0.2).toFixed(1)}" fill="none" stroke="var(--alert)" stroke-width="1.3"/>`;
+      s += `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="4" fill="${m.ok ? "var(--alert)" : "none"}" stroke="var(--alert)" stroke-width="1.3"/>`;
+    }
+    marksSvg.innerHTML = s;
   });
   return { activate: L.start, deactivate: L.stop };
 };
 
-/* ---------------------------------------------------- the seven rules, each drawn */
+/* ============================================================== VIII. the seven rules, each drawn */
 EXHIBITS.rules = host => {
   const tray = html("div", { class: "tray" }, host);
   const items = [
     ["C1–C2", "A closed walk that never meets itself.", s => { poly(s, [[1,1],[4,1],[4,3],[3,3],[3,2],[2,2],[2,4],[1,4]], true); }],
-    ["C3", "Its lowest vertex sits at the origin.", s => { poly(s, [[1,4],[1,2],[2,2],[2,1],[4,1],[4,4]], true); dot(s, [2, 1], "origin"); hline(s, 1); }],
-    ["C4", "It leaves the origin in a fixed direction.", s => { poly(s, [[2,1],[4,1],[4,4],[1,4],[1,2],[2,2]], true); dot(s, [2, 1], "origin"); arrow(s, [2, 1], [3.2, 1]); }],
+    ["C3", "Its lowest vertex sits at the origin.", s => { hline(s, 1); poly(s, [[1,4],[1,2],[2,2],[2,1],[4,1],[4,4]], true); dot(s, [2, 1], "origin"); }],
+    ["C4", "It leaves the origin in a fixed direction.", s => { poly(s, [[2,1],[4,1],[4,4],[1,4],[1,2],[2,2]], true); dot(s, [2, 1], "origin"); arrow(s, [2, .45], [3.2, .45]); }],
     ["C5", "Fewest steps up–down, most east–west.", s => { rods(s, [1.6, 2.6, 3.6]); }],
     ["C6", "A vertex under every curtain.", s => { poly(s, [[0.6,1],[1,1],[1,3],[3,3],[3,1],[3.4,1]]); ring(s, [2, 1], true); }],
-    ["C7", "Every downward corner is blocked.", s => { poly(s, [[1,4],[1,3],[3,3]]); ring(s, [1, 2], false); poly(s, [[0.5,2],[1.6,2]]); dot(s, [1, 2], "vx"); }],
+    ["C7", "Every downward corner is blocked.", s => { poly(s, [[1,4],[1,3],[3,3]]); poly(s, [[0.5,2],[1.6,2]]); dot(s, [1, 2], "vx"); ring(s, [1, 2], false); }],
     ["⇒", `If 5₂ had a polygon with 34 steps or fewer, one would obey all seven. ${fmt(DATA.facts.words)} walks do; this 24-step trefoil is one of them.`, s => { survivor(s); }],
   ];
-  function svgIn(f) { return el("svg", { class: "fig mini", viewBox: "0 0 5 5", "aria-hidden": "true" }, f); }
-  function poly(s, pts, closed) { el(closed ? "polygon" : "polyline", { points: pts.map(p => `${p[0]},${5 - p[1]}`).join(" "), class: "knot", "stroke-width": .16, "stroke-linejoin": "round", fill: "none" }, s); }
-  function dot(s, p, cls) { el("circle", { cx: p[0], cy: 5 - p[1], r: .22, class: cls }, s); }
-  function ring(s, p, taken) { el("circle", { cx: p[0], cy: 5 - p[1], r: .3, class: "ring" + (taken ? " taken" : ""), "stroke-width": .08, "stroke-dasharray": taken ? "none" : ".12 .1" }, s); }
-  function hline(s, y) { el("line", { x1: .3, y1: 5 - y + .35, x2: 4.7, y2: 5 - y + .35, class: "ghost", "stroke-width": .06, "stroke-dasharray": ".15 .12" }, s); }
-  function arrow(s, a, b) { el("line", { x1: a[0], y1: 5 - a[1], x2: b[0], y2: 5 - b[1], stroke: "var(--accent)", "stroke-width": .14 }, s); el("path", { d: `M${b[0]} ${5 - b[1] - .25} L${b[0] + .35} ${5 - b[1]} L${b[0]} ${5 - b[1] + .25}z`, fill: "var(--accent)" }, s); }
-  function bars(s, h) { h.forEach((v, i) => el("rect", { x: .8 + i * 1.3, y: 4.6 - v, width: .8, height: v, fill: `var(--c${[2, 1, 0][i]})` }, s)); ["z", "y", "x"].forEach((t, i) => el("text", { x: 1.2 + i * 1.3, y: 4.95, "text-anchor": "middle", "font-size": .45 }, s).textContent = t); }
+  function svgIn(f) { return el("svg", { class: "mini", viewBox: "0 0 5 5", "aria-hidden": "true" }, f); }
+  function poly(s, pts, closed) {
+    const d = pts.map(p => `${p[0]},${5 - p[1]}`).join(" "), tag = closed ? "polygon" : "polyline";
+    el(tag, { points: d, class: "knot", "stroke-width": .2, "stroke-linejoin": "miter", fill: "none" }, s);
+    el(tag, { points: d, stroke: "var(--paper)", "stroke-width": .12, "stroke-linejoin": "miter", "stroke-linecap": "round", fill: "none" }, s);
+  }
+  function dot(s, p, cls) { el("circle", { cx: p[0], cy: 5 - p[1], r: .2, class: cls }, s); }
+  function ring(s, p, taken) { el("circle", { cx: p[0], cy: 5 - p[1], r: taken ? .16 : .32, class: taken ? "vx" : "", fill: taken ? "" : "none", stroke: taken ? "none" : "var(--alert)", "stroke-width": .07 }, s); }
+  function hline(s, y) { el("line", { x1: .3, y1: 5 - y + .32, x2: 4.7, y2: 5 - y + .32, class: "ghost", "stroke-width": .05, "stroke-dasharray": ".15 .12" }, s); }
+  function arrow(s, a, b) { el("line", { x1: a[0], y1: 5 - a[1], x2: b[0], y2: 5 - b[1], stroke: "var(--alert)", "stroke-width": .09 }, s); el("path", { d: `M${b[0]} ${5 - b[1] - .2} L${b[0] + .34} ${5 - b[1]} L${b[0]} ${5 - b[1] + .2}z`, fill: "var(--alert)" }, s); }
   function rods(s, h) {
     h.forEach((v, i) => {
       const x = 1 + i * 1.5;
-      el("line", { x1: x, y1: 4.3, x2: x, y2: 4.3 - v, class: "knot", "stroke-width": .26 }, s);
-      el("circle", { cx: x, cy: 4.3 - v, r: .2, class: "vx" }, s);
-      el("text", { x, y: 4.95, "text-anchor": "middle", "font-size": .5 }, s).textContent = ["z", "y", "x"][i];
+      el("line", { x1: x, y1: 4.2, x2: x, y2: 4.2 - v, class: "knot", "stroke-width": .24, "stroke-linecap": "butt" }, s);
+      el("line", { x1: x, y1: 4.13, x2: x, y2: 4.27 - v, stroke: "var(--paper)", "stroke-width": .15 }, s);
+      for (let k = 1; k < v * 2.5; k++) el("line", { x1: x - .1, y1: 4.2 - k * .4, x2: x + .1, y2: 4.2 - k * .4, stroke: "var(--ink)", "stroke-width": .035 }, s);
+      el("text", { x, y: 4.92, "text-anchor": "middle", "font-size": .52 }, s).textContent = ["z", "y", "x"][i];
     });
   }
   function survivor(s) {
@@ -567,7 +576,9 @@ EXHIBITS.rules = host => {
     const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
     const k = 4.4 / span, cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
     const Q = P.map(p => [5 + (p[0] - cx) * k, 2.5 + (p[1] - cy) * k, p[2]]);
-    for (const q of pieces(Q, crossings(Q), .12)) el("line", { class: "knot", x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, "stroke-width": .11 }, s);
+    const ps = pieces(Q, crossings(Q), .2);
+    for (const q of ps) el("line", { class: "knot", x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, "stroke-width": .17 }, s);
+    for (const q of ps) el("line", { x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, stroke: "var(--paper)", "stroke-width": .095, "stroke-linecap": "round" }, s);
   }
   for (const [t, c, draw] of items) {
     const f = html("figure", t === "⇒" ? { class: "wide" } : {}, tray);
@@ -575,20 +586,21 @@ EXHIBITS.rules = host => {
     const cap = html("figcaption", {}, f);
     html("b", {}, cap, t); cap.append(c);
   }
+  footOf(host);
   return { activate() {}, deactivate() {} };
 };
 
-/* ---------------------------------------------------- a miniature search on the square grid */
+/* ============================================================== IX. a miniature search on the square grid */
 EXHIBITS.search = host => {
-  const canvas = html("canvas", {}, host);
+  const canvas = html("canvas", { "aria-hidden": "true" }, host);
   const cs = controls(host);
-  const r = readout(cs, "readout big");
+  const r = readout(cs);
   const speedBtn = chip(cs, "Faster", () => { fast = !fast; speedBtn.setAttribute("aria-pressed", String(fast)); }, false);
-  chip(cs, "Restart", () => restart());
+  chip(cs, "Restart", () => { restart(); paint(); });
   let fast = false;
   const N = 12;   // closed walks of 12 steps on the square grid
   const D = [[1, 0], [-1, 0], [0, 1], [0, -1]];
-  let gen, stats, found, current, flash, timer = 0, running = false;
+  let gen, stats, found, current, timer = 0, running = false;
   function* dfs() {
     // canonical: start at the lowest-leftmost vertex: every later vertex is above, or level and to the right
     const path = [[0, 0]], dirs = [], seen = new Set(["0,0"]);
@@ -621,112 +633,117 @@ EXHIBITS.search = host => {
   function restart() { stats = { tried: 0, visited: 0, closed: 0 }; found = []; current = null; gen = dfs(); }
   function frame() {
     if (!running) return;
-    const steps = fast ? 60 : 2;
+    const steps = fast ? 60 : (reduced ? 1 : 2);
     for (let s = 0; s < steps; s++) { if (gen.next().done) { restart(); break; } }
     paint();
-    timer = setTimeout(() => requestAnimationFrame(frame), fast ? 16 : 70);
+    timer = setTimeout(() => requestAnimationFrame(frame), fast ? 16 : (reduced ? 400 : 70));
   }
   function paint() {
     const dpr = Math.min(devicePixelRatio || 1, 2), w = canvas.clientWidth, h = canvas.clientHeight;
-    if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
+    if (!w || !h) return;
+    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
     const c = canvas.getContext("2d"); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, h);
-    const ink = cssVar("--ink"), soft = cssVar("--ink-soft"), acc = cssVar("--accent"), alert = cssVar("--alert"), rule = cssVar("--rule");
-    const S = Math.min(w / 15, h / 8), ox = w * 0.5 - 0.5 * S, oy = h * 0.5 + 3 * S;
+    const ink = cssVar("--ink", host), acc = cssVar("--c1", host), alert = cssVar("--alert", host), rule = cssVar("--hair", host), paper = cssVar("--paper-lit", host);
+    const S = Math.min(w / 14.4, h / 8.4), ox = w * 0.5 - 0.5 * S, oy = h * 0.5 + 3 * S;
     c.strokeStyle = rule; c.lineWidth = 1;
     for (let x = -6; x <= 7; x++) { c.beginPath(); c.moveTo(ox + x * S, oy); c.lineTo(ox + x * S, oy - 6 * S); c.stroke(); }
     for (let y = 0; y <= 6; y++) { c.beginPath(); c.moveTo(ox - 6 * S, oy - y * S); c.lineTo(ox + 7 * S, oy - y * S); c.stroke(); }
     // found polygons as faint ghosts
-    c.globalAlpha = 0.12; c.strokeStyle = acc; c.lineWidth = 2;
+    c.globalAlpha = 0.16; c.strokeStyle = acc; c.lineWidth = 2;
     for (const f of found.slice(-12)) { c.beginPath(); f.forEach((p, i) => (i ? c.lineTo : c.moveTo).call(c, ox + p[0] * S, oy - p[1] * S)); c.closePath(); c.stroke(); }
     c.globalAlpha = 1;
     if (current) {
-      const p = current.path;
-      c.strokeStyle = ink; c.lineWidth = 3; c.lineJoin = "round"; c.beginPath();
-      p.forEach((q, i) => (i ? c.lineTo : c.moveTo).call(c, ox + q[0] * S, oy - q[1] * S)); c.stroke();
+      const p = current.path, lw = Math.max(5, S * 0.17);
+      const trace = () => { c.beginPath(); p.forEach((q, i) => (i ? c.lineTo : c.moveTo).call(c, ox + q[0] * S, oy - q[1] * S)); c.stroke(); };
+      c.lineJoin = "miter"; c.lineCap = "round";
+      c.strokeStyle = ink; c.lineWidth = lw; trace();
+      c.strokeStyle = paper; c.lineWidth = lw - 2.6; trace();
       const last = p[p.length - 1], t = current.try;
-      c.strokeStyle = current.ok ? acc : alert; c.setLineDash(current.ok ? [] : [5, 5]); c.lineWidth = 3;
+      c.strokeStyle = current.ok ? acc : alert; c.setLineDash(current.ok ? [] : [5, 5]); c.lineWidth = 2.5;
       c.beginPath(); c.moveTo(ox + last[0] * S, oy - last[1] * S); c.lineTo(ox + t[0] * S, oy - t[1] * S); c.stroke(); c.setLineDash([]);
-      c.fillStyle = cssVar("--origin"); c.beginPath(); c.arc(ox, oy, 5, 0, 7); c.fill();
+      c.fillStyle = alert; c.beginPath(); c.arc(ox, oy, Math.max(5, lw * 0.75), 0, 7); c.fill();
       if (!current.ok) {
-        c.fillStyle = alert; c.font = `600 14px ${cssVar("--font-num")}`;
+        c.fillStyle = alert; c.font = `italic 15px ${cssVar("--font-body")}`;
         const tw = c.measureText(current.why).width;
-        c.fillText(current.why, Math.max(6, Math.min(w - tw - 6, ox + t[0] * S + 8)), Math.max(16, oy - t[1] * S - 8));
+        c.fillText(current.why, Math.max(6, Math.min(w - tw - 6, ox + t[0] * S + 9)), Math.max(16, oy - t[1] * S - 9));
       }
     }
     r.innerHTML = `<b>${fmt(stats.visited)}</b> steps taken · <b>${fmt(stats.tried - stats.visited)}</b> cut off · <b>${fmt(stats.closed)}</b> closed walks found`;
   }
   restart();
   return {
-    activate() { running = true; frame(); },
+    activate() { if (running) return; running = true; frame(); },
     deactivate() { running = false; clearTimeout(timer); },
   };
 };
 
-/* ---------------------------------------------------- 1358 drawers */
+/* ============================================================== X. 1358 drawers */
 EXHIBITS.drawers = host => {
   const wall = html("div", { class: "wall" }, host);
   const rows = DATA.runs.filter(r => r.n >= 4);
   for (const r of rows) {
     html("span", { class: "n" }, wall, `n = ${r.n}`);
     const cells = html("div", { class: "cells", title: `n = ${r.n}: ${r.done} of ${r.parts} parts · ${fmt(r.words)} words · ${fmt(r.nodes)} nodes` }, wall);
-    cells.style.setProperty("--cw", r.parts > 600 ? "7px" : r.parts > 100 ? "8px" : "11px");
-    for (const ch of r.cells) html("i", { class: ch === "." ? "" : ch }, cells);
+    cells.style.setProperty("--cw", r.parts > 600 ? "8px" : r.parts > 100 ? "9px" : "11px");
+    for (const ch of r.cells) html("i", ch === "." ? {} : { class: ch }, cells);
   }
   const lg = html("div", { class: "legend" }, wall);
-  lg.innerHTML = `<span><i style="background:var(--accent)"></i>checked in the container</span><span><i style="background:var(--c2)"></i>checked on GitHub Actions</span><span><i style="background:var(--rule)"></i>not in yet</span>`;
-  const cs = controls(host);
-  readout(cs, "readout big").innerHTML = `<b>${fmt(DATA.facts.partsDone)}</b> of ${fmt(DATA.facts.parts)} parts · <b>${sci(DATA.facts.nodes)}</b> search nodes`;
+  lg.innerHTML = `<span><i class="l"></i>checked in the container</span><span><i class="g"></i>checked on GitHub Actions</span><span><i></i>not in yet</span>`;
+  readout(footOf(host)).innerHTML = `<b>${fmt(DATA.facts.partsDone)}</b> of ${fmt(DATA.facts.parts)} parts · <b>${sci(DATA.facts.nodes)}</b> search nodes`;
   return { activate() {}, deactivate() {} };
 };
 
-/* ---------------------------------------------------- colouring puzzles */
+/* ============================================================== XI, XII. colouring puzzles */
 function colouringExhibit(host, word, D, opts) {
   const svg = fig(host, "0 0 1 1");
   const V = centre(verticesOf(word));
   const P = V.map(projAlong(D));
   const cr = crossings(P), arcs = arcsOf(cr);
   const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
-  const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 1.2;
+  const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 1.3;
   const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
-  svg.setAttribute("viewBox", `${cx - span / 2} ${cy - span * 0.42} ${span} ${span * 1.12}`);
-  const gap = span * 0.034, sw = span / 120;
+  svg.setAttribute("viewBox", `${cx - span * 0.625} ${cy - span * 0.5} ${span * 1.25} ${span}`);
+  const gap = span * 0.03, sw = span / 130;
   const ps = pieces(P, cr, gap, arcs);
   let p = opts.p ?? 7;
   let x = new Array(arcs.count).fill(0);
   const gArcs = el("g", {}, svg), gX = el("g", {}, svg);
   const groups = [];
   for (let a = 0; a < arcs.count; a++) {
-    const g = el("g", { tabindex: 0, role: "button", "aria-label": `Arc ${a + 1}: change colour` }, gArcs);
-    g.style.cursor = "pointer";
+    const g = el("g", { class: "hit", tabindex: 0, role: "button", "aria-label": `Arc ${a + 1}: change colour` }, gArcs);
     for (const q of ps.filter(q => q.arc === a)) {
-      el("line", { x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, stroke: "transparent", "stroke-width": sw * 5, "stroke-linecap": "round" }, g);
-      el("line", { class: "knot arcline", x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, "stroke-width": sw * 1.6 }, g);
+      el("line", { x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, stroke: "transparent", "stroke-width": sw * 6, "stroke-linecap": "round" }, g);
+      el("line", { class: "knot arcline", x1: q.x1, y1: q.y1, x2: q.x2, y2: q.y2, "stroke-width": sw * 1.7 }, g);
     }
     const bump = () => { x[a] = (x[a] + 1) % p; paint(); };
     g.addEventListener("click", bump);
     g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); bump(); } });
+    g.addEventListener("focus", () => g.setAttribute("opacity", ".6")); g.addEventListener("blur", () => g.removeAttribute("opacity"));
     groups.push(g);
   }
   const marks = cr.map(c => {
     const a = P[c.i], b = P[(c.i + 1) % P.length];
-    return el("circle", { cx: a[0] + c.t * (b[0] - a[0]), cy: a[1] + c.t * (b[1] - a[1]), r: span * 0.016, "stroke-width": sw * 0.8 }, gX);
+    return el("circle", { class: "xmark", cx: a[0] + c.t * (b[0] - a[0]), cy: a[1] + c.t * (b[1] - a[1]), r: span * 0.0105, "stroke-width": sw * 0.7 }, gX);
   });
   const cs = controls(host);
-  const r = readout(cs, "readout big");
-  const eqs = html("div", { class: "readout eqs" }, host);
+  const r = readout(cs);
+  const sw7 = html("div", { class: "swatches", "aria-hidden": "true" }, host);
+  for (let i = 0; i < 7; i++) html("i", { style: `background:var(--c${i})` }, sw7, String(i));
+  const eqs = html("p", { class: "eqs", "aria-hidden": "true" }, host);
   const names = "ABCDEFGH";
   function paint() {
-    groups.forEach((g, a) => $$(".arcline", g).forEach(l => l.style.stroke = `var(--c${x[a] % 7})`));
+    groups.forEach((g, a) => { $$(".arcline", g).forEach(l => l.style.stroke = `var(--c${x[a] % 7})`); g.setAttribute("aria-label", `Arc ${names[a]}, colour ${x[a]}: change colour`); });
     let ok = 0;
     arcs.rows.forEach((row, i) => {
       const good = foxOK(row, x, p); ok += good;
-      marks[i].setAttribute("fill", good ? "var(--ink)" : "none");
+      marks[i].setAttribute("fill", good ? "var(--ink)" : "var(--paper-lit)");
       marks[i].setAttribute("stroke", good ? "var(--ink)" : "var(--alert)");
     });
     const nonconst = x.some(v => v !== x[0]);
     const all = ok === arcs.rows.length;
     r.innerHTML = `<b>${ok}</b> of ${arcs.rows.length} crossing rules hold` + (all ? (nonconst ? ` · <b>a colouring that is not one colour</b>` : ` · all one colour`) : "");
     eqs.innerHTML = arcs.rows.map(row => `2·${names[row.over]} ≡ ${names[row.inA]} + ${names[row.outA]}`).join("<br>") + `<br>(mod ${p})`;
+    [...sw7.children].forEach((s, i) => { s.style.opacity = i < p ? 1 : .18; });
   }
   const api = { set(v) { x = v.slice(); paint(); }, setP(q) { p = q; x = x.map(v => v % q); paint(); }, arcs, get x() { return x; } };
   opts.controls(cs, api, r);
@@ -735,8 +752,7 @@ function colouringExhibit(host, word, D, opts) {
 }
 
 EXHIBITS.colour52 = host => {
-  let api;
-  api = colouringExhibit(host, DATA.w36, DATA.dirCol, {
+  colouringExhibit(host, DATA.w36, DATA.dirCol, {
     controls(cs, a, r) {
       chip(cs, "All one colour", () => a.set(new Array(a.arcs.count).fill(3)));
       chip(cs, "Show another way", () => {
@@ -769,40 +785,45 @@ EXHIBITS.colourTref = host => {
   return { activate() {}, deactivate() {} };
 };
 
-/* ---------------------------------------------------- what Lean checked */
+/* ============================================================== XIII. what Lean checked */
 EXHIBITS.lean = host => {
-  const svg = fig(host, "0 0 1000 560");
+  host.parentElement.classList.add("scroll-x");
+  host.parentElement.style.aspectRatio = "1000 / 764";
+  const svg = fig(host, "0 0 1000 764");
   const defs = el("defs", {}, svg);
   const m = el("marker", { id: "arr", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
   el("path", { d: "M0 0 L10 5 L0 10z", fill: "var(--ink-soft)" }, m);
+  const pat = el("pattern", { id: "hatch-lean", width: 7, height: 7, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+  el("rect", { width: 7, height: 7, fill: "var(--paper-lit)" }, pat);
+  el("line", { x1: 0, y1: 0, x2: 0, y2: 7, stroke: "var(--ink)", "stroke-width": 1, "stroke-opacity": .45 }, pat);
   const N = {
-    spec: { x: 40, y: 40, w: 250, t: "Definitions", s: "polygons · rules · diagrams", cls: "s",
+    spec: { x: 285, y: 30, w: 695, t: "Definitions", s: "polygons · rules · diagrams", cls: "s",
       code: "IsPolygon w, Survive w (C1–C7), KnotClass T, diagram D w, foxRows, CompCert", info: "The statement: what a reader must read. Spec.lean, Diagram.lean, Statement.lean, Cert.lean." },
-    cls: { x: 40, y: 230, w: 250, t: "Classical knot theory", s: "Δ-moves · Wirtinger", cls: "c",
+    cls: { x: 20, y: 220, w: 250, t: "Classical knot theory", s: "Δ-moves · Wirtinger", cls: "c",
       code: "KnotClass T   TopHyp T", info: "Proved in the text: square moves are pairs of Δ-moves; Fox colourings count homomorphisms to D₇." },
-    nf: { x: 380, y: 40, w: 260, t: "exists_survivor", s: "normal form, 1312 lines", cls: "k",
+    nf: { x: 285, y: 220, w: 221, t: "exists_survivor", s: "normal form, 1312 lines", cls: "k",
       code: "KnotClass T → T w₀ → ∃ w, T w ∧ |w| ≤ |w₀| ∧ (|w| = 4 ∨ Survive w)", info: "Kernel-checked. Uses only the moves: minimal length, lowest polygon, canonical position." },
-    sc: { x: 380, y: 160, w: 260, t: "search_complete", s: "the real program, 1736 lines", cls: "k",
+    sc: { x: 522, y: 220, w: 221, t: "search_complete", s: "the real program, 1736 lines", cls: "k",
       code: "Survive w → |w| ≤ 34 → w ∈ (searchPart |w| 9 M r).out", info: "Kernel-checked about the very program that was run. No test can cut off a word that obeys the seven rules." },
-    cc: { x: 380, y: 280, w: 260, t: "colorCheck_sound", s: "certificates", cls: "k",
+    cc: { x: 759, y: 220, w: 221, t: "colorCheck_sound", s: "certificates", cls: "k",
       code: "colorCheck w = true → ∃ D, regular ∧ ¬ HasNontrivialColoring D w", info: "Kernel-checked. A certificate L with L·F ≡ E forces every 7-colouring to be constant." },
-    cp: { x: 720, y: 160, w: 240, t: "CompCert", s: "1358 checks, all true", cls: "t",
+    cp: { x: 522, y: 420, w: 178, t: "CompCert", s: "1358 checks", cls: "t",
       code: "∀ n r, checkPart n r = true", info: "Evaluated by the compiled program (checkpart). Logged with exit status, hashes and the commit; cross-checked by an independent C++ program." },
-    main: { x: 330, y: 440, w: 360, t: "no_short", s: "T w → 36 ≤ |w|", cls: "m",
+    main: { x: 20, y: 630, w: 960, t: "no_short", s: "T w → 36 ≤ |w|", cls: "m",
       code: "theorem no_short (T) (hT : KnotClass T) (hTop : TopHyp T) (hComp : CompCert) : ∀ w, T w → 36 ≤ w.length", info: "The main theorem. #print axioms: propext, Classical.choice, Quot.sound." },
   };
-  const H = 80;
-  const centreOf = k => [N[k].x + N[k].w / 2, N[k].y + H / 2];
-  const edges = [["spec", "nf"], ["spec", "sc"], ["spec", "cc"], ["cls", "main"], ["nf", "main"], ["sc", "main"], ["cc", "main"], ["cp", "main"], ["sc", "cp"]];
-  for (const [a, b] of edges) {
-    const A = centreOf(a), B = centreOf(b);
-    const end = [B[0], N[b].y + (B[1] > A[1] ? 0 : H)];
-    const start = [A[0], N[a].y + (B[1] > A[1] ? H : 0)];
-    const dpath = Math.abs(A[1] - B[1]) < 5 ? `M${N[a].x + N[a].w} ${A[1]} L${N[b].x} ${B[1]}` : `M${start[0]} ${start[1]} C${start[0]} ${(start[1] + end[1]) / 2} ${end[0]} ${(start[1] + end[1]) / 2} ${end[0]} ${end[1]}`;
-    el("path", { class: "edge", d: dpath }, svg);
-    if (b === "main") el("path", { class: "flow", d: dpath }, svg);
+  const H = 104;
+  // every dependency runs straight down the sheet, as in a table of descent
+  const edges = [["spec", "nf", 395], ["spec", "sc", 632], ["spec", "cc", 869], ["cls", "main", 145], ["nf", "main", 395], ["sc", "cp", 611], ["cp", "main", 611], ["sc", "main", 722], ["cc", "main", 869]];
+  for (const [a, b, x] of edges) {
+    const d = `M${x} ${N[a].y + H} V${N[b].y - 2}`;
+    el("path", { class: "edge", d, "marker-end": "url(#arr)" }, svg);
+    if (b === "main") el("path", { class: "flow", d }, svg);
   }
-  const box = html("div", { class: "leanbox" }, host);
+  const box = html("p", { class: "leanbox", "aria-live": "polite" });
+  const foot = footOf(host);
+  readout(foot).textContent = "Heavy rule: checked by the Lean kernel. Dashed: proved in the text. Hatched: evaluated by the compiled program.";
+  foot.after(box);
   const show = k => {
     $$(".node", svg).forEach(n => n.classList.toggle("sel", n.dataset.k === k));
     box.innerHTML = `${N[k].info}<code>${N[k].code}</code>`;
@@ -810,8 +831,8 @@ EXHIBITS.lean = host => {
   for (const [k, n] of Object.entries(N)) {
     const g = el("g", { class: `node ${n.cls}`, "data-k": k, tabindex: 0, role: "button", "aria-label": n.t }, svg);
     el("rect", { x: n.x, y: n.y, width: n.w, height: H }, g);
-    el("text", { x: n.x + 16, y: n.y + 34, "font-family": k === "spec" || k === "cls" ? "" : "ui-monospace, Menlo, monospace" }, g).textContent = n.t;
-    el("text", { class: "sub", x: n.x + 16, y: n.y + 58 }, g).textContent = n.s;
+    el("text", { class: k === "spec" || k === "cls" ? "" : "mono", x: n.x + 14, y: n.y + 45 }, g).textContent = n.t;
+    el("text", { class: "sub", x: n.x + 14, y: n.y + 78 }, g).textContent = n.s;
     g.addEventListener("click", () => show(k));
     g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(k); } });
   }
@@ -819,7 +840,7 @@ EXHIBITS.lean = host => {
   return { activate() {}, deactivate() {} };
 };
 
-/* ---------------------------------------------------- the making of */
+/* ============================================================== XIV. the making of */
 EXHIBITS.timeline = host => {
   const box = html("div", { class: "tl" }, host);
   const ol = html("ol", {}, box);
@@ -840,130 +861,81 @@ EXHIBITS.timeline = host => {
     html("time", {}, li, t); html("h3", {}, li, h); html("p", {}, li, p);
     return li;
   });
-  let shown = false;
-  return {
-    activate() { if (shown) return; shown = true; lis.forEach((li, i) => setTimeout(() => li.classList.add("in"), reduced ? 0 : 120 + i * 160)); },
-    deactivate() {},
-  };
+  footOf(host);
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -12% 0px" });
+  lis.forEach(li => io.observe(li));
+  return { activate() {}, deactivate() {} };
 };
 
-/* ---------------------------------------------------- finale: the polygon turns into the 5₂ diagram */
-EXHIBITS.finale = host => {
-  const svg = fig(host, "0 0 1 1");
-  const k = new LiveKnot(svg, V36, { vertices: false, gap: 0.24, arcs: true });
-  const cs = controls(host);
-  const r = readout(cs, "readout big");
-  const target = anglesOf(DATA.dirCol);
-  let t = 0, colour = null;
-  const L = loop(dt => {
-    t = Math.min(1, dt / 4.5);
-    const e = ease(t);
-    const az = lerp(target[0] - 2.4, target[0], e), elv = lerp(0.1, target[1], e);
-    if (t >= 1 && !colour) {
-      const P = centre(V36).map(basis(dirFromAngles(az, elv)));
-      colour = countColourings(arcsOf(crossings(P)), 7).nonconst;
-    }
-    k.colour = t >= 1 ? colour : null;
-    const { cr } = k.draw(dirFromAngles(az, elv));
-    r.innerHTML = t < 1 ? `<b>${cr.length}</b> crossings` : `<b>5</b> crossings · the standard 5₂ diagram, in a colouring that is not one colour`;
-    if (t >= 1) L.stop();
-  });
-  return { activate() { L.stop(); if (reduced) { t = 1; } L.start(); }, deactivate: L.stop };
-};
-
-/* ============================================================== the deck */
-const chapters = $$(".chapter");
-const rail = $("#rail");
-const instances = new Map();
-let current = -1;
-
-chapters.forEach((ch, i) => {
-  const li = html("li", {}, rail);
-  const b = html("button", { type: "button", "aria-label": ch.dataset.title }, li);
-  html("span", { class: "tip" }, b, ch.dataset.title);
-  b.addEventListener("click", () => go(i));
-  const ex = $(".exhibit", ch);
-  ex.dataset.cat = `Cat. 5₂ · ${String(i + 1).padStart(2, "0")}`;
-  ex.dataset.plate = `PLATE ${roman(i + 1)}`;
-});
-$("#where-total").textContent = chapters.length;
-
-function instance(i) {
-  if (!instances.has(i)) {
-    const ex = $(".exhibit", chapters[i]);
-    const make = EXHIBITS[ex.dataset.exhibit];
-    instances.set(i, make ? make(ex) : { activate() {}, deactivate() {} });
-  }
-  return instances.get(i);
-}
-
-function go(i, { push = true } = {}) {
-  i = Math.max(0, Math.min(chapters.length - 1, i));
-  if (i === current) return;
-  if (current >= 0) { chapters[current].classList.remove("is-active"); instances.get(current)?.deactivate(); }
-  current = i;
-  const ch = chapters[i];
-  ch.classList.add("is-active");
-  instance(i).activate();
-  // warm the next exhibit
-  if (i + 1 < chapters.length) setTimeout(() => instance(i + 1), 400);
-  $$("#rail button").forEach((b, k) => { if (k === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
-  $("#where-n").textContent = i + 1;
-  $("#where-title").textContent = ch.dataset.title;
-  $(".nav.prev").disabled = i === 0;
-  $(".nav.next").disabled = i === chapters.length - 1;
-  if (push) history.replaceState(null, "", "#" + ch.id);
-}
-
-document.addEventListener("click", e => {
-  const t = e.target.closest("[data-go]");
-  if (!t) return;
-  if (t.dataset.go === "next") go(current + 1);
-  if (t.dataset.go === "prev") go(current - 1);
-});
-document.addEventListener("keydown", e => {
-  if (e.target.closest("input, textarea, select, summary, [role=button], button")) {
-    if (!["ArrowRight", "ArrowLeft", "PageDown", "PageUp"].includes(e.key)) return;
-  }
-  if (["ArrowRight", "PageDown"].includes(e.key) || (e.key === " " && !e.target.closest("button, [role=button], summary"))) { e.preventDefault(); go(current + 1); }
-  else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); go(current - 1); }
-  else if (e.key === "Home") go(0);
-  else if (e.key === "End") go(chapters.length - 1);
-});
-window.addEventListener("hashchange", () => { const i = chapters.findIndex(c => "#" + c.id === location.hash); if (i >= 0) go(i, { push: false }); });
-document.addEventListener("visibilitychange", () => { const x = instances.get(current); if (!x) return; document.hidden ? x.deactivate() : x.activate(); });
-
-/* the theorem is stated as proved only when every part of the computation is in */
+/* ============================================================== the folio: plates come alive as they are reached */
 document.documentElement.dataset.proof = DATA.facts.partsDone === DATA.facts.parts ? "done" : "open";
+$$("[data-fact]").forEach(n => { const f = n.dataset.fact, v = DATA.facts[f]; n.textContent = f === "nodes" ? sci(v) : fmt(v); });
+// subscripts in display type are set as true subscripts
+$$("h1, h2").forEach(h => { h.innerHTML = h.innerHTML.replace(/5₂/g, "5<sub>2</sub>"); });
 
-/* facts filled from the data */
-$$("[data-fact]").forEach(n => {
-  const f = n.dataset.fact, v = DATA.facts[f];
-  n.textContent = f === "nodes" ? sci(v) : fmt(v);
+const live = new Map();
+const makers = new Map();
+$$(".exhibit").forEach(ex => makers.set(ex, () => (EXHIBITS[ex.dataset.exhibit] || (() => ({ activate() {}, deactivate() {} })))(ex)));
+$$(".act-stage").forEach(s => makers.set(s, () => (s.dataset.stage === "hero" ? heroAct : finaleAct)(s)));
+const near = new IntersectionObserver(entries => {
+  for (const e of entries) {
+    if (!e.isIntersecting) continue;
+    near.unobserve(e.target);
+    try { live.set(e.target, makers.get(e.target)()); } catch (err) { console.error(err); live.set(e.target, { activate() {}, deactivate() {} }); }
+    seen.observe(e.target);
+  }
+}, { rootMargin: "120% 0px 120% 0px" });
+const seen = new IntersectionObserver(entries => {
+  for (const e of entries) {
+    const x = live.get(e.target);
+    if (!x) continue;
+    e.target.dataset.on = e.isIntersecting ? "1" : "";
+    if (e.isIntersecting && !document.hidden) x.activate(); else x.deactivate();
+  }
+}, { threshold: 0.12 });
+makers.forEach((_, node) => near.observe(node));
+document.addEventListener("visibilitychange", () => live.forEach((x, node) => { if (document.hidden) x.deactivate(); else if (node.dataset.on) x.activate(); }));
+
+/* ---------------------------------------------------- the running head: where you are, and the way through */
+const index = $("#index");
+const links = chapters.map((ch, i) => {
+  const li = html("li", {}, index);
+  const a = html("a", { href: "#" + ch.id, "aria-label": `Plate ${roman(i + 1)}: ${ch.dataset.title}` }, li, roman(i + 1));
+  html("span", { class: "tip", "aria-hidden": "true" }, a, ch.dataset.title);
+  return a;
 });
-
-/* ============================================================== flavours */
-const NOTE_LABEL = { cabinet: "Curator's note", plates: "Commentary", canon: "For the expert" };
-function applyTheme(t) {
-  document.documentElement.dataset.theme = t;
-  $$("[data-set-theme]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.setTheme === t)));
-  $$(".note summary").forEach(s => s.textContent = NOTE_LABEL[t]);
-  try { localStorage.setItem("len52-theme", t); } catch {}
-  document.dispatchEvent(new Event("themechange"));
+let current = -1;
+function mark(i) {
+  if (i === current) return;
+  current = i;
+  links.forEach((a, k) => { if (k === i) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+  $("#here-n").textContent = roman(i + 1);
+  $("#here-t").textContent = chapters[i].dataset.title;
+  if (location.hash !== "#" + chapters[i].id) history.replaceState(null, "", i === 0 ? location.pathname + location.search : "#" + chapters[i].id);
 }
-$$("[data-set-theme]").forEach(b => b.addEventListener("click", e => {
-  const t = b.dataset.setTheme;
-  if (t === document.documentElement.dataset.theme) return;
-  const r = b.getBoundingClientRect();
-  document.documentElement.style.setProperty("--vx", `${r.left + r.width / 2}px`);
-  document.documentElement.style.setProperty("--vy", `${r.top + r.height / 2}px`);
-  if (document.startViewTransition && !reduced) document.startViewTransition(() => applyTheme(t));
-  else applyTheme(t);
-}));
-let saved = null;
-try { saved = localStorage.getItem("len52-theme"); } catch {}
-const qs = new URLSearchParams(location.search).get("style");
-applyTheme(["cabinet", "plates", "canon"].includes(qs) ? qs : (["cabinet", "plates", "canon"].includes(saved) ? saved : "cabinet"));
-
-const start = chapters.findIndex(c => "#" + c.id === location.hash);
-go(start >= 0 ? start : 0, { push: false });
+const bar = $(".bar");
+let ticking = false;
+function onScroll() {
+  ticking = false;
+  const line = window.innerHeight * 0.42;
+  let i = 0;
+  chapters.forEach((ch, k) => { if (ch.getBoundingClientRect().top <= line) i = k; });
+  mark(i);
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.setProperty("--read", max > 0 ? clamp(window.scrollY / max).toFixed(4) : "0");
+}
+addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+addEventListener("resize", onScroll);
+function goTo(i) {
+  i = clamp(i, 0, chapters.length - 1);
+  const ch = chapters[i];
+  const y = ch.getBoundingClientRect().top + window.scrollY - (ch.closest(".act") ? 0 : parseFloat(getComputedStyle(document.documentElement).fontSize) * 3.25);
+  window.scrollTo({ top: i === 0 ? 0 : y + 2, behavior: reduced ? "auto" : "smooth" });
+}
+document.addEventListener("keydown", e => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  if (e.target.closest("input, textarea, select")) return;
+  if (e.key === "ArrowRight") { e.preventDefault(); goTo(current + 1); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); goTo(current - 1); }
+});
+onScroll();
