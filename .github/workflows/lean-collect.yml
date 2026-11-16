@@ -1,0 +1,85 @@
+name: lean-collect
+# Commits the finished parts of an earlier lean-enum run, when that run's own collect job could not push
+# (its token was read-only: the workflow had relied on the repository's default permissions).
+# Started by a change to research/exact/lean/ci/collect.json on this branch:  {"run": <lean-enum run id>}
+# It downloads that run's artifacts (the files its jobs uploaded, unchanged) and merges them exactly as
+# lean-enum's collect job does; the commit names the producing run, then this one.
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: [research/exact/lean/ci/collect.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - id: src
+        run: echo "run=$(python3 -c 'import json;print(int(json.load(open("research/exact/lean/ci/collect.json"))["run"]))')" >> "$GITHUB_OUTPUT"
+      - name: download that run's artifacts, one at a time
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SRC_RUN: ${{ steps.src.outputs.run }}
+        run: |
+          set -e
+          mkdir -p artifacts zips
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$SRC_RUN/artifacts?per_page=100" \
+            -q '.artifacts[] | select(.expired | not) | "\(.id) \(.name)"' > list.txt
+          echo "artifacts: $(wc -l < list.txt)"
+          while read -r id name; do
+            for t in 1 2 3 4 5 6; do
+              gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" > "zips/$name.zip" && break
+              sleep $((t * 20))
+            done
+            unzip -q -o "zips/$name.zip" -d artifacts
+            sleep 1
+          done < list.txt
+          ls artifacts | wc -l
+      - name: merge and commit
+        env:
+          SRC_RUN: ${{ steps.src.outputs.run }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            mkdir -p research/exact/out/lean/parts
+            cp artifacts/*.txt artifacts/*.log research/exact/out/lean/parts/ 2>/dev/null || true
+            python3 - <<'PY'
+          import glob, os, re
+          d = "research/exact/out/lean"
+          sets = set()
+          for f in glob.glob(d + "/parts/n*_*.part*_*.log"):
+              g = re.match(r"n(\d+)_(\w+)\.part(\d+)_(\d+)\.log$", os.path.basename(f))
+              if g: sets.add((int(g.group(1)), g.group(2), int(g.group(4))))
+          for n, eng, m in sorted(sets):
+              parts = [f"{d}/parts/n{n}_{eng}.part{k}_{m}" for k in range(m)]
+              done = [p for p in parts if os.path.exists(p + ".log") and os.path.exists(p + ".txt")
+                      and "seconds=" in open(p + ".log").read()]
+              words = sorted({w.strip() for p in done for w in open(p + ".txt") if w.strip()})
+              nodes = 0
+              for p in done:
+                  mm = re.search(r"nodes=(\d+)", open(p + ".log").read())
+                  if mm: nodes += int(mm.group(1))
+              status = "COMPLETE" if len(done) == m else f"INCOMPLETE {len(done)} of {m} parts"
+              missing = [k for k in range(m) if parts[k] not in done]
+              with open(f"{d}/n{n}_{eng}.m{m}.summary.txt", "w") as f:
+                  f.write(f"n={n} engine={eng} parts={m} {status} words={len(words)} nodes_sum={nodes}\n")
+                  if missing: f.write("missing " + " ".join(map(str, missing[:200])) + "\n")
+              if len(done) == m:
+                  open(f"{d}/n{n}_{eng}.txt", "w").write("".join(w + "\n" for w in words))
+              print(n, eng, m, status, len(words))
+          PY
+            git add research/exact/out/lean
+            git commit -q -m "lean-enum: parts from GitHub Actions run $SRC_RUN (collected by run $GITHUB_RUN_ID)" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1

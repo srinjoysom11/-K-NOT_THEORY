@@ -1,0 +1,6 @@
+eennuwunuwwddeeeesswwdnnwnuussddss
+eennuwunuwwddeeeesswwdnwnnuussdsds
+eennuwunueedddwwssueenuwndwndwssss
+eeenunneessswwwwnneueeddwwsuuswwdd
+eeenunneessswwwwnneueeddwwsuuwwdds
+RESULT n=34 r=760 m=1024 nodes=1912872346 words=5 ok=true

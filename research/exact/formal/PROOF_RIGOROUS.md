@@ -565,17 +565,36 @@ A part counts as **accepted** only if all of the following hold:
 `out/lean/COMPCERT.txt`.
 
 Where the parts run:
-* n ≤ 28 in the container: `lean/run_local.sh check n 1 0`. It refuses to run with uncommitted
-  sources and rebuilds first.
-* n = 30, 32, 34 on GitHub Actions: `.github/workflows/lean-enum.yml`, engine `check`. It builds
-  from a clean checkout of the commit, using the official Lean 4.25.0 release.
+* In the container: n ≤ 30, and parts 128–255 of n = 32, via `lean/run_local.sh check n M r…`. The
+  script refuses to run with uncommitted sources, rebuilds first, and logs a hash of the sources
+  (checked again after every part).
+* On GitHub Actions: parts 0–127 of n = 32 (run 43770731268) and all of n = 34 (run 43735396072), via
+  `.github/workflows/lean-enum.yml`, engine `check`. Each job builds from a clean checkout of the
+  commit, using the official Lean 4.25.0 release. The parts were committed by a github-actions[bot]
+  commit naming the run. The runs' own collect jobs could not push (the token was read-only), so
+  `.github/workflows/lean-collect.yml` (runs 43863149806 and 43864508106) downloaded the jobs'
+  artifacts unchanged and merged them with the same merge step.
 
-**8.1 Results.** (filled in when the runs finish; see out/lean/COMPCERT.txt)
+**8.1 Results.** `formal/verify_comp.py` accepts all 1358 parts: **CompCert holds** (out/lean/COMPCERT.txt).
+
+| n | parts | output words (Survive, all with colorCheck = true) | search nodes |
+|---|---|---|---|
+| 4–22 | 1 each | 0 | 37 429 179 in total |
+| 24 | 1 | 56 | 181 235 380 |
+| 26 | 1 | 168 | 1 078 116 768 |
+| 28 | 2 | 712 | 6 772 583 100 |
+| 30 | 64 | 2 782 | 43 638 057 581 |
+| 32 | 256 | 7 212 | 283 692 993 804 |
+| 34 | 1024 | 22 070 | 1 929 898 505 964 |
+| total | 1358 | 33 000 | 2 265 298 921 776 |
+
+So every word of length ≤ 34 that satisfies Survive has exactly 7 Fox 7-colourings (c₇ = 7), while
+c₇(5₂) = 49. By `no_short`, no polygon of length ≤ 34 has the knot type of the 36-step polygon w₃₆.
 
 **8.2 Cross-checks.** These are not needed for the proof; they test it.
 * (a) **C++ program.** The C++ program in cross-check mode (`enum.cpp -tourcap 0 -nomst -noreduce`)
   is a separate implementation of the same algorithm. For unsplit runs it gives identical node
-  counts, and for every length the same set of words: n = 4–28 so far, with n = 30–34 running.
+  counts, and for every length the same set of words: every n = 4, …, 34 (out/lean/COMPCERT.txt).
 * (b) **Python colouring count.** An independent Python projection and colouring count
   (`formal/projections.py`) finds exactly 7 colourings for every output word. (It was written by
   the same author as Diagram.lean, so it tests the implementation rather than the definition.)

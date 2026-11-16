@@ -1,0 +1,3 @@
+ennnuuesedswwwwuueedndennwwssussdd
+ennnuuesedswwwwnuueeddennwwssussdd
+RESULT n=34 r=1010 m=1024 nodes=2067636954 words=2 ok=true

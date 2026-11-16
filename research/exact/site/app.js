@@ -832,8 +832,8 @@ EXHIBITS.timeline = host => {
     ["Review, round 1", "Two fatal and nine major objections", "Truncated outputs could pass; glue code was trusted silently; colour invariance leaned on the hard direction of Reidemeister. Fixed: one Boolean per part, a knot-group proof.", "fix"],
     ["Review, round 2", "Provenance", "Local runs named the wrong commit; GitHub runs lacked a trace. Fixed: source hashes before every build, bot commits that name the run.", "fix"],
     ["15–16 Nov", "1358 checks", DATA.facts.partsDone === DATA.facts.parts
-      ? "Container for lengths up to 32, GitHub's free runners for length 34. Every part true. An independent C++ run agrees."
-      : `Container for lengths up to 32, GitHub's free runners for length 34. ${fmt(DATA.facts.partsDone)} of 1358 parts are in, all true; the rest are running.`],
+      ? "A 4-core container for lengths up to 30 and half of 32; GitHub's free runners for the rest of 32 and all of 34. Every part true. An independent C++ run agrees."
+      : `A 4-core container for lengths up to 30 and half of 32; GitHub's free runners for the rest of 32 and all of 34. ${fmt(DATA.facts.partsDone)} of 1358 parts are in, all true; the rest are running.`],
   ];
   const lis = items.map(([t, h, p, cls]) => {
     const li = html("li", cls ? { class: cls } : {}, ol);

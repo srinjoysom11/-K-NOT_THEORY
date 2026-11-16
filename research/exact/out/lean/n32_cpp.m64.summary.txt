@@ -1,0 +1,1 @@
+n=32 engine=cpp parts=64 COMPLETE words=7212 nodes_sum=283674370572

@@ -1,0 +1,3 @@
+eueendeenuuwwdwwdseseeunndwwnwwsss
+eueendeennwwuswwdseseeunndwwnwwsss
+RESULT n=34 r=90 m=1024 nodes=1532653971 words=2 ok=true

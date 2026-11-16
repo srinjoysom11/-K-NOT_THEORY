@@ -1,0 +1,10 @@
+nnwwunneussueeddswwdwwnneeuseussdd
+nnwwunneusssueeddwwdwwnneeuseussdd
+nnwwunneuseusseddwwdwwnneeuseussdd
+nnwwunneuseuseddswwdwwnneeuseussdd
+eneunwnuusswdwddeneeesswuwnunwdssd
+eeuuuwwdndednnwwswuueeessdwwnnedss
+eeuuuwwdndedennwwuswsseeunednwdwss
+eeuuuwwdnnddseeuuwsdswwnnnneesswsd
+eeuuuwwdnnenddsseuuwsdseennnwwswds
+RESULT n=34 r=988 m=1024 nodes=1951169382 words=9 ok=true

@@ -1,0 +1,13 @@
+nnuusessdwwnuueeeddwnwwwssueendd
+nnuusessdeennwnwnwwsseeseuuwwddd
+nneeseeesuuwwdnwwdseeeunuwwsdwwd
+nneeseeesuuwwdwnwdseeeunwuwswdwd
+euuuwwdsdeeennwnwwsseuseennwwdds
+euuuwwdsdeeennwwswwsuueednnnddss
+euuuwwdsdeeennwwswwsseeunnnnddss
+enuwnneessswunwwddeneuuessuwwddd
+eeuunwdwwsseenuunnddesesswuwwndd
+eeuunwdwwsseenuuennddsesswuwwndd
+eeuunwdwwnneesesesswwnuunndwddss
+eenuunwdwswuueeddseennwnwwusssdd
+RESULT n=32 r=51 m=256 nodes=917115902 words=12 ok=true

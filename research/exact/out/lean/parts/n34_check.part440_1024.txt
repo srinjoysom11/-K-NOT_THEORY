@@ -1,0 +1,2 @@
+eeuneuuwnnddswdseesuuwnneddwnwwsss
+RESULT n=34 r=440 m=1024 nodes=2107062059 words=1 ok=true

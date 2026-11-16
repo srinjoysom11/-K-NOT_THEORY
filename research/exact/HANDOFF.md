@@ -9,7 +9,7 @@ Scope note. The project skill (`.claude/skills/lattice-knot-tables`) lists lower
 as out of scope. The user reopened them on 14 Nov 2026 with the goal "a breakthrough, analytic
 or computational"; this directory is that work. Nothing here changes the Goal 1 tables.
 
-## 0. Formal proof of Len(5_2) = 36 (15 Nov 2026, current work)
+## 0. Formal proof of Len(5_2) = 36 (15-16 Nov 2026: complete)
 
 Goal set by the user: a rigorous, formal proof with no doubt about pruned branches. State:
 * `formal/PROOF_RIGOROUS.md`: the complete argument (read this first). Two rounds of adversarial
@@ -18,15 +18,18 @@ Goal set by the user: a rigorous, formal proof with no doubt about pruned branch
   says `KnotClass T -> TopHyp T -> CompCert -> forall w, T w -> 36 <= |w|`, with axioms
   propext, Classical.choice and Quot.sound. Build: `cd lean && lake build Len52`.
   `.github/workflows/lean-proof.yml` rebuilds it on GitHub and prints the axioms.
-* **CompCert is the only open item.** It is equivalent to 1358 Booleans `checkPart n r`
-  (Cert.lean), evaluated by `lake exe checkpart n r`. Proof runs:
-  - local, n <= 28 and n = 30, with `lean/run_local.sh check n M parts...`, logs in out/lean/parts/n*_check.*;
-  - GitHub Actions, engine `check` in `lean/ci/request.json`: run 43735396072 (n = 34, 1024 parts) and
-    run 43735437754 (n = 30, 32, plus the C++ cross-check).
-  When they finish:
-  1. `python3 formal/verify_comp.py` writes out/lean/COMPCERT.txt and must say HOLDS.
-  2. `python3 formal/repro.py 20` re-runs a sample of GitHub parts locally (identical SHA-256 expected).
-  3. Fill in PROOF_RIGOROUS.md §8.1 with the table from COMPCERT.txt.
+* **CompCert holds (16 Nov 2026).** It is equivalent to 1358 Booleans `checkPart n r` (Cert.lean),
+  evaluated by `lake exe checkpart n r`. `python3 formal/verify_comp.py` accepts all 1358 parts and
+  writes out/lean/COMPCERT.txt. Where they ran:
+  - local (`lean/run_local.sh check n M parts...`): n <= 30 and n = 32 parts 128-255;
+  - GitHub Actions: run 43735396072 (n = 34, 1024 parts) and run 43770731268 (n = 32 parts 0-127,
+    plus the C++ cross-check for n = 30, 32, 34, which agrees at every length).
+  Both runs' own collect jobs were refused a push: the repository's default Actions token had
+  become read-only. `.github/workflows/lean-collect.yml` (started by editing lean/ci/collect.json)
+  downloaded their artifacts and committed them; lean-enum.yml now asks for `contents: write` itself.
+  `formal/repro.py k` re-runs k random GitHub parts locally (results in out/lean/REPRO.txt).
+* Paper: paper/len52.tex (build: pdflatex, bibtex, pdflatex x2; numbers from paper/figs/make_figs.py).
+  Site: site/ (data from site/build_data.py), published by .github/workflows/pages.yml from main.
 * If a GitHub part fails: re-run that job from the Actions page, or run the part locally with
   run_local.sh. Never change Spec/Diagram/Search/Coloring/Cert/CheckMain/lakefile: the source hash
   ties every log to them.

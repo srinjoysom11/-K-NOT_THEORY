@@ -1,0 +1,4 @@
+ennuusesesuwwwddennwwssseeenuwnwdd
+ennuusesesswwwndennwwssseeenuwnwdd
+ennuusesesswwwnueeddnwnwwsseeunwdd
+RESULT n=34 r=986 m=1024 nodes=1411466636 words=3 ok=true

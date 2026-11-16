@@ -1,0 +1,9 @@
+euuunndeessdswwwnneeeeuuwwdwwnddss
+euuunndeesswddnwuwsseeennwuwwnddss
+euuunndeeesswwdnwwsseeennuwwwnddss
+euunuwwwnddseeenuuwwdnwwsseeenddss
+euunuwwwnddneeesswwnunwwsseeenddss
+euunuwwwndnddsseueennwwswsueenddss
+euunuwwwndwddseeueennwwswsueenddss
+eenneunuusswddwdnneeesswuunwdwwdss
+RESULT n=34 r=260 m=1024 nodes=2053234045 words=8 ok=true

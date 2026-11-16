@@ -13,7 +13,11 @@ BIN = os.path.join(EX, "lean/.lake/build/bin/checkpart")
 
 def main():
     k = int(sys.argv[1]); seed = int(sys.argv[2]) if len(sys.argv) > 2 else 2026
-    subprocess.run(["lake", "build", "checkpart"], cwd=os.path.join(EX, "lean"), check=True, capture_output=True)
+    import shutil
+    if shutil.which("lake"):
+        subprocess.run(["lake", "build", "checkpart"], cwd=os.path.join(EX, "lean"), check=True, capture_output=True)
+    else:  # no toolchain in this container: use the existing build of the (unchanged, hash-checked) sources
+        print("lake not found: using the existing build", BIN, flush=True)
     gh = []
     for f in glob.glob(os.path.join(EX, "out/lean/parts/n*_check.part*_*.log")):
         log = open(f).read()
@@ -21,12 +25,16 @@ def main():
             g = re.search(r"n(\d+)_check\.part(\d+)_(\d+)\.log$", f)
             gh.append((int(g.group(1)), int(g.group(2)), int(g.group(3)), f, re.search(r"txtsha=(\w+)", log).group(1)))
     random.seed(seed); sample = random.sample(sorted(gh), min(k, len(gh)))
-    lines = []
-    for n, r, M, f, sha in sample:
+    def rerun(item):
+        n, r, M, f, sha = item
         out = subprocess.run([BIN, str(n), str(r)], capture_output=True).stdout
         mine = hashlib.sha256(out).hexdigest()
-        lines.append(f"n={n} r={r} m={M} logged={sha[:16]} rerun={mine[:16]} {'IDENTICAL' if mine == sha else 'DIFFERENT'}")
-        print(lines[-1], flush=True)
+        line = f"n={n} r={r} m={M} logged={sha[:16]} rerun={mine[:16]} {'IDENTICAL' if mine == sha else 'DIFFERENT'}"
+        print(line, flush=True)
+        return line
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=os.cpu_count() or 1) as ex:
+        lines = list(ex.map(rerun, sample))
     # archive run metadata
     os.makedirs(os.path.join(EX, "out/lean/gha_runs"), exist_ok=True)
     r = subprocess.run(["git", "-C", REPO, "log", "--format=%s", "--author=github-actions"], capture_output=True, text=True)
