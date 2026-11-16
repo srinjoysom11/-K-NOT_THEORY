@@ -1,0 +1,7 @@
+nnuusesuswwddeennwwuueeedsswwndd
+nnuueedesswwunwdwnneesseusuwwddd
+eenneuuwwwdsednneeesswuwnwnwdsss
+eenneuuwwwwdseednneeesswuwnwwdss
+eeeeuuuwwddswwwnneesuseennwwwsdd
+eeeeuuuwwddnwwwsseenuneesswwwndd
+RESULT n=32 r=55 m=256 nodes=1065754744 words=6 ok=true

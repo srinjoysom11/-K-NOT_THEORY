@@ -1,0 +1,3 @@
+N=32 tasks=72315 part=3/64 nodes=4484133220 closed=1557 candidates=138 survivors=138 bfs_limit_hits=0 tour_giveups=1237820733
+status=0 binsha=263c9312c3d6cf7e6a177a0ecbfde6d16c8ad43dfb305b5615d0cd71852764da txtsha=481ad6f0c23f4bc38725186457de516772de165b1919220ccb9615c01b9c5a94
+seconds=1703 host=github-actions engine=cpp commit=b038a263dd8f7a9929d3953870657f1c1231ff66
