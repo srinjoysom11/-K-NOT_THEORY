@@ -731,7 +731,9 @@ for its compiled code; that matters only for the execution in §11.4, not for th
 4. **Execution of 1358 closed Boolean terms** checkPart n r. They were evaluated by code compiled
    from the committed sources: the Lean 4.25.0 compiler (the official release tarball, downloaded
    by every job from the release URL over HTTPS; its SHA-256 97bee7bd… is logged and was the same in
-   every job), the compiled implementations in Lean's core library (arrays, GMP natural numbers,
+   every job, and the same again when downloaded through a different network path on 16 Nov 2026; the
+   compiler reports commit cdd38ac5, which is the commit of the official tag v4.25.0 in
+   github.com/leanprover/lean4, `git ls-remote`), the compiled implementations in Lean's core library (arrays, GMP natural numbers,
    list sorting, loops), its bundled C compiler with `-O3 -march=native`, the runtime, and the
    hardware. This is the standard trust model for proofs by verified computation that are too
    large for the kernel. The record that the evaluation returned `true` is GitHub's job logs
