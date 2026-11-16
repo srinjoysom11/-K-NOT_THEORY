@@ -7,7 +7,7 @@ name: pages
 #   /out/lean/COMPCERT.txt
 on:
   push:
-    branches: [claude/great-einstein-snvnnb]
+    branches: [main]
     paths: ['research/exact/site/**', 'research/exact/paper/len52.pdf', 'research/exact/out/lean/COMPCERT.txt', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
