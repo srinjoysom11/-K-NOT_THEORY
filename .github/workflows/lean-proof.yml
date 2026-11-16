@@ -17,6 +17,11 @@ jobs:
         run: |
           curl -sSL -o /tmp/lean.tar.zst https://github.com/leanprover/lean4/releases/download/v4.25.0/lean-4.25.0-linux.tar.zst
           sha256sum /tmp/lean.tar.zst
+          # compare with the digest GitHub records for the official release asset; stop on any mismatch
+          official=$(curl -sS -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/leanprover/lean4/releases/tags/v4.25.0 \
+            | python3 -c 'import json,sys; print(next(a["digest"] for a in json.load(sys.stdin)["assets"] if a["name"] == "lean-4.25.0-linux.tar.zst"))')
+          echo "official release digest: $official"
+          test "$official" = "sha256:$(sha256sum /tmp/lean.tar.zst | cut -c1-64)"
           mkdir -p /opt/lean && tar --zstd -xf /tmp/lean.tar.zst -C /opt/lean
           echo /opt/lean/lean-4.25.0-linux/bin >> "$GITHUB_PATH"
       - name: forbidden constructs

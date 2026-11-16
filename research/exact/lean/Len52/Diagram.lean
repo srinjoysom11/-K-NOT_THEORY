@@ -7,7 +7,7 @@
   A point p = (x, y, z) is drawn at  pi(p) = (Dz*x - Dx*z, Dz*y - Dy*z)  (pi(D) = 0, rank 2) and has height
   h(p) = Dx*x + Dy*y + Dz*z; at a crossing the strand of larger height is the over-strand.
 
-  Regular projection (Burde-Zieschang, Def. 1.? / Lickorish 1.1): the image of the polygon has only
+  Regular projection (Burde-Zieschang, Knots, Ch. 1; Lickorish, An Introduction to Knot Theory, Ch. 1): the image of the polygon has only
   finitely many multiple points, all of them double points, and no vertex is mapped onto a double point.
   For straight edges this is checked pair by pair below:
   * no edge is mapped to a point (D has no zero coordinate, so pi(unit d) != 0);

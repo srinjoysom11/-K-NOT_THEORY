@@ -1,7 +1,14 @@
 /-
   Len52.Spec — definitions for the proof that no lattice polygon of the knot type 5_2 has fewer than
-  36 edges.  Plain Lean 4 (no Mathlib).  Everything a reader must trust about the *statement* is in this
-  file; every other file only proves things about these definitions.
+  36 edges.  Plain Lean 4 (no Mathlib).
+
+  What a reader must check.  The main theorem `no_short` (Main.lean) mentions only: `KnotClass` (with
+  `IsPolygon`, `rotate1`, `revWord`, `IsSym`, `swapAt`, `removeUturn` and the helpers they use), defined
+  in this file; `TopHyp` (Statement.lean), which uses `diagram` and `HasNontrivialColoring`
+  (Diagram.lean); and `CompCert` (Cert.lean), which uses `searchPart` (Search.lean) and `colorCheck`
+  (Coloring.lean) only as the programs that are run.  Those definitions state the theorem.  The other
+  definitions in this file (`LexPos`, `CurtainOK`, `CornerOK`, `Survive`) are internal to the proof:
+  they do not occur in the type of `no_short`, so nothing about them has to be trusted.
 
   Conventions.
   * A direction is a natural number 0..5 standing for e, w, n, s, u, d = +x, -x, +y, -y, +z, -z.
