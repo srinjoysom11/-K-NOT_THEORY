@@ -21,12 +21,25 @@ jobs:
           ref: ${{ github.ref_name }}
       - id: src
         run: echo "run=$(python3 -c 'import json;print(int(json.load(open("research/exact/lean/ci/collect.json"))["run"]))')" >> "$GITHUB_OUTPUT"
-      - uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-          merge-multiple: true
-          run-id: ${{ steps.src.outputs.run }}
-          github-token: ${{ github.token }}
+      - name: download that run's artifacts, one at a time
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SRC_RUN: ${{ steps.src.outputs.run }}
+        run: |
+          set -e
+          mkdir -p artifacts zips
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$SRC_RUN/artifacts?per_page=100" \
+            -q '.artifacts[] | select(.expired | not) | "\(.id) \(.name)"' > list.txt
+          echo "artifacts: $(wc -l < list.txt)"
+          while read -r id name; do
+            for t in 1 2 3 4 5 6; do
+              gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" > "zips/$name.zip" && break
+              sleep $((t * 20))
+            done
+            unzip -q -o "zips/$name.zip" -d artifacts
+            sleep 1
+          done < list.txt
+          ls artifacts | wc -l
       - name: merge and commit
         env:
           SRC_RUN: ${{ steps.src.outputs.run }}
