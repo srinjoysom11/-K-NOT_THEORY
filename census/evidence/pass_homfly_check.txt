@@ -1,0 +1,7 @@
+# HOMFLY-PT invariance of kernel/pass on ml/pass_sample_2000.txt (1000 diagrams each from levels 11 and 12 that Regina simplify() cannot reduce), 2026-11-14T04:57:02Z
+## kernel/pass 
+2000 diagrams | HOMFLY mismatches: 0 | fewer crossings: 1110, same: 890, more: 0
+## kernel/pass --scramble 3
+2000 diagrams | HOMFLY mismatches: 0 | fewer crossings: 46, same: 168, more: 1786
+## kernel/pass --H 3 --paths 8 --seed 5
+2000 diagrams | HOMFLY mismatches: 0 | fewer crossings: 1119, same: 881, more: 0

@@ -1,0 +1,1 @@
+{"n": 14, "shadows_all": 170692, "shadows_kept": 19536, "diagrams_built": 10280094, "pruned_by_bigons": 149758818, "survivors": 828425, "identified": 326409, "new_alt": 19536, "new_nonalt": 27437, "t_enum": 124.81, "t_reduce": 105.59, "t_gen": 60.22, "t_close": 184.96, "t_write": 8.96, "t_id": 241.27, "wall": 814.05}  MISMATCH expected (19536, 27436)

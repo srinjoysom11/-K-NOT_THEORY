@@ -1,0 +1,11 @@
+183505 states from 2488 starts; train 165316, val 18189 (held-out starts)
+tensorized 183505 states in 6s (752 MB)
+epoch 1/8  train 1.313  val 0.998  val MAE 1.36  Spearman 0.688  (27s)
+epoch 2/8  train 0.772  val 0.741  val MAE 1.07  Spearman 0.792  (28s)
+epoch 3/8  train 0.552  val 0.618  val MAE 0.88  Spearman 0.836  (28s)
+epoch 4/8  train 0.439  val 0.601  val MAE 0.85  Spearman 0.850  (31s)
+epoch 5/8  train 0.367  val 0.706  val MAE 0.98  Spearman 0.817  (28s)
+epoch 6/8  train 0.298  val 0.628  val MAE 0.88  Spearman 0.834  (28s)
+epoch 7/8  train 0.240  val 0.667  val MAE 0.92  Spearman 0.832  (28s)
+epoch 8/8  train 0.204  val 0.662  val MAE 0.92  Spearman 0.832  (28s)
+saved ml/value_net.pt
