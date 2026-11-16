@@ -81,7 +81,7 @@
   --stroke-w: 2.6;
   --vertex: #58c4dd;
   --origin: #f2b84b;
-  --c0: #fc6255; --c1: #58c4dd; --c2: #83c167; --c3: #f2b84b; --c4: #b48ad6; --c5: #e07a3f; --c6: #5cd0b3;
+  --c0: #e8728a; --c1: #58c4dd; --c2: #83c167; --c3: #f2b84b; --c4: #b48ad6; --c5: #e07a3f; --c6: #5cd0b3;
   --font-display: "Source Sans 3", system-ui, sans-serif;
   --font-body: "Source Sans 3", system-ui, sans-serif;
   --font-num: "Source Sans 3", system-ui, sans-serif;
@@ -341,7 +341,7 @@ b, strong { font-weight: 600; }
   font-variant-numeric: tabular-nums; padding: .3rem .75rem; border-radius: 999px;
   background: color-mix(in srgb, var(--ground) 82%, transparent);
 }
-[data-theme="plates"] .readout { border-radius: 0; background: color-mix(in srgb, var(--ground-lit) 85%, transparent); }
+[data-theme="plates"] .readout, [data-theme="plates"] .readout.eqs { border-radius: 0; background: color-mix(in srgb, var(--ground-lit) 85%, transparent); }
 .readout b { color: var(--ink); font-weight: 600; }
 .readout.eqs { position: absolute; top: .8rem; right: 1rem; text-align: right; line-height: 1.5; font-size: .85rem; border-radius: 10px; }
 .readout.big { font-size: clamp(1.05rem, 1.6vw, 1.35rem); }
