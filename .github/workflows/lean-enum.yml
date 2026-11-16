@@ -133,7 +133,7 @@ jobs:
               parts = [f"{d}/parts/n{n}_{eng}.part{k}_{m}" for k in range(m)]
               done = [p for p in parts if os.path.exists(p + ".log") and os.path.exists(p + ".txt")
                       and "seconds=" in open(p + ".log").read()]
-              words = sorted({w.strip() for p in done for w in open(p + ".txt") if w.strip()})
+              words = sorted({w.strip() for p in done for w in open(p + ".txt") if w.strip() and not w.startswith("RESULT ")})
               nodes = 0
               for p in done:
                   mm = re.search(r"nodes=(\d+)", open(p + ".log").read())

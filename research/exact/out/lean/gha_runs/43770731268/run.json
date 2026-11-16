@@ -1,0 +1,15 @@
+{
+ "id": 43770731268,
+ "name": "lean-enum",
+ "path": ".github/workflows/lean-enum.yml",
+ "head_branch": "claude/great-einstein-snvnnb",
+ "head_sha": "b038a263dd8f7a9929d3953870657f1c1231ff66",
+ "event": "push",
+ "status": "completed",
+ "conclusion": "failure",
+ "run_attempt": 1,
+ "created_at": "2026-11-15T22:41:59Z",
+ "run_started_at": "2026-11-15T22:41:59Z",
+ "updated_at": "2026-11-16T13:05:07Z",
+ "html_url": "https://github.com/srinjoysom11/-K-NOT_THEORY/actions/runs/43770731268"
+}

@@ -1,0 +1,12 @@
+[
+ {
+  "attempt": 1,
+  "id": 133284831372,
+  "name": "collect",
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "2642d2bdfa1f76396af0fef94904559d763eea21",
+  "started_at": "2026-11-16T12:03:36Z",
+  "completed_at": "2026-11-16T12:10:47Z"
+ }
+]
