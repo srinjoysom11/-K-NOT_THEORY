@@ -1,1 +1,0 @@
-RESULT n=6 r=0 m=1 nodes=41 words=0 ok=true

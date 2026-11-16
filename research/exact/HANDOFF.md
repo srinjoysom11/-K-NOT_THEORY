@@ -20,14 +20,20 @@ Goal set by the user: a rigorous, formal proof with no doubt about pruned branch
   `.github/workflows/lean-proof.yml` rebuilds it on GitHub and prints the axioms.
 * **CompCert holds (16 Nov 2026).** It is equivalent to 1358 Booleans `checkPart n r` (Cert.lean),
   evaluated by `lake exe checkpart n r`. `python3 formal/verify_comp.py` accepts all 1358 parts and
-  writes out/lean/COMPCERT.txt. Where they ran:
-  - local (`lean/run_local.sh check n M parts...`): n <= 30 and n = 32 parts 128-255;
-  - GitHub Actions: run 43735396072 (n = 34, 1024 parts) and run 43770731268 (n = 32 parts 0-127,
-    plus the C++ cross-check for n = 30, 32, 34, which agrees at every length).
-  Both runs' own collect jobs were refused a push: the repository's default Actions token had
-  become read-only. `.github/workflows/lean-collect.yml` (started by editing lean/ci/collect.json)
-  downloaded their artifacts and committed them; lean-enum.yml now asks for `contents: write` itself.
-  `formal/repro.py k` re-runs k random GitHub parts locally (results in out/lean/REPRO.txt).
+  writes out/lean/COMPCERT.txt. Every part ran on GitHub Actions (lean-enum runs 43735396072,
+  43770731268, 43927007974); the C++ cross-check (in 43770731268) agrees at every length.
+* **Provenance = GitHub's job logs**, archived by `formal/gha_archive.py <run>` into
+  out/lean/gha_runs/<run>/. verify_comp accepts a part only if its committed log is byte-identical to
+  the block the job printed, in a successful job of a lean-enum run whose head commit has the frozen
+  sources and the same `run` job. After any new proof run: archive it, then re-run verify_comp.
+  The first two runs' collect jobs could not push (read-only default token); lean-collect.yml
+  (edit lean/ci/collect.json) commits an earlier run's artifacts. lean-enum.yml now requests
+  `contents: write` itself.
+* Reproduction: out/lean/REPRO.txt (8 random parts re-run locally, byte-identical); the 206 parts
+  first run locally were re-run on GitHub with byte-identical outputs.
+* Review: three adversarial rounds. Round 3 (referee report summarised in the commit messages
+  "referee round 3") found no mathematical error; its provenance and wording objections are fixed.
+* PDFs: paper/len52.pdf; formal/PROOF_RIGOROUS.pdf (pandoc -f gfm to HTML, then Chromium print).
 * Paper: paper/len52.tex (build: pdflatex, bibtex, pdflatex x2; numbers from paper/figs/make_figs.py).
   Site: site/ (data from site/build_data.py), published by .github/workflows/pages.yml from main.
 * If a GitHub part fails: re-run that job from the Actions page, or run the part locally with

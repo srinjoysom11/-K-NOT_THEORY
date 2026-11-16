@@ -574,16 +574,22 @@ A part counts as **accepted** only if all of the following hold:
 `formal/verify_comp.py` checks these conditions for all 1358 parts and writes
 `out/lean/COMPCERT.txt`.
 
-Where the parts run:
-* In the container: n ≤ 30, and parts 128–255 of n = 32, via `lean/run_local.sh check n M r…`. The
-  script refuses to run with uncommitted sources, rebuilds first, and logs a hash of the sources
-  (checked again after every part).
-* On GitHub Actions: parts 0–127 of n = 32 (run 43770731268) and all of n = 34 (run 43735396072), via
-  `.github/workflows/lean-enum.yml`, engine `check`. Each job builds from a clean checkout of the
-  commit, using the official Lean 4.25.0 release. The parts were committed by a github-actions[bot]
-  commit naming the run. The runs' own collect jobs could not push (the token was read-only), so
-  `.github/workflows/lean-collect.yml` (runs 43863149806 and 43864508106) downloaded the jobs'
-  artifacts unchanged and merged them with the same merge step.
+Where the parts ran. Every part was evaluated on GitHub Actions, by `.github/workflows/lean-enum.yml`
+with engine `check`. Each job builds from a clean checkout of the run's commit, using the official
+Lean 4.25.0 release:
+* run 43735396072: n = 34, all 1024 parts;
+* run 43770731268: n = 32, parts 0–127, plus the C++ cross-check for n = 30, 32 and 34;
+* run 43927007974: n = 4, …, 30 and n = 32, parts 128–255.
+
+The first two runs' own collect jobs could not push (the repository's default token was read-only),
+so `.github/workflows/lean-collect.yml` (runs 43863149806, 43864508106 and 43920494683) downloaded
+their artifacts and merged them with the same merge step. The third run committed its own parts.
+Neither matters for acceptance, which compares every committed log with GitHub's job log.
+
+The parts of the third run had first been evaluated in the container (`lean/run_local.sh`). The
+GitHub outputs are byte-identical to those local outputs for all 206 parts: none of the committed .txt
+files changed when the GitHub results replaced the local logs. The local logs remain in the git
+history.
 
 **8.1 Results.** `formal/verify_comp.py` accepts all 1358 parts: **CompCert holds** (out/lean/COMPCERT.txt).
 
@@ -619,9 +625,10 @@ c₇(5₂) = 49. By `no_short`, no polygon of length ≤ 34 has the knot type of
   PROOF.md) produced a subset of these words. Reidemeister simplification identified those as
   0_1, 3_1, 4_1, 5_1 for n ≤ 34. None of these has determinant divisible by 7, which is consistent
   with (b).
-* (f) **Reproduction of GitHub parts.** A random sample of the parts computed on GitHub Actions was
-  re-run in the container. Each produced an output byte-identical to the logged one (same
-  SHA-256); see out/lean/REPRO.txt.
+* (f) **Reproduction.** Two independent re-evaluations agree byte for byte with the logged outputs:
+  - 8 random parts of run 43735396072 (seed 2026; all happened to be n = 34) were re-run in the
+    container (out/lean/REPRO.txt);
+  - the 206 parts first run in the container were re-run on GitHub (run 43927007974).
 
 ---------------------------------------------------------------------------------------------------
 

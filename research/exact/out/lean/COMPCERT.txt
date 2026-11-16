@@ -14,8 +14,8 @@ n=28 parts=2 accepted=2 words=712 | cpp(M=1): words SAME | lean(M=2): words SAME
 n=30 parts=64 accepted=64 words=2782 | cpp(M=16): words SAME
 n=32 parts=256 accepted=256 words=7212 | cpp(M=64): words SAME
 n=34 parts=1024 accepted=1024 words=22070 | cpp(M=256): words SAME
-GitHub Actions runs that produced accepted parts: 43735396072 43770731268
-provenance: 1152 parts by archived GitHub job logs, 206 by local logs only
+GitHub Actions runs that produced accepted parts: 43735396072 43770731268 43927007974
+provenance: 1358 parts by archived GitHub job logs, 0 by local logs only
 COMPCERT (all checkPart n r = true, by the logs above): HOLDS
 cross-check (b) python colourings: 33000 of 33000 words have exactly 7
 cross-check (c) independent Survive checker: 33000 of 33000 words accepted

@@ -59,8 +59,7 @@ completeness of the search program, the soundness of the colouring certificates,
 of the 36-step example's diagram with the standard diagram of $5_2$ are kernel-checked, with no axioms
 beyond Lean's standard three.  The
 computation itself, \num{1358} closed Boolean terms evaluated by the compiled verified program
-(about \NNodes{} search nodes in all), was run on a laptop-sized container and on GitHub's free
-runners, and was cross-checked against a separate C\texttt{++} implementation of the same algorithm.
+(about \NNodes{} search nodes in all), was run on GitHub's free runners, and was cross-checked against a separate C\texttt{++} implementation of the same algorithm.
 We describe the mathematics, the search, and the engineering that made a proof of this size
 checkable.
 \end{abstract}
@@ -492,10 +491,10 @@ search for length $n$ restricted to part $r$ and check every returned word.  The
 \texttt{checkpart} evaluates exactly this term, prints the words and a final line
 \texttt{RESULT \dots\ ok=true}, and exits with status $0$ if and only if the term is true.
 
-\paragraph*{Where it ran.}  The total is about \NNodes{} search nodes.  Lengths up to 30, and
-half of the parts of length 32, ran in a 4-core container; the other half of length 32 and all 1024
-parts of length 34 ran on GitHub Actions, which offers twenty free 4-core runners at a time for
-public repositories.  At about $5\times10^5$ nodes per second per core, a part of length 34 took
+\paragraph*{Where it ran.}  The total is about \NNodes{} search nodes.  Every part ran on GitHub
+Actions, which offers twenty free 4-core runners at a time for public repositories.  (Lengths up to
+30 and half of length 32 had first been run in a 4-core container; the GitHub outputs are
+byte-identical to those.)  At about $5\times10^5$ nodes per second per core, a part of length 34 took
 between 40 and 90 minutes for most parts (median one hour); length 34 used about 1060 core-hours,
 about sixteen hours of wall time on the free runners.
 
@@ -509,7 +508,8 @@ proof runs are archived in the repository (GitHub keeps them only for a limited 
 own collect jobs could not push to the repository, so a second workflow downloaded their artifacts
 and committed them; the job-log check makes that step irrelevant to the proof.  The output of each
 part is deterministic, so anyone can re-run any part and compare hashes; we did so for a random
-sample of \num{8} GitHub parts, each byte-identical.
+sample of \num{8} parts of length 34 in our container, and the 206 parts first run in the container
+were re-run on GitHub, all byte-identical.
 
 \paragraph*{What is trusted.}  The compiled program evaluated the \num{1358} Booleans correctly: this
 rests on the Lean compiler and the compiled implementations in its core library (arrays, big
