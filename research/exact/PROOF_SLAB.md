@@ -182,6 +182,7 @@ knot types by `identify_rigorous.py` (must end `ALL RESOLVED`).
 | 36 | 1.2e9 | 66 | 3_1 (16), 4_1 (38), 0_1 (12) |
 | 38 | 4.3e9 | 178 | 3_1 (24), 4_1 (82), 5_1 (16), 0_1 (56) |
 | 40 | 1.6e10 | 140 | 3_1 (36), 4_1 (28), 5_1 (32), 0_1 (44) |
+| 42 | 6.0e10 | 713 | 3_1 (122), 4_1 (211), 5_1 (62), 5_2 (134), 0_1 (184) |
 
 With the lemmas above and the correctness of the program this gives:
 
@@ -201,6 +202,17 @@ With the lemmas above and the correctness of the program this gives:
 * **n_{1,5_2} = 42.** No 5_2 for n <= 40 (the run n = 40 is complete for all knot types by
   section 1a); the 42-edge polygon of section 5 is the upper bound. Every knot other than 3_1, 4_1,
   5_1, 5_2 (composites included) needs at least 42 edges in the 1-slab.
+* **n_{1,3_1#-3_1} = 44.** No composite for n <= 42 (complete for all knot types, section 1a);
+  the 44-edge square knot of section 5 is the upper bound. Every composite knot needs at least 44
+  edges in the 1-slab.
+* **Census of 5_2 in the 1-slab: 14 192 polygons, 7 096 per chirality** (`python3
+  check/slab_census.py out/slab/L1_n42.txt --alex "2,-3,2" --out out/slab/census_L1_5_2_n42.txt`;
+  flip closure 13 336). The published Monte Carlo count is 6 240 per chirality. This is the first
+  census that disagrees with arXiv:1204.6674, and the disagreement does not depend on the
+  completeness argument: the 14 192 listed polygons are distinct, closed, self-avoiding, of
+  height 1, length 42 and type 5_2 (checked one by one), so the published count is too low by
+  at least 856 per chirality, and by exactly 856 if the census argument (section 1) is right.
+  This fits the remark on BFACF in the 1-slab (section 5): the sampler misses some classes.
 * The 12 unknotted survivors at n = 36 are polygons from which no sequence of corner flips
   reaches a U-turn (also not when the flips may leave the slab, up to 200 000 states,
   `unknot_cert`): the search keeps them because it only removes polygons it can shorten.

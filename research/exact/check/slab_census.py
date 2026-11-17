@@ -33,6 +33,7 @@ def main():
     ap.add_argument('file')
     ap.add_argument('--alex', default=None)
     ap.add_argument('--limit', type=int, default=5000000)
+    ap.add_argument('--out', default=None, help='write all polygons found (one word per line)')
     ap.add_argument('--all48', action='store_true',
                     help='input is unconfined enum.cpp output: apply all 48 symmetries, then count by height')
     a = ap.parse_args()
@@ -71,6 +72,10 @@ def main():
         vs = word_to_verts(w)
         for g in G16:
             allp[canon(verts_to_word(apply_g(g, vs)))] = 1
+    if a.out:
+        with open(a.out, 'w') as f:
+            for w in sorted(allp):
+                f.write(w + '\n')
     hs = Counter()
     for w in allp:
         zs = [v[2] for v in word_to_verts(w)]
