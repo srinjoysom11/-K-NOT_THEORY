@@ -11,6 +11,9 @@ keep the z-axis); count distinct polygons up to translation. With the 8 symmetri
 determinant +1 only, the count splits by chirality.
 If the search output contains a polygon of every flip class (up to the symmetries the search
 uses), the count is the number of shortest polygons of that knot type in the slab.
+With --all48 the input is the output of the unconfined search (enum.cpp, normal form with
+#z <= #y <= #x) and all 48 symmetries are applied: at n = Len(K) this gives the shortest polygons
+of K in every slab in which Len(K) is attained.
 The height of every polygon (z-extent) is also tallied, which gives the counts for narrower
 slabs at the same length.
 """
@@ -30,6 +33,8 @@ def main():
     ap.add_argument('file')
     ap.add_argument('--alex', default=None)
     ap.add_argument('--limit', type=int, default=5000000)
+    ap.add_argument('--all48', action='store_true',
+                    help='input is unconfined enum.cpp output: apply all 48 symmetries, then count by height')
     a = ap.parse_args()
     words = [l.split()[-1] for l in open(a.file) if l.strip() and not l.startswith('#')]
     words = [w for w in words if set(w) <= set('ewnsud') and is_closed_saw(w)]
@@ -59,8 +64,8 @@ def main():
                 if len(seen) > a.limit:
                     sys.exit('limit hit')
     print(f'flip closure: {len(seen)}')
-    G16 = [g for g in group() if g[0][2] == 2]
-    assert len(G16) == 16
+    G16 = list(group()) if a.all48 else [g for g in group() if g[0][2] == 2]
+    assert len(G16) == (48 if a.all48 else 16)
     allp = {}
     for w in seen:
         vs = word_to_verts(w)
@@ -70,7 +75,7 @@ def main():
     for w in allp:
         zs = [v[2] for v in word_to_verts(w)]
         hs[max(zs) - min(zs)] += 1
-    print(f'polygons up to translation (16 slab symmetries applied): {len(allp)}')
+    print(f'polygons up to translation (16 slab symmetries applied; 48 with --all48): {len(allp)}')
     print('by height (z-extent): ' + ' '.join(f'{h}:{c}' for h, c in sorted(hs.items())))
     tot = 0
     for h, c in sorted(hs.items()):

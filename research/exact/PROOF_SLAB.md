@@ -210,3 +210,32 @@ So every non-trivial knot other than the trefoil needs at least 32 edges in the 
 (n_{2,4_1} >= 32; Monte Carlo value 32).
 
 (Further results are appended as `queue_slab.sh` finishes them.)
+
+### Slabs in which the bulk minimum is attained [C]
+
+If n = Len(K) then n_{L,K} = n exactly when some shortest polygon of K has height <= L, and the
+shortest polygons of K in the L-slab are the shortest polygons of K in space of height <= L.
+By the census argument of PROOF.md (flip closure of the output of the unconfined search, then
+all 48 symmetries) they can be counted from the unconfined runs:
+`python3 check/slab_census.py out/n36_prime.txt --alex "2,-3,2" --all48` and likewise for the
+others. Counts are up to translation, both chiralities together:
+
+| K | Len(K) | height 2 | <= 3 | <= 4 | all | published, per chirality, L = 2, 3, 4 |
+|---|---|---|---|---|---|---|
+| 3_1 | 24 | 304 | 3 320 | 3 328 | 3 328 | 152, 1 660, 1 664 |
+| 4_1 | 30 | 0 | 2 720 | 3 648 | 3 648 | (n_{2} = 32), 2 720, 3 648 (achiral: not doubled) |
+| 5_1 | 34 | 1 520 | 2 720 | 6 592 | 6 672 | 760, 1 360, 3 296 |
+| 5_2 | 36 | 1 440 | 49 584 | 110 672 | 114 912 | 720, 24 792, 55 336 |
+
+Every published count is reproduced exactly (twice the published value for the chiral knots).
+With Len(3_1) = 24 [Diao93], Len(4_1) = 30, Len(5_1) = 34 ([Scharein09], and the unconfined
+search here) and Len(5_2) = 36 (PROOF.md, Lean-checked) this gives:
+
+* n_{L,3_1} = 24 for all L >= 2;
+* n_{L,4_1} = 30 for all L >= 3, and n_{2,4_1} >= 32;
+* **n_{L,5_1} = 34 for all L >= 2**, with 1 520, 2 720, 6 592 shortest polygons for L = 2, 3, 4;
+* **n_{L,5_2} = 36 for all L >= 2**, with 1 440, 49 584, 110 672 shortest polygons for L = 2, 3, 4
+  (and 114 912 in space).
+
+Before this only n_{1,3_1} = 26 had a proof; the values above were Monte Carlo estimates.
+
