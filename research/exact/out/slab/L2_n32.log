@@ -1,0 +1,2 @@
+slab=2 N=32 parts=8 nodes=2032905699 survivors=210 bfs_limit_hits=0
+seconds=1067 threads=4 opts=-slab 2 -stair -tourcap 3 (sum over 8 local parts, out/slab/local/) slab.cpp=2c8fc7809a85b9fa

@@ -212,9 +212,11 @@ With the lemmas above and the correctness of the program this gives:
 | 26 | 2.6e7 | 74 | 3_1 |
 | 28 | 1.1e8 | 60 | 3_1 |
 | 30 | 4.7e8 | 34 | 3_1 |
+| 32 | 2.0e9 | 210 | 3_1 (50), 4_1 (160) |
 
-So every non-trivial knot other than the trefoil needs at least 32 edges in the 2-slab
-(n_{2,4_1} >= 32; Monte Carlo value 32).
+**n_{2,4_1} = 32**: no 4_1 for n <= 30; the 160 words with verdict 4_1 at n = 32 are explicit
+polygons; census (`python3 check/slab_census.py out/slab/L2_n32.txt --alex "1,-3,1"`): flip
+closure 4464, **6064** polygons, equal to the Monte Carlo count. (8 parts, `queue_slab_parts.sh`.)
 
 (Further results are appended as `queue_slab.sh` finishes them.)
 

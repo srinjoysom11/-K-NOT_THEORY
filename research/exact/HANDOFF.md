@@ -269,7 +269,7 @@ table are in `PROOF_SLAB.md`; keep that table current.
   (soft-wall annealing): 1-slab 5_2 42, 6_1 48, 6_2 48, 6_3 50, square 44, **granny 46 (published
   Monte Carlo value 48)**; 2-slab 6_1 42, 6_2 42, 6_3 44. Next, as runs finish:
   - 1-slab n = 40, 42 (local queue): no 5_2 and no composite => n_{1,5_2} = 42, n_{1,square} = 44.
-  - 2-slab n = 32 (local queue): 4_1 present => n_{2,4_1} = 32 (published 6064 polygons: census).
+  - Done 17 Nov: n_{1,5_1} = 38 (census 144) and n_{2,4_1} = 32 (census 6064), as published.
   - W = 1 arcs L = 21 + Actions run 1-slab n = 44: granny 44 or 46.
   - W = 2 arcs to L = 19: pair analysis gives the 2-slab composites at 40.
   - Actions 1-slab n = 46, 2-slab n = 38, 40: lower bounds for the six-crossing knots
