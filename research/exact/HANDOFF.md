@@ -275,9 +275,10 @@ table are in `PROOF_SLAB.md`; keep that table current.
   - Done: W = 1 arcs L = 21 (24 knotted, end points fix the handedness: no granny at 44 from a
     wall, 144 squares; PROOF_SLAB.md section 7). Granny = 46 once Actions 1-slab n = 44 shows none.
   - Done: W = 2 arcs L = 19: 448 square + 16 granny polygons at 40 = published counts (section 6).
-  - Submitted: W = 1 arcs L = 22, 23 (`ci/arc_request.json`, workflow `arc-enum.yml`, `arcslab
-    -part R M`); with the 1-slab n = 46 run they give the granny census at 46
-    (`check/arcslab_glue.py 1 21 23`, `1 22 22`).
+  - Done locally 17 Nov (4 parallel parts each, `arcslab -part R M`): W = 1 arcs L = 22 (86 knotted,
+    end points fix the handedness: 22+22 only squares) and L = 23 (1540): 21+23 gluings give 96
+    grannies at 46 (PROOF_SLAB.md section 7). The Actions arc run 44068540954 was cancelled as
+    redundant; `arc-enum.yml` stays for longer arcs.
   - W = 2 arcs to L = 19: pair analysis gives the 2-slab composites at 40.
   - Actions 1-slab n = 46, 2-slab n = 38, 40: lower bounds for the six-crossing knots
     (with the witnesses above: n_{1} = 48, 48, 50 and n_{2} = 42, 42, 44 if nothing shorter).
