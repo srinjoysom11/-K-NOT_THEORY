@@ -1,1 +1,1 @@
-{"runs": [{"n": 38, "m": 1000, "from": 250, "to": 500, "opts": "-stair -tourcap 3", "tag": "stair"}]}
+{"runs": [{"n": 38, "m": 1000, "from": 500, "to": 750, "opts": "-stair -tourcap 3", "tag": "stair"}]}
