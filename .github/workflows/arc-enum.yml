@@ -1,0 +1,118 @@
+# Half-slab arc enumeration (research/exact/arcslab.cpp | unknot_cert, PROOF_SLAB.md section 1a)
+# on parallel runners. Started by pushing a change to research/exact/ci/arc_request.json on this
+# branch: {"runs": [{"W": 1, "L": 23, "m": 64, "minsum": 24}]}. Each job runs 4 parts at once
+# (one per core); a last job merges them into research/exact/out/arcslab/.
+name: arc-enum
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: [research/exact/ci/arc_request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          req = json.load(open('research/exact/ci/arc_request.json'))
+          inc = []
+          for r in req["runs"]:
+              assert r["m"] % 4 == 0
+              for j in range(r["m"] // 4):
+                  inc.append({"W": r["W"], "L": r["L"], "m": r["m"], "s": r.get("minsum", 24), "j": j})
+          assert 0 < len(inc) <= 256, len(inc)
+          print("matrix=" + json.dumps({"include": inc}))
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build and self-test
+        working-directory: research/exact
+        run: |
+          g++ -O3 -std=c++17 -o arcslab arcslab.cpp
+          g++ -O3 -std=c++17 -o unknot_cert unknot_cert.cpp
+          # the stored W = 1, L = 17 run: same counts, and every closure certified
+          ./arcslab 17 -w 1 -minsum 24 2> t.log | ./unknot_cert > t.left 2>> t.log; cat t.log
+          grep -o "tested=[0-9]* one_bridge=[0-9]* printed=[0-9]*" out/arcslab/w1_L17.log > want
+          grep -o "tested=[0-9]* one_bridge=[0-9]* printed=[0-9]*" t.log > got
+          cmp want got; test ! -s t.left
+      - name: enumerate 4 parts
+        working-directory: research/exact
+        run: |
+          W=${{ matrix.W }}; L=${{ matrix.L }}; m=${{ matrix.m }}; S=${{ matrix.s }}; j=${{ matrix.j }}
+          mkdir -p parts
+          for r in $((4*j)) $((4*j+1)) $((4*j+2)) $((4*j+3)); do
+            ( base=parts/w${W}_L${L}.part${r}_${m}; s=$(date +%s)
+              ./arcslab $L -w $W -minsum $S -part $r $m 2> $base.log | ./unknot_cert > $base.left 2>> $base.log
+              echo "seconds=$(( $(date +%s) - s )) host=github-actions arcslab.cpp=$(sha256sum arcslab.cpp | cut -c1-16) commit=$GITHUB_SHA" >> $base.log ) &
+          done
+          wait
+          cat parts/*.log
+      - uses: actions/upload-artifact@v4
+        with:
+          name: w${{ matrix.W }}_L${{ matrix.L }}.job${{ matrix.j }}_${{ matrix.m }}
+          path: research/exact/parts/
+          retention-days: 30
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: merge and commit
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            mkdir -p research/exact/out/arcslab/ci
+            cp artifacts/*.left artifacts/*.log research/exact/out/arcslab/ci/ 2>/dev/null || true
+            python3 - <<'PY'
+          import glob, os, re
+          out = "research/exact/out/arcslab"
+          ci = out + "/ci"
+          sets = set()
+          for f in glob.glob(ci + "/w*_L*.part*_*.log"):
+              g = re.match(r"w(\d+)_L(\d+)\.part(\d+)_(\d+)\.log$", os.path.basename(f))
+              if g: sets.add((int(g.group(1)), int(g.group(2)), int(g.group(4))))
+          for W, L, m in sorted(sets):
+              parts = [f"{ci}/w{W}_L{L}.part{k}_{m}" for k in range(m)]
+              done = [p for p in parts if os.path.exists(p + ".log") and "seconds=" in open(p + ".log").read()]
+              status = "COMPLETE" if len(done) == m else f"INCOMPLETE {len(done)} of {m} parts"
+              print(W, L, m, status)
+              if len(done) != m or os.path.exists(f"{out}/w{W}_L{L}.log"):
+                  continue
+              logs = [open(p + ".log").read() for p in parts]
+              tot = lambda key: sum(int(x) for t in logs for x in re.findall(rf"\b{key}=(\d+)", t))
+              open(f"{out}/w{W}_L{L}.left", "w").write("".join(open(p + ".left").read() for p in parts))
+              open(f"{out}/w{W}_L{L}.log", "w").write(
+                  f"L={L} W={W} parts={m} tested={tot('tested')} one_bridge={tot('one_bridge')} printed={tot('printed')}\n"
+                  f"words={tot('words')} bad={tot('bad')} certified_unknot={tot('certified_unknot')} unresolved={tot('unresolved')}\n"
+                  f"seconds={tot('seconds')} host=github-actions (sum over parts; see ci/w{W}_L{L}.part*_{m}.log)\n")
+          PY
+            git add research/exact/out/arcslab
+            git commit -q -m "exact: half-slab arc parts from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done

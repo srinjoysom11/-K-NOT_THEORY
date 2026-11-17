@@ -1,0 +1,7 @@
+L=16 W=2 minsum=22 uturns=0 walks_ending_on_level0=42070283 tested=36202666 one_bridge=36099356 printed=103310
+maxima along x: 0:0 1:33636984 2:2565160 3:522 4:0 5:0 6:0 7:0
+maxima along y: 0:58908 1:16745980 2:18964832 3:432946 4:0 5:0 6:0 7:0
+maxima along z: 0:0 1:30627786 2:5569410 3:5470 4:0 5:0 6:0 7:0
+words=103310 bad=0 certified_unknot=103310 unresolved=0 flip_searches=656748 limit=200000
+final_length 4: 103310
+seconds=35 arcslab.cpp=58c327977cf41d35
