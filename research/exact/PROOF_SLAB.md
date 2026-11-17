@@ -70,8 +70,51 @@ U-turn by Lemma 1, and Lemma 4 is about all arcs in a half-space). So:
 * for n >= 40 it is complete for **prime** knot types. For composite knots at n >= 40 one
   needs an arc lemma for the half-slab (arcs in x >= 0, 0 <= z <= L, with both ends on x = 0):
   if every such arc with at most m edges and no U-turn is unknotted, a twice-crossed vertical
-  plane with knotted arcs on both sides needs 2 m + 4 edges. Not computed yet [J: for L = 1 one
-  needs m = 20 to make n = 42 complete, which would settle the square knot at 44].
+  plane with knotted arcs on both sides needs at least 2 (m + 1) + 2 = 2 m + 4 edges. For
+  L = 1 and L = 2 there is no horizontal mid-plane with two occupied levels on each side, so
+  vertical planes are the only ones that matter. **Done for L = 1 with m = 20 (section 1a)**:
+  in the 1-slab the output is complete for all knot types for n <= 42.
+
+## 1a. Short arcs in a half-slab are unknotted (L = 1) [C]
+
+Let b be a self-avoiding walk with no U-turn in the half-slab x >= 0, 0 <= z <= 1, with end
+points A != B on the wall level x = 0. Its closure C(b) (b, one edge out of the half-slab at
+each end, and a shortest path between them in the level x = -1 that stays in 0 <= z <= 1) is a
+polygon in the 1-slab with |b| + d(A, B) + 2 edges, and the ball-arc pair of b is knotted
+exactly when C(b) is knotted (the region x < 0 of the slab is a ball, and any two closing paths
+in it are isotopic there).
+
+**Lemma 4' (half-slab, L = 1).** If b has at most 20 edges, C(b) is unknotted.
+
+*Proof (computer).* If |b| + d + 2 < 26 then C(b) is unknotted, since every knotted polygon in
+the 1-slab has at least 26 edges (section 4: no survivors for n <= 24, complete for all knot
+types). Otherwise |b| + d >= 24. `arcslab L -w 1 -minsum 24` lists all such b (in its
+coordinates the wall is z = -1/2 and the slab direction is y) and counts local maxima of the
+closure along each axis; the closures with two or more maxima on every axis go to
+`unknot_cert`, which shrinks each to the square. `./run_arcslab.sh 1 24 12 ... 20`, logs in
+`out/arcslab/w1_L<L>.log`, leftovers (none) in `.left`:
+
+| L | walks tested (L + d >= 24) | one local maximum on some axis | shrunk to the square | left over | seconds |
+|---|---|---|---|---|---|
+| 12 | 28 | 28 | 0 | 0 | 0 |
+| 13 | 2 034 | 2 034 | 0 | 0 | 0 |
+| 14 | 42 840 | 42 840 | 0 | 0 | 0 |
+| 15 | 416 484 | 416 484 | 0 | 0 | 0 |
+| 16 | 2 350 688 | 2 350 688 | 0 | 0 | 2 |
+| 17 | 10 214 446 | 10 186 620 | 27 826 | 0 | 11 |
+| 18 | 39 244 808 | 38 944 130 | 300 678 | 0 | 44 |
+| 19 | 139 909 788 | 138 038 174 | 1 871 614 | 0 | 174 |
+| 20 | 473 508 342 | 464 202 880 | 9 305 462 | 0 | 679 |
+
+For L <= 11, L + d >= 24 is impossible. []
+
+**Corollary.** In the 1-slab a slab-shortest polygon with a twice-crossed vertical plane and a
+knotted arc on each side has at least 21 + 21 + 2 = 44 edges. So `slab n -slab 1 -stair` is
+complete for all knot types for n <= 42, and n_{1,3_1 # +-3_1} >= 44 as soon as the 1-slab runs
+to n = 42 show no composite. At n = 44 (square knot, Monte Carlo value 44) the only extra
+polygons are two knotted 21-edge arcs glued across a wall; `check/arcslab_pairs.py` lists the
+knotted 21-edge arcs (`./run_arcslab.sh 1 24 21`) with their end points and chirality and decides
+which composites such gluings can give.
 
 **Canonical position** (PROOF.md section 3) is unchanged: the least vertex in (z, y, x) order
 is the origin, so the polygon lies in 0 <= z <= (its height), and the search only visits
@@ -160,5 +203,10 @@ With the lemmas above and the correctness of the program this gives:
 | 22 | 1.6e6 | 0 | |
 | 24 | 6.3e6 | 20 | 3_1 |
 | 26 | 2.6e7 | 74 | 3_1 |
+| 28 | 1.1e8 | 60 | 3_1 |
+| 30 | 4.7e8 | 34 | 3_1 |
+
+So every non-trivial knot other than the trefoil needs at least 32 edges in the 2-slab
+(n_{2,4_1} >= 32; Monte Carlo value 32).
 
 (Further results are appended as `queue_slab.sh` finishes them.)
