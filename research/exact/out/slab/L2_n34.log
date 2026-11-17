@@ -1,0 +1,2 @@
+slab=2 N=34 parts=16 nodes=8997673384 survivors=728 bfs_limit_hits=0
+seconds=2859 threads=4 opts=-slab 2 -stair -tourcap 3 (sum over 16 local parts, out/slab/local/) slab.cpp=2c8fc7809a85b9fa

@@ -234,6 +234,12 @@ With the lemmas above and the correctness of the program this gives:
 polygons; census (`python3 check/slab_census.py out/slab/L2_n32.txt --alex "1,-3,1"`): flip
 closure 4464, **6064** polygons, equal to the Monte Carlo count. (8 parts, `queue_slab_parts.sh`.)
 
+| 34 | 9.0e9 | 728 | 3_1 (124), 4_1 (480), 5_1 (48), 0_1 (76) |
+
+Cross-check of the two programs: the 5_1 census from the 2-slab run n = 34 is **1520**, the
+same as from the unconfined run (section "Slabs in which the bulk minimum is attained") and the
+published count.
+
 (Further results are appended as `queue_slab.sh` finishes them.)
 
 ### Slabs in which the bulk minimum is attained [C]
