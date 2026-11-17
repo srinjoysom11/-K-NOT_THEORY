@@ -282,3 +282,21 @@ BFACF in slabs does not seem to be proved in the literature (arXiv:1204.6674 cit
 theorem of Janse van Rensburg and Whittington). This is a plausible reason why the published
 value for the granny knot is too high, and a reason to check every Monte Carlo slab value
 against exact runs.
+
+**Knots to 8 crossings (1-slab), against the published table.** The published values for all
+knots to 8 crossings and eight composites are in `data/slab_published.txt` (arXiv:1204.6674,
+Tables 5 and 7). Starting from the diagram seeds of `research/data/seeds.json` (height 1
+already) and from braid words for the composites, `anneal_soft.sh 1 ...` finds polygons of the
+published length for 7_1-7_6, 8_1-8_5, 8_7-8_9, 8_13, 8_17, 8_19-8_21 (4 seeds each; the
+others are still above it) and nothing shorter for any prime knot. Composites are different:
+the granny knot is the case found shorter (46 against 48). Checks:
+`python3 check/slab_witnesses8.py out/slab/witness_L1.txt 1 > out/slab/witness_L1.best.txt`
+(SnapPy simplification to <= 8 crossings, then the Alexander/Jones fingerprint, which separates
+all knots of crossing number <= 8 including the composites), then
+`python3 check/slab_compare.py out/slab/witness_L1.best.txt 1`.
+
+**Structure of the short composite polygons.** All three 46-edge granny polygons found split
+along a twice-crossed vertical wall into two knotted arcs of 21 and 23 edges whose closures are
+trefoils of the same handedness; the 44-edge square knots split into 21 + 21 with opposite
+handedness. Since knotted half-slab arcs have at least 21 edges (section 1a), the question
+"granny at 44?" is a question about the 21-edge trefoil arcs alone (`check/arcslab_glue.py 1 21 21`).
