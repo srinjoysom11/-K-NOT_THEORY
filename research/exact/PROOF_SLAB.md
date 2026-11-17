@@ -369,3 +369,14 @@ output at n = 44 contains it (if it is slab-shortest). Hence **n_{1,3_1#3_1} = 4
 the polygon of section 5, which is a 21 + 23 gluing. (2) n_{1,3_1#-3_1} = 44 as soon as the runs to
 n = 42 show no composite; the census at 44 is 144 plus the square knots of the n = 44 run without
 such a wall (the published count 144 suggests there are none).
+
+**22-edge arcs (W = 1).** `arcslab 22 -w 1 -minsum 24 -part r 4 | unknot_cert` for r = 0..3 (run
+locally in parallel; parts r and r + 2 have identical statistics by the reflection symmetry of
+the strip; the partition was checked at L = 17, where 4 and 6 parts add up to the full counts):
+4 872 191 756 walks tested, 86 closures left, all trefoils (43 of each handedness), with end points
+(0, 3, 1) for every left-handed and (1, 3, 0) for every right-handed one. Again **the end points
+determine the handedness**, so 22 + 22 gluings give only square knots (2304 polygons of length 46,
+`out/arcslab/glue_w1_22_22.txt`) and 21 + 22 gluings give nothing (no common end points).
+Hence a granny polygon in the 1-slab with a twice-crossed wall and knotted arcs on both sides
+has at least 21 + 23 + 2 = 46 edges, and at 46 it is a 21 + 23 gluing, as the three 46-edge
+grannies of section 5 are. The 23-edge arcs (Actions, `ci/arc_request.json`) give all of them.
