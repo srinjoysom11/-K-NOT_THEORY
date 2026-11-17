@@ -1,0 +1,7 @@
+5_2	42	height<=1	wdwssussseeednnuwwdwwnuneedeeseusswwdnnunn
+6_1	48	height<=1	uswwwdnnneeeuenndwwsusssdseeunnwdwwunnneesdesssw
+6_2	48	height<=1	sdssuseeendennwunwwdwwssueedeeuessdwwnunndnnwwus
+6_3	50	height<=1	eeeessdwwwwuwnndeesussdseeunnndeesswwwuswwdnwnneun
+granny	46	height<=1	sseuennwdnwwwwunneesssdwwwnneeussseeedennuwwsd
+square	44	height<=1	endennuwwssdseeunnwdwwwsuwssdeennunwwdsseuee
+0 rejected
