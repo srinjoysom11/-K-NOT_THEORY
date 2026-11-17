@@ -248,10 +248,11 @@ published proof; arXiv:1204.6674 gives Monte Carlo values and counts for knots t
 in the logs of the unconfined results). Why the lemmas still hold, the checks, and the results
 table are in `PROOF_SLAB.md`; keep that table current.
 
-* Run: `nohup ./queue_slab.sh > queue.out 2>&1 &` (default list of L:n pairs inside the
-  script; a different list as first argument, e.g. `./queue_slab.sh "1:44 2:36"`). It skips
-  finished runs (log has `seconds=`), so it can be restarted after a container loss; an
-  unfinished run leaves only `.tmp` files and starts again.
+* Run: `nohup ./queue_slab_parts.sh "1:38:8 2:32:8 1:40:16 2:34:16 1:42:48" > q.out 2>&1 &`
+  (items L:n:m; m parts per run, parts in `out/slab/local/`, merged into `out/slab/L<L>_n<n>.*`
+  when all are done). Use this rather than the older `queue_slab.sh`: the container is often
+  restarted and then a whole unpartitioned run is lost; here at most one part is lost.
+  Restartable: finished parts (log has `seconds=`) are skipped; delete `*.tmp` first.
 * After each run: `./slab_report.sh` (one line per run), or `python3 identify_rigorous.py out/slab/L1_n36.txt` (must end ALL RESOLVED),
   and at a minimal length the census, e.g.
   `python3 check/slab_census.py out/slab/L1_n36.txt --alex "1,-3,1"`; compare with the
@@ -272,9 +273,26 @@ table are in `PROOF_SLAB.md`; keep that table current.
   bounds for 6_1 and 6_2 (48 in the 1-slab, 42 in the 2-slab); the upper bounds need explicit
   polygons (anneal inside the slab with `research/code` bfacf, ZMAX argument, or run the
   census length itself).
-* Composite knots at n >= 40 need a half-slab arc lemma (PROOF_SLAB.md section 1); for
-  n <= 38 nothing extra is needed, so n_{2,3_1#3_1} = n_{2,3_1#-3_1} = 40 would follow from
-  the 2-slab runs up to n = 38 plus two 40-edge polygons of height 2.
+* Composite knots: the half-slab arc lemma is done for L = 1 up to 20 edges
+  (PROOF_SLAB.md section 1a; `./run_arcslab.sh 1 24 L...`), so the 1-slab search is complete
+  for all knot types to n = 42. Running: L = 21 for W = 1 (knotted 21-edge arcs exist; then
+  `python3 check/arcslab_pairs.py 1 21` decides what two such arcs glued across a wall give:
+  square/granny at 44) and W = 2 (`./run_arcslab.sh 2 22 11 ... 19`; minsum 22 because every
+  knot in the 2-slab has >= 24 edges); with W = 2 up to 18 edges plus the pair analysis at 19,
+  the 2-slab composites at 40 are settled.
+* Upper bounds (explicit polygons): `bfacf_slab H WORD SEED CYCLES N_HIGH N_LOW ZMAX ZLOW [last]`
+  is research/code/bfacf.c confined to the H-slab; start words from `braid2slab.py "1,1,2,-1,-3,2,-3"`
+  (any braid closure, as a polygon in the 1-slab); check results with `check/slab_word.py WORD`
+  (length, height, knot type). In the 1-slab use ZMAX about 0.5, ZLOW about 0.05 (the slab's
+  critical fugacity is well above the bulk 0.2135).
+  **Caution [observation, 17 Nov]:** from the braid start, 4_1 always ends at 44 edges, even
+  after excursions to 400+ edges, while from a 36-edge census polygon it always returns to 36.
+  So BFACF inside the 1-slab looks non-ergodic on a knot type, or mixes extremely slowly (no
+  proof of irreducibility in slabs seems to be published; arXiv:1204.6674 relies on the bulk
+  theorem). Hence (a) annealing in the 1-slab needs many different starts and cannot replace
+  the enumeration, and (b) the published Monte Carlo slab values could be too high for some
+  knots: compare every exact result with them (5_2 at L = 1: published 42, exact run n = 40
+  decides whether it is lower).
 
 ## 4. Things that went wrong here (do not repeat)
 
