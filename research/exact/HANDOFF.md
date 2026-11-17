@@ -280,8 +280,10 @@ table are in `PROOF_SLAB.md`; keep that table current.
   `ci/slab_request.json` (runs with L, n, m and optional from/to, opts). Parts land in
   `out/slab/ci/L<L>_n<n>.part<r>_<m>.*`; when all parts of a run are there the collect job
   writes `out/slab/L<L>_n<n>.txt` and `.log` (so `slab_report.sh` and `queue_slab.sh` see it).
-  Submitted 17 Nov: 1-slab n = 44 (16 parts), 46 (64); 2-slab n = 36 (4), 38 (16), 40 (64);
-  about 210 runner-hours, queued behind the n = 38 run and the Lean runs. They give the lower
+  Submitted 17 Nov (re-submitted 10:00 UTC, the first run was based on a commit without the
+  self-test reference files): 1-slab n = 44 (16 parts), 46 (64); 2-slab n = 40 (64); about 190
+  runner-hours, queued behind the n = 38 run and the Lean runs. (2-slab n = 36, 38 dropped:
+  with the unconfined n = 38 run they add nothing.) They give the lower
   bounds for 6_1 and 6_2 (48 in the 1-slab, 42 in the 2-slab); the upper bounds need explicit
   polygons (anneal inside the slab with `research/code` bfacf, ZMAX argument, or run the
   census length itself).
