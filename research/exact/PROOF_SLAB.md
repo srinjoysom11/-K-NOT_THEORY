@@ -180,6 +180,7 @@ knot types by `identify_rigorous.py` (must end `ALL RESOLVED`).
 | 32 | 9.1e7 | 10 | 3_1 |
 | 34 | 3.2e8 | 12 | 3_1 |
 | 36 | 1.2e9 | 66 | 3_1 (16), 4_1 (38), 0_1 (12) |
+| 38 | 4.3e9 | 178 | 3_1 (24), 4_1 (82), 5_1 (16), 0_1 (56) |
 
 With the lemmas above and the correctness of the program this gives:
 
@@ -190,6 +191,12 @@ With the lemmas above and the correctness of the program this gives:
   words of `out/slab/L1_n36.txt` with verdict 4_1 are explicit polygons. The census
   (`python3 check/slab_census.py out/slab/L1_n36.txt --alex "1,-3,1"`) gives a flip closure of
   1140 words and **1480** polygons, equal to the Monte Carlo count of arXiv:1204.6674.
+* **n_{1,5_1} = 38.** No 5_1 for n <= 36; the 16 words of `out/slab/L1_n38.txt` with verdict 5_1
+  are explicit polygons; census (`--alex "1,-1,1,-1,1"`): flip closure 144 = **144** polygons
+  (72 per chirality), equal to the Monte Carlo count. Every knot other than 3_1, 4_1, 5_1 needs at
+  least 40 edges in the 1-slab. (n = 38 ran in 8 parts with `queue_slab_parts.sh`; its 26
+  `bfs_limit_hits` are candidates kept because the flip search hit its limit, which can only add
+  survivors.)
 * The 12 unknotted survivors at n = 36 are polygons from which no sequence of corner flips
   reaches a U-turn (also not when the flips may leave the slab, up to 200 000 states,
   `unknot_cert`): the search keeps them because it only removes polygons it can shorten.
