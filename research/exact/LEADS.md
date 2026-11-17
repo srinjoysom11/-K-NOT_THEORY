@@ -197,11 +197,13 @@ reporting, and the conjecture would fall back to the best slope the data allow.
 
 ## 4. Smaller openings that use the same engine
 
-* **Slabs and tubes.** Restrict z to {0, ..., L} (a few lines in `enum.cpp`; the lemmas hold
-  because every push used in them moves inwards). The tree is far smaller, so exact shortest
-  lengths in the 1-slab and 2-slab for all knots to 6 or 7 crossings look reachable. Known:
-  the trefoil needs 26 in the 1-slab [Ishihara12]. Check the tube papers of Ishihara,
-  Shimokawa and coauthors (2017) before claiming.
+* **Slabs and tubes.** Started 17 Nov 2026: `slab.cpp`, `PROOF_SLAB.md`, HANDOFF.md
+  section 3a. The lemmas hold in a slab because no move used in them leaves the bounding box.
+  The tree is far smaller (factor 3.5 per two edges in the 1-slab against about 5.5
+  unconfined), so exact values for all knots to 6 crossings in the 1- and 2-slab are within
+  reach. Known with proof before: only n_{1,3_1} = 26 [Ishihara et al. 2012]; numerical values
+  and counts in arXiv:1204.6674, which the census reproduces. Tubes (two confined
+  coordinates) are the same change once more and are not started.
 * **FCC lattice.** Two consecutive steps whose sum is a lattice vector can always be replaced
   by that vector, so a shortest FCC polygon has only 7 continuations per step. The
   conjectured Len_FCC(4_1) = 20 ([MannML] open question 2) needs n <= 19. Needs a new

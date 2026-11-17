@@ -112,6 +112,8 @@ Next: n = 38 (section 3, step 4); the arc lemma for 18 edges that it needs is do
 | `arcknot.cpp`, `unknot_cert.cpp` | Lemma 4 (PROOF.md 2b): arcs of at most 16 edges in a half-space are unknotted; `./arcknot L \| ./unknot_cert` |
 | `check/census_from_survivors.py` | full census of a knot type at its minimal length from the survivors (flip closure and symmetries) |
 | `.github/workflows/exact-enum.yml`, `ci/request.json` | the enumeration on GitHub Actions (section 3) |
+| `slab.cpp`, `queue_slab.sh`, `PROOF_SLAB.md`, `check/slab_census.py`, `out/slab/` | shortest knots confined to a slab 0 <= z <= L (section 3a) |
+| `check/witness40.py`, `out/witness40.txt` | 40-edge polygons of 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1 and their check (upper bounds for section 3 step 4) |
 | `raster.cpp` | site-by-site sweep, same conditions; 3.9e9 nodes at n = 22 against 1.5e7, kept as a negative result and as the starting point for lead 2 |
 | `../colab/colab_il_T4.log` | the one Colab training run (section 5) |
 
@@ -237,6 +239,33 @@ lead 2), not a faster bound.
 
 Parts are independent, so more cores shorten this in proportion. Commit `out/` after each
 batch of parts; the logs are the evidence.
+
+## 3a. Slab-confined minimal lengths (started 17 Nov 2026)
+
+n_{L,K} = fewest edges of a polygon of type K inside 0 <= z <= L. Only n_{1,3_1} = 26 has a
+published proof; arXiv:1204.6674 gives Monte Carlo values and counts for knots to 7 crossings.
+`slab.cpp` is `enum.cpp` plus `-slab L` (enum.cpp itself is left untouched because its hash is
+in the logs of the unconfined results). Why the lemmas still hold, the checks, and the results
+table are in `PROOF_SLAB.md`; keep that table current.
+
+* Run: `nohup ./queue_slab.sh > queue.out 2>&1 &` (default list of L:n pairs inside the
+  script; a different list as first argument, e.g. `./queue_slab.sh "1:44 2:36"`). It skips
+  finished runs (log has `seconds=`), so it can be restarted after a container loss; an
+  unfinished run leaves only `.tmp` files and starts again.
+* After each run: `python3 identify_rigorous.py out/slab/L1_n36.txt` (must end ALL RESOLVED),
+  and at a minimal length the census, e.g.
+  `python3 check/slab_census.py out/slab/L1_n36.txt --alex "1,-3,1"`; compare with the
+  published count (4_1: 1480 at L = 1, 6064 at L = 2; 5_1: 72 per chirality at L = 1, 760 at
+  L = 2; 5_2: 6240 per chirality at L = 1). A match is an independent test of the search.
+* Cost [C]: the 1-slab grows by 3.5 per two edges (n = 34: 91 s on 4 cores, so n = 40 about
+  1 h, n = 42 about 4 h, n = 48 about 170 h: use Actions); the 2-slab by about 4.4
+  (n = 26: 12 s, n = 34 about 1.3 h, n = 40 about 100 core-hours).
+* Targets, in order: n_{1,4_1} = 36, n_{1,5_1} = 38, n_{2,4_1} = 32, n_{1,5_2} = 42,
+  n_{2,5_1} = 34 (local); then 6_1, 6_2 (1-slab 48, 2-slab 42), 6_3 (50, 44) on Actions with
+  a workflow that builds `slab.cpp` (copy `exact-enum.yml`; `-part R M` works as in enum).
+* Composite knots at n >= 40 need a half-slab arc lemma (PROOF_SLAB.md section 1); for
+  n <= 38 nothing extra is needed, so n_{2,3_1#3_1} = n_{2,3_1#-3_1} = 40 would follow from
+  the 2-slab runs up to n = 38 plus two 40-edge polygons of height 2.
 
 ## 4. Things that went wrong here (do not repeat)
 
