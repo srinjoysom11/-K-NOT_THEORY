@@ -288,7 +288,9 @@ table are in `PROOF_SLAB.md`; keep that table current.
   writes `out/slab/L<L>_n<n>.txt` and `.log` (so `slab_report.sh` and `queue_slab.sh` see it).
   Submitted 17 Nov (re-submitted 10:00 UTC, the first run was based on a commit without the
   self-test reference files): 1-slab n = 44 (16 parts), 46 (64); 2-slab n = 40 (64); about 190
-  runner-hours, queued behind the n = 38 run and the Lean runs. (2-slab n = 36, 38 dropped:
+  runner-hours, queued behind the n = 38 run and the Lean runs (run 44060487866; runs 43987782203
+  and 44057098590 were cancelled but still showed `queued` at 10:50 UTC: cancel again if they
+  start). (2-slab n = 36, 38 dropped:
   with the unconfined n = 38 run they add nothing.) They give the lower
   bounds for 6_1 and 6_2 (48 in the 1-slab, 42 in the 2-slab); the upper bounds need explicit
   polygons (anneal inside the slab with `research/code` bfacf, ZMAX argument, or run the
