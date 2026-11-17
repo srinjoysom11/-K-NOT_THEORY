@@ -1,0 +1,6 @@
+# 40-edge polygons; checked by check/witness40.py
+6_1 dnnuuunwwwddeeeesswwsuunndddnnuuwssseesd
+6_2 dddwwuuessseennnndwwsswuueeeesddwwuuunnd
+6_3 nuuuuwwddneeesssuwwnnnnddssseeeuuwwdsddn
+3_1#3_1 uessddnndwwwuwsseennnwdwsseuueeeeddwwunu
+3_1#-3_1 nneesssuuwnndddeeeuuesswdwnnneesswuwwwwd

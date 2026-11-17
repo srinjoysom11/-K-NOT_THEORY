@@ -157,6 +157,11 @@ commit "exact: enumeration parts from GitHub Actions run ..." on this branch.
    knot outside {0_1, 3_1, 4_1, 5_1, 5_2} survives, then Len(6_1) = Len(6_2) = Len(6_3) =
    Len(3_1 # 3_1) = 40. The arc lemma for 18 edges, needed for composites at n = 38, is
    done (`out/arc/arc18.log`: 3.57e9 arcs, none knotted).
+   The upper bounds are in the repo: `out/witness40.txt` has one 40-edge polygon each of
+   6_1, 6_2, 6_3, the granny knot 3_1 # 3_1 and the square knot 3_1 # -3_1, and
+   `python3 check/witness40.py` identifies them (6-crossing diagram, Alexander polynomial,
+   and the Jones polynomial to tell granny from square); it must end ALL WITNESSES OK.
+   So an empty n = 38 gives Len = 40 for all five.
 5. Local cross-checks. n = 30 with `-tourcap 3` (`out/n30_primec3.part*`): done, the same
    190 words as `out/n30_prime.txt`. n = 30 with `-stair -tourcap 3` (`out/n30_stair.part*`):
    done, the same 190 words, 2.16e9 nodes against 2.64e9. n = 32 with `-stair -tourcap 3`
