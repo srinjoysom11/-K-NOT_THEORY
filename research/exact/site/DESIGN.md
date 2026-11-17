@@ -137,18 +137,20 @@ components:
 
 ## Overview
 
-**Creative North Star: "One specimen, engraved, followed down a folio."**
+**Creative North Star: "One theorem, every branch within reach."**
 
-The site is a single long sheet in the manner of the engraved knot tables of the 1870s and 1880s: cool laid paper, indigo ink, small-cap furniture, roman plate numbers. Its subject, the 36-step polygon, is a real three-dimensional model drawn in the browser as a copperplate engraving. It stays pinned beside the text while the reader scrolls: it turns, it is laid stick by stick, and at the end it turns to the direction (3, −2, 8), thins to a line and takes a seven-colouring. Everything else is a plate in the flow.
+The site is an atlas of one theorem, in the manner of the engraved knot tables of the 1870s and 1880s: cool laid paper, indigo ink, small-cap furniture, roman plate numbers. It is a tree of pages, not a sequence of slides. The title page carries the engraved specimen (the 36-step polygon as a real 3D model drawn as a copperplate engraving), the five ways into the proof in full (the paper, the Lean proof, the computation record, the code, the lab), a bracket chart of the whole atlas read from the theorem outwards, and the abstract.
 
-There is one world. The earlier Cabinet and Explainer themes, the theme switch and the slide deck are gone.
+The tree: Background (sticks, known values, scale) · Methodology (upper bound; Stage 1 normal form with moves, curtain, lowest polygon, rules; Stage 2 search; Stage 3 colourings; Lean) · Knot-move lab · Enumerations · Tables · Code · Paper & references · Making of. Every page sits in the tree; branch pages explain their stage and list their children; leaf pages pair one argument with one live exhibit and end in "Go deeper" links to the Lean file, the data, the paper section or the lab.
 
 **Key characteristics**
-- A scroll folio of 15 plates. Two acts (plates I–II and plate XV) pin a full-viewport stage; the plates between sit in the flow.
-- The engraved specimen (`stage.js`, raw WebGL2, no library): hatch lines that swell with the shade, a fine ring at every unit step, mitred corners, a hatched cast shadow, and a gap wherever a stick that is not a neighbour passes in front. Without WebGL2 the same poses are drawn as an SVG tube figure.
-- Drawn figures echo the model: a stick is two contours with a clear middle, never a solid bar, except where an arc carries a colour.
-- One indigo band (plates IX–X, "the machine room") inverts ground and line for the chapters about the computation.
-- Every number comes from `data.js`; every claim that the theorem is proved is gated on `data-proof`.
+- Hash routes (`#/proof/normal-form/curtain`), one view visible at a time; the old chapter hashes (`#curtain`) still resolve.
+- The paper, the Lean proof and the repository are in the running head on every page; the paper is the one filled control.
+- An outline of the tree beside every page (opens as a drawer below 1100px), breadcrumbs above, previous and next below.
+- The knot-move lab (`lab.js`, three.js): the reader flips corners, cuts U-turns and pushes edges out on a 3D lattice knot; the shadow is drawn as the knot's diagram and its Fox colouring count never changes. Four scripted demonstrations, and a puzzle mode with undo, hint and auto-untangle.
+- The engraved specimen (`stage.js`, raw WebGL2): hatch lines that swell with the shade, mitred sticks, a hatched cast shadow, real gaps at crossings; an SVG figure without WebGL2 (`?nogl`).
+- The Enumerations page is set in ink with paper for line, the one inverted page.
+- Every number comes from `data.js` or `tables.js`; every claim that the theorem is proved is gated on `data-proof`.
 
 ## Colors
 
@@ -189,18 +191,20 @@ Indigo Ink (0), Viridian (1), Gamboge (2), Violet (3), Sepia (4), Cerulean (5), 
 
 ## Layout
 
-A fixed 3.25rem running head (mark at left, the fifteen roman numerals at right, a hairline that fills as the page is read) over one scrolling sheet, max width 86rem, gutter `clamp(1.25rem, 4.2vw, 4rem)`.
+A fixed 3.25rem running head: mark at left, the six sections (Methodology, Lab, Enumerations, Tables, Code, References), then the Paper, Lean and GitHub pills. Below it, a 16rem outline column and the page. The title page drops the outline and runs full width.
 
-- **Acts** (`.act`): a sticky full-viewport stage with the text flowing over its left 41%. The specimen sits at about 70% across. A tall chapter (290–300svh) gives the scroll its length; its text is sticky.
-- **Split plates**: text 5fr beside figure 7fr, alternating sides (`.flip`).
-- **Wide plates**: heading in the first column, prose in the second, the figure across both.
-- **Below 860px**: one column. The stage becomes a 52svh panel pinned under the head, opaque, with the text passing beneath it; the index gives way to "Plate IV · Scale".
-- **Below 560px**: frames go square and lose the plate mark; the rule tray is two across.
+- **Leaf pages**: text 5fr beside a sticky figure 7fr; "Go deeper" in two columns below; previous / next at the foot.
+- **Branch pages**: the stage's argument 7fr beside a sticky "In this branch" outline 4fr.
+- **The lab**: a full-width bench (canvas, move markers, the diagram inset, captions) beside a 21rem control panel.
+- **Reference pages** (Tables, Code, References): a single column of sections with an in-page index.
+- **Below 1100px** the section links and the outline become a Contents drawer and the bracket chart becomes an outline. **Below 860px** every split stacks, figures first on the title page. **Below 560px** frames go square and the Lean and GitHub pills give way to the Paper pill alone.
 
 ### Named rules
-**The Specimen Tracks The Scroll Rule.** In an act, scroll position is the only clock: build, turn, thinning and colour are functions of it. Idle turning stops the moment the reader scrolls or drags.
+**The Proof In Reach Rule.** The paper and the Lean proof are one click from every page, in the running head, and are the first two of the five ways in on the title page.
 
-**The Clear Caption Rule.** The specimen is fitted to the room above its caption; it may bleed off the sheet's outer edge but never under the plate number or the readout.
+**The Every Page Is A Node Rule.** A page that is not in the tree does not exist; the outline, the breadcrumbs and previous / next are all read from the one tree in `app.js`.
+
+**The Clear Caption Rule.** A specimen never runs under its own plate foot.
 
 ## Elevation & Depth
 
@@ -248,4 +252,4 @@ Items are posed by `{x, y, scale, az, el, build, radius, solid, shadow, grid, co
 - **Don't** add drop shadows, rounded corners, gradients for tone, or a second accent.
 - **Don't** put a label above a heading; plate numbers belong to the figure's foot.
 - **Don't** let the specimen run under its caption.
-- **Don't** add a theme, a deck mode or a library; the stage is about 300 lines of WebGL2.
+- **Don't** add a theme or a deck mode. three.js is used by the lab only, loaded when the lab is first opened; the title specimen stays raw WebGL2.

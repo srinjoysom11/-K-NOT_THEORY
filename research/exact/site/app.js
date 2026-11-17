@@ -1,4 +1,5 @@
 import { DATA } from "./data.js";
+import { TABLE_A1 } from "./tables.js";
 import { verticesOf, centre, crossings, arcsOf, foxOK, countColourings, pieces, projAlong } from "./knot.js";
 import { createStage, viewOf, anglesOf, project, hexToRGB } from "./stage.js";
 
@@ -67,15 +68,17 @@ function loop(fn) {
   };
 }
 
+const romanOf = n => { const r = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]]; let s = ""; for (const [v, t] of r) while (n >= v) { s += t; n -= v; } return s; };
+
 /* the foot of a plate: its number, what it reads, what it lets you do */
-const chapters = $$("[data-title]");
-function plateNo(node) { return `Plate ${roman(chapters.indexOf(node.closest("[data-title]")) + 1)}`; }
+function plateNo(node) { const v = node.closest(".view"); return v && v.dataset.plate ? `Plate ${romanOf(+v.dataset.plate)}` : ""; }
 function footOf(host) {
   const figure = host.closest("figure");
-  let foot = $(".foot", figure);
+  let foot = $(":scope > .foot", figure);
   if (!foot) {
     foot = html("figcaption", { class: "foot" }, figure);
-    html("span", { class: "plate-no" }, foot, plateNo(host));
+    const n = plateNo(host);
+    if (n) html("span", { class: "plate-no" }, foot, n);
   }
   return foot;
 }
@@ -88,6 +91,10 @@ function chip(foot, label, onClick, pressed) {
   return b;
 }
 function readout(foot) { return html("span", { class: "readout", "aria-live": "off" }, foot); }
+function scrubber(foot, label, max) {
+  const box = $(".controls", foot) || html("span", { class: "controls" }, foot);
+  return html("input", { class: "scrub", type: "range", min: 0, max, step: "any", value: 0, "aria-label": label }, box);
+}
 
 /* the two inks, as the engraving shader wants them, read where the figure stands */
 function inksOf(node) {
@@ -95,119 +102,114 @@ function inksOf(node) {
   return { ink: hexToRGB(ink), alert: hexToRGB(alert), css: { ink, alert, paper } };
 }
 const paletteOf = node => [0, 1, 2, 3, 4, 5, 6].map(i => cssVar(`--c${i}`, node));
+const proofDone = DATA.facts.partsDone === DATA.facts.parts;
 
 const V36 = verticesOf(DATA.w36);
 const EXHIBITS = {};
 
-/* ============================================================== I, II. the specimen: turning, then laid stick by stick */
-function heroAct(stageEl) {
-  const host = $(".stage-host", stageEl), foot = $(".stage-foot", stageEl), word = $(".wordline", stageEl);
+/* ============================================================== the specimen on the title page: turn it, align it */
+EXHIBITS.hero = host => {
   const st = createStage(host, { forceSVG });
   const spec = st.specimen(V36);
-  const inks = inksOf(stageEl);
-  const no = html("span", { class: "plate-no" }, foot, "Plate I");
+  const inks = inksOf(host);
+  const foot = footOf(host);
   const info = readout(foot);
-  const alignBtn = chip(foot, "Align with the 5₂ diagram", () => align());
-  const letters = [...DATA.w36].map(c => html("span", {}, word, c));
-  const sticks = $("#sticks");
-  const fixed = anglesOf(DATA.dirFig), laid = anglesOf([0.9, -1.25, 0.95]);
-  let az = -0.6, elv = 0.62, target = null, spin = !reduced, offAz = 0, offEl = 0, tIn = 0, lastKey = "", lastK = -1, lastPhase = "";
-
-  draggable(host, (dx, dy, e) => {
-    const vert = e.pointerType === "touch" ? 0 : dy;
-    if (tIn < 0.5) { az -= dx * 0.008; elv = clamp(elv + vert * 0.008, -0.5, 1.35); target = null; spin = false; }
-    else { offAz -= dx * 0.008; offEl = clamp(offEl + vert * 0.008, -0.7, 0.7); }
-  });
-  function align() { spin = false; target = [nearestAngle(az, fixed[0]), fixed[1]]; }
-
+  const fixed = anglesOf(DATA.dirFig);
+  let az = -0.6, elv = 0.62, target = null, spin = !reduced, lastKey = "", lastN = -1;
+  chip(foot, "Align with the 5₂ diagram", () => { spin = false; target = [nearestAngle(az, fixed[0]), fixed[1]]; });
+  draggable(host, (dx, dy, e) => { az -= dx * 0.008; if (e.pointerType !== "touch") elv = clamp(elv + dy * 0.008, -0.5, 1.35); target = null; spin = false; });
   function frame(_t = 0, dt = 0) {
-    const w = host.clientWidth, h = host.clientHeight, vh = window.innerHeight;
+    const w = host.clientWidth, h = host.clientHeight;
     if (!w || !h) return;
-    const r = sticks.getBoundingClientRect();
-    const narrow = w <= 860;
-    // on a narrow sheet the specimen is pinned above the text, so progress is read at its lower edge
-    const edge = narrow ? host.getBoundingClientRect().bottom : 0;
-    tIn = narrow ? clamp(1 - (r.top - edge) / (vh * 0.3)) : clamp(1 - r.top / vh);
-    const pb = narrow ? clamp((edge - r.top) / Math.max(1, r.height * 0.8)) : clamp(-r.top / Math.max(1, r.height - vh));
     if (target) {
       const k = 1 - Math.exp(-dt * 4.2);
       az = lerp(az, target[0], k); elv = lerp(elv, target[1], k);
       if (Math.abs(az - target[0]) + Math.abs(elv - target[1]) < 2e-3) { az = target[0]; elv = target[1]; target = null; }
-    } else if (spin && tIn === 0) az += 0.16 * dt;
-    if (tIn < 0.02) { const k = Math.exp(-dt * 6); offAz *= k; offEl *= k; }
-    const e = reduced ? (tIn > 0.5 ? 1 : 0) : inOut(tIn);
-    const built = reduced ? 36.5 : (tIn < 1 ? lerp(36.5, 0, ramp(tIn, 0.1, 0.9)) : 36.5 * ramp(pb, 0.04, 0.86));
-    const R0 = spec.R;
-    const s0 = narrow ? Math.min(w * 0.94, h * 0.8) / (2 * R0) * 1.04 : Math.min(w * 0.54, h * 0.86) / (2 * R0) * 1.06;
-    const x0 = narrow ? w * 0.5 : w * 0.705, y0 = narrow ? h * 0.42 : h * 0.47;
-    const it = {
-      spec, x: x0, y: lerp(y0, narrow ? h * 0.36 : h * 0.44, e), scale: s0 * lerp(1, narrow ? 0.84 : 0.86, e),
-      az: lerp(az, nearestAngle(az, laid[0]), e) + offAz * e, el: lerp(elv, laid[1], e) + offEl * e,
-      radius: 0.1, amt: 1, build: built, grid: e, shadow: 1 - 0.75 * ramp(lerp(elv, laid[1], e), 0.72, 0.98),
-    };
-    const k = Math.min(36, Math.floor(built));
-    const phase = tIn < 0.5 ? "hero" : "sticks";
-    if (phase !== lastPhase) {
-      lastPhase = phase; lastK = -1;
-      no.textContent = phase === "hero" ? "Plate I" : "Plate II";
-      alignBtn.hidden = phase !== "hero";
-      word.classList.toggle("is-on", phase === "sticks");
-    }
-    if (phase === "hero") {
-      const n = crossings(spec.V.map(p => project(viewOf(it.az, it.el), p))).length;
-      if (n !== lastK) { lastK = n; info.innerHTML = `<b>${n}</b> crossings in this view`; }
-    } else if (k !== lastK) {
-      lastK = k;
-      letters.forEach((sp, i) => { sp.className = i < k - 1 ? "on" : i === k - 1 ? (k >= 36 ? "on" : "now") : ""; });
-      info.innerHTML = k >= 36 ? `<b>36</b> steps · closed` : `<b>${k}</b> of 36 steps`;
-    }
-    const key = [w, h, it.y, it.scale, it.az, it.el, it.build, it.grid].map(v => v.toFixed(4)).join();
+    } else if (spin) az += 0.16 * dt;
+    const it = { spec, x: w / 2, y: h * 0.49, scale: Math.min(w, h) * 0.98 / (2 * spec.R), az, el: elv, radius: 0.1, amt: 1, shadow: 1 - 0.75 * ramp(elv, 0.72, 0.98) };
+    const n = crossings(spec.V.map(p => project(viewOf(az, elv), p))).length;
+    if (n !== lastN) { lastN = n; info.innerHTML = `<b>${n}</b> crossings in this view`; }
+    const key = [w, h, az, elv].map(v => v.toFixed(4)).join();
     if (key !== lastKey) { lastKey = key; st.draw([it], inks.ink, inks.alert, inks.css); }
   }
   const L = loop(frame);
   frame();
   return { activate: L.start, deactivate: L.stop };
-}
+};
 
-/* ============================================================== XV. the model turns into the diagram every table prints */
-function finaleAct(stageEl) {
-  const host = $(".stage-host", stageEl), foot = $(".stage-foot", stageEl);
+/* ============================================================== the polygon laid one stick at a time */
+EXHIBITS.walk = host => {
   const st = createStage(host, { forceSVG });
   const spec = st.specimen(V36);
-  const inks = inksOf(stageEl), pal = paletteOf(stageEl);
-  html("span", { class: "plate-no" }, foot, "Plate XV");
+  const inks = inksOf(host);
+  const word = html("p", { class: "wordline", "aria-hidden": "true" });
+  host.after(word);
+  const letters = [...DATA.w36].map(c => html("span", {}, word, c));
+  const foot = footOf(host);
   const info = readout(foot);
-  const end = $("#end");
+  const playB = chip(foot, "Play", () => toggle());
+  const slider = scrubber(foot, "Steps laid", 36);
+  const laid = anglesOf([0.9, -1.25, 0.95]);
+  let k = 0, playing = false, offAz = 0, offEl = 0, lastKey = "", lastK = -1;
+  draggable(host, (dx, dy, e) => { offAz -= dx * 0.008; if (e.pointerType !== "touch") offEl = clamp(offEl + dy * 0.008, -0.7, 0.6); });
+  slider.addEventListener("input", () => { stop(); k = +slider.value; });
+  function toggle() { playing ? stop() : start(); }
+  function start() { if (k >= 36) k = 0; playing = true; playB.textContent = "Pause"; playB.setAttribute("aria-pressed", "true"); }
+  function stop() { playing = false; playB.textContent = "Play"; playB.setAttribute("aria-pressed", "false"); }
+  function frame(_t = 0, dt = 0) {
+    const w = host.clientWidth, h = host.clientHeight;
+    if (!w || !h) return;
+    if (playing) { k = Math.min(36, k + dt * (reduced ? 36 : 5)); slider.value = k; if (k >= 36) stop(); }
+    const kk = Math.min(36, Math.floor(k + 1e-6));
+    if (kk !== lastK) {
+      lastK = kk;
+      letters.forEach((sp, i) => { sp.className = i < kk - 1 ? "on" : i === kk - 1 ? (kk >= 36 ? "on" : "now") : ""; });
+      info.innerHTML = kk >= 36 ? `<b>36</b> steps · closed` : `<b>${kk}</b> of 36 steps`;
+    }
+    const it = { spec, x: w / 2, y: h * 0.47, scale: Math.min(w, h) * 0.9 / (2 * spec.R), az: laid[0] + offAz, el: laid[1] + offEl, radius: 0.1, amt: 1, build: k >= 36 ? 36.5 : k, grid: 1, shadow: 1 };
+    const key = [w, h, k, offAz, offEl].map(v => v.toFixed(4)).join();
+    if (key !== lastKey) { lastKey = key; st.draw([it], inks.ink, inks.alert, inks.css); }
+  }
+  const L = loop(frame);
+  frame();
+  let shown = false;
+  return {
+    activate() { L.start(); if (!shown) { shown = true; setTimeout(start, reduced ? 0 : 450); } },
+    deactivate() { L.stop(); stop(); },
+  };
+};
+
+/* ============================================================== the model turns into the diagram every table prints */
+EXHIBITS.finale = host => {
+  const st = createStage(host, { forceSVG });
+  const spec = st.specimen(V36);
+  const inks = inksOf(host), pal = paletteOf(host);
+  const foot = footOf(host);
+  const info = readout(foot);
+  const playB = chip(foot, "Turn it", () => { if (playing) stop(); else { if (p >= 1) p = 0; playing = true; playB.setAttribute("aria-pressed", "true"); } });
+  const slider = scrubber(foot, "From the model to the diagram", 1);
   const target = anglesOf(DATA.dirCol);
-  // the arcs of the final diagram, and a colouring of them that is not one colour
-  const Pf = spec.V.map(p => project(viewOf(target[0], target[1]), p));
+  const Pf = spec.V.map(q => project(viewOf(target[0], target[1]), q));
   const arcs = arcsOf(crossings(Pf));
   const colouring = countColourings(arcs, 7).nonconst || new Array(arcs.count).fill(0);
-  const cuts = arcs.events.map(q => q[0] + q[1]);
-  const c = cuts.length;
+  const cuts = arcs.events.map(q => q[0] + q[1]), c = cuts.length;
   const cssCols = Array.from({ length: Math.max(c, 1) }, (_, a) => pal[colouring[a] % 7]);
   const cols = Array.from({ length: c }, (_, j) => hexToRGB(cssCols[((j - 1) % c + c) % c]));
   const fx = Pf.map(q => q[0]), fy = Pf.map(q => q[1]);
   const box = { w: Math.max(...fx) - Math.min(...fx), h: Math.max(...fy) - Math.min(...fy), cx: (Math.max(...fx) + Math.min(...fx)) / 2, cy: (Math.max(...fy) + Math.min(...fy)) / 2 };
-  let offAz = 0, lastKey = "", lastText = "";
+  let p = 0, playing = false, offAz = 0, lastKey = "", lastText = "";
+  function stop() { playing = false; playB.setAttribute("aria-pressed", "false"); }
+  slider.addEventListener("input", () => { stop(); p = +slider.value; });
   draggable(host, dx => { offAz -= dx * 0.008; });
-
   function frame(_t = 0, dt = 0) {
-    const w = host.clientWidth, h = host.clientHeight, vh = window.innerHeight;
+    const w = host.clientWidth, h = host.clientHeight;
     if (!w || !h) return;
-    const r = end.getBoundingClientRect(), narrow = w <= 860;
-    const edge = narrow ? host.getBoundingClientRect().bottom : vh * 0.25;
-    let p = clamp((edge - r.top) / Math.max(1, narrow ? r.height * 0.85 : r.height - vh * 0.55));
-    if (reduced) p = p > 0.4 ? 1 : 0;
+    if (playing) { p = Math.min(1, p + dt / (reduced ? 0.01 : 6)); slider.value = p; if (p >= 1) stop(); }
     const turn = inOut(ramp(p, 0.02, 0.62)), thin = inOut(ramp(p, 0.58, 0.82)), tint = ramp(p, 0.8, 0.96);
     offAz *= Math.exp(-dt * (p > 0.5 ? 9 : 0.9));
-    // the room the figure may use: right of the text on a wide sheet, above the caption everywhere
-    const top = narrow ? 8 : 70, bot = narrow ? 62 : 96, rw = narrow ? w * 0.92 : w * 0.5, rh = h - top - bot;
-    const rx = narrow ? w * 0.5 : w * 0.71, ry = top + rh / 2;
-    const s3 = Math.min(rw, rh) / (2 * spec.R) * 1.06, sf = Math.min(rw / box.w, rh / box.h) * 0.94;
-    const s0 = lerp(s3, sf, thin);
+    const s3 = Math.min(w, h) / (2 * spec.R) * 1.0, sf = Math.min(w / box.w, h / box.h) * 0.86, s0 = lerp(s3, sf, thin);
     const it = {
-      spec, x: rx - box.cx * s0 * thin, y: ry - box.cy * s0 * thin, scale: s0,
+      spec, x: w / 2 - box.cx * s0 * thin, y: h * 0.49 - box.cy * s0 * thin, scale: s0,
       az: lerp(target[0] - 2.2, target[0], turn) + offAz, el: lerp(0.3, target[1], turn),
       radius: lerp(0.1, 0.036, thin), halo: lerp(1.9, 4.6, thin), solid: thin, amt: 1,
       shadow: 1 - ramp(p, 0.12, 0.42), bead: 1 - thin, colMix: tint, cuts, cols, cssCols,
@@ -220,8 +222,51 @@ function finaleAct(stageEl) {
   }
   const L = loop(frame);
   frame();
-  return { activate: L.start, deactivate: L.stop };
-}
+  let shown = false;
+  return {
+    activate() { L.start(); if (!shown) { shown = true; setTimeout(() => { playing = true; playB.setAttribute("aria-pressed", "true"); }, reduced ? 0 : 600); } },
+    deactivate() { L.stop(); stop(); },
+  };
+};
+
+/* ============================================================== the growth of the search, by length */
+EXHIBITS.growth = host => {
+  const rows = DATA.runs;
+  const W = 1000, H = 440, x0 = 70, x1 = 980, y0 = 380, y1 = 30, emax = 12;
+  const svg = fig(host, `0 0 ${W} ${H}`);
+  const bw = (x1 - x0) / rows.length;
+  const Y = e => y0 - (y0 - y1) * e / emax;
+  const defs = el("defs", {}, svg);
+  const pat = el("pattern", { id: "hatch-partial", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+  el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "var(--ink)", "stroke-width": 1.4 }, pat);
+  for (let e = 0; e <= emax; e += 3) {
+    el("line", { class: "grid", x1: x0, y1: Y(e), x2: x1, y2: Y(e) }, svg);
+    el("text", { class: "axis-label", x: x0 - 12, y: Y(e) + 6, "text-anchor": "end" }, svg).textContent = `10${sup(e)}`;
+  }
+  const tip = html("div", { class: "chart-tip", role: "status" }, host);
+  rows.forEach((r, i) => {
+    const x = x0 + i * bw + bw * 0.2, w = bw * 0.6, part = r.done < r.parts;
+    const e = r.nodes > 0 ? Math.log10(r.nodes) : 0;
+    const g = el("g", { class: "bar" + (part ? " partial" : "") + (r.done === 0 ? " none" : ""), tabindex: 0, role: "img",
+      "aria-label": `n = ${r.n}: ${r.done === 0 ? "not run yet" : `${sci(r.nodes)} search nodes, ${fmt(r.words)} words, ${r.done} of ${r.parts} parts`}` }, svg);
+    el("rect", { class: "hit-area", x: x0 + i * bw, y: y1, width: bw, height: y0 - y1 }, g);
+    if (r.done > 0) el("rect", { class: "mark", x, y: Y(e), width: w, height: y0 - Y(e) }, g);
+    else el("rect", { class: "mark pending", x, y: y0 - 2, width: w, height: 2 }, g);
+    el("text", { class: "axis-label", x: x + w / 2, y: y0 + 28, "text-anchor": "middle" }, svg).textContent = r.n;
+    const show = () => {
+      tip.innerHTML = r.done === 0 ? `<b>n = ${r.n}</b> · ${fmt(r.parts)} parts, not run yet`
+        : `<b>n = ${r.n}</b> · ${sci(r.nodes)} nodes · ${fmt(r.words)} words · ${fmt(r.done)} of ${fmt(r.parts)} parts`;
+      tip.style.left = `${(x + w / 2) / W * 100}%`; tip.style.top = `${Y(e) / H * 100}%`;
+      tip.classList.add("on");
+    };
+    g.addEventListener("pointerenter", show); g.addEventListener("focus", show);
+    g.addEventListener("pointerleave", () => tip.classList.remove("on")); g.addEventListener("blur", () => tip.classList.remove("on"));
+  });
+  el("line", { x1: x0, y1: y0, x2: x1, y2: y0, stroke: "var(--ink)" }, svg);
+  el("text", { class: "axis-label", x: x0 + (x1 - x0) / 2, y: H - 4, "text-anchor": "middle" }, svg).textContent = "length n";
+  readout(footOf(host)).innerHTML = `Search nodes per length, logarithmic. Hatched: only some parts in so far.`;
+  return { activate() {}, deactivate() {} };
+};
 
 /* ============================================================== III. the knots that were known */
 EXHIBITS.known = host => {
@@ -867,75 +912,335 @@ EXHIBITS.timeline = host => {
   return { activate() {}, deactivate() {} };
 };
 
-/* ============================================================== the folio: plates come alive as they are reached */
-document.documentElement.dataset.proof = DATA.facts.partsDone === DATA.facts.parts ? "done" : "open";
-$$("[data-fact]").forEach(n => { const f = n.dataset.fact, v = DATA.facts[f]; n.textContent = f === "nodes" ? sci(v) : fmt(v); });
-// subscripts in display type are set as true subscripts
-$$("h1, h2").forEach(h => { h.innerHTML = h.innerHTML.replace(/5₂/g, "5<sub>2</sub>"); });
 
-const live = new Map();
-const makers = new Map();
-$$(".exhibit").forEach(ex => makers.set(ex, () => (EXHIBITS[ex.dataset.exhibit] || (() => ({ activate() {}, deactivate() {} })))(ex)));
-$$(".act-stage").forEach(s => makers.set(s, () => (s.dataset.stage === "hero" ? heroAct : finaleAct)(s)));
-const near = new IntersectionObserver(entries => {
-  for (const e of entries) {
-    if (!e.isIntersecting) continue;
-    near.unobserve(e.target);
-    try { live.set(e.target, makers.get(e.target)()); } catch (err) { console.error(err); live.set(e.target, { activate() {}, deactivate() {} }); }
-    seen.observe(e.target);
-  }
-}, { rootMargin: "120% 0px 120% 0px" });
-const seen = new IntersectionObserver(entries => {
-  for (const e of entries) {
-    const x = live.get(e.target);
-    if (!x) continue;
-    e.target.dataset.on = e.isIntersecting ? "1" : "";
-    if (e.isIntersecting && !document.hidden) x.activate(); else x.deactivate();
-  }
-}, { threshold: 0.12 });
-makers.forEach((_, node) => near.observe(node));
-document.addEventListener("visibilitychange", () => live.forEach((x, node) => { if (document.hidden) x.deactivate(); else if (node.dataset.on) x.activate(); }));
+/* ============================================================== the atlas: one tree, every page a node */
+const GH = "https://github.com/srinjoysom11/-K-NOT_THEORY";
+const blob = p => `${GH}/blob/main/${p}`, treeUrl = p => `${GH}/tree/main/${p}`;
+const PAPER = "../paper/len52.pdf";
+const n_ = (key, title, teaser, children = []) => ({ key, title, teaser, children });
+const TREE = n_("", "Len(5₂) = 36", "the theorem", [
+  n_("background", "Background", "Lattice knots, and what was known", [
+    n_("background/sticks", "A knot made of sticks", "Six letters spell a knot"),
+    n_("background/known", "Three knots had been solved", "3₁ needs 24, 4₁ 30, 5₁ 34"),
+    n_("background/scale", "Why not try them all?", "About 10¹⁸ polygons of length 34"),
+  ]),
+  n_("proof", "Methodology", "The proof in three stages", [
+    n_("proof/upper", "The upper bound", "One polygon whose shadow is 5₂"),
+    n_("proof/normal-form", "Stage 1 · Normal form", "Square moves force seven rules", [
+      n_("proof/normal-form/moves", "Two square moves", "Flip a corner, cut a U-turn"),
+      n_("proof/normal-form/curtain", "The curtain", "A longer move made of flips"),
+      n_("proof/normal-form/lowest", "The lowest polygon", "Every downward corner is blocked"),
+      n_("proof/normal-form/rules", "Seven rules", "C1–C7, all local"),
+    ]),
+    n_("proof/search", "Stage 2 · Search", "Every walk that obeys the rules", [
+      n_("proof/search/promises", "A search that keeps its promises", "Obligations, and a miniature run"),
+    ]),
+    n_("proof/colourings", "Stage 3 · Colourings", "49 colourings against 7", [
+      n_("proof/colourings/seven", "Seven colours", "Fox colourings of 5₂"),
+      n_("proof/colourings/suspects", "Every suspect has an alibi", "A certificate for every word"),
+    ]),
+    n_("proof/lean", "What Lean checked", `${fmt(DATA.facts.leanLines)} lines, three axioms`),
+  ]),
+  n_("lab", "Knot-move lab", "Flip, cut and untangle knots in 3D"),
+  n_("enumerations", "Enumerations", `${fmt(DATA.facts.parts)} parts, ${sci(DATA.facts.nodes)} nodes`),
+  n_("tables", "Tables", "Values, bounds, counts, coordinates"),
+  n_("code", "Code", "Lean, C++, Python, workflows"),
+  n_("references", "Paper & references", "The paper and its sources"),
+  n_("making", "Making of", "Reviews, a bug, what is next"),
+]);
+const NODES = new Map(), ORDER = [];
+(function walk(nd, parent, depth) {
+  nd.parent = parent; nd.depth = depth; NODES.set(nd.key, nd); ORDER.push(nd);
+  nd.children.forEach(c => walk(c, nd, depth + 1));
+})(TREE, null, 0);
+const VIEWS = new Map($$(".view").map(v => [v.dataset.route, v]));
+const ancestors = nd => { const a = []; for (let p = nd; p; p = p.parent) a.unshift(p); return a; };
 
-/* ---------------------------------------------------- the running head: where you are, and the way through */
-const index = $("#index");
-const links = chapters.map((ch, i) => {
-  const li = html("li", {}, index);
-  const a = html("a", { href: "#" + ch.id, "aria-label": `Plate ${roman(i + 1)}: ${ch.dataset.title}` }, li, roman(i + 1));
-  html("span", { class: "tip", "aria-hidden": "true" }, a, ch.dataset.title);
-  return a;
-});
-let current = -1;
-function mark(i) {
-  if (i === current) return;
-  current = i;
-  links.forEach((a, k) => { if (k === i) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
-  $("#here-n").textContent = roman(i + 1);
-  $("#here-t").textContent = chapters[i].dataset.title;
-  if (location.hash !== "#" + chapters[i].id) history.replaceState(null, "", i === 0 ? location.pathname + location.search : "#" + chapters[i].id);
+// plate numbers follow the reading order of the tree
+let plate = 0;
+for (const nd of ORDER) { const v = VIEWS.get(nd.key); if (nd.key && v && $(".exhibit:not([data-exhibit='hero'])", v)) v.dataset.plate = ++plate; }
+
+/* ---------------------------------------------------- drawing the tree: a bracket chart on the title page, an outline beside every page */
+function treeList(nd, { teasers = true, depthMax = 9 } = {}) {
+  const ul = html("ul", {});
+  for (const c of nd.children) {
+    const li = html("li", { "data-key": c.key }, ul);
+    const a = html("a", { href: `#/${c.key}`, "data-key": c.key }, li);
+    html("span", { class: "t" }, a, c.title);
+    if (teasers && c.teaser) html("span", { class: "s" }, a, c.teaser);
+    if (c.children.length && c.depth < depthMax) li.appendChild(treeList(c, { teasers, depthMax }));
+  }
+  return ul;
 }
-const bar = $(".bar");
-let ticking = false;
-function onScroll() {
-  ticking = false;
-  const line = window.innerHeight * 0.42;
-  let i = 0;
-  chapters.forEach((ch, k) => { if (ch.getBoundingClientRect().top <= line) i = k; });
-  mark(i);
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  bar.style.setProperty("--read", max > 0 ? clamp(window.scrollY / max).toFixed(4) : "0");
+function mapTree(host) {
+  host.innerHTML = "";
+  const ul = html("ul", {}, host);
+  const li = html("li", { class: "root", "data-key": "" }, ul);
+  const a = html("a", { href: "#/proof", class: "root-label" }, li);
+  html("span", { class: "t" }, a, "Len(5₂) = 36");
+  html("span", { class: "s" }, a, proofDone ? "proved" : `upper bound proved · lower bound: ${fmt(DATA.facts.partsDone)} of ${fmt(DATA.facts.parts)} checks`);
+  li.appendChild(treeList(TREE));
+  // hovering a node inks the path back to the theorem
+  host.addEventListener("pointerover", e => {
+    const a = e.target.closest("a"); $$(".path", host).forEach(x => x.classList.remove("path"));
+    if (!a) return;
+    for (let li = a.closest("li"); li && host.contains(li); li = li.parentElement.closest("li")) li.classList.add("path");
+  });
+  host.addEventListener("pointerleave", () => $$(".path", host).forEach(x => x.classList.remove("path")));
+  host.addEventListener("focusin", e => {
+    host.querySelectorAll(".path").forEach(x => x.classList.remove("path"));
+    for (let li = e.target.closest("li"); li && host.contains(li); li = li.parentElement.closest("li")) li.classList.add("path");
+  });
 }
-addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-addEventListener("resize", onScroll);
-function goTo(i) {
-  i = clamp(i, 0, chapters.length - 1);
-  const ch = chapters[i];
-  const y = ch.getBoundingClientRect().top + window.scrollY - (ch.closest(".act") ? 0 : parseFloat(getComputedStyle(document.documentElement).fontSize) * 3.25);
-  window.scrollTo({ top: i === 0 ? 0 : y + 2, behavior: reduced ? "auto" : "smooth" });
+mapTree($("#map-tree"));
+const side = $("#side-tree");
+const sideRoot = html("a", { href: "#/", class: "side-home", "data-key": "" }, side);
+html("span", { class: "t" }, sideRoot, "The atlas");
+side.appendChild(treeList(TREE, { teasers: false }));
+$$(".branch-list").forEach(host => { const nd = NODES.get(host.dataset.of); if (nd) host.appendChild(treeList(nd)); });
+
+/* ---------------------------------------------------- routing */
+const LEGACY = { title: "", sticks: "background/sticks", known: "background/known", scale: "background/scale", moves: "proof/normal-form/moves",
+  curtain: "proof/normal-form/curtain", push: "proof/normal-form/lowest", rules: "proof/normal-form/rules", search: "proof/search/promises",
+  drawers: "enumerations", colours: "proof/colourings/seven", trefoil: "proof/colourings/suspects", lean: "proof/lean", making: "making", end: "proof/upper" };
+function parse() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h.startsWith("/")) { const [path, anchor] = h.slice(1).split("#"); return { key: path.replace(/\/$/, ""), anchor }; }
+  if (h in LEGACY) return { key: LEGACY[h] };
+  return { key: "" };
 }
+const live = new Map(), seen = new Map();
+let current = null;
+// an exhibit draws only while its page is open and it is on screen
+const io = new IntersectionObserver(es => es.forEach(e => {
+  seen.set(e.target, e.isIntersecting);
+  const x = live.get(e.target);
+  if (!x) return;
+  if (e.isIntersecting && current && current.contains(e.target) && !document.hidden) x.activate(); else x.deactivate();
+}), { rootMargin: "120px 0px" });
+const onScreen = el => seen.get(el) !== false;
+function instancesIn(view, wantEls) {
+  const list = [], els = [];
+  for (const ex of $$(".exhibit", view)) {
+    if (!live.has(ex)) {
+      let made;
+      try { made = (EXHIBITS[ex.dataset.exhibit] || (() => ({ activate() {}, deactivate() {} })))(ex); }
+      catch (err) { console.error(err); made = { activate() {}, deactivate() {} }; }
+      live.set(ex, made);
+      io.observe(ex);
+    }
+    list.push(live.get(ex)); els.push(ex);
+  }
+  const lab = $("[data-lab-root]", view);
+  if (lab) {
+    if (!live.has(lab)) { live.set(lab, mountLab(lab)); io.observe(lab); }
+    list.push(live.get(lab)); els.push(lab);
+  }
+  return wantEls ? els : list;
+}
+function show(first) {
+  let { key, anchor } = parse();
+  if (!VIEWS.has(key)) key = "";
+  const view = VIEWS.get(key), nd = NODES.get(key) || TREE;
+  if (current && current !== view) instancesIn(current).forEach(x => x.deactivate());
+  for (const v of VIEWS.values()) if (v !== view) { v.hidden = true; v.classList.remove("is-active"); }
+  view.hidden = false; view.classList.add("is-active");
+  current = view;
+  document.documentElement.dataset.route = key ? key.split("/")[0] : "home";
+  document.title = key ? `${nd.title} · The knot 5₂ needs 36 steps` : "The knot 5₂ needs 36 steps";
+  // where you are: the trail, the outline, the way on
+  const crumbs = $("#crumbs");
+  crumbs.innerHTML = "";
+  if (key) {
+    const ol = html("ol", {}, crumbs);
+    ancestors(nd).forEach((a, i, all) => {
+      const li = html("li", {}, ol);
+      if (i < all.length - 1) html("a", { href: `#/${a.key}` }, li, a.key ? a.title : "The atlas");
+      else html("span", { "aria-current": "page" }, li, a.title);
+    });
+  }
+  $$("#side-tree a, #map-tree a, .bar-nav a").forEach(a => a.removeAttribute("aria-current"));
+  $$(`#side-tree a[data-key="${key}"]`).forEach(a => a.setAttribute("aria-current", "page"));
+  $$("#side-tree li").forEach(li => li.classList.toggle("open", key === li.dataset.key || key.startsWith(li.dataset.key + "/")));
+  const top = key.split("/")[0];
+  $$(`.bar-nav a[data-top="${top}"]`).forEach(a => a.setAttribute("aria-current", "true"));
+  const pager = $("#pager");
+  pager.innerHTML = "";
+  const i = ORDER.indexOf(nd);
+  if (key) {
+    const prev = ORDER[i - 1], next = ORDER[i + 1];
+    if (prev) { const a = html("a", { href: `#/${prev.key}`, class: "prev" }, pager); html("small", {}, a, "Previous"); html("span", {}, a, prev.key ? prev.title : "The atlas"); }
+    if (next) { const a = html("a", { href: `#/${next.key}`, class: "next" }, pager); html("small", {}, a, "Next"); html("span", {}, a, next.title); }
+  }
+  document.documentElement.classList.remove("menu-open");
+  $("#menu-button")?.setAttribute("aria-expanded", "false");
+  requestAnimationFrame(() => instancesIn(view, true).forEach(el => { if (!document.hidden && onScreen(el)) live.get(el).activate(); }));
+  if (anchor) { const t = document.getElementById(anchor); if (t) { t.scrollIntoView({ block: "start" }); return; } }
+  window.scrollTo(0, 0);
+  if (!first) { const h = $("h1, h2", view); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); } }
+}
+addEventListener("hashchange", () => show(false));
+document.addEventListener("visibilitychange", () => { if (!current) return; instancesIn(current, true).forEach(el => document.hidden || !onScreen(el) ? live.get(el).deactivate() : live.get(el).activate()); });
 document.addEventListener("keydown", e => {
-  if (e.altKey || e.ctrlKey || e.metaKey) return;
-  if (e.target.closest("input, textarea, select")) return;
-  if (e.key === "ArrowRight") { e.preventDefault(); goTo(current + 1); }
-  else if (e.key === "ArrowLeft") { e.preventDefault(); goTo(current - 1); }
+  if (e.altKey || e.ctrlKey || e.metaKey || e.target.closest("input, textarea, select, [data-lab-root]")) return;
+  const nd = NODES.get(parse().key) || TREE, i = ORDER.indexOf(nd);
+  if (e.key === "ArrowRight" && ORDER[i + 1]) location.hash = `#/${ORDER[i + 1].key}`;
+  if (e.key === "ArrowLeft" && i > 0) location.hash = `#/${ORDER[i - 1].key}`;
 });
-onScroll();
+$("#menu-button")?.addEventListener("click", () => {
+  const open = document.documentElement.classList.toggle("menu-open");
+  $("#menu-button").setAttribute("aria-expanded", String(open));
+});
+
+/* ---------------------------------------------------- the lab, loaded when it is first opened */
+function mountLab(root) {
+  let inner = { activate() {}, deactivate() {} }, active = false;
+  const hasGL = (() => { try { return !forceSVG && !!document.createElement("canvas").getContext("webgl2"); } catch { return false; } })();
+  if (!hasGL) {
+    root.classList.add("no-gl");
+    const host = $(".lab-fallback .exhibit", root);
+    return { activate() {}, deactivate() {} };
+  }
+  import("./lab.js").then(m => {
+    inner = m.createLab(root, { DATA, reduced, proofDone, partsDone: fmt(DATA.facts.partsDone), parts: DATA.facts.parts, palette: () => paletteOf(root), hex: hexToRGB });
+    if (active) inner.activate();
+  }).catch(err => { console.error(err); root.classList.add("no-gl"); });
+  return { activate() { active = true; inner.activate(); }, deactivate() { active = false; inner.deactivate(); } };
+}
+
+/* ============================================================== generated pages: tables, code */
+function table(host, head, rows, { cls = "" } = {}) {
+  const t = html("table", { class: "data " + cls }, host);
+  const tr = html("tr", {}, html("thead", {}, t));
+  head.forEach(h => { const th = html("th", { scope: "col" }, tr); th.innerHTML = h; });
+  const tb = html("tbody", {}, t);
+  rows.forEach(r => { const row = html("tr", {}, tb); r.forEach((c, i) => { const td = html(i ? "td" : "th", i ? {} : { scope: "row" }, row); td.innerHTML = c; }); });
+  return t;
+}
+const knotName = s => s.replace(/_(\d+)/, (_, d) => `<sub>${d}</sub>`).replace(/^0<sub>1<\/sub>$/, "0<sub>1</sub>");
+const EXACT = { "3_1": "proved, Diao 1993", "4_1": "reported, Scharein et al. 2009", "5_1": "reported, Scharein et al. 2009" };
+
+function buildTables() {
+  // exact values
+  table($("#t-exact-body"), ["Knot", "Len", "Proved by", "Polygon"], DATA.known.map(k => [
+    k.name, k.name === "5₂" ? (proofDone ? "36" : "≤ 36") : String(k.len),
+    k.name === "5₂" ? (proofDone ? "this work, 2026" : `this work: upper bound; lower bound when all ${fmt(DATA.facts.parts)} checks are in (${fmt(DATA.facts.partsDone)} so far)`) : `${k.who}, ${k.year}`,
+    `<code class="word">${k.word}</code>`,
+  ]));
+  // best known bounds, Scharein et al. Table A1
+  const host = $("#t-bounds-body"), tbody = () => $("#t-bounds-body tbody");
+  const filters = $("#t-bounds-filters");
+  const groups = [["All", () => true], ["≤ 5", k => k <= 5], ["6", k => k === 6], ["7", k => k === 7], ["8", k => k === 8], ["9", k => k === 9], ["10", k => k === 10]];
+  let pick = 0, q = "";
+  groups.forEach(([label], i) => {
+    const b = html("button", { class: "chip", type: "button", "aria-pressed": String(i === 0) }, filters, label);
+    b.addEventListener("click", () => { pick = i; $$("button", filters).forEach((x, j) => x.setAttribute("aria-pressed", String(j === i))); render(); });
+  });
+  const search = html("input", { class: "find", type: "search", placeholder: "Find a knot, e.g. 7_4", "aria-label": "Find a knot" }, filters);
+  search.addEventListener("input", () => { q = search.value.trim().replace("₁", "_1"); render(); });
+  const count = html("p", { class: "table-count", "aria-live": "polite" }, host);
+  table(host, ["Knot", "Len ≤", "Status", "Minimal polygons found", "Classes under flips"], [], { cls: "bounds" });
+  function render() {
+    const rows = TABLE_A1.filter(([k]) => { const c = +k.split("_")[0]; return groups[pick][1](c) && (!q || k.startsWith(q)); });
+    tbody().innerHTML = rows.map(([k, S, E, C]) => {
+      const status = k === "5_2" ? (proofDone ? "exact: this work" : "≤ 36 proved; = 36 when the checks are in") : (EXACT[k] ? `exact: ${EXACT[k]}` : (k === "0_1" ? "trivial" : "upper bound"));
+      const exact = k === "5_2" || EXACT[k];
+      return `<tr class="${exact ? "exact" : ""}"><th scope="row">${knotName(k)}</th><td>${S}</td><td>${status}</td><td>${fmt(E)}</td><td>${fmt(C)}</td></tr>`;
+    }).join("");
+    count.textContent = `${rows.length} of ${TABLE_A1.length} knots`;
+  }
+  render();
+  // the search by length
+  const runs = DATA.runs;
+  table($("#t-runs-body"), ["n", "Parts", "In", "Search nodes", "Words returned", "Where"], runs.map(r => {
+    const g = [...r.cells].filter(c => c === "g").length, l = [...r.cells].filter(c => c === "l").length;
+    return [String(r.n), fmt(r.parts), r.done === r.parts ? fmt(r.done) : `${fmt(r.done)} <span class="muted">so far</span>`, r.done ? fmt(r.nodes) : "—", r.done ? fmt(r.words) : "—",
+      r.done === 0 ? "running" : [l ? `container ${l}` : "", g ? `GitHub ${g}` : ""].filter(Boolean).join(" · ")];
+  }), { cls: "num" });
+  $("#t-runs-total").innerHTML = `Total so far: <b>${sci(DATA.facts.nodes)}</b> search nodes, <b>${fmt(DATA.facts.words)}</b> distinct words, <b>${fmt(DATA.facts.partsDone)}</b> of ${fmt(DATA.facts.parts)} parts.`;
+  // the 36-step polygon
+  $("#t-word").textContent = DATA.w36;
+  table($("#t-verts-body"), ["i", "letter", "v<sub>i</sub>"], DATA.v36.map((v, i) => [String(i), DATA.w36[i], `(${v.join(", ")})`]), { cls: "num verts" });
+}
+if ($("#t-exact-body")) buildTables();
+if ($("#enum-runs")) table($("#enum-runs"), ["n", "Parts in", "Search nodes", "Words"], DATA.runs.map(r => [String(r.n), `${fmt(r.done)} / ${fmt(r.parts)}`, r.done ? fmt(r.nodes) : "—", r.done ? fmt(r.words) : "—"]), { cls: "num" });
+
+const CODE = [
+  ["The Lean development", "research/exact/lean", "Plain Lean 4.25, no Mathlib. Every file below Spec.lean only proves things about its definitions.", [
+    ["Len52/Spec.lean", 150, "The definitions a reader must check: polygon words, the conditions C1–C7 (Survive), the moves and KnotClass."],
+    ["Len52/Statement.lean", 32, "The hypotheses of the main theorem, stated once: KnotClass, TopHyp."],
+    ["Len52/Main.lean", 53, "The main theorem no_short: T w → 36 ≤ |w|."],
+    ["Len52/NormalForm.lean", 78, "exists_survivor: at its minimal length a class contains a square or a word with C1–C7."],
+    ["Len52/NF/", 1234, "The normal form in six files: moves and the curtain (curtainOK_of_min, cornerOK_of_min), the potential Ψ, canonical position."],
+    ["Len52/Search.lean", 257, "The enumerator that was run: depth-first, with obligations and the six tests."],
+    ["Len52/SearchProof.lean", 32, "search_complete: every word with C1–C7 and length ≤ 34 is returned."],
+    ["Len52/SP/", 1704, "The completeness proof in eight files: the walk, obligations, updates, prefixes, the leaf."],
+    ["Len52/Diagram.lean", 177, "Projections, crossings and Fox equations in exact integer arithmetic."],
+    ["Len52/Coloring.lean", 538, "The certificate checker and colorCheck_sound: L·F ≡ E forces every 7-colouring to be constant."],
+    ["Len52/Cert.lean", 51, "CompCert as 1358 Booleans checkPart n r, and compCert_of_checks."],
+    ["Len52/PD.lean", 186, "w52_pd: the 36-step polygon along (1, −19, 40) has the PD code of 5₂, up to relabelling and mirror."],
+    ["CheckMain.lean", 22, "The executable checkpart N R that evaluates one Boolean and prints RESULT … ok=true."],
+    ["lean/run_local.sh", 38, "Local runs with the same log format and provenance checks as the workflow."],
+  ]],
+  ["The C++ enumerators", "research/exact", "The independent implementation that cross-checks the Lean program node for node, and earlier tools.", [
+    ["enum.cpp", 650, "Exhaustive enumeration of candidate minimal polygons; the cross-check of the verified search."],
+    ["raster.cpp", 390, "The same output as enum.cpp, building the polygon by sweeping the lattice instead of walking."],
+    ["arcknot.cpp", 124, "Short arcs in a half-space are unknotted (used only by the earlier, faster runs)."],
+    ["unknot_cert.cpp", 134, "Certifies that polygons are unknots by shrinking them with square moves."],
+    ["run_parts.sh", 21, "Runs the parts of one length, skipping parts already done."],
+  ]],
+  ["Certificates and cross-checks", "research/exact", "Python, independent of the Lean sources.", [
+    ["formal/PROOF_RIGOROUS.md", null, "The full written proof."],
+    ["formal/verify_comp.py", 133, "Establishes CompCert from the logs: exit status, RESULT line, word count, SHA-256, source hash."],
+    ["formal/pd_certificate.py", 77, "The upper-bound certificate: the PD code of the 36-step polygon's projection."],
+    ["formal/projections.py", 104, "Searches integer projection directions for regular diagrams."],
+    ["formal/repro.py", 51, "Re-runs sampled GitHub parts and compares hashes."],
+    ["formal/crosscheck/survive.py", 94, "The referee's own implementation of C1–C7, written from the Lean definitions."],
+    ["identify_rigorous.py", 176, "Identifies the knot type of returned words (not needed for the proof)."],
+    ["check/crosscheck.py", 355, "Independent Python cross-check of the length-24 word lists against the trefoil census."],
+  ]],
+  ["Workflows", ".github/workflows", "Everything that runs on GitHub's machines.", [
+    ["lean-proof.yml", null, "Builds the Lean development from a clean checkout, checks for forbidden constructs, prints the axioms."],
+    ["lean-enum.yml", null, "Runs parts of the verified search on twenty free runners and commits the logs back."],
+    ["exact-enum.yml", null, "Runs parts of the C++ enumeration in parallel."],
+    ["pages.yml", null, "Builds the paper and publishes this atlas."],
+  ]],
+  ["Data and logs", "research/exact/out/lean", "The record of the computation.", [
+    ["COMPCERT.txt", null, "The acceptance record: every part, every cross-check."],
+    ["all_words.txt", null, "Every word the search returned."],
+    ["parts/", null, "One log and one output per part: status, hashes, the RESULT line."],
+  ]],
+];
+function buildCode() {
+  const host = $("#code-map");
+  for (const [title, dir, about, files] of CODE) {
+    const sec = html("section", { class: "code-group" }, host);
+    const h = html("h3", {}, sec);
+    html("a", { href: treeUrl(dir) }, h, title);
+    html("p", { class: "code-dir" }, sec).innerHTML = `<code>${dir}/</code> · ${about}`;
+    const ul = html("ul", { class: "files" }, sec);
+    for (const [f, lines, desc] of files) {
+      const li = html("li", {}, ul);
+      const path = f.startsWith("formal/") || f.startsWith("check/") || f.startsWith("lean/") || dir === "research/exact" ? `research/exact/${f}` : `${dir}/${f}`;
+      const url = f.endsWith("/") ? treeUrl(path.replace(/\/$/, "")) : blob(path);
+      const a = html("a", { href: url, class: "file" }, li);
+      html("code", {}, a, f);
+      if (lines) html("span", { class: "lines" }, li, `${fmt(lines)} lines`);
+      html("p", {}, li, desc);
+    }
+  }
+}
+if ($("#code-map")) buildCode();
+
+/* ============================================================== the paper: link the PDF where the build made one, the source where not */
+fetch(PAPER, { method: "HEAD" }).then(r => { if (!r.ok) throw new Error(String(r.status)); }).catch(() => {
+  $$("[data-paper]").forEach(a => { a.href = blob("research/exact/paper/len52.tex"); const s = $("small", a); if (s) s.textContent = s.textContent.startsWith(" ·") ? " · LaTeX source" : "LaTeX source on GitHub"; });
+  $$("[data-paper-alt]").forEach(a => { a.hidden = true; });
+});
+
+/* ============================================================== facts, and the first page */
+document.documentElement.dataset.proof = proofDone ? "done" : "open";
+$$("[data-fact]").forEach(n => { const f = n.dataset.fact, v = DATA.facts[f]; n.textContent = f === "nodes" ? sci(v) : fmt(v); });
+$$("h1, h2").forEach(h => { h.innerHTML = h.innerHTML.replace(/5₂/g, "5<sub>2</sub>"); });
+document.documentElement.classList.add("js");
+show(true);

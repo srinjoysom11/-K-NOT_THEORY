@@ -1,14 +1,16 @@
 name: pages
-# Publishes the proof presentation (research/exact/site) to GitHub Pages, with the paper and the
-# computation record it links to.  Layout of the published site:
+# Publishes the proof atlas (research/exact/site) to GitHub Pages, with the paper and the computation
+# record it links to.  Layout of the published site:
 #   /            -> redirects to /site/
-#   /site/       the atlas (index.html, site.css, app.js, stage.js, knot.js, data.js; no libraries)
-#   /paper/len52.pdf
+#   /site/       the atlas (index.html, site.css, app.js, stage.js, lab.js, knot.js, data.js, tables.js,
+#                vendored three.js for the knot-move lab)
+#   /paper/len52.pdf     built here from research/exact/paper; if the build fails the atlas links the
+#                        LaTeX source instead, so the site is published either way
 #   /out/lean/COMPCERT.txt
 on:
   push:
     branches: [main]
-    paths: ['research/exact/site/**', 'research/exact/paper/len52.pdf', 'research/exact/out/lean/COMPCERT.txt', '.github/workflows/pages.yml']
+    paths: ['research/exact/site/**', 'research/exact/paper/**', 'research/exact/out/lean/COMPCERT.txt', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,13 +24,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: figures for the paper
+        id: figs
+        continue-on-error: true
+        run: |
+          pip install matplotlib
+          python3 research/exact/paper/figs/make_figs.py
+      - name: build the paper
+        if: steps.figs.outcome == 'success'
+        continue-on-error: true
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: research/exact/paper
+          root_file: len52.tex
       - name: assemble the site
         run: |
           set -e
           S=research/exact
-          mkdir -p _site/site _site/paper _site/out/lean
-          cp $S/site/index.html $S/site/site.css $S/site/app.js $S/site/knot.js $S/site/stage.js $S/site/data.js _site/site/
-          cp $S/paper/len52.pdf _site/paper/ || true
+          mkdir -p _site/site/vendor/three _site/paper _site/out/lean
+          cp $S/site/index.html $S/site/site.css $S/site/app.js $S/site/knot.js $S/site/stage.js \
+             $S/site/lab.js $S/site/data.js $S/site/tables.js _site/site/
+          cp $S/site/vendor/three/three.module.min.js $S/site/vendor/three/LICENSE _site/site/vendor/three/
+          cp $S/paper/len52.pdf _site/paper/ || echo "no paper PDF; the atlas will link the LaTeX source"
           cp $S/out/lean/COMPCERT.txt _site/out/lean/ || true
           cat > _site/index.html <<'HTML'
           <!doctype html><meta charset="utf-8"><title>The knot 5₂ needs 36 steps</title>

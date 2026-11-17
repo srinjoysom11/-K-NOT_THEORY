@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Static HTML/CSS/JS, no build step and no libraries, committed to research/exact/site and published by .github/workflows/pages.yml. The engraved model is raw WebGL2 (stage.js) with an SVG fallback.
+Static HTML/CSS/JS, no build step and no libraries, committed to research/exact/site and published by .github/workflows/pages.yml. The engraved model is raw WebGL2 (stage.js) with an SVG fallback; the knot-move lab uses vendored three.js (lab.js). The paper PDF is built by the workflow; if that fails the site links the LaTeX source.
 
 ## Users
 
