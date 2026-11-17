@@ -309,3 +309,21 @@ along a twice-crossed vertical wall into two knotted arcs of 21 and 23 edges who
 trefoils of the same handedness; the 44-edge square knots split into 21 + 21 with opposite
 handedness. Since knotted half-slab arcs have at least 21 edges (section 1a), the question
 "granny at 44?" is a question about the 21-edge trefoil arcs alone (`check/arcslab_glue.py 1 21 21`).
+
+## 6. Composite knots in the 2-slab at 40 edges [C]
+
+Lemma 4 (PROOF.md: arcs in a half-space with at most 18 edges and no U-turn are unknotted)
+holds in particular in the half-2-slab; the run `./run_arcslab.sh 2 22 11 ... 19` confirms it
+independently for W = 2 (no closure left for L <= 18) and lists the 19-edge arcs: 2 219 899 380
+walks tested, 80 closures not shrunk by `unknot_cert`, all of them 24-edge trefoils (40 of each
+handedness; minsum 22 because every knot in the 2-slab has at least 24 edges).
+`python3 check/arcslab_glue.py 2 19 19 --out out/arcslab/glue_w2_19_19.txt` glues every pair with
+matching end points across a wall: in the 2-slab there are exactly
+
+* **448** square-knot polygons and **16** granny polygons (8 per chirality) with 40 edges that
+  have a twice-crossed vertical wall with a knotted arc on each side.
+
+These are exactly the published Monte Carlo counts at L = 2 (448 and 8 per chirality). Once
+Len(3_1 # +-3_1) = 40 (the unconfined run n = 38) this gives n_{2,3_1#3_1} = n_{2,3_1#-3_1} = 40;
+the counts are complete when the 2-slab run n = 40 (Actions) shows no further composite polygon
+(one without such a wall).
