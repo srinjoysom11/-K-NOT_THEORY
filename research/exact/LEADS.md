@@ -203,7 +203,9 @@ reporting, and the conjecture would fall back to the best slope the data allow.
   unconfined), so exact values for all knots to 6 crossings in the 1- and 2-slab are within
   reach. Known with proof before: only n_{1,3_1} = 26 [Ishihara et al. 2012]; numerical values
   and counts in arXiv:1204.6674, which the census reproduces. Tubes (two confined
-  coordinates) are the same change once more and are not started.
+  coordinates): the 2x1 tube is already done analytically for all 2-bridge knots to ten
+  crossings (Ishihara, Pouokam, Suzuki, Scharein, Vazquez, Arsuaga, Shimokawa, J. Phys. A 50
+  (2017) 215601; abstract only, full text not read here), so only wider tubes would be new.
 * **FCC lattice.** Two consecutive steps whose sum is a lattice vector can always be replaced
   by that vector, so a shortest FCC polygon has only 7 continuations per step. The
   conjectured Len_FCC(4_1) = 20 ([MannML] open question 2) needs n <= 19. Needs a new

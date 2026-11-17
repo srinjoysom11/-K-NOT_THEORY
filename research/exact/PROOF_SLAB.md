@@ -136,13 +136,29 @@ knot types by `identify_rigorous.py` (must end `ALL RESOLVED`).
 | 30 | 2.5e7 | 12 | 3_1 |
 | 32 | 9.1e7 | 10 | 3_1 |
 | 34 | 3.2e8 | 12 | 3_1 |
+| 36 | 1.2e9 | 66 | 3_1 (16), 4_1 (38), 0_1 (12) |
 
-So far this gives, with the lemmas above and the correctness of the program:
+With the lemmas above and the correctness of the program this gives:
 
 * n_{1,3_1} = 26 (new proof of the theorem of Ishihara et al.), with exactly 72 shortest
   polygons (36 per chirality);
-* **every non-trivial knot other than the trefoil needs at least 36 edges in the 1-slab**;
-  in particular n_{1,4_1} >= 36.
+* every non-trivial knot other than the trefoil needs at least 36 edges in the 1-slab;
+* **n_{1,4_1} = 36.** Lower bound: no 4_1 among the survivors for n <= 34. Upper bound: the 38
+  words of `out/slab/L1_n36.txt` with verdict 4_1 are explicit polygons. The census
+  (`python3 check/slab_census.py out/slab/L1_n36.txt --alex "1,-3,1"`) gives a flip closure of
+  1140 words and **1480** polygons, equal to the Monte Carlo count of arXiv:1204.6674.
+* The 12 unknotted survivors at n = 36 are polygons from which no sequence of corner flips
+  reaches a U-turn (also not when the flips may leave the slab, up to 200 000 states,
+  `unknot_cert`): the search keeps them because it only removes polygons it can shorten.
 
-(Results for n >= 36 and for the 2-slab are appended below as the queue `queue_slab.sh`
-finishes them.)
+`./slab_report.sh` prints one line per finished run (nodes, survivors, knot types).
+
+### 2-slab
+
+| n | nodes | survivors | knot types |
+|---|---|---|---|
+| 22 | 1.6e6 | 0 | |
+| 24 | 6.3e6 | 20 | 3_1 |
+| 26 | 2.6e7 | 74 | 3_1 |
+
+(Further results are appended as `queue_slab.sh` finishes them.)

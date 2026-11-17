@@ -252,7 +252,7 @@ table are in `PROOF_SLAB.md`; keep that table current.
   script; a different list as first argument, e.g. `./queue_slab.sh "1:44 2:36"`). It skips
   finished runs (log has `seconds=`), so it can be restarted after a container loss; an
   unfinished run leaves only `.tmp` files and starts again.
-* After each run: `python3 identify_rigorous.py out/slab/L1_n36.txt` (must end ALL RESOLVED),
+* After each run: `./slab_report.sh` (one line per run), or `python3 identify_rigorous.py out/slab/L1_n36.txt` (must end ALL RESOLVED),
   and at a minimal length the census, e.g.
   `python3 check/slab_census.py out/slab/L1_n36.txt --alex "1,-3,1"`; compare with the
   published count (4_1: 1480 at L = 1, 6064 at L = 2; 5_1: 72 per chirality at L = 1, 760 at
@@ -260,7 +260,7 @@ table are in `PROOF_SLAB.md`; keep that table current.
 * Cost [C]: the 1-slab grows by 3.5 per two edges (n = 34: 91 s on 4 cores, so n = 40 about
   1 h, n = 42 about 4 h, n = 48 about 170 h: use Actions); the 2-slab by about 4.4
   (n = 26: 12 s, n = 34 about 1.3 h, n = 40 about 100 core-hours).
-* Targets, in order: n_{1,4_1} = 36, n_{1,5_1} = 38, n_{2,4_1} = 32, n_{1,5_2} = 42,
+* Done: n_{1,4_1} = 36 with census 1480 (17 Nov). Targets, in order: n_{1,5_1} = 38, n_{2,4_1} = 32, n_{1,5_2} = 42,
   n_{2,5_1} = 34 (local); then 6_1, 6_2 (1-slab 48, 2-slab 42), 6_3 (50, 44) on Actions with
   a workflow that builds `slab.cpp` (copy `exact-enum.yml`; `-part R M` works as in enum).
 * Composite knots at n >= 40 need a half-slab arc lemma (PROOF_SLAB.md section 1); for
