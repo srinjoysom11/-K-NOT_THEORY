@@ -380,3 +380,13 @@ determine the handedness**, so 22 + 22 gluings give only square knots (2304 poly
 Hence a granny polygon in the 1-slab with a twice-crossed wall and knotted arcs on both sides
 has at least 21 + 23 + 2 = 46 edges, and at 46 it is a 21 + 23 gluing, as the three 46-edge
 grannies of section 5 are. The 23-edge arcs (Actions, `ci/arc_request.json`) give all of them.
+
+**23-edge arcs (W = 1).** Same command with L = 23 (4 local parts): 14 614 565 146 walks tested,
+1 540 closures left, all trefoils (770 of each handedness). Now the end points no longer fix the
+handedness: (0, 2, 1) occurs with both, so a 23-edge arc can be glued to a 21-edge arc of the
+other kind. `python3 check/arcslab_glue.py 1 21 23 --out out/arcslab/glue_w1_21_23.txt`: at 46
+edges in the 1-slab there are exactly **96 granny polygons (48 per chirality)** with a
+twice-crossed wall and knotted arcs on both sides (and 14 688 such square knots). With section 5
+and the 22-edge analysis: **n_{1,3_1#3_1} = 46 if the 1-slab run n = 44 (Actions) contains no
+granny**, and then the number of shortest grannies in the 1-slab is 96 plus those of the run n = 46
+without such a wall. (Published: 48 edges, 2430 polygons per chirality.)
