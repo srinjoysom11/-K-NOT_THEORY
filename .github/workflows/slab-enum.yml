@@ -1,0 +1,117 @@
+# Slab-confined enumeration (research/exact/slab.cpp, PROOF_SLAB.md) on parallel runners.
+# Started by pushing a change to research/exact/ci/slab_request.json on this branch.
+# Same layout as exact-enum.yml: independent parts, a last job that merges and commits them to
+# research/exact/out/slab/.
+name: slab-enum
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: [research/exact/ci/slab_request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          req = json.load(open('research/exact/ci/slab_request.json'))
+          inc = [{"L": r["L"], "n": r["n"], "m": r["m"], "r": k, "opts": r.get("opts", "-stair -tourcap 3")}
+                 for r in req["runs"] for k in range(r.get("from", 0), r.get("to", r["m"]))]
+          assert 0 < len(inc) <= 256, len(inc)
+          print("matrix=" + json.dumps({"include": inc}))
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build and self-test
+        working-directory: research/exact
+        run: |
+          g++ -O3 -march=native -std=c++17 -pthread -o slab slab.cpp
+          # without -slab the program must behave as enum.cpp
+          ./slab 24 -prime -out t24.txt 2> t.log; cat t.log; cmp t24.txt out/n24_psi.txt
+          # with -slab: the stored small runs
+          ./slab 30 -slab 1 -stair -tourcap 3 -out t1.txt 2> t.log; cat t.log; cmp t1.txt out/slab/L1_n30.txt
+          ./slab 26 -slab 2 -stair -tourcap 3 -out t2.txt 2> t.log; cat t.log; cmp t2.txt out/slab/L2_n26.txt
+      - name: enumerate
+        working-directory: research/exact
+        run: |
+          base=L${{ matrix.L }}_n${{ matrix.n }}.part${{ matrix.r }}_${{ matrix.m }}
+          s=$(date +%s)
+          ./slab ${{ matrix.n }} -slab ${{ matrix.L }} ${{ matrix.opts }} -part ${{ matrix.r }} ${{ matrix.m }} -out $base.txt 2> $base.log
+          e=$(date +%s)
+          echo "seconds=$((e-s)) host=github-actions threads=$(nproc) opts=-slab ${{ matrix.L }} ${{ matrix.opts }} slab.cpp=$(sha256sum slab.cpp | cut -c1-16) commit=$GITHUB_SHA" >> $base.log
+          cat $base.log
+          mkdir -p parts && mv $base.txt $base.log parts/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: L${{ matrix.L }}_n${{ matrix.n }}.part${{ matrix.r }}_${{ matrix.m }}
+          path: research/exact/parts/
+          retention-days: 30
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: merge and commit
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            mkdir -p research/exact/out/slab/ci
+            cp artifacts/*.txt artifacts/*.log research/exact/out/slab/ci/ 2>/dev/null || true
+            python3 - <<'PY'
+          import glob, os, re
+          out = "research/exact/out/slab"
+          ci = out + "/ci"
+          sets = set()
+          for f in glob.glob(ci + "/L*_n*.part*_*.log"):
+              g = re.match(r"L(\d+)_n(\d+)\.part(\d+)_(\d+)\.log$", os.path.basename(f))
+              if g: sets.add((int(g.group(1)), int(g.group(2)), int(g.group(4))))
+          for L, n, m in sorted(sets):
+              parts = [f"{ci}/L{L}_n{n}.part{k}_{m}" for k in range(m)]
+              done = [p for p in parts if os.path.exists(p + ".log") and os.path.exists(p + ".txt")
+                      and "seconds=" in open(p + ".log").read()]
+              words = sorted({w.strip() for p in done for w in open(p + ".txt") if w.strip()})
+              status = "COMPLETE" if len(done) == m else f"INCOMPLETE {len(done)} of {m} parts"
+              logs = [open(p + ".log").read() for p in done]
+              with open(f"{out}/L{L}_n{n}.m{m}.ci_summary.txt", "w") as f:
+                  f.write(f"L={L} n={n} parts={m} {status} survivors={len(words)}\n")
+                  f.write("".join(logs))
+              if len(done) == m:
+                  tot = lambda key: sum(int(x) for t in logs for x in re.findall(rf"\b{key}=(\d+)", t))
+                  open(f"{out}/L{L}_n{n}.txt", "w").write("".join(w + "\n" for w in words))
+                  open(f"{out}/L{L}_n{n}.log", "w").write(
+                      f"slab={L} N={n} parts={m} nodes={tot('nodes')} survivors={len(words)} "
+                      f"bfs_limit_hits={tot('bfs_limit_hits')}\n"
+                      f"seconds={tot('seconds')} host=github-actions (sum over parts; see L{L}_n{n}.m{m}.ci_summary.txt)\n")
+              print(L, n, m, status, len(words))
+          PY
+            git add research/exact/out/slab
+            git commit -q -m "exact: slab enumeration parts from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1

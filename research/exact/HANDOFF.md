@@ -263,6 +263,15 @@ table are in `PROOF_SLAB.md`; keep that table current.
 * Done: n_{1,4_1} = 36 with census 1480 (17 Nov). Targets, in order: n_{1,5_1} = 38, n_{2,4_1} = 32, n_{1,5_2} = 42,
   n_{2,5_1} = 34 (local); then 6_1, 6_2 (1-slab 48, 2-slab 42), 6_3 (50, 44) on Actions with
   a workflow that builds `slab.cpp` (copy `exact-enum.yml`; `-part R M` works as in enum).
+* On Actions: `.github/workflows/slab-enum.yml`, started by a push that changes
+  `ci/slab_request.json` (runs with L, n, m and optional from/to, opts). Parts land in
+  `out/slab/ci/L<L>_n<n>.part<r>_<m>.*`; when all parts of a run are there the collect job
+  writes `out/slab/L<L>_n<n>.txt` and `.log` (so `slab_report.sh` and `queue_slab.sh` see it).
+  Submitted 17 Nov: 1-slab n = 44 (16 parts), 46 (64); 2-slab n = 36 (4), 38 (16), 40 (64);
+  about 210 runner-hours, queued behind the n = 38 run and the Lean runs. They give the lower
+  bounds for 6_1 and 6_2 (48 in the 1-slab, 42 in the 2-slab); the upper bounds need explicit
+  polygons (anneal inside the slab with `research/code` bfacf, ZMAX argument, or run the
+  census length itself).
 * Composite knots at n >= 40 need a half-slab arc lemma (PROOF_SLAB.md section 1); for
   n <= 38 nothing extra is needed, so n_{2,3_1#3_1} = n_{2,3_1#-3_1} = 40 would follow from
   the 2-slab runs up to n = 38 plus two 40-edge polygons of height 2.
