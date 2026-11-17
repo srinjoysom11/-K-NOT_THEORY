@@ -11,7 +11,9 @@ number is <= 8; and the fingerprint (Alexander polynomial, Jones polynomial up t
 research/code/fingerprint.py) equals that of the named knot. The fingerprints of all knots with
 crossing number <= 8 (the 35 prime knots 3_1 ... 8_21 and the composites 3_1#3_1, 3_1#-3_1,
 3_1#4_1, 3_1#5_1, 3_1#-5_1, 3_1#5_2, 3_1#-5_2, 4_1#4_1) are checked to be pairwise different, so
-a match identifies the knot up to mirror image.
+a match identifies the knot up to mirror image. Polygons are filed under the knot they are
+identified as (names in SnapPy's conventions), which for a composite started from a braid
+word may be the other chirality combination than the name in FILE.
 """
 import os
 import sys
@@ -82,7 +84,11 @@ def main():
                     fpk = fprint(K.PD_code()) if c > 0 else None
                     hits = [k for k, v in T.items() if repr(v) == repr(fpk)]
                     verdict = hits[0] if len(hits) == 1 else ('0_1' if c == 0 else '?')
-        good = ok and len(w) == n and h <= Lmax and verdict == name
+        # the requested name only says which run produced the polygon; it is filed under the knot
+        # it is identified as (SnapPy's chirality conventions; the composites 3_1#5_2 and
+        # 3_1#-5_2 of a braid start may come out as each other)
+        good = ok and len(w) == n and h <= Lmax and verdict in T and (verdict == name or '#' in name)
+        name = verdict
         if not good:
             bad += 1
             print(f'REJECTED {f[0]} {n}: saw={ok} {why} height={h} crossings={c} verdict={verdict}')

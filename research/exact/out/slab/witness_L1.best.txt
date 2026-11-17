@@ -1,11 +1,3 @@
-REJECTED 3_1#5_2 62: saw=True  height=1 crossings=8 verdict=3_1#-5_2
-REJECTED 3_1#5_2 60: saw=True  height=1 crossings=8 verdict=3_1#-5_2
-REJECTED 3_1#5_2 66: saw=True  height=1 crossings=8 verdict=3_1#-5_2
-REJECTED 3_1#5_2 60: saw=True  height=1 crossings=8 verdict=3_1#-5_2
-REJECTED 3_1#-5_2 64: saw=True  height=1 crossings=8 verdict=3_1#5_2
-REJECTED 3_1#-5_2 62: saw=True  height=1 crossings=8 verdict=3_1#5_2
-REJECTED 3_1#-5_2 170: saw=True  height=1 crossings=8 verdict=3_1#5_2
-REJECTED 3_1#-5_2 180: saw=True  height=1 crossings=8 verdict=3_1#5_2
 5_2	42	height<=1	wdwssussseeednnuwwdwwnuneedeeseusswwdnnunn
 6_1	48	height<=1	uswwwdnnneeeuenndwwsusssdseeunnwdwwunnneesdesssw
 6_2	48	height<=1	sdssuseeendennwunwwdwwssueedeeuessdwwnunndnnwwus
@@ -40,8 +32,10 @@ REJECTED 3_1#-5_2 180: saw=True  height=1 crossings=8 verdict=3_1#5_2
 8_21	54	height<=1	euseendennwunnwwwssdseeeuenndwwswuswssdeenunnnwdwwssse
 3_1#3_1	46	height<=1	sseuennwdnwwwwunneesssdwwwnneeussseeedennuwwsd
 3_1#-3_1	44	height<=1	endennuwwssdseeunnwdwwwsuwssdeennunwwdsseuee
-3_1#4_1	56	height<=1	sdwwunnedeseuennwwwwdsseusssdseeunnwdwwusseendeennnnwuws
+3_1#4_1	54	height<=1	nnnedneeessuswwdnnunwwdsseueedssswwuswwdnneeuessdwwnun
 3_1#5_1	58	height<=1	nnuwnndeesueessdwwuwwdnneuneedssussssdeennwwwussseenndwwwn
 3_1#-5_1	56	height<=1	eednnwunnwwdssussdeenuenndwwuwwwdwssueendnnwuwssedseeeus
-4_1#4_1	68	height<=1	dwnnueesdssueennendennueesswdswwwnunnedneessuwwdwwwswsuwsssedeennuww
-8 rejected
+3_1#5_2	62	height<=1	esuesswwsdwwwwnuwnnedessuswwdnneueeeeedennuwwsdssesswwunndnnne
+3_1#-5_2	60	height<=1	wssueenndnwwussedeeenueedsswuwwnndnnueesdssueennwndwwsuwwwsd
+4_1#4_1	66	height<=1	eenunnwwdssuswwdnneueednnunndnnwuwsssdwwnneeeueedsswwnwwusssssedse
+0 rejected
