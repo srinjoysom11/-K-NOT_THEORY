@@ -144,9 +144,9 @@ commit "exact: enumeration parts from GitHub Actions run ..." on this branch.
    number is 114 912 [JvRR11].
 4. n = 38: submitted on 17 Nov 2026 in four requests of 250 parts each,
    `{"runs": [{"n": 38, "m": 1000, "from": 0, "to": 250, "opts": "-stair -tourcap 3", "tag": "stair"}]}`
-   then from 250 to 500, 500 to 750, 750 to 1000; push the next one when the previous one
-   has been picked up (the `git log` of `ci/request.json` shows which have gone). Each run
-   commits its parts as `out/n38_stair.part*_1000.*` and a summary
+   then from 250 to 500, 500 to 750, 750 to 1000 (all four pushed; the runs are independent, each
+   builds from its own commit; `git log ci/request.json` lists them). Each run
+   commits its parts as `out/ci/n38_stair.part*_1000.*` and a summary
    `out/n38_stair.m1000.ci_summary.txt`; the merged `out/n38_stair.txt` is written by the
    run that finds all 1000 parts present. (`-stair` is `-prime` plus the staircase rule of
    PROOF.md section 2a; at n = 32 it gave the same 542 words as `-prime`.) Expected cost
