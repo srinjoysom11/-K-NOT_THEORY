@@ -1,2 +1,0 @@
-slab=1 N=38 tasks=14964 part=4/8 nodes=521287042 closed=1109 candidates=305 survivors=28 bfs_limit_hits=9 tour_giveups=192808019
-seconds=556 threads=4 opts=-slab 1 -stair -tourcap 3 -part 4 8 slab.cpp=2c8fc7809a85b9fa

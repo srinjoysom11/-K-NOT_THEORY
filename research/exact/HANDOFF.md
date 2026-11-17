@@ -249,7 +249,8 @@ in the logs of the unconfined results). Why the lemmas still hold, the checks, a
 table are in `PROOF_SLAB.md`; keep that table current.
 
 * Run: `nohup ./queue_slab_parts.sh "1:38:8 2:32:8 1:40:16 2:34:16 1:42:48" > q.out 2>&1 &`
-  (items L:n:m; m parts per run, parts in `out/slab/local/`, merged into `out/slab/L<L>_n<n>.*`
+  (items L:n:m; m parts per run, parts in `out/slab/local/` (not committed: cheap to redo),
+  merged into `out/slab/L<L>_n<n>.*`
   when all are done). Use this rather than the older `queue_slab.sh`: the container is often
   restarted and then a whole unpartitioned run is lost; here at most one part is lost.
   Restartable: finished parts (log has `seconds=`) are skipped; delete `*.tmp` first.
