@@ -327,3 +327,23 @@ These are exactly the published Monte Carlo counts at L = 2 (448 and 8 per chira
 Len(3_1 # +-3_1) = 40 (the unconfined run n = 38) this gives n_{2,3_1#3_1} = n_{2,3_1#-3_1} = 40;
 the counts are complete when the 2-slab run n = 40 (Actions) shows no further composite polygon
 (one without such a wall).
+
+## 7. The 21-edge knotted arcs of the half-1-slab; granny and square at 44 [C]
+
+`./run_arcslab.sh 1 24 21`: 1 541 900 542 walks tested, 24 closures not shrunk, all of them
+26-edge trefoils (minimal in the 1-slab), 12 of each handedness (`out/arcslab/w1_L21.*`). Their end
+points in the wall (y_A, x_B - x_A, y_B) are (0, 2, 1) for every left-handed and (1, 2, 0) for every
+right-handed one (`python3 check/arcslab_pairs.py 1 21`): **the end points determine the
+handedness.** Two knotted 21-edge arcs glued across a wall give C(a) # C(b) with C(b) of the
+handedness opposite to that of the reflected arc b*, and b* has the end points of a, so C(b) has
+the handedness opposite to C(a): only the square knot arises. `check/arcslab_glue.py 1 21 21`
+lists them all: **144** square-knot polygons of length 44 in the 1-slab, the published count,
+and no granny.
+
+Consequences. (1) With the corollary of section 1a: a granny polygon with at most 44 edges in
+the 1-slab has no twice-crossed vertical wall with knotted arcs on both sides, so the search
+output at n = 44 contains it (if it is slab-shortest). Hence **n_{1,3_1#3_1} = 46** as soon as the
+1-slab runs to n = 44 (n = 40, 42 local, n = 44 on Actions) show no granny; the upper bound 46 is
+the polygon of section 5, which is a 21 + 23 gluing. (2) n_{1,3_1#-3_1} = 44 as soon as the runs to
+n = 42 show no composite; the census at 44 is 144 plus the square knots of the n = 44 run without
+such a wall (the published count 144 suggests there are none).

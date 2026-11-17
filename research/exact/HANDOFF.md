@@ -270,7 +270,12 @@ table are in `PROOF_SLAB.md`; keep that table current.
   Monte Carlo value 48)**; 2-slab 6_1 42, 6_2 42, 6_3 44. Next, as runs finish:
   - 1-slab n = 40, 42 (local queue): no 5_2 and no composite => n_{1,5_2} = 42, n_{1,square} = 44.
   - Done 17 Nov: n_{1,5_1} = 38 (census 144) and n_{2,4_1} = 32 (census 6064), as published.
-  - W = 1 arcs L = 21 + Actions run 1-slab n = 44: granny 44 or 46.
+  - Done: W = 1 arcs L = 21 (24 knotted, end points fix the handedness: no granny at 44 from a
+    wall, 144 squares; PROOF_SLAB.md section 7). Granny = 46 once Actions 1-slab n = 44 shows none.
+  - Done: W = 2 arcs L = 19: 448 square + 16 granny polygons at 40 = published counts (section 6).
+  - Submitted: W = 1 arcs L = 22, 23 (`ci/arc_request.json`, workflow `arc-enum.yml`, `arcslab
+    -part R M`); with the 1-slab n = 46 run they give the granny census at 46
+    (`check/arcslab_glue.py 1 21 23`, `1 22 22`).
   - W = 2 arcs to L = 19: pair analysis gives the 2-slab composites at 40.
   - Actions 1-slab n = 46, 2-slab n = 38, 40: lower bounds for the six-crossing knots
     (with the witnesses above: n_{1} = 48, 48, 50 and n_{2} = 42, 42, 44 if nothing shorter).

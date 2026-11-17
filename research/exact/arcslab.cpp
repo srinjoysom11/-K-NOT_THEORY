@@ -15,7 +15,9 @@
 // The start point runs over y = 0..W; the first step is e, n, s or u (a first step w is the
 // mirror image in x of a walk starting with e).
 //
-// Build: g++ -O3 -std=c++17 -o arcslab arcslab.cpp     Run: ./arcslab L -w W [-minsum S] [-uturns]
+// -part R M: only the subtrees rooted at depth 7 whose running index is R mod M (independent
+// parts for parallel runs; the union over R = 0..M-1 is the whole enumeration).
+// Build: g++ -O3 -std=c++17 -o arcslab arcslab.cpp     Run: ./arcslab L -w W [-minsum S] [-uturns] [-part R M]
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -29,6 +31,8 @@ static const int OFF = 32, SZ = 65;
 static unsigned char vis[SZ][SZ][SZ];
 static int L, MINSUM = 22, W = -1;
 static bool ALLOW_UTURN = false;
+static int PART_R = 0, PART_M = 1, PART_DEPTH = 7;   // -part R M: subtrees at depth PART_DEPTH, round robin
+static long long subtree = 0;
 static int px[64], py[64], pz[64], st[64];
 static long long walks = 0, leaves = 0, onebridge = 0, printed = 0;
 static long long hist[4][8]; // hist[axis][min(maxima,7)]
@@ -77,6 +81,7 @@ static void leaf() {
 static void dfs(int k) {
     int x = px[k], y = py[k], z = pz[k];
     if (k == L) { if (z == 0) { walks++; leaf(); } return; }
+    if (PART_M > 1 && k == PART_DEPTH && (subtree++ % PART_M) != PART_R) return;
     int r = L - k;
     if (z > r) return;
     // the largest final planar distance still reachable must give L + d >= MINSUM
@@ -102,6 +107,7 @@ int main(int argc, char** argv) {
         if (!strcmp(argv[i], "-minsum")) MINSUM = atoi(argv[++i]);
         else if (!strcmp(argv[i], "-w")) W = atoi(argv[++i]);
         else if (!strcmp(argv[i], "-uturns")) ALLOW_UTURN = true;
+        else if (!strcmp(argv[i], "-part")) { PART_R = atoi(argv[++i]); PART_M = atoi(argv[++i]); }
     }
     if (L < 1 || L > 30 || W < 1 || W > 8) { fprintf(stderr, "L or W out of range\n"); return 1; }
     for (int y0 = 0; y0 <= W; y0++) {
@@ -118,6 +124,8 @@ int main(int argc, char** argv) {
         }
         vis[OFF][y0 + OFF][0] = 0;
     }
+    if (PART_M > 1 && L <= PART_DEPTH) { fprintf(stderr, "-part needs L > %d\n", PART_DEPTH); return 1; }
+    fprintf(stderr, "part=%d/%d ", PART_R, PART_M);
     fprintf(stderr, "L=%d W=%d minsum=%d uturns=%d walks_ending_on_level0=%lld tested=%lld one_bridge=%lld printed=%lld\n",
             L, W, MINSUM, (int)ALLOW_UTURN, walks, leaves, onebridge, printed);
     for (int a = 0; a < 3; a++) {
