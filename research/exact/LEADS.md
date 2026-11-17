@@ -202,7 +202,9 @@ reporting, and the conjecture would fall back to the best slope the data allow.
   The tree is far smaller (factor 3.5 per two edges in the 1-slab against about 5.5
   unconfined), so exact values for all knots to 6 crossings in the 1- and 2-slab are within
   reach. Known with proof before: only n_{1,3_1} = 26 [Ishihara et al. 2012]; numerical values
-  and counts in arXiv:1204.6674, which the census reproduces. Tubes (two confined
+  and counts in arXiv:1204.6674, which the census reproduces. **Results 17 Nov:** exact values
+  for 3_1, 4_1, 5_1, 5_2 in most slabs, and a 46-edge granny knot in the 1-slab against the
+  published 48 (BFACF confined to the 1-slab gets trapped; PROOF_SLAB.md section 5). Tubes (two confined
   coordinates): the 2x1 tube is already done analytically for all 2-bridge knots to ten
   crossings (Ishihara, Pouokam, Suzuki, Scharein, Vazquez, Arsuaga, Shimokawa, J. Phys. A 50
   (2017) 215601; abstract only, full text not read here), so only wider tubes would be new.

@@ -261,9 +261,21 @@ table are in `PROOF_SLAB.md`; keep that table current.
 * Cost [C]: the 1-slab grows by 3.5 per two edges (n = 34: 91 s on 4 cores, so n = 40 about
   1 h, n = 42 about 4 h, n = 48 about 170 h: use Actions); the 2-slab by about 4.4
   (n = 26: 12 s, n = 34 about 1.3 h, n = 40 about 100 core-hours).
-* Done: n_{1,4_1} = 36 with census 1480 (17 Nov). Targets, in order: n_{1,5_1} = 38, n_{2,4_1} = 32, n_{1,5_2} = 42,
-  n_{2,5_1} = 34 (local); then 6_1, 6_2 (1-slab 48, 2-slab 42), 6_3 (50, 44) on Actions with
-  a workflow that builds `slab.cpp` (copy `exact-enum.yml`; `-part R M` works as in enum).
+* **Status 17 Nov (see PROOF_SLAB.md sections 4-5 for proofs and tables).** Proved [C]:
+  n_{1,3_1} = 26, n_{1,4_1} = 36 (census 1480), n_{1,5_1} = 38; n_{L,3_1} = 24 and
+  **n_{L,5_1} = 34, n_{L,5_2} = 36 for all L >= 2**, n_{L,4_1} = 30 for L >= 3 (from the
+  unconfined censuses split by height; every published count reproduced). Upper bounds
+  (soft-wall annealing): 1-slab 5_2 42, 6_1 48, 6_2 48, 6_3 50, square 44, **granny 46 (published
+  Monte Carlo value 48)**; 2-slab 6_1 42, 6_2 42, 6_3 44. Next, as runs finish:
+  - 1-slab n = 40, 42 (local queue): no 5_2 and no composite => n_{1,5_2} = 42, n_{1,square} = 44.
+  - 2-slab n = 32 (local queue): 4_1 present => n_{2,4_1} = 32 (published 6064 polygons: census).
+  - W = 1 arcs L = 21 + Actions run 1-slab n = 44: granny 44 or 46.
+  - W = 2 arcs to L = 19: pair analysis gives the 2-slab composites at 40.
+  - Actions 1-slab n = 46, 2-slab n = 38, 40: lower bounds for the six-crossing knots
+    (with the witnesses above: n_{1} = 48, 48, 50 and n_{2} = 42, 42, 44 if nothing shorter).
+  - Unconfined n = 38 (Actions): Len(6_x) = 40 and Len(composites) = 40 => with the height-3
+    witnesses (out/witness40.txt: 6_1 and both composites have height 3) n_{L} = 40 for L >= 3;
+    6_2, 6_3 need height-3 polygons (`./anneal_soft.sh 3 ...`).
 * On Actions: `.github/workflows/slab-enum.yml`, started by a push that changes
   `ci/slab_request.json` (runs with L, n, m and optional from/to, opts). Parts land in
   `out/slab/ci/L<L>_n<n>.part<r>_<m>.*`; when all parts of a run are there the collect job
