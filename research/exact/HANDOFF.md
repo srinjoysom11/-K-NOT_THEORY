@@ -142,18 +142,21 @@ commit "exact: enumeration parts from GitHub Actions run ..." on this branch.
    Len >= 36, so Len(5_2) = 36" is complete (PROOF.md section 5).
 3. n = 36: expect 3_1, 4_1, 5_1, 5_2 only; census of 5_2 with `--alex "2,-3,2"`, the sampled
    number is 114 912 [JvRR11].
-4. n = 38, not yet submitted. Wait for the part times of n = 36 (in the summary file), then
-   push four requests one after another, each when the previous one has been picked up:
+4. n = 38: submitted on 17 Nov 2026 in four requests of 250 parts each,
    `{"runs": [{"n": 38, "m": 1000, "from": 0, "to": 250, "opts": "-stair -tourcap 3", "tag": "stair"}]}`
-   then from 250 to 500, 500 to 750, 750 to 1000. (`-stair` is `-prime` plus the staircase
-   rule of PROOF.md section 2a, about 20 % fewer nodes; use it only once the local n = 32
-   run with it, step 5, has given the same words as `out/n32_prime.txt`.) If the slowest n = 36 part took more than
-   60 minutes, use m = 2000 in eight pushes instead (a job is killed at 350 minutes).
-   If no knot outside {3_1, 4_1, 5_1, 5_2} survives at 38, then Len(6_1) = Len(6_2) =
-   Len(6_3) = Len(3_1 # 3_1) = 40. For composite knots at n = 38 the arc lemma is needed
-   for 18 edges (`out/arc/arc18.log`, running locally on 15 Nov; rerun with
-   `./arcknot 18 2> out/arc/arc18.log | ./unknot_cert > out/arc/arc18.unresolved.txt`,
-   a few hours on one core).
+   then from 250 to 500, 500 to 750, 750 to 1000; push the next one when the previous one
+   has been picked up (the `git log` of `ci/request.json` shows which have gone). Each run
+   commits its parts as `out/n38_stair.part*_1000.*` and a summary
+   `out/n38_stair.m1000.ci_summary.txt`; the merged `out/n38_stair.txt` is written by the
+   run that finds all 1000 parts present. (`-stair` is `-prime` plus the staircase rule of
+   PROOF.md section 2a; at n = 32 it gave the same 542 words as `-prime`.) Expected cost
+   350 to 430 runner-hours; a job is killed at 350 minutes, the slowest n = 36 part of 250
+   took 25 minutes. The runs share the 20 runners with the Lean re-runs of section 0, so
+   they may wait for hours before starting.
+   Then `python3 identify_rigorous.py out/n38_stair.txt` (must end ALL RESOLVED). If no
+   knot outside {0_1, 3_1, 4_1, 5_1, 5_2} survives, then Len(6_1) = Len(6_2) = Len(6_3) =
+   Len(3_1 # 3_1) = 40. The arc lemma for 18 edges, needed for composites at n = 38, is
+   done (`out/arc/arc18.log`: 3.57e9 arcs, none knotted).
 5. Local cross-checks. n = 30 with `-tourcap 3` (`out/n30_primec3.part*`): done, the same
    190 words as `out/n30_prime.txt`. n = 30 with `-stair -tourcap 3` (`out/n30_stair.part*`):
    done, the same 190 words, 2.16e9 nodes against 2.64e9. n = 32 with `-stair -tourcap 3`
@@ -248,6 +251,10 @@ batch of parts; the logs are the evidence.
   bounds (span, spanning tree, reuse of the parent's order) are what made it pay.
 * The simple bridge filter (`-bridge 3`) cuts the tree 74-fold at n = 22 but only 3-fold at
   n = 26; it will not make n = 38 cheap.
+* Two-move rules (17 Nov): a vertex that is the only blocker of a lowering corner flip, or
+  the only occupied site of a curtain, must not itself be flippable out of the way. Sound,
+  but it cut only 0.5 % of the nodes at n = 22 and 24 (it removes 10 of the 50 output words
+  at n = 24), so it was not kept in `enum.cpp`.
 
 ## 5. Colab and training (status, for whoever picks up the ML side)
 
