@@ -110,7 +110,8 @@ outermost plane that owes 2 crossings, and H still owes at least 2, so the true 
 at least the one computed with 4 for H.
 Measured [C]: 24 % fewer nodes at n = 24, 22 % at n = 28 (part 0 of 32), 18 % at n = 30
 (2.16e9 against 2.64e9, both with `-tourcap 3`); the survivors at n = 24, 26, 28 (part 0 of
-32) and 30 (all 190) are the same words as without it.
+32), 30 (all 190) and 32 (all 542, `out/n32_stair.txt` against `out/n32_prime.txt`, 1.18e10
+nodes) are the same words as without it.
 
 *Data [C].* In all 2592 canonical 24-edge trefoils and in the stored polygons of all 249 knots
 of the literature table, a mid-plane crossed by only 2 edges occurs only at an outermost gap
@@ -122,8 +123,8 @@ in this form, and it gives (#steps on an axis) >= 4 (#gaps) - 4, the bounding-bo
 polygon, if one side of a twice-crossed mid-plane is an unknotted ball-arc pair, that side is a
 staircase in the level next to H. So a twice-crossed mid-plane with at least two occupied
 levels on each side has a knotted arc on **both** sides. Section 2b shows this needs at least
-38 edges. With `-prime` alone the output is complete for prime knot types only; with section 2b
-it is complete for all knot types up to n = 36.
+40 edges. With `-prime` alone the output is complete for prime knot types only; with section 2b
+it is complete for all knot types up to n = 38.
 
 ## 2b. Short arcs in a half-space are unknotted (composite knots)
 
@@ -134,7 +135,7 @@ shortest path in the level z = -1 to A - e_z, and the edge up to A. C(b) is a po
 is knotted exactly when C(b) is a non-trivial knot (any two closing paths below the level
 z = 0 are isotopic there).
 
-**Lemma 4 [C].** If b has at most 17 edges and no U-turn (three consecutive steps a, c, -a),
+**Lemma 4 [C].** If b has at most 18 edges and no U-turn (three consecutive steps a, c, -a),
 then C(b) is unknotted. (For at most 16 edges the U-turn condition is not needed.)
 
 *Proof (computer).* If |b| + d + 2 <= 22 then C(b) has fewer than 24 edges and is unknotted
@@ -155,6 +156,7 @@ square by U-turn removals (Lemma 1, k = 1) and corner flips (section 2). Result:
 | 15 | 35 583 605 | 35 567 997 | 15 608 | 0 |
 | 16 | 178 187 146 | 177 874 674 | 312 472 | 0 |
 | 17 | 820 920 314 | 817 563 786 | 3 356 528 | 0 |
+| 18 | 3 566 755 395 | 3 540 572 263 | 26 183 132 | 0 |
 | 16, U-turns allowed | 980 557 389 | 967 162 777 | 13 394 612 | 0 |
 
 For L <= 10 the condition L + d >= 22 cannot hold (d <= L). Logs: `out/arc/arcL.log`.
@@ -164,21 +166,28 @@ the C++): the same numbers of walks tested and the same histograms of maxima for
 
 *Sharpness.* Knotted arcs with 19 edges exist: 7072 of the 24-edge trefoils (counted with
 their 6 directions) have an outer level that is a 3-edge path, and removing it and the two
-edges to it leaves a 19-edge arc. Whether 18 is possible is being computed (`arcknot 18`).
+edges to it leaves a 19-edge arc. So 18 in Lemma 4 cannot be improved (for arcs without
+U-turns). The run for L = 18 took 58 minutes on one core (`out/arc/arc18.log`, 15 Nov 2026).
 
 **Corollary.** Let P be a shortest polygon of some knot type and H a mid-plane crossed by
-exactly two edges of P with a knotted arc on both sides. Then P has at least 38 edges.
+exactly two edges of P with a knotted arc on both sides. Then P has at least 40 edges.
 
 *Proof.* The two arcs are sub-paths of a shortest polygon, so they have no U-turn (Lemma 1).
-After a symmetry of the lattice each of them is a walk as in Lemma 4, so each has at least 18
-edges, and |P| >= 18 + 18 + 2. []
+After a symmetry of the lattice each of them is a walk as in Lemma 4, so each has at least 19
+edges, and |P| >= 19 + 19 + 2. []
 
-**Consequence for the search.** Let P be a shortest polygon with n <= 36 edges, of any knot
+(The best known polygon of 3_1 # 3_1 has 40 edges, so this is the first length at which such a
+plane can occur at all.)
+
+**Consequence for the search.** Let P be a shortest polygon with n <= 38 edges, of any knot
 type, in the normal form of Lemma 2 and in canonical position. By the Corollary and the remark
 on composite knots in section 2a, every mid-plane of P with at least two occupied levels on
 each side is crossed at least 4 times. That is the only property of P that `-prime` uses beyond
-sections 1, 2 and 3. So for n <= 36 the output of `enum n -prime` contains a polygon of every
-knot type K (prime or composite) with Len(K) = n.
+sections 1, 2 and 3. So for n <= 38 the output of `enum n -prime` contains a polygon of every
+knot type K (prime or composite) with Len(K) = n. The same holds for `-stair`: its extra rule
+concerns a twice-crossed plane next to an outermost level c, and the arc inside the single
+level c is unknotted whatever the knot type, so by the first half of the proof of Lemma 3 it
+is a staircase.
 
 ## 3. Canonical position
 

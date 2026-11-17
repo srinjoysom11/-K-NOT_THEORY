@@ -79,8 +79,9 @@ were byte-identical across six rewrites of the bounds.
 
 **Composite knots [C].** `-prime` is complete for prime knots only, but PROOF.md section 2b
 (Lemma 4, programs `arcknot.cpp` and `unknot_cert.cpp`, logs in `out/arc/`) shows that the one
-case it misses needs at least 38 edges (40 if `arcknot 18`, running, finds nothing). So for
-n <= 36 the `-prime` output is complete for all knot types.
+case it misses needs at least 40 edges (`arcknot 18` finished on 15 Nov: 3.57e9 arcs, none
+knotted, `out/arc/arc18.log`). So for n <= 38 the `-prime` and `-stair` outputs are complete
+for all knot types.
 
 **Identification.** `identify_rigorous.py` simplifies each survivor's diagram to at most 5
 crossings and reads the type from the Alexander polynomial; outputs are `out/*.rigorous.txt`.
@@ -93,7 +94,7 @@ so **Len(5_2) = 36** (upper bound: `out/upper_5_2_len36.txt`); and every knot ty
 End-to-end checks: the survivors rebuild the published minimal-polygon counts 3328 (3_1, 24),
 3648 (4_1, 30), 6672 (5_1, 34), 114 912 (5_2, 36). Not formally verified and not yet reviewed
 by anyone outside this project; `raster.cpp` has not been compared beyond n = 22.
-Next: n = 38 (section 3, step 4), which needs `out/arc/arc18.*` (running) for composites.
+Next: n = 38 (section 3, step 4); the arc lemma for 18 edges that it needs is done.
 
 ## 2. Files
 
