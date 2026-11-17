@@ -239,3 +239,46 @@ search here) and Len(5_2) = 36 (PROOF.md, Lean-checked) this gives:
 
 Before this only n_{1,3_1} = 26 had a proof; the values above were Monte Carlo estimates.
 
+
+## 5. Upper bounds: explicit polygons [C]
+
+Upper bounds need only an explicit polygon. `anneal_soft.sh HS SEEDS "name:braid;..."` builds a
+start polygon in the 1-slab from a braid word (`braid2slab.py`: strands along rows of level 0,
+over-crossings through level 1, nested closure loops) and anneals it with `bfacf_soft.c`. Every
+polygon it records lies in the HS-slab; BFACF moves never change the knot type, but the type is
+checked anyway: `python3 check/slab_witnesses.py out/slab/witness_L1.txt 1` verifies
+self-avoidance, length, height and knot type (a diagram with <= 6 crossings, then the Alexander
+polynomial; granny and square are separated by the Kauffman bracket polynomial f(A), which is
+palindromic only for the square knot). Shortest checked polygons, 1-slab
+(`out/slab/witness_L1.best.txt`):
+
+| K | length | published Monte Carlo n_{1,K} |
+|---|---|---|
+| 5_2 | 42 | 42 |
+| 6_1 | 48 | 48 |
+| 6_2 | 48 | 48 |
+| 6_3 | 50 | 50 |
+| 3_1 # -3_1 (square) | 44 | 44 |
+| **3_1 # 3_1 (granny)** | **46** | **48** |
+
+The 46-edge granny knot in the 1-slab,
+
+    sseuennwdnwwwwunneesssdwwwnneeussseeedennuwwsd
+
+reduces to a 6-crossing diagram that is the connected sum of two trefoils (crossings on
+strands 1-7 and on 8-11, 0), with f(A) = A^8 + 2A^16 - 2A^20 + A^24 - 2A^28 + A^32, the square
+of the trefoil's polynomial (granny, not square). So **n_{1,3_1#3_1} <= 46**, below the Monte
+Carlo value 48 of arXiv:1204.6674. The lower bound is 44 or more once the 1-slab runs to n = 42
+show no composite; whether it is 44 or 46 is decided by the run n = 44 (complete except for
+polygons with a twice-crossed wall and two knotted 21-edge arcs) and `check/arcslab_pairs.py 1 21`.
+
+**Remark (BFACF in the 1-slab) [observation].** BFACF confined to the 1-slab does not seem to be
+irreducible on knot types, or it mixes so slowly that in practice it is not. From the braid
+start, 4_1 always settled at 44 edges (dozens of seeds, excursions to more than 400 edges and
+high phases of 2 * 10^6 moves), while from a 36-edge census polygon it always came back to 36.
+Allowing two more levels with a penalty per vertex above level 1 (`bfacf_soft.c`, recording
+only polygons inside the 1-slab) reaches 36 from the same start at once. Irreducibility of
+BFACF in slabs does not seem to be proved in the literature (arXiv:1204.6674 cites the bulk
+theorem of Janse van Rensburg and Whittington). This is a plausible reason why the published
+value for the granny knot is too high, and a reason to check every Monte Carlo slab value
+against exact runs.
