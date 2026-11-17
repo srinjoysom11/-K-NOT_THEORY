@@ -1,0 +1,7 @@
+5_2	36	height<=2	seuuwwddwwuuesedennnwwssswwnuneeedde
+6_1	42	height<=2	nddnneeussswwwssedennnuueeddwnwuwwsdsseuun
+6_2	42	height<=2	dssuseendnnnuwwwsseeeessdwwnuunnddnwnuussd
+6_3	44	height<=2	eeennwwwsdsssueendnnuussssddwnnuunnddnwwsuse
+granny	40	height<=2	uesswwwdnneuusssddnnuwnneeedsswuunnnddss
+square	40	height<=2	euseennnuwwsddeeeuuwwdnwwsssdeenuuwwwdde
+0 rejected

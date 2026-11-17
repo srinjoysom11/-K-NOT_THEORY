@@ -1,0 +1,4 @@
+6_1	40	height<=3	sseuueeddennwuwssswwnneddeeuuessdwwnnnww
+6_2	40	height<=3	wdwnneuuueedddswwuwnneeeesswuwnnnddssuss
+6_3	40	height<=3	ssswwnneueedddswwuuuwnnddeeeesswwndnnuus
+0 rejected
