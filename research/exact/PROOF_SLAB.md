@@ -181,6 +181,7 @@ knot types by `identify_rigorous.py` (must end `ALL RESOLVED`).
 | 34 | 3.2e8 | 12 | 3_1 |
 | 36 | 1.2e9 | 66 | 3_1 (16), 4_1 (38), 0_1 (12) |
 | 38 | 4.3e9 | 178 | 3_1 (24), 4_1 (82), 5_1 (16), 0_1 (56) |
+| 40 | 1.6e10 | 140 | 3_1 (36), 4_1 (28), 5_1 (32), 0_1 (44) |
 
 With the lemmas above and the correctness of the program this gives:
 
@@ -197,6 +198,9 @@ With the lemmas above and the correctness of the program this gives:
   least 40 edges in the 1-slab. (n = 38 ran in 8 parts with `queue_slab_parts.sh`; its 26
   `bfs_limit_hits` are candidates kept because the flip search hit its limit, which can only add
   survivors.)
+* **n_{1,5_2} = 42.** No 5_2 for n <= 40 (the run n = 40 is complete for all knot types by
+  section 1a); the 42-edge polygon of section 5 is the upper bound. Every knot other than 3_1, 4_1,
+  5_1, 5_2 (composites included) needs at least 42 edges in the 1-slab.
 * The 12 unknotted survivors at n = 36 are polygons from which no sequence of corner flips
   reaches a U-turn (also not when the flips may leave the slab, up to 200 000 states,
   `unknot_cert`): the search keeps them because it only removes polygons it can shorten.

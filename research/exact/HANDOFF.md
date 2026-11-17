@@ -268,7 +268,8 @@ table are in `PROOF_SLAB.md`; keep that table current.
   unconfined censuses split by height; every published count reproduced). Upper bounds
   (soft-wall annealing): 1-slab 5_2 42, 6_1 48, 6_2 48, 6_3 50, square 44, **granny 46 (published
   Monte Carlo value 48)**; 2-slab 6_1 42, 6_2 42, 6_3 44. Next, as runs finish:
-  - 1-slab n = 40, 42 (local queue): no 5_2 and no composite => n_{1,5_2} = 42, n_{1,square} = 44.
+  - Done: 1-slab n = 40: no 5_2, no composite => n_{1,5_2} = 42. Running: n = 42 (local, 48 parts,
+    about 7 h): no composite => n_{1,square} = 44.
   - Done 17 Nov: n_{1,5_1} = 38 (census 144) and n_{2,4_1} = 32 (census 6064), as published.
   - Done: W = 1 arcs L = 21 (24 knotted, end points fix the handedness: no granny at 44 from a
     wall, 144 squares; PROOF_SLAB.md section 7). Granny = 46 once Actions 1-slab n = 44 shows none.
