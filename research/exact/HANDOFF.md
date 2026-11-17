@@ -282,7 +282,9 @@ table are in `PROOF_SLAB.md`; keep that table current.
     (with the witnesses above: n_{1} = 48, 48, 50 and n_{2} = 42, 42, 44 if nothing shorter).
   - Unconfined n = 38 (Actions): Len(6_x) = 40 and Len(composites) = 40 => with the height-3
     witnesses (out/witness40.txt: 6_1 and both composites have height 3) n_{L} = 40 for L >= 3;
-    6_2, 6_3 need height-3 polygons (`./anneal_soft.sh 3 ...`).
+    6_2, 6_3 need height-3 polygons (`./anneal_soft.sh 3 ...`; found: out/slab/witness_L3.txt).
+  - Submitted 13:15 UTC: 1-slab n = 48 and 2-slab n = 42 (128 parts each, about 670 runner-hours)
+    for 6_3 (published 50 and 44). With these, every entry of the table to 6 crossings is decided.
 * On Actions: `.github/workflows/slab-enum.yml`, started by a push that changes
   `ci/slab_request.json` (runs with L, n, m and optional from/to, opts). Parts land in
   `out/slab/ci/L<L>_n<n>.part<r>_<m>.*`; when all parts of a run are there the collect job
