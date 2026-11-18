@@ -1,0 +1,13 @@
+L=1 n=44 parts=16 INCOMPLETE 6 of 16 parts survivors=458
+slab=1 N=44 tasks=14964 part=2/16 nodes=14594951466 closed=8950 candidates=1617 survivors=76 bfs_limit_hits=5 tour_giveups=5832678086
+seconds=8612 host=github-actions threads=4 opts=-slab 1 -stair -tourcap 3 slab.cpp=2c8fc7809a85b9fa commit=0b161136585766771495aae570dc6932657b5a99
+slab=1 N=44 tasks=14964 part=3/16 nodes=14082128997 closed=6518 candidates=1049 survivors=62 bfs_limit_hits=1 tour_giveups=5636090284
+seconds=6737 host=github-actions threads=4 opts=-slab 1 -stair -tourcap 3 slab.cpp=2c8fc7809a85b9fa commit=0b161136585766771495aae570dc6932657b5a99
+slab=1 N=44 tasks=14964 part=5/16 nodes=15157505124 closed=10486 candidates=1963 survivors=95 bfs_limit_hits=0 tour_giveups=6082551468
+seconds=7150 host=github-actions threads=4 opts=-slab 1 -stair -tourcap 3 slab.cpp=2c8fc7809a85b9fa commit=0b161136585766771495aae570dc6932657b5a99
+slab=1 N=44 tasks=14964 part=7/16 nodes=14978860805 closed=7641 candidates=1438 survivors=74 bfs_limit_hits=0 tour_giveups=5974192182
+seconds=7061 host=github-actions threads=4 opts=-slab 1 -stair -tourcap 3 slab.cpp=2c8fc7809a85b9fa commit=0b161136585766771495aae570dc6932657b5a99
+slab=1 N=44 tasks=14964 part=8/16 nodes=13929130031 closed=7105 candidates=1444 survivors=79 bfs_limit_hits=0 tour_giveups=5562654521
+seconds=8177 host=github-actions threads=4 opts=-slab 1 -stair -tourcap 3 slab.cpp=2c8fc7809a85b9fa commit=0b161136585766771495aae570dc6932657b5a99
+slab=1 N=44 tasks=14964 part=13/16 nodes=14246552217 closed=10401 candidates=2292 survivors=72 bfs_limit_hits=9 tour_giveups=5702342218
+seconds=6760 host=github-actions threads=4 opts=-slab 1 -stair -tourcap 3 slab.cpp=2c8fc7809a85b9fa commit=0b161136585766771495aae570dc6932657b5a99
