@@ -7,3 +7,4 @@ import Len52.PD
 import Len52.Cert
 import Len52.SearchProof
 import Len52.Main
+import Len52.Figure
