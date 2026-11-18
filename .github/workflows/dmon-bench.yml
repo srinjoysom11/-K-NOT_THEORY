@@ -1,0 +1,98 @@
+# Paired benchmark of enum (research/exact/enum.cpp, untouched) against enum_dmon.cpp with one DMON flag set.
+# Started by pushing a change to research/exact/ci/dmon_request.json on claude/dmon-experiments, e.g.
+#   {"runs": [{"n": 30, "m": 32, "from": 0, "to": 32, "base_opts": "-stair -tourcap 3", "new_opts": "-aotc", "tag": "aotc", "same_output": true}]}
+# Every job runs BOTH programs on the same part (same machine, so node counts compare exactly and
+# seconds compare roughly), compares the word lists with cmp (same_output = true for pure bounds),
+# and a last job commits the logs to research/exact/out/dmon/ci/.
+name: dmon-bench
+on:
+  push:
+    branches: [claude/dmon-experiments]
+    paths: [research/exact/ci/dmon_request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          req = json.load(open('research/exact/ci/dmon_request.json'))
+          inc = [{"n": r["n"], "m": r["m"], "r": k, "base": r.get("base_opts", "-stair -tourcap 3"),
+                  "new": r["new_opts"], "tag": r["tag"], "same": "1" if r.get("same_output", True) else "0"}
+                 for r in req["runs"] for k in range(r.get("from", 0), r.get("to", r["m"]))]
+          assert 0 < len(inc) <= 256, len(inc)
+          print("matrix=" + json.dumps({"include": inc}))
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        working-directory: research/exact
+        run: |
+          g++ -O3 -march=native -std=c++17 -pthread -o enum enum.cpp
+          g++ -O3 -march=native -std=c++17 -pthread -o enum_dmon enum_dmon.cpp
+          # with no new flags the copy must behave exactly like enum
+          ./enum 24 -stair -tourcap 3 -out a.txt 2> a.log; ./enum_dmon 24 -stair -tourcap 3 -out b.txt 2> b.log
+          cmp a.txt b.txt; cmp a.log b.log
+      - name: paired run
+        working-directory: research/exact
+        run: |
+          t=n${{ matrix.n }}_${{ matrix.tag }}.part${{ matrix.r }}_${{ matrix.m }}
+          P="-part ${{ matrix.r }} ${{ matrix.m }}"
+          s=$(date +%s.%N); ./enum ${{ matrix.n }} ${{ matrix.base }} $P -out $t.base.txt 2> $t.base.log; e=$(date +%s.%N)
+          echo "seconds=$(echo "$e-$s" | bc) host=github-actions threads=$(nproc)" >> $t.base.log
+          s=$(date +%s.%N); ./enum_dmon ${{ matrix.n }} ${{ matrix.base }} ${{ matrix.new }} $P -out $t.new.txt 2> $t.new.log; e=$(date +%s.%N)
+          echo "seconds=$(echo "$e-$s" | bc) host=github-actions threads=$(nproc) new_opts=${{ matrix.new }} commit=$GITHUB_SHA" >> $t.new.log
+          if cmp -s $t.base.txt $t.new.txt; then echo "output=IDENTICAL" >> $t.new.log; else echo "output=DIFFERENT" >> $t.new.log; fi
+          echo "same_required=${{ matrix.same }} base_words=$(wc -l < $t.base.txt) new_words=$(wc -l < $t.new.txt)" >> $t.new.log
+          cat $t.base.log $t.new.log
+          mkdir -p parts && mv $t.* parts/
+          if [ "${{ matrix.same }}" = 1 ] && ! cmp -s parts/$t.base.txt parts/$t.new.txt; then echo "pure bound changed the output" >&2; exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: n${{ matrix.n }}_${{ matrix.tag }}.part${{ matrix.r }}_${{ matrix.m }}
+          path: research/exact/parts/
+          retention-days: 30
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: commit logs
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            mkdir -p research/exact/out/dmon/ci
+            cp artifacts/*.log artifacts/*.txt research/exact/out/dmon/ci/ 2>/dev/null || true
+            python3 research/exact/check/dmon_ci_summary.py research/exact/out/dmon/ci || true
+            git add research/exact/out/dmon
+            git commit -q -m "exact: dmon-bench logs from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1
