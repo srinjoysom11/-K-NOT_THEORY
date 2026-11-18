@@ -390,3 +390,22 @@ twice-crossed wall and knotted arcs on both sides (and 14 688 such square knots)
 and the 22-edge analysis: **n_{1,3_1#3_1} = 46 if the 1-slab run n = 44 (Actions) contains no
 granny**, and then the number of shortest grannies in the 1-slab is 96 plus those of the run n = 46
 without such a wall. (Published: 48 edges, 2430 polygons per chirality.)
+
+## 8. Consequences of the unconfined result at n = 38 [C]
+
+PROOF.md section 7: every knot type other than 0_1, 3_1, 4_1, 5_1, 5_2 has Len >= 40, and
+Len(6_1) = Len(6_2) = Len(6_3) = Len(3_1#3_1) = Len(3_1#-3_1) = 40. Since n_{L,K} >= Len(K):
+
+* **n_{L,6_1} = n_{L,6_2} = n_{L,6_3} = 40 for every L >= 3** (40-edge polygons of height <= 3 in
+  `out/slab/witness_L3.txt`, checked by `check/slab_witnesses.py out/slab/witness_L3.txt 3`;
+  published: 40 for L >= 3).
+* **n_{L,3_1#3_1} = n_{L,3_1#-3_1} = 40 for every L >= 2** (the glued 40-edge polygons of
+  section 6 lie in the 2-slab, and `out/witness40.txt` has height 3). In the 2-slab the shortest
+  composites with a twice-crossed wall and knotted arcs on both sides are exactly 448 square and
+  16 granny polygons (section 6), the published counts; the 2-slab run n = 40 adds those without
+  such a wall, if any.
+* In the 2-slab, n_{2,6_1}, n_{2,6_2}, n_{2,6_3} >= 40; the runs n = 40 and 42 decide them
+  (published 42, 42, 44; polygons of these lengths in `out/slab/witness_L2.txt`).
+
+Summary of exact values now proved (L = 1, 2, >= 3): 3_1 26, 24, 24; 4_1 36, 32, 30 (L >= 3);
+5_1 38, 34, 34; 5_2 42, 36, 36; 6_1, 6_2, 6_3 ?, ?, 40; square 44, 40, 40; granny 44-46, 40, 40.

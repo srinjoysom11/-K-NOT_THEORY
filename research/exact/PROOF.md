@@ -239,3 +239,29 @@ different [E: Rolfsen table].
 * The hash used in the flip search can only make it miss a reduction (keep more polygons).
 * Rule 4's "possible when the limit is hit" and the state limit both err on the side of
   keeping polygons.
+
+
+## 7. Result at n = 38: every knot with at least 6 crossings has Len >= 40 [C]
+
+Run: `enum 38 -stair -tourcap 3`, 1000 parts on GitHub Actions (runs 43984833103,
+43985290032, 43985293399, 43985297881, and 44254232102 for the 14 parts of the last run that were
+cancelled before they started), merged by the workflow into `out/n38_stair.txt` (18 945 words);
+log `out/n38_stair.log` (2.03e12 nodes, 1 000 000 runner-seconds with 4 threads, 1561
+`bfs_limit_hits`, which can only keep polygons), per-part logs in `out/ci/`.
+
+Identification (`python3 identify_rigorous.py out/n38_stair.txt`, saved as
+`out/n38_stair.rigorous.txt`): every survivor reduces to a diagram with at most 5 crossings and
+the verdicts are 0_1 (2251), 3_1 (1700), 4_1 (3274), 5_1 (4202), 5_2 (7518): **ALL RESOLVED**.
+(`identify6.py --chir` agrees and splits the chiral ones evenly.)
+
+By section 2b ("Consequence for the search") the output for n <= 38 contains a polygon of every
+knot type, prime or composite, with Len = n. Together with the runs for n <= 36:
+
+**Theorem [C].** Every knot type other than 0_1, 3_1, 4_1, 5_1, 5_2 has Len >= 40. With the
+40-edge polygons of `out/witness40.txt` (checked by `check/witness40.py`):
+
+    Len(6_1) = Len(6_2) = Len(6_3) = Len(3_1 # 3_1) = Len(3_1 # -3_1) = 40.
+
+In particular every knot with crossing number at least 6, and every knot of bridge number at
+least 3, has Len >= 40. These are the first exact values beyond 5_2 (Len(5_2) = 36, sections
+above and the Lean proof); before, 40 was only an upper bound for all five knots.

@@ -9,6 +9,15 @@ Scope note. The project skill (`.claude/skills/lattice-knot-tables`) lists lower
 as out of scope. The user reopened them on 14 Nov 2026 with the goal "a breakthrough, analytic
 or computational"; this directory is that work. Nothing here changes the Goal 1 tables.
 
+## 00. New 18 Nov 2026: Len = 40 for 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1
+
+The unconfined run n = 38 (`enum 38 -stair -tourcap 3`, 1000 parts on Actions) is complete:
+18 945 survivors, all of type 0_1, 3_1, 4_1, 5_1 or 5_2 (`out/n38_stair.rigorous.txt`, ALL
+RESOLVED). So every other knot has Len >= 40, and with `out/witness40.txt` the five knots above
+have Len = 40 (PROOF.md section 7). Slab consequences: PROOF_SLAB.md section 8. Next for the
+bulk: n = 40 (about 2200 runner-hours) would give Len(8_19) = 42 and the census of the five
+knots at 40; composite completeness at n = 40 needs the 19-edge knotted half-space arcs.
+
 ## 0. Formal proof of Len(5_2) = 36 (15-16 Nov 2026: complete)
 
 Goal set by the user: a rigorous, formal proof with no doubt about pruned branches. State:

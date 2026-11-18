@@ -1,3 +1,7 @@
+**18 Nov 2026: lead 1 done.** Unconfined n = 38 complete: Len(6_1) = Len(6_2) = Len(6_3) =
+Len(3_1#3_1) = Len(3_1#-3_1) = 40 and every other knot beyond 5_2 has Len >= 40 (PROOF.md
+section 7).
+
 # Three leads, ranked
 
 Written 14 Nov 2026 after one day on exact minimal lattice lengths. Read `HANDOFF.md` first.

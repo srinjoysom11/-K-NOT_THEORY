@@ -1,0 +1,2 @@
+N=38 parts=1000 (GitHub Actions runs 43984833103, 43985290032, 43985293399, 43985297881, 44254232102) nodes=2030477821636 survivors=18945 bfs_limit_hits=1561
+seconds=999906 (sum over parts, 4 threads each) opts=-stair -tourcap 3 enum.cpp unchanged
