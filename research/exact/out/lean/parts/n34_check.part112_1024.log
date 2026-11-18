@@ -1,3 +1,3 @@
 RESULT n=34 r=112 m=1024 nodes=2206953186 words=3 ok=true
 status=0 binsha=423a9fa22417132991e6dbb27bf1db8e8ada33b2ba54a8a31fdf17597519658a txtsha=b10964b48b21b05b9cbf69b672c27b6152ea12c8201f5af8e2050b013e227ac2
-seconds=5643 host=github-actions engine=check commit=68f7d9046c20f6666e7f2a1c49ca620344443d55
+seconds=3638 host=github-actions engine=check commit=fd901c2c3dd67b6af2b5be509aed181597bc40e5

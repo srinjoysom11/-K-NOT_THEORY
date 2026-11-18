@@ -1,1 +1,1 @@
-n=30 engine=check parts=64 COMPLETE words=2846 nodes_sum=43638057581
+n=30 engine=check parts=64 COMPLETE words=2782 nodes_sum=43638057581
