@@ -29,8 +29,9 @@ Goal set by the user: a rigorous, formal proof with no doubt about pruned branch
   `.github/workflows/lean-proof.yml` rebuilds it on GitHub and prints the axioms.
 * **CompCert holds (16 Nov 2026).** It is equivalent to 1358 Booleans `checkPart n r` (Cert.lean),
   evaluated by `lake exe checkpart n r`. `python3 formal/verify_comp.py` accepts all 1358 parts and
-  writes out/lean/COMPCERT.txt. Every part ran on GitHub Actions (lean-enum runs 43735396072,
-  43770731268, 43927007974); the C++ cross-check (in 43770731268) agrees at every length.
+  writes out/lean/COMPCERT.txt. Every part ran on GitHub Actions under the current sources
+  (lean-enum runs 43948984432 for n = 34 and 43949045919 for n = 4..32, 17-18 Nov 2026), reproducing
+  the earlier runs byte for byte; the C++ cross-check (in 43770731268) agrees at every length.
 * **Provenance = GitHub's job logs**, archived by `formal/gha_archive.py <run>` into
   out/lean/gha_runs/<run>/. verify_comp accepts a part only if its committed log is byte-identical to
   the block the job printed, in a successful job of a lean-enum run whose head commit has the frozen

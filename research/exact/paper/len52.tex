@@ -507,9 +507,10 @@ printed, in a successful job of a run whose head commit has the frozen sources. 
 proof runs are archived in the repository (GitHub keeps them only for a limited time).  The runs'
 own collect jobs could not push to the repository, so a second workflow downloaded their artifacts
 and committed them; the job-log check makes that step irrelevant to the proof.  The output of each
-part is deterministic, so anyone can re-run any part and compare hashes; we did so for a random
-sample of \num{8} parts of length 34 in our container, and the 206 parts first run in the container
-were re-run on GitHub, all byte-identical.
+part is deterministic, so anyone can re-run any part and compare hashes.  Every part was in fact
+evaluated at least twice, in two separate series of GitHub runs; in addition, 8 random parts were
+re-run in our container and 6 with a build whose code was compiled by gcc instead of Lean's bundled
+clang.  All outputs agree byte for byte.
 
 \paragraph*{What is trusted.}  The compiled program evaluated the \num{1358} Booleans correctly: this
 rests on the Lean compiler and the compiled implementations in its core library (arrays, big

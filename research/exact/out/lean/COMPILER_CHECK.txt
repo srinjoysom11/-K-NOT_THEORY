@@ -1,0 +1,7 @@
+# checkpart with project code compiled by gcc 13.3 (-O3 -march=native), binary sha256 a7d9dac59f20fa1f2307a09bdb5230096cae36eebc36f54673ce27027f24f6a4; compared with the accepted logs. The run was stopped by a container restart after these 6 parts (of 30 planned).
+n=34 r=1 m=1024 logged=8782d5b790427e1f gcc-build=8782d5b790427e1f IDENTICAL
+n=34 r=2 m=1024 logged=2a6d10a3daf8c579 gcc-build=2a6d10a3daf8c579 IDENTICAL
+n=34 r=0 m=1024 logged=eb13d06e6922ddf3 gcc-build=eb13d06e6922ddf3 IDENTICAL
+n=34 r=3 m=1024 logged=0cb4a0e006d8a867 gcc-build=0cb4a0e006d8a867 IDENTICAL
+n=32 r=1 m=256 logged=cca7f698b7f3047e gcc-build=cca7f698b7f3047e IDENTICAL
+n=32 r=0 m=256 logged=c82975c1e8435520 gcc-build=c82975c1e8435520 IDENTICAL

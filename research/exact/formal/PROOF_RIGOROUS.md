@@ -576,20 +576,18 @@ A part counts as **accepted** only if all of the following hold:
 
 Where the parts ran. Every part was evaluated on GitHub Actions, by `.github/workflows/lean-enum.yml`
 with engine `check`. Each job builds from a clean checkout of the run's commit, using the official
-Lean 4.25.0 release:
-* run 43735396072: n = 34, all 1024 parts;
-* run 43770731268: n = 32, parts 0–127, plus the C++ cross-check for n = 30, 32 and 34;
-* run 43927007974: n = 4, …, 30 and n = 32, parts 128–255.
+Lean 4.25.0 release (checked against GitHub's digest for the release asset):
+* run 43948984432: n = 34, all 1024 parts;
+* run 43949045919: n = 4, …, 32, all 334 parts.
+Both runs committed their own parts. The C++ cross-check ran in run 43770731268.
 
-The first two runs' own collect jobs could not push (the repository's default token was read-only),
-so `.github/workflows/lean-collect.yml` (runs 43863149806, 43864508106 and 43920494683) downloaded
-their artifacts and merged them with the same merge step. The third run committed its own parts.
-Neither matters for acceptance, which compares every committed log with GitHub's job log.
-
-The parts of the third run had first been evaluated in the container (`lean/run_local.sh`). The
-GitHub outputs are byte-identical to those local outputs for all 206 parts: none of the committed .txt
-files changed when the GitHub results replaced the local logs. The local logs remain in the git
-history.
+History. All 1358 parts had been evaluated before, in earlier runs (43735396072, 43770731268,
+43927007974, and partly in the container). Those runs used sources that differed from the current ones
+only in two comments (the headers of Spec.lean and Diagram.lean, corrected after review round 3), and
+the compiled checkpart binary is byte-identical for both versions. The re-runs under the current
+sources reproduced every earlier output byte for byte: none of the 1358 output files changed when their
+logs were replaced. The earlier logs remain in the git history and their job logs in
+out/lean/gha_runs/.
 
 **8.1 Results.** `formal/verify_comp.py` accepts all 1358 parts: **CompCert holds** (out/lean/COMPCERT.txt).
 
@@ -625,10 +623,13 @@ c₇(5₂) = 49. By `no_short`, no polygon of length ≤ 34 has the knot type of
   PROOF.md) produced a subset of these words. Reidemeister simplification identified those as
   0_1, 3_1, 4_1, 5_1 for n ≤ 34. None of these has determinant divisible by 7, which is consistent
   with (b).
-* (f) **Reproduction.** Two independent re-evaluations agree byte for byte with the logged outputs:
-  - 8 random parts of run 43735396072 (seed 2026; all happened to be n = 34) were re-run in the
-    container (out/lean/REPRO.txt);
-  - the 206 parts first run in the container were re-run on GitHub (run 43927007974).
+* (f) **Reproduction.** Every part has now been evaluated at least twice, with byte-identical outputs:
+  - all 1358 parts in the earlier runs and again in runs 43948984432 and 43949045919;
+  - 8 random parts of run 43735396072 (seed 2026; all happened to be n = 34) again in the container
+    (out/lean/REPRO.txt);
+  - 6 parts (n = 32 and 34) with a checkpart whose project code was compiled by gcc 13.3 instead of
+    Lean's bundled clang, a different binary (out/lean/COMPILER_CHECK.txt; the run was cut short by a
+    container restart).
 
 ---------------------------------------------------------------------------------------------------
 
