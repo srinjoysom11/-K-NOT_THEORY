@@ -18,6 +18,14 @@ have Len = 40 (PROOF.md section 7). Slab consequences: PROOF_SLAB.md section 8. 
 bulk: n = 40 (about 2200 runner-hours) would give Len(8_19) = 42 and the census of the five
 knots at 40; composite completeness at n = 40 needs the 19-edge knotted half-space arcs.
 
+## 01. Next direction (18 Nov): new DMONs for the normal-form search
+
+Five ideas with proofs/sketches and experiment plans: `DMON_IDEAS.md` (generalized curtain,
+axis-ordered travel, obstacle-aware distances, crossing budget, arc gluing). Experiments are run by a
+Sonnet session (session_018pTY7Qwryc1sV3x3cKPZFc, branch `claude/dmon-experiments`, code in
+`enum_dmon.cpp`, results in `DMON_RESULTS.md`); it reports to this session. Slab runs on Actions
+(1-slab n = 44, 46, 48; 2-slab n = 40, 42) are still queued/running, see section 3a.
+
 ## 0. Formal proof of Len(5_2) = 36 (15-16 Nov 2026: complete)
 
 Goal set by the user: a rigorous, formal proof with no doubt about pruned branches. State:
