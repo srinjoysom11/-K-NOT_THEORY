@@ -1,0 +1,2 @@
+N=38 tasks=72315 part=306/1000 nodes=2056193396 closed=3969 candidates=223 survivors=9 bfs_limit_hits=0 tour_giveups=598830549
+seconds=924 host=github-actions threads=4 opts=-stair -tourcap 3 commit=27bcde50bb23f8b5ebfd7179d86c61a2debb21f2
