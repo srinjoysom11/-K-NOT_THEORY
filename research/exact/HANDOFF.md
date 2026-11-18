@@ -297,8 +297,8 @@ table are in `PROOF_SLAB.md`; keep that table current.
   - **18 Nov ~06:40 UTC: slab runs 44060487866 (1-slab 44, 46; 2-slab 40) and 44089937624 (1-slab 48,
     2-slab 42) CANCELLED** so that the last n = 38 collect job (queued behind them) could run.
     Resubmitted 18 Nov ~07:30 after n = 38: the 123 parts of {L1 n44 m16, L1 n46 m64, L2 n40 m64} not
-    yet in out/slab/ci (one request entry per part). STILL TO SUBMIT when that run is done or
-    running: {L1 n48 m128, L2 n42 m128} (6_3).
+    yet in out/slab/ci (one request entry per part). Then (same time) {L1 n48 m128, L2 n42
+    m128} for 6_3 resubmitted as a second run.
   - (Earlier) submitted 13:15 UTC: 1-slab n = 48 and 2-slab n = 42 (128 parts each, about 670 runner-hours)
     for 6_3 (published 50 and 44). With these, every entry of the table to 6 crossings is decided.
 * On Actions: `.github/workflows/slab-enum.yml`, started by a push that changes
