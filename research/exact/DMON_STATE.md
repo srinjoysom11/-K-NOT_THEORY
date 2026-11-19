@@ -93,3 +93,9 @@ D5 arc job resumed (./run_arc19.sh 64 2 is restartable) - check `ls out/dmon/arc
 * Re-run L1_n42 locally with enum_bidir -slab 1 (713 words; complete for all knot types): started (out/dmon/slab/L1_n42.{txt,log}); slab.cpp: 5.96e10 nodes, 22176 s.
 * After n=40 is launched: slab runs with enum_bidir -slab in MY workflow: 1-slab n=48 and 2-slab n=42 (estimate ~85 runner-hours each, m=128 each). Then D5 (arcknot 19) on Actions: workflow arc19-enum.yml + ci/arc19_request.json (parts 12..63) pushed 20 Nov.
 * Drop E3; record E1 and the D4 leaf result as negative/minor (done in DMON_RESULTS.md).
+
+## 20 Nov: CI confirmation done, n=40 launched
+* bidir-enum run 44612420289: n=34 (16 parts, `-prime -tourcap 3 -alt 4 -aotc -aotm`): 1398 survivors, byte-identical to out/n34_prime.txt; 3.472e9 nodes (0.0449 of enum's 7.736e10), 1874 runner-s (0.0413 of 45 419). n=36 (64 parts): 6662 survivors, byte-identical to out/n36_prime.txt; 2.455e10 nodes (0.0567 of 4.332e11), 13 647 runner-s (0.0483 of 282 379). Files: out/bidir/n34_prime_bd.txt, n36_prime_bd.txt, ci_summaries.
+* arc19: all 64 parts on disk (CI run 44612872108 for parts 12..63; parts 0..11 local). Next: python3 check/arc19_glue.py --sample 300 --out out/dmon/arc19/glued40.txt; python3 check/arc19_witness.py out/dmon/arc19/glued40.txt.
+* n=40 unconfined run launched by pushing ci/bidir_request.json = {n:40, m:128, opts "-stair -tourcap 3 -aotc -aotm -alt 4", tag stair_bd}; results will be committed by the workflow to out/bidir/n40_stair_bd.txt (+ ci_summary with nodes and runner_seconds). When merged: python3 identify_rigorous.py out/bidir/n40_stair_bd.txt and send the tally to the parent. NOTE: the request file is replaced; the n=34/36 results stay in out/bidir/.
+* THEN: slab runs with enum_bidir -slab: 1-slab n=48 and 2-slab n=42 (m=128 each), in the same workflow (use a separate push, request file with those opts: "-slab 1 -stair -tourcap 3 -alt 4 -aotc -aotm" and "-slab 2 ...").
