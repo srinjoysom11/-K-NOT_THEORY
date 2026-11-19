@@ -44,3 +44,11 @@ Order: D2 (done) -> D1 -> D3 -> D5 -> D4, then extras E1..E8 in this order. Repo
 * D1 lemma validated: 0 violations in 3328 (3_1@24), 3648 (4_1@30), 6672 (5_1@34), 114912 (5_2@36) = 128560 polygons (out/dmon/gc_census_check.txt); also 0 in all stored survivor lists n=24..38; program leaf test == check/gc_check on all closed polygons n=8..14 (all violate, as they are unknots).
 * D1 prefix (-gc): output identical; nodes ~ unchanged (n=24 15 884 608 vs 15 886 694), time worse (5.8 s vs 3.6 s). -gcleaf kills 0 leaves. Benchmarks n=26,28,30 running: see out/dmon/ and scratchpad d1_chain.out.
 * D3 code (-bfsdist S, -gmst) written, NOT tested.
+
+## New priorities from the parent (19 Nov, 02:14 UTC), after D1 was accepted (keep -gc off)
+1. D3 (-bfsdist S, -gmst) and the D2 follow-ups as planned (-aotm multi-site per-axis, aot inside tour_ok, -aote early check, DMON-only mode n = 24, 26).
+2. NEW: since the capped exact tour gives up at -tourcap 3, try a cheap admissible bound between MST and the exact tour: 1-tree / Held-Karp-style bound
+   (MST on all nodes except one + the two cheapest edges at it; with the path head -> ... -> origin closed by a zero edge head-origin). NOT "MST + matching on odd nodes" (not a lower bound). Also an incremental MST (reuse parent's tree) to cut per-node cost. Report kills and time.
+3. NEW: histogram of rejections by remaining steps R (per test), to see whether kills are deep or shallow (bounds acting earlier save the most).
+Then D5, D4, E1..E8. Report after each item.
+Counters seen so far (n = 24 enum): tour/MST 6.35M kills, reach/2-free-neighbour 2.38M, corner-no-site 79.6k, of 15.9M nodes.
