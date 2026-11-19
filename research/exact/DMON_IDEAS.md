@@ -172,3 +172,35 @@ reproduces enum's node count (n = 24: 86 639 687 vs 86 639 605, DMON-only, `-tou
 n = 20: 0.154x, n = 22: 0.156x, n = 24: 0.158x (13.7M vs 86.6M) - a factor about 6.3, constant so far.
 Pending: n = 26, 28; time; stacking with `-aot -aotm`; `-prime`/`-stair` mode; the completeness
 argument for two-ended prefixes.
+
+**E9 final, stacked with D2 (19 Nov, commit 2b39e5b on claude/dmon-experiments; full tables and
+the soundness list in DMON_RESULTS.md section E9).** Production mode `enum_bidir -stair -tourcap 3
+-aotc -aotm -alt 4`, 4 threads, output byte-identical to enum in every row:
+
+| n  | enum nodes | enum time | bidir+D2 nodes | ratio | bidir+D2 time |
+|----|-----------:|----------:|---------------:|------:|--------------:|
+| 24 | 15.9M      | 3.6 s     | 1.26M          | 0.080 | 0.3 s         |
+| 26 | 76.3M      | 18.9 s    | 4.61M          | 0.060 | 1.1 s         |
+| 28 | 408.8M     | 115.4 s   | 21.2M          | 0.052 | 5.6 s         |
+| 30 | 2.162G     | 635.5 s   | 130.9M         | 0.061 | 39.3 s        |
+| 32 | 1.18e10    | (CI)      | 6.24e8         | 0.053 | 214 s         |
+
+At n = 32 the 542 words equal out/n32_stair.txt byte for byte. Independent check in this session:
+n = 30 gave 127 164 784 nodes and 190 survivors, identical to the union of
+out/n30_stair.part*_8.txt. Bidirectional alone gives 0.28-0.31x; stacked with D2 the result
+(0.052) is slightly better than the product (0.072). The time per node is unchanged. The factor (about 17-19)
+is constant from n = 28 on: the growth per two edges is not lowered.
+
+Where the gain comes from: at n = 30, ALT = 1 (no tail) 547.6M nodes, ALT = 2 (one tail letter)
+217.6M, ALT = 4 (two tail letters) 127.2M, ALT = 6..100 127-140M. The whole gain is knowing the
+last two vertices before the root: the return must enter the root from one of its upper neighbours,
+DMON4 compares the first and last letters, the corner tests act there, and the return distance
+is measured to a concrete vertex rather than to the root. Pruning still starts at R1 = 2..16
+(n = 26 histogram); 3.7x fewer prefixes reach those depths.
+
+Production estimate: n = 38 took 2.03e12 nodes (about 1.0e6 runner-seconds); with E9+D2 it would take
+about 1e11 nodes, about 5e4 runner-seconds. n = 40 would take about 2.5e5 runner-seconds (about 70
+runner-hours) instead of about 2 200 runner-hours. Completeness at n = 40 also needs the 19-edge
+half-space arcs (Lemma 4 covers <= 18 edges): that is D5, now on the critical path. Next steps: CI
+confirmation of enum_bidir at n = 34 and 36, the 19-edge arcs on Actions, then the single-ended
+"closing distance to the allowed root neighbours" test, to see how much of the gain it captures alone.
