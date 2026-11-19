@@ -1,0 +1,2 @@
+slab=1 N=44 parts=16 nodes=229371385426 survivors=1043 bfs_limit_hits=49
+seconds=119736 host=github-actions (sum over parts; see L1_n44.m16.ci_summary.txt)

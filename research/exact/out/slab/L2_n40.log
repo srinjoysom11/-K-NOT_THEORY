@@ -1,0 +1,2 @@
+slab=2 N=40 parts=64 nodes=788129985957 survivors=13621 bfs_limit_hits=639
+seconds=395457 host=github-actions (sum over parts; see L2_n40.m64.ci_summary.txt)

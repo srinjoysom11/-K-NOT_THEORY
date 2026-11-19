@@ -1,0 +1,2 @@
+slab=2 N=40 tasks=38699 part=6/64 nodes=12183203709 closed=21821 candidates=4327 survivors=232 bfs_limit_hits=15 tour_giveups=4209398832
+seconds=5687 host=github-actions threads=4 opts=-slab 2 -stair -tourcap 3 slab.cpp=2c8fc7809a85b9fa commit=1e9a3770f380b5b2e3938dec2a67b38c787c774a
