@@ -317,3 +317,29 @@ DMON-only mode (no `-prime`), `-tourcap 3`, `-noreduce`:
 | 26 | 420 628 059 | 64 867 075 | 0.154 | 66 087 677 | 0.157 |
 
 `-stair -tourcap 3 -noreduce`, n = 24: enum 15 886 694 nodes (identical to `-alt 0`); `-alt 12`: 4 845 943 (0.305); `-alt 100`: 4 857 751 (0.306); with `-aotc -aotm`, `-alt 12`: 1 264 568 (0.080 of enum, 0.25 of enum_dmon's best single-ended 5 065 015).
+
+**DMON-only, n = 28** (`-tourcap 3 -noreduce`, 2 threads while the machine was loaded, so the seconds are only indicative): enum 2 097 129 249 nodes (630 s); `-alt 12` 327 946 854 (0.156; 114 s); `-alt 100` 335 215 673 (0.160; 115 s). Output identical.
+
+**Production mode** `-stair -tourcap 3` (idle machine, 4 threads, whole search; output of every row byte-identical to `enum`; `enum` rows are those of the D2 table; the n = 32 `enum` count is the sum of the 32 CI parts `out/n32_stair.part*_32.log`; the n = 32 word list is identical to `out/n32_stair.txt`, 542 words):
+
+| n | enum nodes | enum s | bidir -alt 12 nodes (ratio) | s | bidir -alt 12 -aotc -aotm nodes (ratio) | s (ratio) |
+|---|---|---|---|---|---|---|
+| 24 | 15 886 694 | 3.6 | 4 845 899 (0.305) | 1.1 | 1 264 532 (0.080) | 0.3 (0.08) |
+| 26 | 76 302 828 | 18.9 | 22 101 134 (0.290) | 5.5 | 4 614 264 (0.060) | 1.1 (0.058) |
+| 28 | 408 794 261 | 115.4 | 114 571 936 (0.280) | 30.7 | 21 185 618 (0.052) | 5.6 (0.049) |
+| 30 | 2 162 299 744 | 635.5 | - | - | 130 872 854 (0.061) | 39.3 (0.062) |
+| 32 | 11 801 669 632 | - | - | - | 623 885 917 (0.053) (`-alt 4`) | 214.4 |
+
+Stacked with D2 (`-aotc -aotm`) the factors multiply as the parent expected: 0.28 (bidirectional alone, n = 28) x 0.256 / 1 (D2 alone, single-ended: 0.256 at n = 28) = 0.072 expected, 0.052 measured; so they stack slightly better than the product. Time per node is about the same as `enum`'s (n = 30: 0.30 us against 0.29 us per node).
+Best single-ended (D2: `-aotc -aotm -aote`, n = 28): 104 466 494 nodes, 20.4 s; bidirectional + D2: 21 185 618 nodes, 5.6 s: a further factor 4.9 in nodes and 3.6 in time.
+At n = 30: 635 s -> 39 s (16x); at n = 32: 11.8e9 nodes -> 0.62e9 (19x fewer nodes).
+Growth per two edges of the best combination (`-aotc -aotm`, alt 4 or 12): 1.26e6, 4.61e6, 2.12e7, 1.27e8 (alt 4), 6.24e8 (alt 4): factors 3.65, 4.59, 6.0, 4.9. Enum: 4.8, 5.36, 5.29, 5.46. So the saving is a constant factor of about 17 to 19 (1.7 steps of two edges) from n = 28 on, not (yet) a change of growth rate.
+
+**How long a tail is needed** (n = 30, `-stair -tourcap 3 -aotc -aotm`, nodes / seconds; all outputs identical to enum):
+`-alt 1` (no tail letter; the single-ended search with these tests) 547 640 491 / 160.5; `-alt 2` and `-alt 3` (one tail letter) 217 560 467 / 66.8; `-alt 4` (two tail letters) 127 164 784 / 40.4; `-alt 6` 140 645 701 / 42.9; `-alt 10` 127 599 291 / 39.0; `-alt 12` 130 872 854 / 39.3; `-alt 16` 139 056 135 / 40.1; `-alt 20` 139 815 105 / 39.3; `-alt 100` 139 410 230 / 39.6.
+So one tail letter gives a factor 2.5 and two give a factor 4.3, and longer tails give nothing more. The gain comes from the last two vertices before the root: the walk must come back through one of the three neighbours of the root that are above it (e, n, u), with DMON4 on the first and last letters and the corner conditions there; the return distance is then the distance to a concrete vertex and not to the root.
+Recommended: `-alt 4`.
+
+**Rejection histogram** (`out/dmon/n26_rejstats_bidir_alt4*.log`, n = 26, `-stair -tourcap 3`, kills by remaining steps R1): the kills are still at R1 = 2 to 16 with the peak at 8 to 11 (tour/MST kills at R1 = 8, 9, 10, 11: 1.43M, 2.17M, 2.17M, 1.40M instead of 3.7M, 7.1M, 8.8M, 7.1M for enum without D2; reach kills 0.60M, 0.54M, 0.48M, 0.24M instead of 2.5M, 2.6M, 2.1M, 0.8M); there are still no kills at R1 >= 17. So pruning does not start earlier in terms of remaining steps: it is the same kind of kill, but the number of prefixes that reach those depths is 3.7 times smaller (the tail letters remove prefixes that can never close up, one or two steps before they would have been caught). With `-aotc -aotm` the axis test kills 0.43M at R1 = 10 and acts from R1 = 2 to 17.
+
+(d) Plane and stair counters: `-alt 0` gives the node counts of enum exactly (n = 24: 15 886 694 with `-stair -tourcap 3`, 86 639 605 without `-prime`) and, for `-alt` > 0 and every n in the tables, the same output; the counters are updated by the tail steps in reverse order of the word, and stair stretches are kept per side.

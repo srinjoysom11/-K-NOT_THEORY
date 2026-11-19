@@ -71,3 +71,7 @@ Then D5, D4, E1-E8. Report after each.
 Report (a) TIME not only nodes (both ends make each test costlier); (b) the factor with -aot -aotm stacked (expected ~0.16 x 0.3 = 20x ~ 1.7 lengths); (c) rejection histogram by R1 (does pruning start earlier?);
 (d) in -stair mode: node counts with -alt 0 equal enum -stair EXACTLY, then outputs equal for alt > 0 (plane/stair counters correct when the tail adds crossings in reverse order).
 Write-up note: DMON_RESULTS.md must restate the PanDMONium completeness argument for two-ended prefixes (every test on a two-ended prefix is implied by DMON1-7 for every completion) with a short list of which tests are applied at the tail side and why each is sound.
+
+## Status 19 Nov ~10:00 UTC: E9 DONE (needs report acceptance)
+enum_bidir.cpp (separate program; -prime/-stair/-aot/-aotc/-aotm/-alt K, default alt 12, recommend -alt 4). Identical output n=20..32; -alt 0 == enum node counts exactly; production -stair -tourcap 3 -aotc -aotm: n=28 0.052x nodes (5.6 s vs 115 s), n=30 0.061x (39 s vs 635 s), n=32 0.053x (6.2e8 vs 1.18e10 nodes, 214 s, output == out/n32_stair.txt). Tables and soundness list in DMON_RESULTS.md.
+D5 arc job resumed (./run_arc19.sh 64 2 is restartable) - check `ls out/dmon/arc19/*.log | wc -l` (64 needed).
