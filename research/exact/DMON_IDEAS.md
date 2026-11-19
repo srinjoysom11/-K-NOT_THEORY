@@ -119,3 +119,23 @@ n = 24 / 26 / 28 (time 0.44x / 0.42x / 0.39x); `-aotc` (also counting the plane-
 as remaining steps on that axis, valid with `-prime`/`-stair`) nodes 0.35x / 0.29x / 0.29x, time
 0.28x / 0.22x / 0.22x (n = 28: 115 s -> 25 s). D1 checker: 0 violations on all stored survivor lists
 n = 24..38.
+
+**D2 final (19 Nov, branch claude/dmon-experiments commit bd9f007, DMON_RESULTS.md there).**
+Whole search, 4 threads, `-stair -tourcap 3`, outputs byte-identical to `enum` at every n:
+
+| n | enum nodes | -aot nodes | -aotc nodes | enum s | -aot s | -aotc s |
+|---|---|---|---|---|---|---|
+| 24 | 1.589e7 | 0.557x | 0.350x | 3.6 | 1.6 | 1.0 |
+| 26 | 7.63e7 | 0.500x | 0.292x | 18.9 | 8.0 | 4.2 |
+| 28 | 4.09e8 | 0.463x | 0.286x | 115 | 45 | 25 |
+| 30 | 2.162e9 | 0.526x | 0.298x | 635 | 280 | 141 |
+
+`-prime` alone at n = 24/26: 0.536x/0.351x and 0.484x/0.292x nodes. Growth per two edges is
+unchanged (5.3-5.5x), so this is a constant factor: about 3.4x in nodes and 4.5x in time, about
+0.7 of a length step. `-aotc` uses the plane-crossing debt, so it is valid exactly in `-prime`/`-stair`
+runs.
+
+**Reference costs of the DMON-only search of the Len(5_2) proof** (paper session, out/lean/parts):
+nodes n = 24: 1.81e8, 26: 1.08e9, 28: 6.77e9, 30: 4.36e10, 32: 2.84e11, 34: 1.93e12 (about
+1060 core-hours); fit 0.057 * 2.493^n. No per-DMON ablations exist. Lesson from that work: compare
+node counts, not only outputs, after every change.
