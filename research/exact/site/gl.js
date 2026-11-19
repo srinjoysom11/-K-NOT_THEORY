@@ -24,6 +24,7 @@ export class LatticeView {
     this.controls = new OrbitControls(this.camera, canvas);
     this.controls.target.copy(this.center);
     this.controls.enablePan = false;
+    this.controls.enableZoom = false;   // the wheel scrolls the page
     this.controls.enableDamping = !reduced;
     this.controls.dampingFactor = 0.12;
     this.controls.minZoom = 0.6; this.controls.maxZoom = 3;

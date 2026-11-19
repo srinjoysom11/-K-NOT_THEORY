@@ -500,7 +500,15 @@ So $\psiZ$ is the total height of all vertices above the floor, a whole number $
 the potential energy of $n$ equal weights placed at the vertices. Subtracting $z_{\min}$ makes $\psiZ$
 independent of where the polygon sits: a translation changes every $z(v_i)$ and $z_{\min}$ by the same
 amount. $\psiY$ is the same with $y$ in place of $z$. \Cref{fig:psi} computes $\psiZ$ for a small
-example.
+example. For instance, the lattice points $0,1,\dots,n$ of a vertical segment $[0,n]$ have potential
+$0+1+\dots+n=n(n+1)/2$.
+
+Other quantities could be called potentials, and comparing them shows why we use this one. The sum
+$\sum_i 1=n$ counts vertices and does not see height at all. The sum $\sum_i z(v_i)$, without
+$z_{\min}$, changes when the polygon is translated, and rotating the word translates it. The sum
+$\sum_i(z(v_i)-z_{\min})^2$ would also work, since lowering a vertex from height $h\ge1$ to $h-1$ lowers it by
+$2h-1\ge1$; but with $\psiZ$ every downward flip lowers the potential by exactly $1$, which keeps the
+bookkeeping in \cref{lem:corner} simple.
 
 \begin{figure}[t]
 \centering
@@ -798,8 +806,6 @@ $-d>w_0$; the obligation update runs with $R-1=0$, so the reach test fails for e
 pending (its site would have to be the origin, which is never a site), and hence none may remain; $w_0\ne-w_{n-2}$ and $w_1\ne-w_{n-1}$;
 for each axis whose most recent and first letters are opposite, the curtain that wraps around the
 origin has an interior point that is a vertex; and $\#_z\le\#_y\le\#_x$.
-\item[Parts.] To split the work, a run has a number of parts $M$ and a part number $r<M$. At depth $9$
-the search continues only if the $9$-letter prefix, read as a base-$6$ number with $w_0$ as the most significant digit, is $\equiv r\pmod M$.
 \end{description}
 
 \begin{figure}[t]
@@ -833,11 +839,19 @@ will be visited or \emph{when}; this is why they are cheap.
 
 \subsection{The PanDMONium theorem}
 
-\begin{theorem}[PanDMONium; Lean: \lean{search\_complete}, \lean{search\_complete\_parts}]\label{thm:pandmonium}
-Let $w$ be a word of length $n\le34$ that passes \dmon1--\dmon7. Then the search for length $n$
-returns $w$ in the part $r$ that contains its $9$-letter prefix (in every part, if $n\le9$). In particular $w$ is returned by one
-of the parts $r=0,\dots,M-1$, for any number of parts $M\ge1$.
+\begin{theorem}[PanDMONium; Lean: \lean{search\_complete}]\label{thm:pandmonium}
+The search with the DMON tests is complete: every word of length $n\le34$ that passes \dmon1--\dmon7 is
+returned by the search for length $n$.
 \end{theorem}
+
+\begin{remark}[Parts, a computational aside]\label{rem:parts}
+To balance the work over many computers, the runs for $n\ge28$ were split into $M$ parts. Part $r<M$
+runs the same search, except that at depth $9$ it continues only if the $9$-letter prefix, read as a
+base-$6$ number with $w_0$ as the most significant digit, is $\equiv r\pmod M$. Every prefix lies in
+exactly one part, so the parts together return exactly the words of the unsplit search. The Lean
+theorem is stated for the part that contains $w$ (\lean{search\_complete}) and for all parts together
+(\lean{search\_complete\_parts}); this changes nothing in the mathematics.
+\end{remark}
 
 The proof shows that no test ever discards a prefix of $w$. Since the search tries all six letters at
 every node, it then follows the walk of $w$ letter by letter until $w$ is closed and returned. Fix $w$,
@@ -928,8 +942,8 @@ that wraps around the origin, with $k=(n-j_l-1)+j_f\ge1$ ($k=0$ would give $v_{n
 gives an interior point that is a vertex, and at the end every vertex is occupied. Finally
 $\#_z\le\#_y\le\#_x$ is \dmon5.
 
-\emph{Parts.} In the part $r$ equal to the base-$6$ value of $w_0\cdots w_8$ modulo $M$, the prefix of
-$w$ is kept at depth $9$.
+\emph{Parts} (\cref{rem:parts}). In the part $r$ equal to the base-$6$ value of $w_0\cdots w_8$ modulo $M$,
+the prefix of $w$ is kept at depth $9$.
 
 So no test discards a prefix of $w$, and by \cref{lem:state} the search follows $w$ to the end and
 returns it.

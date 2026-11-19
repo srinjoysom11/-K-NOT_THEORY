@@ -297,3 +297,7 @@ math[display="block"] {
 
 .mast-eq { display: block; font: 400 .85rem/1.4 var(--sans); color: rgba(255,255,255,.85); margin-top: 4px; }
 .foot-by { font-weight: 600; color: var(--ink); margin-bottom: var(--u) !important; }
+
+/* SVG focus: the UA ring would be drawn in the SVG's own (scaled) units; draw a crisp halo instead */
+svg [tabindex]:focus { outline: none; }
+svg [tabindex]:focus-visible { filter: drop-shadow(0 0 1.5px var(--c0)) drop-shadow(0 0 1.5px var(--c0)); }

@@ -61,7 +61,7 @@ def cite(opt, keys):
     ks = [k.strip() for k in keys.split(",")]
     inner = ", ".join(f"@@C{k};{CIT[k]}@@" for k in ks)
     if opt: inner += ", " + opt
-    return f"[{inner}]"
+    return f"QCITEL{inner}QCITER"   # brackets restored after pandoc (a ] would end a theorem title)
 
 # ---------------------------------------------------------------------------------- preprocessing
 body = src[src.index("\\begin{document}") + len("\\begin{document}"):src.index("\\bibliographystyle")]
@@ -210,6 +210,7 @@ H = re.sub(r"@@A([^;@]*);([^@]*)@@", lambda m: f'<a class="xref" href="#{m.group
 ABS = re.sub(r"@@A([^;@]*);([^@]*)@@", lambda m: f'<a class="xref" href="#{m.group(1)}">{m.group(2)}</a>', ABS)
 for T in ("H", "ABS"):
     globals()[T] = re.sub(r"@@C([^;@]*);([^@]*)@@", lambda m: f'<a class="cite" href="#ref-{m.group(1)}">{m.group(2)}</a>', globals()[T])
+    globals()[T] = globals()[T].replace("QCITEL", "[").replace("QCITER", "]")
 
 refs_html = []
 for key, txt in REFS:
