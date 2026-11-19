@@ -416,7 +416,7 @@ export function figOrigin(w) {
     lw0.el.innerHTML = `first step w<sub>0</sub> = ${w0}`; lwl.el.innerHTML = `last step arrives: −w<sub>n−1</sub> = ${ml}`;
     lw0.pos.set(...add(V[0], U[w0], 0.75).map((v, i) => (i === 2 ? v + 0.3 : v))); lwl.pos.set(...add(V[0], U[ml], 0.75).map((v, i) => (i === 2 ? v + 0.3 : v)));
     const ok = order.indexOf(w0) < order.indexOf(ml);
-    read.innerHTML = `<b>DMON3:</b> every other vertex lies above the blue plane through v<sub>0</sub>, or on it and further along (y, then x). <b>DMON4:</b> reading ${fwd ? 'forwards' : 'backwards'}, w<sub>0</sub> = <code>${w0}</code> and −w<sub>n−1</sub> = <code>${ml}</code>; in the order e < w < n < s < u < d, ${w0} ${ok ? '<' : '>'} ${ml}, so ${ok ? '<span class="ok">DMON4 holds</span>' : '<span class="no">DMON4 fails</span>'}. The bead shows the direction of travel.`;
+    read.innerHTML = `<b>DMON3:</b> every other vertex is greater than v<sub>0</sub> = 0 in the order “first z, then y, then x”: it lies above the blue plane z = 0, or on it with y > 0, or on it with y = 0 and x > 0. <b>DMON4:</b> reading ${fwd ? 'forwards' : 'backwards'}, w<sub>0</sub> = <code>${w0}</code> and −w<sub>n−1</sub> = <code>${ml}</code>; in the order e < w < n < s < u < d, ${w0} ${ok ? '<' : '>'} ${ml}, so ${ok ? '<span class="ok">DMON4 holds</span>' : '<span class="no">DMON4 fails</span>'}. The bead shows the direction of travel.`;
     st.request();
   }
   const c = ctlRow(w); c.append(seg([['f', 'Read forwards'], ['b', 'Read backwards']], 'f', (v) => { fwd = v === 'f'; s0 = performance.now(); draw(); }), H('span', { class: 'readout grow' }, 'Drag to turn.'));
