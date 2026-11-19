@@ -1,0 +1,95 @@
+# D5 (research/exact/DMON_IDEAS.md): knotted 19-edge half-space arcs, arcknot.cpp | unknot_cert.cpp, in parts.
+# A separate workflow on branch claude/dmon-experiments.  Started by pushing a change to research/exact/ci/arc19_request.json:
+#   {"L": 19, "m": 64, "parts": [12, 13, ..., 63]}
+# Each job runs 4 consecutive entries of "parts" at once (one per core).  A part counts as done only if arcknot and unknot_cert both
+# printed their summary.  The last job commits part files named like those of research/exact/run_arc19.sh to research/exact/out/dmon/arc19/.
+name: arc19-enum
+on:
+  push:
+    branches: [claude/dmon-experiments]
+    paths: [research/exact/ci/arc19_request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          req = json.load(open('research/exact/ci/arc19_request.json'))
+          parts = req["parts"]
+          inc = [{"L": req["L"], "m": req["m"], "ps": " ".join(str(p) for p in parts[i:i + 4]), "tag": "g%d" % (i // 4)} for i in range(0, len(parts), 4)]
+          assert 0 < len(inc) <= 256, len(inc)
+          print("matrix=" + json.dumps({"include": inc}))
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build and run the parts
+        working-directory: research/exact
+        run: |
+          g++ -O3 -std=c++17 -o arcknot arcknot.cpp
+          g++ -O3 -std=c++17 -o unknot_cert unknot_cert.cpp
+          # self-test: L = 15 whole enumeration prints 15608 words, all unknotted
+          ./arcknot 15 2> t.log | ./unknot_cert > /dev/null 2> u.log; grep -q "printed=15608" t.log; grep -q "certified_unknot=15608 unresolved=0" u.log
+          mkdir -p parts
+          L=${{ matrix.L }}; M=${{ matrix.m }}
+          one() {
+            r=$1; f=parts/part${r}_$M
+            s=$(date +%s)
+            ./arcknot $L -part $r $M 2> $f.log.tmp | ./unknot_cert > $f.left.tmp 2>> $f.log.tmp
+            if grep -q "walks_ending_on_level0" $f.log.tmp && grep -q "^words=.*bad=0 " $f.log.tmp; then
+              echo "seconds=$(( $(date +%s) - s )) host=github-actions arcknot.cpp=$(sha256sum arcknot.cpp | cut -c1-16)" >> $f.log.tmp
+              mv $f.left.tmp $f.left; mv $f.log.tmp $f.log
+            else
+              echo "part $r incomplete" >&2
+            fi
+          }
+          for r in ${{ matrix.ps }}; do one $r & done
+          wait
+          ls parts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arc19_${{ matrix.tag }}
+          path: research/exact/parts/
+          retention-days: 30
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: commit
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            mkdir -p research/exact/out/dmon/arc19
+            cp artifacts/*.left artifacts/*.log research/exact/out/dmon/arc19/ 2>/dev/null || true
+            git add research/exact/out/dmon/arc19
+            git commit -q -m "exact: arc19 parts from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1

@@ -87,3 +87,9 @@ D5 arc job resumed (./run_arc19.sh 64 2 is restartable) - check `ls out/dmon/arc
 * enum_bidir -slab L validated byte-for-byte vs slab.cpp outputs: L1 n=30 (12 words), L1 n=34 (12), L2 n=30 (34), L2 n=34 (728 words). Nodes/time vs slab.cpp: L1 n=30 3.55M vs 25.1M (0.14x), 1.6 s vs 6 s; L1 n=34 39.3M vs 316.6M (0.124x), 18 s vs 91 s; L2 n=30 56.5M vs 467.6M (0.121x), 20.5 s vs 209 s; L2 n=34 1.025e9 vs 8.998e9 (0.114x), 442 s vs 2859 s. (opts -slab L -stair -tourcap 3 [-alt 4 -aotc -aotm]). L1_n40 / L1_n42 not yet re-run.
 * CI request pushed: ci/bidir_request.json = n=34 m=16 and n=36 m=64, opts `-prime -tourcap 3 -alt 4 -aotc -aotm` (same mode as out/n34_prime.txt / out/n36_prime.txt: `-prime -tourcap 3`). Workflow .github/workflows/bidir-enum.yml merges to out/bidir/n34_prime_bd.txt etc. Reference costs: n=34 7.736e10 nodes, 45 419 runner-s; n=36 4.332e11 nodes, 282 379 runner-s.
 * arc19: 12 of 64 parts done; job dies on container pause; restart with `./run_arc19.sh 64 2`.
+
+## 20 Nov, later: parent's decisions (message 20:49 UTC)
+* n=40 unconfined APPROVED: m=128, opts `-stair -tourcap 3 -aotc -aotm -alt 4`; launch as soon as the n=34/36 unions equal out/n34_prime.txt / out/n36_prime.txt; logs carry seconds and enum_bidir.cpp sha (workflow does). After merge: run identify_rigorous.py on the union and send the tally. (Parent: explicit 42-edge 8_19 polygon now in out/witness42_8_19.txt on its branch.)
+* Re-run L1_n42 locally with enum_bidir -slab 1 (713 words; complete for all knot types): started (out/dmon/slab/L1_n42.{txt,log}); slab.cpp: 5.96e10 nodes, 22176 s.
+* After n=40 is launched: slab runs with enum_bidir -slab in MY workflow: 1-slab n=48 and 2-slab n=42 (estimate ~85 runner-hours each, m=128 each). Then D5 (arcknot 19) on Actions: workflow arc19-enum.yml + ci/arc19_request.json (parts 12..63) pushed 20 Nov.
+* Drop E3; record E1 and the D4 leaf result as negative/minor (done in DMON_RESULTS.md).
