@@ -1,5 +1,5 @@
 /*
- * enum_bidir.cpp -- E9: the same exhaustive normal-form search as enum.cpp (DMON-only mode: no -prime, no -bridge),
+ * enum_bidir.cpp -- E9: the same exhaustive normal-form search as enum.cpp (with -prime / -stair as in enum.cpp; no -bridge),
  * but the polygon is built from BOTH ends of the root.
  *
  * The polygon is v_0 = root, v_1, ..., v_n = v_0 with word w_0 ... w_{n-1}.  The search grows a "head" forward from the
@@ -18,7 +18,7 @@
  * through the root, every corner, DMON4, DMON5) are applied again from the finished word, and the flip search of enum.cpp.
  * So the output is the same set of words as enum's, whatever the pruning does, as long as the prefix tests are sound.
  *
- * usage: enum_bidir N [-alt K] [-aot] [-aotm] [-tourcap C] [-nomst] [-noreduce] [-nopsi] [-split D] [-part R M] [-threads T] [-out FILE] [-rejstats]
+ * usage: enum_bidir N [-alt K] [-prime|-stair] [-aot] [-aotc] [-aotm] [-tourcap C] [-nomst] [-noreduce] [-nopsi] [-split D] [-part R M] [-threads T] [-out FILE] [-rejstats]
  * build: g++ -O3 -march=native -std=c++17 -pthread -o enum_bidir enum_bidir.cpp
  */
 #include <algorithm>
@@ -42,6 +42,7 @@ static const int MAXN = 48;
 
 static int N = 0, ALT = 12, SPLIT = 9, PART_R = 0, PART_M = 1, TOUR_CAP = 3, BFS_LIMIT = 2000;
 static bool AXES = true, REDUCE = true, PSI = true, NOMST = false, AOT = false, AOTM = false, REJSTATS = false;
+static bool PRIME = false, STAIR = false, AOTC = false;   /* -prime / -stair: plane-crossing lemma (prime knots, PROOF.md Lemma 3); -aotc: per-axis plane debt in -aot */
 
 static signed char CX[NS], CY[NS], CZ[NS];
 static unsigned char ALLOWED[NS];
@@ -139,6 +140,59 @@ struct Search {
     Reducer red;
     std::vector<std::string> out;
     int Hd = 0, Tl = 0;               /* the two end points of the missing middle walk */
+    /* plane-crossing lemma (order independent) and the stair rule (one stretch state per side) */
+    int crs[3][64];
+    int cmn[3], cmx[3], cdef[3];
+    unsigned char badl[3][64];
+    int runm[2][3];
+    struct StairSave { int rm[3]; int cd[3]; int lev[3]; };
+    static inline bool nonmono(int m) { return (m & (m >> 1) & 0x15) != 0; }
+    int owed(int A) const {
+        int t = 0, mn = cmn[A], mx = cmx[A];
+        for (int p = mn; p < mx; p++) {
+            int c = crs[A][p + 32], req = (p > mn && p < mx - 1) ? 4 : 2;
+            if (STAIR && req == 2) {
+                if (mx - mn == 1) { if (badl[A][mn + 32] && badl[A][mx + 32]) req = 4; }
+                else if (p == mn) { if (badl[A][mn + 32]) req = 4; }
+                else { if (badl[A][mx + 32]) req = 4; }
+            }
+            t += c >= req ? (c & 1) : req - c;
+        }
+        return t;
+    }
+    inline void plane_step(int A, int d, int from, int &smn, int &smx, int &sdef, int &pl) {
+        int c = (A == 0 ? CX[from] : A == 1 ? CY[from] : CZ[from]);
+        int c2 = c + ((d & 1) ? -1 : 1);
+        pl = (c < c2 ? c : c2) + 32;
+        smn = cmn[A]; smx = cmx[A]; sdef = cdef[A];
+        crs[A][pl]++;
+        if (c2 < cmn[A]) cmn[A] = c2;
+        if (c2 > cmx[A]) cmx[A] = c2;
+        cdef[A] = owed(A);
+    }
+    inline void plane_undo(int A, int smn, int smx, int sdef, int pl) { crs[A][pl]--; cmn[A] = smn; cmx[A] = smx; cdef[A] = sdef; }
+    inline void stair_step(int sd, int A, int d, int from, StairSave &sv) {
+        int *rm = runm[sd];
+        for (int B = 0; B < 3; B++) { sv.rm[B] = rm[B]; sv.cd[B] = cdef[B]; sv.lev[B] = -1; }
+        rm[A] = 0;
+        for (int B = 0; B < 3; B++) {
+            if (B == A) continue;
+            int old = rm[B], nw = old | (1 << d);
+            rm[B] = nw;
+            if (!nonmono(old) && nonmono(nw)) {
+                int c = (B == 0 ? CX[from] : B == 1 ? CY[from] : CZ[from]) + 32;
+                badl[B][c]++; sv.lev[B] = c; cdef[B] = owed(B);
+            }
+        }
+    }
+    inline void stair_undo(int sd, int A, const StairSave &sv) {
+        int *rm = runm[sd];
+        for (int B = 0; B < 3; B++) {
+            rm[B] = sv.rm[B];
+            if (sv.lev[B] >= 0) badl[B][sv.lev[B]]--;
+            if (B != A) cdef[B] = sv.cd[B];
+        }
+    }
 
     Search() { memset(occ, 0, sizeof occ); }
 
@@ -206,6 +260,7 @@ struct Search {
         for (int q = 0; q < 3; q++) {
             int c0 = q == 0 ? CX[Hd] : q == 1 ? CY[Hd] : CZ[Hd], ct = q == 0 ? CX[Tl] : q == 1 ? CY[Tl] : CZ[Tl];
             int t = axis_need(q, c0, ct, nw, nn);
+            if (AOTC && cdef[q] > t) t = cdef[q];
             L[q] = (cnt[q] + t + 1) & ~1;
         }
         int z = L[2], y = L[1] > z ? L[1] : z, x = L[0] > y ? L[0] : y;
@@ -419,7 +474,10 @@ struct Search {
         int c = -1;
         for (int d = 0; d < 6; d++) if (hp + DELTA[d] == tp) c = d;
         st.nodes++;
+        int smn = 0, smx = 0, sdef = 0, pl = 0;
+        if (PRIME) { plane_step(c >> 1, c, hp, smn, smx, sdef, pl); if (cdef[0] + cdef[1] + cdef[2] > 0) { plane_undo(c >> 1, smn, smx, sdef, pl); return; } }
         leaf(c);
+        if (PRIME) plane_undo(c >> 1, smn, smx, sdef, pl);
     }
 
     int split_depth = -1, replay_len = 0;
@@ -450,6 +508,12 @@ struct Search {
                 if (2 * m + cz > N) continue;
                 if (cz > cy + (R - 1) || cy > cx + (R - 1)) continue;
             }
+            int smn = 0, smx = 0, sdef = 0, pl = 0; StairSave ss;
+            if (PRIME) {
+                plane_step(A, d, from, smn, smx, sdef, pl);
+                if (STAIR) stair_step(side, A, d, from, ss);
+                if (cdef[0] + cdef[1] + cdef[2] > R - 1) { if (STAIR) stair_undo(side, A, ss); plane_undo(A, smn, smx, sdef, pl); continue; }
+            }
             if (t >= replay_len) st.nodes++;
             const int ofa = fa[A], ola = la[A], save = nobs;
             int li;
@@ -464,12 +528,16 @@ struct Search {
             }
             occ[nx] = 0; cnt[A]--; nobs = save; fa[A] = ofa; la[A] = ola;
             if (!side) H--; else T--;
+            if (PRIME && STAIR) stair_undo(side, A, ss);
+            if (PRIME) plane_undo(A, smn, smx, sdef, pl);
         }
     }
     void start() {
         memset(occ, 0, sizeof occ);
         H = T = 0; nobs = 0; npend[0] = 0; nwit[0] = 0;
         for (int A = 0; A < 3; A++) { cnt[A] = 0; fa[A] = la[A] = NONE; }
+        memset(crs, 0, sizeof crs); memset(badl, 0, sizeof badl); memset(runm, 0, sizeof runm);
+        for (int A = 0; A < 3; A++) cmn[A] = cmx[A] = cdef[A] = 0;
         P(0) = ORG; occ[ORG] = 1;
         replay_len = 0; replay = nullptr; collect = nullptr; split_depth = -1;
     }
@@ -496,6 +564,9 @@ int main(int argc, char **argv) {
         if (a == "-alt") ALT = atoi(argv[++i]);
         else if (a == "-aot") AOT = true;
         else if (a == "-aotm") { AOT = true; AOTM = true; }
+        else if (a == "-prime") PRIME = true;
+        else if (a == "-stair") STAIR = PRIME = true;
+        else if (a == "-aotc") { AOT = true; AOTC = true; }
         else if (a == "-noaxes") AXES = false;
         else if (a == "-noreduce") REDUCE = false;
         else if (a == "-nopsi") PSI = false;
@@ -507,7 +578,7 @@ int main(int argc, char **argv) {
         else if (a == "-threads") threads = atoi(argv[++i]);
         else if (a == "-out") outfile = argv[++i];
         else if (a == "-rejstats") REJSTATS = true;
-        else { fprintf(stderr, "unknown option %s (enum_bidir has no -prime/-stair/-bridge)\n", a.c_str()); return 1; }
+        else { fprintf(stderr, "unknown option %s (enum_bidir has no -bridge)\n", a.c_str()); return 1; }
     }
     if (N < 4 || N > 40 || (N & 1)) { fprintf(stderr, "N must be even, 4..40\n"); return 1; }
     if (SPLIT > N - 2) SPLIT = N - 2;
