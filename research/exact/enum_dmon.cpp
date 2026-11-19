@@ -93,6 +93,7 @@ static bool AOTM = false;  /* -aotm: -aot also uses multi-site obligations (per 
 static bool AOTT = false;  /* -aott: the axis-ordered travel test also inside the exact tour (per-axis travel so far + per-axis span of what is left) */
 static bool AOTX = false;  /* -aotx: E10a, with -prime the crossing debt per axis is computed for the extent extended to the coordinates of the single-site obligations */
 static bool ORDER = false; /* -order: E11, children in order of increasing slack (R - 1 - distance to the origin) */
+static bool ROOTNB = false; /* -rootnb: the last vertex is a free neighbour of the root among e, n, u whose direction exceeds the first step (DMON3, DMON4) */
 static bool PARITY = false; /* -par: E1, parity budget for the distinct single-site obligations (pure bound) */
 static bool AOTE = false;  /* -aote: -aot's counts-only part is also tested before update() (earlier rejection, same nodes) */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
@@ -734,6 +735,19 @@ struct Search {
                 continue;
             }
             if (occ[nx] || !ALLOWED[nx] || DIST0[nx] > R - 1) continue;
+            if (ROOTNB && !PLAIN) {
+                /* the vertex before the root is v_{n-1} = root + m with m in {e, n, u} (all other neighbours of the root are below it),
+                   m must be free (or the head itself), and DMON4 says: the direction m (= reverse of the last letter) is greater than the first letter */
+                int best = 1 << 20;
+                for (int m = 0; m < 6; m += 2) {
+                    if (m <= dirs[0]) continue;
+                    int t = ORG + DELTA[m];
+                    if (t != nx && occ[t]) continue;
+                    int dd = mdist(nx, t);
+                    if (dd < best) best = dd;
+                }
+                if (best + 1 > R - 1) continue;      /* walk to v_{n-1}, then one more step to the root */
+            }
             if (AXES) {
                 int cx = cnt[0], cy = cnt[1], cz = cnt[2];
                 if (A == 0) cx++; else if (A == 1) cy++; else cz++;
@@ -867,6 +881,7 @@ int main(int argc, char **argv) {
         else if (a == "-aote") AOTE = true;
         else if (a == "-aott") AOTT = true;
         else if (a == "-par") PARITY = true;
+        else if (a == "-rootnb") ROOTNB = true;
         else if (a == "-aotx") { AOTX = true; AOTC = true; }
         else if (a == "-order") ORDER = true;
         else if (a == "-stair") STAIR = PRIME = true;
