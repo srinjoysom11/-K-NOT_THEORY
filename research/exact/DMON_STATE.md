@@ -21,7 +21,8 @@ new code lives in `enum_dmon.cpp` behind flags (default off: identical output an
 | D1 `-gcleaf`, `-gc` | DONE: lemma validated (0/128560), proof written, benchmarks n=26..30: nodes unchanged (0.9996-0.9999x), time +30-45 %, output identical |
 | `check/gc_check.cpp` | done (censuses 0 violations) |
 | D3 (-bfsdist, -gmst, -onetree) | DONE: identical output, <= 3 % nodes (5 % with 1-tree), +60-100 % time: no gain. D2 follow-ups -aotm/-aote/-aott done (best: -aotc -aotm -aote 0.26x nodes, 0.18x time at n=28). DMON-only mode done. Tables in DMON_RESULTS.md |
-| D5, D4, extras E1..E8 | not started |
+| D5 arcknot 19 | arcknot.cpp now has -part R M (parts verified to sum to the whole at L=14,15; no -part = identical). `./run_arc19.sh 64 4` (restartable, parts in out/dmon/arc19/part{R}_64.{left,log}) started 19 Nov ~04:00; when all 64 parts have `seconds=` in the log: glue (check/arc19_glue.py, to be written) |
+| D4, extras E1..E8 | not started |
 | report to parent after D2 | sent (interim, then final) |
 | GitHub dmon-bench smoke run 44417093364 | queued for >8 h (runner pool saturated by old slab-enum runs); parent asked for a runner; keep working locally |
 
