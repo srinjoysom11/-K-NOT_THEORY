@@ -1,0 +1,2 @@
+N=24 tasks=64327 part=0/1 nodes=15884608 closed=69 candidates=56 survivors=50 bfs_limit_hits=0 tour_giveups=3022308 gc_leaf_drops=0
+t=5.8

@@ -82,6 +82,8 @@ static int BFS_LIMIT = 2000, SPLIT = 9, PART_R = 0, PART_M = 1, TOUR_CAP = 3000;
 /* ---- experimental DMONs (research/exact/DMON_IDEAS.md); all OFF by default ---- */
 static bool AOT = false;   /* -aot : D2, axis-ordered travel (pure bound) */
 static bool GCLEAF = false; /* -gcleaf: D1 at the leaves only (generalized curtain, cyclic windows) */
+static int GCTOUR = 0;      /* -gctour K: generalized-curtain obligations enter the exact tour only if they have <= K sites (default 0 = never) */
+static bool PLAINDUMP = false; /* -plaindump: with -plain, list every closed polygon (that passes -gcleaf if given): test of gc_leaf_ok against check/gc_check */
 static bool GC = false;     /* -gc    : D1 on prefixes (obligations for every earlier opposite step) + leaves */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
 
@@ -161,7 +163,7 @@ struct Reducer {
 };
 
 /* ---------- the search ---------- */
-struct Ob { int cnt; int site[MAXN]; };
+struct Ob { int cnt; int gc; int site[MAXN]; };   /* gc = 1: created by the generalized curtain (D1) */
 
 struct Search {
     unsigned char occ[NS];
@@ -227,7 +229,7 @@ struct Search {
         /* step j has direction a; the k perpendicular steps follow; interior vertices are
            pos[j+2 .. j+k] (indices mod N); the sites are those vertices shifted by -a */
         int back = DELTA[dirs[j] ^ 1];
-        ob.cnt = 0;
+        ob.cnt = 0; ob.gc = 0;
         for (int t = 2; t <= k; t++) {
             int s = pos[(j + t) % N] + back;
             if (occ[s]) return 1;
@@ -241,7 +243,7 @@ struct Search {
        points v_j - a (2 <= j <= m-1) must be a vertex outside Q.  Returns 1 satisfied now (the point is
        a vertex with index <= i0), 0 pending (sites = free allowed points), -1 impossible. */
     int gcob(int i0, int i, int back, Ob &ob) {
-        ob.cnt = 0;
+        ob.cnt = 0; ob.gc = 1;
         for (int j = 2; j <= i - i0 - 1; j++) {
             int s = pos[i0 + j] + back;
             if (occ[s]) { if (vidx[s] <= i0) return 1; continue; }
@@ -378,7 +380,7 @@ struct Search {
     int single(int s, Ob &ob) {
         if (occ[s]) return 1;
         if (!ALLOWED[s]) return -1;
-        ob.cnt = 1; ob.site[0] = s;
+        ob.cnt = 1; ob.gc = 0; ob.site[0] = s;
         return 0;
     }
     /* D2 (axis-ordered travel).  Remaining steps along axis A are >= the per-axis travel of the
@@ -461,6 +463,11 @@ struct Search {
         }
         if ((AOT || AOTC) && AXES && !aot_ok(nx, nw, nn)) return false;
         nwit[i + 1] = 0;
+        if (GC) {
+            int nt[4 * MAXN], k = 0;
+            for (int a = 0; a < nn; a++) { const Ob &ob = obs[nw[a]]; if (!ob.gc || ob.cnt <= GCTOUR) nt[k++] = nw[a]; }
+            if (k >= 2 && !tour_ok(i + 1, nx, nt, k, R1)) return false;
+        } else
         if (nn >= 2 && !tour_ok(i + 1, nx, nw, nn, R1)) return false;
         return true;
     }
@@ -480,7 +487,7 @@ struct Search {
     bool gc_leaf_ok() const {
         for (int i0 = 0; i0 < N; i0++) {
             const int back = DELTA[dirs[i0] ^ 1];
-            for (int m = 3; m <= N - 2; m++) {
+            for (int m = 2; m <= N - 2; m++) {
                 if (dirs[(i0 + m) % N] != (dirs[i0] ^ 1)) continue;
                 bool found = false;
                 for (int j = 2; j <= m - 1 && !found; j++) {
@@ -511,7 +518,7 @@ struct Search {
                 if (curtain(jl, k, ob) != 1) return;
             }
         }
-        if ((GC || GCLEAF) && !PLAIN && !gc_leaf_ok()) { st.gcdrop++; return; }
+        if ((GC || GCLEAF) && !gc_leaf_ok()) { st.gcdrop++; return; }
         if (AXES && !(cnt[2] <= cnt[1] && cnt[1] <= cnt[0])) return;
         if (BRIDGE) {
             for (int A = 0; A < 3; A++) {
@@ -530,7 +537,7 @@ struct Search {
             if (r == -1) st.bfs_over++;
         }
         st.surv++;
-        if (!PLAIN) {
+        if (!PLAIN || PLAINDUMP) {
             std::string w(N, ' ');
             for (int i = 0; i < N; i++) w[i] = DC[dirs[i]];
             out.push_back(w);
@@ -667,6 +674,8 @@ int main(int argc, char **argv) {
         else if (a == "-aot") AOT = true;
         else if (a == "-gcleaf") GCLEAF = true;
         else if (a == "-gc") GC = true;
+        else if (a == "-plaindump") PLAINDUMP = true;
+        else if (a == "-gctour") GCTOUR = atoi(argv[++i]);
         else if (a == "-aotc") AOTC = true;
         else if (a == "-stair") STAIR = PRIME = true;
         else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
