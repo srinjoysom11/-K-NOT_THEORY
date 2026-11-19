@@ -292,3 +292,6 @@ math[display="block"] {
 }
 
 .doc code { hyphens: manual; -webkit-hyphens: manual; }
+
+.mast-eq { display: block; font: 400 .85rem/1.4 var(--sans); color: rgba(255,255,255,.85); margin-top: 4px; }
+.foot-by { font-weight: 600; color: var(--ink); margin-bottom: var(--u) !important; }

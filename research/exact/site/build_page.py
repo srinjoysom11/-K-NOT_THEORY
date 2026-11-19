@@ -132,6 +132,8 @@ WEB = [
      r"\par $2B=E+A$, $2D=A+B$, $2E=B+C$, $2A=C+D$, $2C=D+E$ (mod 7).\par "),
     (r"$r_b(r_a(r_b(t)))=2b-(2a-(2b-t))=2(2b-a)-t$",
      r"$r_b(r_a(r_b(t)))=2b-(2a-(2b-t))$ ${}=2(2b-a)-t$"),
+    (r"\[ (A,B,C,D,E)=a\,(1,1,1,1,1)+b\,(0,1,3,4,2),\qquad a,b\in\Z/7, \]",
+     r"\[ (A,B,C,D,E) \] \[ =a\,(1,1,1,1,1)+b\,(0,1,3,4,2), \] with $a,b\in\Z/7$, "),
     (r"\[ F=\CertF\equiv\CertFmod\pmod7. \]", r"\[ F=\CertF \] \[ \equiv\CertFmod\pmod7. \]"),
     (r"\[ L=\CertL, \qquad LF\equiv\CertLF=\begin{pmatrix}e_1-e_0\\ e_2-e_0\end{pmatrix}\pmod 7. \]",
      r"\[ L=\CertL, \] \[ LF\equiv\CertLF \] \[ =\begin{pmatrix}e_1-e_0\\ e_2-e_0\end{pmatrix}\pmod 7. \]"),

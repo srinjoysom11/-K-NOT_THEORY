@@ -14,8 +14,21 @@
 \sisetup{group-separator={\,},group-minimum-digits=4,exponent-product=\times,print-unity-mantissa=false}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{microtype}
+\usepackage{fancyhdr}
+% Co-first authors: the order of the two names alternates from page to page.
+\newcommand{\AuthorsCS}{Chaitanya Chhabra and Srinjoy Som}
+\newcommand{\AuthorsSC}{Srinjoy Som and Chaitanya Chhabra}
+\newcommand{\AuthorsHere}{\ifodd\value{page}\AuthorsCS\else\AuthorsSC\fi}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\AuthorsHere}
+\fancyhead[R]{\footnotesize The knot $5_2$ needs 36 steps}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\footnotesize\AuthorsHere}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
 \usepackage{flafter}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,pdfauthor={Chaitanya Chhabra and Srinjoy Som},pdftitle={The knot 5\_2 needs 36 steps on the cubic lattice}]{hyperref}
 \usepackage[capitalise,nameinlink,noabbrev]{cleveref}
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,
@@ -49,7 +62,9 @@
 \input{figs/schematics.tex}
 
 \title{The knot $5_2$ needs 36 steps on the cubic lattice}
-\author{Author names to be inserted}
+\author{Chaitanya Chhabra\thanks{Co-first authors with equal contributions. The order of the two names
+alternates from page to page: on every odd page it is Chhabra, Som, and on every even page Som, Chhabra.}
+\and Srinjoy Som\footnotemark[1]}
 \date{}
 
 \begin{document}
