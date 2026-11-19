@@ -511,7 +511,7 @@ async function wReplay(w) {
   let view = null;
   if (G) {
     const canvas = H('canvas', { class: 'gl', 'aria-label': 'Replay of the search along a 24-step word; drag to turn' }); p3.append(canvas);
-    view = new G.LatticeView(canvas, { verts: T.verts, pieces: T.verts.map((_, i) => [i, 0, 1, 0]), colourOf: () => INK, radius: .06 });
+    view = new G.LatticeView(canvas, { verts: T.verts, pieces: T.verts.map((_, i) => [i, 0, 1, 0]), colourOf: () => INK, radius: .085 });
   } else p3.append(H('p', { class: 'hint', style: 'padding:24px' }, 'The 3D replay needs WebGL; the step log on the right is complete.'));
   const head = H('h5', {}, ''); const info = H('div', { class: 'readout' }); const bars = H('div', { class: 'bars' }); const log = H('ol', { class: 'log' });
   side.append(head, info, bars, log);
@@ -799,6 +799,13 @@ const LEAN = {
   KnotClass: 'Spec.lean', IsPolygon: 'Spec.lean', LexPos: 'Spec.lean', CurtainOK: 'Spec.lean', CornerOK: 'Spec.lean', Survive: 'Spec.lean',
   TopHyp: 'Statement.lean', CompCert: 'Cert.lean', dfs: 'Search.lean', colorCheck: 'Coloring.lean', checkPart: 'Cert.lean',
 };
+function stackTables() {   // label every cell with its column head, for the stacked layout on phones
+  document.querySelectorAll('.fig > table').forEach((t) => {
+    const heads = [...t.querySelectorAll('thead th')].map((th) => th.textContent.trim());
+    t.querySelectorAll('tbody tr').forEach((tr) => [...tr.children].forEach((td, k) => td.setAttribute('data-label', heads[k] || '')));
+    t.classList.add('stackable');
+  });
+}
 function linkLean() {
   const base = 'https://github.com/srinjoysom11/-K-NOT_THEORY/blob/main/research/exact/lean/Len52/';
   document.querySelectorAll('.doc code').forEach((c) => {
@@ -830,7 +837,7 @@ const WIDGETS = { polygon: wPolygon, delta: wDelta, trefoil: wTrefoil, segsquare
   curtain: wCurtain, corners: wCorners, origin: wOrigin, replay: wReplay, reach: wReach, span: wSpan, runs: wRuns, growth: wGrowth,
   std52: wStd52, certex: wCertex, pdcompare: wPdCompare, deps: () => {} };
 function boot() {
-  masthead(); rail(); linkLean();
+  masthead(); rail(); linkLean(); stackTables();
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting) return; io.unobserve(e.target);
     const f = WIDGETS[e.target.dataset.w];
