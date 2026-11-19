@@ -2,7 +2,8 @@ name: pages
 # Publishes the proof presentation (research/exact/site) to GitHub Pages, with the paper and the
 # computation record it links to.  Layout of the published site:
 #   /            -> redirects to /site/
-#   /site/       the atlas (index.html, site.css, app.js, stage.js, knot.js, data.js; no libraries)
+#   /site/       the interactive edition of the paper (index.html, site.css, app.js, gl.js, data.js,
+#                fonts/, vendor/three.js, figs/ static fallbacks)
 #   /paper/len52.pdf
 #   /out/lean/COMPCERT.txt
 on:
@@ -27,7 +28,8 @@ jobs:
           set -e
           S=research/exact
           mkdir -p _site/site _site/paper _site/out/lean
-          cp $S/site/index.html $S/site/site.css $S/site/app.js $S/site/knot.js $S/site/stage.js $S/site/data.js _site/site/
+          cp $S/site/index.html $S/site/site.css $S/site/app.js $S/site/gl.js $S/site/data.js _site/site/
+          cp -r $S/site/fonts $S/site/vendor $S/site/figs _site/site/
           cp $S/paper/len52.pdf _site/paper/ || true
           cp $S/out/lean/COMPCERT.txt _site/out/lean/ || true
           cat > _site/index.html <<'HTML'
