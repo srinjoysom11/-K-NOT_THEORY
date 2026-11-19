@@ -36,6 +36,9 @@ n = 48 and 2-slab n = 42 runs (6_3) with enum_bidir -slab. The slab-enum.yml run
 cancelled 19 Nov so that the collect job of 44258289972 could run; its 58 finished parts stay in
 out/slab/ci. Slab results 19 Nov: 1-slab granny = 46 (census 96), 6_1 = 6_2 = 48; 2-slab
 6_1 = 6_2 = 42 (PROOF_SLAB.md section 4).
+**Hold (19 Nov ~23:30 UTC, relayed by the Sonnet session):** the user asked to wait for a manual
+decision after n = 40. Nothing beyond n = 40 and the already queued 20/21-edge arc run (44618021834)
+is launched: no n = 42, no slab runs, until the user decides.
 
 ## 0. Formal proof of Len(5_2) = 36 (15-16 Nov 2026: complete)
 
