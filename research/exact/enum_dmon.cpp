@@ -85,6 +85,7 @@ static bool GCLEAF = false; /* -gcleaf: D1 at the leaves only (generalized curta
 static int GCTOUR = 0;      /* -gctour K: generalized-curtain obligations enter the exact tour only if they have <= K sites (default 0 = never) */
 static bool PLAINDUMP = false; /* -plaindump: with -plain, list every closed polygon (that passes -gcleaf if given): test of gc_leaf_ok against check/gc_check */
 static int BFSDIST = -1;    /* -bfsdist S: D3a, BFS distance through free cells when the slack is <= S (pure bound; -1 = off) */
+static bool ONETREE = false; /* -onetree: also the 1-tree (Held-Karp type) bound on the group graph, head-origin closed by a zero edge (implies -gmst) */
 static bool GMST = false;   /* -gmst: D3b, group spanning tree over every pending obligation (pure bound) */
 static bool REJSTATS = false; /* -rejstats: count the prefixes killed by each test inside update() */
 static bool GC = false;     /* -gc    : D1 on prefixes (obligations for every earlier opposite step) + leaves */
@@ -102,8 +103,9 @@ static inline int mdist(int a, int b) {
 
 struct Stats {
     unsigned long long nodes = 0, closed = 0, cand = 0, surv = 0, bfs_over = 0, giveup = 0, gcdrop = 0;
-    unsigned long long rej[10] = {0};   /* 0 bfsdist 1 curtain-impossible 2 gc-impossible 3 psi-impossible 4 site-unreachable (curtain/psi) 5 site-unreachable (gc) 6 aot 7 tour/mst */
-    void add(const Stats &o) { nodes += o.nodes; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup; gcdrop += o.gcdrop; for (int q = 0; q < 10; q++) rej[q] += o.rej[q]; }
+    unsigned long long rej[10] = {0};
+    unsigned long long rejR[10][MAXN + 1] = {{0}};   /* the same by remaining steps R1 after the step */   /* 0 bfsdist 1 curtain-impossible 2 gc-impossible 3 psi-impossible 4 site-unreachable (curtain/psi) 5 site-unreachable (gc) 6 aot 7 tour/mst */
+    void add(const Stats &o) { nodes += o.nodes; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup; gcdrop += o.gcdrop; for (int q = 0; q < 10; q++) { rej[q] += o.rej[q]; for (int r = 0; r <= MAXN; r++) rejR[q][r] += o.rejR[q][r]; } }
 };
 
 /* ---------- leaf reduction: breadth-first search over neutral BFACF moves ---------- */
@@ -169,6 +171,7 @@ struct Reducer {
 };
 
 /* ---------- the search ---------- */
+#define REJ(k, r) do { st.rej[k]++; st.rejR[k][r]++; } while (0)
 struct Ob { int cnt; int gc; int site[MAXN]; };   /* gc = 1: created by the generalized curtain (D1) */
 
 struct Search {
@@ -386,7 +389,7 @@ struct Search {
         /* the cheap witness failed.  Minimum spanning tree over {head, origin, one nearest site per
            set}: with only single-site sets this is a lower bound for any walk through all of them */
         if (!NOMST) {
-            if (GMST) {
+            if (GMST || ONETREE) {
                 /* group MST: nodes = head, origin, and every pending obligation; the weight between two groups is
                    the least Manhattan distance between their members.  Any tour that visits one site of every group
                    gives a spanning tree on the chosen sites, whose weight is >= the group-MST weight. */
@@ -410,6 +413,25 @@ struct Search {
                     for (int a = 0; a < ng; a++) if (!in[a] && gd[b][a] < key[a]) key[a] = gd[b][a];
                 }
                 if (total > R1) return false;
+                if (ONETREE) {
+                    /* the walk head -> sites -> origin, closed by a zero edge origin-head, is a Hamiltonian cycle through the
+                       groups; for every node v: cycle >= MST(all nodes except v) + the two cheapest edges at v */
+                    gd[0][1] = gd[1][0] = 0;
+                    for (int v = 0; v < ng; v++) {
+                        int first = (v == 0) ? 1 : 0;
+                        for (int a = 0; a < ng; a++) { key[a] = gd[first][a]; in[a] = false; }
+                        in[first] = true; in[v] = true; int tot1 = 0;
+                        for (int r = 1; r < ng - 1; r++) {
+                            int b = -1;
+                            for (int a = 0; a < ng; a++) if (!in[a] && (b < 0 || key[a] < key[b])) b = a;
+                            in[b] = true; tot1 += key[b];
+                            for (int a = 0; a < ng; a++) if (!in[a] && gd[b][a] < key[a]) key[a] = gd[b][a];
+                        }
+                        int m1 = 1 << 20, m2 = 1 << 20;
+                        for (int a = 0; a < ng; a++) if (a != v) { int w = gd[v][a]; if (w < m1) { m2 = m1; m1 = w; } else if (w < m2) m2 = w; }
+                        if (ng >= 3 && tot1 + m1 + m2 > R1) return false;
+                    }
+                }
             }
             int pts[4 * MAXN + 2], np2 = 0; bool all_single = true;
             pts[np2++] = nx; pts[np2++] = ORG;
@@ -489,7 +511,7 @@ struct Search {
     /* obligations created by step i (direction d, from pos[i] to nx); occ[nx] is already set.
        Fills pend[i+1]; returns false if the prefix is dead. */
     bool update(int i, int d, int nx, int sl, int R1) {
-        if (BFSDIST >= 0 && R1 - (int)DIST0[nx] <= BFSDIST && R1 > 0 && !bfs_ok(nx, R1)) { st.rej[0]++; return false; }
+        if (BFSDIST >= 0 && R1 - (int)DIST0[nx] <= BFSDIST && R1 > 0 && !bfs_ok(nx, R1)) { REJ(0, R1); return false; }
         const int *old = pend[i]; int no = npend[i];
         int *nw = pend[i + 1]; int nn = 0;
         for (int a = 0; a < no; a++) {
@@ -500,7 +522,7 @@ struct Search {
         }
         if (sl >= 0 && dirs[sl] == (d ^ 1)) {
             int r = curtain(sl, i - sl - 1, obs[nobs]);
-            if (r == -1) { st.rej[1]++; return false; }
+            if (r == -1) { REJ(1, R1); return false; }
             if (r == 0) nw[nn++] = nobs++;
         }
         if (GC) {
@@ -509,7 +531,7 @@ struct Search {
                 if (dirs[i0] != (d ^ 1) || i0 == sl) continue;   /* i0 == sl: the ordinary curtain, built above */
                 if (nobs >= 4 * MAXN - 2) break;               /* pool full: drop (never wrong, only weaker) */
                 int r = gcob(i0, i, back, obs[nobs]);
-                if (r == -1) { st.rej[2]++; return false; }
+                if (r == -1) { REJ(2, R1); return false; }
                 if (r == 0) nw[nn++] = nobs++;
             }
         }
@@ -521,7 +543,7 @@ struct Search {
             else if (d == 3 && p < 2) s = nx - DELTA[p];               /* (x,s) */
             if (s >= 0) {
                 int r = single(s, obs[nobs]);
-                if (r == -1) { st.rej[3]++; return false; }
+                if (r == -1) { REJ(3, R1); return false; }
                 if (r == 0) nw[nn++] = nobs++;
             }
         }
@@ -537,16 +559,16 @@ struct Search {
                 for (int q = 0; q < 6; q++) { int w = s + DELTA[q]; av += (w == nx || w == ORG || (!occ[w] && ALLOWED[w])); }
                 fine = av >= 2;
             }
-            if (!fine) { st.rej[ob.gc ? 5 : 4]++; return false; }
+            if (!fine) { REJ(ob.gc ? 5 : 4, R1); return false; }
         }
-        if ((AOT || AOTC || AOTM) && AXES && !aot_ok(nx, nw, nn)) { st.rej[6]++; return false; }
+        if ((AOT || AOTC || AOTM) && AXES && !aot_ok(nx, nw, nn)) { REJ(6, R1); return false; }
         nwit[i + 1] = 0;
         if (GC) {
             int nt[4 * MAXN], k = 0;
             for (int a = 0; a < nn; a++) { const Ob &ob = obs[nw[a]]; if (!ob.gc || ob.cnt <= GCTOUR) nt[k++] = nw[a]; }
-            if (k >= 2 && !tour_ok(i + 1, nx, nt, k, R1)) { st.rej[7]++; return false; }
+            if (k >= 2 && !tour_ok(i + 1, nx, nt, k, R1)) { REJ(7, R1); return false; }
         } else
-        if (nn >= 2 && !tour_ok(i + 1, nx, nw, nn, R1)) { st.rej[7]++; return false; }
+        if (nn >= 2 && !tour_ok(i + 1, nx, nw, nn, R1)) { REJ(7, R1); return false; }
         return true;
     }
     /* plane counters for a step in direction d from a vertex with coordinate c on axis A */
@@ -678,7 +700,7 @@ struct Search {
                 }
                 int z = L[2], y = L[1] > z ? L[1] : z, x = L[0] > y ? L[0] : y;
                 if (x + y + z > N) {
-                    st.nodes++; st.rej[8]++;
+                    st.nodes++; REJ(8, R - 1);
                     if (PRIME && STAIR) stair_undo(A, ss);
                     if (PRIME) plane_undo(A, smn, smx, sdef, pl);
                     continue;
@@ -772,6 +794,7 @@ int main(int argc, char **argv) {
         else if (a == "-rejstats") REJSTATS = true;
         else if (a == "-bfsdist") BFSDIST = atoi(argv[++i]);
         else if (a == "-gmst") GMST = true;
+        else if (a == "-onetree") ONETREE = true;
         else if (a == "-plaindump") PLAINDUMP = true;
         else if (a == "-gctour") GCTOUR = atoi(argv[++i]);
         else if (a == "-aotc") AOTC = true;
@@ -839,5 +862,15 @@ int main(int argc, char **argv) {
     fprintf(stderr, "\n");
     if (REJSTATS) fprintf(stderr, "rejections: bfsdist=%llu curtain=%llu gc_no_site=%llu psi_no_site=%llu unreachable_site(curtain,psi)=%llu unreachable_site(gc)=%llu aot=%llu tour_mst=%llu aot_early=%llu\n",
                           total.rej[0], total.rej[1], total.rej[2], total.rej[3], total.rej[4], total.rej[5], total.rej[6], total.rej[7], total.rej[8]);
+    if (REJSTATS) {
+        fprintf(stderr, "kills by remaining steps R1: R1 bfsdist curtain gc_none psi_none unreach unreach_gc aot tour_mst aot_early\n");
+        for (int r = 0; r <= MAXN; r++) {
+            unsigned long long sum = 0; for (int q = 0; q < 9; q++) sum += total.rejR[q][r];
+            if (!sum) continue;
+            fprintf(stderr, "R1=%d", r);
+            for (int q = 0; q < 9; q++) fprintf(stderr, " %llu", total.rejR[q][r]);
+            fprintf(stderr, "\n");
+        }
+    }
     return 0;
 }
