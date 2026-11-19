@@ -38,5 +38,5 @@ so this is only a weak identity check).
 
 Reading: `-aot` alone halves the nodes; the per-axis crossing debt in `-aotc` gives a further factor 1.7, in total about
 3.4x fewer nodes and 4.5x less time at n = 28 and 30. Growth per two edges of `-aotc`: 22.3e6 -> 117e6 -> 645e6 = 5.2x, 5.5x
-(baseline 5.4x, 5.3x), so the saving is a constant factor of about 3.4 (0.8 of a length step, since a length step costs 4.2x to 5.4x here),
+(baseline 5.4x, 5.3x), so the saving is a constant factor of about 3.4 (0.7 of a length step, since a length step costs 4.2x to 5.4x here),
 not a change of growth rate.

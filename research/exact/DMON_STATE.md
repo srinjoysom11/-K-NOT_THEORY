@@ -17,13 +17,13 @@ new code lives in `enum_dmon.cpp` behind flags (default off: identical output an
 ## Status (update after every step)
 | step | state |
 |---|---|
-| D2 `-aot`, `-aotc` implemented | done; output identical at n = 24, 26, 28; n = 30 run in progress (see out/dmon/n30_*.log) |
+| D2 `-aot`, `-aotc` | DONE, benchmarked n = 24..30, identical output, table in DMON_RESULTS.md |
 | D1 `-gcleaf`, `-gc` implemented | code written (enum_dmon.cpp), NOT yet validated or benchmarked |
 | `check/gc_check.cpp` | built; 0 violations in out/n24..n38 survivor lists; censuses (3_1@24, 4_1@30, 5_1@34, 5_2@36) NOT yet run |
 | D3, D5, D4 | not started |
-| report to parent after D2 | NOT yet sent |
+| report to parent after D2 | sent (interim, then final) |
+| GitHub dmon-bench smoke run 44417093364 | queued for >8 h (runner pool saturated by old slab-enum runs); parent asked for a runner; keep working locally |
 
 ## Next steps
-1. Finish n = 30 for D2 (base, -aot, -aotc), write the D2 section of `DMON_RESULTS.md`, commit, push, report to parent.
-2. D1: generate the four censuses with `python3 check/slab_census.py ... --all48 --out FILE`, run `gc_check` on them
+1. D1: generate the four censuses with `python3 check/slab_census.py ... --all48 --out FILE`, run `gc_check` on them
    (any violation: STOP and report), then `-gcleaf` (survivors unchanged expected), then `-gc` (compare with -gcleaf output).
