@@ -53,7 +53,7 @@ jobs:
           s=$(date +%s)
           ./enum_bidir ${{ matrix.n }} ${{ matrix.opts }} -part ${{ matrix.r }} ${{ matrix.m }} -out $base.txt 2> $base.log
           e=$(date +%s)
-          echo "seconds=$((e-s)) host=github-actions threads=$(nproc) opts=${{ matrix.opts }} commit=$GITHUB_SHA" >> $base.log
+          echo "seconds=$((e-s)) host=github-actions threads=$(nproc) opts=${{ matrix.opts }} commit=$GITHUB_SHA enum_bidir.cpp=$(sha256sum enum_bidir.cpp | cut -c1-16)" >> $base.log
           cat $base.log
           mkdir -p parts && mv $base.txt $base.log parts/
       - uses: actions/upload-artifact@v4
