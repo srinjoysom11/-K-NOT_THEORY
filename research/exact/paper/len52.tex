@@ -144,9 +144,10 @@ run, and the soundness of the certificates are theorems checked by the Lean kern
 \item the short list of definitions that state the theorem;
 \item three classical facts of knot theory: (E1) a $\Delta$-move does not change the knot type
 (proved in \cref{thm:deltamove}); (E2) the Wirtinger presentation of the knot group, a textbook
-theorem that we quote with references (used in \cref{thm:fox}); and (E3), used only to say that our
-36-step polygon is the knot that the tables call $5_2$: two diagrams with the same planar-diagram code
-show the same knot, up to mirror image (derived in \cref{sec:upper} from quoted theorems);
+theorem that we quote with references (used in \cref{thm:fox}); and (E3), used only to give names
+(our 36-step polygon is the knot that the tables call $5_2$, and in \cref{cor:trefoil} a 24-step polygon
+is the trefoil): two diagrams with the same planar-diagram code show the same knot, up to mirror image
+(derived in \cref{sec:upper} from quoted theorems);
 \item that the compiled program evaluated \num{1358} closed Boolean terms correctly;
 \item the records that this evaluation returned \emph{true}: GitHub's archived job logs
 (\cref{sec:engineering}).
@@ -226,7 +227,9 @@ in the way, so nothing is cut or passed through.
 If $K'$ is obtained from $K$ by a $\Delta$-move, then $K'$ is equivalent to $K$.
 \end{theorem}
 \begin{proof}
-Say $K'$ replaces $[a,b]$ by $[a,c]\cup[c,b]$; the reverse move is then the inverse homeomorphism. We
+Say $K'$ replaces $[a,b]$ by $[a,c]\cup[c,b]$. (For the reverse move, from $K'$ to $K$: its hypothesis
+$\Delta\cap K'=[a,c]\cup[c,b]$ implies $\Delta\cap K=[a,b]$, so the construction below applies to the pair
+$K$, $K'$, and the inverse of the homeomorphism it builds carries $K'$ to $K$.) We
 build a convex ball $B$ that contains the triangle, meets $K$ only in $[a,b]$, and has $a$ and $b$ on
 its boundary; then we move $[a,b]$ to $[a,c]\cup[c,b]$ inside $B$ without moving $\partial B$.
 
@@ -258,8 +261,10 @@ $\pi$, so the unit vector $u$ along the bisector of $C_a$ satisfies $u\cdot h\ge
 with $\kappa_0=\cos(\angle bac/2)>0$; hence $u\cdot g_k\ge(\kappa_0-2\lambda)|g_k|$. For a non-negative combination
 $x-a=\sum\mu_kg_k$ this gives $|x-a|\ge u\cdot(x-a)\ge(\kappa_0-2\lambda)\sum\mu_k|g_k|$, while the distance from
 $x-a$ to the convex cone $C_a$ is at most $|\sum\mu_k\epsilon_k|\le\lambda\sum\mu_k|g_k|$. So the sine of the angle
-between $x-a$ and $C_a$ is at most $\lambda/(\kappa_0-2\lambda)$. Choose $\delta,\eta$ so small that this is less
-than $\sin\theta$. Then no point $a+st_a$ with $s>0$ lies in $B$, so $[a,a+rt_a]$ meets $B$ only in $a$. The
+between $x-a$ and $C_a$ is at most $\lambda/(\kappa_0-2\lambda)$ (we always take $\delta,\eta$ so small that
+$\varepsilon<\ell$ and $2\lambda<\kappa_0$; and this angle is less than $\pi/2$, because $u\cdot(x-a)>0$ while $u\cdot h\ge0$
+for all $h\in C_a$). Choose $\delta,\eta$ so small that the bound is less than $\sin\theta$, where we may assume
+$\theta\le\pi/2$. Then no point $a+st_a$ with $s>0$ lies in $B$, so $[a,a+rt_a]$ meets $B$ only in $a$. The
 same argument works at $b$.
 
 The rest of $K_0$, outside the two balls of radius $r$, is compact and disjoint from $\Delta$, so it has
@@ -272,8 +277,8 @@ $B\cap K'=[a,c]\cup[c,b]$.
 segments $[a,b]$ and $[d,c^+]$ into the four triangles $adm$, $dbm$, $bc^+m$, $c^+am$, and let $f$ be
 the map that is affine on each of them, fixes $a,b,c^+,d$ and sends $m$ to $c$. The images are the
 triangles $adc$, $dbc$, $bc^+c$, $c^+ac$, which again tile $Q$: the point $c$ lies on the same side of each
-line $ad$, $db$, $bc^+$, $c^+a$ as $m$ (it is an interior point of the triangle $abc^+$, and $d$ lies on the
-other side of the line $ab$), so each affine piece keeps its orientation and the four images fit together
+line $ad$, $db$, $bc^+$, $c^+a$ as $m$ (these are the four side lines of the convex quadrilateral $Q$,
+and both $c$ and $m$ are interior points of $Q$), so each affine piece keeps its orientation and the four images fit together
 along the segments $[a,c]$, $[c,b]$, $[d,c]$, $[c,c^+]$. So $f$ is a homeomorphism of $Q$ that is the
 identity on $\partial Q$ and maps $[a,b]=[a,m]\cup[m,b]$ onto $[a,c]\cup[c,b]$. Extend $f$ to $B$ by
 coning: every point of $B$ can be written as $(1-t)e_\pm+ty$ with $y\in Q$, $t\in[0,1]$, and we set
@@ -283,8 +288,9 @@ identity outside $B$. This is a homeomorphism of $\R^3$ with $h(K)=K'$, and it i
 orientation-preserving because it is the identity on an open set.
 \end{proof}
 
-The converse (equivalent polygonal knots are related by finitely many $\Delta$-moves) is also due to
-Reidemeister~\cite{Rei32}, but we never use it.
+Reidemeister used $\Delta$-moves to found knot theory combinatorially~\cite{Rei27,Rei32}. The converse
+(equivalent polygonal knots are related by finitely many $\Delta$-moves) also holds; it needs
+approximation results for homeomorphisms~\cite[Ch.~1]{BZ},~\cite{Moi77}. We never use it.
 
 \begin{definition}
 $\Len(K)$ is the least $n$ such that some lattice polygon with $n$ edges has knot type $K$.
@@ -334,8 +340,8 @@ the same proof works for every odd prime $p$.
 So a non-constant colouring in one diagram of $K$ proves that $K$ is knotted, and that $K$ differs
 from every knot whose diagrams have only constant colourings. For an odd prime $p$, a knot has a
 non-constant $p$-colouring exactly when $p$ divides its determinant~\cite{Liv93,Prz98}. The
-determinants of $3_1,4_1,5_1,5_2$ are $3,5,5,7$. This is why $p=7$ separates $5_2$ from all knots with
-fewer crossings: the standard diagram of $5_2$ has $49$ colourings (\cref{lem:fiftytwo}), while the
+determinants of $3_1,4_1,5_1,5_2$ are $3,5,5,7$. This is why $p=7$ separates $5_2$ from all other knots
+with at most five crossings: the standard diagram of $5_2$ has $49$ colourings (\cref{lem:fiftytwo}), while the
 unknot, the trefoil, the figure-eight knot and $5_1$ have only the $7$ constant ones.
 
 %=====================================================================================================
@@ -610,15 +616,15 @@ potentials.
 \emph{Cases (1) and (2).} In case (1), $z(v')=z(v_{i-1})=z(v_i)-1$, since $v_i=v_{i-1}+\word{u}$ and
 $v'=v_{i-1}+d$ with $d$ horizontal. In case (2), $z(v')=z(v_{i+1})=z(v_i)-1$, since
 $v_{i+1}=v_i+\word{d}$ and $v'=v_{i+1}-p$ with $p$ horizontal. In both cases $v'$ has the height of a
-vertex of $w$ ($v_{i-1}$ or $v_{i+1}$), so $z(v')\ge z_{\min}(w)$. And $v_i$ is not the only lowest
-vertex, because its neighbour $v_{i-1}$ or $v_{i+1}$ is lower. Removing $v_i$ and adding $v'$ therefore
+vertex of $w$ ($v_{i-1}$ or $v_{i+1}$), so $z(v')\ge z_{\min}(w)$. And $v_i$ is not a lowest
+vertex, because its neighbour $v_{i-1}$ or $v_{i+1}$ is strictly lower. Removing $v_i$ and adding $v'$ therefore
 does not change the lowest level: $z_{\min}(w')=z_{\min}(w)$. Hence
 \[ \psiZ(w')=\psiZ(w)-\bigl(z(v_i)-z_{\min}\bigr)+\bigl(z(v')-z_{\min}\bigr)=\psiZ(w)-1, \]
 which contradicts the choice of $w$ (Step~3: $w$ has the least $\psiZ$ in $W$).
 
 \emph{Cases (3) and (4).} Both letters are horizontal, so $z(v')=z(v_i)$ and $\psiZ(w')=\psiZ(w)$. In
-case (3), $y(v')=y(v_{i-1})=y(v_i)-1$; in case (4), $y(v')=y(v_{i+1})=y(v_i)-1$ (since $p$ is on the
-$x$-axis, $y(v_{i-1})=y(v_i)$). As before $y_{\min}$ does not change, so $\psiY(w')=\psiY(w)-1$. Since
+case (3), $y(v')=y(v_{i-1})=y(v_i)-1$; in case (4), $y(v')=y(v_{i+1})=y(v_i)-1$, because $v'=v_{i+1}-p$
+with $p$ on the $x$-axis and $v_{i+1}=v_i+\word{s}$. As before $y_{\min}$ does not change, so $\psiY(w')=\psiY(w)-1$. Since
 $w'$ has the least $\psiZ$ too, this contradicts the choice of $w$ (Step~3: among the words with least
 $\psiZ$, $w$ has the least $\psiY$).
 \end{proof}
@@ -671,11 +677,11 @@ satisfies the condition, however, may be visited much later in the walk. This is
 exploits in \cref{sec:obligations}.
 
 \begin{theorem}[Normal form; Lean: \lean{exists\_survivor}]\label{thm:normal}
-Let $T$ have the closure properties of \cref{cor:knotclass}. If $T$ contains a word $w_0$, then $T$
-contains a word $w$ with $|w|\le|w_0|$ that has length $4$ or passes \dmon1--\dmon7.
+Let $T$ have the closure properties of \cref{cor:knotclass}. If $T$ contains a word $u$, then $T$
+contains a word $w$, not longer than $u$, that has length $4$ or passes \dmon1--\dmon7.
 \end{theorem}
 \begin{proof}
-Let $m$ be the least length of a word in $T$, so $m\le|w_0|$. If $m=4$, any word of length $4$ in $T$
+Let $m$ be the least length of a word in $T$, so $m$ is at most the length of $u$. If $m=4$, any word of length $4$ in $T$
 will do. Otherwise $m\ge6$ by \cref{lem:parity}. Let $w$ be the word chosen in \cref{sec:choice}. It is
 in $T$, so it is a polygon word: \dmon1 and \dmon2 hold. \dmon5 holds because $w\in W$. In Step~4,
 $v_0$ is the least vertex in the order $(z,y,x)$ and the vertices are distinct, so every other vertex is
@@ -745,7 +751,7 @@ through the origin is allowed, since $|v_j|_1\le\min(j,n-j)\le17$.
 
 \begin{description}[leftmargin=1.2em,font=\normalfont\bfseries]
 \item[First step (\dmon3, \dmon4).] The first letter $w_0$ must lead to an allowed point and must not
-be $\word{u}$.
+be $\word{u}$. These are the only tests at the first step; the tests below apply from the second step on.
 \item[No reversal, no U-turn (\dmon2, \dmon6).] $d\ne -w_{i-1}$, and, for $i\ge2$, $d\ne-w_{i-2}$.
 \item[Self-avoidance and position (\dmon1, \dmon2, \dmon3).] If $R\ge2$: the new head $v_{i+1}$ is not
 occupied, is allowed, and is within distance $R-1$ of the origin in the $\ell^1$ norm
@@ -772,11 +778,12 @@ of the obligations with a single site. For each axis $q$, let $c$ be the $q$-coo
 $[l,h]$ the smallest interval containing $c$, $0$ and the $q$-coordinates of $S$. Then
 $\sum_q\min(a_1,a_2)\le R-1$, where $a_1=(c-l)+(h-l)+h$ and $a_2=(h-c)+(h-l)-l$ (\cref{fig:span}).
 \item[Closing (\dmon1, \dmon2, \dmon4, \dmon5, \dmon6).] At the last step ($R=1$): $v_{i+1}=0$;
-$-d>w_0$; after the obligation update no obligation is pending; $w_0\ne-w_{n-2}$ and $w_1\ne-w_{n-1}$;
+$-d>w_0$; the obligation update runs with $R-1=0$, so the reach test fails for every obligation still
+pending (its site would have to be the origin, which is never a site), and hence none may remain; $w_0\ne-w_{n-2}$ and $w_1\ne-w_{n-1}$;
 for each axis whose most recent and first letters are opposite, the curtain that wraps around the
 origin has an interior point that is a vertex; and $\#_z\le\#_y\le\#_x$.
 \item[Parts.] To split the work, a run has a number of parts $M$ and a part number $r<M$. At depth $9$
-the search continues only if the $9$-letter prefix, read as a base-$6$ number, is $\equiv r\pmod M$.
+the search continues only if the $9$-letter prefix, read as a base-$6$ number with $w_0$ as the most significant digit, is $\equiv r\pmod M$.
 \end{description}
 
 \begin{figure}[t]
@@ -950,7 +957,11 @@ factor $\NodeBase^2=\NodeRatio$). We know of no formula for this factor.}
 \label{fig:growth}
 \end{figure}
 
-The empty rows $n\le22$ give a new, machine-checked proof of Diao's theorem~\cite{Diao93}.
+The empty rows $n\le22$ give a new computer proof of Diao's theorem~\cite{Diao93}. Its mathematical
+steps are the Lean theorems above; the fact that the searches for $n\le22$ return no word is printed by
+the same compiled program (the line \texttt{RESULT \dots\ words=0} in the archived logs). This fact is
+not part of \lean{CompCert}, which only says that every returned word passes the colouring test, so it
+rests on the trust items (iii) and (iv) for these ten runs.
 
 \begin{corollary}[Diao]\label{cor:trefoil}
 Every non-trivial lattice knot has at least $24$ edges, and $\Len(3_1)=24$.
@@ -964,7 +975,8 @@ passes \dmon1--\dmon7. A unit square is unknotted. By \cref{thm:pandmonium}, $w$
 the search for its length, but the searches for $n\le22$ return nothing (\cref{tab:runs}). So every
 knotted lattice polygon has at least $24$ edges. For the upper bound, the 24-step polygon
 $\word{eeeuuswwdnneeesswwnuwwdd}$, one of the words returned at $n=24$, has a three-crossing diagram
-whose PD code is that of the trefoil (Lean: \lean{wTre\_pd}; it is the polygon of \cref{fig:certex}).
+whose PD code is that of the trefoil, up to relabelling and mirror image (Lean: \lean{wTre\_pd}; it is
+the polygon of \cref{fig:certex}); by (E3), \cref{sec:upper}, this polygon is a trefoil.
 \end{proof}
 
 %=====================================================================================================
@@ -977,7 +989,7 @@ is easy to check.
 
 \subsection{The number of colourings is a knot invariant}
 
-\begin{theorem}[Fox; Lean hypothesis \lean{TopHyp}]\label{thm:fox}
+\begin{theorem}[Fox; with \cref{lem:fiftytwo} it gives the Lean hypothesis \lean{TopHyp}]\label{thm:fox}
 For a knot $K$, all regular diagrams of $K$ and of its mirror image $K^*$ have the same number of Fox
 $7$-colourings.
 \end{theorem}
@@ -1096,6 +1108,8 @@ non-constant one.
 \end{lemma}
 \begin{proof}
 By \cref{thm:fox} it suffices to count the colourings of the standard diagram of \cref{fig:std52}.
+(\Cref{thm:fox} is stated for regular projections of polygonal knots; replacing the smooth arcs of the
+drawing by fine polygonal arcs gives such a projection with the same crossings, arcs and Fox equations.)
 \emph{Arcs.} An arc ends at each under-passage. The under-strands run $1\to2$ (at $X_1$), $3\to4$ ($X_2$),
 $5\to6$ ($X_3$), $7\to8$ ($X_4$) and $9\to10$ ($X_5$), so the arcs are $A=\{2,3\}$, $B=\{4,5\}$,
 $C=\{6,7\}$, $D=\{8,9\}$ and $E=\{10,1\}$. \emph{Equations.} The over-strand at $X_1$ is $\{5,4\}$, which
@@ -1115,8 +1129,9 @@ assignments gives the same $49$.)
 
 For the theorem we need less: only that some diagram of a polygon of type $5_2$ has a non-constant
 colouring, because \cref{thm:fox} then transfers it to every diagram. For the 36-step polygon this is
-checked directly in Lean (\lean{w52\_coloring}): its diagram (\cref{fig:polygon}) has the colouring
-$(0,1,3,4,2)$. In this form the argument never uses the name ``$5_2$'' (see \cref{sec:upper}).
+checked directly in Lean: its diagram along $(1,-19,40)$ (\lean{w52\_coloring}) and along $(1,-1,4)$,
+the one drawn in \cref{fig:polygon} (\lean{fig\_coloring}), both have the colouring $(0,1,3,4,2)$. The
+count of $49$ is not formalised; it is not needed. In this form the argument never uses the name ``$5_2$'' (see \cref{sec:upper}).
 
 \subsection{Certificates that a diagram has only constant colourings}\label{sec:certificates}
 
@@ -1169,7 +1184,9 @@ so it is a combination of rows of $F$, and the coefficients form row $k$ of $L$.
 
 \emph{Directions.} The program tries the six directions
 $(7,13,31)$, $(-28,-45,32)$, $(1,-19,40)$, $(11,-37,12)$, $(5,17,23)$, $(-3,29,19)$ in this order, and
-accepts the word as soon as one direction gives a regular diagram with a valid certificate. If no
+accepts the word as soon as one direction gives a regular diagram with a valid certificate. A regular
+diagram without crossings has a single arc and only the constant colourings; the program accepts it
+directly. If no
 direction worked, the program would report failure for that part, and the proof would not go through.
 This never happened.
 
@@ -1276,10 +1293,20 @@ three steps.
 pair is the under-strand. So it determines the \emph{rotation system} of the diagram's $4$-valent plane
 graph (the cyclic order of the edges at each vertex), together with the crossing information.
 \item A rotation system determines a connected graph embedded in the sphere $S^2$ up to an
-orientation-preserving homeomorphism of $S^2$~\cite[\S3.2, Rotation systems]{MT01}. Such a homeomorphism is isotopic
-to the identity~\cite{Kne26}.
-\item Lifting this isotopy of diagrams gives an isotopy of knots in $S^3$; and knot types in $S^3$ and
-in $\R^3$ are the same~\cite[Ch.~1]{BZ}.
+orientation-preserving homeomorphism of $S^2$~\cite[\S3.2, Rotation systems]{MT01}. The statement holds for
+multigraphs, with the rotation taken on edge-ends; the diagram graphs here have parallel edges (in the
+twist region). So there is an orientation-preserving homeomorphism $g$ of $S^2=\R^2\cup\{\infty\}$
+carrying the first diagram onto the second, crossings to crossings, with the same over- and
+under-strands.
+\item A diagram determines its knot up to equivalence. Put the knot in $\R^2\times(-1,1)\subset S^3$,
+with the projection plane inside $S^2\times[-1,1]$, a collar of a $2$-sphere in $S^3$. Two knots in the
+collar with the same projection and the same crossing information differ by moving points along the
+$[-1,1]$-fibres, keeping the order of the two heights over each crossing; such a move is induced by a
+homeomorphism of $S^3$ that preserves every fibre and is the identity near $S^2\times\{\pm1\}$. And
+$g\times\mathrm{id}$ is an orientation-preserving homeomorphism of the collar that carries a knot over
+the first diagram to a knot over the second; it extends over the two complementary balls by coning
+(Alexander's trick) to an orientation-preserving homeomorphism of $S^3$. Finally, knot types in $S^3$ and
+in $\R^3$ are the same~\cite[Ch.~1]{BZ},~\cite[Ch.~1]{Lic97}.
 \end{enumerate}
 Hence $\Kft$ is $5_2^*$, and $\Len(5_2)=\Len(5_2^*)\le36$. Independently, SnapPy~\cite{SnapPy}
 identifies the complement of $|w_{36}|$ as the census manifold \texttt{m015}, the complement of
@@ -1324,13 +1351,13 @@ Result & Lean name & Depends on \\
 \dmon1--\dmon7 (\cref{def:dmon}) & \lean{IsPolygon}, \lean{LexPos}, \lean{CurtainOK}, \lean{CornerOK}, \lean{Survive} & definitions \\
 \Cref{lem:curtain,lem:corner}, \cref{thm:normal} & \lean{curtainOK\_of\_min}, \lean{cornerOK\_of\_min}, \lean{exists\_survivor} & \lean{KnotClass} \\
 \Cref{lem:state,lem:invariant}, \cref{thm:pandmonium} (PanDMONium) & \lean{search\_complete}, \lean{search\_complete\_parts} (SP/*.lean) & \lean{Survive} \\
-\Cref{thm:fox} & hypothesis \lean{TopHyp} (text) & Wirtinger presentation (E2) \\
-\Cref{lem:fiftytwo} & \lean{w52\_coloring} (the non-constant colouring) & \cref{thm:fox} \\
+\Cref{thm:fox} with \cref{lem:fiftytwo} & hypothesis \lean{TopHyp} (text) & Wirtinger presentation (E2) \\
+\Cref{lem:fiftytwo} & \lean{w52\_coloring}, \lean{fig\_coloring} (the non-constant colouring; the count $49$ is not formalised) & \cref{thm:fox} \\
 \Cref{lem:certsound} & \lean{colorCheck\_sound}; \lean{square\_ok} & -- \\
 \lean{CompCert} from \num{1358} Booleans & \lean{compCert\_of\_checks} & the computation (\cref{sec:engineering}) \\
 \Cref{thm:lower} & \lean{no\_short} & all of the above \\
 Upper bound, \cref{prop:pd} & \lean{w52\_polygon}, \lean{w52\_pd}, \lean{fig\_pd\_eq}, \lean{fig\_relabel} & (E3) only for the name \\
-\Cref{cor:trefoil} & \lean{search\_complete}, \lean{exists\_survivor}, \lean{wTre\_pd} & the runs $n\le24$ \\
+\Cref{cor:trefoil} & \lean{search\_complete}, \lean{exists\_survivor}, \lean{wTre\_pd} & the runs $n\le24$; (E3) for the name \\
 \bottomrule
 \end{tabularx}
 \end{table}

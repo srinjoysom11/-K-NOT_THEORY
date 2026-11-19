@@ -795,7 +795,7 @@ const LEAN = {
   isPolygon_length_even: 'NormalForm.lean', exists_survivor: 'NormalForm.lean', curtainOK_of_min: 'NF/Moves.lean', cornerOK_of_min: 'NF/Moves.lean',
   search_complete: 'SearchProof.lean', search_complete_parts: 'SearchProof.lean', colorCheck_sound: 'Coloring.lean', square_ok: 'Coloring.lean',
   w52_coloring: 'Coloring.lean', w52_polygon: 'Coloring.lean', w52_length: 'Coloring.lean', compCert_of_checks: 'Cert.lean', no_short: 'Main.lean',
-  w52_pd: 'PD.lean', w52_pd_eq: 'PD.lean', fig_pd_eq: 'Figure.lean', fig_relabel: 'Figure.lean', fig_crossings: 'Figure.lean', wTre_pd: 'Figure.lean',
+  w52_pd: 'PD.lean', w52_pd_eq: 'PD.lean', fig_pd_eq: 'Figure.lean', fig_relabel: 'Figure.lean', fig_coloring: 'Figure.lean', fig_crossings: 'Figure.lean', wTre_pd: 'Figure.lean',
   KnotClass: 'Spec.lean', IsPolygon: 'Spec.lean', LexPos: 'Spec.lean', CurtainOK: 'Spec.lean', CornerOK: 'Spec.lean', Survive: 'Spec.lean',
   TopHyp: 'Statement.lean', CompCert: 'Cert.lean', dfs: 'Search.lean', colorCheck: 'Coloring.lean', checkPart: 'Cert.lean',
 };
