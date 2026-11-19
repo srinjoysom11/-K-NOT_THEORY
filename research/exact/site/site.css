@@ -256,7 +256,7 @@ svg .drag:active { cursor: grabbing; }
 .doc pre { max-width: 100%; }
 math[display="block"] { display: block; max-width: 100%; overflow-x: auto; }
 .doc { overflow-wrap: break-word; }
-@media (max-width: 860px) { math:not([display="block"]) { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; } }
+
 /* unnumbered openers (Acknowledgements) take the full width */
 .doc section.level1 > h2:not(:has(.sec-n)) { display: block; }
 
@@ -290,3 +290,5 @@ math[display="block"] {
   .fig > table.stackable td { border: 0; padding: 2px 0; }
   .fig > table.stackable td::before { content: attr(data-label); display: block; font: 700 .72rem/1.2 var(--sans); letter-spacing: .04em; text-transform: uppercase; color: var(--ink-2); }
 }
+
+.doc code { hyphens: manual; -webkit-hyphens: manual; }
