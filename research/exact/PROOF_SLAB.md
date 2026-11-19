@@ -183,6 +183,8 @@ knot types by `identify_rigorous.py` (must end `ALL RESOLVED`).
 | 38 | 4.3e9 | 178 | 3_1 (24), 4_1 (82), 5_1 (16), 0_1 (56) |
 | 40 | 1.6e10 | 140 | 3_1 (36), 4_1 (28), 5_1 (32), 0_1 (44) |
 | 42 | 6.0e10 | 713 | 3_1 (122), 4_1 (211), 5_1 (62), 5_2 (134), 0_1 (184) |
+| 44 | 2.3e11 | 1043 | 3_1 (170), 4_1 (305), 5_1 (132), 5_2 (190), 0_1 (246) |
+| 46 | 8.5e11 | 2963 | 3_1 (536), 4_1 (602), 5_1 (414), 5_2 (699), 3_1#-3_1 (16), 0_1 (696) |
 
 With the lemmas above and the correctness of the program this gives:
 
@@ -213,6 +215,26 @@ With the lemmas above and the correctness of the program this gives:
   height 1, length 42 and type 5_2 (checked one by one), so the published count is too low by
   at least 856 per chirality, and by exactly 856 if the census argument (section 1) is right.
   This fits the remark on BFACF in the 1-slab (section 5): the sampler misses some classes.
+* **n_{1,3_1#3_1} = 46.** The run n = 44 (Actions, 16 parts, 1.2e5 runner-seconds; `ALL
+  RESOLVED` in `out/slab/L1_n44.rigorous.txt`) contains no composite knot. By section 7 a granny
+  polygon with at most 44 edges in the 1-slab has no twice-crossed wall with knotted arcs on both
+  sides, so if one existed the run would contain one. Hence n_{1,3_1#3_1} >= 46, and the 46-edge
+  polygon of section 5 gives equality. The published Monte Carlo value is 48.
+* **Census of the square knot in the 1-slab: 144** (the 144 wall polygons of section 7; the run
+  n = 44 adds none), equal to the published count.
+* **Census of the granny knot in the 1-slab: 96 polygons, 48 per chirality.** The run n = 46
+  contains no granny. Its 16 unresolved words (Alexander polynomial (1 - t + t^2)^2, 6 crossings
+  after SnapPy simplification) are all square knots by the Jones polynomial
+  (`check/slab_witnesses8.py`). So every shortest granny has a twice-crossed wall with knotted arcs
+  on both sides. By section 7 these are exactly the 96 polygons of `out/arcslab/glue_w1_21_23.txt`.
+  Their flip closure in the 1-slab is the same 96 polygons
+  (`check/slab_census.py ... --alex "1,-2,3,-2,1"`). (Why this counts every shortest granny: take
+  the flip class of one. Section 1 gives a member in normal form. If that member has such a wall,
+  it is one of the 96. Otherwise the search output contains it, and the output contains none.)
+  The published count is 2430 per chirality at 48 edges.
+* **n_{1,6_1} = n_{1,6_2} = 48.** The run n = 46 (Actions, 64 parts, 4.7e5 runner-seconds) has no
+  six-crossing knot. It is complete for prime knot types (section 1). The 48-edge polygons of
+  section 5 give the upper bound. n_{1,6_3} is 48 or 50 (witness 50); the run n = 48 decides it.
 * The 12 unknotted survivors at n = 36 are polygons from which no sequence of corner flips
   reaches a U-turn (also not when the flips may leave the slab, up to 200 000 states,
   `unknot_cert`): the search keeps them because it only removes polygons it can shorten.
@@ -235,6 +257,15 @@ polygons; census (`python3 check/slab_census.py out/slab/L2_n32.txt --alex "1,-3
 closure 4464, **6064** polygons, equal to the Monte Carlo count. (8 parts, `queue_slab_parts.sh`.)
 
 | 34 | 9.0e9 | 728 | 3_1 (124), 4_1 (480), 5_1 (48), 0_1 (76) |
+| 40 | 7.9e11 | 13621 | 3_1 (1513), 4_1 (2340), 5_1 (2421), 5_2 (5262), 0_1 (2085) |
+
+(n = 36 and 38 were not run: the unconfined result already says that no knot other than 0_1, 3_1,
+4_1, 5_1, 5_2 has a polygon with fewer than 40 edges.) **n_{2,6_1} = n_{2,6_2} = 42**: the run
+n = 40 (Actions, 64 parts, 4.0e5 runner-seconds, `ALL RESOLVED`) has no six-crossing knot and is
+complete for prime knot types; the 42-edge polygons in `out/slab/witness_L2.txt` give the upper
+bound (published 42, 42). n_{2,6_3} is 42 or 44 (witness 44); the run n = 42 decides it. The run
+also contains no composite knot, so the shortest composites in the 2-slab are exactly the 448
+square and 16 granny wall polygons of section 6 (published counts).
 
 Cross-check of the two programs: the 5_1 census from the 2-slab run n = 34 is **1520**, the
 same as from the unconfined run (section "Slabs in which the bulk minimum is attained") and the
@@ -389,7 +420,9 @@ edges in the 1-slab there are exactly **96 granny polygons (48 per chirality)** 
 twice-crossed wall and knotted arcs on both sides (and 14 688 such square knots). With section 5
 and the 22-edge analysis: **n_{1,3_1#3_1} = 46 if the 1-slab run n = 44 (Actions) contains no
 granny**, and then the number of shortest grannies in the 1-slab is 96 plus those of the run n = 46
-without such a wall. (Published: 48 edges, 2430 polygons per chirality.)
+without such a wall. (Published: 48 edges, 2430 polygons per chirality.) Both conditions are now settled (19 Nov, section 4): the
+run n = 44 has no granny and the run n = 46 has none, so n_{1,3_1#3_1} = 46 with exactly 96
+shortest polygons.
 
 ## 8. Consequences of the unconfined result at n = 38 [C]
 
@@ -408,4 +441,7 @@ Len(6_1) = Len(6_2) = Len(6_3) = Len(3_1#3_1) = Len(3_1#-3_1) = 40. Since n_{L,K
   (published 42, 42, 44; polygons of these lengths in `out/slab/witness_L2.txt`).
 
 Summary of exact values now proved (L = 1, 2, >= 3): 3_1 26, 24, 24; 4_1 36, 32, 30 (L >= 3);
-5_1 38, 34, 34; 5_2 42, 36, 36; 6_1, 6_2, 6_3 ?, ?, 40; square 44, 40, 40; granny 44-46, 40, 40.
+5_1 38, 34, 34; 5_2 42, 36, 36; 6_1 48, 42, 40; 6_2 48, 42, 40; 6_3 48-50, 42-44, 40;
+square 44, 40, 40; granny 46, 40, 40 (19 Nov: 1-slab n = 44, 46 and 2-slab n = 40, section 4).
+Disagreements with arXiv:1204.6674: n_{1,granny} = 46 (published 48) and the census of 5_2 in
+the 1-slab, 7096 per chirality (published 6240).

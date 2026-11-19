@@ -1,0 +1,2972 @@
+46	3	[1, -1, 1]	3_1	eeeeeennnnwwwwssseenunwwwdssueeeednnwwsuwwwdss
+46	3	[1, -1, 1]	3_1	eeeeeennnnwwwwussseendnwwwussdeeeennuwwsdwwwss
+46	3	[1, -1, 1]	3_1	eeeeeennnuwwdsswwwunneeseeeednnwwsssuwwwndwwss
+46	4	[1, -3, 1]	4_1	eeeeeennnuwwdsswwwuwwdnneeseeueednnwwwwwussdss
+46	3	[1, -1, 1]	3_1	eeeeeennnuwwdswswwunneeseeeednnwwssswuwwndwwss
+46	4	[1, -3, 1]	4_1	eeeeeennnuwwwssedennwwwwussdeeneuesswwwnndwwss
+46	4	[1, -3, 1]	4_1	eeeeeennnuwwwssswwndneeeueeednnwwssswwwunwwdss
+46	3	[1, -1, 1]	3_1	eeeeeennnwnwwwussseendnwwwussdeeeenunwwsdwwwss
+46	0	[1]	0_1	eeeeeennnwwussdwwunnneeessdwwwwsuseennndwwwsss
+46	3	[1, -1, 1]	3_1	eeeeeennnwwussdwwwnnwwssueeeennneessdwwwuwwdss
+46	4	[1, -3, 1]	4_1	eeeeeennnwwussdwwwwwnnueedseeeeunndwwwwwssussd
+46	4	[1, -3, 1]	4_1	eeeeeennnwwussdwwwwwnnueesdeeeeunndwwswwwsussd
+46	0	[1]	0_1	eeeeeennnwwussswwnndeeeunnwwwswsdseeunndwwwsss
+46	0	[1]	0_1	eeeeeennnwwussswwnndeeeunnwwwswssdeeunndwwswss
+46	0	[1]	0_1	eeeeeennnwwwussdeenunwnwwwssdeeeusswwnnndwwsss
+46	0	[1]	0_1	eeeeeennnwwwussseendnwwwwunneeesssdwwunndwwsss
+46	4	[1, -3, 1]	4_1	eeeeeennunndwwwwwssueedeeneessuwwdwwwnnuwwdsss
+46	3	[1, -1, 1]	3_1	eeeeeennunwwdswswwunneeseeseednnwwsswuwwndwwss
+46	4	[1, -3, 1]	4_1	eeeeeennuwnwwssswwndneeeuseeednnwwsswwwunwwdss
+46	3	[1, -1, 1]	3_1	eeeeeennuwwdwwwunneessseeeednnwwsswwwunndwwsss
+46	4	[1, -3, 1]	4_1	eeeeeennuwwsdwwwnnnwwssueeedeeesuswwnnnwwwdsss
+46	4	[1, -3, 1]	4_1	eeeeeennuwwsdwwwnnwwssueeendeeesuswwnnnwwswdss
+46	3	[1, -1, 1]	3_1	eeeeeennuwwwdnwwssueeeednnuwwwsdseennnwwwwssss
+46	3	[1, -1, 1]	3_1	eeeeeennuwwwsdwwusseeeenndnnwwwussseendnwwwwss
+46	3	[1, -1, 1]	3_1	eeeeeennwnnwwwussseendnwwwussdeeeeunnwwsdwwwss
+46	0	[1]	0_1	eeeeeennwnwwussdeeunnwnwwwssdeeeusswwnnndwwsss
+46	4	[1, -3, 1]	4_1	eeeeeennwwusswwwnnedeseeunndwwwwsseuennwwwdsss
+46	3	[1, -1, 1]	3_1	eeeeeennwwuswwdwnnnwwssueeeeneessdwwnwnuwwdsss
+46	3	[1, -1, 1]	3_1	eeeeeennwwuswwdwnnwwssueeneeneessdwwnwnuwwsdss
+46	3	[1, -1, 1]	3_1	eeeeeennwwuswwwdnnnwwssueeeeneessdwwwnnuwwdsss
+46	3	[1, -1, 1]	3_1	eeeeeennwwwunwwdsseeeeunndwwwsuseennndwwwwssss
+46	3	[1, -1, 1]	3_1	eeeeeennwwwunwwsdseeeeunndwwwsuseennndwwwswsss
+46	3	[1, -1, 1]	3_1	eeeeeennwwwunwwssdeeeeunndwwwsuseennndwwwsswss
+46	3	[1, -1, 1]	3_1	eeeeeennwwwwsuseennndwwwssusseeeenndwwunwwwdss
+46	4	[1, -3, 1]	4_1	eeeeeenuwnnwwssswwndneeeusseeednnwwswwwunwwdss
+46	4	[1, -3, 1]	4_1	eeeeeenuwwndwwwunneesssdeeneessuwwwwwnnndwwsss
+46	3	[1, -1, 1]	3_1	eeeeeenuwwndwwwunneesssseeeednnwwswwwunndwwsss
+46	0	[1]	0_1	eeeeennneessuwwwwndwwsuseeeeednnuwwdswwunwwdss
+46	0	[1]	0_1	eeeeennneessuwwwwnnwwssdeeenueedssuwwwwnndwwss
+46	0	[1]	0_1	eeeeennnneessuwwwwnwwssdeeennueedssuwwwwndwwss
+46	3	[1, -1, 1]	3_1	eeeeennnnnwwwwssseueednnwwsuwssdeennunwwwdssss
+46	3	[1, -1, 1]	3_1	eeeeennnnnwwwwusssedeennuwwsdwsseeunndnwwwssss
+46	4	[1, -3, 1]	4_1	eeeeennnnuwwdssswwnnwwssueeendnnneessuwwwswdss
+46	4	[1, -3, 1]	4_1	eeeeennnnuwwdssswwnuneeednnwwswwussseendnwwsss
+46	4	[1, -3, 1]	4_1	eeeeennnnuwwdssswwunneeednnwwsswwussseenndwwss
+46	0	[1]	0_1	eeeeennnnuwwdssuswwdnneueeeednnwwsssswwnuwwdss
+46	0	[1]	0_1	eeeeennnnuwwdssuwwdnwwssueedennnneessuwwwwsdss
+46	0	[1]	0_1	eeeeennnnuwwsdwwussdeeunendnwwusssseendnwwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnnuwwwsdsseeunnwdnwwssueedennnwwwwsssss
+46	3	[1, -1, 1]	3_1	eeeeennnnwnwwwusssedeenunwwsdwsseeunndnwwwssss
+46	3	[1, -1, 1]	3_1	eeeeennnnwusswdswwuseeeennnnndwwssessuwwndwwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwusswdwswuseeeennnnndwwssesswuwnwdwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwusswdwwsuseeeennnnndwwssesswwunwwdss
+46	4	[1, -3, 1]	4_1	eeeeennnnwwssueennwwwdssswuwnneeeedsswuwnwdwss
+46	4	[1, -3, 1]	4_1	eeeeennnnwwssueennwwwdswwsseuenneedsswwnwuwssd
+46	3	[1, -1, 1]	3_1	eeeeennnnwwssueennwwwwswssedennueedsswuwnwdwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwussdswwunndeeeunnwwswwsssseenndwwss
+46	4	[1, -3, 1]	4_1	eeeeennnnwwussdswwunnenneessdwwwwussseenndwwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwussdwswuseeennnnndwwsseesswuwnwdwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwussdwwsuseeennnnndwwsseesswwunwwdss
+46	0	[1]	0_1	eeeeennnnwwussdwwunwwdsseeeunnnneessdwwwwsussd
+46	0	[1]	0_1	eeeeennnnwwusssdwwunndeeeunnwwssssseendnwwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwusssdwwunnneneessdwwussseendnwwwwss
+46	4	[1, -3, 1]	4_1	eeeeennnnwwussswwndneeeunndwwswwssseenunwwsssd
+46	4	[1, -3, 1]	4_1	eeeeennnnwwussswwnnwdwsseeenunnneessdwwwswussd
+46	3	[1, -1, 1]	3_1	eeeeennnnwwwsussdeennwunwwdsseeuennndwwwwsssss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwwsussdeennwunwwsdseeuennndwwwswssss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwwsussdeennwunwwssdeeuennndwwwsswsss
+46	4	[1, -3, 1]	4_1	eeeeennnnwwwusssedennwwwwussedeneunnnwwsssdwss
+46	4	[1, -3, 1]	4_1	eeeeennnnwwwussseednnwwwwussedeenunnnwwsssdwss
+46	0	[1]	0_1	eeeeennnnwwwwsussdeeennwwussswwnnnneeessdwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwwwswussseennndeesswwwunnneessdwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnnwwwwwsseeeusswwnnndeeesswwunnnwwsssds
+46	3	[1, -1, 1]	3_1	eeeeennnnwwwwwussseendeenunwwswsdseeunndwwwsss
+46	4	[1, -3, 1]	4_1	eeeeennnueessswwwwwwndeenueeednnwwsssuwwndwwss
+46	4	[1, -3, 1]	4_1	eeeeennnueessswwwwwwndeneueeednnwwssswuwnwdwss
+46	4	[1, -3, 1]	4_1	eeeeennnueessswwwwwwndneeueeednnwwssswwunwwdss
+46	0	[1]	0_1	eeeeennnunwwdssuswwdnneueeseednnwwssswwnuwwdss
+46	3	[1, -1, 1]	3_1	eeeeennnwnnwwwusssedeeunnwwsdwsseeunndnwwwssss
+46	3	[1, -1, 1]	3_1	eeeeennnwnwwwwssseeeunndwwsusseeendnwwunwwsssd
+46	3	[1, -1, 1]	3_1	eeeeennnwnwwwwussseendeeunnwwswsdseeunndwwwsss
+46	5	[2, -3, 2]	5_2	eeeeennnwunwwdwsssuwwnneeedseeuenndwwsuswwwdss
+46	3	[1, -1, 1]	3_1	eeeeennnwuswsdwwusseeeennnnndwwssesuswwnndwwss
+46	0	[1]	0_1	eeeeennnwuswsdwwusseeeennnnnwwswssseendnwwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnwuwssdwwunndeeseuennwwwwwsssseenndwwss
+46	4	[1, -3, 1]	4_1	eeeeennnwuwssdwwunneneeesswdwnwwwussseenndwwss
+46	4	[1, -3, 1]	4_1	eeeeennnwuwsswwndneeseuenndwwwwwssseenunwwsssd
+46	4	[1, -3, 1]	4_1	eeeeennnwuwsswwnnwdwsseeenunneeesswdwnwwswussd
+46	4	[1, -3, 1]	4_1	eeeeennnwuwwsdseenuenndwwwwwssesueendnwwuswsds
+46	4	[1, -3, 1]	4_1	eeeeennnwuwwsdseenuenndwwwwwssseueendnwwsuwssd
+46	4	[1, -3, 1]	4_1	eeeeennnwuwwsdseenuennwwwwswdsseueendnwwsuwssd
+46	3	[1, -1, 1]	3_1	eeeeennnwwnwuwsssdeeunnnndwwsseussseendnwwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnwwnwwwussseendeeunnwwwssdseeunnwdwwsss
+46	4	[1, -3, 1]	4_1	eeeeennnwwsuseennndwwnwwssueeesdswwnnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeeeennnwwsuseennndwwwswwsseuenneesdswwnwuwssd
+46	4	[1, -3, 1]	4_1	eeeeennnwwsuseennndwwwwwsseueneesdswwnnwuwssds
+46	0	[1]	0_1	eeeeennnwwussdwwusseeeennnwnnwwsssseendnwwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnwwuwssdeenunnwwwssdeeuseennndwwwswwsss
+46	4	[1, -3, 1]	4_1	eeeeennnwwuwssseendnwwnwwussedeeunennwwwssdwss
+46	3	[1, -1, 1]	3_1	eeeeennnwwwunwwsssedeeunnndwwsusesseendnwwwwss
+46	3	[1, -1, 1]	3_1	eeeeennnwwwussdeenunwnwwsdseeuseennndwwwwwssss
+46	3	[1, -1, 1]	3_1	eeeeennnwwwussdeenunwnwwssdeeuseennndwwwwswsss
+46	4	[1, -3, 1]	4_1	eeeeennnwwwussseendnwwwnwwssueedeeunnnwwsswdss
+46	4	[1, -3, 1]	4_1	eeeeennnwwwuwwwsseedeeunnndwwsseeesuswwnnwwdss
+46	0	[1]	0_1	eeeeennunndwwssuswwdnneueesseednnwwsswwnuwwdss
+46	0	[1]	0_1	eeeeennunndwwussdswwunndeeeeennwwusssswwndwwss
+46	0	[1]	0_1	eeeeennunwwdsswwwwnneeusseeeeednnwwsuwwdwwussd
+46	0	[1]	0_1	eeeeennunwwwwdnneesssseueednnwwsuwwdnnuwwdssss
+46	0	[1]	0_1	eeeeennunwwwwssdwwnneeeesseueednnwwsuwwdwwussd
+46	4	[1, -3, 1]	4_1	eeeeennuwnnwwsssdeeueednnwwswwwsuseennndwwwsss
+46	4	[1, -3, 1]	4_1	eeeeennuwnwwswdwnneeessuseeednnwwsswwnnwuwssds
+46	4	[1, -3, 1]	4_1	eeeeennuwnwwwdnneesssuseeednnwwsswwnnnuwwdssss
+46	0	[1]	0_1	eeeeennuwwdswwnnnnwwssueeeedessuwwndnnuwwdssss
+46	0	[1]	0_1	eeeeennuwwdswwnnnwwssueeneedessuwwndnnuwwsdsss
+46	0	[1]	0_1	eeeeennuwwdswwnnwwssueenneedessuwwndnnwwussdss
+46	4	[1, -3, 1]	4_1	eeeeennuwwdswwunneeeeesswwdnneesssuwwwwnndwwss
+46	4	[1, -3, 1]	4_1	eeeeennuwwdswwunneeeeesswwdnnwwwwussseenndwwss
+46	0	[1]	0_1	eeeeennuwwdswwuwwdnneeueedessuwwnwwnndeesswwss
+46	4	[1, -3, 1]	4_1	eeeeennuwwdswwwwnnueedeeessueednnwnwwwwwssussd
+46	4	[1, -3, 1]	4_1	eeeeennuwwdswwwwnnueedeeessueennwwndwwwwssussd
+46	4	[1, -3, 1]	4_1	eeeeennuwwdswwwwnnueedeeessueennwwwndwwwssussd
+46	0	[1]	0_1	eeeeennuwwdwwunwwdsseeeeenneessuwwwwnndwwsussd
+46	0	[1]	0_1	eeeeennuwwdwwunwwdsseeeunneeeesswwdnnwwwwsussd
+46	4	[1, -3, 1]	4_1	eeeeennuwwdwwwwnnueesdeeessueednnwnwwwwwsussds
+46	3	[1, -1, 1]	3_1	eeeeennuwwsdwwnneennwwussssseeendnwwunndwwssss
+46	3	[1, -1, 1]	3_1	eeeeennuwwsdwwnnennwwussssseeeendnwwuwnndwssss
+46	4	[1, -3, 1]	4_1	eeeeennuwwsdwwnnnwwssueeedeesuswwwwwwnnneedsss
+46	4	[1, -3, 1]	4_1	eeeeennuwwsdwwunneeeeesswwdnwnwwwussseenndwwss
+46	5	[2, -3, 2]	5_2	eeeeennuwwsdwwuwnndeeueedssuswwnndennwwussdwss
+46	0	[1]	0_1	eeeeennuwwsdwwuwnndeeueedssuswwnnwnndeesswwwss
+46	4	[1, -3, 1]	4_1	eeeeennuwwsswwndneeennwwusssdeeueennwwwdwwwsss
+46	5	[2, -3, 2]	5_2	eeeeennuwwwndnwwussedeenueeesswwdnnnwuwwsdwsss
+46	3	[1, -1, 1]	3_1	eeeeennwnnwwwwssseeuenndwwsusseeendwnwunwwsssd
+46	4	[1, -3, 1]	4_1	eeeeennwnuwwsdseeuenndnwwwwwssesueendnwwuswsds
+46	4	[1, -3, 1]	4_1	eeeeennwnuwwsdseeuenndnwwwwwssseueendnwwsuwssd
+46	4	[1, -3, 1]	4_1	eeeeennwnuwwsdseeuennnwwwwswdsseueendnwwsuwssd
+46	5	[2, -3, 2]	5_2	eeeeennwunndwwsseusswwndnnueedeeusswdwwunwwdss
+46	4	[1, -3, 1]	4_1	eeeeennwunnnwwsssdeseuenndwwwwsseuennndwwwssss
+46	4	[1, -3, 1]	4_1	eeeeennwunnnwwsssdseeuenndwwwwssueennndwwwssss
+46	4	[1, -3, 1]	4_1	eeeeennwunnwwwssesdeeuenndwwswwsuseennnwdwwsss
+46	4	[1, -3, 1]	4_1	eeeeennwunwwsdseeuenndwnwwwwssesueendnwwuswsds
+46	4	[1, -3, 1]	4_1	eeeeennwunwwsdseeuenndwnwwwwssseueendnwwsuwssd
+46	3	[1, -1, 1]	3_1	eeeeennwuwswdwnneennwwussssseeendwnwunndwwssss
+46	3	[1, -1, 1]	3_1	eeeeennwuwswdwnnennwwussssseeeendwnwuwnndwssss
+46	4	[1, -3, 1]	4_1	eeeeennwuwswdwnnnwwssueeedeseuswwwwwwnnneedsss
+46	3	[1, -1, 1]	3_1	eeeeennwuwswdwnnueedsseuennwnwwwwsseednnwwssss
+46	4	[1, -3, 1]	4_1	eeeeennwuwswdwnnueeeesswdwnnnuwwwsseednnwwssss
+46	4	[1, -3, 1]	4_1	eeeeennwuwswwndneesseuenndwnwwwwssseenunwwsssd
+46	4	[1, -3, 1]	4_1	eeeeennwuwswwndneesseuennwwndwwwssseenunwwsssd
+46	4	[1, -3, 1]	4_1	eeeeennwuwswwnndeesseuenndwnwwwwsseeunnwwsssds
+46	4	[1, -3, 1]	4_1	eeeeennwuwswwnndeesseuennwwndwwwsseeunnwwsssds
+46	0	[1]	0_1	eeeeennwwnneeusswwswwdnneueedeessuwwdwwnuwwdss
+46	4	[1, -3, 1]	4_1	eeeeennwwnuwwdsseeeuswwwwwnneeednneesuswswwwds
+46	4	[1, -3, 1]	4_1	eeeeennwwusseennndwwnnwwssueeessdwwnnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeeeennwwusseennndwwnwwwsseueneessdwwnnwuwssds
+46	4	[1, -3, 1]	4_1	eeeeennwwusseennndwwwswsuwwnneeeeessdwwunwwdss
+46	4	[1, -3, 1]	4_1	eeeeennwwusseennndwwwswuwnneeesessdwwunnwdwsss
+46	4	[1, -3, 1]	4_1	eeeeennwwusseennndwwwwssuwwnneeeeessdwwnuwwdss
+46	4	[1, -3, 1]	4_1	eeeeennwwusseennndwwwwunneessessdwwnunndwwssss
+46	3	[1, -1, 1]	3_1	eeeeennwwusseennnnwwnwwssdeeeussdwwnunndwwssss
+46	3	[1, -1, 1]	3_1	eeeeennwwusseennnnwwswsswdwnneeeeussdwwnwuwssd
+46	3	[1, -1, 1]	3_1	eeeeennwwusseennnnwwwwwssedeneeussdwwunnwdwsss
+46	3	[1, -1, 1]	3_1	eeeeennwwusswwndnennwwussssseeeenndwwunwndwsss
+46	3	[1, -1, 1]	3_1	eeeeennwwuswwdnnennwwussssseeeendwwnuwnndwssss
+46	4	[1, -3, 1]	4_1	eeeeennwwuswwdnnnwwssueeedseeuswwwwwwnnneedsss
+46	0	[1]	0_1	eeeeennwwuswwdwwnnueedeeeussdwwnwwnneeusswwssd
+46	0	[1]	0_1	eeeeennwwuswwnnnndwwsseeeeeussdwwnunndwwussdss
+46	0	[1]	0_1	eeeeennwwuswwnnnwwdsseeneeeussdwwnunndwwsussds
+46	0	[1]	0_1	eeeeennwwuswwnnwwdsseenneeeussdwwnunndwwssussd
+46	0	[1]	0_1	eeeeennwwuswwwwdnnueedsseeeunnwwswwwwdnneessss
+46	0	[1]	0_1	eeeeennwwwnneeusswsswwndnnueedeeusswdwwunwwdss
+46	4	[1, -3, 1]	4_1	eeeeennwwwunndwwsseseeeuswwwwwnneendeeusswwwds
+46	0	[1]	0_1	eeeeennwwwunneeesssswwnnndwwsseeeunndnwwwwssss
+46	3	[1, -1, 1]	3_1	eeeeennwwwunneesssdwwwnneeussseennndwnwwwwssss
+46	0	[1]	0_1	eeeeennwwwwnneeusssswwndwnnueedeeussdwwunwwssd
+46	3	[1, -1, 1]	3_1	eeeeennwwwwsuseennendnwwusssdeeuennnwwsdwwwsss
+46	3	[1, -1, 1]	3_1	eeeeennwwwwsuseennndennwwussssdeeunnnwdwswwsss
+46	3	[1, -1, 1]	3_1	eeeeennwwwwsuseennndwwunneesesssdwwunnndwwssss
+46	0	[1]	0_1	eeeeennwwwwsuseennnndwwsusesdeeunndwwunwwdssss
+46	0	[1]	0_1	eeeeennwwwwsuseennnnnwwssdeeeussdwwunnndwwssss
+46	0	[1]	0_1	eeeeennwwwwsuseennnnwwsswssseeeenndwwunndwwsss
+46	0	[1]	0_1	eeeeennwwwwsuseennnwnwwssssseeeenndwwunwndwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeenuennwwwdswwunndeeesssuseednnwuwwwndwwsss
+46	0	[1]	0_1	eeeeenunndnwwussdswwunndeeeseennuwwssswwndwwss
+46	4	[1, -3, 1]	4_1	eeeeenunndnwwwwwswssueednneeeuneedsswwwwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeenunndwwwsseeunnwwwdssuseeeeednnwwwuwwwdss
+46	4	[1, -3, 1]	4_1	eeeeenunnnwwssdeennwwwuswwssedenneeusswwnwdwss
+46	4	[1, -3, 1]	4_1	eeeeenunnnwwssdeennwwwwswussedenneeusswwnwdwss
+46	3	[1, -1, 1]	3_1	eeeeenunnnwwsssdwwnneeeussswwnndeeennwwwwwssss
+46	4	[1, -3, 1]	4_1	eeeeenunnwdwsswwnnwwssueeendnneeesswuwnwwswdss
+46	4	[1, -3, 1]	4_1	eeeeenunnwdwsswwnuneesedennwwwwwussseendnwwsss
+46	4	[1, -3, 1]	4_1	eeeeenunnwdwsswwunneesedennwwwswwussseenndwwss
+46	4	[1, -3, 1]	4_1	eeeeenunwndwwsuseednennwwwwswussedeenunwwsdwss
+46	4	[1, -3, 1]	4_1	eeeeenunwndwwsuseednennwwwwwsussedeenunwwdswss
+46	4	[1, -3, 1]	4_1	eeeeenunwndwwsuseednennwwwwwussedseenunwwdwsss
+46	4	[1, -3, 1]	4_1	eeeeenunwnnwwsssdeeuseednnwwwwwsuseennndwwwsss
+46	0	[1]	0_1	eeeeenunwwdswwwwnneeussseeeeednnwwsuwwndwwussd
+46	4	[1, -3, 1]	4_1	eeeeenuwnndwwussdeeneessuwwwwwndneeunndwwswsss
+46	4	[1, -3, 1]	4_1	eeeeenuwnnwwswdwnneeessusseeednnwwswwnnwuwssds
+46	4	[1, -3, 1]	4_1	eeeeenuwnnwwwdnneesssusseeednnwwswwnnnuwwdssss
+46	0	[1]	0_1	eeeeenuwwndwwunwwdsseeeeeneessuwwwwnnndwwsussd
+46	4	[1, -3, 1]	4_1	eeeeenuwwwnndeeuseesswwwwwndeeenennwwussdwwwss
+46	4	[1, -3, 1]	4_1	eeeeenuwwwnwndneessueeesswwwwwndeeennuwwdswwss
+46	0	[1]	0_1	eeeeeunndnnwwussdswwunndeeesseennuwwsswwndwwss
+46	4	[1, -3, 1]	4_1	eeeeeunndnnwwuswwwwsseednneeeueedsswwwwnuwwdss
+46	0	[1]	0_1	eeeeeunndnwwusswwwwdnneesseeeeennuwwsdwwuwwdss
+46	4	[1, -3, 1]	4_1	eeeeeunndnwwwwnwwssueedeeeuneedsswwwwunnwwdsss
+46	0	[1]	0_1	eeeeeunndnwwwwssuwwnneeeessdeeennuwwsdwwuwwdss
+46	0	[1]	0_1	eeeeeunndnwwwwunneessssdeeennuwwsdwwunndwwssss
+46	4	[1, -3, 1]	4_1	eeeeeunndwnwwswuwnneeessdseeennwuwsswwnnwdwsss
+46	4	[1, -3, 1]	4_1	eeeeeunndwnwwwunneesssdseeennwuwsswwnnndwwssss
+46	0	[1]	0_1	eeeeeunndwwuwwdnwwssueedenneeeesswwunnwwwwsdss
+46	0	[1]	0_1	eeeeeunndwwuwwdnwwssueeeeenndeesswwwwnnuwwsdss
+46	4	[1, -3, 1]	4_1	eeeeeunnnwwsdseennnwwnwwussdeeesuswwnnndwwssss
+46	4	[1, -3, 1]	4_1	eeeeeunnnwwsdseennnwwwuswwssedenneesuswwnwdwss
+46	4	[1, -3, 1]	4_1	eeeeeunnnwwsdseennnwwwwswussedenneesuswwnwdwss
+46	4	[1, -3, 1]	4_1	eeeeeunnnwwsdseennnwwwwwussedeneesuswwnnwdwsss
+46	3	[1, -1, 1]	3_1	eeeeeunnnwwsdwswuseeenndnwwussedeennnwwwwsswss
+46	3	[1, -1, 1]	3_1	eeeeeunnnwwsdwwsuseeenndnwwussdeeennnwwwwswsss
+46	4	[1, -3, 1]	4_1	eeeeeunnwdnwwsuseedennnwwwwswussedeenunwwsdwss
+46	4	[1, -3, 1]	4_1	eeeeeunnwdnwwsuseedennnwwwwwsussedeenunwwdswss
+46	4	[1, -3, 1]	4_1	eeeeeunnwdnwwsuseedennnwwwwwussedseenunwwdwsss
+46	4	[1, -3, 1]	4_1	eeeeeunnwdnwwsuseedennuwnwwwwssedseenunwwdwsss
+46	4	[1, -3, 1]	4_1	eeeeeunnwdnwwsuseedennuwnwwwwsssedeenunwwdswss
+46	4	[1, -3, 1]	4_1	eeeeeunnwdwswwnnueessedennwwnuwwwsseednnwwssss
+46	4	[1, -3, 1]	4_1	eeeeeunnwdwswwnuneessedennwwnwwwussseendnwwsss
+46	3	[1, -1, 1]	3_1	eeeeeunnwdwswwunndeeeesswuwnnwnwwsssseenndwwss
+46	0	[1]	0_1	eeeeeunnwwnndeesswwswwunndeeeueedsswwuwwndwwss
+46	0	[1]	0_1	eeeeeunnwwsdwwunndeeueedsswuswwnnnndeesswwwwss
+46	0	[1]	0_1	eeeenenneessuwwwwnnwwssdeeneueedsswuwwwnndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeneunndwwwsseuennwwwdssuseeeedennwwwuwwwdss
+46	0	[1]	0_1	eeeennenneessuwwwwnwwssdeenneueedsswuwwwndwwss
+46	0	[1]	0_1	eeeenneueedsswwnuwwdwwunndeeeeessuswwwwnndwwss
+46	3	[1, -1, 1]	3_1	eeeennneessuwwwdnnnwwssueeeedssuwwwndnnuwwdsss
+46	3	[1, -1, 1]	3_1	eeeennneessuwwwdwwusseeeeeennnwwdssuwwwnndwwss
+46	4	[1, -3, 1]	4_1	eeeennneessuwwwdwwuwnndeesusseeednnuwwnwwsdwss
+46	0	[1]	0_1	eeeennneessuwwwnwwdnneeeeussdssuwwwndnnuwwdsss
+46	3	[1, -1, 1]	3_1	eeeennnneessuwwwdnwwwsseuenneeedssuwwdwnwuwssd
+46	0	[1]	0_1	eeeennnneessuwwwdswwuseeeednnnueesswwwwwndwwss
+46	3	[1, -1, 1]	3_1	eeeennnneessuwwwdswwuseeeeeennnwwdssuwwwndwwss
+46	4	[1, -3, 1]	4_1	eeeennnneessuwwwdswwuwnndeesuseeednnuwwwwsdwss
+46	4	[1, -3, 1]	4_1	eeeennnnnuwwdswsssuwwnneeedennnwwsuseesswwwdss
+46	4	[1, -3, 1]	4_1	eeeennnnnuwwwssedennwwwsswssueednnneuesswwwdss
+46	4	[1, -3, 1]	4_1	eeeennnnnwuswwsssdwwnneeeueennndwwssesswwwussd
+46	3	[1, -1, 1]	3_1	eeeennnnnwwsssseuennwwwdnwwssueeeednnuwwwsdsss
+46	3	[1, -1, 1]	3_1	eeeennnnnwwsssseuennwwwdssuwwnneneeedssuwwwdss
+46	0	[1]	0_1	eeeennnnnwwsssseuennwwwwwsseednnnueedssuwwwdss
+46	4	[1, -3, 1]	4_1	eeeennnnnwwssueennwwwdssssuwwnneeneedsswuwwdss
+46	4	[1, -3, 1]	4_1	eeeennnnnwwssueennwwwdsswwsseeunnneedsswwwussd
+46	3	[1, -1, 1]	3_1	eeeennnnnwwssueennwwwwsswsseednnnueedsswuwwdss
+46	3	[1, -1, 1]	3_1	eeeennnnnwwsusesdswwnnwwssueeeeennnwdswsuwwdss
+46	4	[1, -3, 1]	4_1	eeeennnnnwwsuwwwsseeedennunwwdsssseeunnwwwdsss
+46	4	[1, -3, 1]	4_1	eeeennnnnwwsuwwwsseeednenunwwdsssseenunwwwdsss
+46	0	[1]	0_1	eeeennnnnwwswssseenunwwwwsseeeeennnwdswsuwwdss
+46	3	[1, -1, 1]	3_1	eeeennnnnwwussedsswwnnwwssueeeeennnwdwssuwwdss
+46	4	[1, -3, 1]	4_1	eeeennnnnwwuswsssdwwnneeeuennndwwsseesswwwussd
+46	4	[1, -3, 1]	4_1	eeeennnnnwwwsseuennwwwdsswsseeunnnedesswwwussd
+46	0	[1]	0_1	eeeennnnnwwwsssseennuwwwwsseeeeennnwdwssuwwdss
+46	0	[1]	0_1	eeeennnnuwwdssseuennwwwwwsseednnnneesssuwwwdss
+46	4	[1, -3, 1]	4_1	eeeennnnuwwdssswuwwdnneesueednnneessuwwwwwsdss
+46	0	[1]	0_1	eeeennnnuwwdssuswwwdnneesseennnneessuwwwwswdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnnuwwdssuwwwdnneeneessuwwdssuwwwnneedsss
+46	0	[1]	0_1	eeeennnnuwwdssuwwwdnneessseennnneessuwwwwwdsss
+46	4	[1, -3, 1]	4_1	eeeennnnuwwdswwsseuenednnnwwsuseeesswdwnwuwssd
+46	4	[1, -3, 1]	4_1	eeeennnnuwwsdwwwsseeeunendnwwusssseendnwwwussd
+46	0	[1]	0_1	eeeennnnuwwswssdeenueednnnwwssueeesswwwwndwwss
+46	5	[2, -3, 2]	5_2	eeeennnnuwwwsdssuwwdnneneesueeednnwwssswuwwdss
+46	3	[1, -1, 1]	3_1	eeeennnnuwwwssdeseuennwwdwwsseuenednnwwwussssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnnuwwwssdseeunnwdwwwssueeendennwwwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnnuwwwsssdeennnneessuwwwdwwussseenndwwss
+46	3	[1, -1, 1]	3_1	eeeennnnuwwwwsssseennednnwwsussdeeuennwwdswwss
+46	0	[1]	0_1	eeeennnnwnwwsssseennuwwwwsseeeeennnwwdssuwwdss
+46	3	[1, -1, 1]	3_1	eeeennnnwnwwswwsssueeendnnuwwssedseennuwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennnnwnwwwswsssueeendnnwuwssedseennuwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennnnwnwwwwsssseeenunndwwsseuseednnwwuwsssd
+46	3	[1, -1, 1]	3_1	eeeennnnwnwwwwssssueeendnnwwussedseennuwwdwsss
+46	5	[2, -3, 2]	5_2	eeeennnnwunwwdswswsseeunndeeuenndwwsussdwwussd
+46	3	[1, -1, 1]	3_1	eeeennnnwuwwnwwsssseeendnnwwussedseennuwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennnnwwnwwwsssseeenunnwdwsseuseednnwwuwsssd
+46	3	[1, -1, 1]	3_1	eeeennnnwwsswusseendnnuwwdwsseeuneennwwwwssssd
+46	4	[1, -3, 1]	4_1	eeeennnnwwsuseennndwwwsswwsseeunnneesdswwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnnwwussdwwwunneeneessdwwussdwwwnneeusssd
+46	0	[1]	0_1	eeeennnnwwusssdwwwnneeeeunnwwssssseendnwwwussd
+46	3	[1, -1, 1]	3_1	eeeennnnwwwnwwsssseeenunnwwdsseuseednnwwuwsssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnnwwwssuseednnwuwwwdsseeenuennwwwdssussd
+46	0	[1]	0_1	eeeennnnwwwwwsseeeusswwwnnnneesssdeennwwwussds
+46	3	[1, -1, 1]	3_1	eeeennnnwwwwwwsseeeuseednnwwwwussdeeenunwwsssd
+46	3	[1, -1, 1]	3_1	eeeennnnwwwwwwssueeedseennuwwwwdssueeendnwwsss
+46	0	[1]	0_1	eeeennnueesdsswuwwwwndeenueedneessuwwwwwndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnueesswwwdnnunwwwssedenneeessuwwwnwdwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnueesswwwdnnuwwdnneeseessuwwwdnnuwwdssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnueesswwwwndnwwussedeennneessuwwnwwsdwss
+46	0	[1]	0_1	eeeennnueesswwwwndnwwussedeenueednnwwsuwwsdwss
+46	0	[1]	0_1	eeeennnueesswwwwndnwwussedeenueednnwwwuswsdwss
+46	0	[1]	0_1	eeeennnueesswwwwndnwwussedeenueednnwwwwussdwss
+46	0	[1]	0_1	eeeennnueesswwwwwnndwwsseeeennneessuwwwdwwussd
+46	0	[1]	0_1	eeeennnuneedsswuwwdswwunndeeneesuesswwwwndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnuneedsswuwwnwwssdeennneesuesswwwwndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnunndwwsswuwwdsseeeenueednnwwuwwdwssussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnunndwwsswuwwdsseeeeueednnnwwuwwdwssussd
+46	5	[2, -3, 2]	5_2	eeeennnunndwwwssussdwwnnenueedeeessuwwdwwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnunndwwwssuwwdsseeeenueednnwwwuwwdssussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnunndwwwssuwwdsseeeeueednnnwwwuwwdssussd
+46	4	[1, -3, 1]	4_1	eeeennnunnwdwswsssuwwnneeedenennwwussesswwwdss
+46	0	[1]	0_1	eeeennnunnwwswsssdwwnneeeesueednnwwuswsdwwussd
+46	0	[1]	0_1	eeeennnunwwdssuswwwdnneesseennneessuwwnwwswdss
+46	0	[1]	0_1	eeeennnunwwdssuwwwdnneessseennneessuwwnwwwdsss
+46	3	[1, -1, 1]	3_1	eeeennnunwwwdssueeeednnwwsuwwwssedennnnwwsssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnunwwwsdssuwwdnneneesseueednnwwsuwswwdss
+46	5	[2, -3, 2]	5_2	eeeennnunwwwsdssuwwdnneneesueseednnwwsswuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnunwwwsssdeennneessuwwnwdwwussseenndwwss
+46	0	[1]	0_1	eeeennnuwnnwwssssdwwnneeeesueednnwwwussdwwussd
+46	0	[1]	0_1	eeeennnuwwdsseueennnwwwwswwsseednnneessuwwwdss
+46	5	[2, -3, 2]	5_2	eeeennnuwwdssuswwwnnndeeneessuwwdwwwnneeusssds
+46	0	[1]	0_1	eeeennnuwwdsswuseeeednnuwwdnneesessuwwwwnwdwss
+46	5	[2, -3, 2]	5_2	eeeennnuwwdsswuswwnnndeeneessuwwdwwwnneeusssds
+46	4	[1, -3, 1]	4_1	eeeennnuwwdsswuwnneneeeesswwdnneesssuwwwnwdwss
+46	5	[2, -3, 2]	5_2	eeeennnuwwdsswuwwnnndeeeessuwwdnwwwnneeusssdss
+46	5	[2, -3, 2]	5_2	eeeennnuwwdsswuwwnnnedeeessuwwdnwwnneeusswsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnuwwwdssuwwdnneneneesssueennwwwdssuwwdss
+46	5	[2, -3, 2]	5_2	eeeennnuwwwdssuwwnneneeedssueednnwnwwsssuwwdss
+46	4	[1, -3, 1]	4_1	eeeennnuwwwsdseennnnuwwsdsesueeennwwwdnwwsssss
+46	4	[1, -3, 1]	4_1	eeeennnuwwwssdeennnnuwwsdsseueeennwwwdnwwsssss
+46	4	[1, -3, 1]	4_1	eeeennnuwwwssdeeueeednnwnwwssueedssuwwwnndwwss
+46	0	[1]	0_1	eeeennnuwwwsswwdnneesseennneessuwwwdnnwwussdss
+46	0	[1]	0_1	eeeennnuwwwswwdnneessseennneessuwwwdnnuwwsdsss
+46	5	[2, -3, 2]	5_2	eeeennnuwwwwssedennnueeesswwdnneesssuwwwnwdwss
+46	0	[1]	0_1	eeeennnuwwwwwdnneesssseennneessuwwwdnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeeennnuwwwwwsseednnnueedssueednnwnwwsssuwwdss
+46	0	[1]	0_1	eeeennnwnnwwsssseenunwwwwsseeeeennnwwdssuwwdss
+46	3	[1, -1, 1]	3_1	eeeennnwnnwwswwsssueeendnnuwwssedseenunwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennnwnnwwwswsssueeendnnwuwssedseenunwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennnwnnwwwwssssueeendnnwwussedseenunwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennnwnuwwnwwsssseeendnnwwussedseenunwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennnwnwwwwwssueeedseenunwwwwdssueeendnwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnwuwswwwdnneeesseuennwwwsdssuwwwnneedsss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwdsseenuenndwwssuseeednnnnwwwwswssss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwdsseenuenndwwssuseeennnnwwswwdwssss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwdsseenuennwdwssuseeednnnwnwwwswssss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwdsseenuennwwdssuseeednnnwwnwwswssss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwsdseenuenndwwssuseeednnnnwwwwsswsss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwsdseenuenndwwssuseeennnnwwswwdswsss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwsdseenuennwdwssuseeednnnwnwwwsswsss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwsdseenuennwwdssuseeednnnwwnwwsswsss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwssdeenuenndwwssuseeednnnnwwwwssswss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwssdeenuenndwwssuseeennnnwwswwdsswss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwssdeenuennwdwssuseeednnnwnwwwssswss
+46	3	[1, -1, 1]	3_1	eeeennnwuwwssdeenuennwwdssuseeednnnwwnwwssswss
+46	3	[1, -1, 1]	3_1	eeeennnwwsuseeednnuwwwwdsseenueeednnwwwwwwssss
+46	3	[1, -1, 1]	3_1	eeeennnwwsuseeednnuwwwwsdseenueeednnwwwwwswsss
+46	3	[1, -1, 1]	3_1	eeeennnwwsuseeednnuwwwwssdeenueeednnwwwwwsswss
+46	5	[2, -3, 2]	5_2	eeeennnwwunwwdswsseeeunenndwwsussseendnwwwussd
+46	4	[1, -3, 1]	4_1	eeeennnwwussdwwnneneeeusssswwwnndeeunnwwswsssd
+46	3	[1, -1, 1]	3_1	eeeennnwwussdwwwnneeusssswwnnnneneeessdwwwussd
+46	5	[2, -3, 2]	5_2	eeeennnwwussdwwwnnneueeessdwwunwwnndeesswsussd
+46	5	[2, -3, 2]	5_2	eeeennnwwussdwwwnnnueeeessdwwnuwwwdnneesssussd
+46	5	[2, -3, 2]	5_2	eeeennnwwussdwwwnunendeeeussdwwnunndwwssesussd
+46	5	[2, -3, 2]	5_2	eeeennnwwusseennndwwwsussdwwnnenueeessdwwwussd
+46	3	[1, -1, 1]	3_1	eeeennnwwusseennnnwwswsssdwwnneeneeussdwwwussd
+46	5	[2, -3, 2]	5_2	eeeennnwwusssswwwnnndeeeeunnwwsssdwwwnneeusssd
+46	3	[1, -1, 1]	3_1	eeeennnwwusssswwwnnnneessdwwnneeneeussdwwwussd
+46	0	[1]	0_1	eeeennnwwussswwnnndeneeeussswdwwunnneessdwwwss
+46	0	[1]	0_1	eeeennnwwuwwdwssueedeenunndwwsseusswwwwnneedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnwwwussseendnwwwwunneeesssdwwwwnneeusssd
+46	3	[1, -1, 1]	3_1	eeeennnwwwwnneeusswssdeenunndwwuwsssseenndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennnwwwwunneessssdwwwnnneeusssseendnwwwussd
+46	3	[1, -1, 1]	3_1	eeeennnwwwwwnneeussssdeenunndwwwusssseenndwwss
+46	3	[1, -1, 1]	3_1	eeeennnwwwwwnneeussssdeenunwndwwusssseenndwwss
+46	0	[1]	0_1	eeeennueedsswuwwndwwunndeeeessuesswwwwnnndwwss
+46	0	[1]	0_1	eeeennueeedsswwnuwwdwwunndeeeesesuswwwwnndwwss
+46	0	[1]	0_1	eeeennueesswwwwnndennwwussdseeueednnwuwwdwwsss
+46	0	[1]	0_1	eeeennueesswwwwnndennwwusssdeeueednnwuwwdwswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennueesswwwwnndnwwussedeenneessuwwnnwwsdwss
+46	0	[1]	0_1	eeeennueesswwwwnnednnwwsussdeeueednnwuwwdswwss
+46	4	[1, -3, 1]	4_1	eeeennueesswwwwwnndeesueednnwwwwwsseeunnwwsssd
+46	0	[1]	0_1	eeeennueesswwwwwnnndwwsseeeenneessuwwwndwwussd
+46	0	[1]	0_1	eeeennuenndwwssswwwwnneeusseeeednnwuwswdwwussd
+46	0	[1]	0_1	eeeennuenndwwssswwwwnneeusseeeednnwuwwdswwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennuenndwwssuwwndwwsseeeeueednnwuwwdswwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennuenndwwsswuwnwdwsseeeeueednnwuwwdwswussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennuenndwwsswwunwwdsseeeeueednnwuwwdwwsussd
+46	0	[1]	0_1	eeeennuennwwwswssdwwnneeeessueednnwuwswdwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennuneedsswuwwnnwwssdeenneesuesswwwwnndwwss
+46	0	[1]	0_1	eeeennunndwwssuswwwdnneesseenneessuwwnnwwswdss
+46	0	[1]	0_1	eeeennunndwwssuwwwdnneessseenneessuwwnnwwwdsss
+46	0	[1]	0_1	eeeennunndwwsuwwwsseednnnueessseednnwwswuwwdss
+46	5	[2, -3, 2]	5_2	eeeennunndwwswussdwwnneneuesedeessuwwdwnwwussd
+46	0	[1]	0_1	eeeennunndwwswussdwwnneneuessseeednnwwswwwussd
+46	0	[1]	0_1	eeeennunndwwswuwwdsseeeenneessuwwwnnnwdwssussd
+46	0	[1]	0_1	eeeennunndwwuswssdeenunnndwwsseeeessuwwwndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennunndwwwsseuseeednnwwwuwssdeenunnwwwdssss
+46	3	[1, -1, 1]	3_1	eeeennunndwwwssseenunwwwwsseeeeeednnwwwsuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennunndwwwuwwdsseeseeueednnwwunndwwwssussds
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennunndwwwuwwdssseeeeueednnwwunndwwwsssussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennunndwwwuwwdssseeeeueednnwwwunndwwsssussd
+46	5	[2, -3, 2]	5_2	eeeennunnndeesswwwsuwwdnneeeeussswwdwnnuwwdsss
+46	3	[1, -1, 1]	3_1	eeeennunnndeesswwwwwussdeenunndeeussswwwndwwss
+46	4	[1, -3, 1]	4_1	eeeennunnnwdswwsssuwwnneeedeennnwwsusesswwwdss
+46	4	[1, -3, 1]	4_1	eeeennunnnwwssdeennwwwusswwsseednnneeusswwwdss
+46	4	[1, -3, 1]	4_1	eeeennunnnwwssdeennwwwwsswssueednnneeusswwwdss
+46	5	[2, -3, 2]	5_2	eeeennunnwdnwwswswssueednnueedennuwwsdssuwwdss
+46	5	[2, -3, 2]	5_2	eeeennunnwwwsdssuwwdnneneesuesseednnwwswuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennunnwwwsssdeenneessuwwnnwdwwussseenndwwss
+46	5	[2, -3, 2]	5_2	eeeennunwnndeesswwsuwwdnneeeuessswwdwnnuwwdsss
+46	4	[1, -3, 1]	4_1	eeeennunwwwwwdnneesssueedneessuwwdwnnnuwwdssss
+46	5	[2, -3, 2]	5_2	eeeennuwnwdnneeussdwsswwunnneedeesssuwwwndwwss
+46	0	[1]	0_1	eeeennuwnwwsswwdnneesseenneessuwwwndnnwwussdss
+46	0	[1]	0_1	eeeennuwnwwswwdnneessseenneessuwwwndnnuwwsdsss
+46	0	[1]	0_1	eeeennuwnwwwwdnneesssseenneessuwwwndnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeeennuwwdnnnwwswssueednnueedsssueennwwwwwdsss
+46	5	[2, -3, 2]	5_2	eeeennuwwdnnnwwswssueednnueeesesswwdnnuwwwdsss
+46	5	[2, -3, 2]	5_2	eeeennuwwdnnunwwdsseueedssueednnwnwnwwsuwssdss
+46	0	[1]	0_1	eeeennuwwdnnuwwdwsseeuneeeesswwdnnnnwwsswussds
+46	0	[1]	0_1	eeeennuwwdnnuwwssseeeeennwwwwdsseennnnwwswssss
+46	0	[1]	0_1	eeeennuwwdnnuwwssseeeeennwwwwsdseennnnwwsswsss
+46	0	[1]	0_1	eeeennuwwdnnuwwwdsseenueeeesswwdnnnnwwswsussds
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennuwwdnnuwwwsseednnneesesessuwwdnnuwwwdsss
+46	3	[1, -1, 1]	3_1	eeeennuwwdnnwuwssseeeeednnwwsswwnnuenndwwsssss
+46	0	[1]	0_1	eeeennuwwdnnwuwssseeeeennwwwwdsseennnnwwwsssss
+46	0	[1]	0_1	eeeennuwwdnnwuwwdsseenueeeesswwdnnnnwwwssussds
+46	3	[1, -1, 1]	3_1	eeeennuwwdnwnuwssseeeeednnwwsswwnunendnwwsssss
+46	0	[1]	0_1	eeeennuwwdnwnuwssseeeeennwwwwsdseennnwnwwsssss
+46	0	[1]	0_1	eeeennuwwdnwnuwwdsseeuneeeesswwdnnnwnwwssussds
+46	0	[1]	0_1	eeeennuwwdnwwuwssdeenuneeeesswwdnnnwwwwsseussd
+46	3	[1, -1, 1]	3_1	eeeennuwwdnwwwssueeeeeennwwwwsdseennnwwwussdss
+46	5	[2, -3, 2]	5_2	eeeennuwwdswwwnnueedeneesessuwwdnnuwnwdwssussd
+46	5	[2, -3, 2]	5_2	eeeennuwwdswwwnnueedneeesessuwwdnnwunwwdssussd
+46	5	[2, -3, 2]	5_2	eeeennuwwdwnnnwwssueeedneesessuwwdnnunwwwdssss
+46	3	[1, -1, 1]	3_1	eeeennuwwdwnnueedsssueennwnnwwwwsseednnwwsssss
+46	4	[1, -3, 1]	4_1	eeeennuwwdwnnueeseesswwdnnnnuwwwsseednnwwsssss
+46	5	[2, -3, 2]	5_2	eeeennuwwdwnnwwssueenedneesessuwwdnnunwwwsdsss
+46	0	[1]	0_1	eeeennuwwdwnwuwssdeeeenneessuwwwwnnndwwsseussd
+46	0	[1]	0_1	eeeennuwwdwnwuwssdeeunneeeesswwdnnwnwwwsseussd
+46	5	[2, -3, 2]	5_2	eeeennuwwdwnwwssueennedneesessuwwdnnunwwwssdss
+46	0	[1]	0_1	eeeennuwwdwnwwssueennneedsssueennwwwdnwwussdss
+46	5	[2, -3, 2]	5_2	eeeennuwwdwwwnnueedeeesessuwwdnnunndwwwssussds
+46	0	[1]	0_1	eeeennuwwdwwwunneessseeeednnwwsswwwwwnneeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennuwwndwwuwssdeeeeueednnwwswwunndwwsseussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennuwwnwdnwwssueedenneesessuwwdnnunwwwsdsss
+46	4	[1, -3, 1]	4_1	eeeennuwwsdwwwnnueedneesssuswwnndenunwwdssussd
+46	5	[2, -3, 2]	5_2	eeeennuwwwdnneeeeussswwdnneesssuwwwndnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeeennuwwwdnneeesessuwwdnnunwwwdssseennuwwsssd
+46	5	[2, -3, 2]	5_2	eeeennuwwwdnneeeusesswwdnneesssuwwwndnnuwwdsss
+46	0	[1]	0_1	eeeennuwwwdnneesssueennwwnwwwwssseedennuwwdsss
+46	5	[2, -3, 2]	5_2	eeeennuwwwdnneeuseesswwdnneesssuwwwndnnuwwdsss
+46	3	[1, -1, 1]	3_1	eeeennuwwwdnneueseesswwdnnnnwwwsssseennuwwsssd
+46	0	[1]	0_1	eeeennuwwwdnnneessssueennwwwwwssedennnuwwdssss
+46	0	[1]	0_1	eeeennuwwwdnnueedsssueennwwwwwssedennnnwwsssss
+46	3	[1, -1, 1]	3_1	eeeennuwwwdnnueeesesswwdnnuwwwssedennnnwwsssss
+46	3	[1, -1, 1]	3_1	eeeennuwwwdnnueeseesswwdnnnwnwwsssseennuwwsssd
+46	4	[1, -3, 1]	4_1	eeeennuwwwndneesssueednnwnnwwwwssseenunwwsssds
+46	4	[1, -3, 1]	4_1	eeeennuwwwndneesssueennwwnndwwwssseenunwwsssds
+46	4	[1, -3, 1]	4_1	eeeennuwwwnndeesssueednnwnnwwwwsseeunnwwsssdss
+46	4	[1, -3, 1]	4_1	eeeennuwwwnndeesssueennwwnndwwwsseeunnwwsssdss
+46	4	[1, -3, 1]	4_1	eeeennuwwwnnedesssueednnwnnwwwsseuennwwwdsssss
+46	4	[1, -3, 1]	4_1	eeeennuwwwnneendnwwssseueeesswwdnnnwnuwwdsssss
+46	4	[1, -3, 1]	4_1	eeeennuwwwnnendnwwssseeueeesswwdnnnwwnuwsssdss
+46	4	[1, -3, 1]	4_1	eeeennuwwwnnenndwwsseseueeesswwdnnnwnwuwssdsss
+46	3	[1, -1, 1]	3_1	eeeennwnnnwwswwsssueeendnnuwwssedseeunnwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennwnnnwwwswsssueeendnnwuwssedseeunnwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennwnnnwwwwssssueeendnnwwussedseeunnwwdwsss
+46	3	[1, -1, 1]	3_1	eeeennwnnuwwnwwsssseeendnnwwussedseeunnwwdwsss
+46	4	[1, -3, 1]	4_1	eeeennwnnwuwwsswsseeeendwwnuneenndwwssesuswwds
+46	4	[1, -3, 1]	4_1	eeeennwnnwwuwsswsseeeendwwnunenndwwsseesuswwds
+46	3	[1, -1, 1]	3_1	eeeennwnnwwwwwssueeedseeunnwwwwdssueeendnwwsss
+46	5	[2, -3, 2]	5_2	eeeennwnuneessswwdwnnuwwdsseueneendnwwwssuwssd
+46	0	[1]	0_1	eeeennwnwuwwdwssueedeeunnndwwsseusswwwwnneedss
+46	3	[1, -1, 1]	3_1	eeeennwnwwwnneeusswssdeeunnndwwuwsssseenndwwss
+46	3	[1, -1, 1]	3_1	eeeennwnwwwwnneeussssdeeunnndwwwusssseenndwwss
+46	3	[1, -1, 1]	3_1	eeeennwnwwwwnneeussssdeeunnwndwwusssseenndwwss
+46	0	[1]	0_1	eeeennwunndeesssuwwdwwunndeeeuseesswwwwnndwwss
+46	0	[1]	0_1	eeeennwunndwwwwssueedseeuenndwwsuswwwwnneedsss
+46	5	[2, -3, 2]	5_2	eeeennwunnndeesswwwusswdwnneneeeussswdwnwuwssd
+46	4	[1, -3, 1]	4_1	eeeennwunnndeesswwwwwsseuennndeeussswdwnwuwssd
+46	5	[2, -3, 2]	5_2	eeeennwunnwwwsdseeseuenndwwusswdwwnnneesuswssd
+46	0	[1]	0_1	eeeennwunwndwwwssueedseeuenndwwsuswwwwnneedsss
+46	0	[1]	0_1	eeeennwunwwdnwwssueedseeuenndwwsuswwwwnneedsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennwunwwsswwdnneesseeuenndwwsusswwwwnneedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennwunwwswwdnneessseeuenndwwsuswwwwnneedsss
+46	4	[1, -3, 1]	4_1	eeeennwunwwwwdssueeendneeusswdwwnuwwwdnneessss
+46	4	[1, -3, 1]	4_1	eeeennwuwsseeednnnwwnnwwssueeesswdwnnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeeennwuwsseeednnnwwwwwwsseeunneeesswdwnwwussd
+46	5	[2, -3, 2]	5_2	eeeennwuwssswwwnnndeeeseuennwwwssdwwwnneeusssd
+46	3	[1, -1, 1]	3_1	eeeennwuwssswwwnnnneessdwwnneeeeeusswdwnwwussd
+46	5	[2, -3, 2]	5_2	eeeennwuwsswwwnnndeeesseuennwwwsdwwwnneeusssds
+46	4	[1, -3, 1]	4_1	eeeennwuwswdwnneeennwwusssdeseuennwwndwwussssd
+46	4	[1, -3, 1]	4_1	eeeennwuwswdwnnnueedssseuennwwwwwdnneesssuwssd
+46	5	[2, -3, 2]	5_2	eeeennwuwswdwnnnueeesesswdwnnuwwwdnneesssuwssd
+46	3	[1, -1, 1]	3_1	eeeennwuwswdwwunndeeesseuennwwwsdwwwnneeussssd
+46	5	[2, -3, 2]	5_2	eeeennwuwswwwdnnneessuwwnneeedssseuennwwwwdsss
+46	4	[1, -3, 1]	4_1	eeeennwuwswwwdnnneessuwwnneeeesesswdwnnuwwdsss
+46	0	[1]	0_1	eeeennwwnuwwdwssueedeeunndnwwssuesswwwwnneedss
+46	3	[1, -1, 1]	3_1	eeeennwwnuwwssedeeunndnwwssuesseennnnwwwwdssss
+46	3	[1, -1, 1]	3_1	eeeennwwusseeednnnnwwusssdwwnunenneessdwwwwsss
+46	3	[1, -1, 1]	3_1	eeeennwwusseeednnnnwwusssdwwunnenneessdwwwswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennwwusseennndwwuwsswwdnneesseeunnnwwwssdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennwwusseennndwwuwswwdnneessseeunnnwwwsdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennwwusseennndwwuwwwdnneesssseeunnnwwwdssss
+46	3	[1, -1, 1]	3_1	eeeennwwusseennnndwwuswsdseeunnnndeesswwwwwsss
+46	3	[1, -1, 1]	3_1	eeeennwwusseennnndwwuswssdeeunnnndeesswwwwswss
+46	3	[1, -1, 1]	3_1	eeeennwwusseennnndwwwussdseeunnnndeesswwwwwsss
+46	3	[1, -1, 1]	3_1	eeeennwwusseennnndwwwusssdeeunnnndeesswwwwswss
+46	3	[1, -1, 1]	3_1	eeeennwwusseennnnwdwwussdseeunnwnndeesswwwwsss
+46	3	[1, -1, 1]	3_1	eeeennwwusseennnnwdwwusssdeeunnwnndeesswwwswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennwwusswwwwnnedneesseeunnwwsswwdwnnueesdss
+46	0	[1]	0_1	eeeennwwusswwwwnneendeeeussdwwuwwdnnneeussdwss
+46	0	[1]	0_1	eeeennwwuswwwdnneeeennwwusssdseeunnwndwwussdss
+46	5	[2, -3, 2]	5_2	eeeennwwuswwwdnnneeueesssdwwnnwunndeessuwswdss
+46	3	[1, -1, 1]	3_1	eeeennwwuswwwdnnuwwssseeeeeendwwnuwwwdnneessss
+46	0	[1]	0_1	eeeennwwuswwwdwnnueedesseeunnwwswwwwdnneessess
+46	3	[1, -1, 1]	3_1	eeeennwwuswwwnnndeeussdseeunndwwwwwnneeusssdss
+46	0	[1]	0_1	eeeennwwuswwwwnnedneeseeussdwwnuwwdwnnueesdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeennwwuswwwwnnedneessseeunnwwswwdwnnueesdsss
+46	0	[1]	0_1	eeeennwwuswwwwnneeednnwwsssueedseeunnwnwwdssss
+46	0	[1]	0_1	eeeennwwwunneeesssswwnnndwwsseeeunndnwwwussssd
+46	0	[1]	0_1	eeeennwwwunneesssdwwuwnnndeeeseussswwnnndwwsss
+46	3	[1, -1, 1]	3_1	eeeennwwwunneesssdwwwnneeussseennndwnwwwussssd
+46	0	[1]	0_1	eeeennwwwwnneeeusssdwwunndeeeussswwnnnnwwsssds
+46	5	[2, -3, 2]	5_2	eeeenueednnwwswuwwdnneeeeussdssuwwwndnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeeenueednnwwswuwwdnneeeussedssuwwwndnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeeenueednnwwswuwwdnneesuesedssuwwndwnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeeenueednnwwswuwwdnneesuesedssuwwwndnnuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeenueesswwwwnnndnwwussedeeneessuwwnnnwwsdwss
+46	0	[1]	0_1	eeeenueesswwwwnnndnwwussedeeuseednnwwnuwwsdwss
+46	0	[1]	0_1	eeeenueesswwwwnnnndeesessuwwndwwunnneessdwwwss
+46	0	[1]	0_1	eeeenueesswwwwwnnnndwwsseeeeneessuwwwnndwwussd
+46	5	[2, -3, 2]	5_2	eeeenuenndwnwnwwssueedssuseednnwuwwdnnuwwdssss
+46	5	[2, -3, 2]	5_2	eeeenuenndwnwwsswuwnneeesdssuseednnwuwwnwdwsss
+46	4	[1, -3, 1]	4_1	eeeenuenndwnwwsussseeednnwuwsdwwunnneesdswwwss
+46	5	[2, -3, 2]	5_2	eeeenuenndwwswusseeednnwunnwwwssdseeunnwdwwsss
+46	5	[2, -3, 2]	5_2	eeeenuenndwwswusseeednnwunnwwwsssdeeunnwdwswss
+46	0	[1]	0_1	eeeenuennwwwwsdwwnneeeesssuseednnwuwwdnwwussds
+46	0	[1]	0_1	eeeenuneedsswuwwndwwunndeeseesuesswwwwnnndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeenuneedsswuwwnnnwwssdeeneesuesswwwwnnndwwss
+46	0	[1]	0_1	eeeenunndnnwwswsssuwwnneeeesdeennuwwdswsuwwdss
+46	5	[2, -3, 2]	5_2	eeeenunndnnwwussdwssuwwdnneneeeueedsswwwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeenunndnnwwussdwwwssueedeeneennuwwdwwwussdss
+46	0	[1]	0_1	eeeenunndnnwwwssssuwwnneeeedseennuwwdwssuwwdss
+46	5	[2, -3, 2]	5_2	eeeenunndnnwwwussdssuwwdnneneeeueedsswwwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeenunndnnwwwussdwwssueedeeneennuwwdwwwussdss
+46	0	[1]	0_1	eeeenunndnwnwwssssuwwnneeeedseennuwwwdssuwwdss
+46	0	[1]	0_1	eeeenunndwnnwwssssuwwnneeeesdeennwuwwdssuwwdss
+46	0	[1]	0_1	eeeenunndwwussdwwwnneeussseennnndeesswwwwwussd
+46	0	[1]	0_1	eeeenunndwwwsseeunnneesssswwwnndeeennwwwwwssss
+46	3	[1, -1, 1]	3_1	eeeenunndwwwussdeeneessuwwnnnwnwwsssseenndwwss
+46	0	[1]	0_1	eeeenunndwwwussdeeuseednnwwunwnwwsssseenndwwss
+46	0	[1]	0_1	eeeenunndwwwussseeeednnwwswwwwnneneeussdwwussd
+46	0	[1]	0_1	eeeenunndwwwwwssueedeeuseednnwwwusswwwwnneedss
+46	5	[2, -3, 2]	5_2	eeeenunnndeesswwwunwwwssedenneeeussswwwnnwdwss
+46	5	[2, -3, 2]	5_2	eeeenunnndeesswwwuwswdwnneeeeeussswwndwnwuwssd
+46	5	[2, -3, 2]	5_2	eeeenunnndeesswwwuwwdnneeseeussswwndwnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeeenunnndeesswwwuwwdnneeseeussswwwndnnuwwdsss
+46	4	[1, -3, 1]	4_1	eeeenunnnwwsdseennnwwwusswwsseednnneesuswwwdss
+46	4	[1, -3, 1]	4_1	eeeenunnnwwsdseennnwwwwsswssueednnneesuswwwdss
+46	5	[2, -3, 2]	5_2	eeeenunnnwwsdwssuwwdnneneeesussseednnwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeeenunnnwwsdwssuwwnneendeesussseednnwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeeenunnnwwsdwwwsseeunnndeesussseednnwwwwwussd
+46	3	[1, -1, 1]	3_1	eeeenunnnwwsssdwwnneeeussswwnndeeennwwwuswsssd
+46	3	[1, -1, 1]	3_1	eeeenunnnwwsssdwwnneeeussswwnndeeennwwwwussssd
+46	0	[1]	0_1	eeeenunnnwwsssdwwnnneeeesswwwusseennndwwuwsssd
+46	5	[2, -3, 2]	5_2	eeeenunnnwwsssdwwwnnueesdeeeessuwwnnndwwwsussd
+46	0	[1]	0_1	eeeenunnnwwsssswwnnndeeeussdwwunnndeeesswwwwss
+46	5	[2, -3, 2]	5_2	eeeenunnnwwswdssuwwdnneneeseussseednnwwwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeenunnnwwswssdeeneessuwwnnndwwwussseenndwwss
+46	0	[1]	0_1	eeeenunwndwwwwssueedeeuseednnwwwusswwwwnneedss
+46	5	[2, -3, 2]	5_2	eeeenuwnndneeusswdwswwunneneesdesssuwwwnndwwss
+46	0	[1]	0_1	eeeenuwnndwwussseeeednnwwswwwwnneneeussdwwussd
+46	0	[1]	0_1	eeeenuwnnwwsswwdnneesseeneessuwwwnndnnwwussdss
+46	0	[1]	0_1	eeeenuwnnwwswwdnneessseeneessuwwwnndnnuwwsdsss
+46	0	[1]	0_1	eeeenuwnnwwwwdnneesssseeneessuwwwnndnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeeenuwwndneennwwussesdswwuseeeennwnnwdwwsswss
+46	4	[1, -3, 1]	4_1	eeeenuwwndnennwwusseesdswwuseeeennwnnwwdwsswss
+46	3	[1, -1, 1]	3_1	eeeenuwwndnnwuwsssseeeeednnwwswwnnuenndwwsssss
+46	3	[1, -1, 1]	3_1	eeeenuwwndnwnuwsssseeeeednnwwswwnunendnwwsssss
+46	3	[1, -1, 1]	3_1	eeeenuwwndwnnuwsssseeeeednnwwswwunnednnwwsssss
+46	0	[1]	0_1	eeeenuwwndwwwunneesssseeeednnwwswwwwwnneeusssd
+46	4	[1, -3, 1]	4_1	eeeeueendnnwwusswswwndneeeeueedsswwnwwwunwwdss
+46	4	[1, -3, 1]	4_1	eeeeueendnnwwwnwwussdeeeeueedsswwnwwwunndwwsss
+46	4	[1, -3, 1]	4_1	eeeeueendnnwwwussswwndneeeeueedsswwnwwwunwwdss
+46	4	[1, -3, 1]	4_1	eeeeueendnwnwwussswwndneeeueeedsswwnwwwunwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndennwwussdwwnwwssueedeeeeunnwdwwuswwdss
+46	0	[1]	0_1	eeeeunndennwwussswwwwdnneesseeeeunnwdwswuwwdss
+46	0	[1]	0_1	eeeeunndennwwwswssuwwnneeeessdeeunnwdwswuwwdss
+46	0	[1]	0_1	eeeeunndennwwwwsssuwwnneeeesdseeunnwdwwsuwwdss
+46	5	[2, -3, 2]	5_2	eeeeunndnennwwussdswwunndeeeusesdswwwunndwwsss
+46	5	[2, -3, 2]	5_2	eeeeunndnnneessuwwwdswwunneeeedssswwwunndwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnnnwwussdwwwssueedeeeennnuwwdwwwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnnnwwwussdwwssueedeeeennnuwwdwwwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnnuwwdwwwsssueedeeeennuwwdnnwwwussdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnnuwwdwwwssueedseeeennuwwdnnwwwussdsss
+46	4	[1, -3, 1]	4_1	eeeeunndnnuwwsdseusswwndnnneesueedsswwwunwwdss
+46	5	[2, -3, 2]	5_2	eeeeunndnnuwwsdwssuwwdnneneeesueedsswwwnuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnnuwwwssedseeennuwwwdwssueendnnwwwssss
+46	0	[1]	0_1	eeeeunndnnwuwssswwwdnneesseeeennuwwdwnwwussdss
+46	5	[2, -3, 2]	5_2	eeeeunndnnwuwswdssuwwdnneneeseueedsswwwnuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnnwuwwdwwsssueedeeeennuwwdwnnwwussdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnnwuwwdwwssueedseeeennuwwdwnnwwussdsss
+46	5	[2, -3, 2]	5_2	eeeeunndnnwwusssdeeennuwwdwwwsseuseenndwwuwssd
+46	5	[2, -3, 2]	5_2	eeeeunndnwnneeusswwsdwwunneeedessswwwunndwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnwwussdwwwnneeussseendeennuwwsdwwwussd
+46	0	[1]	0_1	eeeeunndnwwussdwwwnneeussseennneedsswwnwwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndnwwuwwdwssueedeeeennuwwsdwwnnwwussedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndwnwuwwdwssueedeeeennwuwswdwnnwwussedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndwwnuwwdwssueedeeeennwwuswwdnnwwussedss
+46	0	[1]	0_1	eeeeunndwwnuwwdwssueeeenndeesswwwwnnnwwussedss
+46	3	[1, -1, 1]	3_1	eeeeunndwwswuwnndeeeeesswwunneesssswwwnnnwdwss
+46	5	[2, -3, 2]	5_2	eeeeunndwwswuwwdnneeeuneedsesswwunndnwwwussdss
+46	5	[2, -3, 2]	5_2	eeeeunndwwunndnwwussedeeussdeennwnwnuwwsdwssss
+46	0	[1]	0_1	eeeeunndwwunndwwwssueedneeeesswwunnnnwwsswdsss
+46	0	[1]	0_1	eeeeunndwwunwndwwssueedneeeesswwunnnwnwwssdsss
+46	0	[1]	0_1	eeeeunndwwuswwwdnneesseeeennwwussswwwwwnneedss
+46	0	[1]	0_1	eeeeunndwwuwnwdwssueednneeeesswwunnwnwwwssedss
+46	0	[1]	0_1	eeeeunndwwuwnwdwssueeeenndeesswwwwnnnwwussedss
+46	0	[1]	0_1	eeeeunndwwuwwwdnneessseeeennwwusswwwwwnneedsss
+46	4	[1, -3, 1]	4_1	eeeeunndwwwnneennwwusssedeeesswwunnnwndwwsssss
+46	4	[1, -3, 1]	4_1	eeeeunndwwwnneeusssswwndwnnueedeeesswwwunwwssd
+46	4	[1, -3, 1]	4_1	eeeeunndwwwnnennwwussseedeeesswwunnnwwndwsssss
+46	4	[1, -3, 1]	4_1	eeeeunndwwwnneuesssdeennwnnuwwwssedennwwwsssss
+46	4	[1, -3, 1]	4_1	eeeeunndwwwnnueesssdeennwwnnuwwwsseednnwwsssss
+46	4	[1, -3, 1]	4_1	eeeeunndwwwnuneesssdeennwwnnwwwussseendnwwssss
+46	0	[1]	0_1	eeeeunndwwwnwwssueeennnedesesswwunndwnwwussdss
+46	5	[2, -3, 2]	5_2	eeeeunndwwwsuseennndnwwussesdeeennwnuwwsdwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndwwwsuseennnndeessswwwunnnneessdwwwwsss
+46	4	[1, -3, 1]	4_1	eeeeunndwwwsuseennnndwwsusesdeeennwwwunwwdssss
+46	0	[1]	0_1	eeeeunndwwwsuseennnnnwwssdeeeesswwwunnndwwssss
+46	0	[1]	0_1	eeeeunndwwwswwnnueessseennndeesswwwunndwwsussd
+46	3	[1, -1, 1]	3_1	eeeeunndwwwunndeeseesswwunneesssswwwnnnndwwsss
+46	3	[1, -1, 1]	3_1	eeeeunndwwwunndeeseesswwunnnwnwwsssseenndwwsss
+46	5	[2, -3, 2]	5_2	eeeeunndwwwunneeedsesswwunndnwwwussseenndwwsss
+46	3	[1, -1, 1]	3_1	eeeeunndwwwunneeesesssswwnnnndeesswwwunndwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunndwwwunwwdsseeuseennndeesswwwunndwwsussd
+46	5	[2, -3, 2]	5_2	eeeeunndwwwuwwdnneeeueedsesswwunndnnwwwussdsss
+46	0	[1]	0_1	eeeeunndwwwwwnneeusssseennndeesswwwunndwwussds
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunnndeesswwwunndwwunneeseessdwwwunndwwssss
+46	5	[2, -3, 2]	5_2	eeeeunnndeesswwwunnnwwssdeeeeussswwwnnnndwwsss
+46	5	[2, -3, 2]	5_2	eeeeunnndeesswwwunnwwwssedeneeeussswwwnnnwdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeeunnndeesswwwwunnneeessdwwwwsuseennndwwwsss
+46	0	[1]	0_1	eeeeunnndeesswwwwwnnwwssueeeennneessdwwwuwwdss
+46	3	[1, -1, 1]	3_1	eeeeunnnndeesswwwunwwwssedenneeeussdwwuwnwdwss
+46	4	[1, -3, 1]	4_1	eeeeunnnndwwsussdeennwunwwdswsseuseenndwwuwssd
+46	4	[1, -3, 1]	4_1	eeeeunnnndwwuswwssedeneunnndwwsseeesswuwnwdwss
+46	3	[1, -1, 1]	3_1	eeeeunnnndwwwssuesedennwwuwwssedeneunnwwwdssss
+46	0	[1]	0_1	eeeeunnnndwwwsussdeeennwwussswwnnnneeessdwwwss
+46	3	[1, -1, 1]	3_1	eeeeunnnndwwwswussseennndeesswwwunnneessdwwwss
+46	3	[1, -1, 1]	3_1	eeeeunnnndwwwwsseeeusswwnnndeeesswwunnnwwsssds
+46	3	[1, -1, 1]	3_1	eeeeunnnnwwwwsseesdeennwuwwdssuseenndwnnwwssss
+46	3	[1, -1, 1]	3_1	eeeeunnnwdwwssueendennuwwssdseeennnnwwswwwssss
+46	3	[1, -1, 1]	3_1	eeeeunnnwdwwssueendennwuwssdseeennnnwwwswwssss
+46	3	[1, -1, 1]	3_1	eeeeunnnwdwwssueendennwwussdseeennnnwwwwswssss
+46	0	[1]	0_1	eeeeunnnwdwwussseenndwwwnneeeessswwunnnwwsssds
+46	3	[1, -1, 1]	3_1	eeeeunnnwndwwwsseeeusswwnnndeeesswwunnnwwsssds
+46	4	[1, -3, 1]	4_1	eeeeunnnwnwwssdeeusswwwnnnndeeesesswwunndwwsss
+46	3	[1, -1, 1]	3_1	eeeeunnnwwdsseennnnwwswsssuwwnneeneedssuwwwdss
+46	3	[1, -1, 1]	3_1	eeeeunnnwwdsseennnnwwwssssuwwnneenedessuwwwdss
+46	5	[2, -3, 2]	5_2	eeeeunnnwwdsseennnuwwwsdssuwwdnneneeessuwwwdss
+46	3	[1, -1, 1]	3_1	eeeeunnnwwsdseeeunndwwwwssueendeeennwwwwwwssss
+46	4	[1, -3, 1]	4_1	eeeeunnnwwssdeennwwwwwssueedneeusswwwwwnneedss
+46	5	[2, -3, 2]	5_2	eeeeunnwdnnneessuwwwdsswuwnneneeedssswuwnwdwss
+46	4	[1, -3, 1]	4_1	eeeeunnwdnnneessuwwwwwssedennnueedssswuwnwdwss
+46	5	[2, -3, 2]	5_2	eeeeunnwdnnwwwsuseesedennuwwdsswuwwnnneesdswss
+46	5	[2, -3, 2]	5_2	eeeeunnwdwswuswwnnndeeeeesswuwnwdwwwnneeusssds
+46	4	[1, -3, 1]	4_1	eeeeunnwdwswuwnneeendnwwsssuesedennwwnuwwdssss
+46	5	[2, -3, 2]	5_2	eeeeunnwdwswuwnnndeeesesswuwnndwwwnneeusssdwss
+46	4	[1, -3, 1]	4_1	eeeeunnwdwswuwnnndeeusssedennwwwwwnneeusssdwss
+46	3	[1, -1, 1]	3_1	eeeeunnwdwswuwwdnnueeessedennwwwsuwwwdnneessss
+46	4	[1, -3, 1]	4_1	eeeeunnwdwwusseendennwnuwwsdwsseeunndnwwussssd
+46	5	[2, -3, 2]	5_2	eeeeunnwdwwusseendennwwwuwwdsseeeunnndwwssussd
+46	5	[2, -3, 2]	5_2	eeeeunnwndneessswwuwnndwwussedeneenunwwwssdwss
+46	4	[1, -3, 1]	4_1	eeeeunnwwsdwwwnneeeueedsswuswwnnnndeesswwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeneeunndwwwssueennwwwdssuseeedeennwwwuwwwdss
+46	0	[1]	0_1	eeenenneessuwwwnnwdwssuseeedennunndwwsswuwwdss
+46	0	[1]	0_1	eeenenneessuwwwnnwdwssuseeedennuwnndwsswuwwdss
+46	0	[1]	0_1	eeenenneessuwwwnwwdnneeeeussdsswuwwndnnuwwdsss
+46	0	[1]	0_1	eeenennneessuwwwdwswuseeedennnueesswwwwwnwdwss
+46	0	[1]	0_1	eeenennueesdsswwuwwwndeneueedneessuwwwwwnwdwss
+46	0	[1]	0_1	eeenennuwwdsswuseeedennuwwdnneesessuwwwwnwdwss
+46	5	[2, -3, 2]	5_2	eeeneueednnwwswuwwdnneeeeussdsswuwwndnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeeneuesswwwnndwnnwwssueenedeeesswuwnnnwwwsdss
+46	4	[1, -3, 1]	4_1	eeeneuesswwwnndwnnwwssueeneessedennwwwnuwwsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeneuesswwwnnnndwwussedeneeesswuwnnnnwwssdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeneuesswwwnnnwdnwwssueedeneeesswuwnnnwwwsdss
+46	5	[2, -3, 2]	5_2	eeeneuesswwwwnnndeeeesswuwnnndwwwsseeunnwwsssd
+46	4	[1, -3, 1]	4_1	eeeneuesswwwwnnndeeussedennwnwwwwsseeunnwwsssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeneuneedsswwuwnnnwwwssedeneeesusswwwnnnwdwss
+46	5	[2, -3, 2]	5_2	eeeneunnnwwsdwssuwwdnneneeesusssedennwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeeneunnnwwsdwssuwwnneendeesusssedennwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeeneunnnwwsdwwwsseeunnndeesusssedennwwwwwussd
+46	5	[2, -3, 2]	5_2	eeeneunnnwwsssdwwwnnueesdeeeesswuwnnndwwwsussd
+46	5	[2, -3, 2]	5_2	eeeneunnnwwswdssuwwdnneneeseusssedennwwwuwwdss
+46	3	[1, -1, 1]	3_1	eeenneesuswwwwnnndwwsseeeueedseennuwwwwdwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeenneueedsswwnuwnnwwwssedenneeessuswwwnnwdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenneueedsswwnuwnwwdnneeseessuswwwndnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeenneuesswwwndnnunwwdsseueesedennwwnwwsuwssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeenneuesswwwndnnuwwwsseednnneeseesswuwnwwwdss
+46	5	[2, -3, 2]	5_2	eeenneuesswwwndwnnnwwssueeedneeesswuwnnwwwdsss
+46	5	[2, -3, 2]	5_2	eeenneuesswwwndwnnwwssueenedneeesswuwnnwwwsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenneuesswwwnnwdnwwssueedenneeesswuwnnwwwsdss
+46	5	[2, -3, 2]	5_2	eeenneuesswwwwndnnnwwssueeedneeesswuwnnwwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenneuneedsswwuwnnwwwssedenneeesusswwwnnwdwss
+46	4	[1, -3, 1]	4_1	eeennneesuswwwdwnnwwssueeneeedseennuwwwwwwsdss
+46	4	[1, -3, 1]	4_1	eeennneesuswwwdwwwnneeuseeedseennuwwwwdswwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennneueedsswwnuwnwwwssedennneeessuswwwnwdwss
+46	5	[2, -3, 2]	5_2	eeennneuesswwwdnnuenndwwsssueeedennwwwuwswdsss
+46	5	[2, -3, 2]	5_2	eeennneuesswwwdnnuenndwwsssueeedennwwwuwwdssss
+46	5	[2, -3, 2]	5_2	eeennneuesswwwdwnnnwwssueeednneeesswuwnwwwdsss
+46	3	[1, -1, 1]	3_1	eeennneuesswwwdwnnueesedennwwuwwwsseednnwwssss
+46	5	[2, -3, 2]	5_2	eeennneuesswwwdwnnwwssueenednneeesswuwnwwwsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennneuesswwwnwdnwwssueedennneeesswuwnwwwsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennneuneedsswwuwnwwwssedennneeesusswwwnwdwss
+46	0	[1]	0_1	eeennneunwwwdsssuseeednnuwnwdneeesssuwwwnwwdss
+46	3	[1, -1, 1]	3_1	eeennnneessuwwnwwdsseueednnunwwwwsseednnwwssss
+46	3	[1, -1, 1]	3_1	eeennnneessuwwwndwwwsseeunnneesedssuwwdnwwussd
+46	0	[1]	0_1	eeennnneessuwwwwswwdnneeueeedssuwwdnnnwwussdss
+46	0	[1]	0_1	eeennnneessuwwwwwwdnneesueeedssuwwdnnnuwwsdsss
+46	4	[1, -3, 1]	4_1	eeennnnneessuwwwdnwwswssueednnuneeedssuwwwwdss
+46	4	[1, -3, 1]	4_1	eeennnnneessuwwwdsswuwwdnneesueeednnuwwwswsdss
+46	3	[1, -1, 1]	3_1	eeennnnneessuwwwwdsseueednnnuwwwwsseednnwwssss
+46	5	[2, -3, 2]	5_2	eeennnnnueesswwwwdssuwwnneneeeednnwwssssuwwdss
+46	3	[1, -1, 1]	3_1	eeennnnnueesswwwwwwsseednnnneneessuwwdssuwwdss
+46	4	[1, -3, 1]	4_1	eeennnnnueesswwwwwwsseednnnueeednnwwssssuwwdss
+46	0	[1]	0_1	eeennnnnwwwwssueedsseuennwnwwwwsseeeednnwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnnueedsswuwnwwwssedennnneessuesswwwnwdwss
+46	5	[2, -3, 2]	5_2	eeennnnueessswwwdwnnnwwssueeednnneessuwwwwdsss
+46	3	[1, -1, 1]	3_1	eeennnnueessswwwdwnnueeednnwwuswwsseednnwwssss
+46	3	[1, -1, 1]	3_1	eeennnnueessswwwdwnnueeednnwwwuswsseednnwwssss
+46	3	[1, -1, 1]	3_1	eeennnnueessswwwdwnnueeednnwwwwussseednnwwssss
+46	5	[2, -3, 2]	5_2	eeennnnueessswwwdwnnwwssueenednnneessuwwwwsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnnueesswwwwdnnneeessuwwwwssedennnuwwdssss
+46	0	[1]	0_1	eeennnnueesswwwwdnwwssueedennueednnwwswuswsdss
+46	0	[1]	0_1	eeennnnueesswwwwdnwwssueedennueednnwwswwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnnuwwdssseuennwwwwdnneeesssuwwwwnneedssss
+46	3	[1, -1, 1]	3_1	eeennnnuwwdsssuwwdnnenneessuwwnneeeessswwwwdss
+46	3	[1, -1, 1]	3_1	eeennnnuwwdsssuwwdnnenneessuwwwswsseeeennwwdss
+46	4	[1, -3, 1]	4_1	eeennnnuwwdsssuwwnnenneeeesswwdnneesssuwwwwdss
+46	3	[1, -1, 1]	3_1	eeennnnuwwdsssuwwnnneneeeesswwwwdnneesssuwwdss
+46	5	[2, -3, 2]	5_2	eeennnnuwwdwnwwssueedessuwwdnnnuenedesssuwwdss
+46	5	[2, -3, 2]	5_2	eeennnnuwwdwwssueeednnneessuwwwdssuwwwnneedsss
+46	5	[2, -3, 2]	5_2	eeennnnuwwdwwwsseueeednnnwwussedssuwwwnnedesss
+46	5	[2, -3, 2]	5_2	eeennnnuwwswwsseednnnnueeesswwdnneesssuwwwwdss
+46	5	[2, -3, 2]	5_2	eeennnnuwwwdnneesssuwwwsseednnnnueeessswwwwdss
+46	5	[2, -3, 2]	5_2	eeennnnuwwwdnwwssueedessuwwdnnnuneedsessuwwdss
+46	0	[1]	0_1	eeennnnwwsssuwwnneeedssuswwwwnnnneeeeesswwwdss
+46	0	[1]	0_1	eeennnnwwssueeeennwwwwswssedennueednnwwwwsssss
+46	3	[1, -1, 1]	3_1	eeennnnwwssueennndwwwwssueeedsswuwwwnnneedssss
+46	3	[1, -1, 1]	3_1	eeennnnwwssueennwndwwwssueeedsswuwwwnnneedssss
+46	3	[1, -1, 1]	3_1	eeennnnwwssueennwwndwwssueeedsswuwwwnnneedssss
+46	3	[1, -1, 1]	3_1	eeennnnwwssueennwwwdwwsseueneedsswuwwwnnedesss
+46	3	[1, -1, 1]	3_1	eeennnnwwssueennwwwwdsssueedennuwwwwdnneesssss
+46	0	[1]	0_1	eeennnnwwssueennwwwwsdssueedennuwwdnwwssueedss
+46	3	[1, -1, 1]	3_1	eeennnnwwssueennwwwwsdssueedennuwwswwdnneessss
+46	5	[2, -3, 2]	5_2	eeennnnwwuwwwssedeeenunndwwsseussdwwwnneuesssd
+46	4	[1, -3, 1]	4_1	eeennnnwwuwwwsssseeendnwwnueeenndwwsseesuwwsds
+46	5	[2, -3, 2]	5_2	eeennnnwwwunwwdsseeeussdwwnunndneeusesdswwussd
+46	3	[1, -1, 1]	3_1	eeennnnwwwuwwdsseeesuswwnnneenndwwsseeesuwwsds
+46	4	[1, -3, 1]	4_1	eeennnnwwwuwwsssseeendnwwuneenndwwsseeesuwwsds
+46	4	[1, -3, 1]	4_1	eeennnnwwwwwsseussseennndwnwuwssdeeeennwuwsssd
+46	5	[2, -3, 2]	5_2	eeennnueednnwwswwssueeednnueessswwwwdnnuwwdsss
+46	4	[1, -3, 1]	4_1	eeennnueednnwwswwssueeeeennwwdsssuwwdnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeennnueeesswwdnnnwwwssueeeedsswuwwndnnuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnueesswwwdnnnuwwwsseednnneesessuwwnwwdsss
+46	5	[2, -3, 2]	5_2	eeennnueesswwwdnnnwwswssueednnuenedessuwwwwdss
+46	5	[2, -3, 2]	5_2	eeennnueesswwwdnnuwwwdnneesssueeednnwwuwwdssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuneedsswuwwwsdwwnneeeneesuesswwwdnwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnunndwwwsuswsdseeeueednnnwwwunwwdssesussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnunndwwwwssussdeeeueednnnwwwwuwwdsseeussd
+46	5	[2, -3, 2]	5_2	eeennnunnndeesswwwsuwwwsseednnnneeeussswwwwdss
+46	5	[2, -3, 2]	5_2	eeennnunwnndeesswwsuwwwsseednnnneeuessswwwwdss
+46	0	[1]	0_1	eeennnunwwdsssuwwdnnueeedneessuwwwwwwdnneessss
+46	4	[1, -3, 1]	4_1	eeennnunwwdswsseuseeeennwwwndneesssuwwdnwuwssd
+46	5	[2, -3, 2]	5_2	eeennnunwwnndeesswsuwwwsseednnnneueessswwwwdss
+46	5	[2, -3, 2]	5_2	eeennnunwwwdswssueednnnnwwsuseeedneessuwwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnunwwwwsseednnwwsssueedennneessuwwnwwdsss
+46	4	[1, -3, 1]	4_1	eeennnunwwwwswsseeednnnwwssueeeeednnwwsuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwnndeesssuwwwdwnneeeuesesswwwdnnwuwssds
+46	5	[2, -3, 2]	5_2	eeennnuwnwdwwwsseueeednnnwwussedssuwwwnnedesss
+46	4	[1, -3, 1]	4_1	eeennnuwwdnwwssueeeeednnwwsssueeennwnwwwwsdsss
+46	5	[2, -3, 2]	5_2	eeennnuwwdsseueennnwwwwsdwssueenednnwwwussedss
+46	5	[2, -3, 2]	5_2	eeennnuwwdssuswwwnndneeneessuwwdwswwnnueesseds
+46	4	[1, -3, 1]	4_1	eeennnuwwdssuwwdnnnuwwsseeeeednnwwnwwssueedsss
+46	0	[1]	0_1	eeennnuwwdssuwwnneneeeesesswwwdnnneessuwwwwdss
+46	5	[2, -3, 2]	5_2	eeennnuwwdssuwwwwnnneedssueeednnwwnwwssueedsss
+46	4	[1, -3, 1]	4_1	eeennnuwwdwwssueeneeednnwwsssueeennwnwwwwssdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwdwwussseeendnnneessuwwwdwwwnneeusssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwdwwussseendennneessuwwwdwwwnneeusssds
+46	5	[2, -3, 2]	5_2	eeennnuwwdwwwnneeusssdeseuswwwnnnndeeessuwswds
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwdwwwnneeussssedennnwwwusssseeennwdwss
+46	5	[2, -3, 2]	5_2	eeennnuwwndwnwwssueedessuwwdnnnuenedesssuwwdss
+46	5	[2, -3, 2]	5_2	eeennnuwwnwdnwwssueedessuwwdnnnuneedsessuwwdss
+46	0	[1]	0_1	eeennnuwwsdwwussseenndwwwnneeeesueennwwwwssssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwsswwdnneesseueednnnwwssueennwwwwssdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwswwdnneessseueednnnwwssueennwwwwsdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwswwdnneneesssueennwwwdsssuwwwnneedsss
+46	4	[1, -3, 1]	4_1	eeennnuwwwdwwusseeednnnwwwwsseeunneeedssuwwdss
+46	5	[2, -3, 2]	5_2	eeennnuwwwsswdwnneeesueeednnwwsssuswwwwnnedess
+46	5	[2, -3, 2]	5_2	eeennnuwwwsswdwnneeesueeednnwwssswuswwwnnedess
+46	5	[2, -3, 2]	5_2	eeennnuwwwswdwnneeessueeednnwwssswuwwwnnedesss
+46	5	[2, -3, 2]	5_2	eeennnuwwwwdnneesssueeednnwwssswuwwwnnneedssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwwwsseednnnneeessssuwwdnnneuesswwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwwwsseednnnneesesssuwwdnnnueesswwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwwwsseednnnueeesesswwwdnnneessuwwwwdss
+46	0	[1]	0_1	eeennnuwwwwswdwnneeesessuwwdnnwuneeedessuwwdss
+46	0	[1]	0_1	eeennnuwwwwswwdnneeseessuwwdwnnuneedeessuwwdss
+46	5	[2, -3, 2]	5_2	eeennnwnwuwwwssedeeeunnndwwsseussdwwwnneuesssd
+46	5	[2, -3, 2]	5_2	eeennnwnwwunwwdsseeeussdwwnunndneeusessdwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnwuwssdwwwnneneueeesswdwwwunnndeesswusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnwuwssdwwwnnneeueeesswdwwwnunndeesswusssd
+46	5	[2, -3, 2]	5_2	eeennnwwnwunwwdsseeuessdwwnunndneeusessdwwussd
+46	4	[1, -3, 1]	4_1	eeennnwwnwwwsseussseennndwnwuwssdeeeenunwwsssd
+46	3	[1, -1, 1]	3_1	eeennnwwsuseeeennwwwwwwdsseeenueednnwwwwssussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnwwsuseennnwwwwdssseeenunwwwwdnneesssussd
+46	4	[1, -3, 1]	4_1	eeennnwwussdwwunnndwwsseeeeeunnwwnwwssdeeusssd
+46	5	[2, -3, 2]	5_2	eeennnwwussdwwwwnnneeussdeeeunnwwnwwssdeeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennnwwwunneesssdwwwussseenndwwwnneneeusswssd
+46	4	[1, -3, 1]	4_1	eeennnwwwuwwdsseeeunnnwwwwsseednneeeussdwwussd
+46	0	[1]	0_1	eeennnwwwwswwnnueeseessdwwwunndneeeeussdwwussd
+46	4	[1, -3, 1]	4_1	eeennnwwwwwsussseeennndwwunwwdsseeeeenunwwsssd
+46	5	[2, -3, 2]	5_2	eeennueednnwwsuwswsdwwnneeenueesdssuwwdnwwussd
+46	0	[1]	0_1	eeennueednnwwsuwwdsseueednnunwwwwsseednnwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennueednnwwwwuwwdssseeeueednnunndwwwwsssussd
+46	5	[2, -3, 2]	5_2	eeennueeedsswwnnnuwwwwssedenneneesssuwwwnwdwss
+46	5	[2, -3, 2]	5_2	eeennueeedsswwnnnwuwwwssedennneeesssuwwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennueeesdswwnnnwwsswuseeeeeednnwwsuwwwnwdwss
+46	5	[2, -3, 2]	5_2	eeennueesswwwwndennunwwdsseueseednnwnwwsuwssds
+46	4	[1, -3, 1]	4_1	eeennueesswwwwnnndeeessuwwdwwwnneneeussdwwussd
+46	5	[2, -3, 2]	5_2	eeennueneedsswwnnwuwwwssedennneeessuswwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennueneedsswwnnwwsswuwnndeneeeessuswwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennueneedsswwnnwwsswuwnneeendeessuswwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennueneedsswwnnwwsswuwnneendeeessuswwwnwdwss
+46	5	[2, -3, 2]	5_2	eeennuenndwwwssueseednnwunwwwwssseedennuwwdsss
+46	5	[2, -3, 2]	5_2	eeennuenndwwwwssesuswwnnneedessueednnwuwswwsds
+46	5	[2, -3, 2]	5_2	eeennuenneedsswwnwuwwwssedennneeesusswwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennuenneedsswwnwwsswuwnndeneeeesusswwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennuenneedsswwnwwsswuwnneeendeesusswwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennuenneedsswwnwwsswuwnneendeeesusswwwnwdwss
+46	4	[1, -3, 1]	4_1	eeennuennwwwwwssseedennnwwsuseeseednnwuwwdswss
+46	4	[1, -3, 1]	4_1	eeennuneedsswuwwdwwwnneeussseeeennwdnwwswwussd
+46	0	[1]	0_1	eeennunndeessusswwwwndenneesseennuwwsswwnwdwss
+46	0	[1]	0_1	eeennunndeesussswwwwndenneeseennuwwssswwnwdwss
+46	0	[1]	0_1	eeennunndeeusssswwwwndenneeeennwwusssswwnwdwss
+46	5	[2, -3, 2]	5_2	eeennunndwwnwwssueedeeessuwwdwwwwnnnueedssussd
+46	0	[1]	0_1	eeennunndwwnwwssueedsseueednnwwsuwwwwnneedssss
+46	0	[1]	0_1	eeennunndwwsssuwwdnnueeedeessuwwnwwwwdnneessss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennunndwwwuwwdssseeeeueednnwwwunndwwssseussd
+46	4	[1, -3, 1]	4_1	eeennunneeesswdwnwwsswuseeedeennnwuwsswwnwdwss
+46	5	[2, -3, 2]	5_2	eeennunnndeesswwwuswsdwwnneeneeeussswwdnwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennunnndeesswwwwsuseeennndwwwwssseenunwwsssd
+46	5	[2, -3, 2]	5_2	eeennunnndeesswwwwussdwwnneneeeeussswwdnwwussd
+46	4	[1, -3, 1]	4_1	eeennunnndeesswwwwwwsseeunenndeeussswwdnwwussd
+46	4	[1, -3, 1]	4_1	eeennunnndeesswwwwwwsseeunnndeeeussswwdnwwussd
+46	4	[1, -3, 1]	4_1	eeennunnneessdwwwsswuseeedeennnnwwussswwnwdwss
+46	5	[2, -3, 2]	5_2	eeennunnwwwdswssueednnnnwwsuseeedeessuwwnwwdss
+46	3	[1, -1, 1]	3_1	eeennunnwwwwssdeeuseeednnwwwwwwsseeeenunwwsssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennunnwwwwsseednnwwsssueedenneessuwwnnwwdsss
+46	4	[1, -3, 1]	4_1	eeennunnwwwwswsseeednnnwwssueeeseednnwwuwwdsss
+46	0	[1]	0_1	eeennunwndwnwwssueedsseueednnwwsuwwwwnneedssss
+46	4	[1, -3, 1]	4_1	eeennunwnwwwdssueeedneessuwwdwnnuwwwdnneesssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennunwwdsseueeednnwwwsuwsseeednnunndwwwwssss
+46	3	[1, -1, 1]	3_1	eeennunwwdsseueennnwwwwsswsseeeeednnnwwsuwswds
+46	3	[1, -1, 1]	3_1	eeennunwwdsseueennnwwwwswssseeeeednnnwwsuwwdss
+46	5	[2, -3, 2]	5_2	eeennunwwdswwussseennnedneessuwwdwwwwnneeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennunwwdwwussseendenneessuwwnwdwwwnneeusssds
+46	5	[2, -3, 2]	5_2	eeennunwwdwwussseennedneessuwwdwnwwwnneeusssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeennunwwwsswdwnneeesseueednnwwsuwsswwwnnedess
+46	5	[2, -3, 2]	5_2	eeennunwwwsswdwnneeesueseednnwwsswuswwwnnedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeennunwwwswdwnneeessseueednnwwsuwswwwnnedesss
+46	5	[2, -3, 2]	5_2	eeennunwwwswdwnneeessueseednnwwsswuwwwnnedesss
+46	5	[2, -3, 2]	5_2	eeennunwwwwdnneesssueseednnwwsswuwwwnnneedssss
+46	4	[1, -3, 1]	4_1	eeennunwwwwwwdsseenueeeseednnwwsswuwwwndneesss
+46	5	[2, -3, 2]	5_2	eeennuwnndnwwssuessdwwnnnueedseeessuwwdnwwussd
+46	5	[2, -3, 2]	5_2	eeennuwnnndeesswwwussdwwnneneeeusesswwdnwwussd
+46	4	[1, -3, 1]	4_1	eeennuwnnndeesswwwwwsseeunnndeeusesswwdnwwussd
+46	3	[1, -1, 1]	3_1	eeennuwnwdwsseeueennwdwswusseeednnnnwwwwussssd
+46	5	[2, -3, 2]	5_2	eeennuwnwdwswussseennndeneessuwwdwwwwnneuesssd
+46	5	[2, -3, 2]	5_2	eeennuwnwwdsseuseeeennwnwdwssueednnnwwwssuwssd
+46	4	[1, -3, 1]	4_1	eeennuwwdnneesesssuwwwwnnneedssueennwnwwwdssss
+46	0	[1]	0_1	eeennuwwdnneeueesdsswuwwdnneeneessuwwnwwwwdsss
+46	5	[2, -3, 2]	5_2	eeennuwwdnnenueesdsssuwwdnneueednnwwsuwswwdsss
+46	5	[2, -3, 2]	5_2	eeennuwwdnnenueesdsssuwwdnneueednnwwsuwwwdssss
+46	0	[1]	0_1	eeennuwwdnneueeesdwssuwwdnneneeesswuwnwwwwdsss
+46	3	[1, -1, 1]	3_1	eeennuwwdnnneessuwwwwnneeeesessswwdnnnuwwdssss
+46	5	[2, -3, 2]	5_2	eeennuwwdnnneuesedsssuwwdnneueednnwwswuswwdsss
+46	5	[2, -3, 2]	5_2	eeennuwwdnnneuesedsssuwwdnneueednnwwswuwwdssss
+46	4	[1, -3, 1]	4_1	eeennuwwdnnnnwwssueeedsssueennwwwwwwnneedsssss
+46	5	[2, -3, 2]	5_2	eeennuwwdnnnnwwssueeeesesswwdnnuwwwwnneedsssss
+46	4	[1, -3, 1]	4_1	eeennuwwdnnueeessdeennwwwwsssueeenndwwuwwwdsss
+46	3	[1, -1, 1]	3_1	eeennuwwdnnuwwdnneesessssueennwwwwwwnneedsssss
+46	4	[1, -3, 1]	4_1	eeennuwwdswwnnneueedsssueennwwwwwnndeesswsussd
+46	5	[2, -3, 2]	5_2	eeennuwwdswwnnneueeesesswwdnnuwwwnndeesswsussd
+46	4	[1, -3, 1]	4_1	eeennuwwdswwnnnueedsessueennwwwwwwdnneesssussd
+46	5	[2, -3, 2]	5_2	eeennuwwdswwnnnueeeseesswwdnnwuwwwdnneesssussd
+46	3	[1, -1, 1]	3_1	eeennuwwdswwunndneeesssueennwwwdwswwnnueessssd
+46	4	[1, -3, 1]	4_1	eeennuwwdswwwunndeeeessusswwwnnnnndwwsseeeussd
+46	0	[1]	0_1	eeennuwwdswwwwnneeusssseeenndnnwwnwwussdeeussd
+46	4	[1, -3, 1]	4_1	eeennuwwdwwswwnnueedeeessueednnwnwwwwwssuseeds
+46	4	[1, -3, 1]	4_1	eeennuwwndwwwwssueendeeeneessuwwdwwwwnuneesssd
+46	4	[1, -3, 1]	4_1	eeennuwwsdwwnnenueedsssueennwwwwwndneessswussd
+46	5	[2, -3, 2]	5_2	eeennuwwsdwwnnenueeesesswwdnnuwwwndneessswussd
+46	5	[2, -3, 2]	5_2	eeennuwwsdwwnneueendeesssuwwdnneunndwwssswussd
+46	4	[1, -3, 1]	4_1	eeennuwwsdwwnnnueedssesueennwwwwwwdnneesssussd
+46	5	[2, -3, 2]	5_2	eeennuwwsdwwnnnueeeseesswwdnwnuwwwdnneesssussd
+46	3	[1, -1, 1]	3_1	eeennuwwsdwwunndeneesssueennwwwdswwwnneuessssd
+46	4	[1, -3, 1]	4_1	eeennuwwsdwwunnndwwsseeeeesusswwwwnnnndeeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennuwwsdwwwnneuneeseeesswwdnwwwuwnndeesusssd
+46	4	[1, -3, 1]	4_1	eeennuwwsdwwwunndeeesesusswwwnnnnndwwsseeeussd
+46	0	[1]	0_1	eeennuwwsdwwwwnneeusssseeenndnwnwnwwussdeeussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennuwwsseeednnunwwwdwwsseeeueeednnwwwswwussd
+46	3	[1, -1, 1]	3_1	eeennuwwsseeeennwnwwwdnneessessuwwdnnnuwwdssss
+46	5	[2, -3, 2]	5_2	eeennuwwsswwnnndeneesssueennwwwdswwwnneuesssds
+46	5	[2, -3, 2]	5_2	eeennuwwswwdnneeueeendnwwssssueednnwnuwwwssdss
+46	0	[1]	0_1	eeennuwwwnneeedsesssuwwwndnnueeesswwdnnnwwssss
+46	0	[1]	0_1	eeennuwwwnneeeeesssswwwwndnnueeesswwdnnnwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennuwwwswdwnneeneesssueennwwwdssuswwwnnedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeennuwwwwdnneesssuwwwnneneeedsssueennwwwwdsss
+46	0	[1]	0_1	eeennuwwwwdnneesssuwwwnneneeeesesswwdnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeennuwwwwdnneesueeendnwwssssueednnwnuwwwsdsss
+46	5	[2, -3, 2]	5_2	eeennuwwwwdnneuesedssueednnwnwwsssuwwwnneedsss
+46	5	[2, -3, 2]	5_2	eeennuwwwwdnnneessuwwnneeedssssueennwwnwwdssss
+46	4	[1, -3, 1]	4_1	eeennuwwwwdnnneessuwwnneeeessesswwdnnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeennuwwwwdnnueeesdssueednnwnwwsuwwwdnneesssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennuwwwwnnedesssuwwdnnnneeessssueennwwwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennuwwwwnneedsssuwwdnnneneessssueennwwwwdsss
+46	5	[2, -3, 2]	5_2	eeennuwwwwnnndeeessssueennwwwdnwwwnneeusssdsss
+46	5	[2, -3, 2]	5_2	eeennuwwwwnnnedeessssueennwwwdnwwnneeusswsdsss
+46	5	[2, -3, 2]	5_2	eeennuwwwwnnneedessssueennwwwdnwnneeusswwsdsss
+46	5	[2, -3, 2]	5_2	eeennuwwwwnnneeedssssueennwwwdnnneessuwwwdssss
+46	3	[1, -1, 1]	3_1	eeennuwwwwnnneeeesswwdnneessessuwwdnnnuwwdssss
+46	4	[1, -3, 1]	4_1	eeennwnuwwdwssueeneendnwwssseueennnwwwwwssedss
+46	4	[1, -3, 1]	4_1	eeennwnwnwwwsseussseennndwnwuwssdeeeeunnwwsssd
+46	4	[1, -3, 1]	4_1	eeennwnwwwwsussseeennndwwunwwdsseeeeeunnwwsssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwunwwwdsseeeuenndwwsusseeednnnnwwwwssussd
+46	4	[1, -3, 1]	4_1	eeennwuwsseeedennnnwwussswdwnneeeunndwwswwssss
+46	4	[1, -3, 1]	4_1	eeennwuwsseeedennnnwwussswdwnneeeunnwwsswwdsss
+46	4	[1, -3, 1]	4_1	eeennwuwsseeedennuwwswdwnneeessueennwwwwwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwsseeednnnwwuwwwdnneesssseuennnwwwdssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwsseeednnuwnwwwdwsseeeueeednnwwwwswussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwsseeennnndwwwssseuennnndeesswwwuwwdsss
+46	0	[1]	0_1	eeennwuwsswwnnnndwwsseeeeseusswwwwnnnndeeussds
+46	0	[1]	0_1	eeennwuwsswwnnnwwdsseeneeseusswwwwnnndneeussds
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwsswwwnndeeeseuennwwnwwsssdwwnneeeussds
+46	5	[2, -3, 2]	5_2	eeennwuwsswwwnndneeesseuennwwwsdwswwnnueesseds
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwsswwwnndneeesseuennwwwsswdwwnnueesdess
+46	4	[1, -3, 1]	4_1	eeennwuwswwdnneueeesswdwnneeesssuwwwwwwnneedss
+46	0	[1]	0_1	eeennwuwswwnnnndwwsseeeesseuswwwwnnnndeeussdss
+46	0	[1]	0_1	eeennwuwswwnnnwwdsseeneesseuswwwwnnndneeussdss
+46	0	[1]	0_1	eeennwuwswwnnwwdsseenneesseuswwwwnndnneeussdss
+46	4	[1, -3, 1]	4_1	eeennwuwswwwndnneeeeseusswdwnnwwsswwnnueesedss
+46	5	[2, -3, 2]	5_2	eeennwuwswwwndnneeessseuennwwwdwsswwnnueesedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwswwwndnneeessseuennwwwswdswwnnueedesss
+46	4	[1, -3, 1]	4_1	eeennwuwswwwndnneeeuseesswdwnnwwsswwnnueesedss
+46	4	[1, -3, 1]	4_1	eeennwuwswwwndnneeuseeesswdwnnwwsswwnnueesedss
+46	4	[1, -3, 1]	4_1	eeennwuwswwwnndneeeeseusswdwnnwwswwnnueessedss
+46	5	[2, -3, 2]	5_2	eeennwuwswwwnndneeessseuennwwwdwswwnnueessedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwswwwnndneeessseuennwwwswdwwnnueesdesss
+46	4	[1, -3, 1]	4_1	eeennwuwswwwnndneeeuseesswdwnnwwswwnnueessedss
+46	4	[1, -3, 1]	4_1	eeennwuwswwwnndneeuseeesswdwnnwwswwnnueessedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwuwswwwnnednneesssseuennwwwswdwnnueedssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwwusseeednnuwwnwwwdsseeeueeednnwwwwwsussd
+46	5	[2, -3, 2]	5_2	eeennwwusseennndwwwswuwnneeesessdwwwwnneuesssd
+46	5	[2, -3, 2]	5_2	eeennwwusseennndwwwwunneessessdwwwwnnneeussssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwwusseennnnwdwwwssseeeunnwnndeesswwwsussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwwusseennnnwwdwwssseeeunnwwnndeesswwsussd
+46	4	[1, -3, 1]	4_1	eeennwwusseennnnwwnwwssdeeeussdwwwwnnneeussssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwwusseennnnwwwdwssseeeunnwwwnndeesswsussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwwusseennnnwwwwdssseeeunnwwwwdnneesssussd
+46	4	[1, -3, 1]	4_1	eeennwwusseennnnwwwwwssedeneeussdwwwwnneuesssd
+46	5	[2, -3, 2]	5_2	eeennwwussswwnnnndwwsseeeeeunndwwswwunneessssd
+46	0	[1]	0_1	eeennwwussswwnnnndwwsseeeeeussswwwwnnnndeeussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwwussswwwnnndeeseeunnwnwwsssdwwnneeeusssd
+46	5	[2, -3, 2]	5_2	eeennwwussswwwnnnndeeeeussdwwwunnndwwsseeeussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeennwwussswwwwnnnedeseeeunnwwwsswdwnneeesussd
+46	0	[1]	0_1	eeennwwwwnneeeesussswwnnnnwwsssdeeeunndwwusssd
+46	3	[1, -1, 1]	3_1	eeennwwwwnneeeusssdwwwunnneesssseennndwwwusssd
+46	0	[1]	0_1	eeenueednnuwwwwwssedeneueeednnwwssssuwwnnwdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenueednnwwswuwnndwwsseesuseeednnuwnwdwwussds
+46	4	[1, -3, 1]	4_1	eeenueendnnwwwwuswwsseednneeeueedsswwnwwuwwdss
+46	4	[1, -3, 1]	4_1	eeenueendnnwwwwwswssueednneeeueedsswwnwwuwwdss
+46	5	[2, -3, 2]	5_2	eeenueennnwwwwdssueeendnwwsssuseednnwnuwwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenueennwwwdwwwsseeeuseednnuwwwnndeesswwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeenueennwwwdwwwsseeuseeednnuwwwnndeesswwwussd
+46	5	[2, -3, 2]	5_2	eeenueesswwwwnndeneunndwwssuesseednnnwwuwwdsss
+46	3	[1, -1, 1]	3_1	eeenueesswwwwnndnnnwwssueeeedessuwwndnnuwwdsss
+46	0	[1]	0_1	eeenueesswwwwnndnnueedsessuwwndnnneesuswwwwdss
+46	3	[1, -1, 1]	3_1	eeenueesswwwwwwnnndeeusseeednnwwswwwwnneeusssd
+46	5	[2, -3, 2]	5_2	eeenueneedsswwnnwunwwwssedenneeessuswwwnnwdwss
+46	5	[2, -3, 2]	5_2	eeenueneedsswwnnwuwwdnneeseessuswwwndnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeenuenndnwwwssuwwnneeeesdwssuseednnwuwnwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenuenndnwwwuwwdssseeeuseednnwnunndwwwsssussd
+46	5	[2, -3, 2]	5_2	eeenuenneedsswwnwunwwwssedenneeesusswwwnnwdwss
+46	5	[2, -3, 2]	5_2	eeenuenneedsswwnwuwwdnneeseesusswwwndnnuwwdsss
+46	5	[2, -3, 2]	5_2	eeenuennnwwsdwwwsseeunnndeesuswsseednnwwwwussd
+46	4	[1, -3, 1]	4_1	eeenuennwwdssuseednnnnuwwwwdsseueednnwwsuwssds
+46	5	[2, -3, 2]	5_2	eeenuennwwwnwwssdeeesuseednnwuwwsdwwwnneeusssd
+46	4	[1, -3, 1]	4_1	eeenuneedsswuwwndwwwnneeusssseeeennwdnwwwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunndeeesswwunnnwwswwssedeneeeusswwwnnwdwss
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwndwnnnwwssueeedeeunnwwswwdsss
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwndwnnwwssueenedeeunnwwswwsdss
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwndwwwnnueedseeeunndwwwwssussd
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwnnndwwwsseeunnneeessdwwwwussd
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwwndnnnwwssueeedeeunnwwswwdsss
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwwndwwnnueedseeeunndwwwwssussd
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwwndwwnnueesdeeeunndwwswwsussd
+46	5	[2, -3, 2]	5_2	eeenunndeessswuwwwnndeeeunndwwswwsseeunnwwsssd
+46	3	[1, -1, 1]	3_1	eeenunndeessswuwwwnnndwwsseeeunnneessdwwwwussd
+46	0	[1]	0_1	eeenunndeessusswwwwnndeneesseennuwwsswwnnwdwss
+46	0	[1]	0_1	eeenunndeesussswwwwnndeneeseennuwwssswwnnwdwss
+46	0	[1]	0_1	eeenunndeeusssswwwwnndeneeeennwwusssswwnnwdwss
+46	5	[2, -3, 2]	5_2	eeenunndneeusswdwwswuwnneeneesdessswuwwnnwdwss
+46	0	[1]	0_1	eeenunndnwwwsuessseeednnwwswwwnnnueeesdwswussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunndwnwwuswsdseeeuseednnwwwnunndwwssesussd
+46	3	[1, -1, 1]	3_1	eeenunndwwsseuseednnwwuwssseeeennwnndnwwwwssss
+46	3	[1, -1, 1]	3_1	eeenunndwwsseuseednnwwuwssseeeennwnnnwwswwdsss
+46	3	[1, -1, 1]	3_1	eeenunndwwsuwwdnneeeusssseednnwwswuwwwnneedsss
+46	3	[1, -1, 1]	3_1	eeenunndwwsuwwdnneeusessseednnwwswuwwwnneedsss
+46	5	[2, -3, 2]	5_2	eeenunndwwswwussseennnedeessuwwndwwwwnneeusssd
+46	0	[1]	0_1	eeenunndwwwsseeunnneesssswwwnndeeennwwwuswsssd
+46	0	[1]	0_1	eeenunndwwwsseeunnneesssswwwnndeeennwwwwussssd
+46	5	[2, -3, 2]	5_2	eeenunndwwwswussseennndeeessuwwndwwwwnneuesssd
+46	3	[1, -1, 1]	3_1	eeenunndwwwwsseeunnwwsssseeennnnndeesswwwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunndwwwwussseendeneessuwwnnwdwwwnneeusssds
+46	5	[2, -3, 2]	5_2	eeenunndwwwwussseennedeessuwwndwnwwwnneeusssds
+46	5	[2, -3, 2]	5_2	eeenunnndeesswwwswuwwdnneesuesseennndwwuwwsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunnndeesswwwuwswwdnneesseuseennndwwuwwsdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunnndeesswwwuwwwdnneessseuseennndwwuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunnndeesswwwuwwwdnneesssuseeennndwwuwwdsss
+46	5	[2, -3, 2]	5_2	eeenunnnedesswwwnuwwwsseednnneeseussswwnnwwdss
+46	5	[2, -3, 2]	5_2	eeenunnnwwsswwdnneeseussseednnwwswuwwwnneedsss
+46	4	[1, -3, 1]	4_1	eeenunnnwwwdsseuendeeussswwndneeennwwwwsuwssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunnnwwwwsseednnwwsssueedeneessuwwnnnwwdsss
+46	5	[2, -3, 2]	5_2	eeenunnwdnwwswssueenedennuwwsdsseuswwwwnneedss
+46	5	[2, -3, 2]	5_2	eeenunnwdnwwswwsseueneedennuwwsdssuswwwnnedess
+46	4	[1, -3, 1]	4_1	eeenunnwdnwwwwsseeesuswwnnndeeusedennuwwwsssds
+46	3	[1, -1, 1]	3_1	eeenunnwdwsseuseednnwwuwssseeeennwnndwnwwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunnwdwssuwwwnnenedeeesswuwwwdnnneeusswdsss
+46	3	[1, -1, 1]	3_1	eeenunnwwdsseuseednnwwuwssseeeennwnndwwnwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunnwwwsswdwnneeesseuseednnwwuwsswwwnnedess
+46	5	[2, -3, 2]	5_2	eeenunnwwwsswdwnneeesuesseednnwwswuswwwnnedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeenunnwwwswdwnneeessseuseednnwwuwswwwnnedesss
+46	5	[2, -3, 2]	5_2	eeenunnwwwswdwnneeessuesseednnwwswuwwwnnedesss
+46	5	[2, -3, 2]	5_2	eeenunnwwwwdnneesssuesseednnwwswuwwwnnneedssss
+46	4	[1, -3, 1]	4_1	eeenunnwwwwwwdsseenueeesseednnwwswuwwwndneesss
+46	5	[2, -3, 2]	5_2	eeenunwndwwswussseennndeeessuwwndwwwwnneuesssd
+46	3	[1, -1, 1]	3_1	eeenunwnnwwswsssseennnndwwsseeeuseednnwwwwussd
+46	4	[1, -3, 1]	4_1	eeenunwwdneeennwwusseesdwwsuseeennnnwwdwwwssss
+46	3	[1, -1, 1]	3_1	eeenunwwdneeennwwusseessswwndneeennuwwdwwwssss
+46	4	[1, -3, 1]	4_1	eeenunwwdneennwwusseeedswwsuseeennnnwwwdwwssss
+46	5	[2, -3, 2]	5_2	eeenunwwnwdwssueednneueessswwndnennwwwwussedss
+46	3	[1, -1, 1]	3_1	eeenunwwssseeeennwnndwwwwwsseeeuseednnwwwwussd
+46	0	[1]	0_1	eeenuwnwdnenueesdsssuwwwndenenneessuwwnwwwdsss
+46	5	[2, -3, 2]	5_2	eeenuwnwdnneeeusssswwwndeneunnndeesswwwuwwdsss
+46	5	[2, -3, 2]	5_2	eeenuwnwdnnnwwssueeedeesssuwwwndeneunnwwwdssss
+46	3	[1, -1, 1]	3_1	eeenuwnwdnnuwwsssseeeeednnwwswuwnneednnwwsssss
+46	0	[1]	0_1	eeenuwnwnnwwdsseeneeesssuwwwndeneunndwwwsussds
+46	0	[1]	0_1	eeenuwnwnnwwdsseeneeesssuwwwndeneunwndwwsussds
+46	5	[2, -3, 2]	5_2	eeeueendnnuwwdswwunndeeessueedsswwnwwunndwwsss
+46	5	[2, -3, 2]	5_2	eeeueendnnuwwsdwwunndeesesueedsswwnwwunndwwsss
+46	4	[1, -3, 1]	4_1	eeeueendnnwnwnwwussdeeseueedsswwnwwnunndwwssss
+46	4	[1, -3, 1]	4_1	eeeueendnnwwwwnwwssueedeeeueedsswwnwwunnwwdsss
+46	4	[1, -3, 1]	4_1	eeeueendnwnwwswuwnneeessdseseennuwwswwnnwdwsss
+46	4	[1, -3, 1]	4_1	eeeueendnwnwwwunneesssdseseennuwwswwnnndwwssss
+46	0	[1]	0_1	eeeueendnwwuwwdnwwssueeeeeneedsswwnwwnnuwwsdss
+46	5	[2, -3, 2]	5_2	eeeuenneedsswwnwunnnwwssdeeeesusswwwnnnndwwsss
+46	5	[2, -3, 2]	5_2	eeeuenneedsswwnwunnwwwssedeneeesusswwwnnnwdwss
+46	5	[2, -3, 2]	5_2	eeeunndeeennwwusssdwwwunndeeeeusssswwwnnndwwss
+46	4	[1, -3, 1]	4_1	eeeunndeeennwwussssswwwnndneneeeussdwwwunwwdss
+46	4	[1, -3, 1]	4_1	eeeunndeeennwwussssswwwnndnneeeeussdwwwnuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndeennuwwdwwwwsssueedeeeunndnnwwwwussdsss
+46	0	[1]	0_1	eeeunndeesussswwwwnnndeeeseennuwwssswwnnndwwss
+46	0	[1]	0_1	eeeunndeeunndwwswswsusseeennnndeesswwwwunwwdss
+46	0	[1]	0_1	eeeunndeeunndwwswwssusseeennnndeesswwwwnuwwdss
+46	0	[1]	0_1	eeeunndeeusssswwwwnnndeeeeennwwusssswwnnndwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndennnwwussdwwwssueedeeeennnuwwdwwwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndneeesswuwnnwwwssdeeeneuessswwwwnnndwwss
+46	5	[2, -3, 2]	5_2	eeeunndnnneessuwwwdswsuwwnneeneeedssswwunwwdss
+46	5	[2, -3, 2]	5_2	eeeunndnnneessuwwwdwssuwwnneeneeedssswwnuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndnnneessuwwwwsdseeennnuwwwwssseendnwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndnnneessuwwwwssdeeennnuwwwwsssseenndwwss
+46	4	[1, -3, 1]	4_1	eeeunndnnneessuwwwwwwsseednennueedssswwunwwdss
+46	4	[1, -3, 1]	4_1	eeeunndnnneessuwwwwwwsseednnenueedssswwnuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndnnnwwwwussdssueedeeennnuwwdwwwwssueedss
+46	5	[2, -3, 2]	5_2	eeeunndnnueedssswwwwuwwdnneeeueednnwwswwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndnnwuwwwdsssueedeeennuwwdwnwnwwssueedsss
+46	3	[1, -1, 1]	3_1	eeeunndnnwwwwssueedseeennuwwwwwwsseeeendnwwsss
+46	5	[2, -3, 2]	5_2	eeeunndnwnneeusswwwdssuwwnneneeedessswwnuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndnwnneeusswwwssdeeennnwuwwwsssseenndwwss
+46	4	[1, -3, 1]	4_1	eeeunndnwnneeusswwwwwsseednnnueedessswwnuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndnwwnneeusswwssdeeennnwwuwwsssseenndwwss
+46	3	[1, -1, 1]	3_1	eeeunndnwwusssswwnnndeeeuneedsswwwwwwnneeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndnwwwnneeusswssdeeennnwwwuwsssseenndwwss
+46	0	[1]	0_1	eeeunndnwwwwsseeunnwwsssseeenndeennuwwsdwwussd
+46	3	[1, -1, 1]	3_1	eeeunndnwwwwsseeunnwwsssseeennnneedsswwnwwussd
+46	5	[2, -3, 2]	5_2	eeeunndwnnneesuswwwdssuwwnneneeedsesswwunwwdss
+46	4	[1, -3, 1]	4_1	eeeunndwnnneesuswwwwwsseednnnueedsesswwunwwdss
+46	5	[2, -3, 2]	5_2	eeeunndwnnnwwussdessuwwdnnneeuseedesswwunwwdss
+46	5	[2, -3, 2]	5_2	eeeunndwwnunendeesussdswwunndeeennuwwsdwwwssss
+46	4	[1, -3, 1]	4_1	eeeunndwwnuwwwwdsseenueeendeesswwwuwwwndneesss
+46	4	[1, -3, 1]	4_1	eeeunndwwnwwsuwsseeeennndeesswwwuwwdwnnueesdss
+46	0	[1]	0_1	eeeunndwwsusseeeenndwwwunneesssdeennwwnwwwwsss
+46	5	[2, -3, 2]	5_2	eeeunndwwsuwwdnneeenueedssswwunnednnwwsusswdss
+46	5	[2, -3, 2]	5_2	eeeunndwwsuwwdnnueendeesesswwunndwwnwwssueedss
+46	3	[1, -1, 1]	3_1	eeeunndwwsuwwdnnueneesssdeennwwwuswwwdnneessss
+46	5	[2, -3, 2]	5_2	eeeunndwwsuwwdnnuneedseeesswwunwnwdnwwssueedss
+46	5	[2, -3, 2]	5_2	eeeunndwwsuwwnnendeeesesswwunndwwwnneeussswdss
+46	4	[1, -3, 1]	4_1	eeeunndwwsuwwnnendeeusssdeennwwwwwnneeussswdss
+46	5	[2, -3, 2]	5_2	eeeunndwwsuwwnnndeeeesesswwunndwwwwnneeusssdss
+46	5	[2, -3, 2]	5_2	eeeunndwwsuwwnnndeeeseesswwunwndwwwnneeusssdss
+46	4	[1, -3, 1]	4_1	eeeunndwwsuwwnnndeeeusssdeennwwwwwwnneeusssdss
+46	4	[1, -3, 1]	4_1	eeeunndwwsuwwnnndeeussesdeennwwwwwwnneeusssdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunndwwsuwwwnnedneeseeesswwunwwwdwnnueesdsss
+46	3	[1, -1, 1]	3_1	eeeunndwwswwnnueesssseeennnnwwssdeennwwwwsussd
+46	0	[1]	0_1	eeeunndwwunndeeeesussdwwwunneeneedsswwnwwwwsss
+46	4	[1, -3, 1]	4_1	eeeunndwwunndeeessueennwwwwsssdeeennuwwdwwwsss
+46	4	[1, -3, 1]	4_1	eeeunndwwunndeesesswwwuwwdnneeeussswwwwnneedss
+46	5	[2, -3, 2]	5_2	eeeunndwwunnendeesussdswwunndeeennuwwsdwwswsss
+46	5	[2, -3, 2]	5_2	eeeunndwwunnendeesussdswwunnedeennuwwsdwswwsss
+46	0	[1]	0_1	eeeunndwwunwwdsseeusseeennnnwwssdeennwwwwsussd
+46	3	[1, -1, 1]	3_1	eeeunndwwwwnneeussssseeennnnwwssdeennwwwwussds
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnndeeesswwunnnwwswssdeeneeussswwwnnndwwss
+46	5	[2, -3, 2]	5_2	eeeunnndeesswwwwuwwdnneesuessseennndwwnuwwsdss
+46	3	[1, -1, 1]	3_1	eeeunnndeesswwwwwwnnueesdeeeussswwnnnndwwsussd
+46	4	[1, -3, 1]	4_1	eeeunnndeeunnwwswwssdeeeeennwwusssdwwunndwwsss
+46	5	[2, -3, 2]	5_2	eeeunnndeeunnwwswwssdeeeunndeessswwwwunndwwsss
+46	4	[1, -3, 1]	4_1	eeeunnndeeusssswwwwnndneeeeennwwusssdwwunwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnndneeusswdwwwsuwwnneeeneesdesswwwunwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnndwnneeussdswwwuwnneeedeessswwwunnwdwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnndwnneeusssdwwwuwnneeedesesswwwunnwdwsss
+46	0	[1]	0_1	eeeunnndwwussdeeeunnnwwsssswwnnndneeeesswwwwss
+46	3	[1, -1, 1]	3_1	eeeunnndwwwussseennnneesssdwwwunnndeeesswwwwss
+46	5	[2, -3, 2]	5_2	eeeunnnedesesswwunndwnwwussdeeeeusswwwnnndwwss
+46	5	[2, -3, 2]	5_2	eeeunnnedesswwwunndennwwussdseeeuennwwwdwwssss
+46	5	[2, -3, 2]	5_2	eeeunnnedesswwwunndennwwusssdeeeuennwwwdwswsss
+46	4	[1, -3, 1]	4_1	eeeunnnedesswwwwunndeeseuennwwwwwsssseenndwwss
+46	5	[2, -3, 2]	5_2	eeeunnnedesswwwwunneneeesswdwnwwwussseenndwwss
+46	5	[2, -3, 2]	5_2	eeeunnnedesswwwwuwwdnneeseussseennndwnwuwswdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnneedsswwnwwussseeennndnwwwwsseeunnwwsssd
+46	4	[1, -3, 1]	4_1	eeeunnneesdswwwwuwwdnneeseeeuseednnwwwwuswwdss
+46	4	[1, -3, 1]	4_1	eeeunnnndeessswwwwunndeeeunnwwswwsssseenndwwss
+46	5	[2, -3, 2]	5_2	eeeunnnndeessswwwwunnenneessdwwwwussseenndwwss
+46	0	[1]	0_1	eeeunnnndwwwwsseeeusswwwnnnneesssdeennwwwussds
+46	3	[1, -1, 1]	3_1	eeeunnnnedesswwwnuwwwsseednnneeseussdwwunwwdss
+46	3	[1, -1, 1]	3_1	eeeunnnneedsswwnwuwwwsseednnneeesussdwwnuwwdss
+46	5	[2, -3, 2]	5_2	eeeunnnneessdwwnwwussdeeeeennwwusssswwnnndwwss
+46	0	[1]	0_1	eeeunnnnwwwwsseedneeeesswwwusseennndwwunwwdsss
+46	4	[1, -3, 1]	4_1	eeeunnnwdwsseeeeunnwdwswussseennndennwwwwwssss
+46	0	[1]	0_1	eeeunnnwndwwwsseeeusswwwnnnneesssdeennwwwussds
+46	4	[1, -3, 1]	4_1	eeeunnnwwsdseeeeennuwwsdwwussseeennndnwwwwwsss
+46	3	[1, -1, 1]	3_1	eeeunnnwwsdseeeennwwwwwwssueeendeeunnwwwwssdss
+46	4	[1, -3, 1]	4_1	eeeunnnwwsdseeeeunnwdwswussseennndennwwwswwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnnwwsdseeeeusswwwnnndeeeesswwunnndwwwwsss
+46	0	[1]	0_1	eeeunnnwwsdseeeeusswwwnnndeeussdeennwnwwwwwsss
+46	4	[1, -3, 1]	4_1	eeeunnnwwsdseeeseennuwwdwwussseeenndnnwwwwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnnwwsdseennnwwwwussseeendnwwwwnneeusssdss
+46	4	[1, -3, 1]	4_1	eeeunnnwwssdeeeeennuwwsdwwussseeennndnwwwwswss
+46	4	[1, -3, 1]	4_1	eeeunnnwwssdeeeeunnwdwswussseennndennwwwswswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnnwwssdeeeeusswwwnnndeeeesswwunnndwwwswss
+46	0	[1]	0_1	eeeunnnwwssdeeeeusswwwnnndeeussdeennwnwwwwswss
+46	4	[1, -3, 1]	4_1	eeeunnnwwssdeeeseennuwwdwwussseeenndnnwwwwswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnnwwssdeennwwwwsussseeennndwwswwnnueesssd
+46	5	[2, -3, 2]	5_2	eeeunnwdnnwwwsssueednnwuwswsseeeendennuwwswdss
+46	4	[1, -3, 1]	4_1	eeeunnwdwsuwwdnnneesuswwwsseeeendennwnuwwsdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeeunnwnndeesesswwwusseennndwwwunnneessdwwwsss
+46	0	[1]	0_1	eeneeeeennwwusssdwwuwwndneeeeeussswwnnwwnwwdss
+46	0	[1]	0_1	eeneeeennwwusssswwwnndnneeusssdeeunndwwwuwwdss
+46	4	[1, -3, 1]	4_1	eeneeenunwwsssdeeennnwwwwwssusseeennndwwuwwdss
+46	4	[1, -3, 1]	4_1	eeneeeuneedsswwwwuwwndneneeussseendnwwwuwwwdss
+46	4	[1, -3, 1]	4_1	eeneeeuneedsswwwwuwwndnneeeussseendnwwwwuwwdss
+46	4	[1, -3, 1]	4_1	eeneeeuneedsswwwwuwwndnneeusseseendnwwwwuwwdss
+46	4	[1, -3, 1]	4_1	eeneeeunndeessswwwwuwwndnneeeneeussdwwwwuwwdss
+46	4	[1, -3, 1]	4_1	eeneeeunnwwsssdeeennwnwwwwssusseeennndwwuwwdss
+46	4	[1, -3, 1]	4_1	eeneeeuseednnwwwwwwsusseeennneesdswwwuwnnwwdss
+46	0	[1]	0_1	eeneeeussswwwwnnndneeussdeeennwwussswwnnnwwdss
+46	3	[1, -1, 1]	3_1	eeneeneessuwwnwndwwsusseeeeeennwwdswwuwnnwwdss
+46	3	[1, -1, 1]	3_1	eeneeneessuwwnwndwwsuwwnneeeeesesdswwuwnnwwdss
+46	0	[1]	0_1	eeneenneessuwwwnnwdwssuseedeennunndwwsswuwwdss
+46	0	[1]	0_1	eeneenneessuwwwnnwdwssuseedeennuwnndwsswuwwdss
+46	0	[1]	0_1	eeneennneessuwwwdwwsuseedeennnueesswwwwwnwwdss
+46	0	[1]	0_1	eeneennueesdsswwwuwwndneeueedneessuwwwwwnwwdss
+46	0	[1]	0_1	eeneennuwwdswsuseedeennuwwdnneesessuwwwwnwwdss
+46	4	[1, -3, 1]	4_1	eeneenunndeesssswwwuwwndnneneneeussdwwswuwwdss
+46	4	[1, -3, 1]	4_1	eeneenunwwsssedeennnwwwwwsseusseeennwndwwuwssd
+46	5	[2, -3, 2]	5_2	eeneeunndeessswwwuwwndnnueedseeunndwwwssuwwdss
+46	5	[2, -3, 2]	5_2	eeneeunndeessswwwuwwndnnueesdeeunndwwswsuwwdss
+46	4	[1, -3, 1]	4_1	eeneeunneedssswwwuwwndnneeeeneessuwwdwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeneeunnnwwsdwssuwwdnneneeesusssdeennwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeneeunnnwwsdwssuwwnneendeesusssdeennwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeneeunnnwwsdwwwsseeunnndeesusssdeennwwwwwussd
+46	5	[2, -3, 2]	5_2	eeneeunnnwwssswdwwnnueesdeeeesswwunnndwwwsussd
+46	5	[2, -3, 2]	5_2	eeneeunnnwwswdssuwwdnneneeseusssdeennwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeneeusswwnnnndwwwsseeunnneessssdeennwwwwwussd
+46	5	[2, -3, 2]	5_2	eeneeusswwwnndnneeeusesdswwunnnndeesswwwuwwdss
+46	0	[1]	0_1	eenenneunwwwdsssuseedennuwnwdneeesssuwwwnwwdss
+46	5	[2, -3, 2]	5_2	eenenueedsswwuwwndnnueedessueednnwnwwwssuwwdss
+46	5	[2, -3, 2]	5_2	eenenueedsswwuwwndnnueeedssueednnwnwwswsuwwdss
+46	3	[1, -1, 1]	3_1	eenenueesdeennwwwwwswsuseedenneeusswwnwwnwwdss
+46	4	[1, -3, 1]	4_1	eenenunneeesswdwnwwswsuseedeeennnwuwsswwnwwdss
+46	4	[1, -3, 1]	4_1	eenenunnneessdwwwswsuseedeeennnnwwussswwnwwdss
+46	3	[1, -1, 1]	3_1	eenenunwwdssueeennnwwwwswssseeeedennnwwsuwwdss
+46	5	[2, -3, 2]	5_2	eeneueednnnwnwwssueedssswuwwndnnnueedsswuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeneueednnnwuwwdswssuseedennnuenndwwssswuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeneueednnnwwwuwwdssseuseedennnunndwwwsssuwssd
+46	5	[2, -3, 2]	5_2	eeneueednnwnnwwssuesedsswuwwndnnnueedsswuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeneueednnwwswuwnndwwsseesuseedennuwnwdwwussds
+46	5	[1, -1, 1, -1, 1]	5_1	eeneueennwwwdwwwsseeuseedennuwwwnndeesswwwussd
+46	5	[2, -3, 2]	5_2	eeneuennnwwsdwwwsseeunnndeesuswssedennwwwwussd
+46	4	[1, -3, 1]	4_1	eeneuesswwwnndnnwwwsseueneessedennwwnuwwwsdess
+46	3	[1, -1, 1]	3_1	eeneuesswwwwwnnnneessdwwnneeeesesswuwnndwwussd
+46	4	[1, -3, 1]	4_1	eeneuesswwwwwnnnneessdwwnneeeusssedennwwwwussd
+46	5	[2, -3, 2]	5_2	eeneunndeessswwuwnnndwwwsseeunnneeessdwwwwussd
+46	5	[2, -3, 2]	5_2	eeneunndeessswwuwwndnnnwwssueeedeeunnwwswwdsss
+46	3	[1, -1, 1]	3_1	eeneunndwwuswwdnneeeussssedennwwwsuwwwnneedsss
+46	5	[2, -3, 2]	5_2	eeneunneeesswdwnwwwsusseeennnedesswwwuwnnwwdss
+46	5	[2, -3, 2]	5_2	eeneunnneessdwwwwsusseeennnndeessswwwuwnnwwdss
+46	5	[2, -3, 2]	5_2	eeneunnneesssdswwuwwndnneeeussseednnwwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeneunnneesssdwswuwwndnneeeusssedennwwwwuwwdss
+46	5	[2, -3, 2]	5_2	eeneunnnwwsswwdnneeseusssedennwwwsuwwwnneedsss
+46	5	[2, -3, 2]	5_2	eeneunnwwwdsseusseeenndnwwussedeennnwwwwsuwssd
+46	4	[1, -3, 1]	4_1	eeneunnwwwwwwdsseenueeessedennwwwsuwwwndneesss
+46	0	[1]	0_1	eenneeeeennwwusssdwwuwwdnneeeeeussswwnnwwwwdss
+46	0	[1]	0_1	eenneeeeessuwwndwwuwwdnneeeeeussdswwunnwwwwdss
+46	0	[1]	0_1	eenneeeeessuwwndwwuwwdnneeeeusesdswwunnwwwwdss
+46	0	[1]	0_1	eenneeeeesswwunnndwwwwssueedeeeusswwnnnwwwwdss
+46	0	[1]	0_1	eenneeeesswwunnwnwwwwsseednneeeeussdwwuwnwwdss
+46	0	[1]	0_1	eenneeeesswwunnwwwwwdnneesssueedeeunnwwwwwdsss
+46	4	[1, -3, 1]	4_1	eenneeeuseednnwwwwwwssuseeennneesdswwwuwnwwdss
+46	3	[1, -1, 1]	3_1	eenneeeussdeennwnwwwwwssueedeeeusswwnnnwwwwdss
+46	0	[1]	0_1	eenneeeussswwwwnndnneeussdeeennwwussswwnnwwdss
+46	0	[1]	0_1	eenneeneessuwwnwwwwwdnneesssueedeenunwwwwwdsss
+46	0	[1]	0_1	eenneeseusswwwwnndnneeussdseeennwuwsswwnnwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeuessdwwnunnwwwwsseednneeeesswuswwnnwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeuseednnwwuwwwwdsseueedeenunndwwswwsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeuseednnwwwuwwwdsseueedeenunndwwwswsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeuseednnwwwuwwwdsseueedeenunwndwwswsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeuseednnwwwwuwwdsseueedeenunndwwwwssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeuseednnwwwwuwwdsseueedeenunwndwwwssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeuseednnwwwwuwwdsseueedeenunwwndwwssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneeussswwwnndnneeeesswwunneesssdwwuwnnwwdss
+46	5	[2, -3, 2]	5_2	eenneeusswwwndnnnwwssueeendeeesswwunnnwwswdsss
+46	4	[1, -3, 1]	4_1	eenneeusswwwwwnnneeedeeesswwuwwdnnneeusswwwdss
+46	0	[1]	0_1	eenneneeeesswwunnwwwdwssueedeneeusswwnnwwwwdss
+46	0	[1]	0_1	eenneneeesswuwnwwwwwdnneesssueedeneunwwwwwdsss
+46	0	[1]	0_1	eennenneeeesswwunwwwdwssueedenneeusswwnwwwwdss
+46	3	[1, -1, 1]	3_1	eennenueesdeennwwwwwswssueedenneeusswwnwwwwdss
+46	3	[1, -1, 1]	3_1	eennenunwwdsssueedennnwwsuwwwssseeeeennwwwwdss
+46	5	[2, -3, 2]	5_2	eenneueednnwwswwssuseeendnnueedssswwwnuwnwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenneueednnwwwwuwwdssseeueedennunndwwwwsssussd
+46	5	[2, -3, 2]	5_2	eenneueedsswwnuwnwwwdnneesssuseeendnnwwuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eenneueeednnwwsssuswwwndnneeueedssswwnuwnwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenneuesedennwwuwwwwdsseueedeneunndwwswwsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneuesedennwwwuwwwdsseueedeneunndwwwswsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneuesedennwwwuwwwdsseueedeneunwndwwswsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneuesedennwwwwuwwdsseueedeneunndwwwwssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneuesedennwwwwuwwdsseueedeneunwndwwwssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenneuesedennwwwwuwwdsseueedeneunwwndwwssuwssd
+46	0	[1]	0_1	eenneuesswwwndwwunndeeeeesswuwnwdwwwnneeussssd
+46	5	[2, -3, 2]	5_2	eenneuneedsesswwunndnwwwssusseeeenndwwuwnwwdss
+46	5	[2, -3, 2]	5_2	eenneuneedsswwuwnwwwdnneesssuseeenndnwwuwwdsss
+46	5	[2, -3, 2]	5_2	eenneuneeesswdwnnwwwssuseeennedesswwwnuwnwwdss
+46	0	[1]	0_1	eenneunndwwnwwssueedssueedennwwuswwwwnneedssss
+46	0	[1]	0_1	eenneunndwwsssuwwdnnueeedeesswuwnwwwwdnneessss
+46	5	[2, -3, 2]	5_2	eenneunneeesswdwnwwwssuseeennnedesswwwuwnwwdss
+46	5	[2, -3, 2]	5_2	eenneunnneessdwwwwssuseeennnndeessswwwuwnwwdss
+46	3	[1, -1, 1]	3_1	eenneunnwwsdssueedennwwuswwsseeeennnndwwwwssss
+46	5	[2, -3, 2]	5_2	eenneunnwwwdswssueednnnnwwsuseeedeesswuwnwwdss
+46	4	[1, -3, 1]	4_1	eenneunnwwwwdssueeendeesswuwwdnnuwwwdnneesssss
+46	4	[1, -3, 1]	4_1	eenneunnwwwwswsseeednnnwwssueeesedennwwuwwdsss
+46	4	[1, -3, 1]	4_1	eenneunwwwwwwdsseenueeesedennwwwssuwwwndneesss
+46	0	[1]	0_1	eennneeeeessuwwndwwsuwwdnnueeeeesdswwunwwwwdss
+46	4	[1, -3, 1]	4_1	eennneeeesswuswwwwndnnueeessdseeunnwdwwuwwwdss
+46	3	[1, -1, 1]	3_1	eennneeeesswwunnwwwdssuwwnneneeeeessdwwuwwwdss
+46	0	[1]	0_1	eennneeeesswwunnwwwwwsseednnneeeeussdwwuwwwdss
+46	0	[1]	0_1	eennneeeesswwunwwnwwdsseueedneeunndwwwwssuwssd
+46	0	[1]	0_1	eennneeeesswwunwwwwwdnneesssueedneeunwwwwwdsss
+46	3	[1, -1, 1]	3_1	eennneeeesuswwnnwwwdssueedeeeennuwwsdwwuwwwdss
+46	4	[1, -3, 1]	4_1	eennneeeuseednnwwwwwwsssueeennneesdswwwuwwwdss
+46	3	[1, -1, 1]	3_1	eennneeneessuwwnwwwdssuwwnneneeeeesdswwuwwwdss
+46	0	[1]	0_1	eennneeneessuwwnwwwwwsseednnneeueesdswwuwwwdss
+46	0	[1]	0_1	eennneeseennuwwsswdssuwwndnnneeeesusswwwnwwdss
+46	0	[1]	0_1	eennneesseennuwwsswwwdnnneeeessussdwwnnuwwwdss
+46	0	[1]	0_1	eennneesseennuwwswdssuwwndnnneeeessuswwwnwwdss
+46	0	[1]	0_1	eennneessseennuwwswwwdnnneeeesssuswwdnnuwwwdss
+46	0	[1]	0_1	eennneessseennuwwswwwdnnueeeedssuswwdnnuwwwdss
+46	0	[1]	0_1	eennneessseennuwwwdssuwwndnnneeeesssuwwwnwwdss
+46	0	[1]	0_1	eennneessseennuwwwdssuwwndnnueeeedssuwwwnwwdss
+46	0	[1]	0_1	eennneessuwwnwdwwunneeseesdssuwwndwwwnneeusssd
+46	0	[1]	0_1	eennneesueednnwwwwwsssuseednnuneedsswuwwnwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennneesueedsswwnuwwwdnnueeeedssuswwdnnuwwwdss
+46	0	[1]	0_1	eennneesueennwwwwswdssuseednnuneedsswuwwnwwdss
+46	4	[1, -3, 1]	4_1	eennneesuswwwdnnwwwsseueneeedseennuwwwwwwsdess
+46	5	[1, -1, 1, -1, 1]	5_1	eennneeuessdwwnunwwwwsseednnneeeesswuswwnwwdss
+46	4	[1, -3, 1]	4_1	eennneeuseednnwwwwwsssuwwnneeeeneesdswwuwwwdss
+46	0	[1]	0_1	eennneeusssdeennwwwunwwdssusseeeenndwwuwnwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennneeussswwwndnnneeeesswwunneesssdwwuwnwwdss
+46	3	[1, -1, 1]	3_1	eennneneeesswuwnwwwdssuwwnneneeeeesdwswuwwwdss
+46	0	[1]	0_1	eennneneeesswuwnwwwwwsseednnneueeesdwswuwwwdss
+46	3	[1, -1, 1]	3_1	eennneneesssswwnnueesswwwwndnnueeedssuwwnwwdss
+46	3	[1, -1, 1]	3_1	eennneneeussdwwunwwdssuseeennndeesswwwuwnwwdss
+46	4	[1, -3, 1]	4_1	eennnenneessuwwwwdssueeendnnueedssswwwnuwwwdss
+46	3	[1, -1, 1]	3_1	eennnennuwwsdsssueeennwwwwdnneesueedsswuwwwdss
+46	5	[2, -3, 2]	5_2	eennnenunwwdssueeesswwwdnwnnueedneessswuwwwsds
+46	5	[2, -3, 2]	5_2	eennnenunwwdssueeesswwwdwnnnueedneessswuwwwssd
+46	5	[2, -3, 2]	5_2	eennneueednnwwswwsssueeendnnueedssswwwnuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennneueedssswwnnueesswwwwndnnneeesssuwwnwwdss
+46	5	[2, -3, 2]	5_2	eennneueedsswwnuwwwwdnneesssueeendnnwwuswwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennneueeednnwwsssuswwwdnnneeueedssswwnuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennneueeednnwwsssuswwwdnnueneeedssswwnuwwwdss
+46	5	[2, -3, 2]	5_2	eennneueeesswdwnnnwwwsssueeenedesswwwnnuwwwdss
+46	4	[1, -3, 1]	4_1	eennneuesedennwwwwwsssuwwnneeeneeesdwswuwwwdss
+46	5	[2, -3, 2]	5_2	eennneuesswwwdwnnnueedeesswuwnwwwdnneesssuwssd
+46	5	[2, -3, 2]	5_2	eennneuneedsesswwunndnwwwsssuseeeenndwwuwwwdss
+46	5	[2, -3, 2]	5_2	eennneuneedsswwuwwwwdnneesssueeenndnwwuswwdsss
+46	5	[2, -3, 2]	5_2	eennneuneeesswdwnnwwwsssueeennedesswwwnuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennneuneesssdwwuwwdnnneeesusssdeennwwwuwwwdss
+46	5	[2, -3, 2]	5_2	eennneunnneessdwwwwsssueeennnndeessswwwuwwwdss
+46	4	[1, -3, 1]	4_1	eennnneeeesswuswwwwdnnueeesdseeunnwdwwsuwwwdss
+46	3	[1, -1, 1]	3_1	eennnneeeesswwunwwwdssuwwnneneeeeesdwwsuwwwdss
+46	0	[1]	0_1	eennnneeeesswwunwwwwwsseednnnueeeesdwwsuwwwdss
+46	3	[1, -1, 1]	3_1	eennnneeeeusswdwnwuwwdssueeennedesswwwnuwwwdss
+46	3	[1, -1, 1]	3_1	eennnneeesssswwnnueesswwwwndnnueedessuwwnwwdss
+46	3	[1, -1, 1]	3_1	eennnneeeussdwwnuwwdssuseeennndeesswwwuwnwwdss
+46	0	[1]	0_1	eennnneenuesssswwwwdnnueedeennnwwsusesswwwwdss
+46	0	[1]	0_1	eennnneeseennuwwsswdssuwwdnnnneeeesusswwwwwdss
+46	0	[1]	0_1	eennnneesseennuwwswdssuwwdnnnneeeessuswwwwwdss
+46	0	[1]	0_1	eennnneessesuswwdnnnuwwdssueeedseennuwwwwwwdss
+46	0	[1]	0_1	eennnneesseussdwwnnnuwwdssueeedeennwuwswwwwdss
+46	0	[1]	0_1	eennnneessseennuwwwdssuwwdnnnneeeesssuwwwwwdss
+46	0	[1]	0_1	eennnneessseennuwwwdssuwwdnnnueeeedssuwwwwwdss
+46	0	[1]	0_1	eennnneessseennuwwwdssuwwdnnueneeedssuwwwwwdss
+46	0	[1]	0_1	eennnneesssswuwwwnneeeennwwwdsssueednnuwwwdsss
+46	3	[1, -1, 1]	3_1	eennnneesssuwwwdnnnueeesswwwwsseeednnnuwwwdsss
+46	3	[1, -1, 1]	3_1	eennnneesssuwwwdnnnwwssueeeeeedsswwnnnuwwwdsss
+46	0	[1]	0_1	eennnneesssuwwwdnnueedsssuwwwnneeeennwwwdwssss
+46	0	[1]	0_1	eennnneessuwwwwswdwnneeueeedssuwwdnnnwwussdess
+46	0	[1]	0_1	eennnneesueednnwwwwwssssueednnuneedsswuwwwwdss
+46	0	[1]	0_1	eennnneesueennwwwwsswdssueednnuneedsswuwwwwdss
+46	0	[1]	0_1	eennnneesueennwwwwswdsssueednnuneedsswuwwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnneeussswwwdnnnneeeesswwunneesssdwwuwwwdss
+46	3	[1, -1, 1]	3_1	eennnneneesssswwnnueesswwwwdnnnueeedssuwwwwdss
+46	3	[1, -1, 1]	3_1	eennnneneesssswwnnueesswwwwdnnueneedssuwwwwdss
+46	4	[1, -3, 1]	4_1	eennnneneessusswwwwdnnueeesdeennuwwdswsuwwwdss
+46	0	[1]	0_1	eennnnenueesssswwwwdnnueedennnwwsuseesswwwwdss
+46	0	[1]	0_1	eennnneueedsswwnuwwdssuwwdnneneneeessuswwwwdss
+46	0	[1]	0_1	eennnneueedsswwnuwwdssuwwnneneendeessuswwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnneuessswwwdnnnneeesswuwnneeedssswwuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnneuesswwwnwdwssueednnnneeesswuwnwwwssedss
+46	3	[1, -1, 1]	3_1	eennnnneeesssswwnnueesswwwwdnnnueedessuwwwwdss
+46	3	[1, -1, 1]	3_1	eennnnneeesssswwnnueesswwwwdnnuenedessuwwwwdss
+46	4	[1, -3, 1]	4_1	eennnnneeessusswwwwdnnueeedseennuwwdwssuwwwdss
+46	4	[1, -3, 1]	4_1	eennnnneesesusswwwwdnnueeedseennuwwwdssuwwwdss
+46	4	[1, -3, 1]	4_1	eennnnneesseusswwwwdnnueeesdeennwuwwdssuwwwdss
+46	4	[1, -3, 1]	4_1	eennnnneessuwwwdssuwwdwnneeuseeednnuwwwwssdess
+46	3	[1, -1, 1]	3_1	eennnnnneessuwwwdsssueeennwwwwnneeedsssuwwwdss
+46	4	[1, -3, 1]	4_1	eennnnnneessuwwwdsssuwwnneeeednnueessswwwwwdss
+46	3	[1, -1, 1]	3_1	eennnnnneessuwwwdsssuwwnneeeeeennwwdsssuwwwdss
+46	3	[1, -1, 1]	3_1	eennnnnneessuwwwwswsseednnueednnueessswwwwwdss
+46	4	[1, -3, 1]	4_1	eennnnnneessuwwwwswsseednnueeeennwwdsssuwwwdss
+46	0	[1]	0_1	eennnnnueeesssswwwwdnnueednnnwwssueeesswwwwdss
+46	3	[1, -1, 1]	3_1	eennnnnueesdssswuwwdwnnueeeeednnwwsuwwdssuwssd
+46	5	[2, -3, 2]	5_2	eennnnnuwwdssessuwwnneeeednnnwwssueeesswwwwdss
+46	0	[1]	0_1	eennnnnuwwsdsessueednnuwwwwdnneesueeesswwwwdss
+46	3	[1, -1, 1]	3_1	eennnnnuwwsdsessueeennwwwwwdnneesueedssuwwwdss
+46	0	[1]	0_1	eennnnnuwwsdssesueednnuwwwwdnneesueeesswwwwsds
+46	3	[1, -1, 1]	3_1	eennnnnuwwsdssesueeennwwwwwdnneesueedssuwwwsds
+46	0	[1]	0_1	eennnnnuwwsdssseueednnuwwwwdnneesueeesswwwwssd
+46	3	[1, -1, 1]	3_1	eennnnnuwwsdssseueeennwwwwwdnneesueedssuwwwssd
+46	0	[1]	0_1	eennnnnwwssueeednnuwwwswssseednnnueeesswwwwdss
+46	0	[1]	0_1	eennnnnwwssueeedssuwwdnnnuwwsssseeeeennwwwwdss
+46	0	[1]	0_1	eennnnnwwssueeeennwwwwswssseednnnueedssuwwwdss
+46	0	[1]	0_1	eennnnnwwssueeeesswwwdnnnuwwsssseeeednnuwwwdss
+46	3	[1, -1, 1]	3_1	eennnnnwwwsswsuseeednnuwwwwdsseenueeennwdwssss
+46	3	[1, -1, 1]	3_1	eennnnnwwwsuseedssueennnnwwwwwdsseeneuesswwdss
+46	3	[1, -1, 1]	3_1	eennnnnwwwwssueedsesuennnwwwwwdsseenneesuswsds
+46	3	[1, -1, 1]	3_1	eennnnnwwwwssueedsseuennwnwwwwdsseenneessuwssd
+46	0	[1]	0_1	eennnnnwwwwssueeedssuwwdnnnuwwsseeeeennwdwssss
+46	3	[1, -1, 1]	3_1	eennnnnwwwwssueeedssuwwwwnnneedssueeennwdwssss
+46	3	[1, -1, 1]	3_1	eennnnnwwwwsuseedessuennnnwwwwwdsseeneeusswdss
+46	3	[1, -1, 1]	3_1	eennnnnwwwwsuseedsesuennnwwwnwwdsseeneesuswsds
+46	3	[1, -1, 1]	3_1	eennnnnwwwwsuseedsseuennwnwwnwwdsseeneessuwssd
+46	5	[2, -3, 2]	5_2	eennnnueednnwwswssssuwwnneeeednnueessswwwwwdss
+46	4	[1, -3, 1]	4_1	eennnnueednnwwswssssuwwnneeeeeennwwdsssuwwwdss
+46	3	[1, -1, 1]	3_1	eennnnueedssswuwwdnnnneessuwwnneeeessswwwwwdss
+46	0	[1]	0_1	eennnnueeedsswwnuwwdssuwwdnneneneesesuswwwwdss
+46	5	[2, -3, 2]	5_2	eennnnueeesswwdnnnwwssssuwwnneeeeedsswuwnwwdss
+46	3	[1, -1, 1]	3_1	eennnnueesdsswuwwdnnnwwssueeeeeednnwwsuwwwdsss
+46	0	[1]	0_1	eennnnueessedennwwwsuwwdssueeeeennwdwswuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnnueessswwwdnnnneessuwwwwssseeeednnuwwwdss
+46	0	[1]	0_1	eennnnueesswwwwndwwsseueednnueednnwwswwussdess
+46	5	[2, -3, 2]	5_2	eennnnueesswwwwwdnneueseednnwwssssuwwwnneedsss
+46	0	[1]	0_1	eennnnueesswwwwwnnedesssuwwdnnnneeeessuwwwdsss
+46	0	[1]	0_1	eennnnueesswwwwwnneedsssuwwdnnneneeessuwwwdsss
+46	5	[2, -3, 2]	5_2	eennnnunwwdsseueeesswwwdnwwnnueedneesssuwwwsds
+46	5	[2, -3, 2]	5_2	eennnnunwwdsseueeesswwwdnwwnuenedneesssuwwwsds
+46	5	[2, -3, 2]	5_2	eennnnunwwdsseueeesswwwdwwnnnueedneesssuwwwssd
+46	5	[2, -3, 2]	5_2	eennnnunwwdsseueeesswwwdwwnnuenedneesssuwwwssd
+46	5	[2, -3, 2]	5_2	eennnnuwwdssesueeendnwnnwwssueeeedsswwnuwwwsds
+46	5	[2, -3, 2]	5_2	eennnnuwwdssesueeenndwnnwwssueenedesswwuwwwsds
+46	5	[2, -3, 2]	5_2	eennnnuwwdssseueeendnwnnwwssueeeedsswwnuwwwssd
+46	5	[2, -3, 2]	5_2	eennnnuwwdssseueeenndwnnwwssueenedesswwuwwwssd
+46	3	[1, -1, 1]	3_1	eennnnuwwdssseueeennnwnwwwwsseeeednnwwsssuwssd
+46	3	[1, -1, 1]	3_1	eennnnuwwdswssueednnnneessuwwwwswsseeeennwwdss
+46	4	[1, -3, 1]	4_1	eennnnuwwdwwussedenueesswdwwwnneunndeesssuwssd
+46	3	[1, -1, 1]	3_1	eennnnuwwsseeednnueessswwwwdnnueeednnwwwswssss
+46	3	[1, -1, 1]	3_1	eennnnuwwsseeedseennuwwwwdssueeendnwnnwwswssss
+46	0	[1]	0_1	eennnnuwwsseeeeennwwdsssuwwdnnueeednnwwwswssss
+46	3	[1, -1, 1]	3_1	eennnnuwwwssdeennwwwwssseeeeusswwwnnndneeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennnnuwwwssseednnnneessuwwwdnnueeesesswwwwdss
+46	0	[1]	0_1	eennnnuwwwwdssseueednnnwwssueeesswwwwnnneedsss
+46	3	[1, -1, 1]	3_1	eennnnuwwwwwsssseeeeennwwwdnneesssuwwwnneedsss
+46	3	[1, -1, 1]	3_1	eennnnwnwwsswsuseeednnuwwwwdsseenueeennwwdssss
+46	3	[1, -1, 1]	3_1	eennnnwnwwsuseedssueennnnwwwwwdsseenueesswwdss
+46	0	[1]	0_1	eennnnwnwwwssueeedssuwwdnnnuwwsseeeeennwwdssss
+46	3	[1, -1, 1]	3_1	eennnnwnwwwssueeedssuwwwwnnneedssueeennwwdssss
+46	3	[1, -1, 1]	3_1	eennnnwnwwwsuseedessuennnnwwwwwdsseeneuesswdss
+46	3	[1, -1, 1]	3_1	eennnnwuwsseeednnueessswwwwdnnueeednnwwwwsssss
+46	3	[1, -1, 1]	3_1	eennnnwuwsseeedseennuwwwwdssueeendnwnnwwwsssss
+46	0	[1]	0_1	eennnnwuwsseeeeennwwdsssuwwdnnueeednnwwwwsssss
+46	3	[1, -1, 1]	3_1	eennnnwuwwdsssueednnwnneeusswwwswsseeeennwwdss
+46	3	[1, -1, 1]	3_1	eennnnwwnwwssueedessuwwdnnnuwwsssseeeeennwwdss
+46	3	[1, -1, 1]	3_1	eennnnwwnwwsuseedessuennnnwwwwwdsseenueesswdss
+46	0	[1]	0_1	eennnnwwsuwssdeeueednnuwwdswwnnueeeeesswwwwssd
+46	4	[1, -3, 1]	4_1	eennnnwwsuwssdeeueeennwwwdswwnnueeeedssuwwwssd
+46	0	[1]	0_1	eennnnwwwssueeesswwwwwnnnneeeesdssuwwwnneedsss
+46	0	[1]	0_1	eennnnwwwwussdeeenunwwssssseenndwwwwnneeeusssd
+46	3	[1, -1, 1]	3_1	eennnnwwwwusssseeeennwwndwwsseueednnunwwssdess
+46	3	[1, -1, 1]	3_1	eennnnwwwwwsseeeenunwwsssdeeusswwwnnnndeeusssd
+46	0	[1]	0_1	eennnnwwwwwsseeeenunwwssssseenndwwwunndeeusssd
+46	3	[1, -1, 1]	3_1	eennnnwwwwwsseuenedessuwwdnnwuwssseeeeennwwdss
+46	0	[1]	0_1	eennnueedeeusswwwwwdnnneesseeeennwwusswwwwwdss
+46	4	[1, -3, 1]	4_1	eennnueedseennuwwdwsssuwwdnnneneeessuswwwwwdss
+46	4	[1, -3, 1]	4_1	eennnueedseennuwwwdsssuwwdnnneneesesuswwwwwdss
+46	0	[1]	0_1	eennnueedseeuswwwwwdnnneessseeeennwwuswwwwwdss
+46	3	[1, -1, 1]	3_1	eennnueedsesuswwdnnnnwwsssueeedseennuwwwwwwdss
+46	0	[1]	0_1	eennnueedssuwwwdwwnneueseeeedsswwnnnnwwsswussd
+46	5	[2, -3, 2]	5_2	eennnueedsswuwwdwnnuenedessueednnwnwwwsssuwssd
+46	5	[2, -3, 2]	5_2	eennnueedsswuwwdwnnuenedessueennwwndwwsssuwssd
+46	5	[2, -3, 2]	5_2	eennnueedsswuwwdwnnueneedssueednnwnwwswssuwssd
+46	3	[1, -1, 1]	3_1	eennnueeedssswwnnnnwwsssueeednnneessuwwwwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnueeedssswwnnueesswwwwndnnneesessuwwnwwdss
+46	5	[2, -3, 2]	5_2	eennnueeedsswwnnnuwwswwsseednnneneesssuwwwwdss
+46	5	[2, -3, 2]	5_2	eennnueeedsswwnnnwuwswwsseednnnneeesssuwwwwdss
+46	3	[1, -1, 1]	3_1	eennnueeedsswwnnnwwwswssueednnuneeedssuwwwwdss
+46	5	[2, -3, 2]	5_2	eennnueeedsswwnuwwwwdnneesssueeendnwnwuwswdsss
+46	5	[2, -3, 2]	5_2	eennnueeedsswwuwwdnnneneesssueennwwwdssuwwwdss
+46	5	[2, -3, 2]	5_2	eennnueeeesswdwnnwnwwsssueeenedesswwwnnuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnueeenndwwssesuswwwdnnneueedessswwnuwwwdss
+46	5	[2, -3, 2]	5_2	eennnueeesdsswwuwwndnnneessseueednnwwsuwwwwdss
+46	5	[2, -3, 2]	5_2	eennnueeessdswwuwwndnnneessseuseednnwwuwwwwdss
+46	5	[2, -3, 2]	5_2	eennnueeessdwswuwwndnnneesssuesedennwwuwwwwdss
+46	4	[1, -3, 1]	4_1	eennnueesdeennwwwwwsssuwwnneeneeeesdwwsuwwwdss
+46	0	[1]	0_1	eennnueessswwwwnneeednnwwsssueedennnuwwwswdsss
+46	0	[1]	0_1	eennnueessswwwwnneeednnwwsssueedennnuwwwwdssss
+46	0	[1]	0_1	eennnueessswwwwwwnnenedessuwwdnnneeeessuwwwdss
+46	0	[1]	0_1	eennnueessswwwwwwnneneedssuwwdnneneeessuwwwdss
+46	3	[1, -1, 1]	3_1	eennnueesswwwdnnneessuwwwsseeedennnnuwwwswdsss
+46	3	[1, -1, 1]	3_1	eennnueesswwwdnnneessuwwwsseeedennnnuwwwwdssss
+46	3	[1, -1, 1]	3_1	eennnueesswwwdnnneessuwwwsseeeeennnnwwwwswdsss
+46	3	[1, -1, 1]	3_1	eennnueesswwwdnnneessuwwwsseeeeennnnwwwwwdssss
+46	5	[2, -3, 2]	5_2	eennnueesswwwdnnnnwwssueenedessuwwwwwnneedssss
+46	0	[1]	0_1	eennnueesswwwdnnuneeedsssswuwwwnneeednnwwwssss
+46	0	[1]	0_1	eennnueesswwwdnnuneeeesssswwwwwnneeednnwwwssss
+46	5	[2, -3, 2]	5_2	eennnueesswwwdwwnnenueedessuwwnwwndneessswussd
+46	5	[2, -3, 2]	5_2	eennnueesswwwdwwnnnueedeessuwwnwwwdnneesssussd
+46	0	[1]	0_1	eennnueesswwwdwwnunnedeeessuwwdwnwnneeusswsssd
+46	0	[1]	0_1	eennnueesswwwdwwunnnedeeessuwwdwwnnneeusswsssd
+46	5	[2, -3, 2]	5_2	eennnuenedesesswwunndwnwwsssuseeeenndwwuwwwdss
+46	5	[2, -3, 2]	5_2	eennnuenedesswwuwwwwdnneesssueeenndwnwuwswdsss
+46	5	[2, -3, 2]	5_2	eennnuenednwwwssssueeenndwnwuneeedssswwuwwwdss
+46	5	[2, -3, 2]	5_2	eennnueneedsswwnnwuwswwsseednnnneeessuswwwwdss
+46	4	[1, -3, 1]	4_1	eennnueneedsswwnnwwsssuwwdnnenneeeessuswwwwdss
+46	4	[1, -3, 1]	4_1	eennnueneedsswwnnwwsssuwwnneenendeessuswwwwdss
+46	4	[1, -3, 1]	4_1	eennnueneedsswwnnwwsssuwwnneenndeeessuswwwwdss
+46	5	[2, -3, 2]	5_2	eennnueneeesswdwnwnwwsssueeennedesswwwnuwwwdss
+46	5	[2, -3, 2]	5_2	eennnueneessdwwnnwwsssuseeennndeesswwwuwnwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnueneesssdwwuwwdnnneeseusssdeennwwwuwwwdss
+46	5	[2, -3, 2]	5_2	eennnuenndeesesswwunndwwwsssueeeenndwwsuwwwdss
+46	3	[1, -1, 1]	3_1	eennnuenndwwssssueednnnwuwswwssseeeeennwwwwdss
+46	5	[2, -3, 2]	5_2	eennnuenneedsswwnwuwswwsseednnnneeesusswwwwdss
+46	4	[1, -3, 1]	4_1	eennnuenneedsswwnwwsssuwwdnnenneeeesusswwwwdss
+46	4	[1, -3, 1]	4_1	eennnuenneedsswwnwwsssuwwnneenendeesusswwwwdss
+46	4	[1, -3, 1]	4_1	eennnuenneedsswwnwwsssuwwnneenndeeesusswwwwdss
+46	4	[1, -3, 1]	4_1	eennnuennwwwswswsseeednnnwwssueeeednnwuwswdsss
+46	5	[2, -3, 2]	5_2	eennnuneedeesswuwnwdnwwsssueeeeennwdwswuwwwdss
+46	5	[2, -3, 2]	5_2	eennnuneedseesswwunnwdnwwsssuseeeenndwwuwwwdss
+46	5	[2, -3, 2]	5_2	eennnuneedsssueennwwwdnwwsssueedseennuwwwwwdss
+46	5	[2, -3, 2]	5_2	eennnuneedsssueennwwwdnwwsssuseedeennuwwwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuneeedssswwuwwdnnneesueeednnwwssswuwwwdss
+46	5	[2, -3, 2]	5_2	eennnuneeesdsswwuwwdnnneesseueednnwwsuwswwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuneeesdsswwuwwdnnneesueseednnwwsswuwwwdss
+46	5	[2, -3, 2]	5_2	eennnuneeessdswwuwwdnnneesseuseednnwwuwswwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuneeessdswwuwwdnnneesuesseednnwwswuwwwdss
+46	4	[1, -3, 1]	4_1	eennnunendeessuwwdnwwsssueedennnueesswwwwwwdss
+46	5	[2, -3, 2]	5_2	eennnunendeessuwwdnwwsssueeeeennnwwdsswuwwwdss
+46	5	[2, -3, 2]	5_2	eennnunndeeesesswwunndwwwsssueeeenndwwsuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnunndeeessswwnuneessswwwwdnnneeesuswwwwdss
+46	4	[1, -3, 1]	4_1	eennnunndeeessuwwdnwwsssueedennnueesswwwwwwdss
+46	5	[2, -3, 2]	5_2	eennnunndeeessuwwdnwwsssueeeeennnwwdsswuwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnunndeeesswwunneesssswwwwdnnneeeusswwwwdss
+46	5	[2, -3, 2]	5_2	eennnunndeeseesswwunwndwwsssueeeenndwwsuwwwdss
+46	5	[2, -3, 2]	5_2	eennnunndeesssueennwwwdwwsssueedeennuwwswwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnunndwwwwssussdeeeueednnnwwwwuwwdsseeeussd
+46	3	[1, -1, 1]	3_1	eennnunneeeesswwdnwwwsssueednnuneedsswuwwwwdss
+46	0	[1]	0_1	eennnunwwdssesueednnunnwwwwsseedneeessuwwwwsds
+46	5	[2, -3, 2]	5_2	eennnunwwdssesueeednnwnwwsuwwssseeeednnuwwwsds
+46	0	[1]	0_1	eennnunwwdssseueednnunnwwwwsseedneeessuwwwwssd
+46	4	[1, -3, 1]	4_1	eennnuwnndeeeesswuwnwdwsssueednnneuesswwwwwdss
+46	5	[2, -3, 2]	5_2	eennnuwnndeeeesswuwnwdwsssueeeennnwdwssuwwwdss
+46	5	[2, -3, 2]	5_2	eennnuwnndeessseuennwwwdwsssueedeennwuwswwwdss
+46	4	[1, -3, 1]	4_1	eennnuwnndeessssuwwdwwunnedesueennwdwwwsseussd
+46	5	[2, -3, 2]	5_2	eennnuwnnndeesswwwuswsseednnwwnneeeusesswwwdss
+46	4	[1, -3, 1]	4_1	eennnuwnwdwsseesueednnnnwwwwussedeneuesswwwsds
+46	4	[1, -3, 1]	4_1	eennnuwnwdwssseeueednnnnwwwwussedeneuesswwwssd
+46	4	[1, -3, 1]	4_1	eennnuwnwdwssueeeednnwwsssueeennwnwnwwwssedsss
+46	5	[2, -3, 2]	5_2	eennnuwnwdwswsuseeednnneessuwwwwdswwnnueeedsss
+46	5	[2, -3, 2]	5_2	eennnuwnwdwswusseeednnneessuwwwwdwwnneuesedsss
+46	3	[1, -1, 1]	3_1	eennnuwnwwssdeennwwwwssseeeeusswwwnnndneeusssd
+46	5	[2, -3, 2]	5_2	eennnuwnwwsssdwwnneeeuseeednnwwsssuswwwnndeess
+46	0	[1]	0_1	eennnuwnwwwdssseueednnnwwssueeesswwwwnnneedsss
+46	3	[1, -1, 1]	3_1	eennnuwnwwwwsssseeeeennwwwdnneesssuwwwnneedsss
+46	3	[1, -1, 1]	3_1	eennnuwwdnneesesssuwwdnnnuwwsssseeeeennwwwwdss
+46	0	[1]	0_1	eennnuwwdnneeueesssswwwdnnneennwwusseesswwwdss
+46	0	[1]	0_1	eennnuwwdnneueeesssswwwdnnnennwwusseeesswwwdss
+46	0	[1]	0_1	eennnuwwdnnueeeesssswwwdnnnnnwwssueeeesswwwdss
+46	0	[1]	0_1	eennnuwwdnwwussseeednnnnwwwwsseeuneeeesswwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuwwdwsswwnnueesseednnnwwwssusseeeennwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuwwdwswwnnueessseednnnwwwsussseeeennwwdss
+46	4	[1, -3, 1]	4_1	eennnuwwdwwsseeeueeennwnwwwwssdeenneessuwwwssd
+46	4	[1, -3, 1]	4_1	eennnuwwdwwsseueneeednnwwsssueeennwnwwwwssdess
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuwwdwwsusseeendnnneessuwwwdwswwnnueesseds
+46	5	[2, -3, 2]	5_2	eennnuwwdwwsusseeendnnneessuwwwswdwwnnueesdess
+46	0	[1]	0_1	eennnuwwdwwussdeeeueennnwwwwssdwwnneeeesswussd
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuwwdwwwnneeusssseednnnwwwusssseeeennwwdss
+46	5	[2, -3, 2]	5_2	eennnuwwndwwssuseeednnneessuwwwwdswwnnueedesss
+46	5	[2, -3, 2]	5_2	eennnuwwndwwsusseeednnneessuwwwwdwwnnueesdesss
+46	0	[1]	0_1	eennnuwwwdnneeeessssuwwdnnneuesswwwwwnneedssss
+46	0	[1]	0_1	eennnuwwwdnneeesesssuwwdnnnueesswwwwwnneedssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuwwwdnnneessuwwwssseeednnwnnueesesswwwdss
+46	3	[1, -1, 1]	3_1	eennnuwwwdnwwssueeeeeednnwwsssuwwdwnnuneedssss
+46	5	[2, -3, 2]	5_2	eennnuwwwdsseeueeennwdnwwssueedennuwwwwdssussd
+46	5	[2, -3, 2]	5_2	eennnuwwwdwsseeeueednnnwnwwssswuwnneeedssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuwwwdwsseeeueennnwwwdsswuwnndeneesssuwssd
+46	5	[2, -3, 2]	5_2	eennnuwwwnneedssssueeennwnwwwdnneessessuwwwdss
+46	3	[1, -1, 1]	3_1	eennnuwwwsseednnneessssuwwwwwnnnneeeeesswwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eennnuwwwssseeeednnnueesswwwwdnnneeessuwwwwdss
+46	0	[1]	0_1	eennnuwwwssseeeeeennnwwdssuwwdnnneeessuwwwwdss
+46	4	[1, -3, 1]	4_1	eennnuwwwssseeeeendnwnnwwsssueedseennuwwwwwdss
+46	4	[1, -3, 1]	4_1	eennnuwwwssseeeeenndwnnwwsssueedeennwuwswwwdss
+46	4	[1, -3, 1]	4_1	eennnuwwwsssseeeeennwdnnnwwsssuseedennuwwwwdss
+46	4	[1, -3, 1]	4_1	eennnuwwwswdwnneeesessuwwdnnwuwssseeeeennwwdss
+46	4	[1, -3, 1]	4_1	eennnuwwwswsdwwnneeeeessuwwdnwwusseeeeennwwdss
+46	4	[1, -3, 1]	4_1	eennnuwwwwdnneessessuwwdnnnuwwsssseeeeennwwdss
+46	5	[2, -3, 2]	5_2	eennnuwwwwnneedsswssueednnnnnwwssueeeesswwwdss
+46	0	[1]	0_1	eennnuwwwwwsdeesueednnneessuwwwwwsdwwnneeeesss
+46	0	[1]	0_1	eennnuwwwwwsdeseueednnneessuwwwwwswdwnneeesess
+46	0	[1]	0_1	eennnuwwwwwsdseeueednnneessuwwwwwswwdnneeseess
+46	0	[1]	0_1	eennnwnneeussswwdwwunneeedesssuwwdwwwnneeusssd
+46	3	[1, -1, 1]	3_1	eennnwnnwwwsuseedsesuennnnwwwwwdsseeneuesswsds
+46	5	[1, -1, 1, -1, 1]	5_1	eennnwnuneedssuwwwwssseendnwnnneesueesswwwwsds
+46	3	[1, -1, 1]	3_1	eennnwnwnwwsuseedsesuennnnwwwwwdsseenueesswsds
+46	0	[1]	0_1	eennnwnwwwussdeeeunnwwssssseenndwwwwnneeeusssd
+46	3	[1, -1, 1]	3_1	eennnwnwwwwsseeeeunnwwsssdeeusswwwnnnndeeusssd
+46	0	[1]	0_1	eennnwnwwwwsseeeeunnwwssssseenndwwwunndeeusssd
+46	4	[1, -3, 1]	4_1	eennnwunndeeessuwwndwwssesueednnnueesswwwwwsds
+46	5	[2, -3, 2]	5_2	eennnwunndeeessuwwndwwssesueeeennnwwdssuwwwsds
+46	5	[2, -3, 2]	5_2	eennnwunndeesssueennwwwdwwssesueedennuwwswwsds
+46	5	[2, -3, 2]	5_2	eennnwunnneessdwwwssesueeennwwnndeessswuwwwsds
+46	0	[1]	0_1	eennnwuwwdnneeueesssswwdnwnneennwwusseesswwsds
+46	0	[1]	0_1	eennnwuwwdnneueeesssswwdnwnnennwwusseeesswwsds
+46	0	[1]	0_1	eennnwuwwdnnueeeesssswwdnwnnnnwwssueeeesswwsds
+46	4	[1, -3, 1]	4_1	eennnwuwwssseeeeennwdnnwwwssesueedennuwwswwsds
+46	4	[1, -3, 1]	4_1	eennnwuwwwnneedsssesueednnnwwnnwwssueeesswwsds
+46	3	[1, -1, 1]	3_1	eennnwwnneeusswwwdseesuswwwnnnneeedeessuwwwsds
+46	5	[2, -3, 2]	5_2	eennnwwuwssdwwunnedeseesuswwwnndwnneeeeusswsds
+46	0	[1]	0_1	eennnwwuwwdnneeueesssswdnwwnneennwwusseesswsds
+46	0	[1]	0_1	eennnwwuwwdnneueeesssswdnwwnnennwwusseeesswsds
+46	0	[1]	0_1	eennnwwuwwdnnueeeesssswdnwwnnnnwwssueeeesswsds
+46	4	[1, -3, 1]	4_1	eennnwwuwwwnneedssseesuennndwwnnwwssueeesswsds
+46	5	[1, -1, 1, -1, 1]	5_1	eennnwwwusssseenndwwwwnneneeeussdwwwunneessssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennnwwwusssseenndwwwwnnneeeeussdwwwnuneessssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennnwwwwunndeesuswssseendnwwwwnneeuneessswsds
+46	0	[1]	0_1	eennnwwwwwsseeeenunwwsssseeennnnnwwwwssdeeussd
+46	0	[1]	0_1	eennueeedsswwnnnwwsswwnnueesseeednnnwwwwssussd
+46	4	[1, -3, 1]	4_1	eennueeennwwwwwsdeeessuwwdnwwnneeeeesuwwwswsds
+46	4	[1, -3, 1]	4_1	eennueeennwwwwwsdeeessuwwdwwnnneeeeesuwwwswssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennueesdeennwwuwwwwdsseueedneeunndwwswwsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennueesdeennwwwuwwwdsseueedneeunndwwwswsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennueesdeennwwwuwwwdsseueedneeunwndwwswsuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennueesdeennwwwwuwwdsseueedneeunndwwwwssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennueesdeennwwwwuwwdsseueedneeunwndwwwssuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennueesdeennwwwwuwwdsseueedneeunwwndwwssuwssd
+46	0	[1]	0_1	eennueneedsswwnnwwsswwnnueesseeendnnwwwwssussd
+46	0	[1]	0_1	eennuenneedsswwnwwsswwnnueesseeenndnwwwwssussd
+46	4	[1, -3, 1]	4_1	eennuennwwwdwsseeunedessuwwdwwunnnndeesswusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennuennwwwswdwnneeessssueednnwuwswwwnnedessss
+46	5	[2, -3, 2]	5_2	eennuennwwwwwdsseenueedessuwwdwwunndneessuwssd
+46	5	[2, -3, 2]	5_2	eennuneedsswuwwdwnnueneedssueednnwnwwsswsuwssd
+46	0	[1]	0_1	eennuneedsswuwwnnwwdsseenneesueednnwwwwwssussd
+46	5	[2, -3, 2]	5_2	eennunndwwnwwssueedeeessuwwdwwwwnnnueedsseussd
+46	3	[1, -1, 1]	3_1	eennunndwwuwwdsseeeneessuwwdwwunndnneeussswssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennunndwwwuwwdssseeeeueednnwwwunndwwssseeussd
+46	5	[2, -3, 2]	5_2	eennunndwwwwussedeeunnwwsdwsseeeueednnwwwusssd
+46	0	[1]	0_1	eennunndwwwwwsseeuneesseednnwwsswwwunndeesussd
+46	5	[2, -3, 2]	5_2	eennunnndeesswwwswwunndeeeeussswwdwwwnneeusssd
+46	0	[1]	0_1	eennunnwwwwsdesseenneessuwwnnwwswdwnneeessussd
+46	0	[1]	0_1	eennunnwwwwsdsseeenneessuwwnnwwswwdnneesseussd
+46	0	[1]	0_1	eennunnwwwwssdeseenneessuwwnnwwsswdwnneeesussd
+46	0	[1]	0_1	eennunnwwwwssdseeenneessuwwnnwwsswwdnneeseussd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eennunwwwdnwwssueedennuwwsdsseeeueednnwwsuwssd
+46	5	[2, -3, 2]	5_2	eennunwwwdwsseeeueednnwnnwwssswuwnneeedssuwssd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eennunwwwdwwssueendennwwussdseeeueednnwwsuwssd
+46	3	[1, -1, 1]	3_1	eennunwwwsssseeeeennnwnndwwwssseueednnwwsuwssd
+46	3	[1, -1, 1]	3_1	eennuwnndeeseennuwwwwwssssednneueendnwwwwsssss
+46	3	[1, -1, 1]	3_1	eennuwnnedeseennuwwwwwssssednneueendnwwwswssss
+46	3	[1, -1, 1]	3_1	eennuwnneedseennuwwwwwssssednneueendnwwswwssss
+46	0	[1]	0_1	eennuwnneeeesswwdnnwwwswsseeueedennuwwdwswussd
+46	0	[1]	0_1	eennuwnneeeesswwdnnwwwwsseesueedennuwwdwwussds
+46	5	[2, -3, 2]	5_2	eennuwnnndeesswwswwunndeeeusesswwdwwwnneeusssd
+46	5	[2, -3, 2]	5_2	eennuwnnwwdssseeueednnnwwwsuwwnneeeessdwswussd
+46	3	[1, -1, 1]	3_1	eennuwnnwwssdeennwwwwssseeeeusswwwnnndneeusssd
+46	3	[1, -1, 1]	3_1	eennuwnnwwsssseeeednnnnwwwwsseesueennwdwwussds
+46	5	[2, -3, 2]	5_2	eennuwnwdnneeeesswwunwwwdssseeueennndwwsswussd
+46	0	[1]	0_1	eennuwnwdwwussdeeeueennwnwwwssdwwnneeeesswussd
+46	0	[1]	0_1	eennuwwdnwwuwssdeenuneeeesswwdnnnwwwwsseuseeds
+46	5	[2, -3, 2]	5_2	eennuwwdwswwnnueedeneesessuwwdnnuwnwdwssuseeds
+46	5	[2, -3, 2]	5_2	eennuwwdwswwnnueedneeesessuwwdnnwunwwdssuseeds
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwdwswwwnneuessseeendnnwwwswuwnneeessseds
+46	3	[1, -1, 1]	3_1	eennuwwnnedeseennuwwwwwsssseednnueendnwwwsssss
+46	3	[1, -1, 1]	3_1	eennuwwnneedseennuwwwwwsssseednnueendnwwswssss
+46	4	[1, -3, 1]	4_1	eennuwwsseeedeennnnwwussswwdnneeeunndwwswwssss
+46	4	[1, -3, 1]	4_1	eennuwwsseeedeennnnwwussswwdnneeeunnwwsswwdsss
+46	4	[1, -3, 1]	4_1	eennuwwsseeedeennnwuwsswwdnneeseuenndwwwwwssss
+46	4	[1, -3, 1]	4_1	eennuwwsseeedeennnwuwsswwdnneeseuennwwwswwdsss
+46	3	[1, -1, 1]	3_1	eennuwwsseeedeennwuwswwdnneueeesswdwnnnwwwssss
+46	3	[1, -1, 1]	3_1	eennuwwsseeedeennwuwswwdnnueeeesswdwnnwnwwssss
+46	5	[2, -3, 2]	5_2	eennuwwsseeednnneuesswwwwdnneneeesswuwnwwwdsss
+46	4	[1, -3, 1]	4_1	eennuwwsseeednnneuesswwwwdnneuesedennwwwwwssss
+46	5	[2, -3, 2]	5_2	eennuwwsseeednnnnueessswwwwdnnenneessuwwwwdsss
+46	4	[1, -3, 1]	4_1	eennuwwsseeednnnnueessswwwwdnneueednnwwswwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeednnnuwwwnndeesswssueeennnwwwdwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeednnunnndeesswwwwssueeennndwwwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeednnunwnndeesswwwssueeennnwdwwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeednnunwwnndeesswwssueeennnwwdwwssss
+46	4	[1, -3, 1]	4_1	eennuwwsseeeeenndwwsuwwdnneeeeesswwunwnwwwdsss
+46	4	[1, -3, 1]	4_1	eennuwwsseeeeennnnwwdsssuwwdnnenneessuwwwwdsss
+46	3	[1, -1, 1]	3_1	eennuwwsseeeeennnnwwdsssuwwdnneueednnwwswwssss
+46	4	[1, -3, 1]	4_1	eennuwwsseeeeennnwdwssuwwdnneneeesswuwnwwwdsss
+46	3	[1, -1, 1]	3_1	eennuwwsseeeeennnwdwssuwwdnneuesedennwwwwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeeendnnnwwswssueeneedsswwnnnuwwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeeendnnnwwwsssueeneedsswwnnnwuwwdsss
+46	0	[1]	0_1	eennuwwsseeeendnnuwwdwssueedseennuwwdnnwwwssss
+46	3	[1, -1, 1]	3_1	eennuwwsseeeendnnuwwdwssueeneedsswwnnnnwwwssss
+46	0	[1]	0_1	eennuwwsseeeendnnuwwwdssueedseennuwwdnwnwwssss
+46	3	[1, -1, 1]	3_1	eennuwwsseeeendnnuwwwdssueeneedsswwnnnwnwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeeenndnnwwwsssueenneedsswwnnwuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeeennndnwwwsssueennneedsswwnwuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwsseeeennnndwwwsssueennnndeesswwwuwwdsss
+46	3	[1, -1, 1]	3_1	eennuwwsseeeennwnwwwnndeesswssueednnnuwwdwssss
+46	3	[1, -1, 1]	3_1	eennuwwsseeeennwnwwwwdnneessssueednnwnuwwdssss
+46	0	[1]	0_1	eennuwwsswwnnndwwsseeeunndeessusswwwwnnndeeess
+46	5	[2, -3, 2]	5_2	eennuwwswdwnneeueeendnwwssssueednnwnuwwwssdess
+46	5	[2, -3, 2]	5_2	eennuwwswdwnnueeeeesswwdnnnnwwsssuwwnneeedssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwswdwwunnneessdwwnneeeesssuswwwnnndeesss
+46	5	[2, -3, 2]	5_2	eennuwwswdwwwnneeussseeendnnnwwsswwunneesedsss
+46	3	[1, -1, 1]	3_1	eennuwwswdwwwnneeussseeendnnuwwdswwunndeeessss
+46	3	[1, -1, 1]	3_1	eennuwwswdwwwnneeussseeendnnuwwsdwwunndeesesss
+46	5	[2, -3, 2]	5_2	eennuwwswdwwwnneuessseeendnnwwwswuwnneeessdess
+46	5	[2, -3, 2]	5_2	eennuwwswdwwwnnneeusssseeendnnwwwwunneesssdess
+46	4	[1, -3, 1]	4_1	eennuwwswdwwwnuneessseeendnnwwwwwwssueendeeess
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwswwndwnneeeesssueennwwwwsdswwunnedeesss
+46	0	[1]	0_1	eennuwwwdnneeeesssuwwdnneuesesswwwwwwnnneedsss
+46	0	[1]	0_1	eennuwwwdnneeesessuwwdnnueesesswwwwwwnnneedsss
+46	5	[2, -3, 2]	5_2	eennuwwwdnnenneessuwwwswsseeednnnnueesswwwdsss
+46	3	[1, -1, 1]	3_1	eennuwwwdnnnueeesswwwwsseeednnnuwwwdnneessssss
+46	4	[1, -3, 1]	4_1	eennuwwwdnnnuwwsseeeedssueennwnwwwwdnneessssss
+46	4	[1, -3, 1]	4_1	eennuwwwdnnnuwwsseeeeeesswwdnnnnwnwwssueedssss
+46	3	[1, -1, 1]	3_1	eennuwwwdnnnuwwsseeeeeesswwdnnnuwwwdnneessssss
+46	3	[1, -1, 1]	3_1	eennuwwwdnnueedneessuwwwwwsseeednnenunwwdsssss
+46	0	[1]	0_1	eennuwwwdnnueedsssueennnwnwwwwsseeeednnwwsssss
+46	4	[1, -3, 1]	4_1	eennuwwwdnnuwwdwsseeuneeedssuwwwwnndenneesssss
+46	4	[1, -3, 1]	4_1	eennuwwwdnnuwwwdsseenueeedssuwwwwnndneneesssss
+46	5	[2, -3, 2]	5_2	eennuwwwdnnuwwwsseednnneesesssuwwdwwnnueeedsss
+46	5	[2, -3, 2]	5_2	eennuwwwdnnwuwssseeeednnnwuwswdwnneeeeusswdsss
+46	4	[1, -3, 1]	4_1	eennuwwwdnnwuwwdsseenueeedssuwwwwnndnneeesssss
+46	4	[1, -3, 1]	4_1	eennuwwwdnwnuwwdsseeuneeedssuwwwwnndnneesessss
+46	0	[1]	0_1	eennuwwwdnwwuneeeedsssueennwwwwwsdwwnneeeessss
+46	3	[1, -1, 1]	3_1	eennuwwwdnwwuneeeeesesswwdnnuwwwsdwwnneeeessss
+46	4	[1, -3, 1]	4_1	eennuwwwdnwwuneeeeseesswwdnnnwwwwwsseeuneedsss
+46	5	[2, -3, 2]	5_2	eennuwwwdnwwusseeeednnnwwuswsdwwnneeneeussdsss
+46	5	[2, -3, 2]	5_2	eennuwwwdnwwusseeeednnnwwwussdwwnneneeeussdsss
+46	5	[2, -3, 2]	5_2	eennuwwwdnwwusseeeednnnwwwussdwwnneneeussedsss
+46	4	[1, -3, 1]	4_1	eennuwwwdnwwuwssdeenuneeedssuwwwwndwnneeeessss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdswwnnneueedesssuwwwndnennwwusseeedsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdswwnnnueedeesssuwwwndnnnwwssueeedesss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdswwnnnueeesedssuwwwndnnnwwssueeedesss
+46	5	[2, -3, 2]	5_2	eennuwwwdswwwnneuesseeednnnwwswswuwnneeesedsss
+46	5	[2, -3, 2]	5_2	eennuwwwdswwwnneuesseeednnnwwwsswuwnneeesdesss
+46	3	[1, -1, 1]	3_1	eennuwwwdswwwnneuesseeednnuwwdwswuwnndeeeessss
+46	5	[2, -3, 2]	5_2	eennuwwwdswwwnnnueedssuseeednnnwwnwwssueedesss
+46	4	[1, -3, 1]	4_1	eennuwwwdswwwnnnueedssuseeednnuwwwwdnneessesss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdwnnnwwssueeedneesssuwwdwwnnnueeesdsss
+46	3	[1, -1, 1]	3_1	eennuwwwdwnnueedneessuwwwwsseeednnnunwwdssesss
+46	5	[2, -3, 2]	5_2	eennuwwwdwnnuwwssseeeeednnnwwsuwwdnneeeussdsss
+46	5	[2, -3, 2]	5_2	eennuwwwdwnnuwwssseeeeednnnwwsuwwdnneeusesdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdwnnwwssueenedneesssuwwdwwnnuneeesdsss
+46	0	[1]	0_1	eennuwwwdwnwuneeedesssueennwwwwwswdwnneeesesss
+46	3	[1, -1, 1]	3_1	eennuwwwdwnwuneeeeesesswwdnnuwwwswdwnneeesesss
+46	4	[1, -3, 1]	4_1	eennuwwwdwnwuneeeseeesswwdnnnwwwwwsseuenedesss
+46	5	[2, -3, 2]	5_2	eennuwwwdwnwuwsseeeeednnnwwsuwswdwnneeueesdsss
+46	0	[1]	0_1	eennuwwwdwnwuwsseeeeednnuwwdnwwwsseuenneedssss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdwnwwssueennedneesssuwwdwwnunneeesdsss
+46	5	[2, -3, 2]	5_2	eennuwwwdwwnnnueeesdwswusseeednnnnwwwsuesedsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdwwnnnueeesswdwnneeessssuwwwnnnedessss
+46	0	[1]	0_1	eennuwwwdwwnuneedeesssueennwwwwwswwdnneeseesss
+46	3	[1, -1, 1]	3_1	eennuwwwdwwnuneeeeesesswwdnnuwwwswwdnneeseesss
+46	4	[1, -3, 1]	4_1	eennuwwwdwwnuneeseeeesswwdnnnwwwwwssueendeesss
+46	0	[1]	0_1	eennuwwwdwwunndeeeesssueennwwwwwssdwwnneeeesss
+46	3	[1, -1, 1]	3_1	eennuwwwdwwunneeeeesesswwdnnuwwwssdwwnneeeesss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwdwwunnneessdwwnneeeessssuwwwnnndeessss
+46	3	[1, -1, 1]	3_1	eennuwwwdwwunwwdsseeeeueednnuwwwsswwndneeeesss
+46	5	[2, -3, 2]	5_2	eennuwwwdwwusseeeendnnnwwsuwssdwwnneenueesdsss
+46	5	[2, -3, 2]	5_2	eennuwwwdwwusseeeendnnnwwswussdwwnneneuesedsss
+46	5	[2, -3, 2]	5_2	eennuwwwdwwusseeeendnnnwwwsussdwwnnenueesdesss
+46	5	[2, -3, 2]	5_2	eennuwwwdwwwnnneeusssseeednnnwwwwunneesssdesss
+46	4	[1, -3, 1]	4_1	eennuwwwdwwwnuneessseeednnnwwwwwwssueendeeesss
+46	4	[1, -3, 1]	4_1	eennuwwwnndeesssuwwdwwnneeeueeessswwwwwnndeess
+46	5	[2, -3, 2]	5_2	eennuwwwnneeeednnwwsssssueednnwnnueesswwwwdsss
+46	0	[1]	0_1	eennuwwwnneeeednnwwsssssuwwwnnnneeeedssuwwdsss
+46	0	[1]	0_1	eennuwwwnneeeesdeennwwwwssssueeennndwwsuwwdsss
+46	0	[1]	0_1	eennuwwwnneeenndwwssesssuwwwnnnneeedessuwwdsss
+46	0	[1]	0_1	eennuwwwnneenndwwsseesssuwwwnnnneedeessuwwdsss
+46	5	[2, -3, 2]	5_2	eennuwwwnnendeeesswwssueennwndwwwnneeussswdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwnneneedsswssueeennnwwwdnneesssuwwwdsss
+46	5	[2, -3, 2]	5_2	eennuwwwnwdnwwssueedenneesssuwwdwwnnuneeesdsss
+46	5	[2, -3, 2]	5_2	eennuwwwnwdwsseeueednnnwuwwwssedennneeusswdsss
+46	4	[1, -3, 1]	4_1	eennuwwwnwdwsseeueednnnwwsswusseeeeennnwwwdsss
+46	5	[2, -3, 2]	5_2	eennuwwwnwdwwssueendenneesssuwwdwwnunneeesdsss
+46	5	[2, -3, 2]	5_2	eennuwwwnwwdsseeueednnnwwuwwwsseednnneeussdsss
+46	0	[1]	0_1	eennuwwwwdnneeesssuwwdnnuwwssseeeeeennnwwwdsss
+46	3	[1, -1, 1]	3_1	eennuwwwwdnneueedsssuwwwwnneedsswwnnnneeesssss
+46	3	[1, -1, 1]	3_1	eennuwwwwdnneuesedssuwwwwnneedsswwnnnneeesssss
+46	5	[2, -3, 2]	5_2	eennuwwwwdnnneeessssueennwwnwdwssswwnnueeedsss
+46	5	[2, -3, 2]	5_2	eennuwwwwdnnneesesssueennwwnwwdssswwnnueeedsss
+46	3	[1, -1, 1]	3_1	eennuwwwwdnnueeedsssuwwwwnneedsswwnnnneesessss
+46	3	[1, -1, 1]	3_1	eennuwwwwdnnueeesdssueednnwnwwwssswwnnueeedsss
+46	3	[1, -1, 1]	3_1	eennuwwwwdnnueesedssuwwwwnneedsswwnnnneesessss
+46	0	[1]	0_1	eennuwwwwdwnnueesdssueednnnnwwwwwssueedneessss
+46	0	[1]	0_1	eennuwwwwdwnnueesdssueednnnuwnwwwwsseedneessss
+46	3	[1, -1, 1]	3_1	eennuwwwwdwnnueesdssueednnnwwwsuwwnneeeessdsss
+46	0	[1]	0_1	eennuwwwwdwnnueesdssueednnuwnnwwwwsseedneessss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwwndneeesssuwwwwnnneesdswwnnneeeussdsss
+46	0	[1]	0_1	eennuwwwwndneneesesessuwwdnnuwwdswwnnueeedssss
+46	4	[1, -3, 1]	4_1	eennuwwwwndnneeeessessuwwdnnnwwsswwnnueesedsss
+46	0	[1]	0_1	eennuwwwwndnneeesesessuwwdnnuwwdswwnnueedessss
+46	5	[2, -3, 2]	5_2	eennuwwwwndnneeessssueennwwnwdwsswwnnueesedsss
+46	4	[1, -3, 1]	4_1	eennuwwwwndnneeeusseesswwdnnnwwsswwnnueesedsss
+46	0	[1]	0_1	eennuwwwwndnneeuseesesswwdnnuwwdswwnnueedessss
+46	4	[1, -3, 1]	4_1	eennuwwwwndnneeuseseesswwdnnnwwsswwnnueesedsss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwwnndeeesssuwwwwnnnneessdwwnneeeussdsss
+46	4	[1, -3, 1]	4_1	eennuwwwwnndneeeessessuwwdnnnwwswwnnueessedsss
+46	5	[2, -3, 2]	5_2	eennuwwwwnndneeessssueennwwnwdwswwnnueessedsss
+46	4	[1, -3, 1]	4_1	eennuwwwwnndneeeusseesswwdnnnwwswwnnueessedsss
+46	4	[1, -3, 1]	4_1	eennuwwwwnndneeuseseesswwdnnnwwswwnnueessedsss
+46	0	[1]	0_1	eennuwwwwnneeedneessuwwwwdssueednnenunwwdsssss
+46	0	[1]	0_1	eennuwwwwnneeednnwwsssueedssuwwwwnnnneeedsssss
+46	5	[2, -3, 2]	5_2	eennuwwwwnneeednnwwsssueeeesswwdnnennuwwdsssss
+46	0	[1]	0_1	eennuwwwwnneeedsssueennnwnwwwdssueeednnwwsssss
+46	0	[1]	0_1	eennuwwwwnneendnwwssseueedssuwwwwnnnneedsessss
+46	0	[1]	0_1	eennuwwwwnnendnwwssseeueedssuwwwwnnnnedseessss
+46	5	[1, -1, 1, -1, 1]	5_1	eennuwwwwnneneeedssuwwwdnneessssueennnwwwdssss
+46	0	[1]	0_1	eennuwwwwsdwwnuneeeeedssuwwdnwwuswwdnneeeeesss
+46	3	[1, -1, 1]	3_1	eennuwwwwsseeeeennnnwwdsssuwwdnnneneessuwwdsss
+46	0	[1]	0_1	eennuwwwwsseeeeennnnwwdsssuwwdnnueeednnwwsssss
+46	3	[1, -1, 1]	3_1	eennuwwwwsseeeeennnwwnwdwsssueednnnnwwussedsss
+46	3	[1, -1, 1]	3_1	eennuwwwwsseeeeennnwwwdnwwssseueednnnuwwsdsess
+46	0	[1]	0_1	eennuwwwwsswwnndeeseueednnwuwwwssdwwnneeeesess
+46	0	[1]	0_1	eennuwwwwsswwnnndeeeeessuwwdwwunnndwwsseeeeess
+46	3	[1, -1, 1]	3_1	eennuwwwwswwnndeesseueednnwnwwwwwsseeuneedsess
+46	0	[1]	0_1	eennuwwwwswwnndeesseueednnwuwwwsdwwnneeeessess
+46	0	[1]	0_1	eennuwwwwwdnnneeeessssuwwdnnuwwwdsseennneessss
+46	0	[1]	0_1	eennuwwwwwdnnueeeedsssuwwdnnuwwwdsseennneessss
+46	0	[1]	0_1	eennuwwwwwdnnueeesedssuwwdnnuwwwdsseennneessss
+46	4	[1, -3, 1]	4_1	eennuwwwwwndneneesesssuwwdnnnuwwwdsseenueedsss
+46	0	[1]	0_1	eennuwwwwwndnneeeessssuwwdnnuwnwwdsseenneessss
+46	4	[1, -3, 1]	4_1	eennuwwwwwndnneeesesssuwwdnnnwuwwdsseenueedsss
+46	0	[1]	0_1	eennuwwwwwndwwsseeeennneesssuwwwwwndeenueedsss
+46	0	[1]	0_1	eennuwwwwwnndneeeessssuwwdnnuwnnwwdsseeneessss
+46	0	[1]	0_1	eennuwwwwwnndwwsseeeenneesssuwwwwwnndeeueedsss
+46	4	[1, -3, 1]	4_1	eennuwwwwwnnedesssueednnnwuwswdwnneeeeusswdsss
+46	3	[1, -1, 1]	3_1	eennuwwwwwnnneedssueedssueennwnwwwwdnneessssss
+46	5	[2, -3, 2]	5_2	eennuwwwwwnnneedssueeeesswwdnnnnwnwwssueedssss
+46	4	[1, -3, 1]	4_1	eennuwwwwwnnneedssueeeesswwdnnnuwwwdnneessssss
+46	3	[1, -1, 1]	3_1	eennuwwwwwnnneeeesswwdnneessssuwwdwnnnueedssss
+46	4	[1, -3, 1]	4_1	eennuwwwwwwnneedssseueednnnwwsuwwdnneeeussdsss
+46	4	[1, -3, 1]	4_1	eennuwwwwwwnneedssseueednnnwwsuwwdnneeusesdsss
+46	0	[1]	0_1	eennwnneeeennwwussssswwdwnnnneeeeussdwwuswwssd
+46	0	[1]	0_1	eennwnneeennwwussessswwdwnnnneeeuessdwwuswwssd
+46	4	[1, -3, 1]	4_1	eennwnneeeunndwwswwsssseueennnndeesswwwuswwssd
+46	4	[1, -3, 1]	4_1	eennwnneeeunnwwsswswdsseueennnndeesswwwuswwssd
+46	4	[1, -3, 1]	4_1	eennwnneeeunnwwsswwdssseueennnndeesswwwuswwssd
+46	0	[1]	0_1	eennwnneennwwusseessswwdwnnnneeueedsswwuswwssd
+46	0	[1]	0_1	eennwnneenuesssswwwdwnnueedeennnwwsusesswwwssd
+46	3	[1, -1, 1]	3_1	eennwnneeuseednnwwwwwsssseuenndeenunwwswsswssd
+46	0	[1]	0_1	eennwnnenueesssswwwdwnnueedennnwwsuseesswwwssd
+46	3	[1, -1, 1]	3_1	eennwnneuesedennwwwwwsssseuenndeneunwwwssswssd
+46	3	[1, -1, 1]	3_1	eennwnnneeussdssuwwdwwnnueeseeednnwwuwwdssussd
+46	0	[1]	0_1	eennwnnneeusssdeennwwwuwswdsseueeenndwwuswwssd
+46	0	[1]	0_1	eennwnnneeusssdeennwwwuwwdssseueeenndwwuswwssd
+46	0	[1]	0_1	eennwnnnueeesssswwwdwnnueednnnwwssueeesswwwssd
+46	3	[1, -1, 1]	3_1	eennwnnnwwwsuseedsseuennnnwwwwwdsseeneuesswssd
+46	3	[1, -1, 1]	3_1	eennwnnueedsssuwwdwnnnneessuwwnneeeessswwwwssd
+46	3	[1, -1, 1]	3_1	eennwnnueesdeennwwwwwsssseuenndneeunwwwwsssssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwnnueesesswwwdwnnnneessuwwnneeedsssuwwwssd
+46	3	[1, -1, 1]	3_1	eennwnnwnwwsuseedsseuennnnwwwwwdsseenueesswssd
+46	0	[1]	0_1	eennwnnwwsussdeeueednnwuwwdswwnnueeeeesswwwssd
+46	4	[1, -3, 1]	4_1	eennwnnwwwwsseeunnwwsssdeeeeusswwwnnnndeesussd
+46	3	[1, -1, 1]	3_1	eennwnnwwwwsseeunnwwssssseeeenndwwwunndeesussd
+46	4	[1, -3, 1]	4_1	eennwnuneednwwwwsssseeueeennnnwwwwsdeesuswwssd
+46	5	[2, -3, 2]	5_2	eennwnuneedsssueennwwwdnwwssseuseedennuwwwwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwnuneeedssswuwwdwnnneesueeednnwwsssuwwwssd
+46	3	[1, -1, 1]	3_1	eennwnuneesdeennwwwwswssseuenndneeunwwwwsssssd
+46	3	[1, -1, 1]	3_1	eennwnuneesedennwwwswwssseuenndeneunwwwwsssssd
+46	3	[1, -1, 1]	3_1	eennwnuneeseednnwwswwwssseuenndeenunwwwwsssssd
+46	3	[1, -1, 1]	3_1	eennwnuneessdeennwwwwwssseuenndeeunnwwwwsssssd
+46	5	[2, -3, 2]	5_2	eennwnunendeesesswwunndwwwssseueeenndwwuswwssd
+46	4	[1, -3, 1]	4_1	eennwnunendeessuwwdnwwssseueednnnueesswwwwwssd
+46	5	[2, -3, 2]	5_2	eennwnunendeessuwwdnwwssseueeeennnwwdssuwwwssd
+46	5	[2, -3, 2]	5_2	eennwnunenneessdwwwwssseueennnndeesswwwuswwssd
+46	5	[2, -3, 2]	5_2	eennwnunndeeesesswwunndwwwssseueeenndwwuswwssd
+46	4	[1, -3, 1]	4_1	eennwnunndeeessuwwdnwwssseueednnnueesswwwwwssd
+46	5	[2, -3, 2]	5_2	eennwnunndeeessuwwdnwwssseueeeennnwwdssuwwwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwnunndeeesswwunneesssswwwdwnnneeeusswwwssd
+46	5	[2, -3, 2]	5_2	eennwnunndeeseesswwunnwdwwssseueeenndwwuswwssd
+46	5	[2, -3, 2]	5_2	eennwnunndeesssueennwwwdwwssseueedennuwwswwssd
+46	5	[2, -3, 2]	5_2	eennwnunndwwswwsseeunendeesusswdwwwunndeesussd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwnunndwwwsussdseeeuenndnwwwunwwdsseeseussd
+46	5	[2, -3, 2]	5_2	eennwnunndwwwswsseeunndeeesusswdwwwunndeesussd
+46	5	[2, -3, 2]	5_2	eennwnunnneessdwwwssseueeennwwnndeessswuwwwssd
+46	5	[2, -3, 2]	5_2	eennwnuwnndwwswsseeunndeeesusswdwwwunndeesussd
+46	0	[1]	0_1	eennwnuwwdnneeueesssswwdwnnneennwwusseesswwssd
+46	0	[1]	0_1	eennwnuwwdnneueeesssswwdwnnnennwwusseeesswwssd
+46	0	[1]	0_1	eennwnuwwdnnueeeesssswwdwnnnnnwwssueeeesswwssd
+46	5	[2, -3, 2]	5_2	eennwnuwwsdwswwnnueessedeeusswwwwnnndneeesussd
+46	5	[2, -3, 2]	5_2	eennwnuwwsdwwwnneeusssdeeeusswwwwnnnndeeesussd
+46	4	[1, -3, 1]	4_1	eennwnuwwsdwwwnneeussssseeenndwwwwunndeeesussd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwnuwwsswdwwnnueesdeseeusswwwwnnndneeesussd
+46	5	[2, -3, 2]	5_2	eennwnuwwwndneessswussseenndwwwnnenueeesswwssd
+46	4	[1, -3, 1]	4_1	eennwnuwwwnneedsssseueednnwnwnnwwssueeesswwssd
+46	5	[2, -3, 2]	5_2	eennwnuwwwnneedsssseueennnwwwwdnneessesuswwssd
+46	4	[1, -3, 1]	4_1	eennwnwnwwussdwwnneneeeussessdwwwwunndeeseussd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwnwnwwusssdwwnneeeussdeeusswwwwnnndeeeussd
+46	0	[1]	0_1	eennwnwnwwuswsdseeeeusswwnnnndwwwssueendeeussd
+46	0	[1]	0_1	eennwnwnwwwussdseeeeusswwnnnndwwwssueendeeussd
+46	0	[1]	0_1	eennwnwwnwwussdseeeeusswwnnnnwdwwssueendeeussd
+46	4	[1, -3, 1]	4_1	eennwnwwwuneeeeessswwdwwunneeednwwwwwsseeeussd
+46	5	[2, -3, 2]	5_2	eennwnwwwussdwwnneneeusssdeeusswwwwnnndeeeussd
+46	0	[1]	0_1	eennwnwwwwsseeeeunnwwsssseeennnnnwwwwssdeeussd
+46	5	[2, -3, 2]	5_2	eennwnwwwwunneessssdeeusswwwnnnnndwwsseeeeussd
+46	4	[1, -3, 1]	4_1	eennwnwwwwunneesssssseenndwwwunnndwwsseeeeussd
+46	3	[1, -1, 1]	3_1	eennwnwwwwunneesssssseenndwwwwwnnneeussdeeussd
+46	3	[1, -1, 1]	3_1	eennwnwwwwwsuseedeeeusswwnnnwwnwwdsseeneeeussd
+46	5	[2, -3, 2]	5_2	eennwunndeeesswuwnnndwwswssseeueeennwdwwwsussd
+46	5	[2, -3, 2]	5_2	eennwunndeeesswuwnnnwwsswdsseeueeennwdwwwsussd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwunndwwswwsuseedeeuenndwwuwwwwdsseeneeussd
+46	3	[1, -1, 1]	3_1	eennwunndwwunwwdsseeeeeusswdwwwnunndneeusssssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwunndwwwswsuseedeeuenndwwwuwwwdsseeneeussd
+46	0	[1]	0_1	eennwunndwwwwssueedseeuenndwwwwsswwnnueeeesssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwunndwwwwssuseedeeuenndwwwwuwwdsseeneeussd
+46	0	[1]	0_1	eennwunneeeesswwdnnwwwwssseeueedennuwwdwwsussd
+46	3	[1, -1, 1]	3_1	eennwunneesdeennwwwwsswsseuenndneeunwwwwsssssd
+46	5	[2, -3, 2]	5_2	eennwunneesdssuwwdwwunnedeeuseednnwwwwwsseussd
+46	3	[1, -1, 1]	3_1	eennwunneesedennwwwswswsseuenndeneunwwwwsssssd
+46	3	[1, -1, 1]	3_1	eennwunneeseednnwwswwswsseuenndeenunwwwwsssssd
+46	3	[1, -1, 1]	3_1	eennwunneessdeennwwwwswsseuenndeeunnwwwwsssssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwunnndeesesswuwnndwwwssseeueeennwdwwwsussd
+46	4	[1, -3, 1]	4_1	eennwunnndeessuesswwwdwnneeusedennuwwdwwussssd
+46	5	[2, -3, 2]	5_2	eennwunnndeesswwwswuwnndeeeeussswdwwwnneuesssd
+46	5	[2, -3, 2]	5_2	eennwunnndwwswwsseeunendeseusswdwwwunndeesussd
+46	5	[2, -3, 2]	5_2	eennwunnndwwwswsseeunndeeseusswdwwwunndeesussd
+46	3	[1, -1, 1]	3_1	eennwunnnwwsdseeeennwwwwwsssseeeuennndwwussssd
+46	3	[1, -1, 1]	3_1	eennwunnnwwssdeeeennwwwwswssseeeuennndwwussssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwunwndwwswsuseedeeuenndwwwuwwwdsseeneeussd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwunwndwwwssuseedeeuenndwwwwuwwdsseeneeussd
+46	5	[2, -3, 2]	5_2	eennwunwnndwwswsseeunndeeseusswdwwwunndeesussd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eennwunwwdsseeueeendnnwwussedseennuwwdwwwsussd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eennwunwwdsseeueeenndnwwussedeennuwwsdwwwsussd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwunwwndwwssuseedeeuenndwwwwuwwdsseeneeussd
+46	0	[1]	0_1	eennwwnneeeeessuwwdnwwuwwdsseeueedennuwwswwssd
+46	0	[1]	0_1	eennwwnneeeennwwussssswdwwnnnneeeeussdwwuswssd
+46	0	[1]	0_1	eennwwnneeennwwussessswdwwnnnneeeuessdwwuswssd
+46	0	[1]	0_1	eennwwnneeennwwusssdeessuwwdwwnnnneeeussswwssd
+46	4	[1, -3, 1]	4_1	eennwwnneeeunndwwswwsssseeuennnndeesswwwuswssd
+46	4	[1, -3, 1]	4_1	eennwwnneeeunnwwsswswdsseeuennnndeesswwwuswssd
+46	4	[1, -3, 1]	4_1	eennwwnneeeunnwwsswwdssseeuennnndeesswwwuswssd
+46	0	[1]	0_1	eennwwnneennwwusseessswdwwnnnneeueedsswwuswssd
+46	0	[1]	0_1	eennwwnneennwwusssedeessuwwdwwnnnneeusesswwssd
+46	0	[1]	0_1	eennwwnneenuesssswwdwwnnueedeennnwwsusesswwssd
+46	3	[1, -1, 1]	3_1	eennwwnneeuseednnwwwwwsssseeunndeenunwwswssssd
+46	0	[1]	0_1	eennwwnnennwwussseedeessuwwdwwnnnneuseesswwssd
+46	0	[1]	0_1	eennwwnnenueesssswwdwwnnueedennnwwsuseesswwssd
+46	3	[1, -1, 1]	3_1	eennwwnneuesedennwwwwwsssseeunndeneunwwwsssssd
+46	3	[1, -1, 1]	3_1	eennwwnnneesuswwwdsseeueeennwnnwwsdseesuwwwssd
+46	0	[1]	0_1	eennwwnnnueeesssswwdwwnnueednnnwwssueeesswwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwnnueeessswwdwwnnnneessuwwnneeedssuswwssd
+46	4	[1, -3, 1]	4_1	eennwwnnuwwwsdesseeeusswwnnndnnwwwsseueneesssd
+46	4	[1, -3, 1]	4_1	eennwwnnwwwussdeseeeusswwnnndnwwwsseuenneesssd
+46	4	[1, -3, 1]	4_1	eennwwnueendnwwswssseeueeennwnnwwsdseesuwwwssd
+46	4	[1, -3, 1]	4_1	eennwwnuneednwwwwsssseeeueennnnwwwwsdeesuswssd
+46	5	[2, -3, 2]	5_2	eennwwnunenneessdwwwwssseeuennnndeesswwwuswssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwnunndeeesswwunneesssswwdwwnnneeeusswwssd
+46	0	[1]	0_1	eennwwnuwwdnneeueesssswdwwnnneennwwusseesswssd
+46	0	[1]	0_1	eennwwnuwwdnneueeesssswdwwnnnennwwusseeesswssd
+46	0	[1]	0_1	eennwwnuwwdnnueeeesssswdwwnnnnnwwssueeeesswssd
+46	4	[1, -3, 1]	4_1	eennwwnuwwdsseeeuenndwnnwwwswssueednneuesswssd
+46	4	[1, -3, 1]	4_1	eennwwnuwwdsseeeuenndwnwnwwswssueednnueesswssd
+46	0	[1]	0_1	eennwwnuwwdsseeeuenndwnwuwwwsseednnneeussswssd
+46	5	[2, -3, 2]	5_2	eennwwnuwwdsseeeuennnwwdwssuwwdnneneeessuswssd
+46	5	[2, -3, 2]	5_2	eennwwnuwwdsseeeuennnwwdwssuwwnneendeessuswssd
+46	5	[2, -3, 2]	5_2	eennwwnuwwdsseeeuennnwwwdssuwwdnneneesesuswssd
+46	4	[1, -3, 1]	4_1	eennwwnuwwwnneedsssseeuenndwnwnnwwssueeesswssd
+46	5	[2, -3, 2]	5_2	eennwwnuwwwnneedsssseeuennnwwwwdnneessesuswssd
+46	4	[1, -3, 1]	4_1	eennwwnwnuwwsdsseeeeusswwnnndwnnwwssueeneesssd
+46	4	[1, -3, 1]	4_1	eennwwnwnwwussdseeeeusswwnnndwnwwssueenneesssd
+46	5	[2, -3, 2]	5_2	eennwwnwuwsswwdnneeseussseenndwwwwnunneeessssd
+46	5	[2, -3, 2]	5_2	eennwwnwuwswwdnneesseussseenndwwwwnnuneeessssd
+46	5	[2, -3, 2]	5_2	eennwwnwuwwwdnneessseussseenndwwwwnnnueeessssd
+46	0	[1]	0_1	eennwwnwwussdeeeueednnwwuwwsdwwnneeeeeusswwssd
+46	5	[2, -3, 2]	5_2	eennwwnwwussdeeeuennnwwdwwwsseeunnndeessuswssd
+46	4	[1, -3, 1]	4_1	eennwwnwwussdeeeusswwwwnnnnneessdwwnneeeussssd
+46	5	[2, -3, 2]	5_2	eennwwnwwusssseeenndwwwwunnneessdwwnneeeussssd
+46	4	[1, -3, 1]	4_1	eennwwnwwwwsuseedeeeusswwnnndwwswwnnueeeeesssd
+46	0	[1]	0_1	eennwwwnneeeeessuwwndwwuwssdeeueednnunwwsswssd
+46	0	[1]	0_1	eennwwwnneeeennwwusssssdwwwnnnneeeeussdwwusssd
+46	0	[1]	0_1	eennwwwnneeennwwussesssdwwwnnnneeeuessdwwusssd
+46	0	[1]	0_1	eennwwwnneeennwwusssdeeusswdwwwnnnneeeussswssd
+46	0	[1]	0_1	eennwwwnneennwwusseesssdwwwnnnneeueedsswwusssd
+46	0	[1]	0_1	eennwwwnneennwwusssedeeusswdwwwnnnneeusesswssd
+46	0	[1]	0_1	eennwwwnnennwwussseedeeusswdwwwnnnneuseesswssd
+46	4	[1, -3, 1]	4_1	eennwwwnneuesedennwwwwussssdeeueennnwdwswusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwnnueeessswdwwwnnnneessuwwnneeedssuswssd
+46	3	[1, -1, 1]	3_1	eennwwwnueendnwwswssseeeueednnwwwnuneessswwssd
+46	4	[1, -3, 1]	4_1	eennwwwnueendnwwswssseeeueennnwnwwsdseeuswwssd
+46	4	[1, -3, 1]	4_1	eennwwwnuneesseednnwwwwwssseeeueeennwwdwwusssd
+46	5	[2, -3, 2]	5_2	eennwwwnunenneessdwwwwssseeeunnnndeesswwwusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwnunndeeesswwunneesssswdwwwnnneeeusswssd
+46	5	[2, -3, 2]	5_2	eennwwwnuwwdsseeeeunnnwwdwssuwwdnneneeessusssd
+46	5	[2, -3, 2]	5_2	eennwwwnuwwdsseeeeunnnwwdwssuwwnneendeessusssd
+46	5	[2, -3, 2]	5_2	eennwwwnuwwdsseeeeunnnwwwdssuwwdnneneesesusssd
+46	5	[2, -3, 2]	5_2	eennwwwnuwwwdnneesssussseeenndwwwwnnnueeessssd
+46	5	[2, -3, 2]	5_2	eennwwwnuwwwnneedsssseeeunnnwwwwdnneessesusssd
+46	5	[2, -3, 2]	5_2	eennwwwnwunwwdsseeuenneesssdwwwwunndneeesusssd
+46	5	[2, -3, 2]	5_2	eennwwwnwuwssdeeeeunnnwdwwwsseuennndeesswusssd
+46	5	[2, -3, 2]	5_2	eennwwwnwuwwdsseenuenneesssdwwuwwndnneeesusssd
+46	5	[2, -3, 2]	5_2	eennwwwnwwussdeeeeunnnwwdwwwsseeunnndeessusssd
+46	4	[1, -3, 1]	4_1	eennwwwnwwwsuseedeeeusswwnnnwdwswwnnueeeeesssd
+46	3	[1, -1, 1]	3_1	eennwwwuneendnwwsswsseeeueednnwwwnuneessswwssd
+46	4	[1, -3, 1]	4_1	eennwwwuneendnwwsswsseeeueennnwnwwsdseeuswwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwunendeesueesswwwdwwwnneeeuneedssuwwwssd
+46	4	[1, -3, 1]	4_1	eennwwwunndeeeeusswwndwwwsseeeueednnwunwwssssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwunndeeesueesswwwdwwwnneeeuneedssuwwwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwunndeeseueesswwwdwwwnneeuenedessuwwwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwunndeesueeesswwwdwwwnneeuneedsesuwwwssd
+46	3	[1, -1, 1]	3_1	eennwwwunndeeuneedsswwwwwsseeeuennndnwwusssssd
+46	5	[2, -3, 2]	5_2	eennwwwunndwwssseeeeuennnwwdswwunndeeessuswssd
+46	5	[2, -3, 2]	5_2	eennwwwunndwwssseeeeuennnwwsdwwunndeesesuswssd
+46	5	[2, -3, 2]	5_2	eennwwwunndwwwsseeunnneesesssdwwwwunndeeeusssd
+46	4	[1, -3, 1]	4_1	eennwwwunndwwwssueedneeeussdwwwwnnuenneesssssd
+46	4	[1, -3, 1]	4_1	eennwwwunneesseednnwwwwswsseeeueeennwwdwwusssd
+46	5	[2, -3, 2]	5_2	eennwwwunnenneessdwwwswsseeeunnnndeesswwwusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwunnndeeesswwunneesssswdwwwnneneeusswssd
+46	3	[1, -1, 1]	3_1	eennwwwunnndeeesswwwwsseeeunnndwwwnneeussssssd
+46	5	[2, -3, 2]	5_2	eennwwwunnndeesswwwsussseeenndwwwwnnneeeussssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwunnndwwsseeeuneessswdwwwnunndeeesuswssd
+46	5	[2, -3, 2]	5_2	eennwwwunnneesdeesssuwwdwwwnneeeeunndwwsussssd
+46	5	[2, -3, 2]	5_2	eennwwwunnneesdesessuwwdwwwnneeeuenndwwsussssd
+46	5	[2, -3, 2]	5_2	eennwwwunnwdwssseeeeunnnwdwswuwnndeeeesswusssd
+46	4	[1, -3, 1]	4_1	eennwwwunwndwwssueedneeeussdwwwwnnunneesessssd
+46	5	[2, -3, 2]	5_2	eennwwwunwnndeesswwsussseeenndwwwwnnneeuessssd
+46	3	[1, -1, 1]	3_1	eennwwwunwwdsseeeeunndwwwsussseeeennnnnwwssssd
+46	5	[2, -3, 2]	5_2	eennwwwunwwdsseeeeunnnwwdswsuwwdnneeneessusssd
+46	5	[2, -3, 2]	5_2	eennwwwunwwdsseeeeunnnwwwdssuwwdnneneesseusssd
+46	4	[1, -3, 1]	4_1	eennwwwunwwdwssueendneeeussdwwwwnuwnneeeessssd
+46	5	[2, -3, 2]	5_2	eennwwwunwwnndeesswsussseeenndwwwwnnneueessssd
+46	4	[1, -3, 1]	4_1	eennwwwussseeeennnnnwwsdwwwsseeeuenndnwwussssd
+46	5	[2, -3, 2]	5_2	eennwwwusswwwnnedeseeeunnnwwswsswdwnneeeeusssd
+46	5	[2, -3, 2]	5_2	eennwwwuswwdnneeeeunnwwsswsdseeeuenndnwwussssd
+46	4	[1, -3, 1]	4_1	eennwwwuswwdwnnneeussdseeeunndwwwwunneessesssd
+46	5	[2, -3, 2]	5_2	eennwwwuswwdwnnneeussdseeeunnnwwnwwssdeeeusssd
+46	5	[2, -3, 2]	5_2	eennwwwuswwdwnnueesdseeeusswwwwwnnnedneeeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwuswwnnndeeeesussdwwwnunnndwwsseeeeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwuswwnnndeeeseussdwwwnunnndwwsseeeuesssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwuswwnnnedeeesussdwwwnunenndwwsseeeusssd
+46	3	[1, -1, 1]	3_1	eennwwwuswwwnnedesseeeunndwwuwswdwnneeeeussssd
+46	5	[2, -3, 2]	5_2	eennwwwuswwwnnedesseeeunnnwwswswdwnneeeseusssd
+46	3	[1, -1, 1]	3_1	eennwwwuwnndeeuneedsswwwwsseeeunnndnwwussesssd
+46	5	[2, -3, 2]	5_2	eennwwwuwnnneedsswwsseeeuennnwwwdnneesssuswssd
+46	5	[2, -3, 2]	5_2	eennwwwuwnnneesdeesusswdwwwnneeeunndwwsusesssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwuwnnwwdsseeneuneesssdwwwwunndneeesusssd
+46	0	[1]	0_1	eennwwwuwnwdwsseeeeeunndwwunwwwssedenneeussssd
+46	5	[2, -3, 2]	5_2	eennwwwuwnwdwsseeeeeunnnwwsdwswuwnndeeeesusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwuwnwwdsseenneuneesssdwwuwwndnneeesusssd
+46	5	[2, -3, 2]	5_2	eennwwwuwwdnneeseeunnwwsswdsseeeuenndnwwussssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwuwwdnnneeesswuwnneeessssdwwwnnneuessssd
+46	5	[2, -3, 2]	5_2	eennwwwuwwdnnneeesuwswdsseeeunnnnwwwsdeseusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwuwwdnnneessuwwnneeeessssdwwwnnnueessssd
+46	3	[1, -1, 1]	3_1	eennwwwuwwdnwwssueeeedeeunndwwwsswwnuneeeesssd
+46	4	[1, -3, 1]	4_1	eennwwwuwwwndneessseeeunnnwwwwwwdsseenueeesssd
+46	5	[2, -3, 2]	5_2	eennwwwuwwwnnneedsssseeeunnnwwwwdnneessseusssd
+46	0	[1]	0_1	eennwwwwnneeeeeusswwndwwussdeeueednnwunwwssssd
+46	0	[1]	0_1	eennwwwwnneeennwwusssdeeussdwwwwnnnneeeusssssd
+46	0	[1]	0_1	eennwwwwnneeeuneedsswwwwussdeeuennndnwwusssssd
+46	0	[1]	0_1	eennwwwwnneennwwusssedeeussdwwwwnnnneeusessssd
+46	0	[1]	0_1	eennwwwwnnennwwussseedeeussdwwwwnnnneuseessssd
+46	3	[1, -1, 1]	3_1	eennwwwwnnneeeesswwunneesssswdwwunndneeusswssd
+46	0	[1]	0_1	eennwwwwnnueeesdeennwwwwssussdeeuennndwwsusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwwnnueeesssdwwwwnnnneessuwwnneeedssusssd
+46	0	[1]	0_1	eennwwwwnnwuneeeessssdwwunndnnwwwsseueneessssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwwnuneeesssdwwwwnnneesuswwnnndeeessusssd
+46	0	[1]	0_1	eennwwwwnwunneeeessssdwwunndnwwwsseuenneessssd
+46	4	[1, -3, 1]	4_1	eennwwwwnwwsuseedeeeusswwnnnwwdswwnnueeeeesssd
+46	0	[1]	0_1	eennwwwwsuwwndneeeeeussdwwunwwdswwnnueeeeesssd
+46	0	[1]	0_1	eennwwwwswwnnueessedeeunndwwwwsuwwnneeeessessd
+46	3	[1, -1, 1]	3_1	eennwwwwswwnnueessedeeunnnwwwwwwsseedneeeusssd
+46	3	[1, -1, 1]	3_1	eennwwwwswwnnueessedeeunnwnwwwwwsseedneeusessd
+46	3	[1, -1, 1]	3_1	eennwwwwunndeeseussdwwwwnneeusswwnnnneesessssd
+46	5	[2, -3, 2]	5_2	eennwwwwunndwwssseeeeeunnnwwdswwunndeeessusssd
+46	5	[2, -3, 2]	5_2	eennwwwwunndwwssseeeeeunnnwwsdwwunndeesesusssd
+46	5	[2, -3, 2]	5_2	eennwwwwunndwwssseeeeeusswwnnnndwwunneesessssd
+46	4	[1, -3, 1]	4_1	eennwwwwunndwwssseeeeeusswwnnnnnnwwssdeeeusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwwunneeesssdwwwwnneeusssseeennnndwwusssd
+46	5	[1, -1, 1, -1, 1]	5_1	eennwwwwunnndwwsseeeuneesssdwwwwnunndeeesusssd
+46	5	[2, -3, 2]	5_2	eennwwwwunnneessdwwwsseeeeusswwnnnnndeesuswssd
+46	4	[1, -3, 1]	4_1	eennwwwwwnneeusssdeeuennnwwdswwunndeeessuswssd
+46	4	[1, -3, 1]	4_1	eennwwwwwnneeusssdeeuennnwwsdwwunndeesesuswssd
+46	4	[1, -3, 1]	4_1	eennwwwwwnneuesssdeeunnnwdwswuwnndeeeesswusssd
+46	3	[1, -1, 1]	3_1	eennwwwwwnnneeeesswwunneessssdwwwunndneeussssd
+46	0	[1]	0_1	eennwwwwwnnuneeeessssdwwunndwnnwwssueeneessssd
+46	0	[1]	0_1	eennwwwwwnnwwssueeeenneesssdwwwwwnnueedeeusssd
+46	4	[1, -3, 1]	4_1	eennwwwwwnuneneesesssdwwunnndwwwssueendeeusssd
+46	0	[1]	0_1	eennwwwwwnunneeeessssdwwunndwnwwssueenneessssd
+46	0	[1]	0_1	eennwwwwwnwwssueeeennneesssdwwwwwnueendeeusssd
+46	0	[1]	0_1	eennwwwwwswwnnueeseessseenndwwwuwwndneeeeusssd
+46	0	[1]	0_1	eennwwwwwunndeeeseussdwwunndwwwsseeunnneessssd
+46	0	[1]	0_1	eennwwwwwunndeesussdeeunndwnnwwwwsseeuneessssd
+46	3	[1, -1, 1]	3_1	eennwwwwwunndeesussdeeunnnwwwsdwwnneeeessusssd
+46	0	[1]	0_1	eennwwwwwunnneeeessssdwwunndwwwsseeunnneessssd
+46	4	[1, -3, 1]	4_1	eennwwwwwussseeeenndwwunnndwwswsseeunndeeusssd
+46	4	[1, -3, 1]	4_1	eennwwwwwwnneeusssdeeeunnnwwdswwunndeeessusssd
+46	4	[1, -3, 1]	4_1	eennwwwwwwnneeusssdeeeunnnwwsdwwunndeesesusssd
+46	3	[1, -1, 1]	3_1	eennwwwwwwnneeusssdeeeunnnwwsssswwnnndeeeusssd
+46	4	[1, -3, 1]	4_1	eennwwwwwwnneeusssdeeeusswwnnnndwwunneesessssd
+46	3	[1, -1, 1]	3_1	eennwwwwwwnneeusssdeeeusswwnnnnnnwwssdeeeusssd
+46	3	[1, -1, 1]	3_1	eennwwwwwwnneeussssseeenndwwunndwwunneesessssd
+46	4	[1, -3, 1]	4_1	eennwwwwwwnneeussssseeenndwwunnnnwwssdeeeusssd
+46	3	[1, -1, 1]	3_1	eenueedeeennwwussswwwwndneesseeeunndwwuwwwwdss
+46	0	[1]	0_1	eenueedeenunwwdwwswsuseednneeneessuwwnwwwwwdss
+46	0	[1]	0_1	eenueedeeunndwwwwswsuseednneeeesswwunnwwwwwdss
+46	0	[1]	0_1	eenueedeeunndwwwwswsuseeeenndeesswwwwnnuwwwdss
+46	0	[1]	0_1	eenueedeeunndwwwwwssuseeeenndeesswwwwnnwuwwdss
+46	0	[1]	0_1	eenueedeneunwwwdwswsuseednneneeesswuwnwwwwwdss
+46	3	[1, -1, 1]	3_1	eenueedennunwwdssssuwwndnenueedneessuwwwwwwdss
+46	0	[1]	0_1	eenueedneeunwwwwdswsuseednnneeeesswwunwwwwwdss
+46	4	[1, -3, 1]	4_1	eenueednnnwwsswsuseeeeennnwwwdssseennuwwwwwdss
+46	5	[2, -3, 2]	5_2	eenueednnnwwsuwwwsseednnnueesdssseennuwwwwwdss
+46	3	[1, -1, 1]	3_1	eenueednnuenndwwsssssuwwndnennueedessuwwwwwdss
+46	3	[1, -1, 1]	3_1	eenueednnuenndwwsssssuwwndnenuenedessuwwwwwdss
+46	0	[1]	0_1	eenueednnuwwdswsuseednnnnwwsuseeeennwwwwwdssss
+46	3	[1, -1, 1]	3_1	eenueednnuwwwdnneesssssuwwndnennueeesswwwwwdss
+46	0	[1]	0_1	eenueednnuwwwdssuseeeennwwdsseennnnwwswsuwwdss
+46	5	[2, -3, 2]	5_2	eenueednnwnuwwwsseeedssuwwndnennneesuswwwdwsss
+46	3	[1, -1, 1]	3_1	eenueednnwunwwdsseessuwwndwnnueedneeusswwwwssd
+46	0	[1]	0_1	eenueednnwuwwdssuseeeennwwdsseennnnwwwssuwwdss
+46	3	[1, -1, 1]	3_1	eenueednnwuwwwdnneesssessuwwndnnnueeesswwwwdss
+46	5	[2, -3, 2]	5_2	eenueednnwwnuwwwsseeedessuwwndnnnneesuswwwdsss
+46	3	[1, -1, 1]	3_1	eenueednnwwswsuseednnuwwwssseeeeennnwnwwwdwsss
+46	3	[1, -1, 1]	3_1	eenueednnwwwssuseednnwuwwssseeeeennnwwnwwwdsss
+46	4	[1, -3, 1]	4_1	eenueednnwwwuswwdnneeeeussdssuwwndneunnwwsdsss
+46	3	[1, -1, 1]	3_1	eenueeednnnwwssssuwwndnenueedssseennuwwwwwwdss
+46	0	[1]	0_1	eenueeednnuwwdsssuwwndnenneesssseennuwwwwwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenueeednnuwwwwdssuseednnueeedsswwnnnwwsuwwdss
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eenueeendnnwwussedseennuwwdwwwssuseednnwuwwdss
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eenueeenndnwwussedeennuwwsdwwwssuseednnwuwwdss
+46	3	[1, -1, 1]	3_1	eenueeennwnwwwwsseeeednnwwsswsuseednnnuwwdwsss
+46	5	[2, -3, 2]	5_2	eenueeennwwdsssuwwndnennwwusseeeednnwuwswdwsss
+46	5	[2, -3, 2]	5_2	eenueeennwwdsssuwwndnnnwwssueeeeednnwwsuwwdsss
+46	0	[1]	0_1	eenueeennwwdsssuwwnnnwwdsseeneueednnwwswwsussd
+46	4	[1, -3, 1]	4_1	eenueeennwwwdswsuseednnnnuwwsseeednnnwwswswsss
+46	4	[1, -3, 1]	4_1	eenueeennwwwdswsuseednnnnwuwsseeednnnwwwsswsss
+46	4	[1, -3, 1]	4_1	eenueeennwwwdswsuseednnnnwwsuseeednnnwwwwsssss
+46	4	[1, -3, 1]	4_1	eenueeennwwwdswsuseednnnnwwsuseeednnuwwwwdssss
+46	0	[1]	0_1	eenueeennwwwwdnneesssssuwwndnennueedssuwwwwdss
+46	0	[1]	0_1	eenueendennwwwwsssuwwnneeeesdseeunnwdwwsuwwdss
+46	5	[2, -3, 2]	5_2	eenueendnnuwwsdwssuwwdnneneeesueedsswwnwuwwdss
+46	5	[2, -3, 2]	5_2	eenueendnnwuwswdssuwwdnneneeseueedsswwnwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenueennwwwwndneessswsuseednnuwwwwnnneesdswsss
+46	5	[2, -3, 2]	5_2	eenuenedesswwuwwndnnnwwssueeedeseuennwwwwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eenueneednnwwswwssuseeendnnueedssswwwnnwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenueneedsswwnnwuwwwdnneesssuseeendnnwwuwwdsss
+46	5	[2, -3, 2]	5_2	eenueneeednnwwsssuswwwndnneeueedssswwnnwuwwdss
+46	3	[1, -1, 1]	3_1	eenuenndwwunwwdsseeeessuwwndwwunnedneeusswwssd
+46	0	[1]	0_1	eenuenndwwuwwdssueedneessuwwwwwnneeeenndwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eenuenneedsswwnwuwwwdnneesssuseeenndnwwuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eenuenneeesswdwnnwwwssuseeennedesswwwnnwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenuennneeesswdwnwwwssuseeennnedesswwwnwuwwdss
+46	5	[2, -3, 2]	5_2	eenuennneesssdwwsuwwndnneeeusssdeennwwwwuwwdss
+46	5	[1, -1, 1, -1, 1]	5_1	eenuennwwwwsdwwnneeeesssuseednnwuwwswwnndeesss
+46	5	[1, -1, 1, -1, 1]	5_1	eenuennwwwwssdwwnneeeessuseednnwuwwsswwnndeess
+46	5	[2, -3, 2]	5_2	eenuneeednnwwswwwsseuseedennnueesswwwdnwwuwssd
+46	5	[2, -3, 2]	5_2	eenunndeeunndwwswswsseuseedeennnnwwussdwwuwssd
+46	5	[2, -3, 2]	5_2	eenunndneeesswuwnnwwdswsseuseeeennnwdwswwuwssd
+46	0	[1]	0_1	eenunndwnwwwwsseeuneessseednnwwswwwunndeesussd
+46	3	[1, -1, 1]	3_1	eenunndwwnwuwssdeeeeessuwwndwwunndwnneeusssssd
+46	4	[1, -3, 1]	4_1	eenunndwwsseuseedennnwunwwssdeeuenndwwwwussssd
+46	0	[1]	0_1	eenunndwwuwwdsseueedneennwwwwssuwwnneeeesswdss
+46	5	[2, -3, 2]	5_2	eenunndwwuwwdsseueedneessuwwwwwnnednneeusswdss
+46	0	[1]	0_1	eenunndwwuwwdsseueedneessuwwwwwnneeenndwwssess
+46	3	[1, -1, 1]	3_1	eenunndwwwunwwdsseeeeeessuwwndwwwunndneeussssd
+46	0	[1]	0_1	eenunndwwwwwsuseedeeuseednnwwwwwswwnnueeseessd
+46	4	[1, -3, 1]	4_1	eenunneeedssuswwwwndwnneeeessseennuwwwdwwuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenunneeeesswwdnnwwwwsseuseenneedsswwnnwwuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenunnndeeessuwwndwwwsseuseeeeennnwwdswwwuwssd
+46	5	[2, -3, 2]	5_2	eenunnndeesswwwwwunndeeseeussswwndwwwnneeusssd
+46	3	[1, -1, 1]	3_1	eenunnndwwwsseeeessuwwndwwunnedeeennwwussswssd
+46	0	[1]	0_1	eenunnneeeesswwdnwwwwsseuseedeennnuwwsdwwuwssd
+46	5	[1, -1, 1, -1, 1]	5_1	eenunnneeeesswwdnwwwwsseuseennneedsswwnwwuwssd
+46	5	[2, -3, 2]	5_2	eenunnnndwwsseeeussswwndwwnnnueedeeesswwwwussd
+46	5	[2, -3, 2]	5_2	eenunnnndwwsseeeussswwndwwnnueendeeesswwwwussd
+46	5	[2, -3, 2]	5_2	eenunnnwwsdseeeunndwwwwssseeuseedennnwwwuswssd
+46	0	[1]	0_1	eenunnnwwwwsdesseeneessuwwnnnwwswdwnneeessussd
+46	0	[1]	0_1	eenunnnwwwwsdsseeeneessuwwnnnwwswwdnneesseussd
+46	0	[1]	0_1	eenunnnwwwwssdeseeneessuwwnnnwwsswdwnneeesussd
+46	0	[1]	0_1	eenunnnwwwwssdseeeneessuwwnnnwwsswwdnneeseussd
+46	5	[2, -3, 2]	5_2	eenunnwdneeeesswwunnwwwdssseuseeennndwwswuwssd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eenunnwwwdnwwssueedennuwwsdsseeeuseednnwwuwssd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eenunnwwwdwwssueendennwwussdseeeuseednnwwuwssd
+46	4	[1, -3, 1]	4_1	eenunwdnneesussswwndwwnnueeedseennuwwwwdssussd
+46	3	[1, -1, 1]	3_1	eenunwndneeseennuwwswwwsssednenueendnwwwwsssss
+46	3	[1, -1, 1]	3_1	eenunwndneesseennuwwwwwsssednenueednnwwwwsssss
+46	3	[1, -1, 1]	3_1	eenunwndwnwuwssdeeeeessuwwndwwunndwnneeusssssd
+46	3	[1, -1, 1]	3_1	eenunwndwwunwwdsseeeeeessuwwndwwwunndneeussssd
+46	0	[1]	0_1	eenunwndwwussdeeuseednnnnwwwwwsseeeenunwwssssd
+46	4	[1, -3, 1]	4_1	eenunwndwwwsseeeuseednnnnwwwwussdeeenunwwssssd
+46	4	[1, -3, 1]	4_1	eenunwndwwwsseeeuseennnwnwnwwsssdeeennwwussssd
+46	5	[2, -3, 2]	5_2	eenunwndwwwsussseeenndwwwwnnueesdeeennwwussssd
+46	0	[1]	0_1	eenunwndwwwwsuseedeeuseednnwwwwwswwnnueeseessd
+46	5	[2, -3, 2]	5_2	eenunwnndeeeesswusswwwndneeneuessdwwunnwdwwsss
+46	5	[2, -3, 2]	5_2	eenunwnndeesswwwwussseenndwwwnneeeeunnwwsssssd
+46	0	[1]	0_1	eenunwnndwwussdeeeessuwwndwwwnneeeennwwusssssd
+46	3	[1, -1, 1]	3_1	eenunwnndwwwsseeeeessuwwndwwunndeeennwwusssssd
+46	3	[1, -1, 1]	3_1	eenunwnnedeseennuwwwwwssssednenueendnwwwsswsss
+46	5	[2, -3, 2]	5_2	eenunwnnedesswwwwunndeeseuessswwndwwwnneeusssd
+46	3	[1, -1, 1]	3_1	eenunwnneedseennuwwwwwssssednenueendnwwswswsss
+46	4	[1, -3, 1]	4_1	eenunwnneeednnwwsswwusssedneennnueesswwwdwwsss
+46	0	[1]	0_1	eenunwnneeeednnwwsssswwsuwnnnneeeedssuwwdwwsss
+46	0	[1]	0_1	eenunwnneeenndwwssesswwsuwnnnneeedessuwwdwwsss
+46	0	[1]	0_1	eenunwnneenndwwsseesswwsuwnnnneedeessuwwdwwsss
+46	5	[2, -3, 2]	5_2	eenunwnnndwwsseeeuessswwndwwnunendeeesswwwussd
+46	5	[1, -1, 1, -1, 1]	5_1	eenunwnnneesdeesswwwwsuseennnwndneeussdwwwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eenunwnnneesdswwwwsseeuseennnwndneessswwwwussd
+46	3	[1, -1, 1]	3_1	eenunwnnwwsdseeeennwwwwwssseeeuseennnwdwwusssd
+46	3	[1, -1, 1]	3_1	eenunwnnwwssdeeeennwwwwswsseeeuseennnwdwwusssd
+46	4	[1, -3, 1]	4_1	eenunwnwwwdneeeeesswwsuwwdnneeeunwwwwwsseeedss
+46	4	[1, -3, 1]	4_1	eenunwwnneeednnwwsswwsssueednennnueesswwwdwsss
+46	0	[1]	0_1	eenunwwnneeeednnwwsssswsuwwnnnneeeedssuwwdwsss
+46	0	[1]	0_1	eenunwwnneeenndwwssesswsuwwnnnneeedessuwwdwsss
+46	0	[1]	0_1	eenunwwnneenndwwsseesswsuwwnnnneedeessuwwdwsss
+46	5	[2, -3, 2]	5_2	eenunwwnwwdsseueednennwwuwwwsseednnneeussdwsss
+46	4	[1, -3, 1]	4_1	eenunwwnwwdsseueednennwwwssuwsseeeeennnwwdwsss
+46	3	[1, -1, 1]	3_1	eenunwwwdnneeueeesssswwwndneenuwwwnndeesswwsss
+46	5	[2, -3, 2]	5_2	eenunwwwdnnneesueedsswwsuwwwnneeedennuwwsdssss
+46	5	[2, -3, 2]	5_2	eenunwwwdnnneesuesedswwsuwwwnneeedennuwwsdssss
+46	3	[1, -1, 1]	3_1	eenunwwwdnnueedneessuwwwwwsseeednennunwwdsssss
+46	5	[2, -3, 2]	5_2	eenunwwwdnnuwwssseeeednennwwuswwdnneeeussdwsss
+46	5	[2, -3, 2]	5_2	eenunwwwdswwnnueeeednnwwsswsuseeednennuwwdssss
+46	4	[1, -3, 1]	4_1	eenunwwwdswwwnneuesseeedneessuwwwwwwnndeneesss
+46	5	[2, -3, 2]	5_2	eenunwwwdwnnneesueedsswsuwwwnneeednnuwwsdsesss
+46	5	[2, -3, 2]	5_2	eenunwwwdwnnneeusswwsseeednennwwwunneesssdwsss
+46	5	[2, -3, 2]	5_2	eenunwwwdwwnneueseednnwwsswusseeednennuwwdssss
+46	4	[1, -3, 1]	4_1	eenunwwwdwwwnneeussseeedneessuwwwwwwnnndeeesss
+46	4	[1, -3, 1]	4_1	eenunwwwnnedeseuenndwwwwssssueedneennwuwswdsss
+46	4	[1, -3, 1]	4_1	eenunwwwnneeeesdessswuwwndnnneeeusswdwnuwwdsss
+46	0	[1]	0_1	eenunwwwwdnneeesueennwwwwssdssueednennuwwsdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eenunwwwwnneedneessswsuseennnwwwwdnnueesdswsss
+46	0	[1]	0_1	eenunwwwwnneeedneessuwwwwdssueednennunwwdsssss
+46	0	[1]	0_1	eenunwwwwsseeeeednnnnwwsuwwdssueednenunwwdssss
+46	4	[1, -3, 1]	4_1	eenunwwwwwnneedsssueednennwwuswwdnneeeussdwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeueeendnnuwwwsseednnwwwussdeeseeennuwwwdwwwss
+46	4	[1, -3, 1]	4_1	eeueeendwnnwwswuwnneeessdsseeennwuwswwnnwdwsss
+46	4	[1, -3, 1]	4_1	eeueeendwnnwwwunneesssdsseeennwuwswwnnndwwssss
+46	0	[1]	0_1	eeueeendwnwuwwdnwwssueeeeenedesswwwnwnnuwwsdss
+46	4	[1, -3, 1]	4_1	eeueeennwwdsseennnnwwnwwussdeeessuwwnnndwwssss
+46	3	[1, -1, 1]	3_1	eeueeennwwdsseennnnwwswsswuwnneeeedssuwwnwdwss
+46	3	[1, -1, 1]	3_1	eeueeennwwdsseennnnwwwssswuwnneeedessuwwnwdwss
+46	4	[1, -3, 1]	4_1	eeueeennwwdsseennnnwwwwwussedeneessuwwnnwdwsss
+46	4	[1, -3, 1]	4_1	eeueeennwwdsseennnuwwnnwwssdeeessuwwnnndwwssss
+46	4	[1, -3, 1]	4_1	eeueeennwwdsseennnuwwnwwwssedeneessuwwnnwdwsss
+46	5	[2, -3, 2]	5_2	eeueendennwnwnwwussdeeussdseeunnwdwwunndwwssss
+46	0	[1]	0_1	eeueendennwwwwsuwwnneeeesssdseeunnwdwwunwwdsss
+46	5	[2, -3, 2]	5_2	eeueendnnneessuwwwdwswuwnneeeeedssswwnuwnwdwss
+46	5	[2, -3, 2]	5_2	eeueendnnneessuwwwdwwunneeseedssswwnwunndwwsss
+46	5	[2, -3, 2]	5_2	eeueendnnnwwssswuwwdnneesueeeedsswwnnnuwwwsdss
+46	5	[2, -3, 2]	5_2	eeueendnnnwwsuwwwsseednnnueesdssseennuwwwwwdss
+46	5	[2, -3, 2]	5_2	eeueendnnuwwdwssuwwdnneneeessueedsswwnwnuwwdss
+46	5	[2, -3, 2]	5_2	eeueendnnuwwwdssuwwdnneneesesueedsswwnwnuwwdss
+46	0	[1]	0_1	eeueendnnwuwsswwwdnneesseeseennuwwdwnnwusswdss
+46	0	[1]	0_1	eeueendnnwuwsswwwdnneesseeseennuwwdwnnwwussdss
+46	0	[1]	0_1	eeueendnwnuwwdsseeseennuwwswwwwdnneneessuwwdss
+46	0	[1]	0_1	eeueendnwwuwwwdnneessseeseennuwwswwwwwnneedsss
+46	0	[1]	0_1	eeueendnwwwwwussseenneeneedsswwnwwwwwnneeusssd
+46	5	[2, -3, 2]	5_2	eeuenndwwsusseeenndennuwwwssdeseeunnwdnwwwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeuenneedsswwnnwwussseeenndnnwwwwsseeunnwwsssd
+46	5	[2, -3, 2]	5_2	eeuennndeeesswwunnnwwwssdeeeeussdwwnwunndwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeuennneeesswdwnwwwsusseeennnedesswwwnwunwwdss
+46	4	[1, -3, 1]	4_1	eeuennnwwsdseeseeunnwdwwuswsseeenndennwwwwwsss
+46	4	[1, -3, 1]	4_1	eeuneeedneessuwwwwdnwwunendeessseenunwwwdwwwss
+46	4	[1, -3, 1]	4_1	eeuneeedneessuwwwwdnwwunndeeessseenunwwwdwwwss
+46	4	[1, -3, 1]	4_1	eeuneeedneessuwwwwdnwwunndeesesseenunwwwwdwwss
+46	4	[1, -3, 1]	4_1	eeunndeeeennwwusssdwwwusseennnnnneessdwwwwswss
+46	5	[2, -3, 2]	5_2	eeunndeeeennwwussssswwwnndeeunnnneessdwwwwswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeennuwwdwwwwsssueedeeeunndnnwwwwussdsss
+46	4	[1, -3, 1]	4_1	eeunndeeennwwwwwsueeessdwwuwwnnneeeeesdwwwswss
+46	3	[1, -1, 1]	3_1	eeunndeeeseennuwwswwssswwnndeeeueendnwwwwwswss
+46	3	[1, -1, 1]	3_1	eeunndeeesseennuwwwwssswwnndeeeueednnwwwwwswss
+46	3	[1, -1, 1]	3_1	eeunndeeesswwunnnneessssswwwwnndeeeunndwwwswss
+46	0	[1]	0_1	eeunndeeesswwunnnwwsswwdnneesseeeunnnwwwwssdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeeussswwwwnndeeunndeeesswwunnndwwswswss
+46	5	[2, -3, 2]	5_2	eeunndeeeussswwwwnndeeunnndeesesswwunndwwwswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeennnwwussdwwwssueedeeeennnuwwdwwwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeseennuwwdwwwwussedeeueendnnwwuswwsdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeseennuwwdwwwwussedeeueendnnwwwuswsdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeseennuwwdwwwwussedeeueendnnwwwwussdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeseennuwwwdwwwussedeeueendnwnwwuswsdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeseennuwwwdwwwussedeeueendnwnwwwussdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndeeseennuwwwwdwwussedeeueendnwwnwwussdwss
+46	3	[1, -1, 1]	3_1	eeunndeeunndeessswwwwwusseennnnnneessdwwwwswss
+46	0	[1]	0_1	eeunndeeunnwwwwssssseeennnnwwsdseeeennwwwwwsss
+46	0	[1]	0_1	eeunndeeunnwwwwssssseeennnnwwssdeeeennwwwwswss
+46	0	[1]	0_1	eeunndeeuseednnwwuwsssswwnndeeeenunndwwswwswss
+46	0	[1]	0_1	eeunndeeuseednnwwwusssswwnndeeeenunndwwwswswss
+46	0	[1]	0_1	eeunndeeuseednnwwwusssswwnndeeeenunwndwwswswss
+46	0	[1]	0_1	eeunndeeussswwwnndeeeenunwwsssdeeennnwwwwwswss
+46	0	[1]	0_1	eeunndeeussswwwnndeeeeunnwwsssdeeennwnwwwwswss
+46	0	[1]	0_1	eeunndeneessuwwnnwwsswwdnneesseeenunnwwwwssdss
+46	5	[2, -3, 2]	5_2	eeunndeneeussdwwwwusseeennndeesswwwunnnwdwswss
+46	0	[1]	0_1	eeunndenneessuwwnwwsswwdnneesseeennunwwwwssdss
+46	5	[2, -3, 2]	5_2	eeunndennueedssswwwwuwwdnneeeueednnwwswwussdss
+46	4	[1, -3, 1]	4_1	eeunndennwwwuwsseedneuessdwwuwwdnnnneeusswdsss
+46	5	[2, -3, 2]	5_2	eeunndennwwwwwssueendeeuessdwwuwwdnnuneessdwss
+46	5	[2, -3, 2]	5_2	eeunndneeessusswwwwnndeeueneedsswwnnwunwwdswss
+46	0	[1]	0_1	eeunndneeesswuwnnwwsswwdnneesseeneunnwwwwssdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndneeesussswwwwnndeeneuneedsswwuwnnwwdswss
+46	5	[2, -3, 2]	5_2	eeunndneeesussswwwwnndeeuenneedsswwnwunwwdswss
+46	4	[1, -3, 1]	4_1	eeunndneeeussdwwwwusseeennnnndeesswwwunwwdswss
+46	3	[1, -1, 1]	3_1	eeunndneeeussdwwwwusseennndeeesswwunnnwwwdswss
+46	5	[2, -3, 2]	5_2	eeunndneeeusssswwwwnndeeeunnndeesswwwunwwdswss
+46	0	[1]	0_1	eeunndneeussdwwwnnwwssueenneesdeennwwwwwussdss
+46	3	[1, -1, 1]	3_1	eeunndneeussdwwwusseeeennnnnwwssdeennwwwwsswss
+46	5	[2, -3, 2]	5_2	eeunndneeussdwwwuwnndeneeussdeennwnwwusswsdwss
+46	5	[2, -3, 2]	5_2	eeunndneeussdwwwuwnndeneeussdeennwnwwwusssdwss
+46	5	[2, -3, 2]	5_2	eeunndneeussdwwwuwnndeneusesdeennwwnwwusssdwss
+46	5	[2, -3, 2]	5_2	eeunndneeussdwwwuwnndneeeussdeennwnwwusswdswss
+46	5	[2, -3, 2]	5_2	eeunndneeussdwwwuwnndneeeussdeennwnwwwussdswss
+46	4	[1, -3, 1]	4_1	eeunndneeusssswwwnndeeeeunnnwwssdeennwwwwsswss
+46	0	[1]	0_1	eeunndnneeesswuwnwwsswwdnneesseenneunwwwwssdss
+46	5	[2, -3, 2]	5_2	eeunndnnneessuwwwswwdnneeueedssswwuwwwnneedsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndnnnwwwwussdsseueedeennnuwwdwwwwssueedess
+46	3	[1, -1, 1]	3_1	eeunndnnuwwdwwssueeeneedsswwuwwdnnunndeessswss
+46	4	[1, -3, 1]	4_1	eeunndnnuwwwwdsseenueeedsswwuswwnnndneessuwsds
+46	5	[2, -3, 2]	5_2	eeunndnnuwwwwdsseueednnwwsuwsseeedeennuwwwdsss
+46	5	[2, -3, 2]	5_2	eeunndnnwwnwwussdeeeueedsswwuwwdwwnnneeussdess
+46	0	[1]	0_1	eeunndnnwwwwssuseeenneedsswwnnwwsswwnnueesedss
+46	0	[1]	0_1	eeunndnnwwwwsusseeenneedsswwnnwwswwnnueessedss
+46	0	[1]	0_1	eeunndnnwwwwwssueedneesseennuwwsswwdwnnueesdss
+46	0	[1]	0_1	eeunndnwwuwwdsseueedeennnwwwwssuwwnneeeessdwss
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eeunndnwwwunwwdsseeuenndwwsusseeedeennuwwsdwss
+46	5	[2, -3, 2]	5_2	eeunndnwwwuwsseeedeennnwnwwussswdwnneeeussdwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndnwwwuwsseeedeennnwwwusswdwnneneeusssdwss
+46	5	[2, -3, 2]	5_2	eeunndnwwwuwsseeedeennuwnnwwssswdwnneeeussdwss
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eeunndnwwwuwwdsseenuenndwwssuseeedeennuwwsdwss
+46	0	[1]	0_1	eeunndwnneeeesswwunnwwwswsseedeeeunndwwuwswdss
+46	0	[1]	0_1	eeunndwnneeeesswwunnwwwwssseedeeeunndwwuwwdsss
+46	5	[2, -3, 2]	5_2	eeunndwnnneesuswwswwdnneueedsesswwuwwwnneedsss
+46	5	[2, -3, 2]	5_2	eeunndwnnwwussseedeennnuwwwsdwwnneeeessuwswdss
+46	5	[2, -3, 2]	5_2	eeunndwnwunneeeesswwdnwwwsssueedeennnuwwsswdss
+46	0	[1]	0_1	eeunndwnwuwwdsseueedeennwnwwwssuwwnneeeesswdss
+46	5	[2, -3, 2]	5_2	eeunndwwwnneeeusesdswwuswwnnnedeeennwwussswsds
+46	0	[1]	0_1	eeunndwwwunneeesesssswwnnnndeesswwwwwnneeusssd
+46	0	[1]	0_1	eeunndwwwunwwdsseeeeeennwwusssswwwnnndneeusssd
+46	5	[2, -3, 2]	5_2	eeunndwwwwnneeeueedssswwuswwnnndeeennwwussssds
+46	5	[2, -3, 2]	5_2	eeunndwwwwnneeeuseedsswwuswwnnndeeennwwussssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeunndwwwwnnneesuswssseendeennwwwwnuneessswsds
+46	0	[1]	0_1	eeunneeeeednnwwsssuwwdwwunneeeeedssswwnnwwwwss
+46	0	[1]	0_1	eeunneeeeedsswwnuwwdwwunndeeeesesuswwdnnwwwwss
+46	3	[1, -1, 1]	3_1	eeunnendeesueennwwwwwswssdeeuenneedsswwnwwwwss
+46	0	[1]	0_1	eeunneneeeesswwdnnwwwwussdeeueneedsswwnnwwwwss
+46	0	[1]	0_1	eeunnenneeeesswwdnwwwwussdeeuenneedsswwnwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndeeeennwwusssdswwwunndneeeeussswwndwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndeeeessswwwunnneesdswwwwusseeennndwwwwss
+46	0	[1]	0_1	eeunnndeeeessuwwdwwwusseennneeeedsswwnnwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeeeesswuwnnwnwwsssdeeeneuesswwwnndwwwss
+46	0	[1]	0_1	eeunnndeeeesuswwdwwwusseennneeneedsswwnwwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndeeennwwussesdswwwunndneeeuessswwndwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndeeesesswwwunnneessdwwwwusseeennndwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeeessuswwdnwwunnneesssedseennuwwdwwwwss
+46	0	[1]	0_1	eeunnndeeesswwwwusseennnnnwwsdseeeunndwwwwssss
+46	0	[1]	0_1	eeunnndeeesswwwwusseennnnnwwssdeeeunndwwwswsss
+46	3	[1, -1, 1]	3_1	eeunnndeeesueennwwwwwwsssdeeuenneedsswwnwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeeesuessswwwwwnndeeenuneedsswuwwndwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeeesussdwwnwwunnneesssedeennuwwsdwwwwss
+46	4	[1, -3, 1]	4_1	eeunnndeeeunnwwssssdwwusseeennnnndeesswwwwwwss
+46	4	[1, -3, 1]	4_1	eeunnndeeeunnwwsssssswwnndeeeeennnwwussdwwwwss
+46	3	[1, -1, 1]	3_1	eeunnndeeeunnwwsssssswwnndeeeunnndeesswwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeeeunnwwswwsssdeeenunndeessswuwwndwwwss
+46	3	[1, -1, 1]	3_1	eeunnndeeeussdswwunnnnwwsssdeeeuseednnwwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeeeussdwwwwunnneneesssdeennwwwussdwwwss
+46	3	[1, -1, 1]	3_1	eeunnndeeeussswwnnnnwwsssdeeeunnndeesswwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeeseesswwunnnwnwwsssdeeeeusswwnnndwwwss
+46	0	[1]	0_1	eeunnndeessseennuwwswdwwusseeeenndnnuwwsdwwwss
+46	0	[1]	0_1	eeunnndeessusswwwnnnndwwsseeeeseennuwwdwwwussd
+46	5	[2, -3, 2]	5_2	eeunnndeesswwwuswwnnndeeneeussdwwwwwnneeusssds
+46	5	[2, -3, 2]	5_2	eeunnndeesswwwuswwnnnedeneeussdwwwwnneuesswsds
+46	0	[1]	0_1	eeunnndeesswwwuwwdnnneueeessdwwuwwnnndeesswsss
+46	5	[2, -3, 2]	5_2	eeunnndeesswwwuwwnnendeeeussdwwnwwnneeussswdss
+46	5	[2, -3, 2]	5_2	eeunnndeesswwwuwwnnndeeeeussdwwnwwwnneeusssdss
+46	0	[1]	0_1	eeunnndeesswwwwwnneeusssswwnnnneneeessdwwwussd
+46	3	[1, -1, 1]	3_1	eeunnndeesussswwwnndeeeennnwwwwsseeunnwwsswdss
+46	3	[1, -1, 1]	3_1	eeunnndeesussswwwnndeeeennnwwwwsseeunnwwswdsss
+46	3	[1, -1, 1]	3_1	eeunnndeesussswwwnndeeeennnwwwwsseeunnwwwdssss
+46	0	[1]	0_1	eeunnndeesussswwwnnnndwwsseeeeeennuwwsdwwwussd
+46	0	[1]	0_1	eeunnndeeueedsswwwwwunnneesseeeednnwwsswwwwwss
+46	4	[1, -3, 1]	4_1	eeunnndeeuseednnwwwusssdwwunnneneesesdswwwwwss
+46	0	[1]	0_1	eeunnndeeuseedswwwwwunnneessseeeednnwwswwwwwss
+46	3	[1, -1, 1]	3_1	eeunnndeeusesdswwunnnnwwsssdeeeuseednnwwwwwwss
+46	4	[1, -3, 1]	4_1	eeunnndeeussdeennwnwwusssdwwusseeeennndwwwwwss
+46	0	[1]	0_1	eeunnndeeussdwwwusseeeennnnnwwssssdeennwwwwwss
+46	0	[1]	0_1	eeunnndeeussdwwwusseennnnnwwsdseeeennwwwwwssss
+46	0	[1]	0_1	eeunnndeeussdwwwusseennnnnwwssdeeeennwwwwswsss
+46	0	[1]	0_1	eeunnndeeussdwwwuwwdnneeseeeesswwunnnnwwsswdss
+46	3	[1, -1, 1]	3_1	eeunnndeeusssswwwnndeeunnnwwsdseeeennwwwwwssss
+46	3	[1, -1, 1]	3_1	eeunnndeeusssswwwnndeeunnnwwssdeeeennwwwwswsss
+46	5	[2, -3, 2]	5_2	eeunnndeneeesswuwnwnwwsssdeeenneuesswwwndwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeneesessuwwdnnuwnwwsssdeeseennuwwdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndeneesssuwwdwwunnneesedssseennuwwwdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndeneunwwwssssdeeennuwnwdneeesssuwwdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndenneesessuwwdnnuwwwsssdeeeennuwwsdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndennneessuwwwwsssdeeennnnueessswwwdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndneeeeusswdwnwunwwsssdeeeeennwuwswdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndneeesessuwwdnnwunwwsssdeeseennuwwdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndneeesssuwwdwwunnneesdessseennuwwwdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndneeessuswwdwwunnneesdesseennuwwswdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndneeessuswwdwwunnneessedseennuwwdwswwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndneeesussdwwwwunnneesdeseennuwwsswdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndneeesussdwwwwunnneessedeennuwwsdwswwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndneeeussdswwwwunnneesdeeennwwusssdwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndneeuseesswwdnnwunwwsssdeeseennuwwdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndneeusssdeennwwwunwwsssdeeseeunndwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndneneesessuwwdnnuwwwsssdeeeennuwwdswwwss
+46	5	[2, -3, 2]	5_2	eeunnndneneeussdwwunwwsssdeeeeennnwwussdwwwwss
+46	4	[1, -3, 1]	4_1	eeunnndneneeussdwwunwwsssdeeeunnndeesswwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndnenneessuwwwwsssdeeennnnueesswwwdswwwss
+46	3	[1, -1, 1]	3_1	eeunnndnneeeesswwunwwwsssdeeunndneeussdwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndnneeesessuwwdnnwuwwsssdeeeennuwwdswwwss
+46	5	[2, -3, 2]	5_2	eeunnndnneeeussdwwnuwwsssdeeeeennnwwussdwwwwss
+46	4	[1, -3, 1]	4_1	eeunnndnneeeussdwwnuwwsssdeeeunnndeesswwwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndnneeeussswwndneessswwwwunnneeesdswwwwss
+46	5	[2, -3, 2]	5_2	eeunnndnneeseessuwwdnwnuwwsssdeeeennuwwsdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndnneeuseesswwdnnwuwwsssdeeeennuwwdswwwss
+46	5	[2, -3, 2]	5_2	eeunnndnneeusssdeennwwwuwwsssdeeeeunndwwswwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndnnueeesswwdnneesssswwwwunnneeedsswwwwss
+46	0	[1]	0_1	eeunnndnwwusssedeeunndnnwwwwsseeuneeedsswwwwss
+46	5	[2, -3, 2]	5_2	eeunnndwnneeeeusswdwnwuwsssdeeeennnwuwssdwwwss
+46	4	[1, -3, 1]	4_1	eeunnndwnneeeeusswdwnwuwsssdeeunnnedesswwwwwss
+46	5	[2, -3, 2]	5_2	eeunnndwnneeusssedennwwwuwsssdeeeeunnwdwswwwss
+46	4	[1, -3, 1]	4_1	eeunnndwnneeussssdwwuwwdnneuesdeennwuwwwssedss
+46	4	[1, -3, 1]	4_1	eeunnndwnwuwssseedeeunnnndwwwwsseuenedesswwwss
+46	0	[1]	0_1	eeunnndwwnnueedeesssswwwunnneenndwwsseesswwwss
+46	0	[1]	0_1	eeunnndwwsseeeeennwwusssswwnnndeeeunnwwwswsssd
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndwwsseeeeusswwwnnndeeeesswwunnnnwwswsssd
+46	0	[1]	0_1	eeunnndwwunndeeeesssswwwunnnnndwwsseeeesswwwss
+46	0	[1]	0_1	eeunnndwwunnedeeesssswwwunnnenndwwsseeesswwwss
+46	0	[1]	0_1	eeunnndwwusssseeeenndwwwunnneessssdeennwwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnndwwusssseeennnndeesswwwwunnneeessdwwwwss
+46	3	[1, -1, 1]	3_1	eeunnndwwuwssseendeeennnwwwwwsseeeenunwwsswsds
+46	3	[1, -1, 1]	3_1	eeunnndwwuwssseendeeennwnwwwwsseeeeunnwwsswsds
+46	4	[1, -3, 1]	4_1	eeunnndwwuwwsseeedeeennnwwwwwssueenneesdswwwss
+46	4	[1, -3, 1]	4_1	eeunnndwwuwwsseeedeeennwnwwwwssueenneessdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndwwwnneeussssdeeennnwwwwunneessesdswwwss
+46	5	[2, -3, 2]	5_2	eeunnndwwwnneeussssdeeennwnwwwunneessessdwwwss
+46	5	[2, -3, 2]	5_2	eeunnndwwwssueedeeennwunwwssdeeuenndwwwwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnnedeeennwwusssdswwwunndeneeeussswwndwwwss
+46	5	[2, -3, 2]	5_2	eeunnnedesswwwuwnnndeeeeusswdwnwwwnneeusssdwss
+46	4	[1, -3, 1]	4_1	eeunnneeedseennuwwwwwwsssdeeennneesuswwwdwwwss
+46	3	[1, -1, 1]	3_1	eeunnneeedsesswwunndnwwwussdeeeeusswwnnndwwwss
+46	0	[1]	0_1	eeunnneeeedsswwnnwwwwussedeenueednnwwwwussdwss
+46	0	[1]	0_1	eeunnneeeeedsswwnuwwsdwwunndeeeeesuswwdnwwwwss
+46	4	[1, -3, 1]	4_1	eeunnneeeeedsswwnuwwssswwnndeeeueendnwwswwwwss
+46	4	[1, -3, 1]	4_1	eeunnneeeeedsswwnwuwssswwnndeeeueendnwwwswwwss
+46	4	[1, -3, 1]	4_1	eeunnneeeeedsswwnwwussswwnndeeeueendnwwwwswwss
+46	3	[1, -1, 1]	3_1	eeunnneeeesdswwnnwwwussdeeueeeednnwwsuwwdwwwss
+46	4	[1, -3, 1]	4_1	eeunnneeeesswdswwnwwunndeeessuseednnwuwwdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnneeeesswdswwnwwusseennneedessuwwndnwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnneesdeessuwwndwwwunndeeeeussdswwunndwwwss
+46	4	[1, -3, 1]	4_1	eeunnneesedennwwwssussswwnndeeenneunwwwdsswwss
+46	4	[1, -3, 1]	4_1	eeunnneeseednnwwsswussswwnndeeeennunwwdswswwss
+46	0	[1]	0_1	eeunnneessdwwwusseeeenndnwwussdeeennnwwwwswwss
+46	4	[1, -3, 1]	4_1	eeunnneessedennwwwsussswwnndeeeneunndwwwsswwss
+46	0	[1]	0_1	eeunnneesseednnwwsswwwunnneeeessdsswwunndwwwss
+46	4	[1, -3, 1]	4_1	eeunnneesseednnwwswussswwnndeeeenunndwwswswwss
+46	0	[1]	0_1	eeunnneessseednnwwswwwunndeeeeussdswwunndwwwss
+46	0	[1]	0_1	eeunnneessseednnwwswwwunnneeeesssdswwunndwwwss
+46	5	[2, -3, 2]	5_2	eeunnnendnwwussdeeesswwwuwnndneeuneessswdwwwss
+46	5	[2, -3, 2]	5_2	eeunnneneesssdwwwwusseennndeeesswwunnndwwswwss
+46	3	[1, -1, 1]	3_1	eeunnnenndwwsusssdeeennwwwwnnueesdeeusswdwwwss
+46	4	[1, -3, 1]	4_1	eeunnnenneessdwwwwussdeeenunndeessswuwwndwwwss
+46	3	[1, -1, 1]	3_1	eeunnnndeeeesswuwnwdwwussdeeenneuesswwwndwwwss
+46	5	[2, -3, 2]	5_2	eeunnnndeeessswwwwusseeennndnwwwnneeusssdwwwss
+46	5	[2, -3, 2]	5_2	eeunnnndeeesswwunneesssdwwwwusseeennnndwwswwss
+46	4	[1, -3, 1]	4_1	eeunnnndeeesswwunneessssswwwwnndeeeunndwwswwss
+46	0	[1]	0_1	eeunnnndeesseuennwwwsdwwussdeeeeennwuwswdwwwss
+46	0	[1]	0_1	eeunnnndeesswwwuwswdwnneeeeeussdwwuswwwnnedess
+46	3	[1, -1, 1]	3_1	eeunnnndeesussdwwwunnnneessdwwnneeeessswwwwwss
+46	5	[2, -3, 2]	5_2	eeunnnndnwwussdeeeesswwwuwwdnnneeuneesssdwwwss
+46	5	[2, -3, 2]	5_2	eeunnnndnwwussedeeesswwwuwwdnneneuneesssdwwwss
+46	5	[2, -3, 2]	5_2	eeunnnndwwsseeeueedsswwnwwusseeenndnnwwwuswsds
+46	5	[2, -3, 2]	5_2	eeunnnndwwsseeeuneedsswwwwusseeennndnwwwuswsds
+46	4	[1, -3, 1]	4_1	eeunnnndwwsseeeunnnwwswswssseendeeennwwwuswsds
+46	5	[2, -3, 2]	5_2	eeunnnndwwsussedeeennuwnnwwssdeeneessuwwdwwwss
+46	4	[1, -3, 1]	4_1	eeunnnndwwsussedeeennwwwunwwssssseeeennndwwwss
+46	5	[2, -3, 2]	5_2	eeunnnndwwsussedeeenunwnnwwssdeeeessuwwndwwwss
+46	3	[1, -1, 1]	3_1	eeunnnndwwusssedeeennnnwwwwwsseeeenunwwsssdwss
+46	3	[1, -1, 1]	3_1	eeunnnndwwusssedeeennnwnwwwwsseeeeunnwwsssdwss
+46	4	[1, -3, 1]	4_1	eeunnnndwwuwwdsseuendeesswuwwwnnednneeusssdwss
+46	5	[2, -3, 2]	5_2	eeunnnnedeessswwwwusseeennndnwwnneeusswsdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnnnedessswwwunnnneeesswdwnneeesssuwwdwwwss
+46	5	[2, -3, 2]	5_2	eeunnnneedessswwwwusseeennndnwnneeusswwsdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnnneedssswwwunnnneeeesswwdnneesssuwwdwwwss
+46	5	[2, -3, 2]	5_2	eeunnnneeedssswwwwusseeennndnnneessuwwwdswwwss
+46	5	[2, -3, 2]	5_2	eeunnnneeedssswwwwusseennndennneessuwwwdwswwss
+46	4	[1, -3, 1]	4_1	eeunnnneeeesswdswwwwunndeeesuseednnwuwwsdwwwss
+46	5	[2, -3, 2]	5_2	eeunnnneeesdsswwwwusseennndenneessuwwnwdwswwss
+46	5	[2, -3, 2]	5_2	eeunnnneeessdswwwwusseennndeneessuwwnnwdwswwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnnneeesswdwnwwwsseusseennnnedesswwwnwuwssd
+46	0	[1]	0_1	eeunnnneendesssswwwwunndeeueennndwwssesswwwwss
+46	0	[1]	0_1	eeunnnneesdeennwwwwsswussdeeunndneeussdwwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnnneesdswwwunndeeeessswwwwusseennnndwwwsss
+46	0	[1]	0_1	eeunnnneesedennwwwssussdwwunnnneeeesdwsswwwwss
+46	0	[1]	0_1	eeunnnneeseednnwwsswussdwwunnnneeeesdsswwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnnneesesssdwwunnndeesswwwwusseeennndwwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnnneessdwwwunndeeesesswwwwusseennnndwwwsss
+46	0	[1]	0_1	eeunnnneessedennwwwsussdwwunnnneeeessdwswwwwss
+46	0	[1]	0_1	eeunnnneessedsswwunnndwwussdeeeueednnwwswwwwss
+46	0	[1]	0_1	eeunnnneesseednnwwswussdwwunnnneeeessdswwwwwss
+46	0	[1]	0_1	eeunnnneessesdswwunnndwwussdeeeuseednnwwwwwwss
+46	0	[1]	0_1	eeunnnneesssdeennwwwussdwwunndeneeeussdwwwwwss
+46	0	[1]	0_1	eeunnnneesssdeennwwwussdwwunnnneeeesssdwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnnneesssdeennwwwusssswwnndeeseeunndwwwwwss
+46	0	[1]	0_1	eeunnnneesssdwwwusseeeennnndwwusssdeennwwwwwss
+46	0	[1]	0_1	eeunnnnendeesssswwwwunndeeuennndwwsseesswwwwss
+46	4	[1, -3, 1]	4_1	eeunnnneneessdsswwwwunndeeesueednnwwuswsdwwwss
+46	3	[1, -1, 1]	3_1	eeunnnneneessdwwussdwwusseeennnnndeesswwwwwwss
+46	5	[2, -3, 2]	5_2	eeunnnneneessdwwusssswwnndeeeeennnwwussdwwwwss
+46	4	[1, -3, 1]	4_1	eeunnnneneessdwwusssswwnndeeeunnndeesswwwwwwss
+46	3	[1, -1, 1]	3_1	eeunnnneneesssswwnndeesswwwwunndeneeussdwwwwss
+46	0	[1]	0_1	eeunnnnndeeesssswwwwunndeeunnndwwsseeesswwwwss
+46	3	[1, -1, 1]	3_1	eeunnnnndeesussdswwwuwnndeeeeennuwwsdwwussdwss
+46	3	[1, -1, 1]	3_1	eeunnnnndwwsusssedeeennwwwwwnnueesdeeussdwwwss
+46	0	[1]	0_1	eeunnnnndwwsusssedeeunndwwwwnnueesdeeesswwwwss
+46	4	[1, -3, 1]	4_1	eeunnnnneessedsswwwwunndeeesueednnwwwussdwwwss
+46	3	[1, -1, 1]	3_1	eeunnnnnndeesswwwusssdeeennwwwwnneeeusssdwwwss
+46	5	[2, -3, 2]	5_2	eeunnnnnwwssdeeeesswwwusseennndwwwwnneeusswsds
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwsdeseussdeennnnwwwwwsseuenedesswwss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwsdeesussedennnnwwwwwsseeuneedsswss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwsdeesussedennnwnwwwwsseeuneesdswss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwsdeesussedennwnnwwwwsseeuneessdwss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwsdeseussedennnwwnwwwsseueneesdswss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwsdeseussedennwnwnwwwsseueneessdwss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwsdseeussedennnwwwnwwssueeneesdswss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwsdseeussedennwnwwnwwssueeneessdwss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwssdeeussedennnwwwwwsseeunneesdswss
+46	3	[1, -1, 1]	3_1	eeunnnnnwwwwssdeeussedennwnwwwwsseeunneessdwss
+46	3	[1, -1, 1]	3_1	eeunnnnwnwwsdseeussdeennnnwwwwwssueendeesswwss
+46	4	[1, -3, 1]	4_1	eeunnnnwwsdwssueedeeennwwwuswwnndeeeeussdwwwss
+46	0	[1]	0_1	eeunnnnwwsdwssueedeeunndwwuswwnndeeeeesswwwwss
+46	3	[1, -1, 1]	3_1	eeunnnnwwssssseeeenndwwwunndeeesesswwunndwwwss
+46	0	[1]	0_1	eeunnnnwwssssseeeenndwwwunndeeusssdeennwwwwwss
+46	3	[1, -1, 1]	3_1	eeunnnnwwssssseeeennndnwwwussdeeeennuwwsdwwwss
+46	0	[1]	0_1	eeunnnwnndeessswwuwwdnneeeuesssdwwuwwwnneedsss
+46	0	[1]	0_1	eeunnnwnndeesswswuwwdnneeeuessdswwuwwwnneedsss
+46	0	[1]	0_1	eeunnnwnwwwssdeeeussswwnnnndwwsseeeeennwwusssd
+46	3	[1, -1, 1]	3_1	eeunnwdnneeseennuwwswwswssedennueendnwwwwsssss
+46	3	[1, -1, 1]	3_1	eeunnwdnneesseennuwwwwswssedennueednnwwwwsssss
+46	5	[2, -3, 2]	5_2	eeunnwdnneesussdwwuwwdnneueedseennuwwwwwssedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnneeseusswdwnnuwwwssseedeeennwuwwwdsss
+46	5	[2, -3, 2]	5_2	eeunnwdnnneessuwwwswdwnneeueedssswuwwwnnedesss
+46	4	[1, -3, 1]	4_1	eeunnwdnnneeussdesswwwuwnneedseuenndwwuwwdssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnnwuwswdssseueedennnuwwdwnwwssueedsess
+46	3	[1, -1, 1]	3_1	eeunnwdnnnwwssueeeennwwwwswssseeedennnuwwdssss
+46	5	[2, -3, 2]	5_2	eeunnwdnnnwwuswwsseednneuesedsswuwwdwnnueedsss
+46	5	[2, -3, 2]	5_2	eeunnwdnnnwwwswssueednneuesedsswuwwdwnnueedsss
+46	5	[2, -3, 2]	5_2	eeunnwdnnueeesswdwnnnwwsswssueedeeennwuwwwsdss
+46	5	[2, -3, 2]	5_2	eeunnwdnnueeesswdwnnnwwswsssueedeeennwuwwwdsss
+46	3	[1, -1, 1]	3_1	eeunnwdnnuwwdnwwssueeeeedsswuwwdwnnnuneedsssss
+46	5	[2, -3, 2]	5_2	eeunnwdnnwnwwswssueednnueesedsswuwwdwnnueedsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwuswwsdeesueedennuwwdwwwwsseeuneedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwuswwsdeseueedennuwwdwwwwsseuenedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwuswwsdseeueedennuwwdwwwwssueendeess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwwuswsdeesueedennuwwdwwwwsseeuneedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwwuswsdeseueedennuwwdwwwwsseuenedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwwuswsdseeueedennuwwdwwwwssueendeess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwwwussdeesueedennuwwdwwwwsseeuneedss
+46	0	[1]	0_1	eeunnwdnnwwwwussdeesueedennuwwswwsdwwnneeeesss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwwwussdeseueedennuwwdwwwwsseuenedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnnwwwwussdseeueedennuwwdwwwwssueendeess
+46	5	[2, -3, 2]	5_2	eeunnwdnwnnwwswssueednnueesedsswuwwdwnnueesdss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwnwwuswsdeesueedennuwwwdwwwsseeuneedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwnwwuswsdeseueedennuwwwdwwwsseuenedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwnwwuswsdseeueedennuwwwdwwwssueendeess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwnwwwussdeesueedennuwwwdwwwsseeuneedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwnwwwussdeseueedennuwwwdwwwsseuenedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwnwwwussdseeueedennuwwwdwwwssueendeess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwwnwwussdeesueedennuwwwwdwwsseeuneedss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwwnwwussdeseueedennuwwwwdwwsseuenedess
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdnwwnwwussdseeueedennuwwwwdwwssueendeess
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eeunnwdnwwssueedeeennunwwdsseueednnwwsuwwwsdss
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	eeunnwdnwwssueedeeenunndwwsseuseednnwwuwwwsdss
+46	3	[1, -1, 1]	3_1	eeunnwdnwwssueedennnwwwusswssseeeeennnnwwwsdss
+46	5	[2, -3, 2]	5_2	eeunnwdwnwwussseeendennnuwwwssdwwnneeeesuwssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdwswwwnneuesssseenndennwwwswuwnneeessssd
+46	5	[2, -3, 2]	5_2	eeunnwdwwnwuwssseeeendennwnuwwsswdwnneeesussds
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdwwswwnnueessseendennwwwwsuwwnneeeesssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwdwwwnuwwssseeeeendennwwwuswwdnneeeusssds
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwndneeeussdswwwuwnnneesdeeennwwusssdwwwss
+46	4	[1, -3, 1]	4_1	eeunnwndneeunwwwwsssseedeeennnnwwwwsueesdswwss
+46	5	[2, -3, 2]	5_2	eeunnwndneeussssswwnndeeeennwwwunneesssdwwwwss
+46	5	[2, -3, 2]	5_2	eeunnwndneneesessuwwdnnuwwwsssedeeennuwwdswwss
+46	5	[2, -3, 2]	5_2	eeunnwndneneeussdwwunwwsssedeeeennnwwussdwwwss
+46	4	[1, -3, 1]	4_1	eeunnwndneneeussdwwunwwsssedeeunnndeesswwwwwss
+46	5	[2, -3, 2]	5_2	eeunnwndnenneessuwwwwsssedeennnnueesswwwdswwss
+46	5	[2, -3, 2]	5_2	eeunnwndnneeesessuwwdnnwuwwsssedeeennuwwdswwss
+46	5	[2, -3, 2]	5_2	eeunnwndnneeeussdwwnuwwsssedeeeennnwwussdwwwss
+46	4	[1, -3, 1]	4_1	eeunnwndnneeeussdwwnuwwsssedeeunnndeesswwwwwss
+46	5	[2, -3, 2]	5_2	eeunnwndnneeuseesswwdnnwuwwsssedeeennuwwdswwss
+46	5	[2, -3, 2]	5_2	eeunnwndnneeusssdeennwwwuwwsssedeeeunndwwswwss
+46	5	[2, -3, 2]	5_2	eeunnwndnnneessuwwwsssedeeennwwnnueessswdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwndnnueeesswwdnneesssswwwuwnnneeedsswwwss
+46	0	[1]	0_1	eeunnwndwwnnueedeesssswwuwnnneenndwwsseesswwss
+46	0	[1]	0_1	eeunnwndwwunndeeeesssswwuwnnnnndwwsseeeesswwss
+46	0	[1]	0_1	eeunnwndwwunnedeeesssswwuwnnnenndwwsseeesswwss
+46	4	[1, -3, 1]	4_1	eeunnwndwwwnneeussssedeennnnwwnwwussdeeesswwss
+46	4	[1, -3, 1]	4_1	eeunnwndwwwnneeussssedeennnuwwnnwwssdeeesswwss
+46	5	[2, -3, 2]	5_2	eeunnwndwwwnneeussssedeennnwwwwunneessesdswwss
+46	4	[1, -3, 1]	4_1	eeunnwndwwwnneeussssedeennuwnwnnwwssdeeesswwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwnndeeessswwwuwnnnneessdwwnneeeussdswwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwnndeesesswwwuwnnnneessdwwnneeeusssdwwwss
+46	3	[1, -1, 1]	3_1	eeunnwnndeesussdwwuwnnnneessdwwnneeeessswwwwss
+46	3	[1, -1, 1]	3_1	eeunnwnnedeseennuwwwwwssssedennueendnwwwssswss
+46	4	[1, -3, 1]	4_1	eeunnwnnedessueednnwnwwwsswussedeeennuwwdswwss
+46	3	[1, -1, 1]	3_1	eeunnwnneedseennuwwwwwssssedennueendnwwswsswss
+46	4	[1, -3, 1]	4_1	eeunnwnneedssueednnwnwwswswussedeeennuwwdswwss
+46	4	[1, -3, 1]	4_1	eeunnwnneeednnwwsswswussedeennnnueesswwwdswwss
+46	0	[1]	0_1	eeunnwnneeeednnwwssssswwuwnnnneeeedssuwwdswwss
+46	0	[1]	0_1	eeunnwnneeenndwwssessswwuwnnnneeedessuwwdswwss
+46	0	[1]	0_1	eeunnwnneendesssswwwuwnndeeueennndwwssesswwwss
+46	0	[1]	0_1	eeunnwnneenndwwsseessswwuwnnnneedeessuwwdswwss
+46	0	[1]	0_1	eeunnwnnendeesssswwwuwnndeeuennndwwsseesswwwss
+46	0	[1]	0_1	eeunnwnnndeeesssswwwuwnndeeunnndwwsseeesswwwss
+46	0	[1]	0_1	eeunnwnnndeesssueennwwwdwswussedeeennuwwdswwss
+46	3	[1, -1, 1]	3_1	eeunnwnnndeessussdwwuwwdnneeseeennuwwdwwussdss
+46	3	[1, -1, 1]	3_1	eeunnwnnnwwwsdeseussedennnnwwwwwsseuenedesswss
+46	3	[1, -1, 1]	3_1	eeunnwnnwnwwsdseeussedennnnwwwwwssueendeesswss
+46	0	[1]	0_1	eeunnwnnwwsdssueedeeunnwdwwuswwdnneeeeesswwwss
+46	4	[1, -3, 1]	4_1	eeunnwnwwwdneeeeessswwuwwdnneeeunwwwwwsseeedss
+46	4	[1, -3, 1]	4_1	eeunnwwndeenunwwswssseedeeennnwnwwsuseedswwwss
+46	4	[1, -3, 1]	4_1	eeunnwwndeenunwwswssseedeeennwnnwwsuseesdwwwss
+46	4	[1, -3, 1]	4_1	eeunnwwndneeunwwwwsssseeedeennnnwwwwsueesdswss
+46	5	[2, -3, 2]	5_2	eeunnwwndnenneessuwwwwssseedennnnueesswwwdswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwndnnueeesswwdnneesssswwuwwnnneeedsswwss
+46	0	[1]	0_1	eeunnwwndwwnnueedeesssswuwwnnneenndwwsseesswss
+46	0	[1]	0_1	eeunnwwndwwunndeeeesssswuwwnnnnndwwsseeeesswss
+46	0	[1]	0_1	eeunnwwndwwunnedeeesssswuwwnnnenndwwsseeesswss
+46	0	[1]	0_1	eeunnwwndwwusseeedennnuwwdwwwsseeunnndeessswss
+46	5	[2, -3, 2]	5_2	eeunnwwndwwusseeedennnwwuwssdwwnneeneeussdswss
+46	5	[2, -3, 2]	5_2	eeunnwwndwwusseeedennnwwwussdwwnneneeeussdswss
+46	5	[2, -3, 2]	5_2	eeunnwwndwwusseeedennnwwwussdwwnneneeusesdswss
+46	0	[1]	0_1	eeunnwwndwwusseeedennuwnwdwwwsseeunnndeessswss
+46	4	[1, -3, 1]	4_1	eeunnwwndwwwnneeusssseedennnnwwnwwussdeeesswss
+46	4	[1, -3, 1]	4_1	eeunnwwndwwwnneeusssseedennnuwwnnwwssdeeesswss
+46	5	[2, -3, 2]	5_2	eeunnwwndwwwnneeusssseedennnwwwwunneessesdswss
+46	4	[1, -3, 1]	4_1	eeunnwwndwwwnneeusssseedennuwnwnnwwssdeeesswss
+46	0	[1]	0_1	eeunnwwnndeeeeesswwunwwdwwssueedeeeunndwwswwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwnndeeessswwuwwnnnneessdwwnneeeussdswwss
+46	0	[1]	0_1	eeunnwwnneeednnwwsssueedsswwuwwnnnneeedssswwss
+46	4	[1, -3, 1]	4_1	eeunnwwnneeednnwwsswswssueedennnnueesswwwdswss
+46	5	[2, -3, 2]	5_2	eeunnwwnneeedsesswwwusseennndwnnneesuswwwdswss
+46	0	[1]	0_1	eeunnwwnneeeednnwwssssswuwwnnnneeeedssuwwdswss
+46	0	[1]	0_1	eeunnwwnneeenndwwssessswuwwnnnneeedessuwwdswss
+46	0	[1]	0_1	eeunnwwnneendesssswwuwwdnneeueennndwwssesswwss
+46	0	[1]	0_1	eeunnwwnneendnwwssseueedsswwuwwnnnneedsesswwss
+46	0	[1]	0_1	eeunnwwnneenndwwsseessswuwwnnnneedeessuwwdswss
+46	0	[1]	0_1	eeunnwwnnendeesssswwuwwdnneeuennndwwsseesswwss
+46	0	[1]	0_1	eeunnwwnnendnwwssseeueedsswwuwwnnnnedseesswwss
+46	0	[1]	0_1	eeunnwwnnndeeesssswwuwwdnneeunnndwwsseeesswwss
+46	3	[1, -1, 1]	3_1	eeunnwwnnneesdswwwssueedeeennnwnwwsuseedswwwss
+46	3	[1, -1, 1]	3_1	eeunnwwnnneesdswwwssueedeeennwnnwwsuseesdwwwss
+46	0	[1]	0_1	eeunnwwnwwdsseueedeennuwwdwwsuwwdnneeeeesswwss
+46	5	[2, -3, 2]	5_2	eeunnwwnwwdsseueedennnwwuwwwsseednnneeussdswss
+46	4	[1, -3, 1]	4_1	eeunnwwwdneenunwwsswsseeedeennnwnwwsuseedswwss
+46	3	[1, -1, 1]	3_1	eeunnwwwdneenunwwsswsseeedeennuwwwndneessswwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwwdnenueesdeesswwwuwwwnneeedneeussdwwwss
+46	4	[1, -3, 1]	4_1	eeunnwwwdnneesseeunnwwwwswsseeedeeennwwuwwdsss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwwdnneuesedeesswwwuwwwnneedeneeussdwwwss
+46	5	[2, -3, 2]	5_2	eeunnwwwdnnneesueedssswwuwwwnneeedennuwwsdssss
+46	5	[2, -3, 2]	5_2	eeunnwwwdnnneesuesedsswwuwwwnneeedennuwwsdssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwwdnnnueeesswwdnneesssswuwwwnneneedsswss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwwdnnnwwssueeedneessswuwwdwnnnueeesdswss
+46	3	[1, -1, 1]	3_1	eeunnwwwdnnueedneessuwwwwwsseeedennnunwwdsssss
+46	4	[1, -3, 1]	4_1	eeunnwwwdnnueeeedsswwnuwwwsseeedeeunnwdnwwssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwwdnnueesdeeesswwwuwwwnneedneeeussdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwwdnnueesdeeesswwwuwwwnneedneeusesdwwwss
+46	5	[2, -3, 2]	5_2	eeunnwwwdnnuwwssseeeedennnwwsuwwdnneeeussdswss
+46	5	[2, -3, 2]	5_2	eeunnwwwdnnuwwssseeeedennnwwsuwwdnneeusesdswss
+46	5	[2, -3, 2]	5_2	eeunnwwwdswwnnueeeednnwwsswsuseeedennnuwwdssss
+46	5	[2, -3, 2]	5_2	eeunnwwwdwnnneesueedssswuwwwnneeednnuwwsdsesss
+46	5	[2, -3, 2]	5_2	eeunnwwwdwnnneeusswwsseeedennnwwwunneesssdswss
+46	5	[2, -3, 2]	5_2	eeunnwwwdwwnneueseednnwwsswusseeedennnuwwdssss
+46	5	[1, -1, 1, -1, 1]	5_1	eeunnwwwnndeeessswuwwwnnnneessdwwnneeeussdswss
+46	4	[1, -3, 1]	4_1	eeunnwwwnnedeseuenndwwwwssssueedeennnwuwswdsss
+46	0	[1]	0_1	eeunnwwwnneeednnwwsssueedsswuwwwnnnneeedssswss
+46	0	[1]	0_1	eeunnwwwnneeeeedsswwnuwwdwssueedeeunndnwwsswss
+46	0	[1]	0_1	eeunnwwwnneendnwwssseueedsswuwwwnnnneedsesswss
+46	0	[1]	0_1	eeunnwwwnnendnwwssseeueedsswuwwwnnnnedseesswss
+46	0	[1]	0_1	eeunnwwwwdnneeesueennwwwwssdssueedennnuwwsdsss
+46	0	[1]	0_1	eeunnwwwwnneeedneessuwwwwdssueedennnunwwdsssss
+46	0	[1]	0_1	eeunnwwwwnneeeeedsswwnuwwdssueedeeunnwdnwwssss
+46	3	[1, -1, 1]	3_1	eeunnwwwwnnneeeesswwdnneesssswuwwdnnnueedsswss
+46	4	[1, -3, 1]	4_1	eeunnwwwwwnneedsssueedennnwwsuwwdnneeeussdswss
+46	4	[1, -3, 1]	4_1	eeunnwwwwwnneedsssueedennnwwsuwwdnneeusesdswss
+46	5	[1, -1, 1, -1, 1]	5_1	eueeeendnnuwwwssedennwwwussdeseeeennuwwwdwwwss
+46	0	[1]	0_1	eueeeendwwnuwwdnwwssueeeeendeesswwwwnnnuwwsdss
+46	3	[1, -1, 1]	3_1	eueeeennnwnwwwwssseeednnuwwsdseseennuwwdnwwsss
+46	5	[2, -3, 2]	5_2	eueeendeennuwwdswwwunndeeeessussdwwwnunndwwsss
+46	5	[2, -3, 2]	5_2	eueeendeennuwwsdwwwunndeeseesussdwwwnunndwwsss
+46	5	[2, -3, 2]	5_2	eueeendnnneessuwwwdwwunneeseedssswwwnunndwwsss
+46	0	[1]	0_1	eueeendwnnuwwdsseseeennwuwswwwwdnneneessuwwdss
+46	0	[1]	0_1	eueeendwnwuwwwdnneessseseeennwuwswwwwwnneedsss
+46	0	[1]	0_1	eueeenndeesswwwwnwnnwwssueeeenneessdwwnwuwwdss
+46	5	[2, -3, 2]	5_2	eueeenndwwwunndeeseesswwunneesssdwwwnunndwwsss
+46	3	[1, -1, 1]	3_1	eueeennndeesswwwunnnwwssdeeeeussdwwwnunndwwsss
+46	4	[1, -3, 1]	4_1	eueeennwdwsseeennnnwwnwwussdeeesswuwnnndwwssss
+46	4	[1, -3, 1]	4_1	eueeennwdwsseeennnuwwnnwwssdeeesswuwnnndwwssss
+46	4	[1, -3, 1]	4_1	eueeennwdwsseeennnuwwwwwwsseednneeesswuwnwwdss
+46	0	[1]	0_1	eueeennwwwdnneeesssswwnnnuwwsseeednnunwwwdssss
+46	3	[1, -1, 1]	3_1	eueeennwwwdnneesssuwwwnneedssseennnnuwwwwdssss
+46	3	[1, -1, 1]	3_1	eueeennwwwdnneesssuwwwnneedssseennnuwnwwwdssss
+46	0	[1]	0_1	eueeennwwwwnneeedsssuwwdnnueeedssswwnnnnwwssss
+46	5	[2, -3, 2]	5_2	eueendeeennuwwdswwwunndeeeessussdwwwnunndwwsss
+46	5	[2, -3, 2]	5_2	eueendeeennuwwsdwwwunndeeseesussdwwwnunndwwsss
+46	4	[1, -3, 1]	4_1	eueendeeennwwusssswwwwnnedneeeeussdwwwnunwwdss
+46	5	[2, -3, 2]	5_2	eueendeennnwwwwussdeeenunwwsssdseeunnwndwwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eueendeennwwwuwwwsseedeseeunndwwwnneeusswwwdss
+46	0	[1]	0_1	eueendeeunndwwswwsuwsseeeennndeesswwwwnunwwdss
+46	0	[1]	0_1	eueendeeunndwwwwssuwsseeeennndeesswwwwnnuwwdss
+46	5	[2, -3, 2]	5_2	eueendeneessuwwnnwdwwunneeseessdswwwnunndwwsss
+46	5	[2, -3, 2]	5_2	eueendenneessuwwnwdwwunneeseesdsswwwnunndwwsss
+46	5	[2, -3, 2]	5_2	eueendennneessuwwwdwwunneeseedssswwwnunndwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eueendennnuwwdwwwsssueedeseeunnwdnnnwwwussdsss
+46	5	[2, -3, 2]	5_2	eueendennnwwsuwwwsseednnnueesdswsseeunnwwwwdss
+46	4	[1, -3, 1]	4_1	eueendennwwussdseeunnnndwwwwussedeeunnwwsdwsss
+46	5	[2, -3, 2]	5_2	eueendennwwwnwwssueeesdseeunnwdwwsuwwwnneedsss
+46	5	[1, -1, 1, -1, 1]	5_1	eueendneennwwusswdwnwwssueedeseenunndwwuwswdss
+46	5	[2, -3, 2]	5_2	eueendnnnuwwdsseueedsswwnwuwwdnnneneessuwwdsss
+46	0	[1]	0_1	eueendnnnuwwwsdesseseennuwwswwwdnnneeesuwswdss
+46	4	[1, -3, 1]	4_1	eueendnnnwwsssuwsseeeeennnnwwwdssseennuwwwwdss
+46	4	[1, -3, 1]	4_1	eueendnnnwwwussedenueedssswwnuneeennwwwwsdwsss
+46	5	[2, -3, 2]	5_2	eueendnnueedssswwwnnnuwwwsseednnneeessuwwwwdss
+46	0	[1]	0_1	eueendnnueedssswwwnwnnwwssueeeneednnwwwwussdss
+46	5	[2, -3, 2]	5_2	eueendnnueedssswwwnwuwwdnneeseueednnwwwwussdss
+46	5	[1, -1, 1, -1, 1]	5_1	eueendnnwnuwwdwsssueedeseennuwwdwnnnwwussedsss
+46	3	[1, -1, 1]	3_1	eueendnwnwwwwwsseeuneedseseennuwwswwswwnndeess
+46	5	[1, -1, 1, -1, 1]	5_1	eueennedeessuwwndwnwwunneeseessdswwwnunndwwsss
+46	5	[2, -3, 2]	5_2	eueennedesswwwnunndnwwussedeeseuennwwnwwsdwsss
+46	5	[2, -3, 2]	5_2	eueennndeeesswwunnnwwwssdeeeeussdwwwnunndwwsss
+46	5	[1, -1, 1, -1, 1]	5_1	eueennneessdwwnwwsuwsseeeennndeesswwwwnunwwdss
+46	5	[2, -3, 2]	5_2	euenednnneesssuswwdwnwunneeedssseennuwwwwdwwss
+46	4	[1, -3, 1]	4_1	eueneeedneessuwwwwdwnwunendeessseenunwwwdwwwss
+46	4	[1, -3, 1]	4_1	eueneeedneessuwwwwdwnwunndeeessseenunwwwdwwwss
+46	4	[1, -3, 1]	4_1	eueneeedneessuwwwwdwnwunndeesseseenunwwwwdwwss
+46	3	[1, -1, 1]	3_1	euenndeeussdwwnwuwsseeeeennnnwwssdeennwwwwswss
+46	4	[1, -3, 1]	4_1	euenndeeussswwwwnnedeseeeunnnwwssdeennwwwwswss
+46	4	[1, -3, 1]	4_1	euenneeedseennuwwwwwwssdeseennneesuswwwdnwwwss
+46	4	[1, -3, 1]	4_1	euenneesedennwwwssusswwwnnedeseenneunwwwdswwss
+46	4	[1, -3, 1]	4_1	euenneeseednnwwsswusswwwnnedeseeennunwwdswwwss
+46	4	[1, -3, 1]	4_1	euenneessedennwwnwwwussdeseeneuesswwwnndnwwwss
+46	4	[1, -3, 1]	4_1	euenneessedennwwwsusswwwnnedeseeneunndwwwswwss
+46	4	[1, -3, 1]	4_1	euenneesseednnwwswusswwwnnedeseeenunndwwswwwss
+46	5	[2, -3, 2]	5_2	euennndeeessuswwdwnwunnneesssdeseennuwwdwwwwss
+46	5	[2, -3, 2]	5_2	euennndeeesswwunneesssdwwwnwuwsseeeennndwwwwss
+46	4	[1, -3, 1]	4_1	euennndeeesswwunneesssswwwwwnnedeseeunndwwwwss
+46	5	[2, -3, 2]	5_2	euennndeeesussdwwwnwunnneesssdeeennuwwsdwwwwss
+46	5	[2, -3, 2]	5_2	euennndeneesessuwwdnnuwnwwsssdeseeennuwwdwwwss
+46	5	[2, -3, 2]	5_2	euennndeneessuwwnnwwsssdeseennnueesswwwdnwwwss
+46	5	[2, -3, 2]	5_2	euennndneeesessuwwdnnwunwwsssdeseeennuwwdwwwss
+46	5	[2, -3, 2]	5_2	euennndneeuseesswwdnnwunwwsssdeseeennuwwdwwwss
+46	5	[2, -3, 2]	5_2	euennndneeusssdeennwwwunwwsssdeseeeunndwwwwwss
+46	4	[1, -3, 1]	4_1	euennneeeesswdswwwnwunndeeessuseednnwuwwdwwwss
+46	5	[2, -3, 2]	5_2	euennneeesdsswwwnwuwsseeenndenneessuwwnwdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	euennneeesdsswwwnwuwsseeennnedneessuwwdwnwwwss
+46	5	[2, -3, 2]	5_2	euennneeessdswwwnwuwsseeenndeneessuwwnnwdwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	euennneeessdswwwnwuwsseeennnedeessuwwndwnwwwss
+46	3	[1, -1, 1]	3_1	euennnndeeessuwwndwwussdeseennnueesswwwdnwwwss
+46	5	[1, -1, 1, -1, 1]	5_1	euennnneessdesswwwnwuwsseeennnndeeusswdwnwwwss
+46	5	[2, -3, 2]	5_2	euennwndneeusssdeennwwwunwwsssedeseeunndwwwwss
+46	3	[1, -1, 1]	3_1	nneeeeeennuwwsdwwuswsdseeunnnndeesussdwwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeeennuwwsdwwwussdseeunnnndeesussdwwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeeesswwunnndwwuswsdseeunnnneesssdwwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeeesswwunnndwwwussdseeunnnneesssdwwwuswwd
+46	0	[1]	0_1	nneeeeeesswwunnnnwwsswsdseeunnndeeussdwwwuswwd
+46	4	[1, -3, 1]	4_1	nneeeeeesusswwwnnnwwsdseeeuenneedsswwnwwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeennwwwusswsdseeunnnnndwwsseeeussdwwuswwd
+46	0	[1]	0_1	nneeeeeseennuwwswwssdwwnunendeeeesuswwdwwuswwd
+46	0	[1]	0_1	nneeeeeseennuwwswwssdwwnunndeeeeesuswwdwwuswwd
+46	0	[1]	0_1	nneeeeesseennuwwwwssdwwnunendeeeessuwwdwwuswwd
+46	0	[1]	0_1	nneeeeesseennuwwwwssdwwnunndeeeeessuwwdwwuswwd
+46	4	[1, -3, 1]	4_1	nneeeeesuswwnnndeeessswwwwwnunenneesssdwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeeunnwdwswuswsdseeunnnnndeesswussdwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeeunnwdwswwussdseeunnnnndeesswussdwwuswwd
+46	5	[2, -3, 2]	5_2	nneeeeeussdwwwwnunnneesdeeesswwunnndwwsussswwd
+46	3	[1, -1, 1]	3_1	nneeeennuwwsdwwussedseeunnwwnndeesuessdwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeennwwwusssdseeunnwnnndwwsseeeuessdwwuswwd
+46	4	[1, -3, 1]	4_1	nneeeeueednnwwswwwussdseeeeeennnuwwdsswwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeueedssuwwwnnwwsdseeeennneessuwwwdwwuswwd
+46	5	[2, -3, 2]	5_2	nneeeeueedsswwnwunnnwwsssdseeueendnnwwwussswwd
+46	5	[2, -3, 2]	5_2	nneeeeuneedsswwwunnnwwsssdseeeeunndnwwwussswwd
+46	0	[1]	0_1	nneeeeunndwwusswsdseeunnnnndwwsseeeesswwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeussdwwwnuneessswwwwnnenndeeeeesswwwuswwd
+46	3	[1, -1, 1]	3_1	nneeeeussdwwwnunenneesesssswwnnnndeesswwwuswwd
+46	5	[2, -3, 2]	5_2	nneeeeussdwwwnuwnnneesdeeesswwunnndwwsusesswwd
+46	4	[1, -3, 1]	4_1	nneeeueedessuwwndnnwwwussdseeeenuennwwwwssswwd
+46	5	[2, -3, 2]	5_2	nneeeueedsswwwwnunnneesdessueednnwnwwwsussswwd
+46	5	[2, -3, 2]	5_2	nneeeueedsswwwwnunnneesdessueennwwndwwsussswwd
+46	5	[2, -3, 2]	5_2	nneeeueedsswwwwnunnneesedssueednnwnwwswussswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeeueeedsswwwwwnunndeeesswwunneeedssuswwwwwd
+46	4	[1, -3, 1]	4_1	nneeeueeesdswwnnnwwuswsdseeueeeednnwwsuwwwswwd
+46	4	[1, -3, 1]	4_1	nneeeueeesdswwnnnwwwussdseeueeeednnwwsuwwwswwd
+46	0	[1]	0_1	nneeeusseeeennwwdsswwwwnunendeeeessuwwdwwuswwd
+46	0	[1]	0_1	nneeeusseeeennwwdsswwwwnunndeeeeessuwwdwwuswwd
+46	5	[2, -3, 2]	5_2	nneeeussseennndwnwwuswsdseeeunnnedesswwwwuswwd
+46	5	[2, -3, 2]	5_2	nneeeussseennndwnwwwussdseeeunnnedesswwwwuswwd
+46	3	[1, -1, 1]	3_1	nneennuwwsdwssueedseeunnwwwwnndeesueedsswuswwd
+46	0	[1]	0_1	nneenueesdesswwwwnuwwsseeeennndneeusswdwwuswwd
+46	0	[1]	0_1	nneeseeeeennuwwsdwwuswwdseeeeeunndnwwussswwwwd
+46	0	[1]	0_1	nneeseeeeennwwusssdwwwwnueendeeeunnwwsssswwwwd
+46	0	[1]	0_1	nneeseeeennwnwwussdeeussdwwwwnuenndeeussswwwwd
+46	0	[1]	0_1	nneeseeeennwnwwussdeeussdwwwwnunndeeeussswwwwd
+46	3	[1, -1, 1]	3_1	nneeseeeennwwusssdwwwnuwwsseeeeeennndwwusswwwd
+46	0	[1]	0_1	nneeseeeennwwusssswwwwwnneedseeeeunndwwusswwwd
+46	0	[1]	0_1	nneeseeennnuwwwsdeseussdwwwnunndneeesuwssswwwd
+46	0	[1]	0_1	nneeseeennunwwwwsssdseeunndenneessuwwnwwssswwd
+46	0	[1]	0_1	nneeseeenunnwwwwsssdseeunndeneessuwwnnwwssswwd
+46	4	[1, -3, 1]	4_1	nneeseeeuneedsswwwwwwnuenneessseendnwwwusswwwd
+46	3	[1, -1, 1]	3_1	nneeseeeunndeessswwwwwwnueendeeeunnwwsssswwwwd
+46	0	[1]	0_1	nneeseeeunndwwsussdwwnunndeneeeesswwunwwssswwd
+46	0	[1]	0_1	nneeseeeunndwwwwussdseeunndeeesswwunnnwwssswwd
+46	0	[1]	0_1	nneeseeeunnnwwwwsssdseeunndeeesswwunnnwwssswwd
+46	0	[1]	0_1	nneeseeneunnwwwwsssdseeunndneeesswuwnnwwssswwd
+46	0	[1]	0_1	nneeseenneessuwwnnwwsswdseeeennunndwwssusswwwd
+46	4	[1, -3, 1]	4_1	nneeseenneuessdswwwwwnuenneesedennwwwssusswwwd
+46	0	[1]	0_1	nneeseenneunwwwwsssdseeunndnneeesswuwnwwssswwd
+46	0	[1]	0_1	nneeseennneessuwwnwwsswdseeeennnunwwdssusswwwd
+46	0	[1]	0_1	nneeseennnneessuwwwwsswdseeeennnnuwwdssusswwwd
+46	4	[1, -3, 1]	4_1	nneeseennnueedsssswwwwwnuenneeednnwwsssusswwwd
+46	3	[1, -1, 1]	3_1	nneeseennuwnndeessssswwwwnueendnneuesssswwwwwd
+46	3	[1, -1, 1]	3_1	nneeseenunwndneessssswwwwnueendnenuesssswwwwwd
+46	3	[1, -1, 1]	3_1	nneeseeseennuwwsswdwwnuneneeeeesswwdnwwuswswwd
+46	3	[1, -1, 1]	3_1	nneeseeseennuwwsswdwwnuwwsseeeeeenndnwwuswswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeseeuenndwwsussswwwwnneedseeeennwunwwssswwd
+46	4	[1, -3, 1]	4_1	nneeseeunndwwusswdseeeeennnwnwwussdeesuswwwwwd
+46	3	[1, -1, 1]	3_1	nneeseeunndwwwussdseeeennwwusseennnnwwswssswwd
+46	4	[1, -3, 1]	4_1	nneeseeunnneessdwwwuswwdseeeeeennnwwussswwwwwd
+46	3	[1, -1, 1]	3_1	nneeseeunnwdnneessssswwwwnueendennuesssswwwwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeseeunnwnwwsssdseeeennwwusseennndwwwussswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeseueednnnwwssueennwwwwsssdseeennnuwwssswwd
+46	4	[1, -3, 1]	4_1	nneeseueeendnwwssswwwnunneeeeeedsswwnuwwwsswwd
+46	5	[2, -3, 2]	5_2	nneeseueeennnwwdsssswwwnunneeeednnwwsssuwsswwd
+46	5	[2, -3, 2]	5_2	nneeseueeennwdwssswwwnunneeesedennwwwssuwsswwd
+46	3	[1, -1, 1]	3_1	nneeseueeennwwdssswwwnunndeesueednnwwuswssswwd
+46	3	[1, -1, 1]	3_1	nneeseueeennwwdssswwwnunndeesueednnwwwusssswwd
+46	5	[2, -3, 2]	5_2	nneeseueeennwwdssswwwnunnneesseednnwwswussswwd
+46	3	[1, -1, 1]	3_1	nneeseuennwwdnneessssswwwnuenednnueesssswwwwwd
+46	5	[2, -3, 2]	5_2	nneeseuseedennnwwussdswwwnunneeneessdwwuwsswwd
+46	5	[2, -3, 2]	5_2	nneeseuseeennwdwsswwwnunneeessedennwwwsuwsswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeseuseennndwwwwussdseeenunnndeesswwwuwsswwd
+46	4	[1, -3, 1]	4_1	nneeseusseeennwdwswwwnunndeeseeesswuwnnwwsswwd
+46	5	[2, -3, 2]	5_2	nneeseusseeennwdwswwwnunneeesssedennwwwuwsswwd
+46	0	[1]	0_1	nneesueedennuwwdwwussdseennennwwusseeesswwwwwd
+46	5	[2, -3, 2]	5_2	nneesueedennuwwdwwussdseennuwnndeessuesswwwwwd
+46	0	[1]	0_1	nneesueednnuwwdwwussedseennnnwwusseeeesswwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeednnwwunwwsssdseennuwndneeussdssuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeenedesswwwnnuwwwsdseennneesseuswwwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeennedesswwwnuwwwsdseennneeseusswwwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeennndeesswwwuwwwsdseennneeeussswwwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeennwwwdwwussedseennnnwwusseeedssuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeesdeennwwuwwwwsdseenneneeussdwwsuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeesdeennwwwuwwwsdseennneeeussdwwsuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeesdeennwwwuwwwsdseennneeusesdwwsuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeesedennwwuwwwwsdseenenneeussdwswuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeesedennwwwuwwwsdseennneeeussdwswuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeesedennwwwuwwwsdseennneeusesdwswuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeeseednnwwuwwwwsdseenenneeussdswwuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeeseednnwwwuwwwsdseennneeeussdswwuwwwwd
+46	4	[1, -3, 1]	4_1	nneesueeeseednnwwwuwwwsdseennneeusesdswwuwwwwd
+46	3	[1, -1, 1]	3_1	nneesueeesswwwwwwnnenndeeessswwnuneeedssuwwwwd
+46	0	[1]	0_1	nneesueendeeussdwwwwwnuneedseeeennwwussswwwwwd
+46	5	[2, -3, 2]	5_2	nneeueeeedsswwnnnuwwwssdseeueendnnnwwssswuswwd
+46	4	[1, -3, 1]	4_1	nneeueeeesdswwnwnnwwussdseeueeeednnwwsuwwwswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeueseeennwdwssswwwnunneeesedennwwwssswuswwd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	nneeuessdwwnunneeedeessuwwndwnneeussdswwwuswwd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	nneeuessdwwnunneeedneessuwwdwnnueesdsswwwuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeuesseedennnwwussdswwwnunneeneessdwwswuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeuesseeennwdwsswwwnunneeessedennwwwsswuswwd
+46	5	[2, -3, 2]	5_2	nneeuesseennndwwwwussdseeenunnndeesswwwswuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeuessseeennwdwswwwnunneeesssedennwwwswuswwd
+46	5	[2, -3, 2]	5_2	nneeuessseennndwwnwwussdseeeunnndeesswwwwuswwd
+46	3	[1, -1, 1]	3_1	nneeuessswwwwnnenndeeneesssswwwnunneedsswuswwd
+46	3	[1, -1, 1]	3_1	nneeuessswwwwnnenndeneeesssswwwnunnedesswuswwd
+46	3	[1, -1, 1]	3_1	nneeuessswwwwnnenndneeeesssswwwnunndeesswuswwd
+46	3	[1, -1, 1]	3_1	nneeuessswwwwnnennneeseedssswwwnunndeesswuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeuneesssdeennwwwussdwwnunndeeeeussdwwwuswwd
+46	0	[1]	0_1	nneeuneneesssswwnndeesswwwwnunndeeeussdwwuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneeunndeeesussdswwwwnunndeeeuneedsswwswwuswwd
+46	0	[1]	0_1	nneneeusssswwwwnneedseeeennwwwunneesssdwwuswwd
+46	3	[1, -1, 1]	3_1	nnennneessuwwwdwssueedseennuwwwwnneeedsssuswwd
+46	0	[1]	0_1	nnenueedssusswwwwnneedseeennuwwwwndneesssuswwd
+46	5	[2, -3, 2]	5_2	nnenueeedssswwwnuwwnnneeeedssuwwwndneesssuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnenunndeeesssussdwwwnuwnndneeeueedssswwwuswwd
+46	4	[1, -3, 1]	4_1	nneueedeeessuwwnnnwwwwssedseeeenunndwwwssuswwd
+46	4	[1, -3, 1]	4_1	nneueedeeesswuwnnnwwwwssedseeeneunndwwwssuswwd
+46	4	[1, -3, 1]	4_1	nneueedeeesswwunnnwwwwssedseeneeunndwwwssuswwd
+46	0	[1]	0_1	nneueedneeussdswwwwnuwnneeeesdeennwwwwsssuswwd
+46	5	[2, -3, 2]	5_2	nneueednnueedsssswwwwnuwnndeneneessuwwdssuswwd
+46	4	[1, -3, 1]	4_1	nneueedsswwnuwnndeneesuesswwdnnuneedssssuwwwwd
+46	5	[2, -3, 2]	5_2	nneueedsswwnuwnneeedeessuwwwdnnneeussdssuwwwwd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	nneueedsswwnuwwwndnneeusswdswwnnueedeeessuswwd
+46	6	[1, -2, 3, -2, 1]	UNRESOLVED	nneueedsswwnuwwwnndneeusswdwwnnueesdeeessuswwd
+46	3	[1, -1, 1]	3_1	nneueeeednnwwsssusswwwwnneedseeennnuwwdssuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneueeendeessswwwwwnuwnneeedseeunndwwwsssuswwd
+46	5	[2, -3, 2]	5_2	nneueeennwwwdswwssueedseennnuwwwndneessssuswwd
+46	5	[2, -3, 2]	5_2	nneueenedessswwwwnuwnndeneesseuennwwwsdssuswwd
+46	5	[2, -3, 2]	5_2	nneueesdeeennwwusssdwwwnuwnneeeneessdwwwsuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneueeseenndwwssswwnuwnneeeesdeennwwwwsssuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneueesseenndwwsswwnuwnneeeessdeennwwwwssuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nneueessseenndwwswwnuwnneeeesssdeennwwwwsuswwd
+46	3	[1, -1, 1]	3_1	nneueessswwwwwnnneeneeedssswwnuwwdnneeessuswwd
+46	5	[2, -3, 2]	5_2	nneueneedssswwwnuwnndneeessueennwwwwsdessuswwd
+46	4	[1, -3, 1]	4_1	nneuesdeeunnnwwsdseeesswwwwnuwnndeneesussswwwd
+46	5	[2, -3, 2]	5_2	nneunneeessdswwunnedeessswwwwnuwnndeeseusswwwd
+46	5	[2, -3, 2]	5_2	nneunneeesssdwwunnedesesswwwwnuwnndeeseusswwwd
+46	4	[1, -3, 1]	4_1	nnneeeeeesswwunnwwwssedeneeussdwwwwnneuesswwwd
+46	0	[1]	0_1	nnneeeseennuwwsswswdseeenunndnwwuswsdeseuswwwd
+46	0	[1]	0_1	nnneeeseennuwwsswswdseeenunndnwwwussdeseuswwwd
+46	4	[1, -3, 1]	4_1	nnneeesswuwnneeedessuwwnwdwsseeennueesswwwwwwd
+46	4	[1, -3, 1]	4_1	nnneenneessuwwwssedennnueedsssswwwwnneuesswwwd
+46	4	[1, -3, 1]	4_1	nnneessuwwnneeeeessdwwnuwwdsseeeeennwwusswwwwd
+46	5	[2, -3, 2]	5_2	nnneessuwwnneendeessuwwwdsseeeennnuwwdssuswwwd
+46	5	[2, -3, 2]	5_2	nnneessuwwnnendeeessuwwwdsseeeennnuwwdssuswwwd
+46	5	[2, -3, 2]	5_2	nnneessuwwnnndeeeessuwwwdsseeeennnuwwdssuswwwd
+46	3	[1, -1, 1]	3_1	nnneesueedsswwwnnuneedsswuwwnnneeeesessswwwwwd
+46	3	[1, -1, 1]	3_1	nnneesuesedswwwnnuneedsswuwwnnneeeessesswwwwwd
+46	5	[2, -3, 2]	5_2	nnneeueedssswwwnuwwsseeeenndwnwunndeessuwsswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnneeueeednnwwsssswuwnnneeedsssswwwnneuesswwwd
+46	5	[2, -3, 2]	5_2	nnneeueeednnwwsssuwswdseeennnnuwwwssdeseuswwwd
+46	4	[1, -3, 1]	4_1	nnneneessuwwdsseeennnnuwwwswsseednnueessswwwwd
+46	0	[1]	0_1	nnnenueeesswwwdsseeennnnwwsssuwwnneeedssuswwwd
+46	3	[1, -1, 1]	3_1	nnnenueeesswwwdsseennnuwwwsseednnneessssuwwwwd
+46	0	[1]	0_1	nnneueedssswwnnueeennwwwwssseednnneessssuwwwwd
+46	5	[2, -3, 2]	5_2	nnneuneesessdwwnwuwnndeesusswdseeeennwwusswwwd
+46	0	[1]	0_1	nnnneeeeesswwwwnuneessssdwwnunendeeussdwwuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnnneeeessussdwwwnneuneeedsswwwuwnndeesusswwwd
+46	3	[1, -1, 1]	3_1	nnnneeeesswwsuwwnnedeeussdswwnnuenneesssswwwwd
+46	4	[1, -3, 1]	4_1	nnnneeeeussdwwwnuneessssdwwnunendeeesswwwuswwd
+46	3	[1, -1, 1]	3_1	nnnneeeeussssdwwwnnuenedesswwuwwnnedeseusswwwd
+46	0	[1]	0_1	nnnneesssueennnwwwwsseeedsswwnnnueedesssuwwwwd
+46	3	[1, -1, 1]	3_1	nnnneesssueennwwwdssseennuwwwnneeedsesssuwwwwd
+46	3	[1, -1, 1]	3_1	nnnneesssueennwwwdssseennuwwwnneeeeesssswwwwwd
+46	0	[1]	0_1	nnnneesueedssuwwdnwnuneedsssswwnuneeeesswwwwwd
+46	4	[1, -3, 1]	4_1	nnnneesueeesswwwdnwnuneedsssswwnuneeedssuwwwwd
+46	4	[1, -3, 1]	4_1	nnnneesuswwwdnnneeeessssswwnuwwwnneeedsesuswwd
+46	4	[1, -3, 1]	4_1	nnnneesuswwwdnnueeeedsssswwnuwwwnneeedsesuswwd
+46	0	[1]	0_1	nnnneesuswwwwnneeeeedsssswwnuwwdnnueedsesuswwd
+46	3	[1, -1, 1]	3_1	nnnneeusssdeenunwnnwwssdeeeessswwwwnneeusswwwd
+46	3	[1, -1, 1]	3_1	nnnneeusssdeeunnwnnwwssdeeesesswwwwnneeusswwwd
+46	4	[1, -3, 1]	4_1	nnnneuesswwwdnnneeessessswwnuwwwnneeedsesuswwd
+46	3	[1, -1, 1]	3_1	nnnnneessuwwwdssueedseennuwwwwwnneeedssesuswwd
+46	0	[1]	0_1	nnnnneessuwwwwsseeedseennuwwwwdnnueedssesuswwd
+46	3	[1, -1, 1]	3_1	nnnnnwwussedssueedseennuwwwwwdnneueedssesuswwd
+46	3	[1, -1, 1]	3_1	nnnnnwwussedssueedseennuwwwwwdnneuesedsesuswwd
+46	4	[1, -3, 1]	4_1	nnnnueeeedsswuwwdnneesuessdswwwnuwnneedssuswwd
+46	4	[1, -3, 1]	4_1	nnnnueesdssuwwnnedneeseusswdswwnnueedessuwwwwd
+46	4	[1, -3, 1]	4_1	nnnnueesswwwdnnneesesessswwnuwwwnneeedsesuswwd
+46	3	[1, -1, 1]	3_1	nnnnuwwsdsseueedseennuwwwwwwdnneesueedsesuswwd
+46	5	[2, -3, 2]	5_2	nnnnuwwssseeeednnwnnwwssueeeedssswwnnueesswwwd
+46	4	[1, -3, 1]	4_1	nnnnuwwssseeeednnwuwwdnneeseesssswwnnueesswwwd
+46	0	[1]	0_1	nnnnwwssueeedeseuennwwwwwdssueedseeennwuwsswwd
+46	3	[1, -1, 1]	3_1	nnnueedessswwnuwwwnneneeeesswwwwdnneessesuswwd
+46	0	[1]	0_1	nnnueedssueeednnwwssswwnnnnwwssueeeeedssuwwwwd
+46	0	[1]	0_1	nnnueedssuwwwdnnneesssseennnnwuwwwsseeeesswwwd
+46	3	[1, -1, 1]	3_1	nnnueeedssswwnnnnwwsssueeednnnuwwwsseeeesswwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnnueeenndwwssessuwwwnnneeedesssswwnnueesswwwd
+46	0	[1]	0_1	nnnuneedsesuwswdseeennnuwwwswwdnneesseseuswwwd
+46	5	[2, -3, 2]	5_2	nnnuwwsseeedseennnuwwdnwwssueeeeednnwwsssuswwd
+46	5	[2, -3, 2]	5_2	nnnuwwsseeedseennnwuwnwdwssueeeenndwwssesuswwd
+46	0	[1]	0_1	nnnuwwsseeedseeunndnwwnwwssueedeseennuwwssswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnnuwwsseeeednnnwwwssueeeedsswwnnnueeessswwwwd
+46	0	[1]	0_1	nnnuwwsseeeeendeesswwwwnnnnwwssueeedseeuswwwwd
+46	5	[2, -3, 2]	5_2	nnnwuwsseeeednnwnwwwsseueneeedssswwnnueesswwwd
+46	4	[1, -3, 1]	4_1	nnnwuwsseeeednnwuwswdwnneeeeesssswwnnueesswwwd
+46	0	[1]	0_1	nnnwwwwsseeuneeeeedsswwnuwwdnwwuneeeedsesuswwd
+46	3	[1, -1, 1]	3_1	nnueedeeeessuwwndwwuwwwdnneessseeeenunwwsswwwd
+46	4	[1, -3, 1]	4_1	nnueednnwwswssueeedeeunnwwwdssseeeennwwusswwwd
+46	0	[1]	0_1	nnueednnwwswssueeeenedesswwwwnnnueedsseuswwwwd
+46	0	[1]	0_1	nnueedseeeunnwwsswwwwdnneessseeeeennwwusswwwwd
+46	0	[1]	0_1	nnueedseeuneedsswwwwwnnnwwssueeeendeesuswwwwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnueeedneessuwwdswwnnnwwssueeednnueesdssuwwwwd
+46	0	[1]	0_1	nnueeedsswwnnnnneessuwwwwsseeednnnueesssswwwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnueeedsswwnnnnuwwssseeednnnnwwssueeeessswwwwd
+46	3	[1, -1, 1]	3_1	nnueeeednnwwsssuwwwdnneessseeeennnuwwdssuswwwd
+46	0	[1]	0_1	nnueeeeednnwwsssswwnnnwwssueeednnueedsssuwwwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnueeeennnwwsdsessswwnuwwnneeeendnwwsssesuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnueeenndwwsseeeussdwwwnuwwnneeedeeesswwuswwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnueeenndwwsseeeussdwwwnuwwnneeedeeesswwwuswwd
+46	4	[1, -3, 1]	4_1	nnueeenndwwsssseenuenndwwuwwwsseeedneessuwwwwd
+46	5	[2, -3, 2]	5_2	nnueeennwwwdswssueedseennnwuwwwndneesssesuswwd
+46	3	[1, -1, 1]	3_1	nnueeesdswwnnneeeussesswwwwwwnneeedneessuwwwwd
+46	4	[1, -3, 1]	4_1	nnueeesdswwnnnnueesdswsuwwwnneeedneessssuwwwwd
+46	5	[2, -3, 2]	5_2	nnueeesdswwnnnuneedsswsuwwwdnneneesueessswwwwd
+46	0	[1]	0_1	nnueeeseednnwwssswwnnnwwssueeednnueesdssuwwwwd
+46	3	[1, -1, 1]	3_1	nnueeessswwwwwnnneneeedessswwnuwwdnneesesuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnueeneeedsswwwuwwwdnneeeeesussdwwwnneeusswwwd
+46	4	[1, -3, 1]	4_1	nnueeneesdesswwwwnnnwwssueeedeeuenndwwsusswwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnuenedeeussdswwwnuwwdnneeseuenndeesswwsuswwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnuenedeeussdswwwnuwwdnneeseuenndeesswwswuswwd
+46	5	[2, -3, 2]	5_2	nnuenedneessuwwdwnwwssueedseeeennnuwwdssuswwwd
+46	5	[2, -3, 2]	5_2	nnuenedneessuwwdwnwwssueedseeeennnuwwdsswuswwd
+46	0	[1]	0_1	nnuenednwwwsssueeeneedsswwwnnnwuneeedsssuswwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnueneeedesswwwuwwwdnneeeeseussdwwwnneuesswwwd
+46	5	[2, -3, 2]	5_2	nnuenndeeessuwwdwnwwssueedseeeennnuwwdssuswwwd
+46	5	[2, -3, 2]	5_2	nnuenndeeessuwwdwnwwssueedseeeennnuwwdsswuswwd
+46	0	[1]	0_1	nnuneedssueeednnwwssswwnnnwwssueeneeedssuwwwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnuneedssueeednnwwssswwnuwwdnneesueeedssuwwwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnuneeedeesswwwuwwwdnneeeseeussdwwwnnueesswwwd
+46	0	[1]	0_1	nnuneeneessdwwuwswwdnneessseeunnndeesswwwuswwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnuneenndwwsseessuwwwnnneedeesssswwnnueesswwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnunenndwwsseeessuwwwnnnedeeesssswwnnueesswwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnunndeeeesssswwwnnuneedsswuwwwdnneeesuesswwwd
+46	5	[2, -3, 2]	5_2	nnunndeeeessuwwdwnwwssueedseeeennnuwwdssuswwwd
+46	4	[1, -3, 1]	4_1	nnunndeeeessuwwndwwwssueedseennnunwwssdesuswwd
+46	0	[1]	0_1	nnunndeeeessuwwswwwdnneessseeeennnuwwdssuswwwd
+46	5	[2, -3, 2]	5_2	nnunndeesssuwwwdnneeueeesswdswwnnueedessuwwwwd
+46	4	[1, -3, 1]	4_1	nnunndeesuswdsseenunnnwwsdwwssueeedneessuwwwwd
+46	5	[1, -1, 1, -1, 1]	5_1	nnunnndwwsseeeessuwwwnnndeeeesssswwnnueesswwwd
+46	0	[1]	0_1	nnunwwdsseueeneedsswwnnnwwsuwwdnneeeeesssuswwd
+46	0	[1]	0_1	nnunwwdsseueeneedsswwnnnwwsuwwnneeeesedssuswwd
+46	0	[1]	0_1	nnuwnnwwdsseeneessseennuwwswwwnndneeeesssuswwd
+46	0	[1]	0_1	nnuwnwwdsseenneessseennuwwswwwndnneeeesssuswwd
+46	3	[1, -1, 1]	3_1	nnuwwssseeeeeenndwwuwwwdnneessseeeennwwusswwwd
+46	0	[1]	0_1	nnwnwwwsseueneeeeedsswwnuwwdwnwuneeedesesuswwd
+46	0	[1]	0_1	nnwwnwwssueeneeeeedsswwnuwwdwwnuneedeesesuswwd
+TALLY
+count	length	verdict
+696	46	0_1
+536	46	3_1
+602	46	4_1
+414	46	5_1
+699	46	5_2
+16	46	UNRESOLVED
+UNRESOLVED: 16 words

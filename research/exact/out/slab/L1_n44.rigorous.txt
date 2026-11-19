@@ -1,0 +1,1051 @@
+44	3	[1, -1, 1]	3_1	eeeeeennnwwwwsseeunnwwwdssuseeeendnwwuwwwdss
+44	4	[1, -3, 1]	4_1	eeeeeennunwwdsswwwunneeseedneessuwwwwwndwwss
+44	4	[1, -3, 1]	4_1	eeeeeennuwnwdwsswwunneesedeneessuwwwwwndwwss
+44	0	[1]	0_1	eeeeeennuwwswwnndeesswwwuseeeendnnuwwsdwwwss
+44	3	[1, -1, 1]	3_1	eeeeeennuwwwdswwuseeeendnnuwwwsseednnwwswwss
+44	3	[1, -1, 1]	3_1	eeeeeennuwwwdwswuseeeendnnuwwwssedennwwwswss
+44	3	[1, -1, 1]	3_1	eeeeeennuwwwdwwsuseeeendnnuwwwssdeennwwwwsss
+44	0	[1]	0_1	eeeeeennwnwwussdeeusswwwwnndeneeusswwnnwdwss
+44	3	[1, -1, 1]	3_1	eeeeeennwnwwwsseuennwwwdssuseeeendwnwuwwwdss
+44	0	[1]	0_1	eeeeeennwuwsswwnndeeseusswwwwnndeeunndwwswss
+44	3	[1, -1, 1]	3_1	eeeeeennwwnwwssueennwwwdssuseeeendwwnuwwwdss
+44	4	[1, -3, 1]	4_1	eeeeeennwwuswwwwwdnneeseueneessdwwnnwuwswdss
+44	4	[1, -3, 1]	4_1	eeeeeennwwuswwwwwdnneesueeneessdwwwnnuwwsdss
+44	0	[1]	0_1	eeeeeennwwwunwwdssuseeeendwwwnneeusswwnwwdss
+44	4	[1, -3, 1]	4_1	eeeeeenunwwdswwwunneesseedneessuwwwwwnndwwss
+44	4	[1, -3, 1]	4_1	eeeeeenuwnwdwswwunneessedeneessuwwwwwnndwwss
+44	4	[1, -3, 1]	4_1	eeeeennnnuwwdssswwuwwdnneeeueednnwwswwussdss
+44	4	[1, -3, 1]	4_1	eeeeennnnuwwdwwwswssueednneunndeessswwuwwdss
+44	3	[1, -1, 1]	3_1	eeeeennnnuwwwssdseeunnwdwwssueendennwwwwssss
+44	4	[1, -3, 1]	4_1	eeeeennnnwuswwwssdeenueennndwwssessuwwndwwss
+44	3	[1, -1, 1]	3_1	eeeeennnnwuwwwssedseennuwwdwssueendnnwwwssss
+44	4	[1, -3, 1]	4_1	eeeeennnnwwussdswwwwnnueedeeeunndwwswwssussd
+44	4	[1, -3, 1]	4_1	eeeeennnnwwuswwssdeenuennndwwsseessuwwndwwss
+44	3	[1, -1, 1]	3_1	eeeeennnnwwwssuseednnwuwwdsseenuennwwwdwssss
+44	3	[1, -1, 1]	3_1	eeeeennnnwwwssuseednnwuwwsdseenuennwwwdswsss
+44	3	[1, -1, 1]	3_1	eeeeennnnwwwssuseednnwuwwssdeenuennwwwdsswss
+44	4	[1, -3, 1]	4_1	eeeeennnnwwwuswssdeenunnndwwsseeessuwwndwwss
+44	3	[1, -1, 1]	3_1	eeeeennnnwwwwsseuseednnwwuwssdeenunnwwwdssss
+44	0	[1]	0_1	eeeeennnnwwwwssseenunwwwwsseeeeednnwwsuwwdss
+44	4	[1, -3, 1]	4_1	eeeeennnuwwwsswdwnneeesueeednnwwssswwnwuwssd
+44	3	[1, -1, 1]	3_1	eeeeennnwnuwwwssedseenunwwdwssueendnnwwwssss
+44	3	[1, -1, 1]	3_1	eeeeennnwwunwwsssdeeunenndwwsussseendnwwwwss
+44	4	[1, -3, 1]	4_1	eeeeennnwwussswwnndeeeunndwwswwsseeunnwwsssd
+44	4	[1, -3, 1]	4_1	eeeeennnwwussswwnnndwwsseeeunnneessdwwwwussd
+44	4	[1, -3, 1]	4_1	eeeeennnwwuwssdeenunndwwswwsseuseenndwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennnwwuwwwssedeeunenndwwsseesuswwnnwdwss
+44	4	[1, -3, 1]	4_1	eeeeennnwwwussdeenunndwwwswsseuseenndwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennnwwwussdeenunwndwwswsseuseenndwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennueesswwwwwwndeneueseednnwwsswuwnwdwss
+44	4	[1, -3, 1]	4_1	eeeeennueesswwwwwwndneeuseeednnwwsswwunwwdss
+44	4	[1, -3, 1]	4_1	eeeeennunndwwnwwssueedeeessuwwdwwnnnuwwdssss
+44	5	[2, -3, 2]	5_2	eeeeennunndwwssuswwdnneueedeessuwwdwwnuwwdss
+44	4	[1, -3, 1]	4_1	eeeeennuwnwwdsseenneessuwwwwwdnnneessuwwwdss
+44	4	[1, -3, 1]	4_1	eeeeennuwnwwsswdwnneeesuseeednnwwsswwnwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennuwwdnneesessuwwwwwdnneueedsswwnuwwdss
+44	0	[1]	0_1	eeeeennuwwdnwwssueeeeennwwwwsdseennnwwwwssss
+44	4	[1, -3, 1]	4_1	eeeeennuwwdswwnnueedessuwwwwwdnneneessuwwdss
+44	5	[2, -3, 2]	5_2	eeeeennuwwdswwuwwdnneeueedessuwwndnnwwussdss
+44	4	[1, -3, 1]	4_1	eeeeennuwwdwwnnneeussdessueednnwnwwwuwwdssss
+44	4	[1, -3, 1]	4_1	eeeeennuwwsdwwnnwwssueeendeesuswwwwwwnneedss
+44	3	[1, -1, 1]	3_1	eeeeennuwwsdwwunnndwwsseeeeesuswwnnndwwussds
+44	0	[1]	0_1	eeeeennuwwsdwwusseeeeennnnwwwwssseendnwwwwss
+44	4	[1, -3, 1]	4_1	eeeeennuwwwdnneesssuwwwwwdnneesseennuwwswdss
+44	3	[1, -1, 1]	3_1	eeeeennwnnuwwwssedseeunnwwdwssueendnnwwwssss
+44	4	[1, -3, 1]	4_1	eeeeennwnwuwssdeeunnndwwswwsseuseenndwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennwnwwussdeeunnndwwwswsseuseenndwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennwnwwussdeeunnwndwwswsseuseenndwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennwunwwssdeeuenndwwwwwsseuseenndwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennwuwsswwndneennwwussesdeeuennwwwdwwsss
+44	4	[1, -3, 1]	4_1	eeeeennwuwsswwnndeeseuenndwwwwwsseeunnwwsssd
+44	4	[1, -3, 1]	4_1	eeeeennwuwsswwnnndwwsseeeunneeesswdwnwwwussd
+44	4	[1, -3, 1]	4_1	eeeeennwuwswdwnnwwssueenedeseuswwwwwwnneedss
+44	4	[1, -3, 1]	4_1	eeeeennwuwswwnnndwwsseeeuneeesswdwnnwwwussds
+44	4	[1, -3, 1]	4_1	eeeeennwuwswwnnwdwsseeenuneeesswdwnnwwswussd
+44	4	[1, -3, 1]	4_1	eeeeennwwusseennndwwwwwsseuenneessdwwnwuwssd
+44	4	[1, -3, 1]	4_1	eeeeennwwuswwdnneeennwwusssdseeunnwndwwwssss
+44	4	[1, -3, 1]	4_1	eeeeennwwuswwdnneennwwusssedseeunnwwndwwssss
+44	4	[1, -3, 1]	4_1	eeeeennwwuswwdnnennwwussseedseeunnwwwndwssss
+44	5	[2, -3, 2]	5_2	eeeeennwwuswwdwwnnueedeeeussdwwnunndwwssussd
+44	4	[1, -3, 1]	4_1	eeeeennwwuswwnndeeeussdwwwwwnneneeussdwwussd
+44	4	[1, -3, 1]	4_1	eeeeennwwwunneesssdwwwwwnneuesseenndwwswussd
+44	3	[1, -1, 1]	3_1	eeeeennwwwwsuseennndnwwussesdeeunnnwwsdwwsss
+44	0	[1]	0_1	eeeeennwwwwsuseennnwwwwsssseeeeenndwwunwwdss
+44	4	[1, -3, 1]	4_1	eeeeenueesswwwwwwnndeneuesseednnwwswuwnwdwss
+44	4	[1, -3, 1]	4_1	eeeeenueesswwwwwwnndneeusseeednnwwswwunwwdss
+44	5	[2, -3, 2]	5_2	eeeeenunndwwsuswwdnneueesdeessuwwndwwnuwwdss
+44	0	[1]	0_1	eeeeenunndwwsuswwdnneueessseednnwwswwnuwwdss
+44	3	[1, -1, 1]	3_1	eeeeenunndwwussswwndneeeeennwwusssdwwunwwdss
+44	4	[1, -3, 1]	4_1	eeeeenunndwwwsswuwnneeesdeeennwwussswwnwdwss
+44	4	[1, -3, 1]	4_1	eeeeenunndwwwsuseedneessuwwwwwndeenunwwdswss
+44	4	[1, -3, 1]	4_1	eeeeenunndwwwussseeeednnwwswwwunnneessdwwwss
+44	4	[1, -3, 1]	4_1	eeeeenunnnwwssdeeessuwwwwwndenneeusswwnwdwss
+44	4	[1, -3, 1]	4_1	eeeeenunwndwwsuseedneessuwwwwwndeenunwwdswss
+44	4	[1, -3, 1]	4_1	eeeeenunwwsswwndwnneeussdeeuseednnwwwwwuwssd
+44	4	[1, -3, 1]	4_1	eeeeenuwnndwwussseeeednnwwswwwunnneessdwwwss
+44	4	[1, -3, 1]	4_1	eeeeenuwnnwwdsseeneessuwwwwwndnnneessuwwwdss
+44	4	[1, -3, 1]	4_1	eeeeenuwnnwwsswdwnneeesusseeednnwwswwnwuwssd
+44	4	[1, -3, 1]	4_1	eeeeenuwwndneesessuwwwwwndnenueesdswwunwwdss
+44	4	[1, -3, 1]	4_1	eeeeenuwwndneesessuwwwwwndnneueesdswwnuwwdss
+44	4	[1, -3, 1]	4_1	eeeeeunndnnwwnwwussdeeeueedsswwwwnunndwwssss
+44	5	[2, -3, 2]	5_2	eeeeeunndnnwwussdswwunndeeeueedsswwuwwndwwss
+44	4	[1, -3, 1]	4_1	eeeeeunndwnwwsswuwnneeesdseeennwuwsswwnwdwss
+44	4	[1, -3, 1]	4_1	eeeeeunndwnwwusseennedesswwwwwunnneessdwwwss
+44	4	[1, -3, 1]	4_1	eeeeeunndwwunndeesesswwwwwunndeeeusswwndwwss
+44	4	[1, -3, 1]	4_1	eeeeeunndwwwswuwnneeessdeeennwwussswwnnwdwss
+44	4	[1, -3, 1]	4_1	eeeeeunndwwwwunneesssdeeennwwussswwnnndwwsss
+44	4	[1, -3, 1]	4_1	eeeeeunnnwwssdeennwwnwwussdeeeusswwnnndwwsss
+44	4	[1, -3, 1]	4_1	eeeeeunnnwwssdeennwwwwwussedeneeusswwnnwdwss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwswwnnnwwssueeedneeesswuwnnwwwdsss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwswwnnwwssueeendneeesswuwnnwwswdss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwswwunneessedennwwwwwussseenndwwss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwwusseendennwnwwuswsdseeunndwwwsss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwwusseendennwnwwuswssdeeunndwwswss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwwusseendennwnwwwussdseeunndwwwsss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwwusseendennwnwwwusssdeeunndwwswss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwwusseendennwwnwwussdseeunnwdwwsss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwwusseendennwwnwwusssdeeunnwdwswss
+44	4	[1, -3, 1]	4_1	eeeeeunnwdwwusseendennwwwwwussedeeunnwwsdwss
+44	4	[1, -3, 1]	4_1	eeeeneunndwwwsuseendeesswuwwwwndeenunwwdswss
+44	4	[1, -3, 1]	4_1	eeeeneunnnwwssdeeesswuwwwwndenneeusswwnwdwss
+44	0	[1]	0_1	eeeennneessuwwwwnndwwsseuseeeednnuwwdwwuwssd
+44	4	[1, -3, 1]	4_1	eeeennnnuwwdwssueednnnwwuswwssseedennuwwdsss
+44	4	[1, -3, 1]	4_1	eeeennnnuwwdwssueednnnwwwsswssueedennuwwsdss
+44	4	[1, -3, 1]	4_1	eeeennnnuwwdwssueednnnwwwswsssueedennuwwdsss
+44	4	[1, -3, 1]	4_1	eeeennnnuwwwdssueednnwnwwsswssueedennuwwsdss
+44	4	[1, -3, 1]	4_1	eeeennnnuwwwdssueednnwnwwswsssueedennuwwdsss
+44	0	[1]	0_1	eeeennnnwunwwssssdwwnneeeeuenndwwsussdwwussd
+44	4	[1, -3, 1]	4_1	eeeennnnwwuwssdeenunndwwswwssseeeunndwwsussd
+44	4	[1, -3, 1]	4_1	eeeennnnwwwussdeenunndwwwswssseeeunndwwsussd
+44	4	[1, -3, 1]	4_1	eeeennnnwwwussdeenunwndwwswssseeeunndwwsussd
+44	4	[1, -3, 1]	4_1	eeeennnnwwwussdeenunwnwwsswdsseeeunndwwsussd
+44	0	[1]	0_1	eeeennnnwwwwwssueedseennuwwwwwsseeeendnwwsss
+44	5	[2, -3, 2]	5_2	eeeennnunwwdssswuwwdnneesueeeednnwwsuwwwsdss
+44	4	[1, -3, 1]	4_1	eeeennnuwnwdwssueednnnwwuswwssseedennuwwdsss
+44	4	[1, -3, 1]	4_1	eeeennnuwnwdwssueednnnwwwsswssueedennuwwsdss
+44	4	[1, -3, 1]	4_1	eeeennnuwnwdwssueednnnwwwswsssueedennuwwdsss
+44	4	[1, -3, 1]	4_1	eeeennnuwnwwdssueednnwnwwsswssueedennuwwsdss
+44	4	[1, -3, 1]	4_1	eeeennnuwnwwdssueednnwnwwswsssueedennuwwdsss
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsseueednnnwnwwswssueednnuwwswdsss
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsseueednnnwnwwswssueednnuwwwdssss
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsseueednnnwnwwwsssueednnwuwswdsss
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsseueednnnwnwwwsssueednnwuwwdssss
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsseueennnwwndwwsssueednnwuwswdsss
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsseueennnwwndwwsssueednnwuwwdssss
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsseueennnwwwwwdsseueednnwwsuwssds
+44	4	[1, -3, 1]	4_1	eeeennnuwwdsswuseeeeennwwwdnneesssuwwwnwdwss
+44	5	[2, -3, 2]	5_2	eeeennnuwwdsswuwwdnneuenedessuwwdnnwwussedss
+44	0	[1]	0_1	eeeennnuwwwssdeeueednnnwwssueeesswwwwnndwwss
+44	0	[1]	0_1	eeeennnuwwwwwsseednnnneesssueennwwwdssuwwdss
+44	3	[1, -1, 1]	3_1	eeeennnwnneeussswwdswwunneeendesssuwwwndwwss
+44	4	[1, -3, 1]	4_1	eeeennnwnwuwssdeeunnndwwswwssseeeunndwwsussd
+44	4	[1, -3, 1]	4_1	eeeennnwnwwussdeeunnndwwwswssseeeunndwwsussd
+44	4	[1, -3, 1]	4_1	eeeennnwnwwussdeeunnwndwwswssseeeunndwwsussd
+44	4	[1, -3, 1]	4_1	eeeennnwnwwussdeeunnwnwwsswdsseeeunndwwsussd
+44	0	[1]	0_1	eeeennnwnwwwwssueedseenunwwwwwsseeeendnwwsss
+44	4	[1, -3, 1]	4_1	eeeennnwunwwssdeeuenndwwwwwssseeeunndwwsussd
+44	3	[1, -1, 1]	3_1	eeeennnwwnneeussswdswwunneendeesssuwwwndwwss
+44	0	[1]	0_1	eeeennnwwsuseeeennwwwwwdsseenueednnwwwwwssss
+44	0	[1]	0_1	eeeennnwwsuseeeennwwwwwsdseenueednnwwwwswsss
+44	0	[1]	0_1	eeeennnwwsuseeeennwwwwwssdeenueednnwwwwsswss
+44	5	[2, -3, 2]	5_2	eeeennnwwussdwwwunnedeneeussdwwunnwdwsseussd
+44	5	[2, -3, 2]	5_2	eeeennnwwussdwwwunnedneeeussdwwnunwwdsseussd
+44	4	[1, -3, 1]	4_1	eeeennnwwusseennndwwwswwsseeunnneessdwwwussd
+44	0	[1]	0_1	eeeennnwwwussdeeueednnuwwwssseeeennwwwdwwwss
+44	0	[1]	0_1	eeeennnwwwussdeeueeennwwwwssseeednnuwwdwwwss
+44	0	[1]	0_1	eeeennueesswwwwnndnwwussedeeueednnwwuwwsdwss
+44	0	[1]	0_1	eeeennueesswwwwnnndeeessuwwdwwunnneessdwwwss
+44	5	[2, -3, 2]	5_2	eeeennuenndwwssuwswdwnneeueedessuwwdwnwuwssd
+44	5	[2, -3, 2]	5_2	eeeennuenndwwssuwwdnneuesedessuwwdwnnuwwdsss
+44	0	[1]	0_1	eeeennuneedsswuwwdwwunndeeeesuesswwwwnndwwss
+44	5	[2, -3, 2]	5_2	eeeennunndwwwsssuwwnneeedsseueednnwwsuwwwdss
+44	0	[1]	0_1	eeeennunnwdnwwssssuwwnneeeedennuwwsdssuwwdss
+44	5	[2, -3, 2]	5_2	eeeennunwndwwsssuwwnneeedsseueednnwwsuwwwdss
+44	4	[1, -3, 1]	4_1	eeeennunwwdsseueednnwnnwwswssueednnuwwswdsss
+44	4	[1, -3, 1]	4_1	eeeennunwwdsseueednnwnnwwswssueednnuwwwdssss
+44	4	[1, -3, 1]	4_1	eeeennunwwdsseueednnwnnwwwsssueednnwuwswdsss
+44	4	[1, -3, 1]	4_1	eeeennunwwdsseueednnwnnwwwsssueednnwuwwdssss
+44	5	[2, -3, 2]	5_2	eeeennunwwwdnwwssueeeedneessuwwdwnnnuwwsdsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeennunwwwdssuwwdnneneessseueednnwwsuwwwdss
+44	0	[1]	0_1	eeeennuwnwwdsseenneessuwwwwwwdnneneessuwwdss
+44	0	[1]	0_1	eeeennuwwdnneesessuwwwwwwdnneesseennuwwswdss
+44	0	[1]	0_1	eeeennuwwdnnunwwdsseueeeesswwdnnnnwwsuwssdss
+44	0	[1]	0_1	eeeennuwwdnnuwwwsseednnneessssueennwwwwwdsss
+44	0	[1]	0_1	eeeennuwwsdwwwunndeeussseendnwwwwwnneeussssd
+44	3	[1, -1, 1]	3_1	eeeennuwwsseeednnunwwwwssdeeueeednnwwwswwwss
+44	3	[1, -1, 1]	3_1	eeeennuwwsswwnnndeeueeesswwdwwunnndeesswwwss
+44	4	[1, -3, 1]	4_1	eeeennuwwwdnneesssueennwwnwwwdssseennuwwsssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeeennuwwwdnwwssueedennneesessuwwdnnuwwwsdss
+44	5	[2, -3, 2]	5_2	eeeennuwwwdnwwssueedennueeesswwdnnnwwuswsdss
+44	5	[2, -3, 2]	5_2	eeeennuwwwdnwwssueedennueeesswwdnnnwwwussdss
+44	0	[1]	0_1	eeeennwnneeusswwwswdwnneeueedessuwwdwnwuwssd
+44	0	[1]	0_1	eeeennwnnwwwwssueedseeunnwwwwwsseeeendnwwsss
+44	0	[1]	0_1	eeeennwunndwwsussdeeuenndwwunwwsssseenndwwss
+44	3	[1, -1, 1]	3_1	eeeennwunwwdsseeuenndwwsusseeednnnnwwwwwssss
+44	0	[1]	0_1	eeeennwunwwdwwssueedeeuenndwwsusswwwwnneedss
+44	3	[1, -1, 1]	3_1	eeeennwunwwsdseeuenndwwsusseeednnnnwwwwswsss
+44	3	[1, -1, 1]	3_1	eeeennwunwwssdeeuenndwwsusseeednnnnwwwwsswss
+44	3	[1, -1, 1]	3_1	eeeennwuwsseeednnuwnwwwssdeeueeednnwwwwswwss
+44	5	[2, -3, 2]	5_2	eeeennwuwswdwwunnedeeeeusswdwnwunndwwsseussd
+44	0	[1]	0_1	eeeennwuwswdwwunnedeeeeusswdwnwwwnneeusswssd
+44	4	[1, -3, 1]	4_1	eeeennwuwswwwdnnneessuwwwsseeeeendwnnuwwdsss
+44	3	[1, -1, 1]	3_1	eeeennwwnneeussswdwwuwnneeedeesssuwwwnnwdwss
+44	3	[1, -1, 1]	3_1	eeeennwwusseeednnuwwnwwsdseeueeednnwwwwwwsss
+44	3	[1, -1, 1]	3_1	eeeennwwusseeednnuwwnwwssdeeueeednnwwwwwswss
+44	0	[1]	0_1	eeeennwwusseennnnwwsdwwussedeeunndnwwussdwss
+44	0	[1]	0_1	eeeennwwusswwwwnnedneeeeussdwwuwwdwnnueesdss
+44	0	[1]	0_1	eeeennwwusswwwwnneeednnwwsssueedeeunnwwwdsss
+44	3	[1, -1, 1]	3_1	eeeennwwuswwwdnnneeuseessdwwnuwnnndeesswwsss
+44	3	[1, -1, 1]	3_1	eeeennwwuswwwdnnneuseeessdwwnuwwnnndeesswsss
+44	3	[1, -1, 1]	3_1	eeeennwwwnneeusssdwwuwwnneeedeeussswwnnwwdss
+44	0	[1]	0_1	eeeennwwwunneesssdwwuwwdnneeeussswwwwnneedss
+44	0	[1]	0_1	eeeennwwwuwwwsseeeennnwwwdssueedeeunndwwwsss
+44	0	[1]	0_1	eeeenuenndwwsswwwwnneeussseeeednnwuwwdwwussd
+44	5	[2, -3, 2]	5_2	eeeenuenndwwsuwswdwnneeueesdessuwwndwnwuwssd
+44	0	[1]	0_1	eeeenuennwwwwdnneessssuseednnwuwwdnnuwwdssss
+44	0	[1]	0_1	eeeenuennwwwwssdwwnneeeessuseednnwuwwdwwussd
+44	0	[1]	0_1	eeeenunndwwsuswwwdnneesseeneessuwwnnnwwswdss
+44	0	[1]	0_1	eeeenunndwwsuwwwdnneessseeneessuwwnnnwwwdsss
+44	0	[1]	0_1	eeeenunndwwsuwwwsseeeeeednnwwswwnnueesswwwds
+44	5	[2, -3, 2]	5_2	eeeenunndwwusswdwnneneeussdeessuwwndwnwuwssd
+44	0	[1]	0_1	eeeenunndwwuwwwsseednnneeusssseednnwwwuwwdss
+44	3	[1, -1, 1]	3_1	eeeenunndwwwsseeunnwwswwsseeeeeednnwwwuswwds
+44	3	[1, -1, 1]	3_1	eeeenunndwwwsseeunnwwwwssseeeeeednnwwwuwwdss
+44	4	[1, -3, 1]	4_1	eeeenunnwdnwwssueedennuwwwwwssseedennuwwdsss
+44	0	[1]	0_1	eeeenunwwssseeeennwnnwwwwssdeeuseednnwwwwwss
+44	5	[2, -3, 2]	5_2	eeeeunndennuwwsdswwunndeeesuessdwwwunndwwsss
+44	5	[2, -3, 2]	5_2	eeeeunndennwuwssdwwunndeeseuessdwwwunndwwsss
+44	5	[2, -3, 2]	5_2	eeeeunndennwwussdwswuwnndeeeeuessdwwuwnwdwss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennnwnwwuswsdseeunndwwwssss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennnwnwwuswssdeeunndwwswsss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennnwnwwwussdseeunndwwwssss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennnwnwwwusssdeeunndwwswsss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennnwwnwwussdseeunnwdwwssss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennnwwnwwusssdeeunnwdwswsss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennnwwwwwussedeeunnwwsdwsss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennuwnnwwswsdseeunndwwwssss
+44	4	[1, -3, 1]	4_1	eeeeunndnwwussdeeennuwnnwwswssdeeunndwwswsss
+44	0	[1]	0_1	eeeeunndwwunndnwwussedeeeesswwunnnnwwsdwssss
+44	4	[1, -3, 1]	4_1	eeeeunndwwwunneesssdeennwwnwwwussseenndwwsss
+44	0	[1]	0_1	eeeeunnnndeesswwwwwsuseennndeeussdwwwunwwdss
+44	4	[1, -3, 1]	4_1	eeeeunnnwwdsseennnuwwwswwsseednnneessuwwwdss
+44	5	[2, -3, 2]	5_2	eeeeunnwdwswuwwdnneueedeesswuwnwdnnwwussedss
+44	0	[1]	0_1	eeeeunnwdwswuwwdnneueedeesswuwnwwwnndeesswss
+44	0	[1]	0_1	eeeeunnwnndeesswwwswuwnndeeeeuessdwwuwnwdwss
+44	4	[1, -3, 1]	4_1	eeeneeunnnwwssdeeesswwuwwwndenneeusswwnwdwss
+44	0	[1]	0_1	eeenenneessuwwwwnndwwsseuseeedennuwwdwwuwssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeeneueednnwwwuwwdssuseeedennunndwwwssuwwdss
+44	0	[1]	0_1	eeeneunndwwuwwwsseednnneeussssedennwwwuwwdss
+44	3	[1, -1, 1]	3_1	eeeneunndwwwsseuennwwwswsseeeeedennwwwuwswds
+44	3	[1, -1, 1]	3_1	eeeneunndwwwsseuennwwwwssseeeeedennwwwuwwdss
+44	4	[1, -3, 1]	4_1	eeeneunnwndwwwswsseeunndeeesesswuwnndwwwussd
+44	5	[2, -3, 2]	5_2	eeenneuenndwwsuswwdnneueesdesswuwwdnnuwwdsss
+44	4	[1, -3, 1]	4_1	eeenneuesswwwndwnnwwssueeneesedennwwwuwwsdss
+44	3	[1, -1, 1]	3_1	eeenneuesswwwwnneenndwwssseueedennwwwuwwdsss
+44	5	[2, -3, 2]	5_2	eeenneunndwwwsssuwwnneeedssueedennwwuswwwdss
+44	0	[1]	0_1	eeennneessuwwnwwndwwsseeeuseednnunwwdswwussd
+44	0	[1]	0_1	eeennneessuwwnwwsdwwnneeeueesdssuwwndnwwussd
+44	0	[1]	0_1	eeennneessuwwnwwswwdnneesseuseednnunwwwwsdss
+44	0	[1]	0_1	eeennneessuwwwnwndwwsseeuseeednnuwnwdswwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennneueedsswwnuwwwdnneeeessuswwwdnnuwwdsss
+44	3	[1, -1, 1]	3_1	eeennnneessuwwwdswwwnneuesseeednnuwwdwswussd
+44	3	[1, -1, 1]	3_1	eeennnnneessuwwwdwwwsseeunnneeedssuwwdwwussd
+44	0	[1]	0_1	eeennnnneessuwwwwssdwwnneeenueedssuwwdwwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnnueesswwwwdnwwssueedennnneessuwwwwsdss
+44	3	[1, -1, 1]	3_1	eeennnnuwwdssueeeednnwnwwssssueednnuwwwwdsss
+44	3	[1, -1, 1]	3_1	eeennnnwwuwwdsseesuswwnnneeenndwwsseesuwwsds
+44	4	[1, -3, 1]	4_1	eeennnnwwuwwsssseeendwnwuneenndwwsseesuwswds
+44	3	[1, -1, 1]	3_1	eeennnnwwwwusswsseeeennwdnwwssueedennuwwsdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnueedsswuwnwwdnneeessuesswwwndnnuwwdsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnueeedsswwnuwwwdnneeesesuswwwdnnuwwdsss
+44	5	[2, -3, 2]	5_2	eeennnueesswwwdnnuwwdwsseeuneeednnwwwsswussd
+44	5	[2, -3, 2]	5_2	eeennnueesswwwdnnuwwwdsseenueeednnwwwswsussd
+44	5	[2, -3, 2]	5_2	eeennnueesswwwdnnwuwwdsseenueeednnwwwwssussd
+44	5	[2, -3, 2]	5_2	eeennnueesswwwdnwnuwwdsseeuneeednnwwwwssussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnuenndwwsswuwwdsseeeueednnnwuwwdwssussd
+44	5	[2, -3, 2]	5_2	eeennnunndwwsssueeednnwwuwwwssseedennuwwdsss
+44	5	[2, -3, 2]	5_2	eeennnuwwdsseueennnwwwdwwssueeednnnwwussdsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwdssuswwwnnednneeessuwwswdwnnueedsss
+44	5	[2, -3, 2]	5_2	eeennnuwwdssuwwdwnneuneedessuwwndnwwussedess
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwdssuwwwndneneeessuwwwdswwnnueeedsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnuwwdssuwwwndnneeeessuwwwdswwnnueedesss
+44	3	[1, -1, 1]	3_1	eeennnuwwdwwwsseueedennnwwusseesswwwwnnedess
+44	3	[1, -1, 1]	3_1	eeennnuwwwwdssueednnnnwwswssueeeednnuwwdssss
+44	4	[1, -3, 1]	4_1	eeennnuwwwwwdsseueednnwwsuwwdnneeeeessuwwdss
+44	0	[1]	0_1	eeennnuwwwwwwdsseenneessuwwwndnneeeessuwwdss
+44	0	[1]	0_1	eeennnwnneeusswwwssdwwnneenueedessuwwdwwussd
+44	5	[2, -3, 2]	5_2	eeennnwuwssdwwunndneeeeusswdwnwunwwdsseeussd
+44	0	[1]	0_1	eeennnwwnneeusswwssdwwnnenueedeessuwwdwwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnwwsuseennndwwwsuwssdeeenunwnwwdsseussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnwwussdwwwnuneneeessdwwwuswwdnneeeusssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennnwwwunndeesuswssdwwnnneeuneessswdwwussd
+44	5	[2, -3, 2]	5_2	eeennnwwwuwwdsseeeunnndwwssussseeenndnwwussd
+44	0	[1]	0_1	eeennnwwwwsseeeueednnuwwwssseeeennwwwdwwussd
+44	0	[1]	0_1	eeennnwwwwsseeeueeennwwwwssseeednnuwwdwwussd
+44	3	[1, -1, 1]	3_1	eeennnwwwwussdeeunnnndwwswsseeeeunndwwussssd
+44	4	[1, -3, 1]	4_1	eeennnwwwwwussdeeeunnwwsdwwnneeeeeussdwwussd
+44	0	[1]	0_1	eeennnwwwwwwsseuenneessdwwnwunneeeessdwwussd
+44	0	[1]	0_1	eeennnwwwwwwssueenneessdwwwnunneeeessdwwussd
+44	5	[2, -3, 2]	5_2	eeennueednnwwsuwswdwnneeueesdssuwwdnnwuwssds
+44	5	[1, -1, 1, -1, 1]	5_1	eeennueednnwwswwuwwdsseeeueednnuwwndwwssussd
+44	3	[1, -1, 1]	3_1	eeennueeednnwwssssuwwwndenneueedssuwwwnwdwss
+44	4	[1, -3, 1]	4_1	eeennueeedsswwnnnwwsswuwnneeeeedssuwwwnwdwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuenndwwswsuseeednnwunwwdwssseenunwwsssd
+44	5	[2, -3, 2]	5_2	eeennuenndwwuswwssedennwnneeussdessuwwnwdwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuenndwwwssuseeednnwunwwwdssseennuwwsssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuennwwwsdssuwwdnneneesssueednnwuwswwdss
+44	5	[2, -3, 2]	5_2	eeennuennwwwsdwwssueenenedessuwwdnnnwwussdss
+44	0	[1]	0_1	eeennuneedssuswwwwndenneessseennuwwswwnwdwss
+44	4	[1, -3, 1]	4_1	eeennuneeesswdwnnwwsswuseeedeennwuwswwnwdwss
+44	5	[2, -3, 2]	5_2	eeennunndwwsssuwwdnneueseseednnwwunwwwssedss
+44	5	[2, -3, 2]	5_2	eeennunndwwsuwwssseendnwnnueesdeessuwwnwwsds
+44	5	[2, -3, 2]	5_2	eeennunndwwuswwsseednnwnneeussdeessuwwnwwdss
+44	5	[2, -3, 2]	5_2	eeennunnndeesswwwuwwwsseednnneeeussswwnwwdss
+44	5	[2, -3, 2]	5_2	eeennunnwwwwssdeeesueednnwwuswsdwwwnneeusssd
+44	3	[1, -1, 1]	3_1	eeennunwwdsseueednnwwsuwsseeedennnnwwwwwssss
+44	3	[1, -1, 1]	3_1	eeennunwwdsseueednnwwsuwsseeeennwnndwwwwssss
+44	4	[1, -3, 1]	4_1	eeennunwwdwwwsseeeusswwnnndeeeneessuwwnwwssd
+44	4	[1, -3, 1]	4_1	eeennunwwdwwwsseueneeseednnwwsswuswwwnnedess
+44	5	[1, -1, 1, -1, 1]	5_1	eeennunwwwwdnneesssseueednnwwsuwwwwnneedssss
+44	5	[2, -3, 2]	5_2	eeennuwnnwwwssdeeesueednnwwwussdwwwnneeusssd
+44	3	[1, -1, 1]	3_1	eeennuwnwdwwussdeeenneessuwwwndwwwnneeussssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuwnwwdsseuseeednnnwwssueennndwwwssuwssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuwnwwdsseuseeednnnwwssueennwndwwssuwssd
+44	4	[1, -3, 1]	4_1	eeennuwwdnneeeeessuwwdnwwssueedennuwwwwwdsss
+44	0	[1]	0_1	eeennuwwdnneeeessuswwwdnneesseennuwwwwwwdsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuwwdwnnneesueessswwdnnwnuneedssuwwwssds
+44	0	[1]	0_1	eeennuwwdwwnnueedeesessuwwdnnwwnneeusswwssds
+44	0	[1]	0_1	eeennuwwdwwunndeeeesessuwwdnnwwwwnneeussssds
+44	3	[1, -1, 1]	3_1	eeennuwwdwwunndeeesssueennwwwdwwwnneeussssds
+44	0	[1]	0_1	eeennuwwdwwunndeeeuseesswwdnnwwwwnneeussssds
+44	0	[1]	0_1	eeennuwwdwwunndeeuseeesswwdnnwwwwnneeussssds
+44	0	[1]	0_1	eeennuwwdwwunnedeeesessuwwdnnwwwnneeusswssds
+44	0	[1]	0_1	eeennuwwdwwunnedeeuseesswwdnnwwwnneeusswssds
+44	0	[1]	0_1	eeennuwwdwwussseenndwwwnneeeessueennwwwwsssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuwwnwdwssueednnneesessuwwdnnunwwwssedss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuwwsdwwwwnneeusssseeenndnwwwwunneessssd
+44	5	[2, -3, 2]	5_2	eeennuwwsdwwwwnnueesdeeesusswwwwnnndneeusssd
+44	3	[1, -1, 1]	3_1	eeennuwwsseeeennwnwwwdwwsseeeueednnwwswwussd
+44	5	[2, -3, 2]	5_2	eeennuwwswwdnneeunndeesswssueennwwndwwussdss
+44	5	[2, -3, 2]	5_2	eeennuwwswwnnndeeesssueennwwwdwwwnneeusssdss
+44	5	[2, -3, 2]	5_2	eeennuwwwndwwsseueednnueeesswwdnnnwwwussdess
+44	5	[1, -1, 1, -1, 1]	5_1	eeennuwwwwdnneesssuseeednnnwwssueennwwwwdsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennwuwsseeednnnwunwwdssseueennndwwsuwwdsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennwuwsseeednnnwwunwwdsseseuennndwwsuwssds
+44	3	[1, -1, 1]	3_1	eeennwuwsseeeennwwnwwwdwsseeeueednnwwwswussd
+44	4	[1, -3, 1]	4_1	eeennwuwsswwwnndneeeeeusswdwnwwswwnnueesseds
+44	5	[2, -3, 2]	5_2	eeennwuwswwdnneunndeesswsseuennwwndwwussedss
+44	5	[1, -1, 1, -1, 1]	5_1	eeennwwusseeednnnwwunwwdssseeuennndwwsuwsssd
+44	3	[1, -1, 1]	3_1	eeennwwusseeeennwwwnwwwdsseeeueednnwwwwsussd
+44	0	[1]	0_1	eeennwwussswwnnnndwwsseeeeeunnwwnwwssdeeussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeenueednnwwsuwwndwwsseeeuseednnunwwdswwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeenueednnwwsuwwndwwsseeuseeednnunwwdswwussd
+44	5	[2, -3, 2]	5_2	eeenueednnwwsuwwsdwwnneeeueesdssuwwndnwwussd
+44	5	[2, -3, 2]	5_2	eeenueednnwwswswuwnndeeussseednnuwnnwwssdwss
+44	0	[1]	0_1	eeenueednnwwswswwwnneuessseeednnuwwndwswussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeenueednnwwswuwnwdwsseeeuseednnuwnwdwswussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeenueednnwwswuwnwdwsseeuseeednnuwnwdwswussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeenueednnwwswwunwwdsseeeuseednnuwwndwwsussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeenueednnwwswwunwwdsseeuseeednnuwwndwwsussd
+44	3	[1, -1, 1]	3_1	eeenueesswwwwnnneendnwwssseuseednnwwnuwwdsss
+44	3	[1, -1, 1]	3_1	eeenueesswwwwnnnendnwwssseeuseednnwwwnuwsssd
+44	3	[1, -1, 1]	3_1	eeenueesswwwwnnnenndwwsseseuseednnwwnwuwssds
+44	4	[1, -3, 1]	4_1	eeenueneedsswwnnwwswuwnndeeeeessuswwwnnwdwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeenuenndwwswusseeednnwunndwwswsseeunnwwsssd
+44	5	[2, -3, 2]	5_2	eeenuenndwwuswsdwwnneeneeussdessuwwndnwwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeenuenndwwwsusseeednnwunndwwwssseenunwwsssd
+44	5	[2, -3, 2]	5_2	eeenuenndwwwussdwwnneneeeussdessuwwndnwwussd
+44	5	[2, -3, 2]	5_2	eeenuenndwwwussdwwnneneeussedessuwwndnwwussd
+44	4	[1, -3, 1]	4_1	eeenuenneedsswwnwwswuwnndeeeeesusswwwnnwdwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeenuennnwwsdwwussedeneessuwwnnendnwwussdwss
+44	4	[1, -3, 1]	4_1	eeenuennwwwwwdnneesssueedessuwwndnnnuwwdssss
+44	5	[1, -1, 1, -1, 1]	5_1	eeenunndeessswuwwnnndwwussedeneeunnwwwssdwss
+44	3	[1, -1, 1]	3_1	eeenunndwwwwussdeeeneessuwwwnndwwwnneeussssd
+44	4	[1, -3, 1]	4_1	eeenunndwwwwwsseeeusswwnnndeeeeessuwwnnwwssd
+44	4	[1, -3, 1]	4_1	eeenunndwwwwwsseueneesseednnwwswuswwwnnedess
+44	5	[1, -1, 1, -1, 1]	5_1	eeenunnndeesswwwwusseeennndwwwwsseeunnwwsssd
+44	3	[1, -1, 1]	3_1	eeenunnnndeesswwwuwwwsseednnneeeussdwwuwwdss
+44	0	[1]	0_1	eeenunnnndeesswwwwssuwwdnneneeeeussdwwuwwdss
+44	0	[1]	0_1	eeenunnnndeesswwwwssuwwnneeendeeussdwwuwwdss
+44	0	[1]	0_1	eeenunnnndeesswwwwssuwwnneendeeeussdwwuwwdss
+44	5	[2, -3, 2]	5_2	eeenunnwdwssuwwdnnuneedeesswuwnwdnwwssueedss
+44	0	[1]	0_1	eeenunnwnndeesswwwssuwwdnneneeeuessdwwuwwdss
+44	0	[1]	0_1	eeenunnwnndeesswwwssuwwnneendeeuessdwwuwwdss
+44	0	[1]	0_1	eeenunnwwnndeesswwssuwwdnneneeueedsswwuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeenunnwwwdnnueesdswssuwwnnneedneessswuwwdss
+44	4	[1, -3, 1]	4_1	eeenunwwdneeeeessuwwdnwwsuseedennuwnwwwwdsss
+44	3	[1, -1, 1]	3_1	eeenunwwdneennwwusseeessswwndneennuwwdwwssss
+44	5	[2, -3, 2]	5_2	eeenunwwdnnueesdeessswuwwndneeunndwwsuwwdsss
+44	4	[1, -3, 1]	4_1	eeenunwwdswwnnueeeeesdwwsuseedennnwwwwwsussd
+44	4	[1, -3, 1]	4_1	eeenunwwsdwwnneueeeesdwwsuseedennnwwwwswussd
+44	5	[2, -3, 2]	5_2	eeenunwwswwdnneeuneedsswsuseennnwwdnwwussdss
+44	3	[1, -1, 1]	3_1	eeenuwnndwwwussdeeeneessuwwwnndwwwnneeussssd
+44	4	[1, -3, 1]	4_1	eeenuwnwdneennwwusseesdwswuseeennnnwwdwwssss
+44	5	[2, -3, 2]	5_2	eeenuwnwdnnueesdesssuwwwndeneuenndwwsuwwdsss
+44	5	[2, -3, 2]	5_2	eeenuwnwdwnnueesdeesssuwwwndeneunndwwsuwssds
+44	0	[1]	0_1	eeeueendnnuwwsdswwunndeeessseennuwwswwndwwss
+44	5	[2, -3, 2]	5_2	eeeueendnnuwwsdswwunndeeesueedsswwnuwwndwwss
+44	4	[1, -3, 1]	4_1	eeeueendnwnwwsswuwnneeesdseseennuwwswwnwdwss
+44	4	[1, -3, 1]	4_1	eeeueendnwnwwusseeneedsswwnwwwunnneessdwwwss
+44	5	[2, -3, 2]	5_2	eeeunndeeesswwunnndwwswsusseeeenndwwwunwwdss
+44	5	[2, -3, 2]	5_2	eeeunndeeesswwunnndwwwssusseeeenndwwwnuwwdss
+44	5	[2, -3, 2]	5_2	eeeunndeennuwwsdwswuwnndeeeesussdwwunnwdwsss
+44	0	[1]	0_1	eeeunndeeunnwwswwssdeeeeennwwusssswwnnndwwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunndennuwwswsdseeeunnwdnwwwussseendnwwsss
+44	5	[2, -3, 2]	5_2	eeeunndnnwwwwssueeedseennuwwdwssuwwwnneedsss
+44	5	[2, -3, 2]	5_2	eeeunndnnwwwwssueeesdeennuwwdswsuwwwnneedsss
+44	5	[2, -3, 2]	5_2	eeeunndnwnwwwssueeedseennuwwwdssuwwwnneedsss
+44	3	[1, -1, 1]	3_1	eeeunndnwwwwssueedeeennuwwwswwwsseeeenndwwss
+44	4	[1, -3, 1]	4_1	eeeunndnwwwwwsseeeusswwnnndeeeseennuwwswwssd
+44	5	[2, -3, 2]	5_2	eeeunndwnnwwwssueeesdeennwuwwdssuwwwnneedsss
+44	3	[1, -1, 1]	3_1	eeeunndwnwuwwdssueeennedesswwwnuwwwdnneessss
+44	3	[1, -1, 1]	3_1	eeeunndwnwwwssueedeeennwuwwwswwsseeeennwdwss
+44	3	[1, -1, 1]	3_1	eeeunndwwnwwssueedeeennwwuwwwswsseeeennwwdss
+44	5	[2, -3, 2]	5_2	eeeunndwwsusseeennndnnwwusssdeeennuwwdwwwsss
+44	4	[1, -3, 1]	4_1	eeeunndwwunndeeeeesswwunwwssdeeeunndwwwwwsss
+44	0	[1]	0_1	eeeunndwwunneeeessdswwwunneesseednnwwwwwwsss
+44	0	[1]	0_1	eeeunndwwunneeeessdwswwunneessedennwwwwwwsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunndwwuwnnneesdeessswwunnwndneeussdwwwsss
+44	0	[1]	0_1	eeeunndwwuwwdnneeueedsesswwunnwwnndeesswwsss
+44	0	[1]	0_1	eeeunndwwuwwdnneueedseesswwunnwwwnndeesswsss
+44	0	[1]	0_1	eeeunndwwuwwdnnueedseeesswwunnwwwwdnneesssss
+44	3	[1, -1, 1]	3_1	eeeunndwwuwwdnnueeesssdeennwwwuwwwdnneesssss
+44	0	[1]	0_1	eeeunndwwuwwwsseeeennnwwwdssueedeeennwwwwsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunnndeeessuwwndwwwunneeesesdswwwunndwwsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunnndeesesswwunndwwwsusseeeenndwwwunwwdss
+44	5	[2, -3, 2]	5_2	eeeunnndeesswwwunndwwwssueedneeeunnwwwsswdss
+44	5	[2, -3, 2]	5_2	eeeunnndeesswwwunwndwwssueedneeeunnwwwwssdss
+44	5	[2, -3, 2]	5_2	eeeunnndeesussswwwwnndneeeuneedsswwwwunwwdss
+44	3	[1, -1, 1]	3_1	eeeunnnndeesswwwuswwwdnneesseeeunndwwuwswdss
+44	3	[1, -1, 1]	3_1	eeeunnnndwwussdeeeennwnwwussssdeeunndwwwwsss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunnnneessdwwwwsusseeennnndeesswwwwunwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunnnwwdsseennnuwwwsdwssueeendnnwwwussedss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunnnwwsdseennnwuwwsdwssueeendnwnwwussedss
+44	5	[1, -1, 1, -1, 1]	5_1	eeeunnnwwssdeennwwwwussseeenndwwwwnneeusssds
+44	0	[1]	0_1	eeeunnnwwwwsseednneeeesswwwusseennndwwuwwdss
+44	4	[1, -3, 1]	4_1	eeeunnwwnwwdsseeneeeussswwnndeeennwwwwwsussd
+44	4	[1, -3, 1]	4_1	eeeunnwwswwdnneeseeeussswwnndeeennwwwuwwsdss
+44	4	[1, -3, 1]	4_1	eeneeeunnnwwssdeeesswwwuwwndneneeusswwnwwdss
+44	0	[1]	0_1	eeneeneessuwwnnnwwdswsuseedeenunndwwsuwwwdss
+44	0	[1]	0_1	eeneeneessuwwnwnnwdwssuseedeenunndwwswuwwdss
+44	0	[1]	0_1	eeneeneessuwwnwnnwdwssuseedeenunwndwswuwwdss
+44	0	[1]	0_1	eeneeneessuwwnwwnndwwsseuseedeenunwwdwwuwssd
+44	0	[1]	0_1	eeneenneessuwwwwnndwwsseuseedeennuwwdwwuwssd
+44	0	[1]	0_1	eeneenneeusswdswwuwwndneeueedessuwwnwwnwwdss
+44	0	[1]	0_1	eeneeunndwwuwwwsseednnneeussssdeennwwwuwwdss
+44	3	[1, -1, 1]	3_1	eeneeunndwwwssueennwwwwssseeeedeennwwwuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeneeuseednnwwunwwdswsuseedeenunndwwsuwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeneeuseednnwwuwnwdwssuseedeenunndwwswuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeneeuseednnwwwunwwdssuseedeenunndwwwsuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeneeuseednnwwwunwwdssuseedeenunwndwwsuwwdss
+44	4	[1, -3, 1]	4_1	eeneeuseednnwwwwwsuwwnneeeeseesdswwuwnnwwdss
+44	5	[2, -3, 2]	5_2	eeneeusswwwnndnnnwwssueeedeeesswwunnnwwwdsss
+44	5	[2, -3, 2]	5_2	eeneeusswwwnndnnueedseesswwunnendnwwssuwwdss
+44	0	[1]	0_1	eeneneeesswuwnwnnwwdssuseedeneunndwwwsuwwdss
+44	0	[1]	0_1	eeneneeesswuwnwnnwwdssuseedeneunwndwwsuwwdss
+44	5	[2, -3, 2]	5_2	eeneneuessdwwunnnwwdssusseeenndennwwwsuwwdss
+44	0	[1]	0_1	eenenneessuwwwnwndwwsseeuseedennuwnwdswwussd
+44	0	[1]	0_1	eenenneeussdswwuwwndnenuesedeessuwwnwwnwwdss
+44	0	[1]	0_1	eenenneeussdwswuwwndnenuesedeesswuwnwwnwwdss
+44	3	[1, -1, 1]	3_1	eenenueeednnwwsssswuwwndneneueedssuwwwnwwdss
+44	4	[1, -3, 1]	4_1	eenenuneeesswdwnnwwswsuseedeeennwuwswwnwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eenenunwwwdsseuseedennnwwsuseennndwwwssuwssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeneueednnwwsuwwndwwsseeuseedennunwwdswwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeneueednnwwswuwnwdwsseeuseedennuwnwdwswussd
+44	0	[1]	0_1	eeneueednnwwswwswwnnueessseedennuwwndwwsussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeneueednnwwswwunwwdsseeuseedennuwwndwwsussd
+44	5	[2, -3, 2]	5_2	eeneuenndwwuwssdwwnneeneeussdesswuwnndwwussd
+44	5	[2, -3, 2]	5_2	eeneuenndwwwussdwwnneneeeussdesswuwnndwwussd
+44	5	[2, -3, 2]	5_2	eeneuenndwwwussdwwnneneeusesdesswuwnndwwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eeneuesedennwwunwwdswsuseedeneunndwwsuwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeneuesedennwwuwnwdwssuseedeneunndwwswuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeneuesedennwwwunwwdssuseedeneunndwwwsuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeneuesedennwwwunwwdssuseedeneunwndwwsuwwdss
+44	4	[1, -3, 1]	4_1	eeneuesedennwwwwwsuwwnneeeeseesdwswuwnnwwdss
+44	4	[1, -3, 1]	4_1	eeneueseenndwwsswuwwndneeneeeesswwunwwwwwdss
+44	4	[1, -3, 1]	4_1	eeneuesseenndwwswuwwndneeeeeesswwunnwwwwwdss
+44	5	[2, -3, 2]	5_2	eeneuesswwwnndwnnueedseesswuwnnendnwwssuwssd
+44	4	[1, -3, 1]	4_1	eeneunndwwwwwsseeeusswwnnndeeeeesswuwnnwwssd
+44	4	[1, -3, 1]	4_1	eeneunndwwwwwsseueneessedennwwwsuswwwnnedess
+44	0	[1]	0_1	eenneeeesswwunnwwnwwdsseueedeeunndwwwwsuwssd
+44	0	[1]	0_1	eenneeneessuwwnwwnwwdsseueedeenunwwdwwsuwssd
+44	0	[1]	0_1	eenneeneeusswdwwuwwdnneeueesdesswwunnwwwwdss
+44	0	[1]	0_1	eenneeseennuwwssswwwndnneeeesussdwwnuwnwwdss
+44	4	[1, -3, 1]	4_1	eenneeseuenndwwwwwssuseeennedesswwwnuwnwwdss
+44	4	[1, -3, 1]	4_1	eenneeuseednnwwwwwssuwwnneeeeeesdswwuwnwwdss
+44	3	[1, -1, 1]	3_1	eenneeusswwwwnneeenndwwsssueedeennwwwuwwdsss
+44	0	[1]	0_1	eenneneeussdwwsuwwndnneuesedeesswwunwwnwwdss
+44	4	[1, -3, 1]	4_1	eenneuesedennwwwwwssuwwnneeeeeesdwswuwnwwdss
+44	4	[1, -3, 1]	4_1	eenneuesswwwndnnwwwsseueneesedennwwuwwwsdess
+44	4	[1, -3, 1]	4_1	eenneuesswwwwwnnneedeeesswuwwdnwnneeusswwsds
+44	5	[2, -3, 2]	5_2	eenneunndwwsssuwwdnneuesesedennwwunwwwssedss
+44	5	[2, -3, 2]	5_2	eenneunndwwsuwwssseendnwnnueesdeesswuwnwwsds
+44	5	[2, -3, 2]	5_2	eenneunndwwuswwsseednnwnneeussdeesswuwnwwdss
+44	4	[1, -3, 1]	4_1	eenneunwwwdwwsseeeusswwnnndeeneeesswuwnwwssd
+44	4	[1, -3, 1]	4_1	eenneunwwwdwwsseueneesedennwwwssuswwwnnedess
+44	0	[1]	0_1	eennneeeussdswwuwwndnnueesdeeessuwwnwwnwwdss
+44	0	[1]	0_1	eennneeeussdwswuwwndnnueesdeeesswuwnwwnwwdss
+44	0	[1]	0_1	eennneeeussdwwnunwwdssuseedeeennwwuswwnwwdss
+44	0	[1]	0_1	eennneeeussdwwsuwwndnnueesdeeesswwunwwnwwdss
+44	0	[1]	0_1	eennneeeussswwwwndnnueesdeeennwwussswwnwwdss
+44	0	[1]	0_1	eennneeseennuwwssswwwdnnneeeesussdwwnuwwwdss
+44	4	[1, -3, 1]	4_1	eennneeseuenndwwwwwsssueeennedesswwwnuwwwdss
+44	4	[1, -3, 1]	4_1	eennneeseuennwwwswwdssueeennedesswwwnuwwwdss
+44	0	[1]	0_1	eennneeseusswwwwndnnueesdseeennwuwsswwnwwdss
+44	4	[1, -3, 1]	4_1	eennneesseuennwwwwwdssueeenedesswwwnnuwwwdss
+44	0	[1]	0_1	eennneesseuswwwwndnnueesdsseeennwuwswwnwwdss
+44	0	[1]	0_1	eennneessuwwnwwswdwnneeessuseednnunwwwwsdess
+44	4	[1, -3, 1]	4_1	eennneessuwwwdnnnwwssueeeedssuwwwwwnnneedsss
+44	4	[1, -3, 1]	4_1	eennneessuwwwdnnwwwsseueneeedssuwwwwwnnedess
+44	0	[1]	0_1	eennneeusesdswwuwwndnnueesdeeessuwwnwwnwwdss
+44	0	[1]	0_1	eennneeusesdwswuwwndnnueesdeeesswuwnwwnwwdss
+44	0	[1]	0_1	eennneeusesdwwsuwwndnnueesdeeesswwunwwnwwdss
+44	3	[1, -1, 1]	3_1	eennneneeussdswwuwwdnnueeesseednnwwswuwwwdss
+44	3	[1, -1, 1]	3_1	eennnenueesdsswwuwwdnnueeeseednnwwsswuwwwdss
+44	3	[1, -1, 1]	3_1	eennnneeeussdwswuwwdnnueeessedennwwwsuwwwdss
+44	0	[1]	0_1	eennnneessuwwwdwwunneeseedssuwwdwwwnneeusssd
+44	0	[1]	0_1	eennnneeusssdeennwwwuwwdssuseeeenndwwuwwwdss
+44	0	[1]	0_1	eennnneneeussdwwuwwdssueedeeennnwwusswwwwdss
+44	3	[1, -1, 1]	3_1	eennnneneeussdwwuwwdssueeennndeesswwwuwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eennnneueedsswwnuwwwwsseednnnneeessuswwwwdss
+44	4	[1, -3, 1]	4_1	eennnnneesuessswwwwdnnueeedennuwwsdssuwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eennnnueeedsswwnuwwwwsseednnnneesesuswwwwdss
+44	0	[1]	0_1	eennnnueeeedsswwnuwwwdssueednnneesuswwwwwdss
+44	3	[1, -1, 1]	3_1	eennnnueeesdwsswuwwdnnueeesedennwwwssuwwwdss
+44	0	[1]	0_1	eennnnueesswwwwwdnneeneessuwwdssuwwwnneedsss
+44	0	[1]	0_1	eennnnuneedsswuwwdssuwwdnneneneesuesswwwwdss
+44	0	[1]	0_1	eennnnwwsuwwdsseueednnunwwdssuwsseeeennwwdss
+44	4	[1, -3, 1]	4_1	eennnueedennuwwsdsssuwwdnnneneesuesswwwwwdss
+44	3	[1, -1, 1]	3_1	eennnueedseennuwwwwdwsssueednnneesuswwwwwdss
+44	5	[2, -3, 2]	5_2	eennnueedsswuwnwnwdwsseeuseeennwdnnwwsswussd
+44	4	[1, -3, 1]	4_1	eennnueeedsswwnnnwwsssuwwnneeneeedssuwwwwdss
+44	0	[1]	0_1	eennnueesswwwdnnuwwdnneeseessuwwwwwnneedssss
+44	0	[1]	0_1	eennnueesswwwdwwunndeeneessuwwdwwwnneeussssd
+44	5	[2, -3, 2]	5_2	eennnuenneessdwwnwwsssueeennndeesswwwuwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eennnuneeedssswwnnueesswwwwdnnneeessuwwwwdss
+44	5	[2, -3, 2]	5_2	eennnunndwwssessuwwdnnueeseednnwwuwwwsseedss
+44	3	[1, -1, 1]	3_1	eennnunwwdssesueednnnwwsuwwssseeeeennwwwwsds
+44	4	[1, -3, 1]	4_1	eennnunwwdssesueeennwnnwwwwsseedneessuwwwsds
+44	4	[1, -3, 1]	4_1	eennnunwwdssseueeennwnnwwwwsseedneessuwwwssd
+44	3	[1, -1, 1]	3_1	eennnuwwdwwsseeeueednnnwwsswwunneeeesswwwssd
+44	0	[1]	0_1	eennnuwwdwwusseeednnnwwwwsseeunneeeesswwwdss
+44	3	[1, -1, 1]	3_1	eennnuwwdwwwsseeueednnnwwusseeesswwwwnndeess
+44	5	[2, -3, 2]	5_2	eennnuwwwdsseeueeennwnwdwssueednnnwwwsssussd
+44	5	[2, -3, 2]	5_2	eennnuwwwdsseeueeennwnwwdssueednnwnwwsssussd
+44	4	[1, -3, 1]	4_1	eennnuwwwnwwdsseeneessuwwwnndneeeeessuwwwdss
+44	4	[1, -3, 1]	4_1	eennnuwwwswdwnneeesessuwwdnnwuneeeeesswwwdss
+44	4	[1, -3, 1]	4_1	eennnuwwwswwdnneeseessuwwdwnnuneeeeesswwwdss
+44	4	[1, -3, 1]	4_1	eennnuwwwwwdsseenneessuwwwndnneeeeessuwwwdss
+44	3	[1, -1, 1]	3_1	eennnwunwwdsseesueednnnwwwsuwwnneeeessswwsds
+44	4	[1, -3, 1]	4_1	eennnwunwwdsseesueennnnwwwwwsseedneeusswwsds
+44	0	[1]	0_1	eennnwwnneeusswwwssseendnwwnnueedeessuwwwsds
+44	3	[1, -1, 1]	3_1	eennnwwunwwdsseeesuennndwwwsuwwnneeeessswsds
+44	4	[1, -3, 1]	4_1	eennnwwunwwdsseeesuennnnwwwwwsseedneeusswsds
+44	5	[2, -3, 2]	5_2	eennnwwunwwdssusseeendnwwswwnnueedneeusswsds
+44	3	[1, -1, 1]	3_1	eennnwwwnneeusswwsdeesuswwwnnnneedeeusswwsds
+44	0	[1]	0_1	eennnwwwnneeusswwssseendnwwwnnueedeeusswwsds
+44	4	[1, -3, 1]	4_1	eennueedneessuwwwwwdwnnueeeeesdswwnnwwsuwssd
+44	5	[2, -3, 2]	5_2	eennueednnwwswwunneessedssuwwdnwwnneeusswsds
+44	5	[2, -3, 2]	5_2	eennueednnwwswwunneessedssuwwdwwnnneeusswssd
+44	5	[2, -3, 2]	5_2	eennueedsswuwwndwnnueedessueednnwnwwwssuwssd
+44	5	[2, -3, 2]	5_2	eennueedsswuwwndwnnueedessueennwwndwwssuwssd
+44	5	[2, -3, 2]	5_2	eennueedsswuwwndwnnueeedssueednnwnwwswsuwssd
+44	5	[2, -3, 2]	5_2	eennueennwwwdwwssueeneedssuwwdnnennwwussdsss
+44	5	[2, -3, 2]	5_2	eennuenedesswwuwwdwnnueedeseuenndwwwwssuwssd
+44	5	[2, -3, 2]	5_2	eennuenndwwswuwnneeessdessuwwdnwwnneuesswsds
+44	5	[2, -3, 2]	5_2	eennuenndwwswuwnneeessdessuwwdwwnnneuesswssd
+44	5	[2, -3, 2]	5_2	eennuennnwwsdwwsseesueednnwwwunndeesuswswsds
+44	5	[2, -3, 2]	5_2	eennuennnwwsdwwssseeueednnwwwunndeesuswswssd
+44	5	[2, -3, 2]	5_2	eennuennwwwsdwwsseuenenedessuwwdnnnwwussdess
+44	5	[2, -3, 2]	5_2	eennuneedsswuwwdwwnnueedeesueednnwwwwwssussd
+44	5	[2, -3, 2]	5_2	eennunndwwwwwsseeuneedeessuwwdwwwunndeesussd
+44	5	[2, -3, 2]	5_2	eennunnnwwssdwwsseeeueednnwwswwunndeeusswssd
+44	5	[2, -3, 2]	5_2	eennunnnwwswsdseeunndwwwssseeeueednnwwwusssd
+44	5	[2, -3, 2]	5_2	eennunnnwwswssdeeunndwwswsseeeueednnwwwusssd
+44	4	[1, -3, 1]	4_1	eennuwwsseeedeennwuwswwdnneesseuennwwwwwdsss
+44	0	[1]	0_1	eennuwwsseeeennwdnnuwwsdssueedennuwwdnwwssss
+44	4	[1, -3, 1]	4_1	eennuwwswdwnneeueeesswwdnneesssuwwwwwnnedess
+44	5	[2, -3, 2]	5_2	eennuwwswdwnneeunndeesswssueennwwndwwussdess
+44	4	[1, -3, 1]	4_1	eennuwwswdwnwuneeeeeesswwdnnwwwwwsseuenedess
+44	4	[1, -3, 1]	4_1	eennuwwswdwwnuneeeeeesswwdnnwwwwwssueendeess
+44	0	[1]	0_1	eennuwwswwnnndwwsseeeuneedssuswwwwnnndeeesss
+44	0	[1]	0_1	eennuwwswwnnwdwsseeenuneedssuswwwwnndeneesss
+44	4	[1, -3, 1]	4_1	eennuwwwdnneeeeessuswwwdnneesseennuwwwwwdsss
+44	4	[1, -3, 1]	4_1	eennuwwwdnneeeeesusswwwdnneeseennuwwswwwdsss
+44	4	[1, -3, 1]	4_1	eennuwwwdnneeeeussswwdnneesssuwwwwwnnneedsss
+44	4	[1, -3, 1]	4_1	eennuwwwdnneeeusesswwdnneesssuwwwwwnnneedsss
+44	4	[1, -3, 1]	4_1	eennuwwwdnneeuseesswwdnneesssuwwwwwnnneedsss
+44	4	[1, -3, 1]	4_1	eennuwwwdnnunwwdsseueeedssuwwwwnnnedneesssss
+44	3	[1, -1, 1]	3_1	eennuwwwdnnwwwsseueneeedssuwwdwnnwuneeedssss
+44	3	[1, -1, 1]	3_1	eennuwwwdnwwwsseuenneeedssuwwdwnwunndeeessss
+44	0	[1]	0_1	eennuwwwdswwunndneeeesssuwwwnnnwwdsseeneesss
+44	4	[1, -3, 1]	4_1	eennuwwwdswwwnneuesseeednnnwwwwwussedeneesss
+44	4	[1, -3, 1]	4_1	eennuwwwdswwwnneuesseeednnuwwnwwwssedeneesss
+44	3	[1, -1, 1]	3_1	eennuwwwdwnnwwssueeneeedssuwwdwwnnuneedsesss
+44	3	[1, -1, 1]	3_1	eennuwwwdwnwwssueenneeedssuwwdwwnunndeesesss
+44	0	[1]	0_1	eennuwwwdwwusseeeendnnuwwdwwwsseeunnndeessss
+44	5	[2, -3, 2]	5_2	eennuwwwdwwwnneeussseeednnnwwswwunneessedsss
+44	3	[1, -1, 1]	3_1	eennuwwwdwwwnneeussseeednnuwwdwwunndeesessss
+44	4	[1, -3, 1]	4_1	eennuwwwnneeeeesdsswuwwdnneeneessuwwnwwwdsss
+44	4	[1, -3, 1]	4_1	eennuwwwnneeeeesdwssuwwdnneneeesswuwnwwwdsss
+44	0	[1]	0_1	eennuwwwnneeeessdeennwwwwsssueeenndwwuwwdsss
+44	5	[1, -1, 1, -1, 1]	5_1	eennuwwwwdnneeesssuwwwwnneedsswwnnnueeesdsss
+44	4	[1, -3, 1]	4_1	eennuwwwwdnnueeeseesswwdnnnwwssswwnnueeedsss
+44	5	[1, -1, 1, -1, 1]	5_1	eennuwwwwndneneessssueennwwwwdswwnnueeedssss
+44	5	[1, -1, 1, -1, 1]	5_1	eennuwwwwndnneeessssueennwwwwdswwnnueedessss
+44	0	[1]	0_1	eennuwwwwnndwwssseeeueednnuwwdwwunndeesessss
+44	0	[1]	0_1	eennuwwwwnnedneesesessuwwdnnuwwdwnnueesdssss
+44	3	[1, -1, 1]	3_1	eennuwwwwwndneesssueednnnwuwwwwdsseenueedsss
+44	0	[1]	0_1	eennuwwwwwndneesssueednnuwwwdswwnnueeeedssss
+44	4	[1, -3, 1]	4_1	eennuwwwwwnnedneesesssuwwdnnnunwwdsseueedsss
+44	0	[1]	0_1	eennwnneeeeusswdwnwuwwdsseueedeennwuwswwwssd
+44	0	[1]	0_1	eennwnneneeussdwwuwwdsseueedeennnwwusswwwssd
+44	5	[2, -3, 2]	5_2	eennwnneuessswwdwwunnednneeesswuwnwwdsseussd
+44	3	[1, -1, 1]	3_1	eennwnnneeeesswwunwwswdsseueeennndwwsuswwssd
+44	3	[1, -1, 1]	3_1	eennwnnneeeesswwunwwwdssseueeennndwwsuswwssd
+44	3	[1, -1, 1]	3_1	eennwnnueedessswuwwdwnnueeeenndwwssesuwwwssd
+44	5	[2, -3, 2]	5_2	eennwnnueedssuwwnwwdsseeueeennwwdnnwwsssussd
+44	4	[1, -3, 1]	4_1	eennwnnueesdeennwwwwwsssseueeennndwwsuswwssd
+44	5	[2, -3, 2]	5_2	eennwnnueessswwdwwunndenneessuwwnwdwsseeussd
+44	3	[1, -1, 1]	3_1	eennwnueeenndwwssessuwwdwnnneueedessuwwwwssd
+44	5	[1, -1, 1, -1, 1]	5_1	eennwnuneedssuesswwwndwnnneesueedsswuwnwwssd
+44	4	[1, -3, 1]	4_1	eennwnuneesdeennwwwwswssseueeennndwwsuswwssd
+44	3	[1, -1, 1]	3_1	eennwnunwwdssseeueednnwnwwsuwwnneeeessswwssd
+44	4	[1, -3, 1]	4_1	eennwnunwwdssseeueennnwnwwwwsseedneesuswwssd
+44	3	[1, -1, 1]	3_1	eennwnuwwdwsseeeueednnwnwwsswuwnneeeesswwssd
+44	4	[1, -3, 1]	4_1	eennwnuwwdwsseeeueennnwwwwwssedenneesuswwssd
+44	5	[2, -3, 2]	5_2	eennwnwnuneedssuwwwssdeeueennnwwdnwwssseussd
+44	0	[1]	0_1	eennwnwnuwwsdwsseeeeusswwnnnndnwwussedeeussd
+44	5	[2, -3, 2]	5_2	eennwunndwwwwsseuenedeeusswdwwwwunnedeseussd
+44	0	[1]	0_1	eennwunwwdwwsuseedeeuenndwwswwswwnnueeseessd
+44	4	[1, -3, 1]	4_1	eennwunwwsswwndneeeeeusswdwwwwwnnueesdeeussd
+44	3	[1, -1, 1]	3_1	eennwwnneeeesswuwnnwwswdsseeueeennwdwwuswssd
+44	3	[1, -1, 1]	3_1	eennwwnneeeesswuwnnwwwdssseeueeennwdwwuswssd
+44	0	[1]	0_1	eennwwnneneeussdwwuwwdsseeueedennnwwusswwssd
+44	3	[1, -1, 1]	3_1	eennwwnnneeeesswwunwwswdsseeueennndwwsuswssd
+44	3	[1, -1, 1]	3_1	eennwwnnneeeesswwunwwwdssseeueennndwwsuswssd
+44	0	[1]	0_1	eennwwnnneesuswwwdsseeueednnwwnuneessswwwssd
+44	4	[1, -3, 1]	4_1	eennwwnnueesdeennwwwwwsssseeueennndwwsuswssd
+44	0	[1]	0_1	eennwwnnuwwdssseeeueednnwwuwwdnneeseusswwssd
+44	3	[1, -1, 1]	3_1	eennwwnueendnwwswssseeueednnwwnuneessswwwssd
+44	4	[1, -3, 1]	4_1	eennwwnuenednwwwsssseeueennnnwwwsdeseuswwssd
+44	4	[1, -3, 1]	4_1	eennwwnuneesdeennwwwwswssseeueennndwwsuswssd
+44	4	[1, -3, 1]	4_1	eennwwnuneessedennwwwwwssseeueeennwdwwuswssd
+44	3	[1, -1, 1]	3_1	eennwwnunwwdssseeeuenndwnwwsuwwnneeeessswssd
+44	4	[1, -3, 1]	4_1	eennwwnunwwdssseeeuennnwnwwwwsseedneesuswssd
+44	3	[1, -1, 1]	3_1	eennwwwnneeeessuwwnnwwsssdeeueeennwwdwwusssd
+44	0	[1]	0_1	eennwwwnnneesuswwssdeeueednnwwwnuneessswwssd
+44	3	[1, -1, 1]	3_1	eennwwwnnneesuswwssdeeueennnwnwwsdseeuswwssd
+44	4	[1, -3, 1]	4_1	eennwwwnnueesdeennwwwwwsssseeeuennndwwsusssd
+44	0	[1]	0_1	eennwwwnnuwwdssseeeeuenndwwuwwdnneeseusswssd
+44	4	[1, -3, 1]	4_1	eennwwwnuneesdeennwwwwswssseeeuennndwwsusssd
+44	0	[1]	0_1	eennwwwnwuwssdeeeeuenndwwuwswdwnneeeeusswssd
+44	0	[1]	0_1	eennwwwuneeeesdssuwwndwwwnneeeeeessuwwnwwssd
+44	3	[1, -1, 1]	3_1	eennwwwunenndwwsseeeeusswdwwwnunnedeeusswssd
+44	4	[1, -3, 1]	4_1	eennwwwunndnwwussedeeeussdwwwwnnneuneesssssd
+44	4	[1, -3, 1]	4_1	eennwwwunneesdeennwwwwsswsseeeuennndwwsusssd
+44	4	[1, -3, 1]	4_1	eennwwwusswwwnnedeseeeunndwwwwwsseuenneesssd
+44	0	[1]	0_1	eennwwwuswwdnnuneeeesssdwwwnnnwwssueeneesssd
+44	4	[1, -3, 1]	4_1	eennwwwuswwwnnedesseeeunndwwnwwwsseueneesssd
+44	3	[1, -1, 1]	3_1	eennwwwuwnnwwdsseeneeeussdwwwwunndneeeussssd
+44	3	[1, -1, 1]	3_1	eennwwwuwnnwwdsseeneeeussdwwwwunndneeusesssd
+44	3	[1, -1, 1]	3_1	eennwwwuwnwwdsseenneeeussdwwuwwndnneeeussssd
+44	3	[1, -1, 1]	3_1	eennwwwuwnwwdsseenneeeussdwwuwwndnneeusesssd
+44	3	[1, -1, 1]	3_1	eennwwwuwwwnneedssseeeunndwwuwwdnneeseussssd
+44	5	[2, -3, 2]	5_2	eennwwwuwwwnneedssseeeunnnwwswwdnneesseusssd
+44	0	[1]	0_1	eennwwwwnnuwwdssseeeeeunndwwuwwdnneeseussssd
+44	3	[1, -1, 1]	3_1	eennwwwwunnedeeesusswdwwunnenndwwsseeeuswssd
+44	5	[1, -1, 1, -1, 1]	5_1	eennwwwwunneeesssdwwwwnneeusswwnnndeeesusssd
+44	5	[1, -1, 1, -1, 1]	5_1	eennwwwwuswwdnneeeusssseenndwwwwnuneneessssd
+44	4	[1, -3, 1]	4_1	eennwwwwwnneuneesesssdwwunnndnwwussedeeusssd
+44	3	[1, -1, 1]	3_1	eennwwwwwnuneesssdeeunndnwwwwwssueendeeusssd
+44	0	[1]	0_1	eennwwwwwnuneesssdeeunndwwwuswwdnneeeeussssd
+44	0	[1]	0_1	eennwwwwwussseeeenndwwunndwwwsseeunnneessssd
+44	4	[1, -3, 1]	4_1	eenueednneeusswdswwnnwwsuseeeeednnwuwwwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eenueednnnwwwsseuennwwwdssseuseednnnwuwswssd
+44	5	[2, -3, 2]	5_2	eenueednnnwwwsuesedssuwwndwnnnueeesdwswuwssd
+44	3	[1, -1, 1]	3_1	eenueednnunwwdssessuwwndnnueedneessuwwwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eenueednnwnwwssueennwwwdssseuseednnwnuwwsssd
+44	5	[2, -3, 2]	5_2	eenueednnwnwwsuseedssuwwndwwnnenueesdswwussd
+44	5	[1, -1, 1, -1, 1]	5_1	eenueednnwuwswwnndeesswsuseednnuennwwwsdwsss
+44	0	[1]	0_1	eenueednnwuwwdssuseednnuennwwwwsseednnwwssss
+44	5	[2, -3, 2]	5_2	eenueednnwwswwnuneessedssuwwndwwnnneesuswssd
+44	5	[2, -3, 2]	5_2	eenueeendnnwwwsswsuseednnneueedsswwnuwwwwdss
+44	5	[2, -3, 2]	5_2	eenueeendnwnwwsswsuseednnnueeedsswwnuwwwwdss
+44	0	[1]	0_1	eenueeennwwwwwwdsseeneessuwwnneeednwwwwsussd
+44	5	[2, -3, 2]	5_2	eenueendeesswwwuwwndnnueesdseeunndwwwsuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eenueennnwwdsswsuseednnuwwwnndeneessuwwdwsss
+44	5	[2, -3, 2]	5_2	eenueennnwwsdsessuwwndwwnneueseendnwwsswussd
+44	3	[1, -1, 1]	3_1	eenueennnwwwwwsseeeendnwwsssuseednnwnuwwdsss
+44	5	[2, -3, 2]	5_2	eenueennwwndwwusseeedssuwwndnenennwwussdwsss
+44	5	[1, -1, 1, -1, 1]	5_1	eenueesdeennwwunwwdswsuseedneeunndwwsuwwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eenueesdeennwwuwnwdwssuseedneeunndwwswuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eenueesdeennwwwunwwdssuseedneeunndwwwsuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eenueesdeennwwwunwwdssuseedneeunwndwwsuwwdss
+44	4	[1, -3, 1]	4_1	eenueesswwwwwnnnnedeesessuwwndnwwnneeusswsds
+44	4	[1, -3, 1]	4_1	eenueesswwwwwnnnnedseeessuwwndwwnnneesuswssd
+44	4	[1, -3, 1]	4_1	eenueesswwwwwnnnneedesessuwwndnwnneeusswwsds
+44	4	[1, -3, 1]	4_1	eenueesswwwwwnnnneedseessuwwndwnnneesuswwssd
+44	4	[1, -3, 1]	4_1	eenueesswwwwwnnnneeedsessuwwndnnneesuswwwdss
+44	5	[2, -3, 2]	5_2	eenuenedesswwuwwndnnueedsseuenndwnwwssuwwdss
+44	5	[2, -3, 2]	5_2	eenuenedesswwuwwndwnnueesdeseuenndwwwwsuwssd
+44	0	[1]	0_1	eenueneedsswwnnwwswwnnueessseeendnnwwwwsussd
+44	5	[1, -1, 1, -1, 1]	5_1	eenuenndnwwwsseuennwwwdssseeuseednnwnwuwsssd
+44	5	[2, -3, 2]	5_2	eenuenndnwwwsuesedessuwwndwwnnnueeesdwswussd
+44	0	[1]	0_1	eenuenndwnwnwwssueedssuseednnwuwwwwnneedssss
+44	4	[1, -3, 1]	4_1	eenuenndwnwwswssueednnuwwswsseeeeednnwuwwdss
+44	4	[1, -3, 1]	4_1	eenuenndwnwwwsssueednnwuwswsseeeeednnwuwwdss
+44	0	[1]	0_1	eenuenneedsswwnwwswwnnueessseeenndnwwwwsussd
+44	5	[1, -1, 1, -1, 1]	5_1	eenuennndwwwsseeunnwwswdsseeuseednnnwwuswssd
+44	5	[1, -1, 1, -1, 1]	5_1	eenuennndwwwsseeunnwwwdssseeuseednnnwwuswssd
+44	4	[1, -3, 1]	4_1	eenuennwnwwwdssueeedessuwwndnnuwwwdnneesssss
+44	4	[1, -3, 1]	4_1	eenuennwwndwwsssueednnwuwswsseeeeednnwuwwdss
+44	4	[1, -3, 1]	4_1	eenuennwwwwwdsseueednnwwsuwsseeeeednnwuwwdss
+44	5	[2, -3, 2]	5_2	eenuneedsswuwwndwnneueedssueednnwnwwsswuwssd
+44	5	[2, -3, 2]	5_2	eenuneedsswuwwndwnnueedsesueednnwwnwwssuwssd
+44	5	[2, -3, 2]	5_2	eenuneedsswuwwndwwnnueesdeesueednnwwwwwsussd
+44	0	[1]	0_1	eenuneedsswuwwnnnwwdsseeneesueednnwwwwwsussd
+44	4	[1, -3, 1]	4_1	eenunndeeennwwussssswwndwnneneeeussdwwwuwssd
+44	0	[1]	0_1	eenunndeeunndwwswswsseuseennnndeesswwwwuwssd
+44	3	[1, -1, 1]	3_1	eenunndwwunwwdsseeeeessuwwndwwunndneeusswssd
+44	0	[1]	0_1	eenunndwwuwssdeeuseennnnwwssdeennwwwwsseussd
+44	0	[1]	0_1	eenunneeeesswwdnnwwwwsseuseedeennuwwdwwuwssd
+44	4	[1, -3, 1]	4_1	eenunnndeeusssswwwndwnneeeeennwwusssdwwuwssd
+44	0	[1]	0_1	eenunnnneessdwwwwsseuseedeennnnwwussdwwuwssd
+44	3	[1, -1, 1]	3_1	eenunnnwwsdseeeennwwwwwssseeuseennndwwuswssd
+44	3	[1, -1, 1]	3_1	eenunnwwwsssseeeeennwnndwwwsseuseednnwwuwssd
+44	5	[2, -3, 2]	5_2	eenunwnndeesswwsuwwdnnuenneessdwwnwwssueedss
+44	5	[2, -3, 2]	5_2	eenunwnndeesueedsswwnwwsuseeenndnnuwwsdwwsss
+44	4	[1, -3, 1]	4_1	eenunwnndeesueennwwwwwssssedneeennuwwsdwwsss
+44	5	[1, -1, 1, -1, 1]	5_1	eenunwnndwwssseeuseennnwdwwunndeesesswwwussd
+44	5	[2, -3, 2]	5_2	eenunwnnedesswwsuwwdnneunneeesswdwnwwussedss
+44	5	[1, -1, 1, -1, 1]	5_1	eenunwnneedsswwnwuwssdeeuseennnwdnwwwsseussd
+44	3	[1, -1, 1]	3_1	eenunwnnneeeesswwdnwwwusssedneeennuwwsdwwsss
+44	5	[2, -3, 2]	5_2	eenunwnnwwswsdseeeuseednnwwwwuswwdnneeeusssd
+44	5	[2, -3, 2]	5_2	eenunwnwndneessuessswwndwwnneenueedsswwwussd
+44	5	[2, -3, 2]	5_2	eenunwnwndneeussdwwwssueedneennwwunwwsssedss
+44	4	[1, -3, 1]	4_1	eenunwwnndeesswsuwwdwnneeeueessswwwwwnnedess
+44	4	[1, -3, 1]	4_1	eenunwwnndeesueennwwwwwsssseedneennuwwsdwsss
+44	0	[1]	0_1	eenunwwnndeeueedsswwwsuseennnwwnndeesswwwsss
+44	3	[1, -1, 1]	3_1	eenunwwnndeeueesssswwwndneeunwwnndeesswwwsss
+44	3	[1, -1, 1]	3_1	eenunwwnnneeeesswwdnwwwsssueedneennuwwsdwsss
+44	5	[2, -3, 2]	5_2	eenunwwswdwnneeuneedsswsuseennnwwdnwwussdess
+44	4	[1, -3, 1]	4_1	eenunwwwdnneesueennwwwwsswsseeednennuwwsdsss
+44	0	[1]	0_1	eenunwwwdnneeueedsswwsuseennnwwwnndeesswwsss
+44	3	[1, -1, 1]	3_1	eenunwwwwsseeeeennnwwdnwwsssueednennuwwsdsss
+44	3	[1, -1, 1]	3_1	eeueeeennnwwwwsseednnwwwussdeeseennuwwdwwwss
+44	4	[1, -3, 1]	4_1	eeueeendwnnwwsswuwnneeesdsseeennwuwswwnwdwss
+44	4	[1, -3, 1]	4_1	eeueeendwnnwwusseenedesswwwnwwunnneessdwwwss
+44	4	[1, -3, 1]	4_1	eeueeennwwdsseennnuwwwwwssedenneessuwwnwdwss
+44	5	[2, -3, 2]	5_2	eeueendennuwwsdwswuwnndeeeesuessdwwnuwnwdwss
+44	0	[1]	0_1	eeueendennwwusswwwwdnneesseeseeunnwdwwuwwdss
+44	0	[1]	0_1	eeueendennwwwwssuwwnneeeessdseeunnwdwwuwwdss
+44	0	[1]	0_1	eeueendennwwwwunneessssdseeunnwdwwunndwwssss
+44	5	[2, -3, 2]	5_2	eeueendnnuwwdsswuwnndeneessueedsswwnuwnwdwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeueendnnuwwdwwwssueedeeseennuwwdnnwwwussdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeuneedseennuwwdnwwuswsdeesueendnnuwwsdwwwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeuneedseennuwwdnwwwussdeesueendnnuwwsdwwwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeuneedseennuwwdwnwwussdeesueendnnwuwswdwwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeuneedseennuwwwdnwwussdeesueendnwnuwwsdwwss
+44	0	[1]	0_1	eeuneeneedsswwnnnwwuswsdeesueendnnuwwsdwwwss
+44	0	[1]	0_1	eeuneeneedsswwnnnwwwussdeesueendnnuwwsdwwwss
+44	0	[1]	0_1	eeuneeneedsswwnnwnwwussdeesueendnnwuwswdwwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeunndeeennuwwsdwwwwssueedeeeunndnwwwwussdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeunndeeesusswwwwnndeeeuneedsswwwunnndwwswss
+44	5	[2, -3, 2]	5_2	eeunndeennwuwswwdnneesseussdwwuwwnnneedsswss
+44	0	[1]	0_1	eeunndeeuenndwwsusssswwnndeeeennwunwwdswswss
+44	4	[1, -3, 1]	4_1	eeunndeeuneedsswwwwwuwnndeeeeesuswwnnwwsdwss
+44	5	[2, -3, 2]	5_2	eeunndeneuessdwwwwuwnndeeuesedennwwwwussdwss
+44	5	[2, -3, 2]	5_2	eeunndennnwwsuwwssseedeeunnwwwdnnueesdswswss
+44	5	[2, -3, 2]	5_2	eeunndennuwwswdwnneeessuessdwwuwwnnnedesswss
+44	5	[1, -1, 1, -1, 1]	5_1	eeunndennwwwsuwssseendeeunnwdwswwnnueesswsds
+44	0	[1]	0_1	eeunndennwwwwsseeunnwwsssseendeeunnwdwwussds
+44	5	[1, -1, 1, -1, 1]	5_1	eeunndneeesswusswwwnndeeneuessdwwunnnwwdswss
+44	5	[2, -3, 2]	5_2	eeunndneeussdwwwuwwdnneeueesdeennwwwwwussdss
+44	5	[2, -3, 2]	5_2	eeunndnnnwwssuwwsseeedeennuwwswwdnnueedsswss
+44	5	[2, -3, 2]	5_2	eeunndnnnwwswssueednnuwwswsseeedeennuwwwdsss
+44	5	[2, -3, 2]	5_2	eeunndnnnwwwsssueednnwuwswsseeedeennuwwwdsss
+44	5	[2, -3, 2]	5_2	eeunndnnwwwwwssueedneeueedsswwuwwdwnnueesdss
+44	0	[1]	0_1	eeunndnwwwwsusseeennneedsswwnwwswwnnueesseds
+44	5	[2, -3, 2]	5_2	eeunndwnnwwssuwsseeendeennwuwswswdwnnueedsss
+44	5	[2, -3, 2]	5_2	eeunndwwswwnnueedeeesswwusswwnnndnneeusswssd
+44	5	[1, -1, 1, -1, 1]	5_1	eeunndwwwnneneeussdwwuwssseendeennnwwusswsds
+44	5	[2, -3, 2]	5_2	eeunndwwwnnueedseesswwuswwnnnednneesuswswsds
+44	0	[1]	0_1	eeunneeeedsswwnnwwnwwussedeeueednnwwuwwsdwss
+44	4	[1, -3, 1]	4_1	eeunneeeeedsswwnwuwsswwnndeeseueendnwwwwwwss
+44	0	[1]	0_1	eeunneeneedsswuwwdwwunndeeeesuessdwwnnwwwwss
+44	0	[1]	0_1	eeunneeneedsswwnwwnwwussedeeueendnwwuwwsdwss
+44	5	[2, -3, 2]	5_2	eeunnndeeessusswwwwnndeeenueedsswwwunndwwwss
+44	5	[2, -3, 2]	5_2	eeunnndeesesusswwwwnndeeeuneedsswwwunndwwwss
+44	0	[1]	0_1	eeunnndeesswwwuwwdnnueeneessdwwuwwwdnneessss
+44	4	[1, -3, 1]	4_1	eeunnndeeuenndwwsusssdwwunnneneesdesswwwwwss
+44	3	[1, -1, 1]	3_1	eeunnndeeuseednnwwwwwsussdeeunnneesdswwwwwss
+44	5	[2, -3, 2]	5_2	eeunnndenneessuwwnwwsssdeeennnueesswwwdwwwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeunnndneeeussswwnndeesswwwwunnneeessdwwwwss
+44	4	[1, -3, 1]	4_1	eeunnndnwwusssedeeennnnwwwwwsseeuneedsswwwss
+44	4	[1, -3, 1]	4_1	eeunnndnwwusssedeeennnwnwwwwsseeuneesdswwwss
+44	4	[1, -3, 1]	4_1	eeunnndnwwusssedeeennwnnwwwwsseeuneessdwwwss
+44	3	[1, -1, 1]	3_1	eeunnndwwuwwsseeedeeunnnwwsswwdnneeeesswwwss
+44	5	[2, -3, 2]	5_2	eeunnndwwwssueedeeennnwwwussdeenunwnwwsssdss
+44	5	[2, -3, 2]	5_2	eeunnndwwwssueedeeennwnwwussdeeunnwnwwsssdss
+44	5	[1, -1, 1, -1, 1]	5_1	eeunnneedsesswwunndnwwwsseusseeenndwwnwuwssd
+44	5	[2, -3, 2]	5_2	eeunnneedssusswwwnndwnneeesueedsswwnwnwuwssd
+44	5	[2, -3, 2]	5_2	eeunnneeedssswwnwwusseeenndnnneessuwwwdwwwss
+44	4	[1, -3, 1]	4_1	eeunnneesedennwwwswwussdeeenneuesswwwndwwwss
+44	0	[1]	0_1	eeunnneeseednnwwssswwwunnneeeesdssuwwndwwwss
+44	4	[1, -3, 1]	4_1	eeunnneessedennwwwwwussdeeeneuesswwwnndwwwss
+44	4	[1, -3, 1]	4_1	eeunnneesssdeennwwnwwwussdeeeeusswwnnndwwwss
+44	4	[1, -3, 1]	4_1	eeunnneesssdeennwwwussswwnndeeeeunndwwwswwss
+44	3	[1, -1, 1]	3_1	eeunnnendeessuswwdwwunndeeesseennuwwswdwwwss
+44	3	[1, -1, 1]	3_1	eeunnnendeesussdwwwwunndeeeseennuwwsswdwwwss
+44	0	[1]	0_1	eeunnnndeeeessuwwndwwwussdeeunnneesdswwwwwss
+44	3	[1, -1, 1]	3_1	eeunnnndeeessuswwdwwunndeeesseennuwwswdwwwss
+44	3	[1, -1, 1]	3_1	eeunnnndeeesussdwwwwunndeeeseennuwwsswdwwwss
+44	0	[1]	0_1	eeunnnndeesssueennwwwdwwussdeeseennuwwdwwwss
+44	0	[1]	0_1	eeunnnndeesswwwuwwdnneeseeussdwwuwwwnneedsss
+44	0	[1]	0_1	eeunnnndeneessuwwdwwussdeeeeennnuwwdsswwwwss
+44	3	[1, -1, 1]	3_1	eeunnnndeneessuwwdwwussdeeennnueesswwwdwwwss
+44	5	[1, -1, 1, -1, 1]	5_1	eeunnnneesesdswwwwusseennnndeeessuwwndwwwwss
+44	0	[1]	0_1	eeunnnneesssdeennwwwussdwwusseeeennndwwwwwss
+44	4	[1, -3, 1]	4_1	eeunnnnneesdessswwwwunndeeeuenndwwsussdwwwss
+44	5	[2, -3, 2]	5_2	eeunnwdnnwwwwussedeneueedsswuwwdwwnneuesedss
+44	4	[1, -3, 1]	4_1	eeunnwdnwwsswwnuneeeeedsswuwwwwwdnneesueedss
+44	0	[1]	0_1	eeunnwdnwwuwwsdseeueedennuwwswwswwdnneeseess
+44	4	[1, -3, 1]	4_1	eeunnwdwwunnndwwsseeeeesswuswwwnnnndeeusssds
+44	4	[1, -3, 1]	4_1	eeunnwdwwwunndeeesesswuswwnnnnndwwsseeeussds
+44	0	[1]	0_1	eeunnwdwwwwnneeusssseendennwnwnwwussdeeussds
+44	3	[1, -1, 1]	3_1	eeunnwndeeennwwussessdwwuwnndneeeuessdwwwwss
+44	5	[2, -3, 2]	5_2	eeunnwndneessueedsswwnwwusseeenndnnuwwdswwss
+44	4	[1, -3, 1]	4_1	eeunnwndneesueennwwwwswsssedeeennnuwwsdswwss
+44	4	[1, -3, 1]	4_1	eeunnwndnwwussseedeennnnwwwwwsseeuneedsswwss
+44	3	[1, -1, 1]	3_1	eeunnwndnwwussseedeennnuwwwsdwwnneeeessswwss
+44	4	[1, -3, 1]	4_1	eeunnwndnwwussseedeennnwnwwwwsseeuneesdswwss
+44	3	[1, -1, 1]	3_1	eeunnwndnwwussseedeennuwnwwsdwwnneeeessswwss
+44	3	[1, -1, 1]	3_1	eeunnwndwwussseendeennnwwwwwsseeeenunwwsssds
+44	3	[1, -1, 1]	3_1	eeunnwndwwuwsseeedeennnuwwwsswdwnneeeesswwss
+44	4	[1, -3, 1]	4_1	eeunnwndwwuwsseeedeennnwwwwwsseuenneesdswwss
+44	3	[1, -1, 1]	3_1	eeunnwndwwuwsseeedeennuwnwwsswdwnneeeesswwss
+44	0	[1]	0_1	eeunnwnndeeeesswuwnwdwwussedeeeeunnwdwswwwss
+44	5	[2, -3, 2]	5_2	eeunnwnndeessswwuwwdnnuenneessdwwnwwssueedss
+44	5	[2, -3, 2]	5_2	eeunnwnndeessussswwnndwwnneeeueedsswwnwwussd
+44	3	[1, -1, 1]	3_1	eeunnwnndeeuessdswwwuwnndeeeennwwussesdwwwss
+44	5	[2, -3, 2]	5_2	eeunnwnndeeussdwwnwwssueedeeennwwunnwwsssdss
+44	0	[1]	0_1	eeunnwnndeneessuwwdwwussedeeeennnuwwdsswwwss
+44	5	[2, -3, 2]	5_2	eeunnwnnedessswwuwwdnneunneeesswdwnwwussedss
+44	3	[1, -1, 1]	3_1	eeunnwnnneeeesswwdnwwswussedeeennnuwwsdswwss
+44	5	[2, -3, 2]	5_2	eeunnwnwndneeussdwwwssueedeennnwwunwwsssedss
+44	3	[1, -1, 1]	3_1	eeunnwwndeenunwwswssseedeeunnwwndneessswwwss
+44	4	[1, -3, 1]	4_1	eeunnwwndeneunwwwsssseedeennnnwwwsuesedswwss
+44	4	[1, -3, 1]	4_1	eeunnwwndneesseuennwwwwwssseedeeennwuwwdswss
+44	4	[1, -3, 1]	4_1	eeunnwwndneesueennwwwwswssseedeennnuwwsdswss
+44	4	[1, -3, 1]	4_1	eeunnwwndnwwussseeedennnnwwwwwsseeuneedsswss
+44	3	[1, -1, 1]	3_1	eeunnwwndnwwussseeedennnuwwwsdwwnneeeessswss
+44	4	[1, -3, 1]	4_1	eeunnwwndnwwussseeedennnwnwwwwsseeuneesdswss
+44	3	[1, -1, 1]	3_1	eeunnwwndnwwussseeedennuwnwwsdwwnneeeessswss
+44	0	[1]	0_1	eeunnwwnndeneessuwwdwwssueedeeennnuwwdsswwss
+44	0	[1]	0_1	eeunnwwnndwwssseueedeennuwwdwwunndeesesswwss
+44	3	[1, -1, 1]	3_1	eeunnwwnneeeesswdwnnwwswssueedeeennwuwwdswss
+44	3	[1, -1, 1]	3_1	eeunnwwnnneeeesswwdnwwswssueedeennnuwwsdswss
+44	0	[1]	0_1	eeunnwwnnneesdswwwssueedeeunnwwndneessswwwss
+44	4	[1, -3, 1]	4_1	eeunnwwswdwnneeeseeussswwnndeeennwwuwwwsdess
+44	5	[1, -1, 1, -1, 1]	5_1	eeunnwwswdwnnueedneessswuswwwnnednnueesdswss
+44	3	[1, -1, 1]	3_1	eeunnwwwdnennwwusseeeedsswuwwdwnnneueedsswss
+44	4	[1, -3, 1]	4_1	eeunnwwwdnneesueennwwwwsswsseeedennnuwwsdsss
+44	0	[1]	0_1	eeunnwwwnndwwssseeueedennuwwdwwunndeesesswss
+44	3	[1, -1, 1]	3_1	eeunnwwwnneeeessdwwnnwwsssueedeeennwwuwwdsss
+44	3	[1, -1, 1]	3_1	eeunnwwwnnneesdswwssueedeennnwnwwsuseedswwss
+44	0	[1]	0_1	eeunnwwwnnneesdswwssueedeennuwwwndneessswwss
+44	0	[1]	0_1	eeunnwwwnwdwsseeueedennuwwdwswuwnndeeeesswss
+44	3	[1, -1, 1]	3_1	eeunnwwwwdnneueedessswuwwdnnennwwusseeedswss
+44	3	[1, -1, 1]	3_1	eueeeednnwwsuwwdnnnwwssueeeeesdswwnnnuwwdsss
+44	3	[1, -1, 1]	3_1	eueeeeennnwwwwssedennwwwussdeseeennuwwdwwwss
+44	3	[1, -1, 1]	3_1	eueeeeennwnwwwssedennwwwussdeseeenuwnwdwwwss
+44	4	[1, -3, 1]	4_1	eueeeendwnnwwusseenedesswwwwnwunnneessdwwwss
+44	4	[1, -3, 1]	4_1	eueeeendwwnuneedsesswwwwnwunndeeesuswwndwwss
+44	0	[1]	0_1	eueeendennwwusswwwwdnneesseseeeunnwdwwuwwdss
+44	3	[1, -1, 1]	3_1	eueeennwdnwwssueedennuwwsdsseeennnnwwwwwssss
+44	5	[1, -1, 1, -1, 1]	5_1	eueendeennuwwsdwwnwwssueedeseeunndnwwuswwdss
+44	5	[2, -3, 2]	5_2	eueendeennuwwsdwwsuwwdnneeeeesussdwwnunwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eueendeennwuwswdwnwwssueedeseeunndwnwuwswdss
+44	0	[1]	0_1	eueendeennwwuswswwwdnneesseseeunndwwnuwswdss
+44	5	[1, -1, 1, -1, 1]	5_1	eueendeennwwuswwdnwwssueedeseeunndwwnuwwsdss
+44	5	[2, -3, 2]	5_2	eueendennuwwdswsuwwdnneeneessuessdwwnunwwdss
+44	5	[2, -3, 2]	5_2	eueendennuwwdwssuwwdnneneeessuessdwwnnuwwdss
+44	5	[2, -3, 2]	5_2	eueendennuwwdwssuwwnneendeessuessdwwnnuwwdss
+44	5	[2, -3, 2]	5_2	eueendennuwwwdssuwwdnneneesesuessdwwnnuwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	eueendennuwwwsdseseeunnwdnnwwwussseendnwwsss
+44	5	[2, -3, 2]	5_2	eueendennwuwwdssuwwdnneneesseuessdwwnunwwdss
+44	3	[1, -1, 1]	3_1	eueendnwnwuwwdssueeeneedsswwnwnuwwwdnneessss
+44	4	[1, -3, 1]	4_1	eueendnwwnwwwwsseeuneeeeedsswwnwuwswwnndeess
+44	4	[1, -3, 1]	4_1	eueendnwwsuwwdnneeeeesuwwsdseeennnuwwwwswdss
+44	4	[1, -3, 1]	4_1	eueendnwwuneeeedesswwunwwsdseeeunndwnwwwwsss
+44	4	[1, -3, 1]	4_1	eueendnwwuneeeeedsswwnuwwsdseeeunndnwwwwwsss
+44	5	[2, -3, 2]	5_2	eueendnwwunndeesueedssswwwnuneednnuwwsdwwsss
+44	5	[1, -1, 1, -1, 1]	5_1	eueennndeeusswdwnwwunneeessdesswwwnunndwwsss
+44	0	[1]	0_1	eueennneedsswwnwwnwwssueedeseeunndnwwuswwdss
+44	0	[1]	0_1	eueennneedsswwnwwsuwwdnneeeeesussdwwnunwwdss
+44	5	[1, -1, 1, -1, 1]	5_1	euenedeseennuwwdnwwuswsdeseueendnnuwwsdwwwss
+44	5	[1, -1, 1, -1, 1]	5_1	euenedeseennuwwdnwwwussdeseueendnnuwwsdwwwss
+44	5	[1, -1, 1, -1, 1]	5_1	euenedeseennuwwdwnwwussdeseueendnnwuwswdwwss
+44	4	[1, -3, 1]	4_1	euenedeseennuwwsswdwnwuneeneeeesswwdnwwwwwss
+44	5	[1, -1, 1, -1, 1]	5_1	euenedeseennuwwwdnwwussdeseueendnwnuwwsdwwss
+44	0	[1]	0_1	eueneeneedsswwnnnwwuswsdeseueendnnuwwsdwwwss
+44	0	[1]	0_1	eueneeneedsswwnnnwwwussdeseueendnnuwwsdwwwss
+44	0	[1]	0_1	eueneeneedsswwnwnnwwussdeseueendnwnuwswdwwss
+44	0	[1]	0_1	euenenneedssuswwdwnwunendeesueedsswwnwnwwwss
+44	0	[1]	0_1	euenenneedssuswwdwnwunndeeesueedsswwnwnwwwss
+44	5	[2, -3, 2]	5_2	euenndeeussdwwnwuwnndeeeussdeennwnwwuswsdwss
+44	5	[2, -3, 2]	5_2	euenndeeussdwwnwuwnndeeeussdeennwnwwwussdwss
+44	5	[2, -3, 2]	5_2	euenndeeussdwwnwuwnndeeuessdeennwwnwwussdwss
+44	4	[1, -3, 1]	4_1	euenneesedennwwwwwussdeseenneuesswwwndnwwwss
+44	0	[1]	0_1	euenneeseednnwwssswwnwunneeeesdssuwwndnwwwss
+44	4	[1, -3, 1]	4_1	euenneessdwwnwunndeeeeesswwwusseennndwwwwwss
+44	0	[1]	0_1	euennnndeesssueennwwwdwwussdeseeennuwwdwwwss
+44	5	[2, -3, 2]	5_2	euennwndneessuessdwwnwuwsseeenndennuwwdswwss
+44	3	[1, -1, 1]	3_1	nneeeeennuwwsdwwussdseeunnwnndeesussdwwuswwd
+44	0	[1]	0_1	nneeeeesswwwwnuneessswwwwnnenneeeessdwwuswwd
+44	4	[1, -3, 1]	4_1	nneeeeesueennwwwwswwsdseeuenneedsswwnwwuswwd
+44	4	[1, -3, 1]	4_1	nneeeeeuessdwwwwwnuneesseendennwwussdwwuswwd
+44	4	[1, -3, 1]	4_1	nneeeeeussswwnndeeennwwwwwussdseeeunnwwsswwd
+44	5	[2, -3, 2]	5_2	nneeeeuseednnwwwusssdwwnunenneesesdswwwuswwd
+44	3	[1, -1, 1]	3_1	nneeenuesssdwwwnuwwsseeeennnwndneessswwuswwd
+44	4	[1, -3, 1]	4_1	nneeenuesssswwwwwnneedseeunnwndneessswwuswwd
+44	3	[1, -1, 1]	3_1	nneeeueedsswwwwnunndeeesswwunneeeessswwwwwwd
+44	0	[1]	0_1	nneeeueedsswwwwnunndeeueeesswwdnnnwwusssswwd
+44	0	[1]	0_1	nneeeuneedssuswwdwwnunendeessseennuwwswwswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneeeuneedssuswwdwwnunendeesueedsswwnwwuswwd
+44	0	[1]	0_1	nneeeuneedssuswwdwwnunndeeessseennuwwswwswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneeeuneedssuswwdwwnunndeeesueedsswwnwwuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneeeunndeessussdwwwwnunndeeeueedsswwwwuswwd
+44	4	[1, -3, 1]	4_1	nneeeunnwwsssdseeeeennwuwswwnndeesseuswwwwwd
+44	3	[1, -1, 1]	3_1	nneeeuseedswwwwnunndeeesswwunneeseesswwwwwwd
+44	3	[1, -1, 1]	3_1	nneeneuessdswwwnuwwsseeeennnwnndeesswswuswwd
+44	3	[1, -1, 1]	3_1	nneenueedssswwwnuwwsseeeennnwwndneessswuswwd
+44	4	[1, -3, 1]	4_1	nneenueesssswwwwwnneedseeunnwwndneessswuswwd
+44	3	[1, -1, 1]	3_1	nneeseeeunndwwwusswdseeeunnnndeesswwwusswwwd
+44	3	[1, -1, 1]	3_1	nneeseeeunndwwwwussdseeeunnnndeesswwwusswwwd
+44	4	[1, -3, 1]	4_1	nneeseeeunnnwwssdeeesswwwwwnuenndeeussswwwwd
+44	4	[1, -3, 1]	4_1	nneeseeeunnnwwssdeeesswwwwwnunndeeeussswwwwd
+44	0	[1]	0_1	nneeseeneessuwwnnnwwsswdseeeenunndwwsusswwwd
+44	0	[1]	0_1	nneeseeneessuwwwnndnwwussdseeeenuwnnwwssswwd
+44	4	[1, -3, 1]	4_1	nneeseeneuessdwwwwwnuenneessedennwwwsusswwwd
+44	0	[1]	0_1	nneeseenneessuwwwndnwwussdseeeennuwnwwssswwd
+44	0	[1]	0_1	nneeseennneessuwwwdnwwussdseeeennnuwwwssswwd
+44	0	[1]	0_1	nneeseennuwwsseeedswwwwnunndeesueeesswwwwwwd
+44	4	[1, -3, 1]	4_1	nneeseennuwwsswdseeeeennuwwwdnneesssuswwwwwd
+44	0	[1]	0_1	nneeseennuwwwwwwsseeedseeunndnwwwwsueeesswwd
+44	0	[1]	0_1	nneeseenueedsswwwwwnunndeesuseednnwuwwssswwd
+44	0	[1]	0_1	nneeseeseennuwwdwnwuswsdseeueendnnwuwsswswwd
+44	0	[1]	0_1	nneeseeseennuwwdwnwwussdseeueendnnwuwsswswwd
+44	0	[1]	0_1	nneeseeseennuwwwdnwwussdseeueendnwnuwwssswwd
+44	0	[1]	0_1	nneeseeseeunnwdwwuwwsdseeueendennwwusswwswwd
+44	4	[1, -3, 1]	4_1	nneeseeuneedsswwwwwnuwwsseeeeeenndnwwusswwwd
+44	4	[1, -3, 1]	4_1	nneeseuenedesswwwwwnuwwsseeeeeenndwnwuwsswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneeseuenndwwunwwsssedseeennwunndwwsusesswwd
+44	4	[1, -3, 1]	4_1	nneeseuenneessdwwnwuwswdseeeeeennwwusswwwwwd
+44	0	[1]	0_1	nneeseuseednnunwwwwssdseeennneessuwwnwwsswwd
+44	4	[1, -3, 1]	4_1	nneeseuseeennwdwsswwwnunndeeeeesswuwnwwsswwd
+44	3	[1, -1, 1]	3_1	nneesueednnneessuwwwwwsdseennnueedssswuwwwwd
+44	0	[1]	0_1	nneesueeednnuwwdssswwnuneeeeednnwwssssuwwwwd
+44	4	[1, -3, 1]	4_1	nneesueendnwwuswsdseeeeennwnuwwsdseeuswwwwwd
+44	4	[1, -3, 1]	4_1	nneesueendnwwwussdseeeeennwnuwwsdseeuswwwwwd
+44	4	[1, -3, 1]	4_1	nneesueenneessdwwwnuwwsdseeeeeennwwusswwwwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneeuenedessuswwdwwnunndeeseueedsswwnwwuswwd
+44	0	[1]	0_1	nneeuenedsesuswwdwwnunndeesseseennuwwswwswwd
+44	3	[1, -1, 1]	3_1	nneeuessdwwnunneeesssswwwwwnnenndeeesswuswwd
+44	5	[2, -3, 2]	5_2	nneeuneedessuwwndnwwussdseeeeennuwwdswwuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneeuneedsesuswwdwwnunndeesueeedsswwnwwuswwd
+44	5	[2, -3, 2]	5_2	nneeunndeesesswuwnndwwussdseeeeunnwdwswuswwd
+44	4	[1, -3, 1]	4_1	nneneesuswwdseeeeennuwwdswwnuneedessuswwwwwd
+44	4	[1, -3, 1]	4_1	nneneesuswwdseeeeennuwwsdwwnuneedsesuswwwwwd
+44	4	[1, -3, 1]	4_1	nneneeuesssswwwwwnneedseenunwnndeesswwsuswwd
+44	4	[1, -3, 1]	4_1	nneneueesssswwwwwnneedseenunwwnndeesswsuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneneuesssdwwnuwnndneeesswuwnneeedssswwuswwd
+44	3	[1, -1, 1]	3_1	nnennuwwsdssueedseennuwwwwwdnneesueedssuswwd
+44	3	[1, -1, 1]	3_1	nnenueedssswwnuwwnnneeeeesswwwwndneesssuswwd
+44	4	[1, -3, 1]	4_1	nnenueeesssswwwwwnneedseennuwwwndneesssuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnenueesssdwwnuwwdnneneessuwwnneeedssswuswwd
+44	5	[2, -3, 2]	5_2	nnenunwwssseedseeunndwnnwwsuseenedesswwuswwd
+44	0	[1]	0_1	nneueedeesuswwdwwnuwnndeesseeseennuwwswwswwd
+44	0	[1]	0_1	nneueedeeussdwwwwnuwnndeesseeeennwwussswwwwd
+44	0	[1]	0_1	nneueedeeussdwwwwnuwnneeeessdeennwwwwssuswwd
+44	4	[1, -3, 1]	4_1	nneueednnneessuwwwwwssedseeennnnuwwdsssuswwd
+44	0	[1]	0_1	nneueednnueedsssswwwwnuwnneeeednnwwssssuswwd
+44	4	[1, -3, 1]	4_1	nneueedsswwnuwnndeneeesssuwwdnneuesesswwwwwd
+44	4	[1, -3, 1]	4_1	nneueedsswwnuwnndeneesessuwwdnnueesesswwwwwd
+44	4	[1, -3, 1]	4_1	nneueedsswwnuwnneeeeedsswuwwdnneesuesswwwwwd
+44	4	[1, -3, 1]	4_1	nneueedsswwnuwnneendeesssuwwdnneuesesswwwwwd
+44	4	[1, -3, 1]	4_1	nneueeednnuwwwswssedseennnnneessuwwwdssuswwd
+44	4	[1, -3, 1]	4_1	nneueeeeedsswwnuwwdnnwwussedseenneesuswwwwwd
+44	0	[1]	0_1	nneueeeennwwdsssswwnuwnndeneneessuwwdssuswwd
+44	5	[2, -3, 2]	5_2	nneuenednwwwsussedseeunndwnwuneeedssswwuswwd
+44	5	[2, -3, 2]	5_2	nneuenndeesesswwunndwwwussedseeeunndwwsuswwd
+44	5	[2, -3, 2]	5_2	nneuneedeesswuwnwdnwwussedseeeeunnwdwswuswwd
+44	5	[2, -3, 2]	5_2	nneunndeeesesswwunndwwwussedseeeunndwwsuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneunndeeessswwnuneesssdwwwnuwnndeeesusswwwd
+44	5	[2, -3, 2]	5_2	nneunndeeseesswwunwndwwussedseeeunndwwsuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nneunndeesesswwunneesssdwwwnuwnndeeseusswwwd
+44	4	[1, -3, 1]	4_1	nnneessuwwnneeedeesswuwnwwdsseenneuesswwwwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneessuwwnneeeedssswwwnnueeeednnwwsssuswwwd
+44	4	[1, -3, 1]	4_1	nnneessuwwnneendeessuwwwdsseennnueessswwwwwd
+44	4	[1, -3, 1]	4_1	nnneessuwwnnendeeessuwwwdsseennnueessswwwwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneessuwwnnendeessuessdwwwnnueneedsswuswwwd
+44	4	[1, -3, 1]	4_1	nnneessuwwnnndeeeessuwwwdsseennnueessswwwwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneessuwwnnndeeessuessdwwwnnueneedsswuswwwd
+44	3	[1, -1, 1]	3_1	nnneeueeesswdwwuwnnndeesswwsseeeennwuwsswwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneeuneedssswwuwnnndeesuesssdwwwnneeusswwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneeuneedsswswuwnnndeesuessdswwwnneuesswwwd
+44	5	[2, -3, 2]	5_2	nnneeuneedsswuwswdseeenunnwdnwwussdeseuswwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneeusessdwwnuwnnndeeesswwunneeedssswwuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneeusessdwwnuwnnndeeesswwunneesedsswwuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneuesessdwwnuwwdnnneeesswuwnneeedssswuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnneuneedssswuwwnnndeesueedssswwwnneuesswwwd
+44	5	[2, -3, 2]	5_2	nnneuneedssuwswdseeennnuwwdnwwussedeseuswwwd
+44	3	[1, -1, 1]	3_1	nnnneeeeesssswwwwnneuneedsswwuwnndeesusswwwd
+44	3	[1, -1, 1]	3_1	nnnneeeesessswwwwnneuneesdswwuwnndeesusswwwd
+44	3	[1, -1, 1]	3_1	nnnneeeessesswwwwnneuneessdwwuwnndeesusswwwd
+44	3	[1, -1, 1]	3_1	nnnnwwssueeedsseeennwuwswwwdnnueedesseuswwwd
+44	0	[1]	0_1	nnnnwwssueeeeesdswwnnnuwwdssueeedneessuwwwwd
+44	5	[2, -3, 2]	5_2	nnnuwwwdsseenueeeedsswwnuwwwndneneessesuswwd
+44	5	[2, -3, 2]	5_2	nnnwuwwdsseenueeeedsswwnuwwwndnneeessesuswwd
+44	0	[1]	0_1	nnueedeeesswwwwnnneeeussdwwuwwwnneeeessswwwd
+44	0	[1]	0_1	nnueedeeuessdwwwwnnnwwssueeeenndeesswuswwwwd
+44	0	[1]	0_1	nnueedeeussdwwwnnneeeesswwwuwwwnneeeessswwwd
+44	4	[1, -3, 1]	4_1	nnueeeednnwwsssuwwwdnneessseennnueessswwwwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnueeenndwnwwssueedessswwnuwwnnneedssesuswwd
+44	5	[2, -3, 2]	5_2	nnueeenndwwuswwsseedseennnwunndwwssesesuswwd
+44	4	[1, -3, 1]	4_1	nnueeesedennwwwssuwwwdnneessseenneuesswwwwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnueendeesussdwwwnuwwdnneeseeuneedsswwuswwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnueendeesussdwwwnuwwdnneeseeuneedsswwwuswwd
+44	0	[1]	0_1	nnueendeseussdwwwnuwwdnneeseseeennwuwssswwwd
+44	5	[2, -3, 2]	5_2	nnueendnwwswssueedseeunndwwnuneedsesswwuswwd
+44	3	[1, -1, 1]	3_1	nnueeneesdswwuwwwdnneeeeeessswwwwnneeusswwwd
+44	3	[1, -1, 1]	3_1	nnueeneessdwwuwwwdnneeeeesesswwwwnneeusswwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnuenedeseussdwwwnuwwdnneeseuenedesswwuswwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnuenedeseussdwwwnuwwdnneeseuenedesswwwuswwd
+44	5	[2, -3, 2]	5_2	nnuenednwwwsssueedseeunnwdwnwuneeedssswuswwd
+44	0	[1]	0_1	nnuenedseeussdwwwnnnwwssueeenendeesswwuswwwd
+44	3	[1, -1, 1]	3_1	nnueneeessdwwuwwwdnneeeeseesswwwwnneuesswwwd
+44	5	[2, -3, 2]	5_2	nnuenneesdswwnwwssueedseeunnwndneessswwuswwd
+44	5	[2, -3, 2]	5_2	nnuenneessdesswwwnuwwdnneeseseuenndwwussswwd
+44	5	[2, -3, 2]	5_2	nnuneedeeesswwunwwdnwwssueedseeeunndwwsuswwd
+44	0	[1]	0_1	nnuneedeeesswwunwwswwdnneessseeeunndwwsuswwd
+44	0	[1]	0_1	nnuneedseeussdwwwnnnwwssueeneendeesswwwuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnuneedseeussdwwwnuwwdnneesueendeesswwuswwwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnuneedseeussdwwwnuwwdnneesueendeesswwwuswwd
+44	0	[1]	0_1	nnuneeeesdsswwwnnnwwssueeneeseednnwwsswuswwd
+44	0	[1]	0_1	nnuneeeesdwsswwnnnwwssueeneesedennwwwssuswwd
+44	0	[1]	0_1	nnuneeeesdwwwsseeunnwwswwdnneeeeeesswwwuswwd
+44	0	[1]	0_1	nnuneeeessdswwwnnnwwssueeneesseednnwwswuswwd
+44	0	[1]	0_1	nnuneeeessdwswwnnnwwssueeneessedennwwwsuswwd
+44	3	[1, -1, 1]	3_1	nnuneeeessdwwuwwwdnneeeseeesswwwwnnueesswwwd
+44	0	[1]	0_1	nnuwnneeeesswwdnneesssswwnuwwdnneueedssuswwd
+44	5	[1, -1, 1, -1, 1]	5_1	nnuwnneeesdessswwnuwwdnneueseenndwwssesuswwd
+TALLY
+count	length	verdict
+246	44	0_1
+170	44	3_1
+305	44	4_1
+132	44	5_1
+190	44	5_2
+ALL RESOLVED
