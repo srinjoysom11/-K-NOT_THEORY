@@ -20,7 +20,7 @@ new code lives in `enum_dmon.cpp` behind flags (default off: identical output an
 | D2 `-aot`, `-aotc` | DONE, benchmarked n = 24..30, identical output, table in DMON_RESULTS.md |
 | D1 `-gcleaf`, `-gc` | DONE: lemma validated (0/128560), proof written, benchmarks n=26..30: nodes unchanged (0.9996-0.9999x), time +30-45 %, output identical |
 | `check/gc_check.cpp` | done (censuses 0 violations) |
-| D3 (-bfsdist, -gmst) | code written, NOT yet tested (build: enum_dmon.cpp) |
+| D3 (-bfsdist, -gmst, -onetree) | DONE: identical output, <= 3 % nodes (5 % with 1-tree), +60-100 % time: no gain. D2 follow-ups -aotm/-aote/-aott done (best: -aotc -aotm -aote 0.26x nodes, 0.18x time at n=28). DMON-only mode done. Tables in DMON_RESULTS.md |
 | D5, D4, extras E1..E8 | not started |
 | report to parent after D2 | sent (interim, then final) |
 | GitHub dmon-bench smoke run 44417093364 | queued for >8 h (runner pool saturated by old slab-enum runs); parent asked for a runner; keep working locally |

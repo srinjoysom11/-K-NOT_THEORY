@@ -188,3 +188,82 @@ GC: no site 5, GC site unreachable or without two free neighbours 2075. So GC ad
 **Conclusion D1.** GC is a valid new DMON (proved in full above, 0 violations in 128 560 known shortest polygons, 19 528 move checks, identical output). As a search device it is useless in this search:
 the 15 884 608 vs 15 886 694 node counts show that the existing DMON6 (U-turns and perpendicular curtains), DMON7 (corners) and the reach tests already prune every prefix that GC could prune, and the extra obligations cost 30 to 45 % more time.
 It could matter in a search without DMON7/-prime or as a leaf test for candidate polygons coming from other sources (random polygons, BFACF searches), where it is a cheap necessary condition for being shortest; we did not need it there.
+
+## D2 follow-ups (requested by the parent session)
+
+All are search tests (pure bounds): output byte-identical to `enum` in every row, checked with `cmp`. `-stair -tourcap 3`, whole search. Nodes ratio and seconds ratio are against `enum`.
+
+* `-aote`: the counts-only part of D2 (head coordinate, plus the plane debt with `-aotc`) is tested before `update()`, i.e. before any obligation is built. Rejected nodes are still counted as nodes, so the node counts must equal those of `-aot` / `-aotc` without it, and they do (n = 24, 26, 28). It saves time only.
+* `-aotm`: per-axis travel also for multi-site obligations: on axis q, a multi-site obligation needs the walk to reach the coordinate of one of its sites, so the travel on q is at least the least value, over its sites, of the travel bound with the range extended to that site's coordinate; the maximum over the obligations is used. This is a lower bound on the steps on axis q.
+* `-aott`: the same per-axis test inside the exact tour, with (per-axis distance of the partial tour so far) + (per-axis span of the sites still to visit from the current point); this is a lower bound (the witness tour is an upper bound and is not used).
+
+| n | variant | nodes | ratio | seconds | ratio |
+|---|---|---|---|---|---|
+| 24 | enum | 15 886 694 | 1 | 3.6 | 1 |
+| 24 | -aot -aote | 8 844 973 | 0.557 | 1.6 | 0.44 |
+| 24 | -aot -aotm | 8 158 082 | 0.514 | 1.6 | 0.44 |
+| 24 | -aotc -aote | 5 559 450 | 0.350 | 0.9 | 0.25 |
+| 24 | -aotc -aotm -aote | 5 065 015 | 0.319 | 0.9 | 0.25 |
+| 24 | -aotc -aotm -aote -aott | 4 891 452 | 0.308 | 0.9 | 0.25 |
+| 26 | enum | 76 302 828 | 1 | 18.9 | 1 |
+| 26 | -aot -aote | 38 158 720 | 0.500 | 7.4 | 0.39 |
+| 26 | -aot -aotm | 34 622 342 | 0.454 | 7.0 | 0.37 |
+| 26 | -aotc -aote | 22 315 231 | 0.292 | 3.7 | 0.20 |
+| 26 | -aotc -aotm -aote | 20 044 495 | 0.263 | 3.5 | 0.19 |
+| 26 | -aotc -aotm -aote -aott | 19 166 535 | 0.251 | 3.7 | 0.20 |
+| 28 | enum | 408 794 261 | 1 | 115.4 | 1 |
+| 28 | -aot -aote | 189 095 418 | 0.463 | 39.3 | 0.34 |
+| 28 | -aot -aotm | 170 725 832 | 0.418 | 37.8 | 0.33 |
+| 28 | -aotc -aote | 117 097 571 | 0.286 | 21.8 | 0.19 |
+| 28 | -aotc -aotm -aote | 104 466 494 | 0.256 | 20.4 | 0.18 |
+
+(`-aote` alone leaves the node counts of `-aot`/`-aotc` unchanged and saves 8 to 13 % of the time; `-aotm` saves a further 8 to 10 % of the nodes; `-aott` 3 to 4 % of the nodes at no time gain, because with `-tourcap 3` the exact tour is entered rarely and is cut off after three calls.
+With the default `-tourcap 3000` at n = 24: `-aotc -aotm -aote` 4 079 000 nodes, plus `-aott` 3 949 679.) Best combination for the production setting (`-stair -tourcap 3`): **`-aotc -aotm -aote`**, 0.26x nodes and 0.18x time at n = 28.
+
+**DMON-only mode** (no `-prime`; the setting of the paper's proof; `-tourcap 0 -nomst -noreduce`). `enum` reproduces the reference counts: n = 24: 181 235 380 nodes, n = 26: 1 078 116 768. Here `-aotc` is the same as `-aot` (no plane debt).
+
+| n | variant | nodes | ratio | seconds | ratio |
+|---|---|---|---|---|---|
+| 24 | enum | 181 235 380 | 1 | 10.3 | 1 |
+| 24 | -aot -aote | 70 162 235 | 0.387 | 4.2 | 0.41 |
+| 24 | -aot -aotm -aote | 64 507 589 | 0.356 | 4.4 | 0.43 |
+| 26 | enum | 1 078 116 768 | 1 | 66.5 | 1 |
+| 26 | -aot -aote | 362 445 758 | 0.336 | 22.0 | 0.33 |
+| 26 | -aot -aotm -aote | 328 946 957 | 0.305 | 22.6 | 0.34 |
+| 24, `-tourcap 3` without `-prime` | enum | 86 639 605 | 1 | 9.6 | 1 |
+| 24, `-tourcap 3` without `-prime` | -aot -aotm -aote | 34 672 268 | 0.400 | 3.8 | 0.40 |
+
+Outputs identical in all rows (50 survivors with the default reduction; 56 and 168 candidates with `-noreduce`). Growth per two edges of the DMON-only search with `-aot`: 70.2e6 -> 362e6 = 5.2x (baseline 5.95x).
+
+## D3. Obstacle-aware distances and the group spanning tree (search tests, pure bounds)
+
+* `-bfsdist S` (D3a): when the slack s = (remaining steps) - (Manhattan distance to the origin) is at most S, the remaining walk must be a self-avoiding walk from the head to the origin through free allowed points, so the length of a shortest such walk (BFS, depth-limited, points that cannot reach the origin within the budget are not expanded) is a lower bound.
+* `-gmst` (D3b): minimum spanning tree over the head, the origin and one node per pending obligation (single-site or not); the edge weight between two nodes is the least Manhattan distance between a site of the one and a site of the other. Any tour that visits one site of every obligation, starting at the head and ending at the origin, is a spanning tree on the sites it chooses, whose weight is at least the weight of this tree, so its length is at least this MST weight. (The old MST bound ignored multi-site obligations.)
+
+`-stair -tourcap 3`, whole search except the last rows; output byte-identical to `enum` in every row.
+
+| n | variant | nodes | ratio | seconds |
+|---|---|---|---|---|
+| 24 | -bfsdist 0 | 15 878 854 | 0.9995 | 3.7 |
+| 24 | -bfsdist 2 | 15 836 659 | 0.9968 | 3.9 |
+| 24 | -bfsdist 4 | 15 784 101 | 0.9935 | 5.6 |
+| 24 | -bfsdist 100 | 15 739 802 | 0.9908 | 8.1 |
+| 24 | -gmst | 15 605 292 | 0.9823 | 5.6 |
+| 24 | -gmst -bfsdist 2 | 15 561 032 | 0.9795 | 6.2 |
+| 24 | -aotc -gmst -bfsdist 2 (vs -aotc 5 559 450) | 5 460 951 | 0.9823 | 1.5 (vs 1.0) |
+| 26 | -bfsdist 0 / 2 / 4 | 76 262 098 / 76 073 809 / 75 833 065 | 0.9995 / 0.9970 / 0.9939 | 18.4 / 20.4 / 27.9 |
+| 26 | -gmst | 74 699 482 | 0.9790 | 31.9 |
+| 28 | -bfsdist 2 | 407 636 444 | 0.9972 | 118.1 |
+| 28 | -gmst | 399 109 725 | 0.9763 | 186.6 |
+| 28 | -aotc -gmst -bfsdist 2 (vs -aotc 117 097 571) | 114 180 932 | 0.9751 | 37.6 (vs 25.0) |
+| 30 part 0 of 8 | -gmst -bfsdist 2 (vs enum 272 901 739, 74.9 s) | 264 840 865 | 0.9705 | 145.2 |
+
+**Conclusion D3: no gain.** Even a BFS of unlimited depth (`-bfsdist 100`) removes only 0.9 % of the nodes at n = 24, and the group tree 2 %; both cost 1.5 to 2 times the time. The Manhattan bounds are already tight where the walk has little room, and the obstacles do not change the distance
+(the head, near the end, is in the middle of free space, or the prefix is killed by an obligation first).
+
+**1-tree bound** (`-onetree`, implies the group graph; requested by the parent): the walk head -> sites -> origin, closed by a zero-weight edge origin-head, is a Hamiltonian cycle on the group nodes, and for every node v the cycle is at least MST(all nodes except v) + the two cheapest edges at v (this holds for any non-negative weights, so also for the least-distance weights between groups; the MST + matching bound is not used because it is not a lower bound). The bound is the maximum over all v. n = 24: 15 135 178 nodes (0.953), 15.3 s; n = 26: 72 279 905 nodes (0.947), 93.7 s. Output identical. So it is a little stronger than the plain MST but 4 to 5 times slower as implemented (all v, every call, O(ng^3)); not worth it. An incremental MST was not tried: the whole MST/tour block takes most of the time, but even a free 1-tree would only remove 5 % of the nodes.
+
+**Where the kills happen** (`-rejstats`, kills inside `update` by remaining steps R1 after the step; `out/dmon/n24_rejstats_enum.log`, `n26_rejstats_enum.log`, `n26_rejstats_aotcm.log`): at n = 26 with `enum`, 32.0 M prefixes die in the tour/MST test, 10.7 M in the reach or two-free-neighbours test, 0.34 M for a corner without site.
+They die between R1 = 2 and 16, with the peak at R1 = 8 to 12 (tour/MST: 3.7M, 7.1M, 8.8M, 7.1M, 3.3M at R1 = 8, 9, 10, 11, 12; reach: 2.5M, 2.6M, 2.1M at R1 = 8, 9, 10); there are no kills at all for R1 >= 17 (the first 9 steps of 26 are enumerated without any pruning from `update`, only the return distance and the plane debt prune there).
+With `-aotc -aotm -aote` the axis test takes over: 5.3 M kills in `-aot` and 3.4 M more before `update` (`aot_early`), the tour/MST kills drop from 32.0 M to 2.5 M and the reach kills from 10.7 M to 1.7 M, and the axis kills start earlier (R1 = 3 to 16, peak 10 to 12).
+Consequence: to save a length step one must prune at R1 >= 14, where today nothing dies; the new axis test is the first that does something there (R1 = 14, 15, 16: 123 113, 36 354, 8 010 kills at n = 26).
