@@ -84,6 +84,8 @@ static bool AOT = false;   /* -aot : D2, axis-ordered travel (pure bound) */
 static bool GCLEAF = false; /* -gcleaf: D1 at the leaves only (generalized curtain, cyclic windows) */
 static int GCTOUR = 0;      /* -gctour K: generalized-curtain obligations enter the exact tour only if they have <= K sites (default 0 = never) */
 static bool PLAINDUMP = false; /* -plaindump: with -plain, list every closed polygon (that passes -gcleaf if given): test of gc_leaf_ok against check/gc_check */
+static int BFSDIST = -1;    /* -bfsdist S: D3a, BFS distance through free cells when the slack is <= S (pure bound; -1 = off) */
+static bool GMST = false;   /* -gmst: D3b, group spanning tree over every pending obligation (pure bound) */
 static bool GC = false;     /* -gc    : D1 on prefixes (obligations for every earlier opposite step) + leaves */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
 
@@ -221,7 +223,36 @@ struct Search {
     Reducer red;
     std::vector<std::string> out;
 
-    Search() { memset(occ, 0, sizeof occ); memset(vidx, 0, sizeof vidx); }
+    int bstamp[NS], bq[NS], bcur = 0;
+    unsigned long long bfs_calls = 0, bfs_prunes = 0;
+    Search() { memset(occ, 0, sizeof occ); memset(vidx, 0, sizeof vidx); memset(bstamp, 0, sizeof bstamp); }
+    /* D3a.  The remaining R1 steps are a self-avoiding walk from the head to the origin through free,
+       allowed points, so R1 >= the BFS distance through such points (the Manhattan distance is the same
+       bound without the obstacles).  Points that cannot reach the origin within the budget are not expanded. */
+    bool bfs_ok(int nx, int R1) {
+        bfs_calls++;
+        ++bcur;
+        int qh = 0, qt = 0;
+        bq[qt++] = nx; bstamp[nx] = bcur;
+        int d = 0;
+        while (qh < qt) {
+            int layer_end = qt;
+            if (d + 1 > R1) break;
+            for (; qh < layer_end; qh++) {
+                int c = bq[qh];
+                for (int q = 0; q < 6; q++) {
+                    int w = c + DELTA[q];
+                    if (w == ORG) return true;                    /* d + 1 <= R1 */
+                    if (occ[w] || !ALLOWED[w] || bstamp[w] == bcur) continue;
+                    if (d + 1 + DIST0[w] > R1) continue;
+                    bstamp[w] = bcur; bq[qt++] = w;
+                }
+            }
+            d++;
+        }
+        bfs_prunes++;
+        return false;
+    }
 
     /* build the curtain obligation for the sub-path from step j to step i (i exclusive of wrap);
        returns 1 satisfied now, 0 pending (stored in ob), -1 impossible */
@@ -351,6 +382,31 @@ struct Search {
         /* the cheap witness failed.  Minimum spanning tree over {head, origin, one nearest site per
            set}: with only single-site sets this is a lower bound for any walk through all of them */
         if (!NOMST) {
+            if (GMST) {
+                /* group MST: nodes = head, origin, and every pending obligation; the weight between two groups is
+                   the least Manhattan distance between their members.  Any tour that visits one site of every group
+                   gives a spanning tree on the chosen sites, whose weight is >= the group-MST weight. */
+                int ng = nn + 2;
+                int key[4 * MAXN + 2]; bool in[4 * MAXN + 2];
+                int gd[4 * MAXN + 2][4 * MAXN + 2];
+                const int *gs[4 * MAXN + 2]; int gc[4 * MAXN + 2]; int one[2][1] = {{nx}, {ORG}};
+                gs[0] = one[0]; gc[0] = 1; gs[1] = one[1]; gc[1] = 1;
+                for (int a = 0; a < nn; a++) { gs[a + 2] = obs[nw[a]].site; gc[a + 2] = obs[nw[a]].cnt; }
+                for (int a = 0; a < ng; a++) for (int b = a + 1; b < ng; b++) {
+                    int best = 1 << 20;
+                    for (int x = 0; x < gc[a]; x++) for (int y = 0; y < gc[b]; y++) { int dd = mdist(gs[a][x], gs[b][y]); if (dd < best) best = dd; }
+                    gd[a][b] = gd[b][a] = best;
+                }
+                for (int a = 0; a < ng; a++) { key[a] = gd[0][a]; in[a] = false; }
+                in[0] = true; int total = 0;
+                for (int r = 1; r < ng; r++) {
+                    int b = -1;
+                    for (int a = 0; a < ng; a++) if (!in[a] && (b < 0 || key[a] < key[b])) b = a;
+                    in[b] = true; total += key[b];
+                    for (int a = 0; a < ng; a++) if (!in[a] && gd[b][a] < key[a]) key[a] = gd[b][a];
+                }
+                if (total > R1) return false;
+            }
             int pts[4 * MAXN + 2], np2 = 0; bool all_single = true;
             pts[np2++] = nx; pts[np2++] = ORG;
             for (int a = 0; a < nn; a++) { const Ob &ob = obs[nw[a]]; if (ob.cnt != 1) { all_single = false; continue; } pts[np2++] = ob.site[0]; }
@@ -412,6 +468,7 @@ struct Search {
     /* obligations created by step i (direction d, from pos[i] to nx); occ[nx] is already set.
        Fills pend[i+1]; returns false if the prefix is dead. */
     bool update(int i, int d, int nx, int sl, int R1) {
+        if (BFSDIST >= 0 && R1 - (int)DIST0[nx] <= BFSDIST && R1 > 0 && !bfs_ok(nx, R1)) return false;
         const int *old = pend[i]; int no = npend[i];
         int *nw = pend[i + 1]; int nn = 0;
         for (int a = 0; a < no; a++) {
@@ -674,6 +731,8 @@ int main(int argc, char **argv) {
         else if (a == "-aot") AOT = true;
         else if (a == "-gcleaf") GCLEAF = true;
         else if (a == "-gc") GC = true;
+        else if (a == "-bfsdist") BFSDIST = atoi(argv[++i]);
+        else if (a == "-gmst") GMST = true;
         else if (a == "-plaindump") PLAINDUMP = true;
         else if (a == "-gctour") GCTOUR = atoi(argv[++i]);
         else if (a == "-aotc") AOTC = true;
