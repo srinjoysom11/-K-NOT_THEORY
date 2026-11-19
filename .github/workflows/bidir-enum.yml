@@ -1,0 +1,116 @@
+# Runs parts of the exhaustive enumeration with research/exact/enum_bidir.cpp (two-ended search, DMON_RESULTS.md section E9).
+# A separate workflow on branch claude/dmon-experiments; exact-enum.yml and the lean workflows are not touched.
+# Started by pushing a change to research/exact/ci/bidir_request.json on this branch, for example
+#   {"runs": [{"n": 34, "m": 16, "opts": "-prime -tourcap 3 -alt 4 -aotc -aotm", "tag": "prime_bd"}]}
+# (optional "from" / "to" select parts from <= r < to; "slab": L is written as "-slab L" inside opts).
+# Every job builds enum_bidir, checks it on small cases against stored results, runs one part, and uploads it.
+# The last job merges the parts of each (n, tag, m) and commits them to research/exact/out/bidir/.
+name: bidir-enum
+on:
+  push:
+    branches: [claude/dmon-experiments]
+    paths: [research/exact/ci/bidir_request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          req = json.load(open('research/exact/ci/bidir_request.json'))
+          inc = [{"n": r["n"], "m": r["m"], "r": k, "opts": r.get("opts", "-stair -tourcap 3 -alt 4 -aotc -aotm"), "tag": r["tag"]}
+                 for r in req["runs"] for k in range(r.get("from", 0), r.get("to", r["m"]))]
+          assert 0 < len(inc) <= 256, len(inc)
+          print("matrix=" + json.dumps({"include": inc}))
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build and self-test
+        working-directory: research/exact
+        run: |
+          g++ -O3 -march=native -std=c++17 -pthread -o enum_bidir enum_bidir.cpp
+          # stored results: n = 24 (50 words), 1-slab n = 30 (slab.cpp output)
+          ./enum_bidir 24 -stair -tourcap 3 -alt 4 -aotc -aotm -out t24.txt 2> t.log; cat t.log; cmp t24.txt out/dmon/n24_base.txt
+          ./enum_bidir 30 -slab 1 -stair -tourcap 3 -alt 4 -aotc -aotm -out t30.txt 2> t.log; cat t.log; cmp t30.txt out/slab/L1_n30.txt
+      - name: enumerate
+        working-directory: research/exact
+        run: |
+          base=n${{ matrix.n }}_${{ matrix.tag }}.part${{ matrix.r }}_${{ matrix.m }}
+          s=$(date +%s)
+          ./enum_bidir ${{ matrix.n }} ${{ matrix.opts }} -part ${{ matrix.r }} ${{ matrix.m }} -out $base.txt 2> $base.log
+          e=$(date +%s)
+          echo "seconds=$((e-s)) host=github-actions threads=$(nproc) opts=${{ matrix.opts }} commit=$GITHUB_SHA" >> $base.log
+          cat $base.log
+          mkdir -p parts && mv $base.txt $base.log parts/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n${{ matrix.n }}_${{ matrix.tag }}.part${{ matrix.r }}_${{ matrix.m }}
+          path: research/exact/parts/
+          retention-days: 30
+  collect:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: merge and commit
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            mkdir -p research/exact/out/bidir/ci
+            cp artifacts/*.txt artifacts/*.log research/exact/out/bidir/ci/ 2>/dev/null || true
+            python3 - <<'PY'
+          import glob, os, re
+          ci = "research/exact/out/bidir/ci"
+          sets = set()
+          for f in glob.glob(ci + "/n*_*.part*_*.log"):
+              g = re.match(r"n(\d+)_(\w+)\.part(\d+)_(\d+)\.log$", os.path.basename(f))
+              if g: sets.add((int(g.group(1)), g.group(2), int(g.group(4))))
+          for n, tag, m in sorted(sets):
+              parts = [f"{ci}/n{n}_{tag}.part{k}_{m}" for k in range(m)]
+              done = [p for p in parts if os.path.exists(p + ".log") and os.path.exists(p + ".txt")]
+              words = sorted({w.strip() for p in done for w in open(p + ".txt") if w.strip()})
+              status = "COMPLETE" if len(done) == m else f"INCOMPLETE {len(done)} of {m} parts"
+              nodes = secs = 0
+              for p in done:
+                  t = open(p + ".log").read()
+                  a = re.search(r"nodes=(\d+)", t); b = re.search(r"seconds=(\d+)", t)
+                  nodes += int(a[1]) if a else 0; secs += int(b[1]) if b else 0
+              with open(f"research/exact/out/bidir/n{n}_{tag}.m{m}.ci_summary.txt", "w") as f:
+                  f.write(f"n={n} tag={tag} parts={m} {status} survivors={len(words)} nodes={nodes} runner_seconds={secs}\n")
+                  for p in done:
+                      f.write(open(p + ".log").read())
+              if len(done) == m:
+                  open(f"research/exact/out/bidir/n{n}_{tag}.txt", "w").write("".join(w + "\n" for w in words))
+              print(n, tag, m, status, len(words), nodes, secs)
+          PY
+            git add research/exact/out/bidir
+            git commit -q -m "exact: bidir-enum parts from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1

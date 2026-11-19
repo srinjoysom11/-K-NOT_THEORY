@@ -93,6 +93,7 @@ static bool AOTM = false;  /* -aotm: -aot also uses multi-site obligations (per 
 static bool AOTT = false;  /* -aott: the axis-ordered travel test also inside the exact tour (per-axis travel so far + per-axis span of what is left) */
 static bool AOTX = false;  /* -aotx: E10a, with -prime the crossing debt per axis is computed for the extent extended to the coordinates of the single-site obligations */
 static bool ORDER = false; /* -order: E11, children in order of increasing slack (R - 1 - distance to the origin) */
+static bool PARITY = false; /* -par: E1, parity budget for the distinct single-site obligations (pure bound) */
 static bool AOTE = false;  /* -aote: -aot's counts-only part is also tested before update() (earlier rejection, same nodes) */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
 
@@ -603,6 +604,21 @@ struct Search {
             }
             if (!fine) { REJ(ob.gc ? 5 : 4, R1); return false; }
         }
+        if (PARITY && nn > 0) {
+            /* the R1 - 1 vertices that are still to come alternate in parity, starting with the parity opposite to the head's; every
+               pending single-site obligation needs its own such vertex (a site is a vertex of the walk, two sites are two vertices) */
+            int seen[4 * MAXN], ns = 0, c[2] = {0, 0};
+            for (int a = 0; a < nn; a++) {
+                const Ob &ob = obs[nw[a]];
+                if (ob.cnt != 1) continue;
+                int sp = ob.site[0]; bool dup = false;
+                for (int q = 0; q < ns; q++) if (seen[q] == sp) { dup = true; break; }
+                if (dup) continue;
+                seen[ns++] = sp; c[(CX[sp] + CY[sp] + CZ[sp]) & 1]++;
+            }
+            int ph = (CX[nx] + CY[nx] + CZ[nx]) & 1, m = R1 - 1;
+            if (ns > 0 && (m < 0 || c[ph ^ 1] > (m + 1) / 2 || c[ph] > m / 2)) { REJ(9, R1); return false; }
+        }
         if ((AOT || AOTC || AOTM) && AXES && !aot_ok(nx, nw, nn)) { REJ(6, R1); return false; }
         nwit[i + 1] = 0;
         if (GC) {
@@ -850,6 +866,7 @@ int main(int argc, char **argv) {
         else if (a == "-aotm") AOTM = true;
         else if (a == "-aote") AOTE = true;
         else if (a == "-aott") AOTT = true;
+        else if (a == "-par") PARITY = true;
         else if (a == "-aotx") { AOTX = true; AOTC = true; }
         else if (a == "-order") ORDER = true;
         else if (a == "-stair") STAIR = PRIME = true;

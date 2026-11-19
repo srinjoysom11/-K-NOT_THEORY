@@ -38,8 +38,9 @@ static const int OX = 32, OY = 32, OZ = 3;
 static const int ORG = OX + S * OY + S2 * OZ;
 static const int DELTA[6] = {1, -1, S, -S, S2, -S2};        /* e w n s u d */
 static const char DC[7] = "ewnsud";
-static const int MAXN = 48;
+static const int MAXN = 56;
 
+static int SLAB = -1;     /* -slab L: only points with 0 <= z <= L, axis rule only y-steps <= x-steps (as slab.cpp, PROOF_SLAB.md) */
 static int N = 0, ALT = 12, SPLIT = 9, PART_R = 0, PART_M = 1, TOUR_CAP = 3, BFS_LIMIT = 2000;
 static bool AXES = true, REDUCE = true, PSI = true, NOMST = false, AOT = false, AOTM = false, REJSTATS = false;
 static bool PRIME = false, STAIR = false, AOTC = false;   /* -prime / -stair: plane-crossing lemma (prime knots, PROOF.md Lemma 3); -aotc: per-axis plane debt in -aot */
@@ -263,6 +264,7 @@ struct Search {
             if (AOTC && cdef[q] > t) t = cdef[q];
             L[q] = (cnt[q] + t + 1) & ~1;
         }
+        if (SLAB >= 0) { int y = L[1], x = L[0] > y ? L[0] : y; return x + y + L[2] <= N; }
         int z = L[2], y = L[1] > z ? L[1] : z, x = L[0] > y ? L[0] : y;
         return x + y + z <= N;
     }
@@ -441,7 +443,7 @@ struct Search {
             }
         int c[3] = {0, 0, 0};
         for (int i = 0; i < N; i++) c[dirs[i] >> 1]++;
-        if (AXES && !(c[2] <= c[1] && c[1] <= c[0])) return false;                                  /* DMON5 */
+        if (AXES && !((SLAB >= 0 || c[2] <= c[1]) && c[1] <= c[0])) return false;                  /* DMON5 */
         return true;
     }
     void leaf(int c) {
@@ -507,9 +509,14 @@ struct Search {
             if (AXES) {
                 int cx = cnt[0], cy = cnt[1], cz = cnt[2];
                 if (A == 0) cx++; else if (A == 1) cy++; else cz++;
-                int m = cy > cz ? cy : cz;
-                if (2 * m + cz > N) continue;
-                if (cz > cy + (R - 1) || cy > cx + (R - 1)) continue;
+                if (SLAB >= 0) {
+                    if (2 * cy + cz > N) continue;
+                    if (cy > cx + (R - 1)) continue;
+                } else {
+                    int m = cy > cz ? cy : cz;
+                    if (2 * m + cz > N) continue;
+                    if (cz > cy + (R - 1) || cy > cx + (R - 1)) continue;
+                }
             }
             int smn = 0, smx = 0, sdef = 0, pl = 0; StairSave ss;
             if (PRIME) {
@@ -570,6 +577,7 @@ int main(int argc, char **argv) {
         else if (a == "-prime") PRIME = true;
         else if (a == "-stair") STAIR = PRIME = true;
         else if (a == "-aotc") { AOT = true; AOTC = true; }
+        else if (a == "-slab") SLAB = atoi(argv[++i]);
         else if (a == "-noaxes") AXES = false;
         else if (a == "-noreduce") REDUCE = false;
         else if (a == "-nopsi") PSI = false;
@@ -583,14 +591,14 @@ int main(int argc, char **argv) {
         else if (a == "-rejstats") REJSTATS = true;
         else { fprintf(stderr, "unknown option %s (enum_bidir has no -bridge)\n", a.c_str()); return 1; }
     }
-    if (N < 4 || N > 40 || (N & 1)) { fprintf(stderr, "N must be even, 4..40\n"); return 1; }
+    if (N < 4 || N > 52 || (N & 1) || (SLAB < 0 && N > 40)) { fprintf(stderr, "N must be even, 4..40 (4..52 with -slab)\n"); return 1; }
     if (SPLIT > N - 2) SPLIT = N - 2;
     if (SPLIT < 1) SPLIT = 1;
     for (int p = 0; p < NS; p++) {
         int x = p % S - OX, y = (p / S) % S - OY, z = p / S2 - OZ;
         CX[p] = (signed char)x; CY[p] = (signed char)y; CZ[p] = (signed char)z;
         bool lexgt = z > 0 || (z == 0 && (y > 0 || (y == 0 && x > 0)));
-        bool inbox = abs(x) <= 24 && abs(y) <= 24 && z <= 24;
+        bool inbox = abs(x) <= 27 && abs(y) <= 27 && z <= 24 && (SLAB < 0 || z <= SLAB);
         ALLOWED[p] = lexgt && inbox;
     }
     std::vector<std::vector<int>> tasks;
@@ -625,6 +633,7 @@ int main(int argc, char **argv) {
     FILE *fo = outfile ? fopen(outfile, "w") : stdout;
     for (auto &w : words) fprintf(fo, "%s\n", w.c_str());
     if (outfile) fclose(fo);
+    if (SLAB >= 0) fprintf(stderr, "slab=%d ", SLAB);
     fprintf(stderr, "N=%d alt=%d tasks=%zu part=%d/%d nodes=%llu closed=%llu candidates=%llu survivors=%llu bfs_limit_hits=%llu tour_giveups=%llu\n",
             N, ALT, tasks.size(), PART_R, PART_M, total.nodes, total.closed, total.cand, total.surv, total.bfs_over, total.giveup);
     if (REJSTATS) {
