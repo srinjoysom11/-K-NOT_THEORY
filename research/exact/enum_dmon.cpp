@@ -88,6 +88,8 @@ static int BFSDIST = -1;    /* -bfsdist S: D3a, BFS distance through free cells 
 static bool GMST = false;   /* -gmst: D3b, group spanning tree over every pending obligation (pure bound) */
 static bool REJSTATS = false; /* -rejstats: count the prefixes killed by each test inside update() */
 static bool GC = false;     /* -gc    : D1 on prefixes (obligations for every earlier opposite step) + leaves */
+static bool AOTM = false;  /* -aotm: -aot also uses multi-site obligations (per axis: the cheapest site) */
+static bool AOTE = false;  /* -aote: -aot's counts-only part is also tested before update() (earlier rejection, same nodes) */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
 
 static signed char CX[NS], CY[NS], CZ[NS];
@@ -460,6 +462,23 @@ struct Search {
             int l = lo[q] < c0[q] ? lo[q] : c0[q], h = hi[q] > c0[q] ? hi[q] : c0[q];
             int a1 = (c0[q] - l) + (h - l) + h, a2 = (h - c0[q]) + (h - l) + (0 - l);
             int t = a1 < a2 ? a1 : a2;
+            if (AOTM) {
+                /* a multi-site obligation forces the walk to reach the coordinate of one of its sites on this axis;
+                   the cheapest choice, on top of the single sites, is a lower bound; take the largest over obligations */
+                for (int a = 0; a < nn; a++) {
+                    const Ob &ob = obs[nw[a]];
+                    if (ob.cnt <= 1) continue;
+                    int best = 1 << 20;
+                    for (int u = 0; u < ob.cnt; u++) {
+                        int sc = q == 0 ? CX[ob.site[u]] : q == 1 ? CY[ob.site[u]] : CZ[ob.site[u]];
+                        int l2 = sc < l ? sc : l, h2 = sc > h ? sc : h;
+                        int b1 = (c0[q] - l2) + (h2 - l2) + h2, b2 = (h2 - c0[q]) + (h2 - l2) + (0 - l2);
+                        int b = b1 < b2 ? b1 : b2;
+                        if (b < best) best = b;
+                    }
+                    if (best > t) t = best;
+                }
+            }
             if (AOTC && cdef[q] > t) t = cdef[q];
             int f = cnt[q] + t;
             L[q] = (f + 1) & ~1;
@@ -520,7 +539,7 @@ struct Search {
             }
             if (!fine) { st.rej[ob.gc ? 5 : 4]++; return false; }
         }
-        if ((AOT || AOTC) && AXES && !aot_ok(nx, nw, nn)) { st.rej[6]++; return false; }
+        if ((AOT || AOTC || AOTM) && AXES && !aot_ok(nx, nw, nn)) { st.rej[6]++; return false; }
         nwit[i + 1] = 0;
         if (GC) {
             int nt[4 * MAXN], k = 0;
@@ -648,6 +667,23 @@ struct Search {
                 if (STAIR) stair_step(A, d, cur, ss);
                 if (cdef[0] + cdef[1] + cdef[2] > R - 1) { if (STAIR) stair_undo(A, ss); plane_undo(A, smn, smx, sdef, pl); continue; }
             }
+            if (AOTE && AXES && !PLAIN) {
+                /* counts-only part of the axis-ordered travel test (head coordinate), before any obligation work */
+                int L[3];
+                const int cc[3] = {CX[nx], CY[nx], CZ[nx]};
+                for (int q = 0; q < 3; q++) {
+                    int t = abs(cc[q]);
+                    if (AOTC && cdef[q] > t) t = cdef[q];
+                    L[q] = (cnt[q] + (q == A) + t + 1) & ~1;
+                }
+                int z = L[2], y = L[1] > z ? L[1] : z, x = L[0] > y ? L[0] : y;
+                if (x + y + z > N) {
+                    st.nodes++; st.rej[8]++;
+                    if (PRIME && STAIR) stair_undo(A, ss);
+                    if (PRIME) plane_undo(A, smn, smx, sdef, pl);
+                    continue;
+                }
+            }
             st.nodes++;
             int sl = last[A], sf = first[A], save = nobs;
             dirs[i] = d; pos[i + 1] = nx; occ[nx] = 1; vidx[nx] = (unsigned char)(i + 1); cnt[A]++; last[A] = i; if (sf < 0) first[A] = i; rev[A] += isrev;
@@ -739,6 +775,8 @@ int main(int argc, char **argv) {
         else if (a == "-plaindump") PLAINDUMP = true;
         else if (a == "-gctour") GCTOUR = atoi(argv[++i]);
         else if (a == "-aotc") AOTC = true;
+        else if (a == "-aotm") AOTM = true;
+        else if (a == "-aote") AOTE = true;
         else if (a == "-stair") STAIR = PRIME = true;
         else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
         else if (a == "-tourcap") TOUR_CAP = atoi(argv[++i]);
@@ -799,7 +837,7 @@ int main(int argc, char **argv) {
             N, tasks.size(), PART_R, PART_M, total.nodes, total.closed, total.cand, total.surv, total.bfs_over, total.giveup);
     if (GC || GCLEAF) fprintf(stderr, " gc_leaf_drops=%llu", total.gcdrop);
     fprintf(stderr, "\n");
-    if (REJSTATS) fprintf(stderr, "rejections: bfsdist=%llu curtain=%llu gc_no_site=%llu psi_no_site=%llu unreachable_site(curtain,psi)=%llu unreachable_site(gc)=%llu aot=%llu tour_mst=%llu\n",
-                          total.rej[0], total.rej[1], total.rej[2], total.rej[3], total.rej[4], total.rej[5], total.rej[6], total.rej[7]);
+    if (REJSTATS) fprintf(stderr, "rejections: bfsdist=%llu curtain=%llu gc_no_site=%llu psi_no_site=%llu unreachable_site(curtain,psi)=%llu unreachable_site(gc)=%llu aot=%llu tour_mst=%llu aot_early=%llu\n",
+                          total.rej[0], total.rej[1], total.rej[2], total.rej[3], total.rej[4], total.rej[5], total.rej[6], total.rej[7], total.rej[8]);
     return 0;
 }
