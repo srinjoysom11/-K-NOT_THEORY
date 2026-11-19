@@ -1,0 +1,8 @@
+part=49/64 L=19 minsum=22 all=0 uturns=0 walks_ending_on_level0=240422047 tested=234676970 one_bridge=231698870 printed=2978100
+maxima along x: 0:1252 1:161952824 2:70806835 3:1915728 4:331 5:0 6:0 7:0
+maxima along y: 0:7524 1:174803738 2:59123335 3:742373 4:0 5:0 6:0 7:0
+maxima along z: 0:0 1:171932295 2:61940934 3:803741 4:0 5:0 6:0 7:0
+words=2978100 bad=0 certified_unknot=2978073 unresolved=27 flip_searches=24763484 limit=200000
+final_length 4: 2978073
+final_length 24: 27
+seconds=517 host=github-actions arcknot.cpp=349654609a1cf740
