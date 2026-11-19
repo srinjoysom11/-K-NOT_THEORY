@@ -237,6 +237,11 @@ def main():
             for sg in (1, -1): cands.append(x + sg * 0.27 * np.array([-t[1], t[0]]))
         y = pl2.best(cands); al.append([R(y[0]), R(y[1])])
     blk["arcLabels"] = al
+    # the whole curve (subsampled) and each crossing as (under, over) curve parameters, for a 3D tube
+    step = 4
+    blk["curve"] = [[R(x) for x in D.P[i]] for i in range(0, D.N, step)]
+    blk["curveCross"] = [[R(u / step), R(o / step)] for (u, o) in D.cr]
+    blk["curveUnders"] = [R(u / step) for u in D.unders]
     data["std52"] = blk
     # trefoil
     t = np.linspace(0, 2 * np.pi, 900, endpoint=False)

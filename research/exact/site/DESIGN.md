@@ -159,6 +159,9 @@ Square, 1px ink border, white; hover tints the sheet; pressed (`aria-pressed="tr
 ### Figure instrument
 Stage (sheet, 2px ink rule above, hairline below) → controls row → readout (Archivo, verdict words coloured good/bad) → caption. Every figure keeps a static fallback (`figs/*.svg`) for no-script, and a no-WebGL path.
 
+### The lattice studio (3D figures)
+Every figure about a knot in space is a real 3D scene (`studio.js`): matte lit tubes on a pale studio ground, and a lattice floor that receives the knot's true shadow, so the shadow is a knot diagram. Labels are HTML pinned to 3D points (Archivo, white chip). Picking is a click on an object; dragging turns the scene; the wheel always scrolls the page. Camera moves and object moves are eased (exponential out) and skipped under reduced motion. The camera fits the drawn points exactly. 2D diagrams use one renderer (`knot2d`): orthographic view along D, round joins, a white casing at each gap, crossings ringed, labels placed clear of strands.
+
 ### Byline
 The two co-first authors alternate: the masthead lists Chaitanya Chhabra first, the footer Srinjoy Som first, with a note (the PDF alternates by page).
 

@@ -656,8 +656,13 @@ function wGrowth(w) {
     ticks.forEach((v) => { S('line', { x1: 46, y1: Y(v), x2: 396, y2: Y(v), stroke: RULE }, svg); const t = S('text', { x: 40, y: Y(v) + 4, 'text-anchor': 'end', class: 'lbl-s' }, svg); if (logScale) t.innerHTML = v === 1 ? '1' : `10<tspan dy="-5" font-size="8">${Math.log10(v)}</tspan>`; else t.textContent = v === 0 ? '0' : `${v / 1e12}·10¹²`; });
     const tl = S('text', { x: 221, y: 297, 'text-anchor': 'middle', class: 'lbl-s' }, svg); tl.textContent = 'length n';
     const fitPath = ([C, q, n0, n1]) => { let d = ''; for (let n = n0; n <= n1; n += 0.25) d += (d ? 'L' : 'M') + `${X(n)},${Y(C * q ** n)}`; return d; };
-    S('path', { d: fitPath(F.nodes), fill: 'none', stroke: COL[0], 'stroke-width': 1.2, opacity: .7 }, svg);
-    S('path', { d: fitPath(F.words), fill: 'none', stroke: COL[1], 'stroke-width': 1.2, opacity: .7 }, svg);
+    // the fits use only the long runs (nodes: n = 20..34; words: n = 24..34, the lengths with knotted words);
+    // the dashed continuation shows how far the short runs fall from the fitted law
+    S('path', { d: fitPath([F.nodes[0], F.nodes[1], 6, F.nodes[2]]), fill: 'none', stroke: COL[0], 'stroke-width': 1.2, 'stroke-dasharray': '4 3', opacity: .6 }, svg);
+    S('path', { d: fitPath(F.nodes), fill: 'none', stroke: COL[0], 'stroke-width': 1.6, opacity: .8 }, svg);
+    S('path', { d: fitPath(F.words), fill: 'none', stroke: COL[1], 'stroke-width': 1.6, opacity: .8 }, svg);
+    S('rect', { x: X(F.nodes[2]), y: 26, width: X(34) - X(F.nodes[2]), height: 236, fill: COL[0], opacity: 0.05 }, svg);
+    const fr = S('text', { x: X(F.nodes[2]) + 4, y: 256, class: 'lbl-s' }, svg); fr.textContent = `fit range n ≥ ${F.nodes[2]}`;
     const dot = (n, v, col, what, sq) => { const g = S('g', { class: 'hit', tabindex: 0 }, svg); sq ? S('rect', { x: X(n) - 4, y: Y(v) - 4, width: 8, height: 8, fill: col }, g) : S('circle', { cx: X(n), cy: Y(v), r: 4.5, fill: col }, g); const show = () => { tip.innerHTML = `n = <b>${n}</b>: <b>${fmt(v)}</b> ${what}.`; }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show); };
     runs.forEach((r) => dot(r.n, r.nodes, COL[0], 'search nodes'));
     runs.filter((r) => r.words).forEach((r) => dot(r.n, r.words, COL[1], 'words returned', true));
@@ -674,7 +679,8 @@ function wGrowth(w) {
   S('path', { d: 'M' + rat.map(([n, v]) => `${X2(n)},${Y2(v)}`).join('L'), fill: 'none', stroke: COL[0], 'stroke-width': 1.5 }, svg2);
   rat.forEach(([n, v]) => S('circle', { cx: X2(n), cy: Y2(v), r: 3.5, fill: COL[0] }, svg2));
   b.append(H('div', { class: 'readout', style: 'padding:0 12px 12px' }, `Not a constant: the factor rises from ${rat[0][1].toFixed(1)} to ${rat[rat.length - 1][1].toFixed(1)}.`));
-  const ctl = ctlRow(w); ctl.append(seg([['log', 'Logarithmic scale'], ['lin', 'Linear scale']], 'log', (v) => { logScale = v === 'log'; draw(); }));
+  const ctl = ctlRow(w); ctl.append(seg([['log', 'Logarithmic scale'], ['lin', 'Linear scale']], 'log', (v) => { logScale = v === 'log'; draw(); }),
+    H('span', { class: 'readout grow' }, `Solid lines: least-squares fits of log(count) against n on the shaded range (nodes from n = ${F.nodes[2]}, words from n = ${F.words[2]}, the first length with knotted words). The dashed line continues the node fit to short lengths: there the counts lie above it, because the growth factor per step is still rising (panel b), so these lengths are left out of the fit.`));
   draw();
 }
 
@@ -833,9 +839,19 @@ function rail() {
 }
 
 // ------------------------------------------------------------------------------- boot
-const WIDGETS = { polygon: wPolygon, delta: wDelta, trefoil: wTrefoil, segsquare: wSegSquare, flipdelta: wFlipDelta, psi: wPsi,
-  curtain: wCurtain, corners: wCorners, origin: wOrigin, replay: wReplay, reach: wReach, span: wSpan, runs: wRuns, growth: wGrowth,
-  std52: wStd52, certex: wCertex, pdcompare: wPdCompare, deps: () => {} };
+// 3D figures (figs3d.js, the lattice studio) replace the flat ones when WebGL is available; the flat
+// widgets stay as the fallback. Figures that need no WebGL (the heptagon) always come from figs3d.js.
+let F3 = null;
+async function f3() {
+  if (F3 === null) { try { const st = await import('./studio.js'); F3 = st.hasGL() ? await import('./figs3d.js') : false; } catch (e) { console.error(e); F3 = false; } }
+  return F3;
+}
+const via3d = (name, flat) => async (w) => { const m = await f3(); if (m) m[name](w); else if (flat) flat(w); else w.append(H('p', { class: 'hint' }, 'This interactive figure needs WebGL. The proof above is complete without it.')); };
+const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: wDelta, trefoil: via3d('figTrefoil', wTrefoil), segsquare: via3d('figSegSquare', wSegSquare),
+  flipdelta: wFlipDelta, psi: via3d('figPsi', wPsi), curtain: via3d('figCurtain', wCurtain), corners: via3d('figCorners', wCorners),
+  origin: via3d('figOrigin', wOrigin), replay: wReplay, reach: via3d('figReach', wReach), span: wSpan, runs: wRuns, growth: wGrowth,
+  std52: via3d('figStd52', wStd52), certex: via3d('figCertex', wCertex), pdcompare: async (w) => (await import('./figs3d.js')).figPdCompare(w),
+  deltaproof: via3d('figDeltaProof'), invariant: via3d('figInvariant'), d7: async (w) => (await import('./figs3d.js')).figD7(w), deps: () => {} };
 function boot() {
   masthead(); rail(); linkLean(); stackTables();
   const io = new IntersectionObserver((es) => es.forEach((e) => {

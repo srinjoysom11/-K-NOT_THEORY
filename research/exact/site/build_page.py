@@ -233,6 +233,26 @@ def figure(m):
 
 H = re.sub(r"<p>FIGSTART@([^@]*)@</p>(.*?)<p>FIGCAPEND</p>(.*?)<p>FIGEND</p>", figure, H, flags=re.S)
 H = re.sub(r"<figcaption>(.*?)</figcaption>", lambda m: "<figcaption>" + re.sub(r"</?p>", " ", m.group(1)) + "</figcaption>", H, flags=re.S)
+# figures that exist only on the web: inserted right after the proof of the statement they illustrate
+WEBFIGS = [
+    ("thm:deltamove", "deltaproof", "The proof of Theorem\u00a0{n}, step by step: the quadrilateral $Q$, the ball $B$, the map $f$ that moves $m$ to $c$, and the coning that extends it. Every point named in the proof is labelled."),
+    ("lem:invariant", "invariant", "Lemma\u00a0{n} along a real search: the 24-step trefoil of Corollary\u00a0{c}. After each step every pending obligation has a site that is a later vertex $v_m$ of the word, with $m\\ge i+2$. Use the arrow keys."),
+    ("thm:fox", "d7", "Step\u00a02 of the proof of Theorem\u00a0{n}: why a crossing relation of the Wirtinger presentation becomes the Fox rule. Reflecting the mirror of $r_a$ in the mirror of $r_b$ gives the mirror of $r_{{2b-a}}$, so $r_br_ar_b=r_{{2b-a}}$."),
+]
+def close_div(h, start):
+    depth = 0
+    for m in re.finditer(r"<div\b|</div>", h[start:]):
+        depth += 1 if m.group(0) != "</div>" else -1
+        if depth == 0: return start + m.end()
+    raise SystemExit("unbalanced div")
+for lab, w, cap in WEBFIGS:
+    i = H.index(f'<div id="{lab}" class=')
+    j = H.index('<div class="proof">', close_div(H, i))
+    k = close_div(H, j)
+    capH = pandoc(cap.replace("{n}", LAB[lab][1]).replace("{c}", LAB["cor:trefoil"][1])).strip()
+    capH = re.sub(r"^<p>|</p>$", "", capH)
+    H = H[:k] + (f'<figure class="fig webfig" data-fig="web-{w}"><div class="widget" data-w="{w}"></div>'
+                 f'<figcaption><span class="fig-n">Interactive</span> {capH}</figcaption></figure>') + H[k:]
 missing = [f for f in FIGS if f not in FIG_HTML]
 if missing: print("figures without an interactive body:", missing, file=sys.stderr)
 

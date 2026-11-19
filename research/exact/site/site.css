@@ -222,6 +222,40 @@ svg .drag:active { cursor: grabbing; }
   font: 400 .85rem/1.5 var(--sans); color: var(--ink-2); }
 .foot p { max-width: 60rem; margin: 0; }
 
+
+/* ---------------------------------------------------------------- the lattice studio (3D figures) */
+.studio { position: relative; }
+.studio-wrap { position: relative; width: 100%; overflow: hidden; touch-action: pan-y;
+  background: radial-gradient(120% 90% at 50% 20%, #ffffff 0%, #f3f5f7 70%, #eceff2 100%); }
+.studio-canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.studio-canvas:active { cursor: grabbing; }
+.studio-labels { position: absolute; inset: 0; pointer-events: none; }
+.studio-label { position: absolute; left: 0; top: 0; white-space: nowrap; font: 600 .74rem/1.15 var(--sans); color: var(--ink);
+  font-variant-numeric: lining-nums tabular-nums; will-change: transform; }
+.studio-label sub { font-size: .72em; }
+.studio-label.small, .studio-label.tag { padding: 1px 5px; background: rgba(255,255,255,.86); border-radius: 2px; }
+.studio-label.strong { font-weight: 800; }
+.studio-label.height { font: 700 .68rem/1 var(--sans); color: var(--c0); background: rgba(255,255,255,.85); padding: 1px 3px; }
+.studio-label.edge { font: 700 .7rem/1 var(--sans); color: #1f3b73; background: rgba(255,255,255,.88); padding: 1px 3px; border-radius: 2px; }
+.studio-label.xing { font: 700 .72rem/1 var(--sans); padding: 2px 5px; background: var(--sheet); border: 1px solid var(--ink); pointer-events: auto; cursor: pointer; }
+.studio-label.xing.on { background: var(--ink); color: #fff; }
+.studio-label.caption { font: 500 .74rem/1.3 var(--sans); text-align: center; color: var(--ink-2); }
+.studio-label.caption b { color: var(--ink); }
+.studio-label.badge { font: 700 .72rem/1 var(--sans); padding: 3px 6px; background: var(--sheet); border: 1.5px solid currentColor; }
+.studio-label.badge.ok { color: var(--good); }
+.studio-label.badge.no { color: var(--bad); }
+.stage-side .panes { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.bignum { font: 800 2.2rem/1 var(--sans); letter-spacing: -.02em; font-variant-numeric: lining-nums tabular-nums; margin: 2px 0 8px; }
+.walkline { font: 500 .95rem/1.5 var(--serif); }
+svg.knot2d { display: block; width: 100%; height: auto; max-height: 30rem; padding: calc(var(--u) * 3) var(--u) var(--u); }
+svg.timeline { display: block; width: 100%; height: auto; margin: 4px 0; }
+svg.hepta { display: block; width: 100%; height: auto; max-height: 26rem; padding: calc(var(--u) * 2); }
+.widget.keys:focus-visible { outline: 2px solid var(--c0); outline-offset: 4px; }
+.widget.keys:focus { outline: none; }
+.widget.keys:focus-visible { outline: 2px solid var(--c0); }
+.webfig .fig-n { background: var(--ink); color: #fff; padding: 1px 6px; }
+@media (max-width: 860px) { .stage-side .panes { grid-template-columns: 1fr; } }
+
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 1100px) {
   .layout { grid-template-columns: 13rem minmax(0, 1fr); gap: calc(var(--u) * 4); padding: 0 calc(var(--u) * 3); }
@@ -301,3 +335,16 @@ math[display="block"] {
 /* SVG focus: the UA ring would be drawn in the SVG's own (scaled) units; draw a crisp halo instead */
 svg [tabindex]:focus { outline: none; }
 svg [tabindex]:focus-visible { filter: drop-shadow(0 0 1.5px var(--c0)) drop-shadow(0 0 1.5px var(--c0)); }
+.capstrip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--u); padding: var(--u) calc(var(--u) * 1.5) calc(var(--u) * 1.5);
+  font: 500 .8rem/1.35 var(--sans); color: var(--ink-2); text-align: center; border-top: 1px solid var(--rule); }
+.capstrip b { color: var(--ink); }
+@media (max-width: 600px) { .capstrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.studio-label.vh .h { display: inline-block; margin-left: 4px; padding: 0 4px; background: var(--c0); color: #fff; border-radius: 2px; font-size: .9em; }
+.inset { position: absolute; left: calc(var(--u) * 1.5); top: calc(var(--u) * 1.25); z-index: 2; width: 9.5rem; padding: 8px 10px 10px;
+  background: rgba(255,255,255,.92); border: 1px solid var(--rule); font: 600 .74rem/1.2 var(--sans); }
+.inset svg { display: block; width: 100%; height: auto; margin: 6px 0 4px; }
+.inset-l { display: block; font-weight: 700; color: var(--ink); }
+.inset-f { display: block; text-align: center; font: 700 .82rem/1 var(--sans); }
+@media (max-width: 600px) { .inset { width: 7.5rem; padding: 6px; } }
+
+.side h5 { text-transform: none; letter-spacing: 0; font-size: .86rem; }
