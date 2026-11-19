@@ -101,6 +101,7 @@ Key characteristics:
 - A sticky contents rail; each section has a colour square, colour (n − 1) mod 7, repeated at the section opener.
 - The paper's own text, statements and proofs (converted from LaTeX, MathML in STIX Two Math), numbered exactly as in the PDF.
 - Every figure is an instrument: a white sheet framed by a 2px ink rule above and a hairline below, controls as square outlined buttons, a live readout, then the paper's caption.
+- At 1240px and wider, each section's numeral hangs large (9rem Archivo, 20% tint of its colour) in the band right of the reading column, sticky as the section scrolls: the Swiss margin.
 
 ## Colors
 
@@ -137,7 +138,10 @@ Full palette, committed to one programme: the seven Fox colours carry every chro
 
 - One 8px unit. Page max 84rem, gutter 40px; grid of a 15.5rem rail and the document column; reading measure 40rem, figures up to 58rem.
 - Figures: panes side by side (2 columns) separated by a hairline; each 3D pane is square.
-- Below 860px: one column; the rail becomes a sticky "Contents" disclosure under the masthead; panes stack; long math and code scroll inside their own box, the page never scrolls sideways.
+- Below 860px: one column; the rail becomes a sticky "Contents" disclosure under the masthead; panes stack; the page never scrolls sideways.
+- Long display formulas are split into short display lines on the page (build_page.py, `WEB` list); a display that still overflows scrolls inside its own box, with edge shadows whose covers use the surface colour (`--mbg`: ground, theorem tint, or sheet). Inline math stays inline.
+- Code breaks only after underscores (`<wbr>`), never with hyphens; long lattice words break every 6 letters.
+- Below 600px: the masthead diagram is 60% wide; tables in figures stack, each cell labelled by its column head.
 
 ## Elevation & Depth
 
@@ -154,6 +158,9 @@ Square, 1px ink border, white; hover tints the sheet; pressed (`aria-pressed="tr
 
 ### Figure instrument
 Stage (sheet, 2px ink rule above, hairline below) → controls row → readout (Archivo, verdict words coloured good/bad) → caption. Every figure keeps a static fallback (`figs/*.svg`) for no-script, and a no-WebGL path.
+
+### Byline
+The two co-first authors alternate: the masthead lists Chaitanya Chhabra first, the footer Srinjoy Som first, with a note (the PDF alternates by page).
 
 ### Contents rail
 Numbered colour squares; the current section scales its square and bolds its name.
