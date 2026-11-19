@@ -257,3 +257,5 @@ svg .drag:active { cursor: grabbing; }
 math[display="block"] { display: block; max-width: 100%; overflow-x: auto; }
 .doc { overflow-wrap: break-word; }
 @media (max-width: 860px) { math:not([display="block"]) { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; } }
+/* unnumbered openers (Acknowledgements) take the full width */
+.doc section.level1 > h2:not(:has(.sec-n)) { display: block; }
