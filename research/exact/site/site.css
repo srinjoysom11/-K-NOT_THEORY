@@ -265,12 +265,14 @@ math[display="block"] { display: block; max-width: 100%; overflow-x: auto; }
 /* long display math scrolls inside its box, with edge shadows that show it can */
 math[display="block"] {
   background:
-    linear-gradient(to right, var(--sheet) 30%, rgba(255,255,255,0)) left center / 28px 100% no-repeat local,
-    linear-gradient(to left, var(--sheet) 30%, rgba(255,255,255,0)) right center / 28px 100% no-repeat local,
+    linear-gradient(to right, var(--mbg) 30%, transparent) left center / 28px 100% no-repeat local,
+    linear-gradient(to left, var(--mbg) 30%, transparent) right center / 28px 100% no-repeat local,
     radial-gradient(farthest-side at 0 50%, rgba(20,23,27,.22), transparent) left center / 10px 100% no-repeat scroll,
     radial-gradient(farthest-side at 100% 50%, rgba(20,23,27,.22), transparent) right center / 10px 100% no-repeat scroll;
 }
-.thm math[display="block"] { background-color: transparent; }
+.doc { --mbg: var(--ground); }
+.thm { --mbg: color-mix(in srgb, var(--sc) 7%, var(--sheet)); }
+.definition, .example, .remark { --mbg: var(--sheet); }
 /* the Swiss margin: each section's numeral hangs in the band right of the reading column */
 @media (min-width: 1240px) {
   .doc section.level1[data-n]::before {
