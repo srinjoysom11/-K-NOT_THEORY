@@ -18,9 +18,10 @@ new code lives in `enum_dmon.cpp` behind flags (default off: identical output an
 | step | state |
 |---|---|
 | D2 `-aot`, `-aotc` | DONE, benchmarked n = 24..30, identical output, table in DMON_RESULTS.md |
-| D1 `-gcleaf`, `-gc` implemented | code written (enum_dmon.cpp), NOT yet validated or benchmarked |
-| `check/gc_check.cpp` | built; 0 violations in out/n24..n38 survivor lists; censuses (3_1@24, 4_1@30, 5_1@34, 5_2@36) NOT yet run |
-| D3, D5, D4 | not started |
+| D1 `-gcleaf`, `-gc` | DONE: lemma validated (0/128560), proof written, benchmarks n=26..30: nodes unchanged (0.9996-0.9999x), time +30-45 %, output identical |
+| `check/gc_check.cpp` | done (censuses 0 violations) |
+| D3 (-bfsdist, -gmst) | code written, NOT yet tested (build: enum_dmon.cpp) |
+| D5, D4, extras E1..E8 | not started |
 | report to parent after D2 | sent (interim, then final) |
 | GitHub dmon-bench smoke run 44417093364 | queued for >8 h (runner pool saturated by old slab-enum runs); parent asked for a runner; keep working locally |
 
