@@ -473,6 +473,9 @@ struct Search {
         if (mdist(hp, tp) != 1) return;
         int c = -1;
         for (int d = 0; d < 6; d++) if (hp + DELTA[d] == tp) c = d;
+        if (H + T >= 1 && c == (Lt(H - 1) ^ 1)) return;                /* no reversal / no U-turn at the closing letter (as in enum.cpp's loop) */
+        if (H + T >= 2 && c == (Lt(H - 2) ^ 1)) return;
+        if (T == 0 && (c ^ 1) <= Lt(0)) return;        /* DMON4 at the closing letter, as enum.cpp, before counting the node */
         st.nodes++;
         int smn = 0, smx = 0, sdef = 0, pl = 0;
         if (PRIME) { plane_step(c >> 1, c, hp, smn, smx, sdef, pl); if (cdef[0] + cdef[1] + cdef[2] > 0) { plane_undo(c >> 1, smn, smx, sdef, pl); return; } }

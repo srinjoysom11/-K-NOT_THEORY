@@ -66,3 +66,8 @@ Then D5, D4, E1-E8. Report after each.
 * E10(a) -aotx: VACUOUS (0 evaluations at n=24): every single-site obligation lies inside the bounding box of the walk (corner site = coordinates copied from 3 vertices; curtain site has the level of v_0). E10(b): already in -aot.
 * E11 -order: node counts identical (as expected); time not yet measured on an idle machine.
 * E9 bidirectional: enum_bidir.cpp written (DMON-only mode). alt=0 reproduces enum node counts (86 639 687 vs 86 639 605 at n=24); output identical for n=20,22,24 with alt = 0, 6, 12, 100; nodes n=24: 86.6M -> 13.7M (0.158x at alt=12). n=26/28 validation running (scratchpad bd_chain.sh -> out/dmon/bidir/). Next: add -prime/-stair (plane counters are order independent; stair runs need one state per side), then report to parent.
+
+## Parent's checklist for E9 (19 Nov 09:05 UTC)
+Report (a) TIME not only nodes (both ends make each test costlier); (b) the factor with -aot -aotm stacked (expected ~0.16 x 0.3 = 20x ~ 1.7 lengths); (c) rejection histogram by R1 (does pruning start earlier?);
+(d) in -stair mode: node counts with -alt 0 equal enum -stair EXACTLY, then outputs equal for alt > 0 (plane/stair counters correct when the tail adds crossings in reverse order).
+Write-up note: DMON_RESULTS.md must restate the PanDMONium completeness argument for two-ended prefixes (every test on a two-ended prefix is implied by DMON1-7 for every completion) with a short list of which tests are applied at the tail side and why each is sound.
