@@ -26,6 +26,17 @@ Sonnet session (session_018pTY7Qwryc1sV3x3cKPZFc, branch `claude/dmon-experiment
 `enum_dmon.cpp`, results in `DMON_RESULTS.md`); it reports to this session. Slab runs on Actions
 (1-slab n = 44, 46, 48; 2-slab n = 40, 42) are still queued/running, see section 3a.
 
+**Status 19 Nov.** E9 (bidirectional construction, `enum_bidir.cpp` on the Sonnet branch) stacked
+with D2 gives 17-19x fewer nodes and 16x less time at n = 30, with output byte-identical to enum
+for n = 24..32 (reproduced here at n = 30). It also takes `-slab L` (0.11-0.14x nodes, validated
+against stored slab outputs). Plan: CI confirmation at n = 34, 36 (Sonnet run 44612420289), then
+the unconfined n = 40 (128 parts, about 80 runner-hours instead of about 2 200). Target: Len(8_19) = 42 (42-edge
+witness in out/witness42_8_19.txt; -stair is complete for prime knot types). Then the 1-slab
+n = 48 and 2-slab n = 42 runs (6_3) with enum_bidir -slab. The slab-enum.yml run 44258325382 was
+cancelled 19 Nov so that the collect job of 44258289972 could run; its 58 finished parts stay in
+out/slab/ci. Slab results 19 Nov: 1-slab granny = 46 (census 96), 6_1 = 6_2 = 48; 2-slab
+6_1 = 6_2 = 42 (PROOF_SLAB.md section 4).
+
 ## 0. Formal proof of Len(5_2) = 36 (15-16 Nov 2026: complete)
 
 Goal set by the user: a rigorous, formal proof with no doubt about pruned branches. State:
