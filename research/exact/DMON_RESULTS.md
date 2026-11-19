@@ -365,3 +365,32 @@ If the goal of a run is a bound for the knots with c(K) >= c0, every polygon tha
 **Prefix version: not implemented, and it cannot work with this bound.** A prefix bound needs an upper bound on the crossings that the R missing edges can still create. In the projection along z a horizontal unit edge crosses only edges that lie over the four unit columns around it (an x-edge at (x..x+1, y, z) and a y-edge at x0 in {x, x+1}, y0 in {y-1, y}, at any height), and a column can hold edges at every height of the polygon (about 10 levels at n = 40);
 so one edge can cross up to about 40 others, and R edges up to about 40 R, which is more than the target c0 = 6 or 7 as long as R >= 1. The bound prunes nothing. A useful prefix test would need a lower bound on the final number of crossings from the shape of the prefix (the number of crossings that the prefix already has is a lower bound for the final count, but it is the wrong direction for pruning: pruning needs an upper bound of the final count).
 So D4 is only a leaf filter; the search is not helped.
+
+## Slab runs with the two-ended search: `enum_bidir -slab L`
+
+`-slab L` has the semantics of `slab.cpp` (PROOF_SLAB.md): points with 0 <= z <= L (and |x|, |y| <= 27), the axis rule only y-steps <= x-steps (the z axis is no longer exchangeable), N <= 52.
+Prefix test: 2 c_y + c_z <= N and c_y <= c_x + (R - 1); closed polygon: c_y <= c_x. The axis-ordered travel test (`-aot`) uses the order y <= x only. Nothing else changes: the curtain move, the corner flips and the plane-crossing lemma never leave the bounding box of the polygon, as in PROOF_SLAB.md.
+Validation against the stored outputs of `slab.cpp` (`-slab L -stair -tourcap 3`; `enum_bidir` with `-alt 4 -aotc -aotm`), word lists byte-identical (`cmp`):
+
+| slab | n | words | slab.cpp nodes | seconds | enum_bidir nodes (ratio) | seconds (ratio) |
+|---|---|---|---|---|---|---|
+| L = 1 | 30 | 12 | 25 087 124 | 6 | 3 554 939 (0.142) | 1.6 (0.26) |
+| L = 1 | 34 | 12 | 316 576 888 | 91 | 39 305 490 (0.124) | 18.1 (0.20) |
+| L = 2 | 30 | 34 | 467 566 850 | 209 | 56 532 101 (0.121) | 20.5 (0.098) |
+| L = 2 | 34 | 728 | 8 997 673 384 | 2859 | 1 024 975 436 (0.114) | 442 (0.155) |
+
+(The slab.cpp seconds are those in its logs, 4 threads on the machine that ran them; the bidirectional runs are on this container, 4 threads, with the D5 job idle.)
+
+## E1. Parity budget (`-par` in `enum_dmon.cpp`; a search test, pure bound)
+
+Every step changes the parity of x + y + z. The R1 - 1 vertices that are still to come (the head is placed, the last vertex is the root) alternate in parity, beginning with the parity opposite to the head's: ceil((R1 - 1)/2) of one parity and floor((R1 - 1)/2) of the other. Every pending single-site obligation needs its own such vertex (distinct sites are distinct vertices);
+so the number of distinct single sites of each parity may not exceed the number of future vertices of that parity. Output identical to `enum`; nodes (`-stair -tourcap 3`): n = 24: 15 886 694 -> 15 883 814 (0.9998); n = 26: 76 302 828 -> 76 286 779 (0.9998); with `-aotc -aotm -aote`: 5 065 015 -> 5 064 364 and 20 044 495 -> 20 041 901 (0.9999). No gain: the tour and spanning-tree tests already kill the prefixes where many sites are pending.
+
+## E3. More height functions (target: nontrivial knots)
+
+The condition of `-bridge 2` (every polygon of a nontrivial knot has at least two local maxima along every generic height function) in `enum.cpp` costs nothing in the search (n = 24: 15 886 694 -> 15 886 304 nodes, n = 26: 76 302 828 -> 76 302 597) and removes no survivor (there are no unknotted survivors up to n = 26).
+Leaf test on the n = 38 survivors (`check/heights_unknot.py`, `out/n38_stair.rigorous.txt`: 2251 unknots among 18 945 words): the 3 axes, the 13 directions (3 axes, 6 face diagonals, 4 body diagonals), these with 5 generic tilts each, and 200 random directions: **0 of the 2251 unknots has a height function with a single maximum, and no knotted word is flagged**. The unknotted survivors are not in 1-bridge position in any direction tried (they are the unknots that the flip search cannot shrink within its state limit); more height functions do not help.
+
+## E11. Child ordering (`-order`)
+
+Children in order of increasing slack (R - 1 - distance to the origin): node counts and output identical to `enum` (n = 24: 15 886 694; n = 26: 76 302 828). Timing on a loaded machine (2 threads next to the arc job) was not meaningful; not re-measured.
