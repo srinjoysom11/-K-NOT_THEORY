@@ -82,3 +82,8 @@ D5 arc job resumed (./run_arc19.sh 64 2 is restartable) - check `ls out/dmon/arc
 3. Production run of unconfined n=40 with enum_bidir -stair -tourcap 3 -aotc -aotm -alt 4 on Actions (new workflow; each job < ~4 h). TELL THE PARENT the planned part count and estimated runner-hours BEFORE launching. Target: complete n=40 with no 8_19 gives Len(8_19) = 42.
 4. D5 (19-edge arcs, composites at n=40), then D4 (done: leaf only), E1-E8.
 * LESSON (CI smoke run 44417093364, ran 11 h late once the pool drained): with `-part r m` the per-part word lists of enum and of a pruned variant differ, because the pruning changes the task list the parts are cut from; only the UNION over all parts is comparable (smoke: 62 = 62 survivors, nodes ratio 0.293 as locally). dmon-bench.yml no longer fails a job on per-part differences.
+
+## 20 Nov status: bidir CI + slab
+* enum_bidir -slab L validated byte-for-byte vs slab.cpp outputs: L1 n=30 (12 words), L1 n=34 (12), L2 n=30 (34), L2 n=34 (728 words). Nodes/time vs slab.cpp: L1 n=30 3.55M vs 25.1M (0.14x), 1.6 s vs 6 s; L1 n=34 39.3M vs 316.6M (0.124x), 18 s vs 91 s; L2 n=30 56.5M vs 467.6M (0.121x), 20.5 s vs 209 s; L2 n=34 1.025e9 vs 8.998e9 (0.114x), 442 s vs 2859 s. (opts -slab L -stair -tourcap 3 [-alt 4 -aotc -aotm]). L1_n40 / L1_n42 not yet re-run.
+* CI request pushed: ci/bidir_request.json = n=34 m=16 and n=36 m=64, opts `-prime -tourcap 3 -alt 4 -aotc -aotm` (same mode as out/n34_prime.txt / out/n36_prime.txt: `-prime -tourcap 3`). Workflow .github/workflows/bidir-enum.yml merges to out/bidir/n34_prime_bd.txt etc. Reference costs: n=34 7.736e10 nodes, 45 419 runner-s; n=36 4.332e11 nodes, 282 379 runner-s.
+* arc19: 12 of 64 parts done; job dies on container pause; restart with `./run_arc19.sh 64 2`.
