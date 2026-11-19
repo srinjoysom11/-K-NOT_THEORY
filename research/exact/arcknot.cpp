@@ -26,7 +26,7 @@ using namespace std;
 
 static const int DX[6] = {1, -1, 0, 0, 0, 0}, DY[6] = {0, 0, 1, -1, 0, 0}, DZ[6] = {0, 0, 0, 0, 1, -1};
 static const char LET[7] = "ewnsud";
-static const int OFF = 20, SZ = 41;
+static const int OFF = 24, SZ = 49;   /* room for arcs of up to 22 edges (L = 20, 21 for n = 42) */
 static unsigned char vis[SZ][SZ][SZ];
 static int L, MINSUM = 22;
 static bool ALLOW_UTURN = false;
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
         else if (!strcmp(argv[i], "-uturns")) ALLOW_UTURN = true;
         else if (!strcmp(argv[i], "-part")) { PART_R = atoi(argv[++i]); PART_M = atoi(argv[++i]); }
     }
-    if (L < 1 || L > 19) { fprintf(stderr, "L out of range\n"); return 1; }
+    if (L < 1 || L > 22) { fprintf(stderr, "L out of range\n"); return 1; }
     if (PART_M > 1 && L <= PART_DEPTH) { fprintf(stderr, "-part needs L > %d\n", PART_DEPTH); return 1; }
     px[0] = py[0] = pz[0] = 0;
     vis[OFF][OFF][0] = 1;

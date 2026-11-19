@@ -591,7 +591,7 @@ int main(int argc, char **argv) {
         else if (a == "-rejstats") REJSTATS = true;
         else { fprintf(stderr, "unknown option %s (enum_bidir has no -bridge)\n", a.c_str()); return 1; }
     }
-    if (N < 4 || N > 52 || (N & 1) || (SLAB < 0 && N > 40)) { fprintf(stderr, "N must be even, 4..40 (4..52 with -slab)\n"); return 1; }
+    if (N < 4 || N > 52 || (N & 1) || (SLAB < 0 && N > 48)) { fprintf(stderr, "N must be even, 4..48 (4..52 with -slab)\n"); return 1; }
     if (SPLIT > N - 2) SPLIT = N - 2;
     if (SPLIT < 1) SPLIT = 1;
     for (int p = 0; p < NS; p++) {
