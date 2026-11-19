@@ -53,3 +53,10 @@ Order: D2 (done) -> D1 -> D3 -> D5 -> D4, then extras E1..E8 in this order. Repo
 3. NEW: histogram of rejections by remaining steps R (per test), to see whether kills are deep or shallow (bounds acting earlier save the most).
 Then D5, D4, E1..E8. Report after each item.
 Counters seen so far (n = 24 enum): tour/MST 6.35M kills, reach/2-free-neighbour 2.38M, corner-no-site 79.6k, of 15.9M nodes.
+
+## Reprioritisation from the parent (19 Nov, 02:34 UTC): do E9, E10, E11 BEFORE D5/D4 (D5 job already running in background: ./run_arc19.sh, restartable)
+Accepted: best production set -aotc -aotm -aote; D3/1-tree recorded as no gain. Key result = the histogram (nothing dies at R1 >= 17): only tests that act early change the growth rate.
+* E9 Bidirectional construction (search order, not a lemma): grow head (forward from v_0) and tail (backward from v_0 = v_n) alternately; R = n - (head + tail steps); return test dist(head, tail) <= R; DMON4 and wrap curtains/corners tested as soon as tail steps exist. Fixed interleaving (head, tail, head, tail, ... until a split depth, then head only). Check: output byte-identical (sorted) to enum for n = 24..28; report nodes and rejection histogram by R.
+* E10 early budget tests at R1 >= 14 in the style of -aot: (a) per-axis count of obligation sites beyond a plane (extended-extent crossing debt); (b) DMON5+DMON3 height: z >= 0 so owes h down-steps -> forces y, x steps (CHECK whether already in -aot: it IS: t_z >= |z_head| and c_z + t_z is ordered with y, x; and c + |h| >= 2*range on every axis automatically).
+* E11 child ordering by increasing slack (R-1-dist); node counts unchanged in a full enumeration, report time only.
+Then D5, D4, E1-E8. Report after each.
