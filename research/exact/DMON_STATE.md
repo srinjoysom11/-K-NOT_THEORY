@@ -107,3 +107,8 @@ D5 arc job resumed (./run_arc19.sh 64 2 is restartable) - check `ls out/dmon/arc
 
 ## 20 Nov 21:25: parent approved the n=42 chain (message 21:21 UTC)
 Order on Actions: (1) n=40 (running); (2) arcs L=20 (m=128) and L=21 (m=256): SUBMITTED via ci/arc19_request.json ("runs" list; workflow arc19-enum.yml writes out/dmon/arc20/part{r}_128.{left,log}, out/dmon/arc21/part{r}_256.*; 4 parts per job; 32 + 64 jobs); (3) n=42 unconfined m=256 `-stair -tourcap 3 -aotc -aotm -alt 4`: LAUNCH WITHOUT ASKING once the n=40 result checks out (merged; identify_rigorous ALL RESOLVED, or unresolved words identified with SnapPy; and measured n=40 runner-hours x 5.4 <= 700), otherwise ask the parent first; (4) slab runs (1-slab n=48, 2-slab n=42) after n=42 is submitted, once the L1_n42 re-run matched. Also: put the n=42 completeness argument in DMON_RESULTS.md now.
+
+## !!! HOLD from the user (20 Nov, after the status update) !!!
+The user said: "Let's wait on manual decision after n=40 is done." This OVERRIDES the parent's standing instruction to launch n=42 automatically.
+After n=40 is merged: run identify_rigorous.py, send the tally to the parent AND report to the user, then STOP. Do NOT launch n=42, the 1-slab n=48 / 2-slab n=42 runs, or anything that needs more runners, and do not add or attach another repository for runners, until the user decides.
+Already submitted and left as they are (small, queued behind n=40): arc runs L=20 (m=128) and L=21 (m=256), ci/arc19_request.json, run 44618021834.
