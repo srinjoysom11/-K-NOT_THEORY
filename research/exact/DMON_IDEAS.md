@@ -139,3 +139,13 @@ runs.
 nodes n = 24: 1.81e8, 26: 1.08e9, 28: 6.77e9, 30: 4.36e10, 32: 2.84e11, 34: 1.93e12 (about
 1060 core-hours); fit 0.057 * 2.493^n. No per-DMON ablations exist. Lesson from that work: compare
 node counts, not only outputs, after every change.
+
+**D1 final (19 Nov, DMON_RESULTS.md on claude/dmon-experiments).** The generalized curtain lemma is
+valid: full proof written; 0 violations in all four censuses (128 560 shortest polygons) and in all
+stored survivor lists n = 24..38; 19 528 random GC moves kept the Alexander polynomial. As a search
+device it does nothing measurable: `-gcleaf` kills 0 leaves, `-gc` keeps the output and removes only
+0.01-0.04 % of nodes while costing 30-45 % more time, because DMON6 (U-turns, perpendicular curtains),
+DMON7 and the reach tests already kill those prefixes one or two steps earlier. Rejection counters at
+n = 24 (`-rejstats`): the tour/MST bound kills 6.35M prefixes, reach / two-free-neighbours 2.38M, GC
+about 2 000, out of 15.9M nodes. Conclusion: the remaining gains are in sharper bounds (D2 done, D3
+next, plus a 1-tree style bound between MST and the exact tour), not in new local lemmas.
