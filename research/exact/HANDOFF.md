@@ -52,8 +52,15 @@ Goal set by the user: a rigorous, formal proof with no doubt about pruned branch
 * Review: three adversarial rounds. Round 3 (referee report summarised in the commit messages
   "referee round 3") found no mathematical error; its provenance and wording objections are fixed.
 * PDFs: paper/len52.pdf; formal/PROOF_RIGOROUS.pdf (pandoc -f gfm to HTML, then Chromium print).
-* Paper: paper/len52.tex (build: pdflatex, bibtex, pdflatex x2; numbers from paper/figs/make_figs.py).
-  Site: site/ (data from site/build_data.py), published by .github/workflows/pages.yml from main.
+* Paper: paper/len52.tex, plain `article` for arXiv (build: pdflatex, bibtex, pdflatex x2; computed
+  figures and numbers from paper/figs/make_figs.py, TikZ schematics in paper/figs/schematics.tex).
+  Full proofs; normal-form conditions named DMON1-DMON7, completeness theorem "PanDMONium".
+  Lean/Len52/Figure.lean checks the drawn (1,-1,4) diagram, the +6 relabelling and the 24-step
+  trefoil example (not used by no_short; not part of the hashed sources).
+* Site: site/ is the interactive edition of the paper (replaces the Plates slideshow). Rebuild:
+  `python3 site/build_data.py && python3 site/build_page.py && site/build_static.sh` (needs the
+  compiled paper's .aux/.bbl and pandoc). Published by .github/workflows/pages.yml from main.
+  Exposition rules from the author's review: CLAUDE.md at the repository root.
 * If a GitHub part fails: re-run that job from the Actions page, or run the part locally with
   run_local.sh. Never change Spec/Diagram/Search/Coloring/Cert/CheckMain/lakefile: the source hash
   ties every log to them.

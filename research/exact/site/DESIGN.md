@@ -1,251 +1,174 @@
 ---
-name: The knot 5₂ needs 36 steps
-description: An engraved atlas. One specimen, drawn as a copperplate engraving, followed down a folio of plates.
+name: The knot 5₂ needs 36 steps: interactive edition
+description: The paper set as a Swiss grid programme; the page grid is the lattice and the seven Fox colours are the colour programme.
 colors:
-  paper: "#e6e9e0"
-  paper-lit: "#eff1ea"
-  paper-deep: "#d8dcd2"
-  indigo-ink: "#17204a"
-  indigo-soft: "#434c76"
-  ink-rule: "rgba(23, 32, 74, .34)"
-  ink-hair: "rgba(23, 32, 74, .16)"
-  vermilion: "#c2321f"
-  vermilion-deep: "#9c2313"
-  on-vermilion: "#f4f2ea"
-  viridian: "#2d7d5b"
-  gamboge: "#a97a08"
-  violet: "#6b3fa0"
-  sepia: "#8c5a36"
-  cerulean: "#23799f"
-  olive: "#5d6b2e"
-  machine-ground: "#141b40"
-  machine-ground-lit: "#1a2350"
-  machine-line: "#e6e9e0"
-  machine-line-soft: "#b3bad3"
-  machine-vermilion: "#f0705b"
-  machine-vermilion-soft: "#f58f7d"
-  machine-viridian: "#6fc79d"
+  lattice-blue: "#0072b2"
+  vermilion: "#d55e00"
+  vermilion-deep: "#b34f00"
+  green: "#009e73"
+  green-deep: "#00805c"
+  pink: "#cc79a7"
+  umber: "#7a5230"
+  sky: "#56b4e9"
+  grey: "#7f7f7f"
+  grey-deep: "#6b6b6b"
+  ground: "#f5f6f7"
+  sheet: "#ffffff"
+  ink: "#14171b"
+  ink-soft: "#4b525c"
+  rule: "rgba(20, 23, 27, .16)"
+  rule-strong: "rgba(20, 23, 27, .32)"
+  bad: "#c0281b"
+  good: "#00805c"
 typography:
   display:
-    fontFamily: "Old Standard TT, Spectral, Georgia, serif"
-    fontSize: "clamp(2.9rem, 7.1vw, 6rem)"
-    fontWeight: 400
-    lineHeight: 0.98
-    letterSpacing: "-0.012em"
+    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(2.4rem, 5.2vw, 4.6rem)"
+    fontWeight: 800
+    lineHeight: 1.0
+    letterSpacing: "-0.025em"
+    fontVariation: "'wdth' 108"
   headline:
-    fontFamily: "Old Standard TT, Spectral, Georgia, serif"
-    fontSize: "clamp(2.15rem, 4.3vw, 3.7rem)"
-    fontWeight: 400
-    lineHeight: 1.04
-    letterSpacing: "-0.01em"
-  theorem:
-    fontFamily: "Old Standard TT, Spectral, Georgia, serif"
-    fontSize: "clamp(1.7rem, 3.3vw, 2.9rem)"
-    fontWeight: 400
-    lineHeight: 1.15
-  subhead:
-    fontFamily: "Old Standard TT, Spectral, Georgia, serif"
-    fontSize: "1.5rem"
-    fontWeight: 400
-    lineHeight: 1.2
-  lede:
-    fontFamily: "Spectral, STIX Two Text, Georgia, serif"
-    fontSize: "clamp(1.18rem, 1.5vw, 1.34rem)"
-    fontWeight: 400
-    lineHeight: 1.5
+    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.7rem, 2.6vw, 2.25rem)"
+    fontWeight: 750
+    lineHeight: 1.12
+    letterSpacing: "-0.015em"
+  title:
+    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.28rem"
+    fontWeight: 700
+    lineHeight: 1.25
   body:
-    fontFamily: "Spectral, STIX Two Text, Georgia, serif"
-    fontSize: "1.125rem"
+    fontFamily: "Source Serif 4, Iowan Old Style, Georgia, serif"
+    fontSize: "1.09rem"
     fontWeight: 400
-    lineHeight: 1.6
-  small:
-    fontFamily: "Spectral, STIX Two Text, Georgia, serif"
-    fontSize: "1rem"
-    fontWeight: 400
-    lineHeight: 1.5
-  note:
-    fontFamily: "Spectral, STIX Two Text, Georgia, serif"
+    lineHeight: 1.62
+  caption:
+    fontFamily: "Source Serif 4, Iowan Old Style, Georgia, serif"
     fontSize: "0.95rem"
     fontWeight: 400
-    lineHeight: 1.55
-  furniture:
-    fontFamily: "Spectral SC, Spectral, Georgia, serif"
-    fontSize: "0.8rem"
-    fontWeight: 400
-    letterSpacing: "0.16em"
-  plate-number:
-    fontFamily: "Spectral SC, Spectral, Georgia, serif"
-    fontSize: "0.8rem"
-    fontWeight: 400
-    letterSpacing: "0.24em"
+    lineHeight: 1.5
+  label:
+    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.82rem"
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: "0.015em"
   math:
-    fontFamily: "STIX Two Text, Spectral, Times New Roman, serif"
-    fontSize: "0.9rem"
-    fontWeight: 400
+    fontFamily: "STIX Two Math, math"
+    fontSize: "1.04em"
   code:
-    fontFamily: "ui-monospace, SF Mono, Menlo, Consolas, monospace"
-    fontSize: "0.86em"
-    fontWeight: 400
+    fontFamily: "JetBrains Mono, ui-monospace, Menlo, monospace"
+    fontSize: "0.84em"
 rounded:
-  square: "0px"
+  none: "0px"
 spacing:
-  bar: "3.25rem"
-  gutter: "clamp(1.25rem, 4.2vw, 4rem)"
-  plate-block: "clamp(4.5rem, 12vh, 9rem)"
-  column-gap: "clamp(2rem, 5.5vw, 6rem)"
-  plate-offset: "5px"
-  plate-mark: "20px"
-  measure: "34rem"
+  u: "8px"
+  gutter: "40px"
+  measure: "40rem"
+  wide: "58rem"
+  rail: "15.5rem"
 components:
-  begin:
-    backgroundColor: "{colors.vermilion}"
-    textColor: "{colors.on-vermilion}"
-    typography: "{typography.furniture}"
-    rounded: "{rounded.square}"
-    padding: "0.78rem 1.6rem 0.74rem"
-  begin-hover:
-    backgroundColor: "{colors.vermilion-deep}"
-  chip:
-    textColor: "{colors.indigo-ink}"
-    typography: "{typography.furniture}"
-    rounded: "{rounded.square}"
-    padding: "0.45rem 0.9rem 0.42rem"
-  chip-hover:
-    backgroundColor: "{colors.indigo-ink}"
-    textColor: "{colors.paper-lit}"
-  chip-pressed:
-    backgroundColor: "{colors.vermilion}"
-    textColor: "{colors.on-vermilion}"
-  readout:
-    textColor: "{colors.indigo-soft}"
-    typography: "{typography.small}"
-  plate-frame:
-    backgroundColor: "{colors.paper-lit}"
-    textColor: "{colors.indigo-ink}"
-    rounded: "{rounded.square}"
-  index-link:
-    textColor: "{colors.indigo-soft}"
-    typography: "{typography.furniture}"
-  index-link-current:
-    textColor: "{colors.vermilion-deep}"
-  machine-band:
-    backgroundColor: "{colors.machine-ground}"
-    textColor: "{colors.machine-line}"
+  button:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.none}"
+    padding: "9px 14px"
+  button-pressed:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.sheet}"
+  masthead-link:
+    backgroundColor: "{colors.lattice-blue}"
+    textColor: "{colors.sheet}"
+    typography: "{typography.label}"
+    rounded: "{rounded.none}"
+    padding: "10px 16px"
+  masthead-link-hover:
+    backgroundColor: "{colors.sheet}"
+    textColor: "{colors.lattice-blue}"
 ---
 
-# Design System: The knot 5₂ needs 36 steps
+# Design System: The knot 5₂ needs 36 steps, interactive edition
 
 ## Overview
 
-**Creative North Star: "One specimen, engraved, followed down a folio."**
+**Creative North Star: "The lattice is the grid."** The interactive edition of the paper is set as a Swiss grid programme in the tradition of Müller-Brockmann and Gerstner. Every module, rule and figure snaps to one 8px unit, the same lattice the knot lives on, and the colour programme is the seven Fox colours of Z/7, identical to the colours in the paper's figures. The world owns the frame (masthead, contents rail, section openers, figure frames and controls); the reading column stays calm: a serif reading face at a 40rem measure with real contrast.
 
-The site is a single long sheet in the manner of the engraved knot tables of the 1870s and 1880s: cool laid paper, indigo ink, small-cap furniture, roman plate numbers. Its subject, the 36-step polygon, is a real three-dimensional model drawn in the browser as a copperplate engraving. It stays pinned beside the text while the reader scrolls: it turns, it is laid stick by stick, and at the end it turns to the direction (3, −2, 8), thins to a line and takes a seven-colouring. Everything else is a plate in the flow.
-
-There is one world. The earlier Cabinet and Explainer themes, the theme switch and the slide deck are gone.
-
-**Key characteristics**
-- A scroll folio of 15 plates. Two acts (plates I–II and plate XV) pin a full-viewport stage; the plates between sit in the flow.
-- The engraved specimen (`stage.js`, raw WebGL2, no library): hatch lines that swell with the shade, a fine ring at every unit step, mitred corners, a hatched cast shadow, and a gap wherever a stick that is not a neighbour passes in front. Without WebGL2 the same poses are drawn as an SVG tube figure.
-- Drawn figures echo the model: a stick is two contours with a clear middle, never a solid bar, except where an arc carries a colour.
-- One indigo band (plates IX–X, "the machine room") inverts ground and line for the chapters about the computation.
-- Every number comes from `data.js`; every claim that the theorem is proved is gated on `data-proof`.
+Key characteristics:
+- A full-width masthead in lattice blue on a visible 32px grid, the title in heavy Archivo, and the 36-step polygon drawn in white with crossing gaps.
+- A sticky contents rail; each section has a colour square, colour (n − 1) mod 7, repeated at the section opener.
+- The paper's own text, statements and proofs (converted from LaTeX, MathML in STIX Two Math), numbered exactly as in the PDF.
+- Every figure is an instrument: a white sheet framed by a 2px ink rule above and a hairline below, controls as square outlined buttons, a live readout, then the paper's caption.
 
 ## Colors
 
-Restrained and committed at once: paper and one ink carry the page, vermilion is rationed, and one band is drenched.
+Full palette, committed to one programme: the seven Fox colours carry every chromatic role, on a cool neutral ground.
 
 ### Primary
-- **Indigo Ink** (indigo-ink): text, every engraved line, plate rules, colour 0 of the colouring palette. **Indigo Soft** for secondary text, captions and readouts.
+- **Lattice Blue** (lattice-blue, colour 0): the masthead field, section 1 and 8, focus rings, link underlines.
 
-### Secondary
-- **Vermilion** (vermilion): the origin bead of the model, the current plate in the index, the Begin control, a pressed chip, blocked corners and broken crossing rules, the "Making of." lead, link underlines. **Vermilion Deep** for hover and for vermilion text on paper.
-
-### Tertiary: the seven inks (`--c0`..`--c6`, by colour number)
-Indigo Ink (0), Viridian (1), Gamboge (2), Violet (3), Sepia (4), Cerulean (5), Olive (6). Printer's inks starting from the plate's own indigo; no red. Viridian also marks what the search accepts and the parts checked on GitHub Actions.
+### Secondary: the Z/7 programme
+- **Vermilion** (1), **Green** (2), **Pink** (3), **Umber** (4), **Sky** (5), **Grey** (6), by colour number. They mark sections, arcs of a Fox colouring, and figure states. Where small white numerals sit on a colour (contents squares, section openers), the deep variants **Vermilion Deep**, **Green Deep**, **Grey Deep** keep 4.5:1; pink and sky take ink numerals.
 
 ### Neutral
-- **Paper** (paper) with a fine indigo grain; **Paper Lit** inside a plate frame; **Paper Deep** for the scrollbar track. **Ink Rule** and **Ink Hair** for rules and lattice lines.
-- **Machine Ground** with **Machine Line**: the inverted band. Inside `.machine` the same role variables are redefined, so every component works unchanged; vermilion lightens to **Machine Vermilion** to keep contrast.
+- **Ground** (cool white page), **Sheet** (pure white figure stages and definitions), **Ink** and **Ink Soft** (text), **Rule** and **Rule Strong** (hairlines, scrollbar).
+- **Good** and **Bad** for verdicts in figure readouts ("passes", "fails", "balanced").
 
 ### Named rules
-**The Red Means Wrong Or Chosen Rule.** Vermilion never colours a knot's own strokes. A vermilion mark on a figure is the origin, a blocked corner or a broken rule; in the furniture it is the one thing selected.
+**The One Programme Rule.** A colour on the page always means the same as in the paper: the arc colour of a Fox colouring, or the section it belongs to. No decorative colour outside Z/7.
 
-**The Ink Arrives By Weight Rule.** Tone is made by line weight, not by opacity or grey: shade is denser hatching, a shadow is hatching, a vast quantity is an open hatched bar.
+**The Square Carries The Number Rule.** A section's colour appears as a solid square holding its number (rail and opener) and as the tint of its theorem blocks, never as a stripe or border on content.
 
 ## Typography
 
-**Display:** Old Standard TT, italic, for the title and every chapter heading; roman for the theorem and for table numerals. It is the modern face of late nineteenth-century scientific journals, which is where knot tables were first printed.
-**Body:** Spectral, with STIX Two Text behind it for mathematical glyphs.
-**Furniture:** Spectral SC, letterspaced, for plate numbers, chips, the index, note toggles and labels.
+**Display and labels:** Archivo (variable, width 108% for the title and the theorem line). **Reading:** Source Serif 4 with optical sizing. **Math:** STIX Two Math (MathML). **Code:** JetBrains Mono, only for Lean names and lattice words.
 
 ### Hierarchy
-- **Display** (h1, italic, `clamp(2.9rem, 7.1vw, 6rem)`, line-height .98): the title only.
-- **Headline** (h2, italic, `clamp(2.15rem, 4.3vw, 3.7rem)`): one per chapter. `5₂` is set with a true subscript.
-- **Theorem** (roman, `clamp(1.7rem, 3.3vw, 2.9rem)`): the closing statement.
-- **Subhead** (roman, 1.5rem): timeline entries and knot names.
-- **Lede** (`clamp(1.18rem, 1.5vw, 1.34rem)`), **Body** (1.125rem / 1.6, measure 34rem), **Small** (1rem: readouts, commentary), **Note** (.95rem: margin notes, captions).
-- **Furniture** (.74–.86rem small caps, tracking .1–.24em). Prose never uses it; furniture never uses the body face.
-- **Code** (monospace, .86em): Lean names and statements only.
+- **Display** (title, 800, clamp(2.4rem, 5.2vw, 4.6rem), 1.0): the masthead only.
+- **Headline** (section opener h2, 750, clamp(1.7rem, 2.6vw, 2.25rem)) beside its 56px colour square.
+- **Title** (subsection h3, 700, 1.28rem), number in the section colour.
+- **Body** (1.09rem / 1.62, measure 40rem); run-in paragraph heads in Archivo 700.
+- **Caption** (0.95rem, ink soft) with a bold Archivo "Figure n".
+- **Label** (0.82rem Archivo 600): buttons, pane labels, readouts.
 
 ## Layout
 
-A fixed 3.25rem running head (mark at left, the fifteen roman numerals at right, a hairline that fills as the page is read) over one scrolling sheet, max width 86rem, gutter `clamp(1.25rem, 4.2vw, 4rem)`.
-
-- **Acts** (`.act`): a sticky full-viewport stage with the text flowing over its left 41%. The specimen sits at about 70% across. A tall chapter (290–300svh) gives the scroll its length; its text is sticky.
-- **Split plates**: text 5fr beside figure 7fr, alternating sides (`.flip`).
-- **Wide plates**: heading in the first column, prose in the second, the figure across both.
-- **Below 860px**: one column. The stage becomes a 52svh panel pinned under the head, opaque, with the text passing beneath it; the index gives way to "Plate IV · Scale".
-- **Below 560px**: frames go square and lose the plate mark; the rule tray is two across.
-
-### Named rules
-**The Specimen Tracks The Scroll Rule.** In an act, scroll position is the only clock: build, turn, thinning and colour are functions of it. Idle turning stops the moment the reader scrolls or drags.
-
-**The Clear Caption Rule.** The specimen is fitted to the room above its caption; it may bleed off the sheet's outer edge but never under the plate number or the readout.
+- One 8px unit. Page max 84rem, gutter 40px; grid of a 15.5rem rail and the document column; reading measure 40rem, figures up to 58rem.
+- Figures: panes side by side (2 columns) separated by a hairline; each 3D pane is square.
+- Below 860px: one column; the rail becomes a sticky "Contents" disclosure under the masthead; panes stack; long math and code scroll inside their own box, the page never scrolls sideways.
 
 ## Elevation & Depth
 
-There are no drop shadows. Depth is drawn: the model's own hatching, its cast shadow, and the paper margin where one stick passes another. A framed plate is a 1px ink border with a second 1px rule 5px outside it, on Paper Lit, surrounded by a 20px plate mark (a lighter pressed margin with a hairline edge).
+Flat. Depth exists only inside the 3D figures (three.js, lit tubes). Everything else is separated by rules and by the sheet/ground contrast. No shadows.
 
 ## Shapes
 
-Square corners everywhere. Sticks are round in section and mitred at corners. Hit targets on figures are rings (corners) and hatched squares (U-turns). The mark in the running head is a lattice path.
+Square corners everywhere (buttons, squares, frames). Round only where the geometry is round: lattice vertices, crossing rings, the origin bead.
 
 ## Components
 
-### Running head and index
-Fifteen links in furniture small caps; the current one is vermilion with a 2px bar that grows from the left; the chapter name appears as an ink tip on hover or focus. `←` `→` step between plates; each plate has a hash URL.
+### Buttons and segmented controls
+Square, 1px ink border, white; hover tints the sheet; pressed (`aria-pressed="true"`) inverts to ink. Segmented groups join borders. Labels name the action ("Switch all crossings", "View along D = (1, −1, 4)").
 
-### Plate foot
-Under every figure, in one row: the plate number, a readout (italic, soft, live numbers in upright ink with tabular figures), then the chips, pushed to the right.
+### Figure instrument
+Stage (sheet, 2px ink rule above, hairline below) → controls row → readout (Archivo, verdict words coloured good/bad) → caption. Every figure keeps a static fallback (`figs/*.svg`) for no-script, and a no-WebGL path.
 
-### Chips
-1px ink border, square, small caps. Hover fills with ink; `aria-pressed="true"` fills with vermilion. Chips name their action.
+### Contents rail
+Numbered colour squares; the current section scales its square and bolds its name.
 
-### Chapter text
-Heading, one or two paragraphs, an optional italic "try" line, the commentary (`details`, toggle in small caps with a vermilion chevron) and optionally a margin note led by "Making of." in vermilion small caps.
-
-### The specimen (`createStage`)
-Items are posed by `{x, y, scale, az, el, build, radius, solid, shadow, grid, colMix}`; the stage draws lattice, shadow, clear margin, sticks and the origin bead in that order. Angles come from `anglesOf(direction)`, so a view along an integer direction shows exactly the diagram the Lean definitions use.
-
-### Motion
-- Scroll-bound poses in the acts, eased with a cubic in-out.
-- Easing elsewhere is `cubic-bezier(.16, 1, .3, 1)`: 300–450ms for states, 900–1500ms for staged reveals (scale bars, timeline rows, the arrival of 36 in the knot table).
-- A lightly damped spring for a flipped corner.
-- **Reduced motion:** transitions drop to 1ms, models do not turn on their own, the acts snap between their resting poses, and the lattice search advances slowly.
+### Theorem blocks
+A 7% tint of the section colour with a hairline outline; the name in Archivo. Definitions, examples and remarks sit on the white sheet.
 
 ## Do's and Don'ts
 
 ### Do
-- **Do** write components against the role variables (`--paper`, `--paper-lit`, `--ink`, `--ink-soft`, `--rule`, `--hair`, `--alert`, `--c0`..`--c6`) so they work on paper and in the machine band.
-- **Do** make tone with line weight and hatching.
-- **Do** draw a stick as two contours with a clear middle.
-- **Do** give every figure a plate foot with its plate number.
-- **Do** fill every number from `data.js` and gate "proved" on `data-proof="done"` (`.when-done` / `.when-open`).
-- **Do** keep a working SVG path for every pose the WebGL stage can take (`?nogl` forces it).
+- Do draw every figure from `data.js` (built by `build_data.py` with the paper's figure code) so the page and the PDF agree.
+- Do keep numbering, statements and proofs identical to the paper (`build_page.py` checks theorem numbers against `len52.aux`).
+- Do snap spacing to the 8px unit and colour to the Z/7 programme.
 
 ### Don't
-- **Don't** colour a knot stroke vermilion.
-- **Don't** add drop shadows, rounded corners, gradients for tone, or a second accent.
-- **Don't** put a label above a heading; plate numbers belong to the figure's foot.
-- **Don't** let the specimen run under its caption.
-- **Don't** add a theme, a deck mode or a library; the stage is about 300 lines of WebGL2.
+- Don't add a colour outside the programme, a shadow, a gradient or a rounded corner.
+- Don't put a label above a heading, or use glyphs as icons (verdicts are words; ticks are drawn in SVG).
+- Don't let figure content or math widen the page on a phone.
