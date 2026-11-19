@@ -1,0 +1,13 @@
+parts read: 64; unresolved closures: 960; lengths reached: {24: 960}
+closure types of the distinct listed arcs: {'3_1-': 480, '3_1+': 480}
+distinct arcs with the 8 horizontal symmetries: 960
+displacement classes: 12  largest sizes: [118, 118, 118, 118, 118, 118, 118, 118, 4, 4]
+ordered pairs (glued polygons before identifying equal ones): 111456
+rule found from 300 directly identified glued polygons: (type of b, type of c) -> type of the glued polygon
+   ('3_1+', '3_1+') -> {'3_1#-3_1': 127}
+   ('3_1+', '3_1-') -> {'3_1#3_1+': 26}
+   ('3_1-', '3_1+') -> {'3_1#3_1-': 26}
+   ('3_1-', '3_1-') -> {'3_1#-3_1': 121}
+rule is a function of the two closure types: True
+all ordered pairs by knot type: {'3_1#-3_1': 91072, '3_1#3_1-': 10192, '3_1#3_1+': 10192}
+wrote 55728 distinct glued polygons (up to translation and reading) to out/dmon/arc19/glued40.txt

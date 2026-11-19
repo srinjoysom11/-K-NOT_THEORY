@@ -394,3 +394,23 @@ Leaf test on the n = 38 survivors (`check/heights_unknot.py`, `out/n38_stair.rig
 ## E11. Child ordering (`-order`)
 
 Children in order of increasing slack (R - 1 - distance to the origin): node counts and output identical to `enum` (n = 24: 15 886 694; n = 26: 76 302 828). Timing on a loaded machine (2 threads next to the arc job) was not meaningful; not re-measured.
+
+## D5. Knotted 19-edge arcs and the composites at n = 40 (a completeness device)
+
+**What is computed.** `arcknot 19` (now with `-part R M`, parts verified to add up to the whole at L = 14 and 15) enumerates every self-avoiding walk b with 19 edges in the half-space z >= 0 that starts and ends on the level z = 0 (A != B), has no U-turn, and has L + d(A, B) >= 22; it forms the closure C(b) (the edge down, a monotone path in the level z = -1, the edge up) and discards the closures with exactly one local maximum on some axis (they are unknotted, 1-bridge curves);
+the others are passed to `unknot_cert`, which shrinks a closure to the unit square by U-turn removals and corner flips (isotopies). 64 parts (`out/dmon/arc19/part*_64.{left,log}`; parts 0 to 11 on the container, 12 to 63 by GitHub Actions run 44612872108 with `arc19-enum.yml`):
+
+| walks ending on level 0 | tested (L + d >= 22) | one local maximum on some axis | passed to unknot_cert | shrunk to the square | **left over** | bad words |
+|---|---|---|---|---|---|---|
+| 15 199 414 591 | 14 840 000 590 | 14 667 287 422 | 172 713 168 | 172 712 208 | **960** | 0 |
+
+The 960 left-over closures all reduce to polygons with 24 edges (final length 24 for every one), and the knot type of each closure is a trefoil (identified with `identify6.classify`, chirality included): **480 right-handed and 480 left-handed**. So the knotted 19-edge arcs without a U-turn are exactly these 960 (each begins and ends with a vertical step; the set is closed under the 8 symmetries of the horizontal plane and under reversal), and the closure of each has 24 edges (d = 3), so it is a shortest trefoil polygon with a 3-edge level.
+Lemma 4 says that there is none with 18 edges or fewer; this is the 19-edge list that its "sharpness" remark (7072 trefoils) announced.
+
+**Gluing** (`check/arc19_glue.py`). For two knotted arcs b, c with the same displacement B - A, the polygon is b, the edge B -> B - e_z, the reflection of c in the plane z = -1/2 traversed back to A - e_z, and the edge up: 19 + 19 + 2 = 40 edges. There are 12 displacement classes (eight of 118 arcs and four of 4 arcs), 111 456 ordered pairs, **55 728 distinct polygons** (up to translation and reading; `out/dmon/arc19/glued40.txt`).
+Knot types, from the types of the two closures, with the rule checked on 300 randomly chosen glued polygons by direct identification (it is a function of the two closure types): same chirality of the closures gives 3_1#-3_1 (the square knot), opposite chirality gives 3_1#3_1 (the granny; right- or left-handed): 45 536 square, 5096 right-handed granny, 5096 left-handed granny. **No other knot type occurs.**
+Cross-check (`check/arc19_witness.py`) with the five composite and prime witnesses of `out/witness40.txt`: 3_1#3_1 and 3_1#-3_1 each have a twice-crossed plane with two levels on each side, and each (in some symmetric image) is in the glued set; 6_1, 6_2, 6_3 have no such plane and are not in it.
+
+**What n = 40 completeness needs.** Let P be a shortest polygon of a knot type K with Len(K) = 40, in the normal form of PROOF.md. (a) If every mid-plane with two occupied levels on each side is crossed at least 4 times, P passes all tests of `-stair` and is in its output, as for n <= 38 (PROOF.md section 2b, the corollary and its consequence for the search; this part needs no primeness). (b) Otherwise some such plane is crossed exactly twice; by the first half of Lemma 3 (valid for every knot type) both sides have a knotted arc;
+each arc has no U-turn (P is shortest), so after a symmetry it is a half-space arc as in Lemma 4, with at least 19 edges, so exactly 19 on each side, and P is a polygon of the glued set above (up to the 48 symmetries). Hence **for n = 40 the knot types of the shortest polygons are the types in the output of `-stair` together with 3_1#3_1 and 3_1#-3_1** (which have Len = 40 by the witnesses). The search for n = 40 needs no run without `-prime`.
+For n = 42 the same argument needs the knotted arcs with 19 + 2 and 20 + 20, 19 + 21 ... edges, i.e. the arcs with 20 and 21 edges (the L = 20 enumeration is about 4 times the L = 19 one: 26 500 CPU-seconds x 4.5 ~ 33 CPU-hours); not done.
