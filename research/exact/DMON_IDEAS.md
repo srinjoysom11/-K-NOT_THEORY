@@ -1,19 +1,15 @@
-# Five new DMONs for the normal-form search (18 Nov 2026)
+# Five new devices (DMONs and search tests) for the normal-form search (18 Nov 2026)
 
-"DMON" = a pruning device with a proof: a property that at least one shortest polygon of every
-knot type (or every polygon we need) is guaranteed to have, and that the search can test on
-prefixes. The devices already in `enum.cpp` / `lean/Len52` (my reading of the 7; the Lean `Survive`
-predicate has the first six as conjuncts):
-
-1. root: least vertex in (z, y, x) order at the origin (`LexPos`);
-2. direction rule: first step < reverse of last step;
-3. axis rule #z <= #y <= #x (and its prefix bounds);
-4. curtain obligations (PROOF.md Lemma 1; the U-turn is k = 1);
-5. pushed-down corners (Psi, Psi2; PROOF.md Lemma 2);
-6. obligation feasibility: return distance, span bound, exact tour with cap, MST bound, "a site
-   needs two free neighbours";
-7. leaf flip-reduction (BFS over corner flips looking for a U-turn);
-plus `-prime` / `-stair` (plane-crossing lemma, Lemma 3) and Lemma 4 for completeness.
+Naming (paper/len52.tex, "The DMON tests"; DMON = Dynamic Midwalk Obligation Neutralizer):
+DMON1 closed walk, DMON2 self-avoiding, DMON3 lowest start, DMON4 direction of travel, DMON5 sorted
+axes, DMON6 curtains, DMON7 corners; the completeness theorem of the search is the PanDMONium theorem.
+The search additionally uses tests that never discard a word passing the DMON tests (return distance,
+span bound, exact tour with cap, MST bound, "a site needs two free neighbours", leaf flip-reduction),
+and `-prime` / `-stair` (plane-crossing lemma, PROOF.md Lemma 3) with Lemma 4 for completeness.
+Below, D1 is a new DMON (a stronger DMON6), D2 and D3 are new search tests, D4 is a condition valid for
+a declared target class, and D5 is a completeness device. Further ideas E1-E8 (parity budget, group
+MST, diagonal height functions, mirror halving, GC variants, stronger leaf reduction, bitboards) were
+sent to the experimenting session on 19 Nov; results go to DMON_RESULTS.md on its branch.
 
 Baseline costs (`out/*.log`, `out/ci/`): `-prime` nodes n = 24: 1.49e7, 26: 6.15e7, 30: ~2.6e9
 (-stair 2.2e9, about 80 s per eighth on 4 cores), n = 38 `-stair -tourcap 3`: 2.03e12 nodes,
@@ -115,3 +111,11 @@ cross-check that the 40-edge composites of `out/witness40.txt` (or their flip-cl
 
 Order of work suggested to the experimenting session: D2 (cheap, quick win or not), D1 (largest
 potential; validate the lemma first), D3, D5, D4.
+
+## First result (experimenting session, 19 Nov)
+
+D2 at `-stair -tourcap 3`, output byte-identical to `enum`: `-aot` nodes 0.56x / 0.50x / 0.46x at
+n = 24 / 26 / 28 (time 0.44x / 0.42x / 0.39x); `-aotc` (also counting the plane-crossing debt per axis
+as remaining steps on that axis, valid with `-prime`/`-stair`) nodes 0.35x / 0.29x / 0.29x, time
+0.28x / 0.22x / 0.22x (n = 28: 115 s -> 25 s). D1 checker: 0 violations on all stored survivor lists
+n = 24..38.
