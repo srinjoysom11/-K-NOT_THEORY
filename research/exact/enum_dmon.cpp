@@ -90,6 +90,7 @@ static bool GMST = false;   /* -gmst: D3b, group spanning tree over every pendin
 static bool REJSTATS = false; /* -rejstats: count the prefixes killed by each test inside update() */
 static bool GC = false;     /* -gc    : D1 on prefixes (obligations for every earlier opposite step) + leaves */
 static bool AOTM = false;  /* -aotm: -aot also uses multi-site obligations (per axis: the cheapest site) */
+static bool AOTT = false;  /* -aott: the axis-ordered travel test also inside the exact tour (per-axis travel so far + per-axis span of what is left) */
 static bool AOTE = false;  /* -aote: -aot's counts-only part is also tested before update() (earlier rejection, same nodes) */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
 
@@ -311,14 +312,43 @@ struct Search {
         }
         return need;
     }
+    /* axis-ordered test from final counts >= cnt + lower bounds on the remaining steps per axis */
+    inline bool axes_fit(const int *t) const {
+        int L[3];
+        for (int q = 0; q < 3; q++) L[q] = (cnt[q] + t[q] + 1) & ~1;
+        int z = L[2], y = L[1] > z ? L[1] : z, x = L[0] > y ? L[0] : y;
+        return x + y + z <= N;
+    }
+    /* per-axis version of span_need for single-site sets */
+    inline void span_axes(int from, const int *pl, int np, int *need) const {
+        int lo[3] = {0, 0, 0}, hi[3] = {0, 0, 0};
+        const int c0[3] = {CX[from], CY[from], CZ[from]};
+        for (int a = 0; a < np; a++) {
+            const Ob &ob = obs[pl[a]];
+            if (ob.cnt != 1) continue;
+            int s = ob.site[0];
+            const int cs[3] = {CX[s], CY[s], CZ[s]};
+            for (int q = 0; q < 3; q++) { if (cs[q] < lo[q]) lo[q] = cs[q]; if (cs[q] > hi[q]) hi[q] = cs[q]; }
+        }
+        for (int q = 0; q < 3; q++) {
+            int l = lo[q] < c0[q] ? lo[q] : c0[q], h = hi[q] > c0[q] ? hi[q] : c0[q];
+            int a1 = (c0[q] - l) + (h - l) + h, a2 = (h - c0[q]) + (h - l) + (0 - l);
+            need[q] = a1 < a2 ? a1 : a2;
+        }
+    }
+    int tua[3];   /* per-axis travel of the partial tour (used by -aott) */
     /* is there an order of visiting one site of each pending set, then the origin, within budget?
        Manhattan distances, so "no" is a proof that the prefix is dead; gives up (returns true,
        sets gave_up) after TOUR_CAP calls.  On success without giving up, capO/capS hold the order. */
     int capO[4 * MAXN], capS[4 * MAXN], capTotal;
     bool gave_up;
     bool tour(int from, int *pl, int np, int used, int budget) {
-        if (np == 0) return used + DIST0[from] <= budget;
+        if (np == 0) {
+            if (AOTT && AXES) { int t[3] = {tua[0] + abs(CX[from]), tua[1] + abs(CY[from]), tua[2] + abs(CZ[from])}; if (!axes_fit(t)) return false; }
+            return used + DIST0[from] <= budget;
+        }
         if (used + span_need(from, pl, np) > budget) return false;
+        if (AOTT && AXES) { int nd[3]; span_axes(from, pl, np, nd); int t[3] = {tua[0] + nd[0], tua[1] + nd[1], tua[2] + nd[2]}; if (!axes_fit(t)) return false; }
         if (++tour_calls > (unsigned long long)TOUR_CAP) { gave_up = true; return true; }
         /* every remaining set must be reachable on its own; remember the nearest site of each */
         int key[4 * MAXN];
@@ -348,7 +378,11 @@ struct Search {
             for (int t = 0; t < ob.cnt; t++) {
                 int s = ob.site[t];
                 int c = used + mdist(from, s);
-                if (c + DIST0[s] <= budget && tour(s, rest, nr, c, budget)) { capO[capTotal - np] = o; capS[capTotal - np] = s; return true; }
+                int sv0 = tua[0], sv1 = tua[1], sv2 = tua[2];
+                tua[0] += abs(CX[s] - CX[from]); tua[1] += abs(CY[s] - CY[from]); tua[2] += abs(CZ[s] - CZ[from]);
+                bool okk = c + DIST0[s] <= budget && tour(s, rest, nr, c, budget);
+                tua[0] = sv0; tua[1] = sv1; tua[2] = sv2;
+                if (okk) { capO[capTotal - np] = o; capS[capTotal - np] = s; return true; }
             }
         }
         return false;
@@ -451,7 +485,7 @@ struct Search {
         /* decide exactly */
         int pl[4 * MAXN];
         memcpy(pl, nw, nn * sizeof(int));
-        tour_calls = 0; gave_up = false; capTotal = nn;
+        tour_calls = 0; gave_up = false; capTotal = nn; tua[0] = tua[1] = tua[2] = 0;
         if (!tour(nx, pl, nn, 0, R1)) return false;
         if (gave_up) { tour_giveup++; nwit[i1] = m; return true; }   /* o, sv keep the insertion order as a seed for the children */
         for (int q = 0; q < nn; q++) { o[q] = capO[q]; sv[q] = capS[q]; }
@@ -800,6 +834,7 @@ int main(int argc, char **argv) {
         else if (a == "-aotc") AOTC = true;
         else if (a == "-aotm") AOTM = true;
         else if (a == "-aote") AOTE = true;
+        else if (a == "-aott") AOTT = true;
         else if (a == "-stair") STAIR = PRIME = true;
         else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
         else if (a == "-tourcap") TOUR_CAP = atoi(argv[++i]);
