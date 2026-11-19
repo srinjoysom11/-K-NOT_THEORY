@@ -60,3 +60,9 @@ Accepted: best production set -aotc -aotm -aote; D3/1-tree recorded as no gain. 
 * E10 early budget tests at R1 >= 14 in the style of -aot: (a) per-axis count of obligation sites beyond a plane (extended-extent crossing debt); (b) DMON5+DMON3 height: z >= 0 so owes h down-steps -> forces y, x steps (CHECK whether already in -aot: it IS: t_z >= |z_head| and c_z + t_z is ordered with y, x; and c + |h| >= 2*range on every axis automatically).
 * E11 child ordering by increasing slack (R-1-dist); node counts unchanged in a full enumeration, report time only.
 Then D5, D4, E1-E8. Report after each.
+
+## Status 19 Nov ~09:00 UTC
+* NOTE: background jobs die when the container restarts. D5 arc job: `./run_arc19.sh 64 2` (restartable; 4 of 64 parts were done when it was killed; part 0: 382 s, 2 783 960 candidate closures, 17 unresolved = knotted, all 24-edge closures). Restart it after any restart; it skips parts whose log has `seconds=`.
+* E10(a) -aotx: VACUOUS (0 evaluations at n=24): every single-site obligation lies inside the bounding box of the walk (corner site = coordinates copied from 3 vertices; curtain site has the level of v_0). E10(b): already in -aot.
+* E11 -order: node counts identical (as expected); time not yet measured on an idle machine.
+* E9 bidirectional: enum_bidir.cpp written (DMON-only mode). alt=0 reproduces enum node counts (86 639 687 vs 86 639 605 at n=24); output identical for n=20,22,24 with alt = 0, 6, 12, 100; nodes n=24: 86.6M -> 13.7M (0.158x at alt=12). n=26/28 validation running (scratchpad bd_chain.sh -> out/dmon/bidir/). Next: add -prime/-stair (plane counters are order independent; stair runs need one state per side), then report to parent.

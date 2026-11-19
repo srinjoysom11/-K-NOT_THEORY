@@ -91,6 +91,8 @@ static bool REJSTATS = false; /* -rejstats: count the prefixes killed by each te
 static bool GC = false;     /* -gc    : D1 on prefixes (obligations for every earlier opposite step) + leaves */
 static bool AOTM = false;  /* -aotm: -aot also uses multi-site obligations (per axis: the cheapest site) */
 static bool AOTT = false;  /* -aott: the axis-ordered travel test also inside the exact tour (per-axis travel so far + per-axis span of what is left) */
+static bool AOTX = false;  /* -aotx: E10a, with -prime the crossing debt per axis is computed for the extent extended to the coordinates of the single-site obligations */
+static bool ORDER = false; /* -order: E11, children in order of increasing slack (R - 1 - distance to the origin) */
 static bool AOTE = false;  /* -aote: -aot's counts-only part is also tested before update() (earlier rejection, same nodes) */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
 
@@ -209,14 +211,16 @@ struct Search {
     int crs[3][64];             /* crs[A][p+32] = edges so far between levels p and p+1 on axis A */
     int cmn[3], cmx[3], cdef[3];/* extent so far on each axis and the crossings still owed */
     /* crossings still owed on axis A: interior planes need 4, the two outer ones 2, and every count must end even */
-    int owed(int A) const {
+    int owed(int A) const { return owed_range(A, cmn[A], cmx[A]); }
+    /* the same for a hypothetical extent [mn, mx] (levels outside the visited ones have no crossings and no stretches) */
+    int owed_range(int A, int mn, int mx) const {
         int t = 0;
-        for (int p = cmn[A]; p < cmx[A]; p++) {
-            int c = crs[A][p + 32], req = (p > cmn[A] && p < cmx[A] - 1) ? 4 : 2;
+        for (int p = mn; p < mx; p++) {
+            int c = crs[A][p + 32], req = (p > mn && p < mx - 1) ? 4 : 2;
             if (STAIR && req == 2) {
-                if (cmx[A] - cmn[A] == 1) { if (badl[A][cmn[A] + 32] && badl[A][cmx[A] + 32]) req = 4; }
-                else if (p == cmn[A]) { if (badl[A][cmn[A] + 32]) req = 4; }
-                else { if (badl[A][cmx[A] + 32]) req = 4; }
+                if (mx - mn == 1) { if (badl[A][mn + 32] && badl[A][mx + 32]) req = 4; }
+                else if (p == mn) { if (badl[A][mn + 32]) req = 4; }
+                else { if (badl[A][mx + 32]) req = 4; }
             }
             t += c >= req ? (c & 1) : req - c;
         }
@@ -536,6 +540,10 @@ struct Search {
                 }
             }
             if (AOTC && cdef[q] > t) t = cdef[q];
+            if (AOTX && PRIME) {
+                int mn = lo[q] < cmn[q] ? lo[q] : cmn[q], mx = hi[q] > cmx[q] ? hi[q] : cmx[q];
+                if (mn != cmn[q] || mx != cmx[q]) { int e = owed_range(q, mn, mx); if (e > t) t = e; }
+            }
             int f = cnt[q] + t;
             L[q] = (f + 1) & ~1;
         }
@@ -681,7 +689,14 @@ struct Search {
     void dfs(int i) {
         int cur = pos[i], R = N - i;
         int p1 = dirs[i - 1] ^ 1, p2 = i >= 2 ? (dirs[i - 2] ^ 1) : -1;
-        for (int d = 0; d < 6; d++) {
+        int ord[6] = {0, 1, 2, 3, 4, 5};
+        if (ORDER && R > 1) {
+            int key[6];
+            for (int d = 0; d < 6; d++) key[d] = (int)DIST0[cur + DELTA[d]];
+            for (int a = 1; a < 6; a++) { int o = ord[a], b = a; while (b > 0 && key[ord[b - 1]] < key[o]) { ord[b] = ord[b - 1]; b--; } ord[b] = o; }
+        }
+        for (int dd = 0; dd < 6; dd++) {
+            int d = ord[dd];
             if (d == p1) continue;
             if (!PLAIN && d == p2) continue;
             int nx = cur + DELTA[d];
@@ -835,6 +850,8 @@ int main(int argc, char **argv) {
         else if (a == "-aotm") AOTM = true;
         else if (a == "-aote") AOTE = true;
         else if (a == "-aott") AOTT = true;
+        else if (a == "-aotx") { AOTX = true; AOTC = true; }
+        else if (a == "-order") ORDER = true;
         else if (a == "-stair") STAIR = PRIME = true;
         else if (a == "-bfs") BFS_LIMIT = atoi(argv[++i]);
         else if (a == "-tourcap") TOUR_CAP = atoi(argv[++i]);
