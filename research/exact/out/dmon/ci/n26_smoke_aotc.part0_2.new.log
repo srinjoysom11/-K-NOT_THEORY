@@ -1,0 +1,4 @@
+N=26 tasks=39104 part=0/2 nodes=11126798 closed=188 candidates=78 survivors=29 bfs_limit_hits=0 tour_giveups=1884235
+seconds=2.373108273 host=github-actions threads=4 new_opts=-aotc commit=2888358a4ec4731c68ee18db416e793ab8086b95
+output=DIFFERENT
+same_required=1 base_words=33 new_words=29
