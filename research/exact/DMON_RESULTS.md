@@ -343,3 +343,25 @@ Recommended: `-alt 4`.
 **Rejection histogram** (`out/dmon/n26_rejstats_bidir_alt4*.log`, n = 26, `-stair -tourcap 3`, kills by remaining steps R1): the kills are still at R1 = 2 to 16 with the peak at 8 to 11 (tour/MST kills at R1 = 8, 9, 10, 11: 1.43M, 2.17M, 2.17M, 1.40M instead of 3.7M, 7.1M, 8.8M, 7.1M for enum without D2; reach kills 0.60M, 0.54M, 0.48M, 0.24M instead of 2.5M, 2.6M, 2.1M, 0.8M); there are still no kills at R1 >= 17. So pruning does not start earlier in terms of remaining steps: it is the same kind of kill, but the number of prefixes that reach those depths is 3.7 times smaller (the tail letters remove prefixes that can never close up, one or two steps before they would have been caught). With `-aotc -aotm` the axis test kills 0.43M at R1 = 10 and acts from R1 = 2 to 17.
 
 (d) Plane and stair counters: `-alt 0` gives the node counts of enum exactly (n = 24: 15 886 694 with `-stair -tourcap 3`, 86 639 605 without `-prime`) and, for `-alt` > 0 and every n in the tables, the same output; the counters are updated by the tail steps in reverse order of the word, and stair stretches are kept per side.
+
+## D4. Crossing budget for target-restricted runs (a target-restricted condition, not a DMON)
+
+**Statement used.** For a polygon P of a knot K, any regular diagram of P has at least c(K) crossings (c = crossing number). Take the three projections along the axes with the generic tilt (u, v, w) -> (u + eps w, v + eps^2 w), eps = 1/1000, which are regular diagrams of the lattice polygon (computed in exact integer arithmetic, `check/crossings3.py`; the only zero determinants are collinear disjoint edges, which do not cross).
+If the goal of a run is a bound for the knots with c(K) >= c0, every polygon that matters has at least c0 crossings in each of the three projections, so polygons with fewer in one projection may be dropped.
+
+**Leaf experiment** (`out/dmon/d4_leaf_crossings.txt`, survivor lists of `enum -prime/-stair`; fraction of the words that have at least c0 crossings in all three projections, i.e. the part of the list that a target c0 would keep):
+
+| n | words | c0 = 5 | c0 = 6 | c0 = 7 | c0 = 8 |
+|---|---|---|---|---|---|
+| 24 | 50 | 20.0 % | 4.0 % | 0 | 0 |
+| 30 | 190 | 78.9 % | 43.2 % | 12.1 % | 3.2 % |
+| 32 | 542 | 75.3 % | 45.6 % | 18.1 % | 5.7 % |
+| 34 | 1398 | 84.3 % | 58.3 % | 23.5 % | 7.4 % |
+| 36 | 6662 | 92.4 % | 76.1 % | 41.9 % | 18.9 % |
+| 38 | 18 945 | 95.7 % | 84.6 % | 57.5 % | 30.3 % |
+
+(All of these words are knots with c <= 5 or unknots, so none is a polygon the target is about; the table shows how many such polygons the filter would still keep.) For n = 40 and c0 = 7 the filter would drop a bit under half of the survivors: it saves identification work, not search work.
+
+**Prefix version: not implemented, and it cannot work with this bound.** A prefix bound needs an upper bound on the crossings that the R missing edges can still create. In the projection along z a horizontal unit edge crosses only edges that lie over the four unit columns around it (an x-edge at (x..x+1, y, z) and a y-edge at x0 in {x, x+1}, y0 in {y-1, y}, at any height), and a column can hold edges at every height of the polygon (about 10 levels at n = 40);
+so one edge can cross up to about 40 others, and R edges up to about 40 R, which is more than the target c0 = 6 or 7 as long as R >= 1. The bound prunes nothing. A useful prefix test would need a lower bound on the final number of crossings from the shape of the prefix (the number of crossings that the prefix already has is a lower bound for the final count, but it is the wrong direction for pruning: pruning needs an upper bound of the final count).
+So D4 is only a leaf filter; the search is not helped.
