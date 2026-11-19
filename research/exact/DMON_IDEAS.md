@@ -149,3 +149,16 @@ DMON7 and the reach tests already kill those prefixes one or two steps earlier. 
 n = 24 (`-rejstats`): the tour/MST bound kills 6.35M prefixes, reach / two-free-neighbours 2.38M, GC
 about 2 000, out of 15.9M nodes. Conclusion: the remaining gains are in sharper bounds (D2 done, D3
 next, plus a 1-tree style bound between MST and the exact tour), not in new local lemmas.
+
+**D3 and D2 follow-ups (19 Nov, commit ac82993 on claude/dmon-experiments).** D3 is no gain: `-bfsdist`
+0.991-0.9995x nodes, `-gmst` 0.97-0.98x, a 1-tree bound 0.95x at 4-5x the time. D2 follow-ups help:
+best production set `-aotc -aotm -aote` (multi-site obligations per axis; counts-only part before
+the obligation update): n = 24 0.319x nodes (0.9 s vs 3.6 s), n = 26 0.263x (3.5 s vs 18.9 s),
+n = 28 0.256x (20.4 s vs 115.4 s), outputs byte-identical. In the DMON-only setting of the paper
+(no `-prime`; `enum -tourcap 0 -nomst -noreduce` reproduces the proof's node counts) `-aot -aote -aotm`
+gives 0.356x / 0.305x nodes at n = 24 / 26 and lowers the growth per two edges from 5.95 to 5.2.
+
+**Where pruning happens** (`-rejstats`, n = 26): tour/MST kills 32.0M prefixes, reach/two-free 10.7M,
+all at R1 = 2..16 remaining steps (peak 8-12); nothing dies at R1 >= 17, i.e. the first ~9 of 26
+steps are enumerated unpruned. The axis test is the first that acts at R1 = 14-16. So the next
+devices must act early: bidirectional construction around the root (E9), early budget tests (E10).
