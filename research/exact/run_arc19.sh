@@ -11,8 +11,13 @@ one() {
   grep -q "seconds=" $f.log 2>/dev/null && return
   s=$(date +%s)
   ./arcknot $L -part $r $M 2> $f.log.tmp | ./unknot_cert > $f.left.tmp 2>> $f.log.tmp
-  echo "seconds=$(( $(date +%s) - s )) arcknot.cpp=$(sha256sum arcknot.cpp | cut -c1-16)" >> $f.log.tmp
-  mv $f.left.tmp $f.left; mv $f.log.tmp $f.log
+  # a part counts as done only if BOTH programs printed their summary (a killed arcknot leaves a truncated last word)
+  if grep -q "walks_ending_on_level0" $f.log.tmp && grep -q "^words=.*bad=0 " $f.log.tmp; then
+    echo "seconds=$(( $(date +%s) - s )) arcknot.cpp=$(sha256sum arcknot.cpp | cut -c1-16)" >> $f.log.tmp
+    mv $f.left.tmp $f.left; mv $f.log.tmp $f.log
+  else
+    echo "part $r incomplete, left as .tmp" >&2
+  fi
 }
 export -f one; export D M L
 seq 0 $((M-1)) | xargs -P $J -I{} bash -c 'one {}'
