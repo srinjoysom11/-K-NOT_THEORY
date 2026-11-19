@@ -163,9 +163,10 @@ theorem that we quote with references (used in \cref{thm:fox}); and (E3), used o
 (our 36-step polygon is the knot that the tables call $5_2$, and in \cref{cor:trefoil} a 24-step polygon
 is the trefoil): two diagrams with the same planar-diagram code show the same knot, up to mirror image
 (derived in \cref{sec:upper} from quoted theorems);
-\item that the compiled program evaluated \num{1358} closed Boolean terms correctly;
-\item the records that this evaluation returned \emph{true}: GitHub's archived job logs
-(\cref{sec:engineering}).
+\item that the compiled program evaluated \num{1358} closed Boolean terms correctly, and printed the
+correct number of returned words for each part;
+\item the records that this evaluation returned \emph{true}, with those word counts: GitHub's archived job
+logs (\cref{sec:engineering}). The word counts matter only for \cref{cor:trefoil}.
 \end{enumerate}
 In particular \emph{the pruning of the search is not trusted}: every discarded branch is discarded
 by a test that Lean has proved can never discard a word passing the DMON tests.
@@ -277,9 +278,9 @@ with $\kappa_0=\cos(\angle bac/2)>0$; hence $u\cdot g_k\ge(\kappa_0-2\lambda)|g_
 $x-a=\sum\mu_kg_k$ this gives $|x-a|\ge u\cdot(x-a)\ge(\kappa_0-2\lambda)\sum\mu_k|g_k|$, while the distance from
 $x-a$ to the convex cone $C_a$ is at most $|\sum\mu_k\epsilon_k|\le\lambda\sum\mu_k|g_k|$. So the sine of the angle
 between $x-a$ and $C_a$ is at most $\lambda/(\kappa_0-2\lambda)$ (we always take $\delta,\eta$ so small that
-$\varepsilon<\ell$ and $2\lambda<\kappa_0$; and this angle is less than $\pi/2$, because $u\cdot(x-a)>0$ while $u\cdot h\ge0$
-for all $h\in C_a$). Choose $\delta,\eta$ so small that the bound is less than $\sin\theta$, where we may assume
-$\theta\le\pi/2$. Then no point $a+st_a$ with $s>0$ lies in $B$, so $[a,a+rt_a]$ meets $B$ only in $a$. The
+$\varepsilon<\ell$ and $2\lambda<\kappa_0$; and this angle is less than $\pi/2$, because $u$ itself lies in $C_a$ and
+$u\cdot(x-a)>0$). Replace $\theta$ by $\min(\theta,\pi/2)$, and choose $\delta,\eta$ so small that the bound is less
+than $\sin\theta$. Then no point $a+st_a$ with $s>0$ lies in $B$, so $[a,a+rt_a]$ meets $B$ only in $a$. The
 same argument works at $b$.
 
 The rest of $K_0$, outside the two balls of radius $r$, is compact and disjoint from $\Delta$, so it has
@@ -976,7 +977,7 @@ The empty rows $n\le22$ give a new computer proof of Diao's theorem~\cite{Diao93
 steps are the Lean theorems above; the fact that the searches for $n\le22$ return no word is printed by
 the same compiled program (the line \texttt{RESULT \dots\ words=0} in the archived logs). This fact is
 not part of \lean{CompCert}, which only says that every returned word passes the colouring test, so it
-rests on the trust items (iii) and (iv) for these ten runs.
+rests on the trust items (iii) and (iv), in their part about the printed word counts, for these ten runs.
 
 \begin{corollary}[Diao]\label{cor:trefoil}
 Every non-trivial lattice knot has at least $24$ edges, and $\Len(3_1)=24$.
@@ -1124,7 +1125,9 @@ non-constant one.
 \begin{proof}
 By \cref{thm:fox} it suffices to count the colourings of the standard diagram of \cref{fig:std52}.
 (\Cref{thm:fox} is stated for regular projections of polygonal knots; replacing the smooth arcs of the
-drawing by fine polygonal arcs gives such a projection with the same crossings, arcs and Fox equations.)
+drawing by fine polygonal arcs, lifting them to $\R^3$ with heights that respect the crossings, and
+keeping every vertex away from the crossings gives a polygonal knot with a regular linear projection
+and the same crossings, arcs and Fox equations.)
 \emph{Arcs.} An arc ends at each under-passage. The under-strands run $1\to2$ (at $X_1$), $3\to4$ ($X_2$),
 $5\to6$ ($X_3$), $7\to8$ ($X_4$) and $9\to10$ ($X_5$), so the arcs are $A=\{2,3\}$, $B=\{4,5\}$,
 $C=\{6,7\}$, $D=\{8,9\}$ and $E=\{10,1\}$. \emph{Equations.} The over-strand at $X_1$ is $\{5,4\}$, which
@@ -1313,11 +1316,15 @@ multigraphs, with the rotation taken on edge-ends; the diagram graphs here have 
 twist region). So there is an orientation-preserving homeomorphism $g$ of $S^2=\R^2\cup\{\infty\}$
 carrying the first diagram onto the second, crossings to crossings, with the same over- and
 under-strands.
-\item A diagram determines its knot up to equivalence. Put the knot in $\R^2\times(-1,1)\subset S^3$,
-with the projection plane inside $S^2\times[-1,1]$, a collar of a $2$-sphere in $S^3$. Two knots in the
+\item A diagram determines its knot up to equivalence. Put the knot in $\R^2\times(-1,1)\subset S^3$ by the
+linear map $p\mapsto(\pi_D(p),h_D(p))$ followed by a shrinking of the height; if this map reverses
+orientation, the knot is replaced by its mirror image, which the statement allows. The projection plane
+lies inside $S^2\times[-1,1]$, a collar of a $2$-sphere in $S^3$. Two knots in the
 collar with the same projection and the same crossing information differ by moving points along the
 $[-1,1]$-fibres, keeping the order of the two heights over each crossing; such a move is induced by a
-homeomorphism of $S^3$ that preserves every fibre and is the identity near $S^2\times\{\pm1\}$. And
+homeomorphism of $S^3$ that preserves every fibre and is the identity near $S^2\times\{\pm1\}$ (on each
+fibre it is piecewise linear in the height; its displacement is tapered to zero outside a regular
+neighbourhood of the projected curve, and over each crossing it keeps the two strands apart). And
 $g\times\mathrm{id}$ is an orientation-preserving homeomorphism of the collar that carries a knot over
 the first diagram to a knot over the second; it extends over the two complementary balls by coning
 (Alexander's trick) to an orientation-preserving homeomorphism of $S^3$. Finally, knot types in $S^3$ and
