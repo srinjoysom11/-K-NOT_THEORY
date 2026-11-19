@@ -182,7 +182,7 @@ export class Studio {
     if (this.controls.update()) more = true;
     this.renderer.render(this.scene, this.camera);
     this.placeLabels();
-    if (more || this.always) this.request();
+    if (more || (this.always && this.visible !== false)) this.request();   // a looping scene sleeps off-screen
   }
   // ---------------------------------------------------------------- building blocks
   material(color, opts = {}) {

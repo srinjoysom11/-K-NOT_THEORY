@@ -977,7 +977,9 @@ No word of length at most $22$ passes the DMON tests.}
 \includegraphics[width=\linewidth]{figs/growth.pdf}
 \caption{(a) Search nodes (blue) and returned words (red) per length, on a logarithmic scale, with
 least-squares fits of $\log y$ against $n$: nodes $\approx \NodeConst\cdot \NodeBase^{\,n}$ (fitted for
-$20\le n\le34$) and words $\approx \WordConst\cdot\WordBase^{\,n}$ ($24\le n\le34$). Exponential growth is
+$20\le n\le34$) and words $\approx \WordConst\cdot\WordBase^{\,n}$ ($24\le n\le34$, the lengths with
+knotted words). Shorter lengths are left out of the node fit because the growth factor is still
+rising there, see (b); continued to $n<20$, the fitted line lies below the counts. Exponential growth is
 expected: the number $p_n$ of lattice polygons of length $n$ satisfies $p_n^{1/n}\to\mu$ (Hammersley
 \cite{Ham61}; see \cite{MS93}), with $\mu\approx4.684$ (Clisby \cite{Cli13}), so $p_n$ grows by about
 $\mu^2\approx21.9$ per two steps. The DMON tests cut this down to about $6$ per two steps. (b) The
