@@ -7,7 +7,7 @@ const easeOut = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
 
 export class LatticeView {
   /** verts: lattice points; pieces: [edge, t0, t1, arc]; colourOf(arc) -> css colour */
-  constructor(canvas, { verts, pieces, colourOf, radius = 0.075, grid = true }) {
+  constructor(canvas, { verts, pieces, colourOf, radius = 0.11, grid = true }) {
     this.canvas = canvas;
     this.verts = verts.map((v) => new THREE.Vector3(...v));
     const n = this.verts.length;
@@ -17,7 +17,7 @@ export class LatticeView {
     // bounds
     const box = new THREE.Box3().setFromPoints(this.verts);
     this.center = box.getCenter(new THREE.Vector3());
-    this.size = box.getSize(new THREE.Vector3()).length() * 0.62 + 0.6;
+    this.size = box.getSize(new THREE.Vector3()).length() * 0.5 * 1.04 + 0.25;
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -100, 100);
     this.camera.up.set(0, 0, 1);
     this.setDir(new THREE.Vector3(1.0, -1.35, 0.95));

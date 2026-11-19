@@ -259,3 +259,34 @@ math[display="block"] { display: block; max-width: 100%; overflow-x: auto; }
 @media (max-width: 860px) { math:not([display="block"]) { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; } }
 /* unnumbered openers (Acknowledgements) take the full width */
 .doc section.level1 > h2:not(:has(.sec-n)) { display: block; }
+
+/* finish-review batch */
+.pending { border: 1px dashed rgba(255,255,255,.8); padding: 2px 8px; font-weight: 500; font-style: italic; }
+/* long display math scrolls inside its box, with edge shadows that show it can */
+math[display="block"] {
+  background:
+    linear-gradient(to right, var(--sheet) 30%, rgba(255,255,255,0)) left center / 28px 100% no-repeat local,
+    linear-gradient(to left, var(--sheet) 30%, rgba(255,255,255,0)) right center / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(20,23,27,.22), transparent) left center / 10px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(20,23,27,.22), transparent) right center / 10px 100% no-repeat scroll;
+}
+.thm math[display="block"] { background-color: transparent; }
+/* the Swiss margin: each section's numeral hangs in the band right of the reading column */
+@media (min-width: 1240px) {
+  .doc section.level1[data-n]::before {
+    content: attr(data-n) / ""; display: block; position: sticky; top: calc(var(--u) * 3); height: 0; overflow: visible;
+    text-align: right; font: 800 9rem/1 var(--sans); font-stretch: 112%; letter-spacing: -.04em; font-variant-numeric: lining-nums;
+    color: color-mix(in srgb, var(--sc) 20%, transparent); pointer-events: none; z-index: -1;
+  }
+}
+@media (max-width: 860px) {
+  .doc code { overflow-wrap: anywhere; }
+}
+@media (max-width: 600px) {
+  .mast-knot svg { width: 60%; }
+  .fig > table.stackable, .fig > table.stackable tbody, .fig > table.stackable tr, .fig > table.stackable td { display: block; width: 100%; }
+  .fig > table.stackable thead { display: none; }
+  .fig > table.stackable tr { border-top: 1px solid var(--ink); padding: 6px 0; }
+  .fig > table.stackable td { border: 0; padding: 2px 0; }
+  .fig > table.stackable td::before { content: attr(data-label); display: block; font: 700 .72rem/1.2 var(--sans); letter-spacing: .04em; text-transform: uppercase; color: var(--ink-2); }
+}

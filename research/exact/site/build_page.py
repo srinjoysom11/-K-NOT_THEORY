@@ -120,6 +120,21 @@ body = re.sub(r"\\begin\{(figure|table)\}.*?\\end\{\1\}", fig_marker, body, flag
 body = re.sub(r"\\begin\{enumerate\}\[[^\]]*\]", r"\\begin{enumerate}", body)
 body = re.sub(r"\\begin\{description\}\[[^\]]*\]", r"\\begin{description}", body)
 body = body.replace("\\centering", "").replace("\\small", "")
+# web layout: long one-line displays become wrapping text (the PDF keeps the displays)
+WEB = [
+    (r"\[ X_1[1,5,2,4],\ X_2[3,9,4,8],\ X_3[5,1,6,10],\ X_4[7,3,8,2],\ X_5[9,7,10,6]. \]",
+     r"\par $X_1[1,5,2,4]$, $X_2[3,9,4,8]$, $X_3[5,1,6,10]$, $X_4[7,3,8,2]$, $X_5[9,7,10,6]$.\par "),
+    (r"\[ [10,3,1,4],\ [6,1,7,2],\ [2,7,3,8],\ [4,9,5,10],\ [8,5,9,6]. \]",
+     r"\par $[10,3,1,4]$, $[6,1,7,2]$, $[2,7,3,8]$, $[4,9,5,10]$, $[8,5,9,6]$.\par "),
+    (r"\[ w_{36}=\word{eeennuwwwwssseennwuueedddnnuuswsswdd} \]",
+     r"\par $w_{36}={}$\word{eeennuwwwwssseennwuueedddnnuuswsswdd}\par "),
+    (r"\[ F=\CertF\equiv\CertFmod\pmod7. \]", r"\[ F=\CertF \] \[ \equiv\CertFmod\pmod7. \]"),
+    (r"\[ L=\CertL, \qquad LF\equiv\CertLF=\begin{pmatrix}e_1-e_0\\ e_2-e_0\end{pmatrix}\pmod 7. \]",
+     r"\[ L=\CertL, \] \[ LF\equiv\CertLF \] \[ =\begin{pmatrix}e_1-e_0\\ e_2-e_0\end{pmatrix}\pmod 7. \]"),
+]
+for a, b in WEB:
+    assert a in body, a[:40]
+    body = body.replace(a, b)
 body = expand(body)
 abstract = expand(abstract)
 
@@ -220,6 +235,14 @@ H = H.replace("<p><strong>Acknowledgements</strong></p>", "")
 # named operators (\\operatorname) as upright identifiers, without operator spacing
 H = re.sub(r'<mo>([A-Za-z]{2,})</mo>', r'<mi>\1</mi>', H)
 ABS = re.sub(r'<mo>([A-Za-z]{2,})</mo>', r'<mi>\1</mi>', ABS)
+
+# break opportunities in code: after underscores, and every 6 letters in long lattice words
+def wbr(m):
+    t = m.group(1)
+    t = re.sub(r'_', '_<wbr>', t)
+    t = re.sub(r'\b([a-z]{20,})\b', lambda w: '<wbr>'.join(w.group(1)[k:k + 6] for k in range(0, len(w.group(1)), 6)), t)
+    return f'<code>{t}</code>'
+H = re.sub(r'<code>([^<]*)</code>', wbr, H)
 
 # heading levels: the page title is the only h1; sections h2, subsections h3; LaTeX \\paragraph is a run-in heading
 H = re.sub(r'<h4[^>]*>(.*?)</h4>\s*<p>', lambda m: f'<p><strong class="runin">{m.group(1)}</strong> ', H, flags=re.S)
