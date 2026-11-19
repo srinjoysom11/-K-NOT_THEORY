@@ -280,7 +280,7 @@ math[display="block"] {
   }
 }
 @media (max-width: 860px) {
-  .doc code { overflow-wrap: anywhere; word-break: break-all; }
+  .doc code { overflow-wrap: anywhere; }
 }
 @media (max-width: 600px) {
   .mast-knot svg { width: 60%; }
