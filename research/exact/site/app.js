@@ -97,14 +97,25 @@ function drawPolyDiagram(svg, blk, opts = {}) {
   return segs;
 }
 const crossPoint = (blk, c) => { const [i, t] = c.under; const p = blk.orth[i], q = blk.orth[(i + 1) % blk.orth.length]; return [p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])]; };
-function arcLabelPoints(blk) {   // the midpoint of the longest straight piece of each arc
-  const best = {};
-  for (const [i, a, b, arc] of blk.pieces) {
-    const p = blk.orth[i], q = blk.orth[(i + 1) % blk.orth.length];
-    const L = Math.hypot(q[0] - p[0], q[1] - p[1]) * (b - a);
-    if (!best[arc] || L > best[arc][0]) best[arc] = [L, [p[0] + (a + b) / 2 * (q[0] - p[0]), p[1] + (a + b) / 2 * (q[1] - p[1])]];
+function arcLabelPoints(blk) {   // on each arc, the point farthest from the crossings and from earlier labels
+  const X = blk.crossings.map((c) => crossPoint(blk, c)), used = [], out = {};
+  const n = blk.orth.length;
+  const arcs = [...new Set(blk.pieces.map((p) => p[3]))].sort((a, b) => a - b);
+  for (const arc of arcs) {
+    let best = null, bs = -1;
+    for (const [i, a, b, ar] of blk.pieces) {
+      if (ar !== arc) continue;
+      const p = blk.orth[i], q = blk.orth[(i + 1) % n];
+      for (let k = 1; k < 8; k++) {
+        const t = a + (b - a) * k / 8, c = [p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])];
+        let d = Math.min(...X.map((x) => Math.hypot(x[0] - c[0], x[1] - c[1])));
+        for (const u of used) d = Math.min(d, Math.hypot(u[0] - c[0], u[1] - c[1]));
+        if (d > bs) { bs = d; best = c; }
+      }
+    }
+    used.push(best); out[arc] = [0, best];
   }
-  return best;
+  return out;
 }
 
 function placeNear(blk, pts, r) {   // for each point, the spot at distance r farthest from the drawn polygon
