@@ -162,3 +162,13 @@ gives 0.356x / 0.305x nodes at n = 24 / 26 and lowers the growth per two edges f
 all at R1 = 2..16 remaining steps (peak 8-12); nothing dies at R1 >= 17, i.e. the first ~9 of 26
 steps are enumerated unpruned. The axis test is the first that acts at R1 = 14-16. So the next
 devices must act early: bidirectional construction around the root (E9), early budget tests (E10).
+
+**E9 bidirectional construction, first result (19 Nov, commit ee1b693, `enum_bidir.cpp`).** The head
+grows forward from the root and the tail backward, alternately for the first ALT steps, then the
+head only; every test uses (head, tail) as the two end points of the missing middle; the final
+decision at a closed polygon is the complete cyclic test plus the flip BFS. With ALT = 0 it
+reproduces enum's node count (n = 24: 86 639 687 vs 86 639 605, DMON-only, `-tourcap 3`); output
+(sorted) byte-identical to enum for n = 20, 22, 24 and ALT = 0, 6, 12, 100. Nodes, DMON-only:
+n = 20: 0.154x, n = 22: 0.156x, n = 24: 0.158x (13.7M vs 86.6M) - a factor about 6.3, constant so far.
+Pending: n = 26, 28; time; stacking with `-aot -aotm`; `-prime`/`-stair` mode; the completeness
+argument for two-ended prefixes.
