@@ -86,6 +86,7 @@ static int GCTOUR = 0;      /* -gctour K: generalized-curtain obligations enter 
 static bool PLAINDUMP = false; /* -plaindump: with -plain, list every closed polygon (that passes -gcleaf if given): test of gc_leaf_ok against check/gc_check */
 static int BFSDIST = -1;    /* -bfsdist S: D3a, BFS distance through free cells when the slack is <= S (pure bound; -1 = off) */
 static bool GMST = false;   /* -gmst: D3b, group spanning tree over every pending obligation (pure bound) */
+static bool REJSTATS = false; /* -rejstats: count the prefixes killed by each test inside update() */
 static bool GC = false;     /* -gc    : D1 on prefixes (obligations for every earlier opposite step) + leaves */
 static bool AOTC = false;  /* -aotc: D2 plus the plane-crossing debt per axis (needs -prime) */
 
@@ -99,7 +100,8 @@ static inline int mdist(int a, int b) {
 
 struct Stats {
     unsigned long long nodes = 0, closed = 0, cand = 0, surv = 0, bfs_over = 0, giveup = 0, gcdrop = 0;
-    void add(const Stats &o) { nodes += o.nodes; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup; gcdrop += o.gcdrop; }
+    unsigned long long rej[10] = {0};   /* 0 bfsdist 1 curtain-impossible 2 gc-impossible 3 psi-impossible 4 site-unreachable (curtain/psi) 5 site-unreachable (gc) 6 aot 7 tour/mst */
+    void add(const Stats &o) { nodes += o.nodes; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup; gcdrop += o.gcdrop; for (int q = 0; q < 10; q++) rej[q] += o.rej[q]; }
 };
 
 /* ---------- leaf reduction: breadth-first search over neutral BFACF moves ---------- */
@@ -468,7 +470,7 @@ struct Search {
     /* obligations created by step i (direction d, from pos[i] to nx); occ[nx] is already set.
        Fills pend[i+1]; returns false if the prefix is dead. */
     bool update(int i, int d, int nx, int sl, int R1) {
-        if (BFSDIST >= 0 && R1 - (int)DIST0[nx] <= BFSDIST && R1 > 0 && !bfs_ok(nx, R1)) return false;
+        if (BFSDIST >= 0 && R1 - (int)DIST0[nx] <= BFSDIST && R1 > 0 && !bfs_ok(nx, R1)) { st.rej[0]++; return false; }
         const int *old = pend[i]; int no = npend[i];
         int *nw = pend[i + 1]; int nn = 0;
         for (int a = 0; a < no; a++) {
@@ -479,7 +481,7 @@ struct Search {
         }
         if (sl >= 0 && dirs[sl] == (d ^ 1)) {
             int r = curtain(sl, i - sl - 1, obs[nobs]);
-            if (r == -1) return false;
+            if (r == -1) { st.rej[1]++; return false; }
             if (r == 0) nw[nn++] = nobs++;
         }
         if (GC) {
@@ -488,7 +490,7 @@ struct Search {
                 if (dirs[i0] != (d ^ 1) || i0 == sl) continue;   /* i0 == sl: the ordinary curtain, built above */
                 if (nobs >= 4 * MAXN - 2) break;               /* pool full: drop (never wrong, only weaker) */
                 int r = gcob(i0, i, back, obs[nobs]);
-                if (r == -1) return false;
+                if (r == -1) { st.rej[2]++; return false; }
                 if (r == 0) nw[nn++] = nobs++;
             }
         }
@@ -500,7 +502,7 @@ struct Search {
             else if (d == 3 && p < 2) s = nx - DELTA[p];               /* (x,s) */
             if (s >= 0) {
                 int r = single(s, obs[nobs]);
-                if (r == -1) return false;
+                if (r == -1) { st.rej[3]++; return false; }
                 if (r == 0) nw[nn++] = nobs++;
             }
         }
@@ -516,16 +518,16 @@ struct Search {
                 for (int q = 0; q < 6; q++) { int w = s + DELTA[q]; av += (w == nx || w == ORG || (!occ[w] && ALLOWED[w])); }
                 fine = av >= 2;
             }
-            if (!fine) return false;
+            if (!fine) { st.rej[ob.gc ? 5 : 4]++; return false; }
         }
-        if ((AOT || AOTC) && AXES && !aot_ok(nx, nw, nn)) return false;
+        if ((AOT || AOTC) && AXES && !aot_ok(nx, nw, nn)) { st.rej[6]++; return false; }
         nwit[i + 1] = 0;
         if (GC) {
             int nt[4 * MAXN], k = 0;
             for (int a = 0; a < nn; a++) { const Ob &ob = obs[nw[a]]; if (!ob.gc || ob.cnt <= GCTOUR) nt[k++] = nw[a]; }
-            if (k >= 2 && !tour_ok(i + 1, nx, nt, k, R1)) return false;
+            if (k >= 2 && !tour_ok(i + 1, nx, nt, k, R1)) { st.rej[7]++; return false; }
         } else
-        if (nn >= 2 && !tour_ok(i + 1, nx, nw, nn, R1)) return false;
+        if (nn >= 2 && !tour_ok(i + 1, nx, nw, nn, R1)) { st.rej[7]++; return false; }
         return true;
     }
     /* plane counters for a step in direction d from a vertex with coordinate c on axis A */
@@ -731,6 +733,7 @@ int main(int argc, char **argv) {
         else if (a == "-aot") AOT = true;
         else if (a == "-gcleaf") GCLEAF = true;
         else if (a == "-gc") GC = true;
+        else if (a == "-rejstats") REJSTATS = true;
         else if (a == "-bfsdist") BFSDIST = atoi(argv[++i]);
         else if (a == "-gmst") GMST = true;
         else if (a == "-plaindump") PLAINDUMP = true;
@@ -796,5 +799,7 @@ int main(int argc, char **argv) {
             N, tasks.size(), PART_R, PART_M, total.nodes, total.closed, total.cand, total.surv, total.bfs_over, total.giveup);
     if (GC || GCLEAF) fprintf(stderr, " gc_leaf_drops=%llu", total.gcdrop);
     fprintf(stderr, "\n");
+    if (REJSTATS) fprintf(stderr, "rejections: bfsdist=%llu curtain=%llu gc_no_site=%llu psi_no_site=%llu unreachable_site(curtain,psi)=%llu unreachable_site(gc)=%llu aot=%llu tour_mst=%llu\n",
+                          total.rej[0], total.rej[1], total.rej[2], total.rej[3], total.rej[4], total.rej[5], total.rej[6], total.rej[7]);
     return 0;
 }
