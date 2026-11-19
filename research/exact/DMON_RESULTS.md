@@ -267,3 +267,53 @@ Outputs identical in all rows (50 survivors with the default reduction; 56 and 1
 They die between R1 = 2 and 16, with the peak at R1 = 8 to 12 (tour/MST: 3.7M, 7.1M, 8.8M, 7.1M, 3.3M at R1 = 8, 9, 10, 11, 12; reach: 2.5M, 2.6M, 2.1M at R1 = 8, 9, 10); there are no kills at all for R1 >= 17 (the first 9 steps of 26 are enumerated without any pruning from `update`, only the return distance and the plane debt prune there).
 With `-aotc -aotm -aote` the axis test takes over: 5.3 M kills in `-aot` and 3.4 M more before `update` (`aot_early`), the tour/MST kills drop from 32.0 M to 2.5 M and the reach kills from 10.7 M to 1.7 M, and the axis kills start earlier (R1 = 3 to 16, peak 10 to 12).
 Consequence: to save a length step one must prune at R1 >= 14, where today nothing dies; the new axis test is the first that does something there (R1 = 14, 15, 16: 123 113, 36 354, 8 010 kills at n = 26).
+
+## E9. Bidirectional construction (a search order, not a new lemma): `enum_bidir.cpp`
+
+### 1. What is searched
+
+Let w = w_0 ... w_{n-1} be the word of a polygon in canonical position, v_0 = v_n the root, v_i = v_{i-1} + w_{i-1}. A **two-ended prefix** with H head letters and T tail letters (H + T = t) consists of
+the head letters w_0, ..., w_{H-1} (vertices v_0, ..., v_H) and the tail letters w_{n-T}, ..., w_{n-1} (vertices v_{n-T}, ..., v_n = v_0). The schedule is fixed: step number t is a head step if t is even and t < ALT, a tail step if t is odd and t < ALT, and a head step if t >= ALT.
+So (H, T) is a function of t, and the word determines its prefixes. Every word is visited exactly once (a word is a head part followed by a middle part and a tail part; the search chooses the head part and the tail part letter by letter, and the middle part
+is whatever is left). The part of the word that is still missing, w_H ... w_{n-T-1}, is a **completion**: R = n - t letters leading from the head end v_H to the tail end v_{n-T}.
+A tail step adds the vertex v_{n-T-1} = v_{n-T} - w_{n-T-1}, i.e. a move in direction -w_{n-T-1} from the tail end. The closing step (R = 1) is the one edge from the head end to the tail end.
+
+With ALT = 0 the tail never moves and the search is exactly `enum.cpp`: the node counts are equal to enum's (n = 24: 15 886 694 with `-stair -tourcap 3`, 86 639 605 with `-tourcap 3`; checked).
+
+### 2. Which tests are applied to a two-ended prefix, and why each is implied by DMON1-DMON7 for every completion that is the rest of a polygon w passing DMON1-DMON7
+
+Let w pass DMON1-DMON7 (and, for `-prime`/`-stair`, the plane-crossing lemma); we show that every two-ended prefix of w passes every test. (This is the part of the completeness proof of the paper that changes; the invariant argument is the same.)
+
+* *Self-avoidance, position.* All vertices of w are different (DMON2) and above the root (DMON3), so the new vertex of a head or tail step is free and allowed. The box bound is as in `enum`.
+* *No reversal, no U-turn (DMON6 with k = 1).* For a head step the letter w_H must not be the reverse of w_{H-1} or w_{H-2} (the two letters before it in the cyclic word, which for H < 2 are the last letters of the tail); for a tail step w_{n-T-1} must not be the reverse of w_{n-T} or w_{n-T+1} (the two letters after it, which for T < 2 are the first letters of the head). These are consecutive letters of w.
+* *DMON4.* Once both first letters exist, the reverse of the last letter w_{n-1} must be greater than the first letter w_0. This is DMON4 for w, tested as soon as both letters are known.
+* *DMON5, axis counts.* The final counts c_z <= c_y <= c_x of w are at least the counts of the letters of the prefix and at most these counts plus R. (The same inequalities as for a one-ended prefix, with the counts of both ends.)
+* *Return distance.* The R missing letters lead from v_H to v_{n-T}, so the Manhattan distance of the two end points is at most R. For a head step, the distance from the new head end to the tail end; for a tail step, to the head end.
+* *DMON6, curtain obligations.* New head letter w_H on the axis A: let w_j be the last letter on A before it in the word, in the order ..., w_{n-2}, w_{n-1}, w_0, w_1, ..., w_{H-1} read from the leftmost existing letter (so that when no head letter is on A, w_j is the tail letter on A that is nearest to the root: the window passes through the root).
+  If w_j = -w_H the letters between are perpendicular to A (none is on A), so w_j ... w_H is a curtain window of w, and DMON6 says that some interior point v_{j+u} - a (2 <= u <= k) is a vertex of w. It is occupied (then the obligation is satisfied) or free, and then it is a vertex of the missing middle part, because every vertex of w that is not placed is a vertex v_m with H < m < n - T,
+  and it is allowed. So the list of free allowed points is not empty, and the obligation "one of them is visited by the middle part" holds for w. For a new tail letter w_{n-T-1} the same with the first existing letter on A to its right (the leftmost existing letter on A, which may be a head letter: the window passes through the root).
+* *DMON7, corner obligations.* A head step makes the corner at v_H (between w_{H-1} and w_H) for H >= 1; a tail step makes the corner at v_{n-T} (between w_{n-T-1} and w_{n-T}) for T >= 1 (before the step). The vertex is not the root, and DMON7 says that the fourth point of the unit square is a vertex of w; it is placed or it is a free allowed middle vertex. (The patterns are those of `enum.cpp`, in terms of the two letters and the previous and next vertex.)
+* *Reach, two free neighbours.* Every site s of a pending obligation is a middle vertex v_m of w (invariant, below): the head end reaches s and s reaches the tail end in the R missing letters, so |v_H - s| + |s - v_{n-T}| <= R; and the two neighbours of s on w are vertices of w that are the head end, the tail end, or free allowed middle vertices.
+* *Span, axis-ordered travel (`-aot`, `-aotm`), tour, minimum spanning tree.* They bound the length of a walk from the head end through one site of every pending obligation to the tail end, in the Manhattan metric (per axis for `-aot`: the travel on each axis is a lower bound on the number of letters on that axis among the R missing ones, and the final counts are ordered and even). The missing middle of w is such a walk (by the invariant). Nothing changes except that the end point is the tail end instead of the root.
+* *Plane crossings (`-prime`, `-stair`).* Lemma 3 of PROOF.md is a statement about the final polygon; the number of edges across a lattice mid-plane that the prefix has, plus the crossings that are still owed (interior planes 4, outer planes 2, parity), is at most the number of edges across the plane that the polygon has, and every owed crossing is an edge of the missing middle. This does not depend on the order in which the edges were added: the counters are updated for head and tail steps alike (a tail step crosses the plane between the two levels of the move). For the stair rule, a stretch (consecutive steps inside one level) that uses two opposite directions is recorded per side: the stretch of a head run and the stretch of a tail run are parts of stretches of w, and a part that uses two opposite directions makes the whole stretch use them.
+  The directions used are directions of moves (for the tail, the reversed letters); two opposite letters are two opposite moves, so the test is the same.
+
+**Obligation invariant.** After every step, every pending obligation has a site that is a vertex v_m of w with H < m < n - T. *Proof.* For an obligation created at this step, shown above. An obligation is removed when a head or tail step reaches one of its sites; if it is not removed, its site v_m was not the new vertex, so it is still not placed and H < m < n - T holds for the new H, T (the new vertex is v_H or v_{n-T}, and m differs from it). []
+So no test discards w, and w is visited, reaches the closing step, and is printed.
+
+**The closed polygon.** At the closing step the program assembles the word from the root and applies the complete cyclic tests: no U-turn in the cyclic word, DMON4, every curtain window of every axis (so also those through the root and through the closing edge), the corner conditions at all vertices except the root, and DMON5, and then the flip search of `enum.cpp`. The set of words that pass this and the flip search is the set `enum` prints (its leaf test is exactly this test, and its prefix tests only discard words that fail it); so the output is the same set of words for any sound set of prefix tests.
+
+### 3. Results
+
+All outputs are byte-identical to `enum` (sorted word lists, compared with `cmp`; `-noreduce` so that the candidate lists, not only the survivors of the reducer, are compared).
+
+DMON-only mode (no `-prime`), `-tourcap 3`, `-noreduce`:
+
+| n | enum nodes | enum_bidir -alt 12 nodes | ratio | -alt 100 nodes | ratio |
+|---|---|---|---|---|---|
+| 20 | 3 569 661 | 549 562 | 0.154 | 553 818 | 0.155 |
+| 22 | 17 632 284 | 2 743 447 | 0.156 | 2 790 180 | 0.158 |
+| 24 | 86 639 605 | 13 693 204 | 0.158 | 13 918 275 | 0.161 |
+| 26 | 420 628 059 | 64 867 075 | 0.154 | 66 087 677 | 0.157 |
+
+`-stair -tourcap 3 -noreduce`, n = 24: enum 15 886 694 nodes (identical to `-alt 0`); `-alt 12`: 4 845 943 (0.305); `-alt 100`: 4 857 751 (0.306); with `-aotc -aotm`, `-alt 12`: 1 264 568 (0.080 of enum, 0.25 of enum_dmon's best single-ended 5 065 015).
