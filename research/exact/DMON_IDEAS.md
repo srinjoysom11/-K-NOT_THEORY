@@ -204,3 +204,22 @@ runner-hours) instead of about 2 200 runner-hours. Completeness at n = 40 also n
 half-space arcs (Lemma 4 covers <= 18 edges): that is D5, now on the critical path. Next steps: CI
 confirmation of enum_bidir at n = 34 and 36, the 19-edge arcs on Actions, then the single-ended
 "closing distance to the allowed root neighbours" test, to see how much of the gain it captures alone.
+
+**CI confirmation and D5 (19 Nov, commit 81be831 on claude/dmon-experiments).**
+`enum_bidir -prime -tourcap 3 -alt 4 -aotc -aotm` on Actions (run 44612420289): n = 34, 1398
+survivors, byte-identical to out/n34_prime.txt, 0.045x nodes and 0.041x runner-seconds (1874 s vs
+45 419 s); n = 36, 6662 survivors, byte-identical to out/n36_prime.txt, 0.057x nodes and 0.048x
+runner-seconds (13 647 s vs 282 379 s). The production run of the unconfined n = 40 is launched
+(128 parts, `-stair -tourcap 3 -aotc -aotm -alt 4`, estimate 75-85 runner-hours).
+
+D5 at 19 edges (Actions run 44612872108 plus local parts, 64 parts): 1.48e10 walks tested,
+1.73e8 sent to unknot_cert, **960 knotted 19-edge half-space arcs without a U-turn**, all closing
+to 24-edge trefoils (480 of each handedness). Gluing pairs across a twice-crossed plane gives
+55 728 polygons with 40 edges: 45 536 square knots and 5096 + 5096 granny knots, no other type.
+Consequence for n = 40: a shortest 40-edge polygon either has every mid-plane with two levels on
+each side crossed at least 4 times (then the -stair output contains it, whatever its knot type),
+or has a twice-crossed such plane. In the second case both arcs are knotted (otherwise Lemma 3
+shortens the polygon), so each has at least 19 edges (Lemma 4) and the polygon is one of the
+55 728 glued ones. So the n = 40 run together with the gluing is complete for all knot types.
+Negative or minor: E1 parity budget (0.9998x nodes), E3 random height functions (no use, dropped),
+D4 crossing budget (leaf filter only).
