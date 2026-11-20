@@ -14,7 +14,9 @@
 // Up to the 8 symmetries of the half-space fixing the z-axis direction the first step is
 // e or u; only those are enumerated (option -all enumerates the 5 possible first steps).
 //
-// Build: g++ -O3 -std=c++17 -o arcknot arcknot.cpp     Run: ./arcknot L [-minsum S] [-all] [-uturns]
+// -part R M: only the subtrees rooted at depth 7 whose running index is R mod M (independent parts for
+// parallel runs; the union over R = 0..M-1 is the whole enumeration; without -part nothing changes).
+// Build: g++ -O3 -std=c++17 -o arcknot arcknot.cpp     Run: ./arcknot L [-minsum S] [-all] [-uturns] [-part R M]
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -24,10 +26,12 @@ using namespace std;
 
 static const int DX[6] = {1, -1, 0, 0, 0, 0}, DY[6] = {0, 0, 1, -1, 0, 0}, DZ[6] = {0, 0, 0, 0, 1, -1};
 static const char LET[7] = "ewnsud";
-static const int OFF = 20, SZ = 41;
+static const int OFF = 24, SZ = 49;   /* room for arcs of up to 22 edges (L = 20, 21 for n = 42) */
 static unsigned char vis[SZ][SZ][SZ];
 static int L, MINSUM = 22;
 static bool ALLOW_UTURN = false;
+static int PART_R = 0, PART_M = 1, PART_DEPTH = 7;   // -part R M: subtrees at depth PART_DEPTH, round robin
+static long long subtree = 0;
 static int px[64], py[64], pz[64], st[64];
 static long long walks = 0, leaves = 0, onebridge = 0, printed = 0;
 static long long hist[4][8]; // hist[axis][min(maxima,7)]
@@ -76,6 +80,7 @@ static void leaf() {
 static void dfs(int k) {
     int x = px[k], y = py[k], z = pz[k];
     if (k == L) { if (z == 0) { walks++; leaf(); } return; }
+    if (PART_M > 1 && k == PART_DEPTH && (subtree++ % PART_M) != PART_R) return;
     int r = L - k;
     if (z > r) return;
     // the largest final planar distance still reachable must give L + d >= MINSUM
@@ -101,8 +106,10 @@ int main(int argc, char** argv) {
         if (!strcmp(argv[i], "-minsum")) MINSUM = atoi(argv[++i]);
         else if (!strcmp(argv[i], "-all")) all = true;
         else if (!strcmp(argv[i], "-uturns")) ALLOW_UTURN = true;
+        else if (!strcmp(argv[i], "-part")) { PART_R = atoi(argv[++i]); PART_M = atoi(argv[++i]); }
     }
-    if (L < 1 || L > 19) { fprintf(stderr, "L out of range\n"); return 1; }
+    if (L < 1 || L > 22) { fprintf(stderr, "L out of range\n"); return 1; }
+    if (PART_M > 1 && L <= PART_DEPTH) { fprintf(stderr, "-part needs L > %d\n", PART_DEPTH); return 1; }
     px[0] = py[0] = pz[0] = 0;
     vis[OFF][OFF][0] = 1;
     for (int s = 0; s < 5; s++) {
@@ -113,6 +120,7 @@ int main(int argc, char** argv) {
         dfs(1);
         vis[nx + OFF][ny + OFF][nz] = 0;
     }
+    if (PART_M > 1) fprintf(stderr, "part=%d/%d ", PART_R, PART_M);
     fprintf(stderr, "L=%d minsum=%d all=%d uturns=%d walks_ending_on_level0=%lld tested=%lld one_bridge=%lld printed=%lld\n",
             L, MINSUM, (int)all, (int)ALLOW_UTURN, walks, leaves, onebridge, printed);
     for (int a = 0; a < 3; a++) {

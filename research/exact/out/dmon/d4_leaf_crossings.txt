@@ -1,0 +1,15 @@
+  distribution of the smallest crossing number over the three projections: {3: 17, 4: 202, 5: 364, 6: 486, 7: 225, 8: 82, 9: 21, 10: 1}
+  >= 5 crossings in all three projections: 1179 (84.3 %)
+  >= 6 crossings in all three projections: 815 (58.3 %)
+  >= 7 crossings in all three projections: 329 (23.5 %)
+  >= 8 crossings in all three projections: 104 (7.4 %)
+  distribution of the smallest crossing number over the three projections: {3: 52, 4: 456, 5: 1081, 6: 2283, 7: 1534, 8: 915, 9: 263, 10: 78}
+  >= 5 crossings in all three projections: 6154 (92.4 %)
+  >= 6 crossings in all three projections: 5073 (76.1 %)
+  >= 7 crossings in all three projections: 2790 (41.9 %)
+  >= 8 crossings in all three projections: 1256 (18.9 %)
+  distribution of the smallest crossing number over the three projections: {2: 8, 3: 141, 4: 674, 5: 2102, 6: 5135, 7: 5153, 8: 3565, 9: 1655, 10: 437, 11: 68, 12: 7}
+  >= 5 crossings in all three projections: 18122 (95.7 %)
+  >= 6 crossings in all three projections: 16020 (84.6 %)
+  >= 7 crossings in all three projections: 10885 (57.5 %)
+  >= 8 crossings in all three projections: 5732 (30.3 %)

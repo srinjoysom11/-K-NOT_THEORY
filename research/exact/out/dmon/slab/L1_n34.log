@@ -1,0 +1,2 @@
+slab=1 N=34 alt=4 tasks=1693 part=0/1 nodes=39305490 closed=1131 candidates=408 survivors=12 bfs_limit_hits=0 tour_giveups=12128515
+t=18.135284883

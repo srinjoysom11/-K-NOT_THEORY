@@ -1,0 +1,1 @@
+{"runs": [{"n": 26, "m": 2, "from": 0, "to": 2, "base_opts": "-stair -tourcap 3", "new_opts": "-aotc", "tag": "smoke_aotc", "same_output": true}]}
