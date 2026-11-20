@@ -1,0 +1,26 @@
+N=24 tasks=64327 part=0/1 nodes=15886694 closed=114 candidates=56 survivors=50 bfs_limit_hits=0 tour_giveups=3022843
+rejections: bfsdist=0 curtain=0 gc_no_site=0 psi_no_site=79641 unreachable_site(curtain,psi)=2379677 unreachable_site(gc)=0 aot=0 tour_mst=6351669 aot_early=0
+kills by remaining steps R1: R1 bfsdist curtain gc_none psi_none unreach unreach_gc aot tour_mst aot_early
+R1=0 0 0 0 38 17 0 0 0 0
+R1=1 0 0 0 0 51 0 0 0 0
+R1=2 0 0 0 20 502 0 0 1 0
+R1=3 0 0 0 49 3495 0 0 113 0
+R1=4 0 0 0 334 15531 0 0 1348 0
+R1=5 0 0 0 812 67882 0 0 13809 0
+R1=6 0 0 0 4313 222934 0 0 102685 0
+R1=7 0 0 0 6267 446347 0 0 446301 0
+R1=8 0 0 0 21404 635751 0 0 1124249 0
+R1=9 0 0 0 17753 548559 0 0 1774400 0
+R1=10 0 0 0 18110 318405 0 0 1693367 0
+R1=11 0 0 0 6998 102513 0 0 980279 0
+R1=12 0 0 0 2594 13363 0 0 207559 0
+R1=13 0 0 0 669 2779 0 0 7558 0
+R1=14 0 0 0 208 1125 0 0 0 0
+R1=15 0 0 0 49 279 0 0 0 0
+R1=16 0 0 0 14 105 0 0 0 0
+R1=17 0 0 0 3 17 0 0 0 0
+R1=18 0 0 0 2 22 0 0 0 0
+R1=19 0 0 0 1 0 0 0 0 0
+R1=20 0 0 0 1 0 0 0 0 0
+R1=21 0 0 0 1 0 0 0 0 0
+R1=22 0 0 0 1 0 0 0 0 0

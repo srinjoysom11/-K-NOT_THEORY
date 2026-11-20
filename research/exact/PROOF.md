@@ -265,3 +265,80 @@ knot type, prime or composite, with Len = n. Together with the runs for n <= 36:
 In particular every knot with crossing number at least 6, and every knot of bridge number at
 least 3, has Len >= 40. These are the first exact values beyond 5_2 (Len(5_2) = 36, sections
 above and the Lean proof); before, 40 was only an upper bound for all five knots.
+
+## 8. Result at n = 40: Len(8_19) = 42 [C]
+
+**Program.** `enum_bidir.cpp` (Sonnet experiment branch, merged; DMON_RESULTS.md sections D2 and E9).
+It is the search of section 4 with two changes, neither of which removes a polygon that
+section 4 keeps:
+1. *Bidirectional construction (E9).* The walk is grown from the root at both ends: forward
+   from the first step and backward from the last step, for the first 4 steps (`-alt 4`), then
+   forward only. Every test of section 4 is applied with (head, tail) as the two end points of
+   the missing middle, instead of (head, root). Each test is a lower bound on the length of a
+   completion that is valid for every completion, so it stays valid when the completion's other
+   end is a known vertex. The cyclic tests (DMON3, DMON4 and the corner tests at the root) are
+   applied as soon as both letters they read are known. The final decision on a closed polygon
+   is the complete cyclic test of section 4 plus the flip search. So the set of words written
+   does not depend on the pruning order. DMON_RESULTS.md section E9 lists each test, the end at
+   which it acts, and why it holds for every completion.
+2. *Axis-ordered travel (D2, `-aotc -aotm`).* There are obligations from DMON3 (lowest start)
+   and DMON6/7 (curtain and corner vertices that must appear later). The program bounds the
+   remaining length per axis by the steps the walk must still make along that axis to meet them.
+   Each obligation is implied by DMON1-7 for every completion (DMON_IDEAS.md section D2 gives
+   the proof), so the bound only cuts completions that have none.
+
+Checks: with `-alt 0` and D2 off, the node counts equal those of `enum` exactly (n = 24). With the
+production options the outputs equal those of `enum` byte for byte at n = 24, 26, 28, 30, 32
+(local; n = 30 was reproduced independently by this session) and at n = 34 and 36 on GitHub
+Actions (run 44612420289): 1398 and 6662 words, identical to `out/n34_prime.txt` and
+`out/n36_prime.txt`.
+
+**Run.** `enum_bidir 40 -stair -tourcap 3 -aotc -aotm -alt 4`, 128 parts on GitHub Actions
+(run 44616339687, workflow `bidir-enum.yml`, source hash `enum_bidir.cpp=89047ecb285e658d` in every
+part log): 59 084 words, 5.44e11 nodes, 100 runner-hours (`enum` took 278 runner-hours at n = 38).
+Files: `out/bidir/n40_stair_bd.txt`, `.m128.ci_summary.txt`, per-part logs `out/bidir/ci/`.
+
+**Identification.** Two programs, run independently.
+1. `identify6.py --chir` (DMON_RESULTS.md) ends ALL RESOLVED. Every word reduces to a diagram
+   with at most 6 crossings.
+2. `identify_rigorous.py` (this session; `out/bidir/n40_stair_bd.rigorous.txt`) identifies
+   knots with at most 5 crossings. It resolves 58 434 words, with the same counts per type as
+   identify6. The other 650 words were simplified by SnapPy to 6 crossings and identified by the
+   Alexander and Jones fingerprint against every knot with at most 8 crossings
+   (`check/slab_witnesses8.py`): 346 6_2, 136 6_3, 104 square, 64 6_1, again as identify6 says.
+
+Verdicts: 0_1 8271, 3_1 5084, 4_1 7568, 5_1 11 746, 5_2 25 765, 6_1 64, 6_2 346, 6_3 136,
+square 104. There is no granny, no knot with crossing number 7 or more, and no 8_19.
+
+**Composite knots: the twice-crossed planes (D5).** Section 2b's corollary covers n <= 38. At
+n = 40 a shortest polygon P can have a twice-crossed plane H with two occupied levels on each
+side. Then:
+1. Both ball-arc pairs are knotted. If one were unknotted, the first half of Lemma 3 (valid for
+   every knot type) would give a shorter polygon of the same type.
+2. Both arcs are sub-paths of a shortest polygon, so neither has a U-turn (Lemma 1).
+3. By Lemma 4 each arc has at least 19 edges. Two arcs and the two crossing edges total 40, so
+   each arc has exactly 19 edges.
+4. `arcknot 19` (64 parts, Actions run 44612872108 plus local parts) lists every 19-edge arc
+   without a U-turn whose closure is not certified unknotted: 1.48e10 walks tested,
+   1.73e8 sent to `unknot_cert`, 960 left over. All 960 close to 24-edge trefoils, 480 of each
+   handedness.
+5. Gluing pairs of these arcs across a plane (`check/arc19_glue.py`) gives 55 728 polygons:
+   45 536 square knots and 5096 + 5096 granny knots, and no other type.
+
+If P has no such plane, every mid-plane with two occupied levels on each side is crossed at
+least 4 times. Then P passes every test of `-stair`, whatever its knot type (section 2b, first
+part), so its type is in the output above. (DMON_RESULTS.md, "Proposition (D5)", gives the full
+argument.)
+
+**Theorem [C].** The knot types with Len = 40 are exactly 6_1, 6_2, 6_3, 3_1#3_1 and 3_1#-3_1.
+Every other knot type except 0_1, 3_1, 4_1, 5_1 and 5_2 has Len >= 42. In particular every knot with
+crossing number at least 7 has Len >= 42. The 42-edge polygon of 8_19 in `out/witness42_8_19.txt`
+(found by soft-wall annealing in the 3-slab and identified by SnapPy simplification plus the
+Alexander and Jones fingerprint, `check/slab_witnesses8.py`) gives
+
+    Len(8_19) = 42.
+
+8_19 is the torus knot T(3,4), and this is the first exact value for a knot with 7 or more
+crossings. Its best known value was 42 (Monte Carlo). The other knots with best known value 44
+(7_1, 7_3, 7_4, 7_7, 8_20) now have 42 <= Len <= 44; an n = 42 run, about 540 runner-hours plus the
+20- and 21-edge arcs, which are already enumerated, would decide them.

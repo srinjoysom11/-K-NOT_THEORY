@@ -9,6 +9,17 @@ Scope note. The project skill (`.claude/skills/lattice-knot-tables`) lists lower
 as out of scope. The user reopened them on 14 Nov 2026 with the goal "a breakthrough, analytic
 or computational"; this directory is that work. Nothing here changes the Goal 1 tables.
 
+## 000. New 20 Nov 2026: Len(8_19) = 42 (PROOF.md section 8)
+
+The unconfined n = 40 run with `enum_bidir` (128 parts, Actions run 44616339687, 100 runner-hours)
+has 59 084 survivors. Two independent identifications agree: no knot with crossing number >= 7
+and no 8_19. With the 19-edge arc gluing (D5), the knot types with Len = 40 are exactly 6_1, 6_2,
+6_3, granny and square, and every other nontrivial knot beyond 5_2 has Len >= 42. The 42-edge
+8_19 polygon (out/witness42_8_19.txt) gives **Len(8_19) = 42**, the first exact value for a knot with
+7 or more crossings. Next (on hold until the user decides): n = 42 (about 540 runner-hours; the 20-
+and 21-edge arcs are already enumerated, not yet glued) would decide 7_1, 7_3, 7_4, 7_7 and 8_20
+(each 42 or 44).
+
 ## 00. New 18 Nov 2026: Len = 40 for 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1
 
 The unconfined run n = 38 (`enum 38 -stair -tourcap 3`, 1000 parts on Actions) is complete:

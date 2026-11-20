@@ -19,3 +19,4 @@ enum_s
 /bfacf_soft
 out/slab/local/
 out/arcslab/local/
+out/dmon/arc19/*.tmp
