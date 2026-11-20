@@ -34,6 +34,11 @@ const ctlRow = (w) => { const c = H('div', { class: 'ctl' }); w.append(c); retur
 const readout = (w) => { const r = H('div', { class: 'readout', 'aria-live': 'polite' }); w.append(r); return r; };
 const hint = (text) => H('p', { class: 'hint' }, text);
 
+function stepList(parent, names) {
+  const ol = H('ol', { class: 'steps' }); names.forEach((n2) => ol.append(H('li', { html: n2 }))); parent.append(ol);
+  return (k) => [...ol.children].forEach((li, j) => { li.classList.toggle('now', j === k); li.classList.toggle('done', j < k); });
+}
+
 // ===================================================================== 2D knot diagrams (SVG)
 /** A crisp diagram of a lattice polygon under the paper's projection pi_D (scaled by 1/D_z).
  * Strands are cut at under-passages (or at over-passages if switched), drawn with round joins over
@@ -122,7 +127,7 @@ export function figPolygon(w) {
   }
   st.ball(b.verts[0], { color: INK, radius: 0.2 });
   st.frame(b.verts, [1.1, -1.5, 1.05]);
-  st.label(add(b.verts[0], [0, 0, -0.55]), 'origin', 'small');
+  st.label(add(b.verts[0], [-0.75, -0.75, 0]), 'origin', 'small');   // offset perpendicular to D, so it stays clear in both views
   const D = knot2d(p2, b, { colour: col, width: 0.17, gap: 0.32 });
   const anch = arcAnchors(D), arcsK = Object.keys(anch).map(Number);
   const spots = placeLabels(D, arcsK.map((k) => anch[k][1]), 0.48);
@@ -146,8 +151,16 @@ export function figPolygon(w) {
   }
   const c = ctlRow(w); const read = H('span', { class: 'readout grow' });
   let flat = false;
+  // the signature moment: when (a) has turned to look along D, (b) draws itself: arcs, then crossings, then colours
+  function revealB() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !D.svg.animate) return;
+    D.arcs.forEach((a2, k) => { const L = a2.path.getTotalLength(); a2.path.animate([{ strokeDasharray: `${L}`, strokeDashoffset: L }, { strokeDasharray: `${L}`, strokeDashoffset: 0 }], { duration: 650, delay: k * 90, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' }); });
+    const t0 = D.arcs.length * 90 + 500;
+    D.svg.querySelectorAll('circle[stroke-dasharray]').forEach((c2, k) => c2.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: t0 + k * 80, fill: 'backwards' }));
+    D.svg.querySelectorAll('g.hit').forEach((g2, k) => g2.animate([{ opacity: 0, transform: 'scale(.4)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 360, delay: t0 + 450 + k * 90, easing: 'cubic-bezier(.3,1.4,.5,1)', fill: 'backwards' }));
+  }
   const mode = seg([['free', 'Free view'], ['proj', 'Look along D']], 'free', (v) => {
-    if (v === 'proj') { st.setDir(b.D, 1200, [0, 1, 0]); if (!flat) { flat = true; st.flatten(true, 1200); } }
+    if (v === 'proj') { st.setDir(b.D, 1200, [0, 1, 0], revealB); if (!flat) { flat = true; st.flatten(true, 1200); } }
     else { st.setDir([1.1, -1.5, 1.05], 1000); if (flat) { flat = false; st.flatten(false, 1000); } }
   });
   st.onUser = () => { mode.set('free'); if (flat) { flat = false; st.flatten(false, 500); } };
@@ -214,7 +227,7 @@ export function figSegSquare(w) {
   st.line([...Q, Q[0]], { color: COL[0] });
   Q.forEach((q) => st.ball(q, { color: COL[0], radius: 0.06 }));
   st.label([0.5, 0.5, 0], 'Q', 'tag strong');
-  st.frame([[-1, -1, -1], [2, 2, 1.4]], [1.3, -1.7, 1.15], 1.04);
+  st.frame([[-1, -1, -1], [2, 2, 1.25]], [1.3, -1.7, 1.15], 1.04);
   const segG = new THREE.Group(); st.world.add(segG);
   const eLab = st.label([0, 0, 0], 'E', 'tag strong');
   let p = [1, 1, -1], ax = 2;
@@ -239,14 +252,15 @@ export function figSegSquare(w) {
     axSeg.set(String(ax));
   }
   const c = ctlRow(w);
-  const axSeg = seg([['0', 'E along x'], ['1', 'along y'], ['2', 'along z']], '2', (v) => { ax = +v; draw(); });
+  const axSeg = seg([['0', 'E along x'], ['1', 'along y'], ['2', 'along z']], '2', (v) => { ax = +v; p = keepIn(p); draw(); });
   c.append(axSeg);
   const mv = H('div', { class: 'seg', role: 'group', 'aria-label': 'move the segment one lattice step' });
-  for (const l of 'ewnsud') mv.append(btn(l, () => { p = add(p, U[l]).map((v, j) => Math.max(-1, Math.min(j === ax ? 1 : 2, v))); draw(); }, { 'aria-label': `move ${l}` }));
+  const TOP = [2, 2, 1], keepIn = (q) => q.map((v, j) => Math.max(-1, Math.min(TOP[j] - (j === ax ? 1 : 0), v)));
+  for (const l of 'ewnsud') mv.append(btn(l, () => { p = keepIn(add(p, U[l])); draw(); }, { 'aria-label': `move ${l}` }));
   const ex = H('div', { class: 'seg', role: 'group', 'aria-label': 'examples' });
   ex.append(btn('Misses', () => { ax = 0; p = [0, 0, 1]; draw(); }), btn('Touches a corner', () => { ax = 2; p = [1, 1, -1]; draw(); }), btn('Lies on a side', () => { ax = 0; p = [0, 1, 0]; draw(); }),
-    btn('Random', () => { ax = Math.floor(Math.random() * 3); p = [0, 1, 2].map(() => Math.floor(Math.random() * 3) - 1); draw(); }));
-  c.append(H('span', { class: 'readout' }, 'Move E:'), mv, H('span', { class: 'readout' }, 'Examples:'), ex, H('span', { class: 'readout grow' }, 'Drag to turn.'));
+    btn('Random', () => { ax = Math.floor(Math.random() * 3); p = keepIn([0, 1, 2].map(() => Math.floor(Math.random() * 4) - 1)); draw(); }));
+  c.append(H('span', { class: 'ctl-group' }, H('span', { class: 'readout' }, 'Move E:'), mv), H('span', { class: 'ctl-group' }, H('span', { class: 'readout' }, 'Examples:'), ex), H('span', { class: 'readout grow' }, 'Drag to turn.'));
   draw();
 }
 
@@ -288,7 +302,10 @@ export function figPsi(w) {
     if (!moving) for (const f of flips(V)) {
       const down = f.vp[2] < V[f.i][2], same = f.vp[2] === V[f.i][2];
       const c = down ? GOOD : '#8a929c';
-      st.ball(f.vp, { color: c, radius: 0.16, hollow: true, userData: { flip: f.i }, pick: true, parent: grp });
+      const twin = flips(V).filter((g) => key(g.vp) === key(f.vp)).length > 1;
+      const at = twin ? f.vp.map((x2, j) => x2 + 0.28 * (V[f.i][j] - x2)) : f.vp;
+      st.ball(at, { color: c, radius: twin ? 0.12 : 0.16, hollow: true, userData: { flip: f.i }, pick: true, parent: grp });
+      if (twin) st.label(add(at, [0, -0.25, 0.22]), `v<sub>${f.i}</sub>`, 'tag small');
       st.sheet([V[f.i - 1], V[f.i], V[(f.i + 1) % V.length], f.vp], { color: c, opacity: 0.12, parent: grp });
     }
     if (!moving) { picks.innerHTML = ''; flips(V).forEach((f) => { const dz = f.vp[2] - V[f.i][2]; picks.append(btn(`Flip at v${f.i} (${dz < 0 ? 'down' : dz > 0 ? 'up' : 'sideways'})`, () => doFlip(f.i))); }); }
@@ -331,8 +348,8 @@ export function figCurtain(w) {
   const MIN7 = [[-0.4, -0.2, -0.2], [2.4, 1.1, 1.2]];   // the frame never gets smaller than the k = 3 curtain
   let k = 3, t = 0;
   const info = H('div', { class: 'readout' }); const walkLine = H('div', { class: 'walkline' });
-  const stepH = H('h4');
-  side.append(stepH, info, H('h4', { style: 'margin-top:14px' }, 'The walk now'), walkLine);
+  const stepH = H('h4'), steps7 = H('ol', { class: 'steps' });
+  side.append(stepH, info, H('h4', { style: 'margin-top:14px' }, 'The walk now'), walkLine, steps7);
   function orig() { const V = [[0, 0, 0]]; V.push([0, 0, 1]); for (let j = 0; j < k; j++) V.push(add(V[V.length - 1], U[SIDE[j]])); V.push(add(V[V.length - 1], U.d)); return V; } // v0..v_{k+2}
   function current(tt) {
     const V = orig(), a = U.u;
@@ -350,7 +367,7 @@ export function figCurtain(w) {
     st.rod(path, { color: INK, radius: 0.08, parent: grp });
     path.forEach((p) => st.ball(p, { color: INK, radius: 0.1, parent: grp }));
     const visited = new Set(path.map(key));
-    for (let j = 2; j <= k; j++) { const q = add(V[j], a, -1); if (!visited.has(key(q))) { st.ball(q, { color: COL[2], radius: 0.13, hollow: true, parent: grp }); st.label(add(q, [0, -0.15, -0.32]), `v<sub>${j}</sub>−a`, 'tag'); } }
+    for (let j = 2; j <= k; j++) { const q = add(V[j], a, -1); if (!visited.has(key(q))) { st.ball(q, { color: COL[2], radius: 0.13, hollow: true, parent: grp }); st.label(add(q, [0.2, -0.3, -0.25]), `v<sub>${j}</sub>−a`, 'tag'); } else st.label(add(q, [0.2, -0.32, -0.28]), `v<sub>${j}</sub>−a`, 'tag'); }
     if (t < k) V.forEach((v, j) => { if (j <= t) return; if (visited.has(key(v))) st.label(add(v, [0.18, -0.34, v[2] > 0.5 ? 0.3 : -0.3]), `v<sub>${j}</sub>`, 'tag'); });
     st.label(add(V[0], [0, 0, -0.35]), 'v<sub>0</sub>', 'tag');
     const letters = t === k ? Array.from({ length: k }, (_, j) => `s<sub>${j + 1}</sub>`) : [...Array.from({ length: t }, (_, j) => `s<sub>${j + 1}</sub>`), '<b>a</b>', ...Array.from({ length: k - t }, (_, j) => `s<sub>${t + j + 1}</sub>`), '<b>−a</b>'];
@@ -359,6 +376,7 @@ export function figCurtain(w) {
       : t < k ? `<b>After ${t} flip${t > 1 ? 's' : ''}.</b> Flip ${t} replaced v<sub>${t}</sub> by v<sub>${t + 1}</sub> − a: allowed, because that ring was free. The step a now sits in position ${t}.` + (t === k - 1 ? ` Now a, s<sub>${k}</sub>, −a form a U-turn.` : '')
         : `<b>U-turn removed.</b> The polygon has two fewer steps and the same knot type. A shortest polygon cannot allow this, so one of the rings must be a vertex: DMON6.`;
     stepH.textContent = `Step ${t + 1} of ${k + 1}` + (k === 3 ? ` · panel (${'abcd'[t]}) of the caption` : '');
+    steps7.innerHTML = ''; for (let j = 0; j <= k; j++) steps7.append(H('li', { class: j === t ? 'now' : j < t ? 'done' : '', html: j === 0 ? 'the curtain' : j < k ? `flip ${j}: v<sub>${j}</sub> → v<sub>${j + 1}</sub> − a` : 'U-turn removed' }));
     back.disabled = t === 0; next.disabled = t === k; st.request();
   }
   function step(dir) {
@@ -417,7 +435,7 @@ export function figCorners(w) {
     st.request();
   }
   const strip = H('div', { class: 'capstrip' }); pane.append(strip);
-  st.frame(narrow ? [[-0.7, -0.4, -3.0], [3.4, 1.4, 2.2]] : [[-0.7, -0.4, -0.4], [8.6, 1.4, 1.8]], [0.25, -1.5, 0.75], 1.06);
+  st.frame(narrow ? [[-0.7, -0.4, -3.0], [3.4, 1.4, 2.2]] : [[-0.7, -0.4, -0.4], [8.6, 1.4, 1.8]], [0.2, -1.05, 1.25], 1.06);
   const ctl = ctlRow(w);
   let flipped = false;
   const play = btn('Flip all four', () => {
@@ -494,8 +512,13 @@ export function figReach(w) {
     const sites = [];
     s.pending.forEach((ob, k) => ob.forEach((p) => sites.push({ p, k, single: ob.length === 1 })));
     if (!sel || !sites.some((x) => key(x.p) === key(sel))) sel = sites.length ? sites[0].p : null;
-    sites.forEach((x) => st.ball(x.p, { color: x.single ? COL[0] : COL[1], radius: key(x.p) === key(sel) ? 0.2 : 0.14, hollow: true, userData: { site: x.p }, pick: true, parent: grp }));
-    head.textContent = `Step ${i + 1} of ${n}: ${s.pending.length} pending obligation${s.pending.length > 1 ? 's' : ''}`;
+    const kinds = new Map(); sites.forEach((x) => { const k2 = key(x.p); kinds.set(k2, (kinds.get(k2) || new Set()).add(x.single ? 'corner' : 'curtain')); });
+    for (const [k2, ks] of kinds) {   // a site of both kinds gets both rings (orange outside, blue inside)
+      const p2 = k2.split(',').map(Number), big = k2 === key(sel) ? 0.2 : 0.14;
+      if (ks.has('curtain')) st.ball(p2, { color: COL[1], radius: big, hollow: true, userData: { site: p2 }, pick: true, parent: grp });
+      if (ks.has('corner')) st.ball(p2, { color: COL[0], radius: ks.has('curtain') ? big * 0.68 : big, hollow: true, userData: { site: p2 }, pick: true, parent: grp });
+    }
+    head.textContent = `After step ${i} (letter ${T.word[i]}): ${s.pending.length} pending obligation${s.pending.length > 1 ? 's' : ''}`;
     if (sel) {
       const d1 = l1(s.head, sel), d2 = l1(sel), ok = d1 + d2 <= R1;
       const path = lattPath(s.head, sel).concat(lattPath(sel, [0, 0, 0]).slice(1));
@@ -506,8 +529,8 @@ export function figReach(w) {
         const good = isHead || isOrg || free; if (good) usable++;
         st.ball(q, { color: good ? GOOD : BAD, radius: 0.07, parent: grp });
       }
-      info.innerHTML = `Selected site s = (${sel.join(', ').replace(/-/g, '−')}). The walk must go head → s → origin: at least |head − s|₁ + |s|₁ = ${d1} + ${d2} = <b>${d1 + d2}</b> steps; it has <b>${R1}</b> left. ${ok ? '<span class="ok">Reach passes.</span>' : '<span class="no">Reach fails.</span>'}`;
-      siteRow.innerHTML = ''; const seenS = new Set(); sites.forEach((x2) => { if (seenS.has(key(x2.p))) return; seenS.add(key(x2.p)); siteRow.append(btn(`${x2.single ? 'corner' : 'curtain'} (${x2.p.join(', ').replace(/-/g, '−')})`, () => { sel = x2.p; draw(); }, { 'aria-pressed': String(key(x2.p) === key(sel)) })); });
+      info.innerHTML = `Selected site s = (${sel.join(', ').replace(/-/g, '−')}). The walk must go head → s → origin: at least |head − s|₁ + |s|₁ = ${d1} + ${d2} = <b>${d1 + d2}</b> steps (the green or red path is one shortest lattice route); it has <b>${R1}</b> left. ${ok ? '<span class="ok">Reach passes.</span>' : '<span class="no">Reach fails.</span>'}`;
+      siteRow.innerHTML = ''; const seenS = new Set(); sites.forEach((x2) => { if (seenS.has(key(x2.p))) return; seenS.add(key(x2.p)); siteRow.append(btn(`${[...kinds.get(key(x2.p))].join(' + ')} (${x2.p.join(', ').replace(/-/g, '−')})`, () => { sel = x2.p; draw(); }, { 'aria-pressed': String(key(x2.p) === key(sel)) })); });
       nb.innerHTML = `Neighbours of s that are free, the head or the origin (small green balls): <b>${usable}</b> of 6. ${usable >= 2 ? '<span class="ok">Room to pass through.</span>' : '<span class="no">s could be entered but not left.</span>'} Click another ring to test it.`;
     }
     st.request();
@@ -590,7 +613,8 @@ export function figCertex(w) {
   const o = D.P2[0]; S('circle', { cx: o[0], cy: -o[1], r: 0.15, fill: INK }, D.svg);
   const mats = H('div', { class: 'matrow' });
   const mat = (M, cls) => { const m = H('span', { class: 'mat ' + cls, style: `grid-template-columns:repeat(${M[0].length},auto)` }); M.forEach((r, i) => r.forEach((v) => m.append(H('span', { 'data-r': i }, String(v).replace('-', '−'))))); return m; };
-  mats.append('F =', mat(C.F, 'F'), '≡', mat(C.F.map((r) => r.map((v) => mod(v, 7))), 'Fm'), 'L =', mat(C.L, 'L'), 'LF ≡', mat(C.LF, 'LF'), '(mod 7)');
+  const grp2 = (...k) => H('span', { class: 'matgrp' }, ...k);
+  mats.append(grp2('F =', mat(C.F, 'F'), '≡', mat(C.F.map((r) => r.map((v) => mod(v, 7))), 'Fm')), grp2('L =', mat(C.L, 'L')), grp2('LF ≡', mat(C.LF, 'LF'), '(mod 7)'));
   w.querySelector('.stage').append(mats);
   const read = readout(w);
   function row(r) {
@@ -641,8 +665,12 @@ export function figPdCompare(w) {
     tbl.innerHTML = '<thead><tr><th>code of w<sub>36</sub></th><th>now</th><th>KnotInfo</th></tr></thead>';
     const tb = H('tbody'); tbl.append(tb);
     cur.forEach((X, k) => { const j = stdS.indexOf(X.join(',')); tb.append(H('tr', {}, H('td', {}, `[${PD.w36[k].join(', ')}]`), H('td', { style: j >= 0 ? 'font-weight:700' : '' }, `[${X.join(', ')}]`), H('td', { html: j >= 0 ? `<span class="ok">= X<sub>${j + 1}</sub></span>` : `<span style="color:${INK2}">no match</span>` }))); });
-    read.innerHTML = sw && sh ? '<span class="ok">Every crossing matches the KnotInfo code.</span> The diagram of w<sub>36</sub> is the KnotInfo diagram with every crossing switched: a diagram of the mirror image of 5<sub>2</sub>.'
-      : 'The labels are increased by 6 (mod 10), as in the caption. Now switch all crossings: each row then becomes a crossing of the KnotInfo code. The orange arrow leaves v<sub>0</sub> in the direction of travel.';
+    const hits = cur.filter((X) => stdS.includes(X.join(','))).length;
+    read.innerHTML = sw && sh ? '<span class="ok">All 5 crossings match the KnotInfo code.</span> The diagram of w<sub>36</sub> is the KnotInfo diagram with every crossing switched: a diagram of the mirror image of 5<sub>2</sub>.'
+      : sh ? `Labels increased by 6 (mod 10), as in the caption, crossings not switched: <b>${hits}</b> of 5 rows match. Now switch all crossings.`
+      : sw ? `Crossings switched, labels not yet increased: <b>${hits}</b> of 5 rows match. Now add 6 to every label.`
+      : `The code as computed from the polygon: <b>${hits}</b> of 5 rows match KnotInfo. Switch all crossings and add 6 to every label to make them match.`;
+    read.innerHTML += ' The orange arrow leaves v<sub>0</sub> in the direction of travel.';
   }
   const ctl = ctlRow(w);
   const b1 = btn('Switch all crossings', () => { sw = !sw; b1.setAttribute('aria-pressed', String(sw)); draw(); }, { 'aria-pressed': 'false' });
@@ -670,6 +698,7 @@ export function figDeltaProof(w) {
   ];
   const head = H('h4'), text = H('div', { class: 'readout' });
   side.append(head, text);
+  const marksP = stepList(side, ['the move', 'the quadrilateral Q', 'the ball B', 'the map f', 'coning']);
   const others = [[[-1.4, -1.0, 0.6], [-0.6, -0.5, 0.3], a], [b, [3.6, -0.5, -0.4], [4.4, -0.9, -0.9]], [[0.4, 2.6, 1.2], [1.6, 2.4, 1.4], [2.6, 2.2, 1.1]]];
   function draw() {
     st.clear(grp); st.clearLabels();
@@ -685,27 +714,29 @@ export function figDeltaProof(w) {
       const B = [a, d, b, cp];
       for (let i = 0; i < 4; i++) { st.sheet([ep, B[i], B[(i + 1) % 4]], { color: COL[3], opacity: 0.1, parent: grp }); st.sheet([em, B[i], B[(i + 1) % 4]], { color: COL[3], opacity: 0.06, parent: grp }); st.line([ep, B[i]], { color: COL[3], opacity: 0.5, parent: grp }); st.line([em, B[i]], { color: COL[3], opacity: 0.35, parent: grp }); }
       st.ball(ep, { color: COL[3], radius: 0.07, parent: grp }); st.ball(em, { color: COL[3], radius: 0.07, parent: grp });
-      st.label(add(ep, [0.32, -0.1, 0.12]), 'e₊', 'tag'); st.label(add(em, [0.32, -0.1, -0.12]), 'e₋', 'tag');
+      st.label(add(ep, [-0.35, -0.15, 0.2]), 'e₊', 'tag'); st.label(add(em, [-0.35, -0.15, -0.2]), 'e₋', 'tag');
     }
     if (stepI >= 3) {
       const T = [[a, d], [d, b], [b, cp], [cp, a]];
       T.forEach(([p, r], i) => st.sheet([p, r, mt], { color: [COL[0], COL[5], COL[2], COL[4]][i], opacity: 0.22, parent: grp }));
-      st.ball(mt, { color: COL[1], radius: 0.09, parent: grp }); st.label(add(mt, [0.25, -0.25, 0]), kk < 0.98 ? 'f(m)' : 'f(m) = c', 'tag');
+      st.ball(mt, { color: COL[1], radius: 0.09, parent: grp }); st.label(add(mt, [0.4, -0.3, -0.05]), kk < 0.98 ? 'f(m)' : 'f(m) = c', 'tag');
     }
     const path = stepI >= 3 ? [a, mt, b] : [a, b];
     st.rod(path, { color: INK, radius: 0.09, parent: grp });
     if (stepI < 3 || kk < 0.98) { st.ball(c, { color: '#fff', radius: 0.1, parent: grp }); }
-    [['a', a, [-0.3, -0.25, 0]], ['b', b, [0.3, -0.25, 0]], ['c', c, [-0.32, 0.12, 0]]].forEach(([s, p, o]) => st.label(add(p, o), s, 'tag strong'));
+    [['a', a, [-0.3, -0.25, 0]], ['b', b, [0.3, -0.25, 0]]].concat(stepI >= 3 && kk > 0.5 ? [] : [['c', c, [-0.32, 0.12, 0]]]).forEach(([s, p, o]) => st.label(add(p, o), s, 'tag strong'));
     if (stepI >= 1 && stepI < 3) st.label(add(m, [0.3, -0.12, 0]), 'm', 'tag');
     head.textContent = `Step ${stepI + 1} of ${STEPS.length}: ${STEPS[stepI][0]}`;
     text.textContent = STEPS[stepI][1];
     back.disabled = stepI === 0; next.disabled = stepI === STEPS.length - 1;
-    slider.disabled = stepI < 3; sliderLab.style.visibility = stepI < 3 ? 'hidden' : 'visible'; st.request();
+    marksP(stepI); slider.disabled = stepI < 3; sliderLab.style.visibility = stepI < 3 ? 'hidden' : 'visible'; st.request();
   }
   const slider = H('input', { type: 'range', min: 0, max: 100, value: 0, 'aria-label': 'move m to c' });
   slider.addEventListener('input', () => { kk = slider.value / 100; draw(); });
-  const back = btn('Back', () => { stepI--; draw(); });
-  const next = btn('Next', () => { stepI++; if (stepI === 3) { st.tween(1400, (k) => { kk = k; slider.value = k * 100; draw(); }); } if (stepI === 4) { kk = 1; slider.value = 100; } draw(); });
+  const back = btn('Back', () => { stepI--; look(); draw(); });
+  const VIEW = [[0.35, -1.1, 1.35], [0.25, -0.9, 1.5], [0.15, -1.6, 0.42], [0.3, -1.1, 1.3], [0.35, -1.4, 0.8]];
+  const look = () => st.setDir(VIEW[stepI], 800);
+  const next = btn('Next', () => { stepI++; look(); if (stepI === 3) { st.tween(1400, (k) => { kk = k; slider.value = k * 100; draw(); }); } if (stepI === 4) { kk = 1; slider.value = 100; } draw(); });
   const sliderLab = H('label', { class: 'range' }, 'Move m to c', slider);
   const c2 = ctlRow(w); c2.append(back, next, sliderLab, H('span', { class: 'readout grow' }, 'Drag to turn.'));
   draw();
@@ -747,7 +778,9 @@ export function figInvariant(w) {
     st.rod(V.slice(0, i + 2), { color: INK, radius: 0.08, parent: grp });
     st.rod([...V.slice(i + 1), V[0]], { color: '#c3c9d0', radius: 0.035, parent: grp });
     st.ball(V[0], { color: INK, radius: 0.16, parent: grp }); st.label(add(V[0], [0, 0, -0.42]), 'v<sub>0</sub>', 'tag');
-    st.ball(V[i + 1], { color: COL[1], radius: 0.16, parent: grp }); st.label(add(V[i + 1], [0, 0, 0.42]), `head v<sub>${i + 1}</sub>`, 'tag strong');
+    back.disabled = i === 0; next.disabled = i === n - 1;
+    const hd = V[(i + 1) % n];   // after the last step the head is back at v_0: the walk is closed
+    st.ball(hd, { color: COL[1], radius: 0.16, parent: grp }); st.label(add(hd, [0, 0, 0.42]), i === n - 1 ? 'closed at v<sub>0</sub>' : `head v<sub>${i + 1}</sub>`, 'tag strong');
     const pend = obs.filter((o) => o.c <= i && o.end > i);
     const named = new Set();
     pend.forEach((o) => {
@@ -756,7 +789,7 @@ export function figInvariant(w) {
     });
     head.textContent = `After step ${i} (letter ${word[i]}): ${pend.length} pending`;
     const ev = (s.events || []).map((e) => e.kind + (e.result === 'new' ? ' obligation created' : e.result === 'sat' || e.result === 'satisfied' ? ' already satisfied' : ' ' + e.result)).join('; ');
-    info.innerHTML = (pend.length ? pend.map((o) => `<span class="chip" style="background:${o.col}"></span>${o.kind === 'one' ? 'corner' : 'curtain'}, sites ${o.sites.map((p) => `(${p.join(',')})`).join(' ')}: witness v<sub>${o.m}</sub>, and ${o.m} ≥ ${i} + 2 <span class="ok">holds</span>`).join('<br>') : 'No pending obligation.') +
+    info.innerHTML = (pend.length ? pend.map((o) => `<span class="chip" style="background:${o.col}"></span>${o.kind === 'one' ? 'corner' : 'curtain'}, sites ${o.sites.map((p) => `(${p.join(',')})`).join(' ')}: witness v<sub>${o.m}</sub>, and <span class="mnb">${o.m} ≥ ${i} + 2</span> <span class="ok">holds</span>`).join('<br>') : (i === n - 1 ? 'The walk is closed and no obligation is pending, as the closing test requires.' : 'No pending obligation.')) +
       (ev ? `<br><span style="color:${INK2}">This step: ${ev}.</span>` : '');
     // timeline
     tl.innerHTML = ''; const rows = obs.length, Ht = 30 + rows * rowH;
@@ -779,7 +812,7 @@ export function figInvariant(w) {
     play.textContent = 'Pause'; play.setAttribute('aria-pressed', 'true');
     timer = setInterval(() => { if (i >= n - 1) return stopPlay(); i++; draw(); }, 900);
   }, { 'aria-pressed': 'false' });
-  const back = btn('Back', () => { stopPlay(); i--; draw(); }), next = btn('Next', () => { stopPlay(); i++; draw(); });
+  const back = btn('Back', () => { stopPlay(); if (i > 0) { i--; draw(); } }), next = btn('Next', () => { stopPlay(); if (i < n - 1) { i++; draw(); } });
   w.tabIndex = 0; w.classList.add('keys');
   w.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight' && i < n - 1) { i++; draw(); e.preventDefault(); }
@@ -832,7 +865,7 @@ export function figD7(w) {
     head.textContent = `Over-arc colour b = ${b}, incoming colour a = ${a}`;
     const s1 = seq[1], s2 = seq[2], s3 = seq[3];
     const lines = [
-      `Click a corner to choose t, then press <b>Next</b>.`,
+      `Click a corner to choose a test colour t (the reflections act on it), then press <b>Next</b>.`,
       `r<sub>b</sub>(t) = 2·${b} − ${tt} ≡ <b>${s1}</b> (the thick mirror, through corner ${b}).`,
       `r<sub>a</sub>(${s1}) = 2·${a} − ${s1} ≡ <b>${s2}</b> (the thin mirror, through corner ${a}).`,
       `r<sub>b</sub>(${s2}) = 2·${b} − ${s2} ≡ <b>${s3}</b>. So r<sub>b</sub>r<sub>a</sub>r<sub>b</sub> sends ${tt} to ${s3}.`,
@@ -867,23 +900,30 @@ export function figDelta(w) {
   }
   function draw() {
     st.clear(grp); st.clearLabels();
-    const c = cOf(), bad = pierced(c), p = m.map((x, i) => x + slide * (c[i] - x));
+    const c = cOf(), bad = pierced(c);
+    // with the strand inside the triangle the edge cannot get past it: it stops where it meets the strand
+    let sMax = 1;
+    if (bad) { let lo = 0, hi = 1; for (let k = 0; k < 30; k++) { const mid = (lo + hi) / 2; if (pierced(m.map((x, i) => x + mid * (c[i] - x)))) hi = mid; else lo = mid; } sMax = lo - 0.01; }
+    const blocked = bad && slide > sMax, sl = Math.min(slide, sMax), p = m.map((x, i) => x + sl * (c[i] - x));
     st.sheet([a, b, c], { color: bad ? BAD : COL[0], opacity: 0.2, parent: grp });
     st.line([a, c, b], { color: bad ? BAD : COL[0], dashed: true, parent: grp });
     st.tube([[-1.2, -0.5, 0.4], [-0.6, -0.2, 0.15], a], { closed: false, radius: 0.08, segments: 20, parent: grp });
     st.tube([b, [3.7, 0.4, -0.3], [4.2, 1.1, -0.7]], { closed: false, radius: 0.08, segments: 20, parent: grp });
-    st.rod([a, p, b], { color: INK, radius: 0.08, parent: grp });
+    st.rod([a, p, b], { color: blocked ? BAD : INK, radius: 0.08, parent: grp });
     st.rod([[strandX, strandY, -1.2], [strandX, strandY, 1.2]], { color: '#8a929c', radius: 0.07, parent: grp });
     st.ball([strandX, strandY, 0], { color: bad ? BAD : '#8a929c', radius: 0.09, parent: grp });
     st.ball(c, { color: '#fff', radius: 0.09, parent: grp });
-    [['a', a, [-0.25, -0.3, 0]], ['b', b, [0.25, -0.3, 0]], ['c', c, [0, 0.3, 0.15]]].forEach(([s, q, o]) => st.label(add(q, o), s, 'tag strong'));
-    st.label([strandX + 0.2, strandY, 1.15], 'another strand', 'tag');
+    [['a', a, [-0.25, -0.3, 0]], ['b', b, [0.25, -0.3, 0]], ['c', c, [-0.3, 0.2, 0.15]]].forEach(([s, q, o]) => st.label(add(q, o), s, 'tag strong'));
+    st.label([strandX + 0.3, strandY, -1.1], 'another strand', 'tag');
     read.innerHTML = bad
-      ? '(c) <span class="no">Not a Δ-move.</span> The other strand pierces the triangle (red dot). Sliding the edge across the triangle would drag it through that strand, which can change the knot type.'
+      ? (blocked ? '(c) <span class="no">Stopped.</span> The edge has run into the other strand: to go on it would have to pass through it, which can change the knot type. So this replacement is not a Δ-move.'
+        : '(c) <span class="no">Not a Δ-move.</span> The other strand pierces the triangle (red dot). Slide the edge to see where it gets stuck.')
       : (slide < 1 ? '(a) <span class="ok">A Δ-move.</span> The triangle abc meets the knot only in the edge [a, b]; the other strand passes beside it. Slide the edge across the triangle.'
         : '(b) <span class="ok">Done:</span> [a, b] is replaced by [a, c] ∪ [c, b]. Nothing was cut or passed through.');
+    hint.textContent = bad ? 'Move c back below 83% to free the triangle again. Drag to turn.' : slide < 1 ? 'Slide the edge, or press Play. Then move c until the triangle reaches the other strand. Drag to turn.' : 'Now move c further, until the triangle reaches the other strand. Drag to turn.';
     st.request();
   }
+  const hint = H('span', { class: 'readout grow' });
   const s1 = H('input', { type: 'range', min: 0, max: 100, value: push * 100, 'aria-label': 'move c' });
   const s2 = H('input', { type: 'range', min: 0, max: 100, value: 0, 'aria-label': 'slide the edge' });
   s1.addEventListener('input', () => { push = s1.value / 100; draw(); });
@@ -891,7 +931,7 @@ export function figDelta(w) {
   const c2 = ctlRow(w);
   c2.append(H('label', { class: 'range' }, 'Move c', s1), H('label', { class: 'range' }, 'Slide the edge', s2),
     btn('Play the move', () => st.tween(1200, (k) => { slide = k; s2.value = k * 100; draw(); })),
-    H('span', { class: 'readout grow' }, 'Move c until the triangle reaches the other strand. Drag to turn.'));
+    hint);
   draw();
 }
 
@@ -903,6 +943,7 @@ export function figFlipDelta(w) {
   st.frame([[-0.6, -0.6, -0.8], [1.6, 1.0, 1.8]], [0.9, -1.6, 0.8]);
   let mode = 'flip', t = 0, k = 1;          // t = number of Delta-moves done (0, 1, 2); k = progress of the current one
   const head = H('h4'), info = H('div', { class: 'readout' }); side.append(head, info);
+  const marks5 = stepList(side, ['the corner and its square', 'first Δ-move (blue half)', 'second Δ-move (green half)']);
   // flip: v_{i-1} = (0,0,0), v_i = (0,0,1), v_{i+1} = (1,0,1), v' = (1,0,0); outer edges leave the square in other directions
   const F = { A: [0, 0, 0], V: [0, 0, 1], B: [1, 0, 1], P: [1, 0, 0], inA: [0, -0.8, -0.5], outB: [1, 0.9, 1.4] };
   // U-turn: v_i = (0,0,0), v_{i+1} = (0,0,1), v_{i+2} = (1,0,1), v_{i+3} = (1,0,0)
@@ -940,7 +981,7 @@ export function figFlipDelta(w) {
         'First Δ-move: the blue triangle v<sub>i</sub>v<sub>i+1</sub>v<sub>i+2</sub> turns the two edges at v<sub>i+1</sub> into the diagonal [v<sub>i</sub>, v<sub>i+2</sub>].',
         'Second Δ-move: the green triangle v<sub>i</sub>v<sub>i+2</sub>v<sub>i+3</sub> turns the diagonal and [v<sub>i+2</sub>, v<sub>i+3</sub>] into the single edge [v<sub>i</sub>, v<sub>i+3</sub>]. The polygon is two steps shorter and has the same knot type.'];
     head.textContent = `${mode === 'flip' ? 'Corner flip (top row)' : 'U-turn removal (bottom row)'}: step ${t + 1} of 3 · panel (${(mode === 'flip' ? 'abc' : 'def')[t]})`;
-    info.innerHTML = T[t]; back.disabled = t === 0; next.disabled = t === 2; st.request();
+    info.innerHTML = T[t]; marks5(t); back.disabled = t === 0; next.disabled = t === 2; st.request();
   }
   const back = btn('Back', () => { t--; k = 1; draw(); });
   const next = btn('Next', () => { t++; st.tween(900, (x) => { k = x; draw(); }); });
@@ -966,7 +1007,10 @@ export function figObligation(w) {
     st.line([...V.slice(i + 1), V[0]], { color: INK, dashed: true, opacity: 0.9, parent: grp });
     st.ball(V[0], { color: INK, radius: 0.15, parent: grp }); st.label(add(V[0], [-0.3, 0, -0.42]), 'origin', 'tag');
     st.ball(V[i + 1], { color: COL[1], radius: 0.16, parent: grp }); st.label(add(V[i + 1], [-0.3, 0, 0.45]), 'head', 'tag strong');
-    const lines = [];
+    const lines = [], visited = new Set(V.slice(0, i + 2).map(key)), fresh = new Set();
+    for (const e of s.events) (e.sites || [e.site]).forEach((p) => fresh.add(key(p)));
+    // obligations made earlier and still pending, drawn faintly
+    s.pending.flat().filter((p) => !fresh.has(key(p))).forEach((p) => st.ball(p, { color: '#8a929c', radius: 0.11, hollow: true, parent: grp }));
     for (const e of s.events) {
       if (e.kind === 'curtain') {
         const j = e.j, a = U[word[j]];
@@ -974,16 +1018,16 @@ export function figObligation(w) {
         st.rod([V[j], V[j + 1]], { color: COL[1], radius: 0.1, parent: grp }); st.rod([V[i], V[i + 1]], { color: COL[1], radius: 0.1, parent: grp });
         st.label(add(V[j], add(V[j + 1], V[j], -1), 0.5).map((x, t) => x + [0.25, -0.2, 0][t]), 'a', 'tag strong');
         st.label(add(V[i], add(V[i + 1], V[i], -1), 0.5).map((x, t) => x + [0.25, -0.2, 0][t]), '−a', 'tag strong');
-        e.sites.forEach((p) => st.ball(p, { color: COL[1], radius: 0.16, hollow: true, parent: grp }));
+        e.sites.forEach((p) => visited.has(key(p)) ? st.ball(p, { color: GOOD, radius: 0.17, parent: grp }) : st.ball(p, { color: COL[1], radius: 0.16, hollow: true, parent: grp }));
         lines.push(`<b>Curtain</b> from step ${j} (letter <code>${word[j]}</code>) to step ${i} (letter <code>${word[i]}</code>), k = ${e.k}. Interior points ${e.sites.map((p) => `(${p.join(', ').replace(/-/g, '−')})`).join(', ')}: ` +
-          (e.result === 'new' ? 'none is a vertex yet, so they become <b>one obligation</b> (orange rings): the rest of the walk (dashed) must visit one of them.' : '<span class="ok">one is already a vertex</span>, so DMON6 holds and nothing is recorded.'));
+          (e.result === 'new' ? 'none is a vertex yet, so they become <b>one obligation</b> (orange rings): the rest of the walk (dashed) must visit one of them.' : '<span class="ok">one is already a vertex</span> (the green ball), so DMON6 holds and nothing is recorded.'));
       } else {
-        st.ball(e.site, { color: COL[0], radius: 0.16, hollow: true, parent: grp });
-        lines.push(`<b>Corner</b> (DMON7) at v<sub>${i}</sub>: the point (${e.site.join(', ').replace(/-/g, '−')}) ` + (e.result === 'new' ? 'is not a vertex yet: <b>an obligation with one site</b> (blue ring).' : '<span class="ok">is already a vertex</span>.'));
+        if (visited.has(key(e.site))) st.ball(e.site, { color: GOOD, radius: 0.17, parent: grp }); else st.ball(e.site, { color: COL[0], radius: 0.16, hollow: true, parent: grp });
+        lines.push(`<b>Corner</b> (DMON7) at v<sub>${i}</sub>: the point (${e.site.join(', ').replace(/-/g, '−')}) ` + (e.result === 'new' ? 'is not a vertex yet: <b>an obligation with one site</b> (blue ring).' : '<span class="ok">is already a vertex</span> (the green ball).'));
       }
     }
     head.textContent = `Event ${ei + 1} of ${evSteps.length}: step ${i} (letter ${word[i]})`;
-    info.innerHTML = lines.join('<br><br>') + `<br><br>Obligations pending after this step, counting earlier ones: <b>${s.pending.length}</b>.`;
+    info.innerHTML = lines.join('<br><br>') + `<br><br>Obligations pending after this step, counting earlier ones (grey rings): <b>${s.pending.length}</b>.`;
     back.disabled = ei === 0; next.disabled = ei === evSteps.length - 1; st.request();
   }
   const back = btn('Back', () => { ei--; draw(); }), next = btn('Next', () => { ei++; draw(); });

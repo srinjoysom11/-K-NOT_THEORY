@@ -242,7 +242,7 @@ svg .drag:active { cursor: grabbing; }
 .studio-label.small, .studio-label.tag { padding: 1px 5px; background: rgba(255,255,255,.86); border-radius: 2px; }
 .studio-label.strong { font-weight: 800; }
 .studio-label.height { font: 700 .68rem/1 var(--sans); color: var(--c0); background: rgba(255,255,255,.85); padding: 1px 3px; }
-.studio-label.edge { font: 700 .7rem/1 var(--sans); color: #1f3b73; background: rgba(255,255,255,.88); padding: 1px 3px; border-radius: 2px; }
+.studio-label.edge { font: 700 .82rem/1 var(--sans); color: #1f3b73; background: rgba(255,255,255,.88); padding: 1px 3px; border-radius: 2px; }
 .studio-label.xing { font: 700 .72rem/1 var(--sans); padding: 2px 5px; background: var(--sheet); border: 1px solid var(--ink); pointer-events: auto; cursor: pointer; }
 .studio-label.xing.on { background: var(--ink); color: #fff; }
 .studio-label.caption { font: 500 .74rem/1.3 var(--sans); text-align: center; color: var(--ink-2); }
@@ -415,3 +415,19 @@ svg [tabindex]:focus-visible { filter: drop-shadow(0 0 1.5px var(--c0)) drop-sha
 @media (max-width: 600px) { .mast-3d { width: 60%; } }
 
 .capstrip > div { min-width: 0; overflow-wrap: anywhere; }
+
+.ctl-group { display: inline-flex; align-items: center; gap: var(--u); flex-wrap: wrap; }
+
+.steps { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: st; font: 500 .8rem/1.35 var(--sans); color: var(--ink-2); border-top: 1px solid var(--rule); }
+.steps li { counter-increment: st; padding: 5px 0 5px 1.9em; position: relative; border-bottom: 1px solid var(--rule); }
+.steps li::before { content: counter(st); position: absolute; left: 0; top: 4px; width: 1.4em; height: 1.4em; display: grid; place-items: center; font-weight: 700; font-size: .72rem; border: 1px solid var(--rule); }
+.steps li.done { color: var(--ink); } .steps li.done::before { background: color-mix(in srgb, var(--ink) 12%, var(--sheet)); }
+.steps li.now { color: var(--ink); font-weight: 700; } .steps li.now::before { background: var(--ink); color: #fff; border-color: var(--ink); }
+.matgrp { display: inline-flex; align-items: center; gap: .5em; white-space: nowrap; }
+.fig { position: relative; z-index: 0; }
+.fig .tablewrap, .fig > table { background: var(--ground); }
+@media (max-width: 600px) { svg .lbl-s { font-size: 15px; } svg .lbl { font-size: 16px; } }
+
+svg.knot2d g.hit { transform-box: fill-box; transform-origin: center; }
+
+.studio-label { transition: opacity .15s; }
