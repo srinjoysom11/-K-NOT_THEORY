@@ -34,6 +34,14 @@ const ctlRow = (w) => { const c = H('div', { class: 'ctl' }); w.append(c); retur
 const readout = (w) => { const r = H('div', { class: 'readout', 'aria-live': 'polite' }); w.append(r); return r; };
 const hint = (text) => H('p', { class: 'hint' }, text);
 
+const traceBus = new EventTarget();
+/** link a stepper to the others: tell() announces a user step; follow(fn) receives other figures' steps */
+function traceLink(id, follow) {
+  traceBus.addEventListener('step', (e) => { if (e.detail.from !== id) follow(e.detail.i); });
+  return (i) => traceBus.dispatchEvent(new CustomEvent('step', { detail: { from: id, i } }));
+}
+const nearest = (list, i) => { let k = 0; list.forEach((x, j) => { if (x <= i) k = j; }); return k; };   // the last allowed step at or before i
+
 function stepList(parent, names) {
   const ol = H('ol', { class: 'steps' }); names.forEach((n2) => ol.append(H('li', { html: n2 }))); parent.append(ol);
   return (k) => [...ol.children].forEach((li, j) => { li.classList.toggle('now', j === k); li.classList.toggle('done', j < k); });
@@ -536,8 +544,9 @@ export function figReach(w) {
     st.request();
   }
   const c = ctlRow(w);
-  c.append(btn('Back', () => { si = Math.max(0, si - 1); draw(); }), btn('Next', () => { si = Math.min(steps.length - 1, si + 1); draw(); }),
-    H('span', { class: 'readout grow', html: `The real search walking along <code>${T.word}</code>. Rings: sites of pending obligations (orange: curtain, blue: corner). Drag to turn.` }));
+  const tell = traceLink('reach', (i) => { si = nearest(steps, i); draw(); });
+  c.append(btn('Back', () => { si = Math.max(0, si - 1); draw(); tell(steps[si]); }), btn('Next', () => { si = Math.min(steps.length - 1, si + 1); draw(); tell(steps[si]); }),
+    H('span', { class: 'readout grow', html: `The real search walking along <code>${T.word}</code>. Rings: sites of pending obligations (orange: curtain, blue: corner). Drag to turn. Figures 10, 11, 12 and Web figure 2 show the same search and step together.` }));
   draw();
 }
 
@@ -810,15 +819,16 @@ export function figInvariant(w) {
     if (timer) return stopPlay();
     if (i >= n - 1) i = 0;
     play.textContent = 'Pause'; play.setAttribute('aria-pressed', 'true');
-    timer = setInterval(() => { if (i >= n - 1) return stopPlay(); i++; draw(); }, 900);
+    timer = setInterval(() => { if (i >= n - 1) return stopPlay(); i++; draw(); tell(i); }, 900);
   }, { 'aria-pressed': 'false' });
-  const back = btn('Back', () => { stopPlay(); if (i > 0) { i--; draw(); } }), next = btn('Next', () => { stopPlay(); if (i < n - 1) { i++; draw(); } });
+  const tell = traceLink('invariant', (j) => { stopPlay(); i = j; draw(); });
+  const back = btn('Back', () => { stopPlay(); if (i > 0) { i--; draw(); tell(i); } }), next = btn('Next', () => { stopPlay(); if (i < n - 1) { i++; draw(); tell(i); } });
   w.tabIndex = 0; w.classList.add('keys');
   w.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' && i < n - 1) { i++; draw(); e.preventDefault(); }
-    if (e.key === 'ArrowLeft' && i > 0) { i--; draw(); e.preventDefault(); }
+    if (e.key === 'ArrowRight' && i < n - 1) { i++; draw(); tell(i); e.preventDefault(); }
+    if (e.key === 'ArrowLeft' && i > 0) { i--; draw(); tell(i); e.preventDefault(); }
   });
-  const c = ctlRow(w); c.append(play, back, next, H('span', { class: 'readout grow', html: `The search along the 24-step trefoil <code>${word}</code>. Use the arrow keys or the buttons. Drag to turn.` }));
+  const c = ctlRow(w); c.append(play, back, next, H('span', { class: 'readout grow', html: `The search along the 24-step trefoil <code>${word}</code>. Use the arrow keys or the buttons. Drag to turn. Figures 10, 11, 12 and Web figure 2 show the same search and step together.` }));
   draw();
 }
 
@@ -1030,8 +1040,9 @@ export function figObligation(w) {
     info.innerHTML = lines.join('<br><br>') + `<br><br>Obligations pending after this step, counting earlier ones (grey rings): <b>${s.pending.length}</b>.`;
     back.disabled = ei === 0; next.disabled = ei === evSteps.length - 1; st.request();
   }
-  const back = btn('Back', () => { ei--; draw(); }), next = btn('Next', () => { ei++; draw(); });
-  const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow', html: `The real search along <code>${word}</code>, at each step that closes a curtain or makes a DMON7 corner. Drag to turn.` }));
+  const tell = traceLink('replay', (i) => { ei = nearest(evSteps, i); draw(); });
+  const back = btn('Back', () => { ei--; draw(); tell(evSteps[ei]); }), next = btn('Next', () => { ei++; draw(); tell(evSteps[ei]); });
+  const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow', html: `The real search along <code>${word}</code>, at each step that closes a curtain or makes a DMON7 corner. Drag to turn. Figures 10, 11, 12 and Web figure 2 show the same search and step together.` }));
   draw();
 }
 
@@ -1070,7 +1081,8 @@ export function figSpan(w) {
     info.innerHTML = `The rest of the walk starts at the head, visits every single site (blue rings), and ends at the origin, so on each axis it reaches both l and h. Reaching l first costs at least a₁ = (c − l) + (h − l) + h steps on that axis; reaching h first, a₂ = (h − c) + (h − l) − l. In all it needs at least <b>${tot}</b> steps, and <b>${s.R1}</b> are left: ` + (tot <= s.R1 ? '<span class="ok">the span test passes</span>.' : '<span class="no">the walk is discarded</span>.') + ' The dashed box is [l, h] on all three axes.';
     back.disabled = si === 0; next.disabled = si === steps.length - 1; st.request();
   }
-  const back = btn('Back', () => { si--; draw(); }), next = btn('Next', () => { si++; draw(); });
-  const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow' }, 'The span test runs while at least two obligations are pending. Drag to turn.'));
+  const tell = traceLink('span', (i) => { si = nearest(steps, i); draw(); });
+  const back = btn('Back', () => { si--; draw(); tell(steps[si]); }), next = btn('Next', () => { si++; draw(); tell(steps[si]); });
+  const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow' }, 'The span test runs while at least two obligations are pending. Drag to turn. Figures 10, 11, 12 and Web figure 2 show the same search and step together.'));
   draw();
 }

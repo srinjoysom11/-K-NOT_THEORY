@@ -680,7 +680,7 @@ function wGrowth(w) {
     S('path', { d: fitPath(F.nodes), fill: 'none', stroke: COL[0], 'stroke-width': 1.6, opacity: .8 }, svg);
     S('path', { d: fitPath(F.words), fill: 'none', stroke: COL[1], 'stroke-width': 1.6, opacity: .8 }, svg);
     S('rect', { x: X(F.nodes[2]), y: 26, width: X(34) - X(F.nodes[2]), height: 236, fill: COL[0], opacity: 0.05 }, svg);
-    const fr = S('text', { x: X(F.nodes[2]) + 4, y: 40, class: 'lbl-s' }, svg); fr.textContent = `fit range n ≥ ${F.nodes[2]}`;
+    const fr = S('text', { x: 392, y: logScale ? 254 : 40, 'text-anchor': 'end', class: 'lbl-s' }, svg); fr.textContent = `fit range n ≥ ${F.nodes[2]}`;   // a free corner of the shaded range on each scale
     const dot = (n, v, col, what, sq) => { const g = S('g', { class: 'hit', tabindex: 0, role: 'img', 'aria-label': `n = ${n}: ${fmt(v)} ${what}` }, svg); S('circle', { cx: X(n), cy: Y(v), r: 11, fill: 'transparent' }, g); sq ? S('rect', { x: X(n) - 4, y: Y(v) - 4, width: 8, height: 8, fill: col }, g) : S('circle', { cx: X(n), cy: Y(v), r: 4.5, fill: col }, g); const show = () => { tip.innerHTML = `n = <b>${n}</b>: <b>${fmt(v)}</b> ${what}.`; }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show); };
     runs.forEach((r) => dot(r.n, r.nodes, COL[0], 'search nodes'));
     runs.filter((r) => r.words).forEach((r) => dot(r.n, r.words, COL[1], 'words returned', true));
