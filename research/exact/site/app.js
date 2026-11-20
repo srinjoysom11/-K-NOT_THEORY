@@ -605,7 +605,7 @@ function wReach(w) {
 
 // ========================================================================= Figure 12: span test
 function wSpan(w) {
-  const [pane] = panes(w, 1, ['One axis, as in the caption: drag the head c and the two sites']);
+  const [pane] = panes(w, 1); pane.append(H('span', { class: 'pane-label static' }, 'One axis, as in the caption: drag the head c and the two sites'));
   const svg = S('svg', { viewBox: '-8.6 -3.2 17.2 4.6', role: 'img', 'aria-label': 'Span test on one axis' }, pane);
   let c = 2, s1 = -4, s2 = 5;
   const read = H('div', { class: 'readout', style: 'padding:0 12px 12px' }); pane.append(read);
@@ -667,7 +667,7 @@ function wGrowth(w) {
     runs.forEach((r) => dot(r.n, r.nodes, COL[0], 'search nodes'));
     runs.filter((r) => r.words).forEach((r) => dot(r.n, r.words, COL[1], 'words returned', true));
     const lg = S('g', {}, svg);
-    [[COL[0], `nodes ≈ ${F.nodes[0].toPrecision(2)} · ${F.nodes[1].toFixed(3)}ⁿ`], [COL[1], `words ≈ ${F.words[0].toExponential(1)} · ${F.words[1].toFixed(3)}ⁿ`]].forEach(([c, t], k) => { S('rect', { x: 56, y: 34 + k * 18, width: 10, height: 10, fill: c }, lg); const e = S('text', { x: 72, y: 43 + k * 18, class: 'lbl-s' }, lg); e.textContent = t; });
+    [[COL[0], `nodes ≈ ${(F.nodes[0] / 10 ** Math.floor(Math.log10(F.nodes[0]))).toFixed(2)}·10${String(Math.floor(Math.log10(F.nodes[0]))).replace('-', '⁻').replace(/\d/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d])} · ${F.nodes[1].toFixed(3)}ⁿ`], [COL[1], `words ≈ ${(F.words[0] / 10 ** Math.floor(Math.log10(F.words[0]))).toFixed(2)}·10${String(Math.floor(Math.log10(F.words[0]))).replace('-', '⁻').replace(/\d/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d])} · ${F.words[1].toFixed(3)}ⁿ`]].forEach(([c, t], k) => { S('rect', { x: 56, y: 34 + k * 18, width: 10, height: 10, fill: c }, lg); const e = S('text', { x: 72, y: 43 + k * 18, class: 'lbl-s' }, lg); e.textContent = t; });
   }
   const svg2 = S('svg', { viewBox: '0 0 300 300', role: 'img', 'aria-label': 'Ratio nodes(n)/nodes(n-2)' }, b);
   const rat = runs.slice(1).map((r, k) => [r.n, r.nodes / runs[k].nodes]);

@@ -302,11 +302,15 @@ def dmon_tips(h):
             elif part.startswith("</math"): depth -= 1
             out.append(part)
         elif depth == 0:
-            out.append(re.sub(r"DMON([1-7])\b", lambda m: f'<abbr class="dmon" tabindex="0" title="{html.escape(DMON_DEF[m.group(1)])}">DMON{m.group(1)}</abbr>', part))
+            out.append(re.sub(r"DMON([1-7])\b", lambda m: f'<a class="dmon" href="#def:dmon" title="{html.escape(DMON_DEF[m.group(1)])}">DMON{m.group(1)}</a>', part))
         else:
             out.append(part)
     return "".join(out)
 H = dmon_tips(H)
+# the DMON links inside the definition itself point nowhere new: plain text there
+H = re.sub(r'(<div id="def:dmon".*?</div>)', lambda m: re.sub(r'<a class="dmon"[^>]*>(DMON\d)</a>', r'\1', m.group(1)), H, count=1, flags=re.S)
+# short inline formulas keep the punctuation that follows them on the same line
+H = re.sub(r'(<math display="inline"(?:(?!</math>).){0,700}</math>)([.,;:)])', r'<span class="mnb">\1\2</span>', H, flags=re.S)
 
 tpl = open(os.path.join(HERE, "template.html")).read()
 title_meta = "The knot 5₂ needs 36 steps on the cubic lattice"

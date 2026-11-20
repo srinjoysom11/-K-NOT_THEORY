@@ -369,10 +369,18 @@ svg [tabindex]:focus-visible { filter: drop-shadow(0 0 1.5px var(--c0)) drop-sha
   .widget > .ctl { position: sticky; bottom: 0; z-index: 3; background: var(--ground); padding-bottom: var(--u); border-top: 1px solid var(--rule); }
 }
 
-abbr.dmon { text-decoration: underline dotted color-mix(in srgb, var(--ink) 45%, transparent); text-underline-offset: 3px; cursor: help; }
-abbr.dmon:focus-visible { outline: 2px solid var(--c0); outline-offset: 1px; }
+.doc a.dmon { color: inherit; text-decoration: underline dotted color-mix(in srgb, var(--ink) 45%, transparent); text-underline-offset: 3px; }
+.doc a.dmon:hover { text-decoration-style: solid; }
+.mnb { white-space: nowrap; }
 .proof { position: relative; }
-.fold { float: right; margin: 0 0 6px 12px; font: 600 .74rem/1 var(--sans); color: var(--ink-2); background: none; border: 1px solid var(--rule); padding: 5px 8px; cursor: pointer; }
-.fold:hover { color: var(--ink); border-color: var(--ink); }
+.fold { float: right; margin: 0 0 6px 12px; font: 600 .78rem/1 var(--sans); color: var(--ink); background: var(--sheet); border: 1px solid var(--ink); padding: 7px 10px; cursor: pointer; }
+.fold:hover { background: color-mix(in srgb, var(--ink) 8%, var(--sheet)); }
 .proof.folded > p:first-of-type ~ :not(.fold) { display: none; }
 .proof.folded > p:first-of-type { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+@media (max-width: 860px) { .fold { min-height: 44px; } }
+/* each section's margin numeral stays inside its own section */
+@media (min-width: 1240px) { .doc section.level1[data-n] { clip-path: inset(0 -100vw 0 -100vw); } }
+.fig table { width: 100%; }
+.pane-label.static { position: static; display: block; padding: calc(var(--u) * 1.5) calc(var(--u) * 1.5) 0; }
+@media (max-width: 600px) { .mnb { white-space: normal; } }

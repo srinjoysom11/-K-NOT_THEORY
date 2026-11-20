@@ -162,6 +162,9 @@ Stage (sheet, 2px ink rule above, hairline below) → controls row → readout (
 ### The lattice studio (3D figures)
 Every figure about a knot in space is a real 3D scene (`studio.js`): matte lit tubes on a pale studio ground, and a lattice floor that receives the knot's true shadow, so the shadow is a knot diagram. Labels are HTML pinned to 3D points (Archivo, white chip). Picking is a click on an object; dragging turns the scene; the wheel always scrolls the page. Camera moves and object moves are eased (exponential out) and skipped under reduced motion. The camera fits the drawn points exactly. 2D diagrams use one renderer (`knot2d`): orthographic view along D, round joins, a white casing at each gap, crossings ringed, labels placed clear of strands.
 
+### Derived colours and reading aids
+Theorem tints are `color-mix(section colour 7%, sheet)`; figure strokes use neutral greys (#8a929c to #d3d8de) for context strands, grid and shadows; nothing else is added to the Z/7 programme. Every mention of DMON1–7 links to Definition 3.11 and carries its definition as a tooltip. Long proofs (1600+ characters) get a "Hide this proof" button (ink border, label type, 44px on phones) and start open. A short inline formula keeps its trailing punctuation on the same line (`.mnb`, released below 600px). The phone page must never be wider than the screen: long formulas are displays.
+
 ### Byline
 The two co-first authors alternate: the masthead lists Chaitanya Chhabra first, the footer Srinjoy Som first, with a note (the PDF alternates by page).
 

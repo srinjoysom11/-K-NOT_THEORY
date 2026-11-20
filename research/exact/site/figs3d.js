@@ -497,6 +497,14 @@ export function figStd52(w) {
   const st = new Studio(pane, { aspect: '1 / 1', shadowDir: [0, 0, 1], label: 'The standard diagram of 5₂ as a knot in space' });
   const tubes = arcs.map((pts, e) => st.tube(pts, { closed: false, radius: 0.1, segments: 160, userData: { arc: e } }));
   st.frame(P, [0.15, -1.25, 1.6]);
+  { // the orientation arrow on edge 1 (labels increase along it), as in the paper's figure
+    const e1 = D.edges.find((e) => e.label === 1), k = Math.floor(e1.pts.length / 2), sg = D.reversed ? -1 : 1;
+    const q = e1.pts[k], q2 = e1.pts[k + 1], dir = new THREE.Vector3(sg * (q2[0] - q[0]), sg * (q2[1] - q[1]), 0).normalize();
+    let best = 0; P.forEach((pp, j) => { if (Math.hypot(pp[0] - 1.6 * q[0], pp[1] - 1.6 * q[1]) < Math.hypot(P[best][0] - 1.6 * q[0], P[best][1] - 1.6 * q[1])) best = j; });
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.34, 18), st.material(INK));
+    cone.position.set(1.6 * q[0], 1.6 * q[1], P[best][2] + 0.24);
+    cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir); cone.castShadow = true; st.world.add(cone);
+  }
   D.edgeLabels.forEach((e) => st.label([e.p[0] * 1.6, e.p[1] * 1.6, 1.0], String(e.label), 'edge'));
   const xl = D.crossings.map((c, k) => { const lp = D.crossLabels[k]; const L = st.label([lp[0] * 1.6, lp[1] * 1.6, 1.4], `X<sub>${D.crossNames[k]}</sub>`, 'xing'); L.el.tabIndex = 0; L.el.addEventListener('pointerenter', () => focusX(k)); L.el.addEventListener('focus', () => focusX(k)); return L; });
   const codeBox = H('div', { class: 'readout' }), eqs = H('div', { class: 'readout', style: 'margin-top:10px' });
@@ -587,7 +595,7 @@ export function figPdCompare(w) {
     spots.forEach((p, e) => { const lab = sh ? ((e + 6) % 10) + 1 : e + 1; const t = S('text', { x: p[0], y: -p[1] + 0.13, 'text-anchor': 'middle', 'font-size': 0.3, fill: INK, 'font-weight': 700 }, D.svg); t.textContent = lab; });
     { const a0 = D.P2[0], a1 = D.at(0.55); S('path', { d: `M${a0[0]},${-a0[1]}L${a1[0]},${-a1[1]}`, stroke: COL[1], 'stroke-width': 0.09, 'marker-end': 'url(#pdarrow)', fill: 'none' }, D.svg);
       D.svg.insertAdjacentHTML('afterbegin', `<defs><marker id="pdarrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0L10,5L0,10z" fill="${COL[1]}"/></marker></defs>`); }
-    D.crossPts.forEach((x) => S('circle', { cx: x[0], cy: -x[1], r: 0.08, fill: BAD }, D.svg));
+    D.crossPts.forEach((x) => S('circle', { cx: x[0], cy: -x[1], r: 0.07, fill: INK }, D.svg));
     const o = D.P2[0]; S('circle', { cx: o[0], cy: -o[1], r: 0.14, fill: INK }, D.svg);
     const cur = sw ? (sh ? PD.shifted : PD.switched) : (sh ? PD.w36.map((X) => X.map((x) => (x + 5) % 10 + 1)) : PD.w36);
     const stdS = PD.std.map((X) => X.join(','));
@@ -652,13 +660,14 @@ export function figDeltaProof(w) {
     head.textContent = `Step ${stepI + 1} of ${STEPS.length}: ${STEPS[stepI][0]}`;
     text.textContent = STEPS[stepI][1];
     back.disabled = stepI === 0; next.disabled = stepI === STEPS.length - 1;
-    slider.disabled = stepI < 3; st.request();
+    slider.disabled = stepI < 3; sliderLab.style.visibility = stepI < 3 ? 'hidden' : 'visible'; st.request();
   }
   const slider = H('input', { type: 'range', min: 0, max: 100, value: 0, 'aria-label': 'move m to c' });
   slider.addEventListener('input', () => { kk = slider.value / 100; draw(); });
   const back = btn('Back', () => { stepI--; draw(); });
   const next = btn('Next', () => { stepI++; if (stepI === 3) { st.tween(1400, (k) => { kk = k; slider.value = k * 100; draw(); }); } if (stepI === 4) { kk = 1; slider.value = 100; } draw(); });
-  const c2 = ctlRow(w); c2.append(back, next, H('label', { class: 'range' }, 'Move m to c', slider), H('span', { class: 'readout grow' }, 'Drag to turn.'));
+  const sliderLab = H('label', { class: 'range' }, 'Move m to c', slider);
+  const c2 = ctlRow(w); c2.append(back, next, sliderLab, H('span', { class: 'readout grow' }, 'Drag to turn.'));
   draw();
 }
 
@@ -921,8 +930,8 @@ export function figObligation(w) {
         lines.push(`<b>Corner</b> (DMON7) at v<sub>${i}</sub>: the point (${e.site.join(',')}) ` + (e.result === 'new' ? 'is not a vertex yet: <b>an obligation with one site</b> (blue ring).' : '<span class="ok">is already a vertex</span>.'));
       }
     }
-    head.textContent = `Step ${i} (letter ${word[i]}): ${s.events.length} event${s.events.length > 1 ? 's' : ''}`;
-    info.innerHTML = lines.join('<br><br>') + `<br><br>Pending after this step: <b>${s.pending.length}</b>.`;
+    head.textContent = `Event ${ei + 1} of ${evSteps.length}: step ${i} (letter ${word[i]})`;
+    info.innerHTML = lines.join('<br><br>') + `<br><br>Obligations pending after this step, counting earlier ones: <b>${s.pending.length}</b>.`;
     back.disabled = ei === 0; next.disabled = ei === evSteps.length - 1; st.request();
   }
   const back = btn('Back', () => { ei--; draw(); }), next = btn('Next', () => { ei++; draw(); });

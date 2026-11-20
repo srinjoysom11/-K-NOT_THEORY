@@ -890,7 +890,7 @@ the origin). A site with fewer than two such neighbours can never be passed thro
 \FigSpan
 \caption{The span test, on one axis. The rest of the walk starts at the head's coordinate $c$, must
 reach the smallest coordinate $l$ and the largest coordinate $h$ among the single sites (and $0$), and
-ends at $0$. If it reaches $l$ before $h$ (red), it uses at least $a_1$ steps on this axis; if it
+ends at $0$. If it reaches $l$ before $h$ (orange), it uses at least $a_1$ steps on this axis; if it
 reaches $h$ first (blue), at least $a_2$. The three axes together cannot use more than the $R-1$ steps
 that are left.}
 \label{fig:span}
@@ -1047,7 +1047,7 @@ No word of length at most $22$ passes the DMON tests.}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figs/growth.pdf}
-\caption{(a) Search nodes (blue) and returned words (red) per length, on a logarithmic scale, with
+\caption{(a) Search nodes (blue) and returned words (orange) per length, on a logarithmic scale, with
 least-squares fits of $\log y$ against $n$: nodes $\approx \NodeConst\cdot \NodeBase^{\,n}$ (fitted for
 $20\le n\le34$) and words $\approx \WordConst\cdot\WordBase^{\,n}$ ($24\le n\le34$, the lengths with
 knotted words). Shorter lengths are left out of the node fit because the growth factor is still
@@ -1423,8 +1423,9 @@ $72>0$ for $D=(1,-1,4)$. So $L(K)$ is equivalent to $K$; its projection to the f
 the diagram, and its third coordinate is the height. A viewer at large positive height sees the plane
 with its standard orientation, the one to which the counter-clockwise order of the PD code refers.
 
-\emph{The shell.} Let $\sigma(X,Y)=(2X,2Y,1-X^2-Y^2)/(1+X^2+Y^2)$, the inverse stereographic projection of
-the plane onto the unit sphere $S^2$; near $(0,0)$ it is close to $(X,Y)\mapsto(2X,2Y,1)$, so it carries the
+\emph{The shell.} Let
+\[ \sigma(X,Y)=\frac{(2X,\ 2Y,\ 1-X^2-Y^2)}{1+X^2+Y^2}, \]
+the inverse stereographic projection of the plane onto the unit sphere $S^2$; near $(0,0)$ it is close to $(X,Y)\mapsto(2X,2Y,1)$, so it carries the
 standard orientation of the plane to the orientation of $S^2$ seen from outside. Scale the heights of
 $L(K)$ into $(-1,1)$ by a positive factor, and put $\Phi(X,Y,H)=(1+H/2)\,\sigma(X,Y)$. Then $\Phi$ is a smooth
 embedding of $\R^2\times(-1,1)$ onto the open shell between the radii $1/2$ and $3/2$; it sends height to
