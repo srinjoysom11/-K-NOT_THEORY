@@ -197,8 +197,9 @@ common point has integer coordinates on both axes, so it is an endpoint; paralle
 disjoint or collinear, and collinear unit segments between consecutive integers meet only at a shared
 endpoint). In $|w|$, adjacent segments $[v_{i-1},v_i]$ and $[v_i,v_{i+1}]$ share exactly the point
 $v_i$, and non-adjacent segments share no point, because the vertices are distinct. So $|w|$ is a
-simple closed curve made of $n$ segments. A \emph{lattice polygon} is a simple closed curve that is a
-union of finitely many unit lattice segments, each of its corners lying on exactly two of them. Every
+simple closed curve made of $n$ segments. A \emph{lattice polygon} is a simple closed curve that is the
+union of finitely many unit lattice segments; since the curve is simple and closed, each endpoint of
+a segment lies on exactly two of the segments. Every
 lattice polygon is a translate of $|w|$ for some polygon word $w$: start at any vertex and read off the
 steps.
 
@@ -215,10 +216,12 @@ the number of letters on each axis is even, and so is their total $n$.
 A \emph{knot} is a simple closed curve in $\R^3$; all our knots are polygonal. Two knots $K$, $K'$ are
 \emph{equivalent} (have the same \emph{knot type}) if there is an orientation-preserving homeomorphism
 $h$ of $\R^3$ with $h(K)=K'$. The \emph{mirror image} $K^*$ of $K$ is its image under a reflection of
-$\R^3$. The \emph{unknot} is the knot type of a round circle, or equivalently of the boundary of a
-unit square (a flat convex polygon); a knot is \emph{non-trivial}, or \emph{knotted}, if it is not the
-unknot. The mirror image of the unknot is the unknot (a reflection maps a flat polygon to a flat
-polygon). We take knot types without orientation. For polygonal knots there is a simple, local way to
+$\R^3$. The \emph{unknot} is the knot type of a round circle. The boundary of a unit square has this
+type: the radial homeomorphism of the plane $z=0$ about the centre of the square that maps the circle
+through the corners onto the square, crossed with the identity on $z$, is an orientation-preserving
+homeomorphism of $\R^3$. A knot is \emph{non-trivial}, or \emph{knotted}, if it is not the unknot. The
+mirror image of the unknot is the unknot: the reflection $(x,y,z)\mapsto(x,y,-z)$ maps the unit square
+in the plane $z=0$ onto itself. We take knot types without orientation. For polygonal knots there is a simple, local way to
 change a knot without changing its type.
 
 \begin{definition}[$\Delta$-move]\label{def:delta}
@@ -241,7 +244,7 @@ drag the edge through the other strand, which can change the knot type.}
 The intuition: slide the edge $[a,b]$ across the flat triangle onto the two other sides. Nothing is
 in the way, so nothing is cut or passed through.
 
-\begin{theorem}[E1: $\Delta$-moves preserve the knot type; Reidemeister~{\cite[Ch.~I]{Rei32}}, see also~{\cite[Ch.~1]{BZ}}]\label{thm:deltamove}
+\begin{theorem}[E1: $\Delta$-moves preserve the knot type; Reidemeister~\cite{Rei27}, see also~{\cite[Ch.~1]{BZ}}]\label{thm:deltamove}
 If $K'$ is obtained from $K$ by a $\Delta$-move, then $K'$ is equivalent to $K$.
 \end{theorem}
 \begin{proof}
@@ -309,7 +312,7 @@ identity outside $B$. This is a homeomorphism of $\R^3$ with $h(K)=K'$, and it i
 orientation-preserving because it is the identity on an open set.
 \end{proof}
 
-Reidemeister used $\Delta$-moves to found knot theory combinatorially~\cite{Rei27},~\cite[Ch.~I]{Rei32}. The converse
+Reidemeister used $\Delta$-moves to found knot theory combinatorially, first in a short paper~\cite{Rei27} and then in his book~\cite{Rei32}. The converse
 (equivalent polygonal knots are related by finitely many $\Delta$-moves) also holds; it needs
 approximation results for homeomorphisms~\cite[Ch.~1]{BZ},~\cite[Chs.~33--36]{Moi77}. We never use it.
 
@@ -383,7 +386,9 @@ unknot, the trefoil, the figure-eight knot and $5_1$ have only the $7$ constant 
 \section{Stage one: a normal form for a shortest polygon}\label{sec:normal}
 
 In this section $T$ is a \emph{knot class}: a set of words that behaves like ``the words of a given knot
-type, up to mirror image''. Precisely, $T$ is a knot class (Lean: \lean{KnotClass}) if
+type, up to mirror image''. Precisely, $T$ is a knot class (Lean: \lean{KnotClass}) if the following hold; the
+moves in (K2)--(K6) are defined in \cref{lem:flip,lem:uturn,lem:rigid} below, and the definition is used
+only after them.
 \begin{enumerate}[label=(K\arabic*)]
 \item every member of $T$ is a polygon word;
 \item $T$ is closed under rotation of the word (\cref{lem:rigid}(a));
@@ -465,8 +470,8 @@ sides are edges of $|w|$. The fourth side $[v_i,v_{i+3}]$ is not an edge of $|w|
 $[v_{i-1},v_i]$ and $[v_i,v_{i+1}]$, and $v_{i+3}=v_{i-1}$ would mean the polygon has only the four
 vertices $v_i,\dots,v_{i+3}$, so $n=4$. By \cref{lem:segsquare} every other edge meets $Q$ at most in a
 corner, and only at $v_i$ or $v_{i+3}$ (the vertices $v_{i+1},v_{i+2}$ have no other edges). Two
-$\Delta$-moves, each in the reverse form of the definition (two edges $[a,c]\cup[c,b]$ become one
-edge $[a,b]$).
+$\Delta$-moves, each in the reverse form of the definition (two edges with a common endpoint become
+one edge).
 \begin{enumerate}
 \item The triangle $\Delta_1=v_iv_{i+1}v_{i+2}$ turns $[v_i,v_{i+1}]\cup[v_{i+1},v_{i+2}]$ into the
 diagonal $[v_i,v_{i+2}]$ (\cref{fig:flipdelta}e). It meets $|w|$ only in these two edges: the side
@@ -868,7 +873,8 @@ the two orders, so it makes at least $\min(a_1,a_2)$ steps on this axis.
 (C3, \dmon6, \dmon7) No obligation is pending: the obligation update runs with $R-1=0$, so the reach
 test fails for every obligation still pending (its site would have to be the origin, which is never a
 site).
-(C4, \dmon2, \dmon6) $w_0\ne-w_{n-2}$ and $w_1\ne-w_{n-1}$: no reversal or U-turn across the origin.
+(C4, \dmon6) $w_0\ne-w_{n-2}$ and $w_1\ne-w_{n-1}$: no U-turn across the origin (a reversal
+$w_0=-w_{n-1}$ is already excluded by C2).
 (C5, \dmon6) For each axis whose most recent and first letters are opposite, the curtain that wraps
 around the origin has an interior point that is a vertex.
 (C6, \dmon5) $\#_z\le\#_y\le\#_x$.
@@ -923,8 +929,9 @@ theorem is stated for the part that contains $w$ (\lean{search\_complete}) and f
 
 The proof shows that no test ever discards a prefix of $w$. Since the search tries all six letters at
 every node, it then follows the walk of $w$ letter by letter until $w$ is closed and returned. Fix $w$,
-with vertices $v_0,\dots,v_n$ ($v_n=v_0=0$), and let $n\ge6$ (for $n=4$, \dmon6 fails for every word,
-since a unit square is a curtain with $k=1$ and no interior points). Throughout, ``the step $i$'' means
+with vertices $v_0,\dots,v_n$ ($v_n=v_0=0$), and let $n\ge6$ (for $n=4$ no word passes \dmon1--\dmon7: a word
+of length $4$ that passes \dmon1 and \dmon2 is a unit square $a,b,-a,-b$, and its stretch $a,b,-a$ is a
+curtain with $k=1$, which has no interior points). Throughout, ``the step $i$'' means
 extending the prefix $w_0\cdots w_{i-1}$ by $d=w_i$, so the new head is $v_{i+1}$, and $R=n-i$.
 
 \begin{lemma}[The search state along $w$]\label{lem:state}
@@ -1010,7 +1017,8 @@ interior points, so it violates \dmon6. In the same way, if $w_1=-w_{n-1}$, then
 same axis and $w_0=-w_1$ or $w_0=-w_{n-1}$ is a reversal, or $w_{n-1},w_0,w_1$ is a curtain with $k=1$,
 which violates \dmon6. For an axis whose most recent letter $w_{j_l}$ and first letter $w_{j_f}$ are
 opposite, the letters after $w_{j_l}$ and before $w_{j_f}$ are on other axes, so they form a curtain
-that wraps around the origin, with $k=(n-j_l-1)+j_f\ge1$ ($k=0$ would give $v_{n-1}=v_1$); \dmon6
+that wraps around the origin, with $k=(n-j_l-1)+j_f\ge1$ ($k=0$ would give $v_{n-1}=v_1$) and
+$k\le n-2$ (because $j_f<j_l$); \dmon6
 gives an interior point that is a vertex, and at the end every vertex is occupied. Finally
 $\#_z\le\#_y\le\#_x$ is \dmon5.
 
@@ -1053,7 +1061,7 @@ $20\le n\le34$) and words $\approx \WordConst\cdot\WordBase^{\,n}$ ($24\le n\le3
 knotted words). Shorter lengths are left out of the node fit because the growth factor is still
 rising there, see (b); continued to $n<20$, the fitted line lies below the counts. Exponential growth is
 expected: the number $p_n$ of lattice polygons of length $n$ satisfies $p_n^{1/n}\to\mu$ (Hammersley
-\cite{Ham61}; see \cite[Ch.~3]{MS93}), with $\mu\approx4.684$ (Clisby \cite{Cli13}), so $p_n$ grows by about
+\cite{Ham61}; see \cite[\S3.2]{MS93}), with $\mu\approx4.684$ (Clisby \cite{Cli13}), so $p_n$ grows by about
 $\mu^2\approx21.9$ per two steps. The DMON tests cut this down to about $6$ per two steps. (b) The
 points in (a) are close to, but not exactly on, a straight line: the growth factor per two steps
 rises slowly, from \RatioFirst{} at $n=8$ to \RatioLast{} at $n=34$ (the dashed line is the fitted
@@ -1136,10 +1144,14 @@ says that $G$ is generated by elements $x_1,\dots,x_c$, one loop around each arc
 crossing:
 \[ x_{\mathrm{out}}=x_{\mathrm{over}}^{\varepsilon}\,x_{\mathrm{in}}\,x_{\mathrm{over}}^{-\varepsilon}, \]
 where $x_{\mathrm{over}}$, $x_{\mathrm{in}}$, $x_{\mathrm{out}}$ are the over-arc and the incoming and
-outgoing under-arcs, and $\varepsilon=\pm1$ depends on the sign of the crossing and on the orientation
-chosen for the loops~\cite[Ch.~3]{BZ}. Its value plays no role below, because every element we
-substitute for $x_{\mathrm{over}}$ is its own inverse. (If $c=0$, the diagram is a
-simple closed curve, $K$ is unknotted, and $G\cong\Z$, generated by one loop around $K$.)
+outgoing under-arcs, and $\varepsilon=\pm1$ depends on the sign of the crossing and on the convention,
+the same for all loops, by which each loop is oriented (the right-hand rule)~\cite[Ch.~3]{BZ}. Its value plays no role below, because every element we
+substitute for $x_{\mathrm{over}}$ is its own inverse. (If $c=0$, the projection is
+injective on $K$, so $K$ is the graph of a continuous height function $f$ over the simple closed polygon
+$C=\pi(K)$ in the plane. Extend $f$ continuously to the whole plane (Tietze's extension theorem). The
+shear $(X,Y,H)\mapsto(X,Y,H-f(X,Y))$ is an orientation-preserving homeomorphism of $\R^3$ that maps $K$
+onto $C$, and by the Schoenflies theorem for polygons~\cite[Ch.~3]{Moi77} $C$ bounds a disc in the plane. So $K$ is
+unknotted, and $G\cong\Z$, generated by one loop around $K$.)
 \begin{itemize}
 \item Sending every $x_i$ to $1$ defines a homomorphism $\lambda:G\to\Z$, because both sides of every
 relation have total exponent $1$. Geometrically, $\lambda(\gamma)$ is the linking number of a loop
@@ -1427,13 +1439,17 @@ with its standard orientation, the one to which the counter-clockwise order of t
 \[ \sigma(X,Y)=\frac{(2X,\ 2Y,\ 1-X^2-Y^2)}{1+X^2+Y^2}, \]
 the inverse stereographic projection of the plane onto the unit sphere $S^2$; near $(0,0)$ it is close to $(X,Y)\mapsto(2X,2Y,1)$, so it carries the
 standard orientation of the plane to the orientation of $S^2$ seen from outside. Scale the heights of
-$L(K)$ into $(-1,1)$ by a positive factor, and put $\Phi(X,Y,H)=(1+H/2)\,\sigma(X,Y)$. Then $\Phi$ is a smooth
-embedding of $\R^2\times(-1,1)$ onto the open shell between the radii $1/2$ and $3/2$; it sends height to
-radius, so a crossing's over-strand goes to the outer point. Its Jacobian determinant has the same sign
+$L(K)$ into $(-1/2,1/2)$ by a positive factor, and put $\Phi(X,Y,H)=(1+H/2)\,\sigma(X,Y)$. Then $\Phi$ is a
+smooth embedding of $\R^2\times(-1,1)$ onto the open shell between the radii $1/2$ and $3/2$, minus the
+radial segment under the south pole (which $\sigma$ misses); it sends height to radius, so a crossing's
+over-strand goes to the outer point. Its Jacobian determinant has the same sign
 everywhere (the domain is connected and $\Phi$ is an embedding), and it is positive at the origin, so
-$\Phi$ preserves orientation. On a closed ball containing the knot, $\Phi$ is an orientation-preserving
-smooth embedding; by the disc theorem and the isotopy extension theorem~\cite[Ch.~8]{Hir76} it agrees
-there with a diffeomorphism of $\R^3$. So $\Phi(L(K))$ is equivalent to $K$. It lies in the shell over a
+$\Phi$ preserves orientation. For $A$ large, the solid ellipsoid
+$E=\{(X^2+Y^2)/A^2+(4H/3)^2\le1\}$ contains $L(K)$ and lies in $\R^2\times(-1,1)$. It is the image of
+the unit ball under a linear map of positive determinant, so $\Phi$ restricted to $E$ is an
+orientation-preserving smooth embedding of a $3$-disc. By the disc theorem~\cite[Ch.~8]{Hir76} there
+is a diffeomorphism $F$ of $\R^3$, isotopic to the identity, with $F=\Phi$ on $E$. So $F(L(K))=\Phi(L(K))$
+is equivalent to $K$. It lies in the shell over a
 curve on $S^2$ (its \emph{radial projection}), which is the diagram transported by $\sigma$.
 
 \emph{Same diagram, same knot.} Let $g$ be the homeomorphism of step~2, transported to $S^2$ by
@@ -1443,22 +1459,24 @@ to a knot in the shell over the second, with the same over- and under-strands. S
 two knots $K_0$, $K_1$ in the shell over the same curve $C\subset S^2$, with the same crossing
 information, are equivalent. Write points of the shell as $(y,t)$ with $y\in S^2$ and radius $1+t/2$,
 $t\in(-1,1)$, and let $h_0,h_1$ be the heights of $K_0,K_1$ over $C$ (two values over each crossing). We
-build a homeomorphism that moves points only along the radial fibres $\{y\}\times(-1,1)$, is the
-identity near the boundary of the shell, and carries $K_0$ to $K_1$.
+build a homeomorphism that moves points only along the radial fibres $\{y\}\times[-1,1]$, is the
+identity on the two boundary spheres of the closed shell, and carries $K_0$ to $K_1$.
 Choose disjoint small closed discs $U_x\subset S^2$ about the crossings $x$, and homeomorphisms
 $U_x\cong[-1,1]^2$ that take the under-arc and the over-arc of $C\cap U_x$ to the two axes. For
 $y=(s,s')\in U_x$ put $u_j(y)=h_j(\text{under-point }s)$ and $o_j(y)=h_j(\text{over-point }s')$
 ($j=0,1$); if $U_x$ is small, $u_j<o_j$ on $U_x$, because the over-strand is higher at $x$. Let
 $\phi^x_y$ be the map of $[-1,1]$ that is linear between the points $-1<u_0(y)<o_0(y)<1$ and sends them to
-$-1<u_1(y)<o_1(y)<1$. On a neighbourhood $N$ of $C$ minus the interiors of the discs, with a retraction
-$\rho:N\to C$, let $\phi^N_y$ be the map that is linear on both sides of $h_0(\rho(y))$ and sends it to
+$-1<u_1(y)<o_1(y)<1$. Let $N$ be an open neighbourhood of $C$ minus the interiors of the discs that
+contains no crossing and is so thin that $C\cap N$ is a union of disjoint arcs, and let $\rho:N\to C\cap N$
+be a retraction ($\rho(y)=y$ for $y\in C\cap N$). Let $\phi^N_y$ be the map that is linear on both sides of $h_0(\rho(y))$ and sends it to
 $h_1(\rho(y))$, fixing $\pm1$. Away from $C$ use the identity. Glue these maps with a partition of unity
-on $S^2$ subordinate to the cover by the discs, $N$, and $S^2\setminus C$. Each map is an increasing
+on $S^2$ subordinate to the open cover by the interiors of the discs, $N$, and $S^2\setminus C$ (these
+cover $S^2$: a point of $C$ on the boundary of a disc lies in $N$). Each map is an increasing
 homeomorphism of $[-1,1]$ fixing $\pm1$, and depends continuously on $y$; a convex combination of such
 maps is again one. At a point $y\in C$ only the disc maps and $\phi^N$ are used, and each of them sends
 $h_0(y)$ to $h_1(y)$ (at a crossing, both heights), so the combination does too. Hence the glued map
-$(y,t)\mapsto(y,\phi_y(t))$ is a homeomorphism of the closed shell, the identity on its boundary
-spheres; extended by the identity outside the shell, it is a homeomorphism of $\R^3$, orientation-preserving
+$(y,t)\mapsto(y,\phi_y(t))$ is continuous and bijective on the compact Hausdorff space $S^2\times[-1,1]$,
+so it is a homeomorphism of the closed shell; it is the identity on its boundary spheres; extended by the identity outside the shell, it is a homeomorphism of $\R^3$, orientation-preserving
 because it is the identity on an open set, and it carries $K_0$ to $K_1$.
 \end{enumerate}
 Hence $\Kft$ is $5_2^*$, and $\Len(5_2)=\Len(5_2^*)\le36$. Independently, SnapPy~\cite{SnapPy}
