@@ -162,7 +162,7 @@ async function wPolygon(w) {
     const canvas = H('canvas', { class: 'gl', 'aria-label': 'Interactive 3D view of the 36-step polygon; drag to turn' }); p3.append(canvas);
     view = new G.LatticeView(canvas, { verts: b.verts, pieces: b.pieces, colourOf: col });
     view.onUser = () => mode.set('free');
-  } else { p3.append(H('img', { class: 'fallback', src: 'figs/polygon36.svg', alt: 'The polygon and its diagram, as in the paper' })); }
+  } else { p3.parentNode.style.setProperty('--cols', '1'); p3.remove(); }   // without WebGL: the interactive diagram (b) alone
   const mode = seg([['free', 'Free view'], ['proj', 'View along D = (1, −1, 4)']], 'free', (v) => {
     if (!view) return;
     if (v === 'proj') { view.viewAlong(b.D); read.innerHTML = 'Seen along <b>D</b>, the polygon <b>is</b> its diagram (b): the same five crossings, the same arcs.'; }
@@ -693,13 +693,13 @@ function wStd52(w) {
   let a = 0, b = 1;
   const arcPaths = D.arcs.map((pts) => S('path', { d: pathOf(pts), fill: 'none', 'stroke-width': .1, 'stroke-linecap': 'round' }, svg));
   const edgeHL = S('g', {}, svg);
-  D.edgeLabels.forEach((e) => { const t = S('text', { x: e.p[0], y: -e.p[1] + .06, 'text-anchor': 'middle', 'font-size': .17, fill: '#1f3b73', 'font-weight': 600 }, svg); t.textContent = e.label; });
+  D.edgeLabels.forEach((e) => { const t = S('text', { x: e.p[0], y: -e.p[1] + .06, 'text-anchor': 'middle', 'font-size': .17, fill: INK, 'font-weight': 600 }, svg); t.textContent = e.label; });
   const xg = S('g', {}, svg);
   D.crossings.forEach((c, k) => {
     const g = S('g', { class: 'hit', tabindex: 0, role: 'button', 'aria-label': `crossing X${D.crossNames[k]}` }, xg);
     S('circle', { cx: c.p[0], cy: -c.p[1], r: .2, fill: 'transparent' }, g);
-    S('circle', { cx: c.p[0], cy: -c.p[1], r: .045, fill: '#8a1c1c' }, g);
-    const lp = D.crossLabels[k]; const t = S('text', { x: lp[0], y: -lp[1] + .06, 'text-anchor': 'middle', 'font-size': .18, fill: '#8a1c1c', 'font-weight': 700 }, g);
+    S('circle', { cx: c.p[0], cy: -c.p[1], r: .045, fill: BAD }, g);
+    const lp = D.crossLabels[k]; const t = S('text', { x: lp[0], y: -lp[1] + .06, 'text-anchor': 'middle', 'font-size': .18, fill: BAD, 'font-weight': 700 }, g);
     t.innerHTML = `X<tspan baseline-shift="sub" font-size=".12">${D.crossNames[k]}</tspan>`;
     const show = () => { focusX(k); }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show);
   });
@@ -769,18 +769,18 @@ function wPdCompare(w) {
   const g = S('g', {}, svg), labG = S('g', {}, svg);
   const svg2 = S('svg', { role: 'img', 'aria-label': 'The KnotInfo diagram of 5_2' }, right); svgFit(svg2, D.arcs.flat(), 0.55);
   D.arcs.forEach((pts) => S('path', { d: pathOf(pts), fill: 'none', stroke: INK, 'stroke-width': .07, 'stroke-linecap': 'round' }, svg2));
-  D.edgeLabels.forEach((e) => { const t = S('text', { x: e.p[0], y: -e.p[1] + .06, 'text-anchor': 'middle', 'font-size': .17, fill: '#1f3b73', 'font-weight': 600 }, svg2); t.textContent = e.label; });
-  D.crossings.forEach((c) => S('circle', { cx: c.p[0], cy: -c.p[1], r: .045, fill: '#8a1c1c' }, svg2));
+  D.edgeLabels.forEach((e) => { const t = S('text', { x: e.p[0], y: -e.p[1] + .06, 'text-anchor': 'middle', 'font-size': .17, fill: INK, 'font-weight': 600 }, svg2); t.textContent = e.label; });
+  D.crossings.forEach((c) => S('circle', { cx: c.p[0], cy: -c.p[1], r: .045, fill: BAD }, svg2));
   let sw = false, sh = false;
   const tbl = H('table', {}); const wrap = H('div', { class: 'tablewrap', style: 'padding:12px' }, tbl); w.querySelector('.stage').append(wrap);
   function draw() {
     drawPolyDiagram(svg, B, { colour: () => INK, width: .16, gap: .34, switched: sw, group: g });
-    B.crossings.forEach((c) => { const x = crossPoint(B, c); S('circle', { cx: x[0], cy: -x[1], r: .1, fill: '#8a1c1c' }, g); });
+    B.crossings.forEach((c) => { const x = crossPoint(B, c); S('circle', { cx: x[0], cy: -x[1], r: .1, fill: BAD }, g); });
     { const p = B.orth[0], q = B.orth[1], m = [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2], d = [q[0] - p[0], q[1] - p[1]], L = Math.hypot(...d), u = [d[0] / L, d[1] / L];
       S('path', { d: `M${m[0] + u[0] * .25},${-(m[1] + u[1] * .25)}l${-u[0] * .4 - u[1] * .22},${u[1] * .4 - u[0] * .22}l${u[1] * .44},${u[0] * .44}Z`, fill: INK }, g);
       S('circle', { cx: p[0], cy: -p[1], r: .14, fill: INK }, g); }
     labG.innerHTML = '';
-    B.pdLabels.forEach((e, k) => { const t = S('text', { x: e.p[0], y: -e.p[1] + .12, 'text-anchor': 'middle', 'font-size': .34, fill: '#1f3b73', 'font-weight': 600 }, labG); t.textContent = sh ? e.label : ((e.label - 1 - 6 + 20) % 10) + 1; });
+    B.pdLabels.forEach((e, k) => { const t = S('text', { x: e.p[0], y: -e.p[1] + .12, 'text-anchor': 'middle', 'font-size': .34, fill: INK, 'font-weight': 600 }, labG); t.textContent = sh ? e.label : ((e.label - 1 - 6 + 20) % 10) + 1; });
     const cur = sw ? (sh ? PD.shifted : PD.switched) : (sh ? PD.w36.map((X) => X.map((x) => (x + 5) % 10 + 1)) : PD.w36);
     const stdS = PD.std.map((X) => X.join(','));
     tbl.innerHTML = '<thead><tr><th>code of w36</th><th>now</th><th>KnotInfo</th></tr></thead>';
@@ -849,7 +849,7 @@ async function f3() {
 const via3d = (name, flat) => async (w) => { const m = await f3(); if (m) m[name](w); else if (flat) flat(w); else w.append(H('p', { class: 'hint' }, 'This interactive figure needs WebGL. The proof above is complete without it.')); };
 const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: via3d('figDelta', wDelta), trefoil: via3d('figTrefoil', wTrefoil), segsquare: via3d('figSegSquare', wSegSquare),
   flipdelta: via3d('figFlipDelta', wFlipDelta), psi: via3d('figPsi', wPsi), curtain: via3d('figCurtain', wCurtain), corners: via3d('figCorners', wCorners),
-  origin: via3d('figOrigin', wOrigin), replay: via3d('figObligation', wReplay), reach: via3d('figReach', wReach), span: async (w) => { await via3d('figSpan', null)(w); wSpan(w); },   // 3D state, then the one-axis picture of the caption runs: wRuns, growth: wGrowth,
+  origin: via3d('figOrigin', wOrigin), replay: via3d('figObligation', wReplay), reach: via3d('figReach', wReach), span: async (w) => { await via3d('figSpan', null)(w); wSpan(w); } /* 3D state, then the one-axis picture of the caption */, runs: wRuns, growth: wGrowth,
   std52: via3d('figStd52', wStd52), certex: via3d('figCertex', wCertex), pdcompare: async (w) => (await import('./figs3d.js')).figPdCompare(w),
   deltaproof: via3d('figDeltaProof'), invariant: via3d('figInvariant'), d7: async (w) => (await import('./figs3d.js')).figD7(w), deps: () => {} };
 function boot() {
@@ -857,7 +857,13 @@ function boot() {
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting) return; io.unobserve(e.target);
     const f = WIDGETS[e.target.dataset.w];
-    try { const r = f && f(e.target); if (r && r.catch) r.catch((err) => console.error(err)); } catch (err) { console.error(err); }
+    if (!f) {   // never fail silently: show the paper's own figure
+      const ns = e.target.nextElementSibling;
+      if (ns && ns.tagName === 'NOSCRIPT') e.target.innerHTML = ns.textContent;
+      console.error('no widget for', e.target.dataset.w); return;
+    }
+    const live = () => e.target.querySelectorAll('.readout, .side').forEach((x) => x.setAttribute('aria-live', 'polite'));   // announce state changes
+    try { const r = f && f(e.target); if (r && r.then) r.then(live, (err) => console.error(err)); else live(); } catch (err) { console.error(err); }
   }), { rootMargin: '600px 0px' });
   document.querySelectorAll('.widget[data-w]').forEach((w) => io.observe(w));
 }

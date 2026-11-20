@@ -31,7 +31,7 @@ function stage(w, cols = 1, cls = '') {
   st.append(ps); w.append(st); return out;
 }
 const ctlRow = (w) => { const c = H('div', { class: 'ctl' }); w.append(c); return c; };
-const readout = (w) => { const r = H('div', { class: 'readout' }); w.append(r); return r; };
+const readout = (w) => { const r = H('div', { class: 'readout', 'aria-live': 'polite' }); w.append(r); return r; };
 const hint = (text) => H('p', { class: 'hint' }, text);
 
 // ===================================================================== 2D knot diagrams (SVG)
@@ -186,7 +186,9 @@ export function figTrefoil(w) {
       ` Each badge is one crossing: twice the over-arc against the two under-arcs. This diagram has <b>${count()}</b> ${p}-colourings${p === 7 ? ', only the 7 constant ones' : ''}. The floor shows the diagram as the knot's shadow.`;
   }
   const c = ctlRow(w);
-  c.append(seg([['3', 'p = 3'], ['7', 'p = 7']], '3', (v) => { p = +v; x = x.map((a) => mod(a, p)); draw(); }), btn('Constant', () => { x = [0, 0, 0]; draw(); }), btn('Colours 0, 1, 2', () => { x = [0, 1, 2]; draw(); }),
+  const strandBtns = H('div', { class: 'seg', role: 'group', 'aria-label': 'add 1 to a strand' });
+  [0, 1, 2].forEach((e) => strandBtns.append(btn(`Strand ${e + 1} +1`, () => { x[e] = mod(x[e] + 1, p); draw(); })));
+  c.append(seg([['3', 'p = 3'], ['7', 'p = 7']], '3', (v) => { p = +v; x = x.map((a) => mod(a, p)); draw(); }), strandBtns, btn('Constant', () => { x = [0, 0, 0]; draw(); }), btn('Colours 0, 1, 2', () => { x = [0, 1, 2]; draw(); }),
     H('span', { class: 'readout grow' }, 'Click a strand to add 1 to its colour. Drag to turn.'));
   draw();
 }
@@ -246,7 +248,8 @@ export function figPsi(w) {
   const grp = new THREE.Group(); st.world.add(grp);
   st.frame(walk(word.join('')).slice(0, -1).concat([[0, 0, -0.3], [3, 0, 2.5]]), [0.55, -1.7, 0.6]);
   const big = H('div', { class: 'bignum' }); const sub = H('div', { class: 'readout' }); const hist = H('ol', { class: 'log' });
-  side.append(H('h5', {}, 'Height potential'), big, sub, H('h5', { style: 'margin-top:14px' }, 'Flips so far'), hist);
+  const picks = H('div', { class: 'pickrow', 'aria-label': 'allowed flips' });
+  side.append(H('h5', {}, 'Height potential'), big, sub, picks, H('h5', { style: 'margin-top:14px' }, 'Flips so far'), hist);
   const psiOf = (V) => { const z = V.map((v) => v[2]); const m = Math.min(...z); return [z.reduce((a, v) => a + v - m, 0), m]; };
   function flips(V) {
     const n = word.length, out = [], set = new Set(V.map(key));
@@ -275,6 +278,7 @@ export function figPsi(w) {
       st.ball(f.vp, { color: c, radius: 0.16, hollow: true, userData: { flip: f.i }, pick: true, parent: grp });
       st.sheet([V[f.i - 1], V[f.i], V[(f.i + 1) % V.length], f.vp], { color: c, opacity: 0.12, parent: grp });
     }
+    if (!moving) { picks.innerHTML = ''; flips(V).forEach((f) => { const dz = f.vp[2] - V[f.i][2]; picks.append(btn(`Flip at v${f.i} (${dz < 0 ? 'down' : dz > 0 ? 'up' : 'sideways'})`, () => doFlip(f.i))); }); }
     big.innerHTML = `ψ<sub>Z</sub> = ${psi}`;
     sub.innerHTML = `The sum of the vertex heights above the lowest level z<sub>min</sub> = ${zmin} (the blue plane). Each ring is the fourth corner v′ of a square at a corner of the polygon where a flip is allowed: <span style="color:${COL[2]};font-weight:700">green</span> moves the vertex down and lowers ψ<sub>Z</sub> by 1, <span style="color:${COL[1]};font-weight:700">orange</span> moves it up, <span style="color:#2b8cc4;font-weight:700">blue</span> sideways. Click a ring to flip.`;
     st.request();
@@ -287,10 +291,12 @@ export function figPsi(w) {
       draw();
       const after = psiOf(walk(word.join('')).slice(0, -1))[0];
       hist.prepend(H('li', { html: `corner at v<sub>${i}</sub>: ψ<sub>Z</sub> ${before} → <b>${after}</b>` }));
+      empty.remove();
     });
   }
+  const empty = H('li', {}, 'None yet.'); hist.append(empty);
   const c = ctlRow(w);
-  c.append(btn('Reset', () => { word = start.slice(); hist.innerHTML = ''; draw(); }), H('span', { class: 'readout grow', html: 'Drag to turn. The blue numbers are the vertex heights above z<sub>min</sub>; ψ<sub>Z</sub> is their sum. The paper flips the corner at v<sub>6</sub>.' }));
+  c.append(btn('Reset', () => { word = start.slice(); hist.innerHTML = ''; hist.append(empty); draw(); }), H('span', { class: 'readout grow', html: 'Drag to turn. The blue numbers are the vertex heights above z<sub>min</sub>; ψ<sub>Z</sub> is their sum. The paper flips the corner at v<sub>6</sub>.' }));
   draw();
 }
 
@@ -337,7 +343,7 @@ export function figCurtain(w) {
     } else { t = Math.max(0, Math.min(k, t + dir)); draw(); }
   }
   st.frame(orig(), [0.9, -1.7, 0.85]);
-  const back = btn('Back', () => step(-1)), next = btn('Next step', () => step(1));
+  const back = btn('Back', () => step(-1)), next = btn('Next', () => step(1));
   const c = ctlRow(w);
   c.append(H('span', { class: 'readout' }, 'k ='), seg([['2', '2'], ['3', '3'], ['4', '4'], ['5', '5']], '3', (v) => { k = +v; t = 0; st.frame(orig(), [0.9, -1.7, 0.85]); draw(); }), back, next, H('span', { class: 'readout grow' }, 'Drag to turn.'));
   draw();
@@ -434,7 +440,8 @@ export function figReach(w) {
   const steps = T.steps.map((s, i) => i).filter((i) => T.steps[i].pending.length);
   let si = steps.indexOf(8) >= 0 ? steps.indexOf(8) : 0, sel = null;
   const head = H('h5'), info = H('div', { class: 'readout' }), nb = H('div', { class: 'readout', style: 'margin-top:10px' });
-  side.append(head, info, nb);
+  const siteRow = H('div', { class: 'pickrow', 'aria-label': 'choose a site' });
+  side.append(head, info, nb, siteRow);
   const l1 = (p, q = [0, 0, 0]) => Math.abs(p[0] - q[0]) + Math.abs(p[1] - q[1]) + Math.abs(p[2] - q[2]);
   function lattPath(p, q) { const out = [p.slice()]; let c = p.slice(); for (let a = 0; a < 3; a++) { c = c.slice(); c[a] = q[a]; out.push(c); } return out; }
   function draw() {
@@ -462,12 +469,13 @@ export function figReach(w) {
         st.ball(q, { color: good ? GOOD : BAD, radius: 0.07, parent: grp });
       }
       info.innerHTML = `Selected site s = (${sel.join(', ')}). The walk must go head → s → origin: at least |head − s|₁ + |s|₁ = ${d1} + ${d2} = <b>${d1 + d2}</b> steps; it has <b>${R1}</b> left. ${ok ? '<span class="ok">Reach passes.</span>' : '<span class="no">Reach fails.</span>'}`;
+      siteRow.innerHTML = ''; sites.forEach((x2) => siteRow.append(btn(`(${x2.p.join(', ')})`, () => { sel = x2.p; draw(); }, { 'aria-pressed': String(key(x2.p) === key(sel)) })));
       nb.innerHTML = `Neighbours of s that are free, the head or the origin (small green balls): <b>${usable}</b> of 6. ${usable >= 2 ? '<span class="ok">Room to pass through.</span>' : '<span class="no">s could be entered but not left.</span>'} Click another ring to test it.`;
     }
     st.request();
   }
   const c = ctlRow(w);
-  c.append(btn('Earlier', () => { si = Math.max(0, si - 1); draw(); }), btn('Later', () => { si = Math.min(steps.length - 1, si + 1); draw(); }),
+  c.append(btn('Back', () => { si = Math.max(0, si - 1); draw(); }), btn('Next', () => { si = Math.min(steps.length - 1, si + 1); draw(); }),
     H('span', { class: 'readout grow', html: `The real search walking along <code>${T.word}</code>. Rings: sites of pending obligations (orange: curtain, blue: corner). Drag to turn.` }));
   draw();
 }
@@ -509,7 +517,9 @@ export function figStd52(w) {
   const sa = H('input', { type: 'range', min: 0, max: 6, value: a, 'aria-label': 'a' }), sb = H('input', { type: 'range', min: 0, max: 6, value: b, 'aria-label': 'b' });
   sa.addEventListener('input', () => { a = +sa.value; draw(); }); sb.addEventListener('input', () => { b = +sb.value; draw(); });
   const c = ctlRow(w);
-  c.append(H('label', { class: 'range' }, 'a', sa), H('label', { class: 'range' }, 'b', sb), H('span', { class: 'readout grow' }, 'The 49 colourings a(1,1,1,1,1) + b(0,1,3,4,2). Point at a crossing label to read its PD tuple. The floor shows the diagram.'));
+  const va = H('b', {}, String(a)), vb = H('b', {}, String(b));
+  sa.addEventListener('input', () => { va.textContent = sa.value; }); sb.addEventListener('input', () => { vb.textContent = sb.value; });
+  c.append(H('label', { class: 'range' }, 'a = ', va, sa), H('label', { class: 'range' }, 'b = ', vb, sb), H('span', { class: 'readout grow' }, 'The 49 colourings a(1,1,1,1,1) + b(0,1,3,4,2). Point at a crossing label to read its PD tuple. The floor shows the diagram.'));
   focusX(0); draw();
 }
 
@@ -533,7 +543,7 @@ export function figCertex(w) {
   C.crossings.forEach((c, k) => { const t = S('text', { x: ul[k][0], y: -ul[k][1] + 0.1, 'text-anchor': 'middle', 'font-size': 0.3, fill: INK }, D.svg); t.innerHTML = `u<tspan baseline-shift="sub" font-size=".21">${c.e}</tspan>`; });
   const o = D.P2[0]; S('circle', { cx: o[0], cy: -o[1], r: 0.15, fill: INK }, D.svg);
   const mats = H('div', { class: 'matrow' });
-  const mat = (M, cls) => { const m = H('span', { class: 'mat ' + cls, style: `grid-template-columns:repeat(${M[0].length},auto)` }); M.forEach((r, i) => r.forEach((v) => m.append(H('span', { 'data-r': i }, v)))); return m; };
+  const mat = (M, cls) => { const m = H('span', { class: 'mat ' + cls, style: `grid-template-columns:repeat(${M[0].length},auto)` }); M.forEach((r, i) => r.forEach((v) => m.append(H('span', { 'data-r': i }, String(v).replace('-', '−'))))); return m; };
   mats.append('F =', mat(C.F, 'F'), '≡', mat(C.F.map((r) => r.map((v) => mod(v, 7))), 'Fm'), 'L =', mat(C.L, 'L'), 'LF ≡', mat(C.LF, 'LF'), '(mod 7)');
   w.querySelector('.stage').append(mats);
   const read = readout(w);
@@ -561,7 +571,7 @@ export function figPdCompare(w) {
   const all = Dd.arcs.flat(), xs = all.map((p) => p[0]), ys = all.map((p) => -p[1]);
   svg2.setAttribute('viewBox', `${Math.min(...xs) - 0.5} ${Math.min(...ys) - 0.5} ${Math.max(...xs) - Math.min(...xs) + 1} ${Math.max(...ys) - Math.min(...ys) + 1}`);
   Dd.arcs.forEach((pts) => { const d = 'M' + pts.map((p) => `${p[0]},${-p[1]}`).join('L'); S('path', { d, fill: 'none', stroke: SHEET, 'stroke-width': 0.17, 'stroke-linecap': 'round' }, svg2); S('path', { d, fill: 'none', stroke: INK, 'stroke-width': 0.08, 'stroke-linecap': 'round' }, svg2); });
-  Dd.edgeLabels.forEach((e) => { const t = S('text', { x: e.p[0], y: -e.p[1] + 0.06, 'text-anchor': 'middle', 'font-size': 0.17, fill: '#1f3b73', 'font-weight': 700 }, svg2); t.textContent = e.label; });
+  Dd.edgeLabels.forEach((e) => { const t = S('text', { x: e.p[0], y: -e.p[1] + 0.06, 'text-anchor': 'middle', 'font-size': 0.17, fill: INK, 'font-weight': 700 }, svg2); t.textContent = e.label; });
   const tbl = H('table', {}); w.querySelector('.stage').append(H('div', { class: 'tablewrap', style: 'padding:12px' }, tbl));
   const read = H('div', { class: 'readout' });
   // positions of the PD edges of w36 under pi_D: the edge with label e+1 runs from passage e to e+1
@@ -574,10 +584,10 @@ export function figPdCompare(w) {
     const D = knot2d(left, B, { colour: () => INK, width: 0.15, gap: 0.3, switched: sw, svg: svgL });
     svgL = D.svg;
     const anchors = edgeAnchors(D), spots = placeLabels(D, anchors, 0.5);
-    spots.forEach((p, e) => { const lab = sh ? ((e + 6) % 10) + 1 : e + 1; const t = S('text', { x: p[0], y: -p[1] + 0.13, 'text-anchor': 'middle', 'font-size': 0.3, fill: '#1f3b73', 'font-weight': 700 }, D.svg); t.textContent = lab; });
+    spots.forEach((p, e) => { const lab = sh ? ((e + 6) % 10) + 1 : e + 1; const t = S('text', { x: p[0], y: -p[1] + 0.13, 'text-anchor': 'middle', 'font-size': 0.3, fill: INK, 'font-weight': 700 }, D.svg); t.textContent = lab; });
     { const a0 = D.P2[0], a1 = D.at(0.55); S('path', { d: `M${a0[0]},${-a0[1]}L${a1[0]},${-a1[1]}`, stroke: COL[1], 'stroke-width': 0.09, 'marker-end': 'url(#pdarrow)', fill: 'none' }, D.svg);
       D.svg.insertAdjacentHTML('afterbegin', `<defs><marker id="pdarrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0L10,5L0,10z" fill="${COL[1]}"/></marker></defs>`); }
-    D.crossPts.forEach((x) => S('circle', { cx: x[0], cy: -x[1], r: 0.08, fill: '#8a1c1c' }, D.svg));
+    D.crossPts.forEach((x) => S('circle', { cx: x[0], cy: -x[1], r: 0.08, fill: BAD }, D.svg));
     const o = D.P2[0]; S('circle', { cx: o[0], cy: -o[1], r: 0.14, fill: INK }, D.svg);
     const cur = sw ? (sh ? PD.shifted : PD.switched) : (sh ? PD.w36.map((X) => X.map((x) => (x + 5) % 10 + 1)) : PD.w36);
     const stdS = PD.std.map((X) => X.join(','));
@@ -679,7 +689,7 @@ export function figInvariant(w) {
   st.frame(V, [1.2, -1.6, 1.1]);
   const head = H('h5'), info = H('div', { class: 'readout' });
   const tl = S('svg', { class: 'timeline', role: 'img', 'aria-label': 'Timeline of the obligations: each bar runs from the step that creates an obligation to the step that removes it' });
-  side.append(head, info, H('h5', { style: 'margin-top:14px' }, 'Timeline'), tl, hint('Each bar is one obligation, from the step that creates it to the step that removes it. The dot on the bar is its witness: the later vertex v_m of w that is one of its sites. The lemma says every dot lies on or right of the dashed line i + 2.'));
+  side.append(head, info, H('h5', { style: 'margin-top:14px' }, 'Timeline'), tl, H('p', { class: 'hint', html: 'Each bar is one obligation, from the step that creates it to the step that removes it. The dot on the bar is its witness: the later vertex v<sub>m</sub> of w that is one of its sites. The lemma says every dot lies on or right of the dashed line i + 2.' }));
   let i = 8;
   const W = 300, rowH = 13, X = (s) => 24 + (s / n) * (W - 34);
   function draw() {
@@ -711,7 +721,7 @@ export function figInvariant(w) {
     });
     back.disabled = i === 0; next.disabled = i === n - 1; st.request();
   }
-  const back = btn('← Earlier step', () => { i--; draw(); }), next = btn('Later step →', () => { i++; draw(); });
+  const back = btn('Back', () => { i--; draw(); }), next = btn('Next', () => { i++; draw(); });
   w.tabIndex = 0; w.classList.add('keys');
   w.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight' && i < n - 1) { i++; draw(); e.preventDefault(); }
@@ -761,7 +771,7 @@ export function figD7(w) {
     head.textContent = `Over-arc colour b = ${b}, incoming colour a = ${a}`;
     const s1 = seq[1], s2 = seq[2], s3 = seq[3];
     const lines = [
-      `Click a corner to choose t, then press <b>Next reflection</b>.`,
+      `Click a corner to choose t, then press <b>Next</b>.`,
       `r<sub>b</sub>(t) = 2·${b} − ${tt} ≡ <b>${s1}</b> (orange mirror).`,
       `r<sub>a</sub>(${s1}) = 2·${a} − ${s1} ≡ <b>${s2}</b> (blue mirror).`,
       `r<sub>b</sub>(${s2}) = 2·${b} − ${s2} ≡ <b>${s3}</b>. So r<sub>b</sub>r<sub>a</sub>r<sub>b</sub> sends ${tt} to ${s3}.`,
@@ -770,7 +780,7 @@ export function figD7(w) {
     nxt.disabled = phase >= 4;
   }
   const sub = (k) => '₀₁₂₃₄₅₆'[k];
-  const nxt = btn('Next reflection', () => { phase++; draw(); });
+  const nxt = btn('Next', () => { phase++; draw(); });
   const sb = H('input', { type: 'range', min: 0, max: 6, value: b, 'aria-label': 'over-arc colour b' }), sa = H('input', { type: 'range', min: 0, max: 6, value: a, 'aria-label': 'incoming colour a' });
   sb.addEventListener('input', () => { b = +sb.value; phase = 0; draw(); }); sa.addEventListener('input', () => { a = +sa.value; phase = 0; draw(); });
   const c = ctlRow(w); c.append(H('label', { class: 'range' }, 'over b', sb), H('label', { class: 'range' }, 'in a', sa), nxt, btn('Start again', () => { phase = 0; draw(); }));
@@ -872,7 +882,7 @@ export function figFlipDelta(w) {
     info.innerHTML = T[t]; back.disabled = t === 0; next.disabled = t === 2; st.request();
   }
   const back = btn('Back', () => { t--; k = 1; draw(); });
-  const next = btn('Next Δ-move', () => { t++; st.tween(900, (x) => { k = x; draw(); }); });
+  const next = btn('Next', () => { t++; st.tween(900, (x) => { k = x; draw(); }); });
   const c = ctlRow(w);
   c.append(seg([['flip', 'Corner flip'], ['uturn', 'U-turn removal']], 'flip', (v) => { mode = v; t = 0; k = 1; draw(); }), back, next, H('span', { class: 'readout grow' }, 'Drag to turn: the other edges may point in any direction out of the square.'));
   draw();
@@ -915,7 +925,7 @@ export function figObligation(w) {
     info.innerHTML = lines.join('<br><br>') + `<br><br>Pending after this step: <b>${s.pending.length}</b>.`;
     back.disabled = ei === 0; next.disabled = ei === evSteps.length - 1; st.request();
   }
-  const back = btn('Previous event', () => { ei--; draw(); }), next = btn('Next event', () => { ei++; draw(); });
+  const back = btn('Back', () => { ei--; draw(); }), next = btn('Next', () => { ei++; draw(); });
   const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow', html: `The real search along <code>${word}</code>, at each step that closes a curtain or makes a DMON7 corner. Drag to turn.` }));
   draw();
 }
@@ -954,7 +964,7 @@ export function figSpan(w) {
     info.innerHTML = `The rest of the walk starts at the head, visits every single site (blue rings), and ends at the origin, so on each axis it reaches both l and h. Reaching l first costs at least a₁ = (c − l) + (h − l) + h steps on that axis; reaching h first, a₂ = (h − c) + (h − l) − l. In all it needs at least <b>${tot}</b> steps, and <b>${s.R1}</b> are left: ` + (tot <= s.R1 ? '<span class="ok">the span test passes</span>.' : '<span class="no">the walk is discarded</span>.') + ' The dashed box is [l, h] on all three axes.';
     back.disabled = si === 0; next.disabled = si === steps.length - 1; st.request();
   }
-  const back = btn('Earlier', () => { si--; draw(); }), next = btn('Later', () => { si++; draw(); });
+  const back = btn('Back', () => { si--; draw(); }), next = btn('Next', () => { si++; draw(); });
   const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow' }, 'The span test runs while at least two obligations are pending. Drag to turn.'));
   draw();
 }

@@ -26,8 +26,8 @@ export class Studio {
     host.classList.add('studio'); host.__studio = this;
     this.wrap = document.createElement('div'); this.wrap.className = 'studio-wrap';
     this.wrap.style.aspectRatio = opts.aspect || '4 / 3';
-    this.wrap.setAttribute('aria-label', opts.label || 'Interactive 3D figure; drag to turn');
-    this.wrap.setAttribute('role', 'img');
+    this.wrap.setAttribute('aria-label', (opts.label || 'Interactive 3D figure') + '; drag, or use the arrow keys, to turn it');
+    this.wrap.setAttribute('role', 'group');   // focusable: the arrow keys turn the scene
     this.overlay = document.createElement('div'); this.overlay.className = 'studio-labels';
     this.wrap.append(this.overlay); host.append(this.wrap);
     this.renderer = null; this.ensureRenderer();
@@ -62,6 +62,19 @@ export class Studio {
       const hit = this.pick(e);
       this.wrap.style.cursor = hit ? 'pointer' : 'grab';
       if (opts.onHover) opts.onHover(hit ? hit.object.userData : null);
+    });
+    // keyboard: with the scene focused, the arrow keys turn it (left/right about the vertical, up/down tilt)
+    this.wrap.tabIndex = 0;
+    this.wrap.addEventListener('keydown', (e) => {
+      const k = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];
+      if (!k || !this.center) return;
+      e.preventDefault(); e.stopPropagation();
+      const off = this.camera.position.clone().sub(this.center);
+      const sph = new THREE.Spherical().setFromVector3(new THREE.Vector3(off.x, off.z, -off.y));   // y-up spherical of a z-up scene
+      sph.theta += k[0] * 0.17; sph.phi = Math.min(Math.PI - 0.15, Math.max(0.15, sph.phi - k[1] * 0.12));
+      const v = new THREE.Vector3().setFromSpherical(sph);
+      this.camera.position.copy(this.center).add(new THREE.Vector3(v.x, -v.z, v.y));
+      this.camera.up.set(0, 0, 1); this.camera.lookAt(this.center); this.onUser && this.onUser(); this.request();
     });
     this.ro = new ResizeObserver(() => this.resize()); this.ro.observe(this.wrap);
     // a page can hold only about 16 WebGL contexts: a figure far off-screen gives its context back

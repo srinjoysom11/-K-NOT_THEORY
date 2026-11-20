@@ -260,7 +260,10 @@ if missing: print("figures without an interactive body:", missing, file=sys.stde
 toc = []
 for m in re.finditer(r'<section id="([^"]*)" class="level(\d)"[^>]*>\s*<h\d[^>]*>(.*?)</h\d>', H, re.S):
     if m.group(2) == "1":
-        toc.append((m.group(1), re.sub(r"<span class=\"sec-n\">[^<]*</span>\s*", "", re.sub(r"<(?!span|/span)[^>]+>", "", m.group(3)))))
+        t = re.sub(r"<annotation[^>]*>.*?</annotation>", "", m.group(3), flags=re.S)   # the TeX source of the math
+        SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+        t = re.sub(r"<msub>\s*<mn>(\d+)</mn>\s*<mn>(\d+)</mn>\s*</msub>", lambda q: q.group(1) + q.group(2).translate(SUB), t)
+        toc.append((m.group(1), re.sub(r"<span class=\"sec-n\">[^<]*</span>\s*", "", re.sub(r"<(?!span|/span)[^>]+>", "", t))))
 H = H.replace("<p><strong>Acknowledgements</strong></p>", "")
 
 # named operators (\\operatorname) as upright identifiers, without operator spacing

@@ -158,7 +158,7 @@ run, and the soundness of the certificates are theorems checked by the Lean kern
 \begin{enumerate}[label=(\roman*)]
 \item the short list of definitions that state the theorem;
 \item three classical facts of knot theory: (E1) a $\Delta$-move does not change the knot type
-(proved in \cref{thm:deltamove}); (E2) the Wirtinger presentation of the knot group, a textbook
+(proved in full in \cref{thm:deltamove}, but not formalised in Lean); (E2) the Wirtinger presentation of the knot group, a textbook
 theorem that we quote with references (used in \cref{thm:fox}); and (E3), used only to give names
 (our 36-step polygon is the knot that the tables call $5_2$, and in \cref{cor:trefoil} a 24-step polygon
 is the trefoil): two diagrams with the same planar-diagram code show the same knot, up to mirror image
@@ -170,11 +170,6 @@ logs (\cref{sec:engineering}). The word counts matter only for \cref{cor:trefoil
 \end{enumerate}
 In particular \emph{the pruning of the search is not trusted}: every discarded branch is discarded
 by a test that Lean has proved can never discard a word passing the DMON tests.
-
-\paragraph{What is not used.} Earlier versions of this search, run to length 36, used two further
-lemmas that made them about five times faster: a plane-crossing lemma valid only for prime knots, and
-a computer-checked lemma about short knotted arcs. They are not part of the proof presented here.
-The final search uses only \dmon1--\dmon7, which hold for every knot type.
 
 \paragraph{Organisation.} \Cref{sec:prelim} gives the definitions. \Cref{sec:normal,sec:search,sec:colour}
 are the three stages, and \cref{sec:upper} is the upper bound. \Cref{sec:lean} describes the
@@ -216,7 +211,10 @@ the number of letters on each axis is even, and so is their total $n$.
 A \emph{knot} is a simple closed curve in $\R^3$; all our knots are polygonal. Two knots $K$, $K'$ are
 \emph{equivalent} (have the same \emph{knot type}) if there is an orientation-preserving homeomorphism
 $h$ of $\R^3$ with $h(K)=K'$. The \emph{mirror image} $K^*$ of $K$ is its image under a reflection of
-$\R^3$. We take knot types without orientation. For polygonal knots there is a simple, local way to
+$\R^3$. The \emph{unknot} is the knot type of a round circle, or equivalently of the boundary of a
+unit square (a flat convex polygon); a knot is \emph{non-trivial}, or \emph{knotted}, if it is not the
+unknot. The mirror image of the unknot is the unknot (a reflection maps a flat polygon to a flat
+polygon). We take knot types without orientation. For polygonal knots there is a simple, local way to
 change a knot without changing its type.
 
 \begin{definition}[$\Delta$-move]\label{def:delta}
@@ -281,7 +279,10 @@ between $x-a$ and $C_a$ is at most $\lambda/(\kappa_0-2\lambda)$ (we always take
 $\varepsilon<\ell$ and $2\lambda<\kappa_0$; and this angle is less than $\pi/2$, because $u$ itself lies in $C_a$ and
 $u\cdot(x-a)>0$). Replace $\theta$ by $\min(\theta,\pi/2)$, and choose $\delta,\eta$ so small that the bound is less
 than $\sin\theta$. Then no point $a+st_a$ with $s>0$ lies in $B$, so $[a,a+rt_a]$ meets $B$ only in $a$. The
-same argument works at $b$.
+same holds at $b$, with $a$ and $b$ exchanged: replace $t_a$ by the direction $t_b$ of the other edge at
+$b$, the angle $C_a$ by $C_b=\{s(a-b)+s'(c-b):s,s'\ge0\}$, the vectors $g_k$ by $d-b$, $a-b$, $c^+-b$,
+$e_\pm-b$, and the bisector of $C_a$ by that of $C_b$ (the angle $abc$ is also less than $\pi$). The
+estimates are word for word the same, so $[b,b+rt_b]$ meets $B$ only in $b$.
 
 The rest of $K_0$, outside the two balls of radius $r$, is compact and disjoint from $\Delta$, so it has
 positive distance $\rho$ from $\Delta$. Each of the six points $a,d,b,c^+,e_\pm$ lies within
@@ -315,7 +316,7 @@ $\Len(K)$ is the least $n$ such that some lattice polygon with $n$ edges has kno
 A reflection of $\Z^3$ (for example $(x,y,z)\mapsto(-x,y,z)$) maps lattice polygons to lattice
 polygons with the same number of edges and maps a knot to its mirror image. So $\Len(K^*)=\Len(K)$.
 
-\subsection{Diagrams}
+\subsection{Diagrams}\label{sec:diagrams}
 
 A linear projection of a knot onto a plane is \emph{regular} if the image has only finitely many
 multiple points, all of them transverse double points, and no vertex is mapped onto a double point.
@@ -323,6 +324,17 @@ A double point is a \emph{crossing}. At each crossing one strand, the \emph{over
 viewer. If we cut the image at every \emph{under-passage}, the pieces are the \emph{arcs} of the
 diagram. So at every crossing three arcs meet: the over-arc, the incoming under-arc and the outgoing
 under-arc (two of them may coincide). We use orientations only to name ``incoming'' and ``outgoing''.
+
+A \emph{PD code} (planar diagram code) describes an oriented diagram with $c$ crossings. Cut the knot at
+the $2c$ passages through crossings (over and under); the resulting pieces are the \emph{edges},
+numbered $1,\dots,2c$ along the orientation. Each crossing is written $X[a,b,c,d]$: the four edge ends
+at the crossing in counter-clockwise order, starting with the incoming edge of the under-strand. So $a$
+and $c$ are the under-strand (in and out) and $b$, $d$ are the over-strand. For the diagram of a lattice polygon we orient the knot along its word and
+number the edges starting at $v_0$: edge $1$ is the piece that begins at the first passage after $v_0$,
+so the piece through $v_0$ is edge $2c$. Renumbering the edges by a cyclic shift, or reversing the
+orientation, gives another PD code of the same diagram (a \emph{relabelling}). Switching every
+crossing turns $X[a,b,c,d]$ into $X[b,c,d,a]$: the over-strand becomes the under-strand, and its
+incoming edge is $b$ or $d$, whichever comes first counter-clockwise after the old under-strand.
 
 \subsection{Fox colourings}\label{sec:colourings}
 
@@ -355,7 +367,8 @@ the same proof works for every odd prime $p$.
 
 So a non-constant colouring in one diagram of $K$ proves that $K$ is knotted, and that $K$ differs
 from every knot whose diagrams have only constant colourings. For an odd prime $p$, a knot has a
-non-constant $p$-colouring exactly when $p$ divides its determinant~\cite{Liv93,Prz98}. The
+non-constant $p$-colouring exactly when $p$ divides its determinant~\cite{Liv93,Prz98} (we quote this
+only to explain the choice $p=7$; the proof does not use it). The
 determinants of $3_1,4_1,5_1,5_2$ are $3,5,5,7$. This is why $p=7$ separates $5_2$ from all other knots
 with at most five crossings: the standard diagram of $5_2$ has $49$ colourings (\cref{lem:fiftytwo}), while the
 unknot, the trefoil, the figure-eight knot and $5_1$ have only the $7$ constant ones.
@@ -363,8 +376,17 @@ unknot, the trefoil, the figure-eight knot and $5_1$ have only the $7$ constant 
 %=====================================================================================================
 \section{Stage one: a normal form for a shortest polygon}\label{sec:normal}
 
-In this section $T$ is any set of polygon words with the closure properties of \cref{cor:knotclass}
-below. The main example is
+In this section $T$ is a \emph{knot class}: a set of words that behaves like ``the words of a given knot
+type, up to mirror image''. Precisely, $T$ is a knot class (Lean: \lean{KnotClass}) if
+\begin{enumerate}[label=(K\arabic*)]
+\item every member of $T$ is a polygon word;
+\item $T$ is closed under rotation of the word (\cref{lem:rigid}(a));
+\item $T$ is closed under reversal of the word (\cref{lem:rigid}(b));
+\item $T$ is closed under the $48$ lattice symmetries (\cref{lem:rigid}(c));
+\item $T$ is closed under the corner flips allowed by \cref{lem:flip};
+\item $T$ is closed under the U-turn removals allowed by \cref{lem:uturn}.
+\end{enumerate}
+\Cref{cor:knotclass} below shows that the main example is a knot class:
 \[ T_{5_2}=\{w : w \text{ is a polygon word and } |w| \text{ has knot type } 5_2 \text{ or } 5_2^*\}. \]
 We assume that $T$ contains a word of length at most 34, and we show that it then contains a word that
 passes seven local tests. The tools are two moves across a unit square.
@@ -382,8 +404,12 @@ Let $H$ be the plane of $Q$; it is a coordinate plane at an integer level of the
 axis between two consecutive integers, and $H$ sits at an integer level of that axis, so $E\cap H$ is
 empty or one endpoint of $E$. That endpoint is a lattice point, and the only lattice points of $Q$ are
 its four corners. \emph{Case 2: $E$ lies in $H$} (\cref{fig:segsquare}b). In the two coordinates of
-$H$, $E$ is an edge of the unit grid and $Q$ is a cell of it, and a grid edge meets a grid cell in
-nothing, a corner or a side. \emph{Case 3: $E$ is parallel to $H$ but not in it}
+$H$, write $Q=[q_1,q_1+1]\times[q_2,q_2+1]$, and say $E$ is parallel to the first axis, at the integer
+height $y_E$ on the second axis. If $y_E\notin\{q_2,q_2+1\}$, then $E\cap Q=\emptyset$. Otherwise
+$E\cap Q$ is the intersection of $E$ with the side of $Q$ on the line $y=y_E$, that is, of two unit
+intervals with integer endpoints on one line; such intervals meet in nothing, in one common endpoint (a
+corner of $Q$), or in the whole interval (a side of $Q$). The case of $E$ parallel to the second axis is
+the same with the two axes exchanged. \emph{Case 3: $E$ is parallel to $H$ but not in it}
 (\cref{fig:segsquare}c). Then $E\cap Q=\emptyset$.
 \end{proof}
 
@@ -469,21 +495,22 @@ Let $w$ be a polygon word.
 \item If $f$ is a permutation of the six letters with $f(-a)=-f(a)$, then $f$ is induced by a signed
 permutation matrix $M$, and the word $f(w_0)\cdots f(w_{n-1})$ has polygon $M|w|$.
 \end{enumerate}
-Translations and rotations ($\det M=1$) do not change the knot type; reflections ($\det M=-1$) replace
-it by the mirror image.
+Translations and the maps $M$ with $\det M=1$ (rotations) do not change the knot type; the maps $M$
+with $\det M=-1$ replace it by the mirror image.
 \end{lemma}
 \begin{proof}
 (a) and (b) follow from the definition of the vertices: the rotated word visits $v_1-v_1,v_2-v_1,\dots$,
 and the reversed word visits $v_0,v_{n-1},\dots,v_1$. (c) $f$ permutes the three axes and possibly flips
 signs; $M$ is the matrix that does the same, and the vertices of $f(w)$ are $Mv_i$ by induction. A
-translation or a rotation of $\R^3$ is an orientation-preserving homeomorphism; a reflection maps a knot
-to its mirror image by definition.
+translation, and an orthogonal map with $\det M=1$ (a rotation), is an orientation-preserving
+homeomorphism of $\R^3$, so it keeps the knot type. If $\det M=-1$, let $S(x,y,z)=(-x,y,z)$, a
+reflection, which maps a knot to its mirror image by definition. Then $M=(MS)S$, and $MS$ is orthogonal
+with determinant $1$, a rotation. So $M|w|$ is a rotation of the mirror image $S|w|$ and has the type
+of $|w|^*$.
 \end{proof}
 
 \begin{corollary}[Closure properties; Lean: \lean{KnotClass}]\label{cor:knotclass}
-The set $T_{5_2}$ consists of polygon words and is closed under rotation and reversal of the word,
-under the $48$ lattice symmetries of \cref{lem:rigid}(c), under corner flips allowed by \cref{lem:flip},
-and under U-turn removals allowed by \cref{lem:uturn}.
+The set $T_{5_2}$ is a knot class: it satisfies (K1)--(K6).
 \end{corollary}
 \begin{proof}
 Rotation and reversal of the word give the same polygon, traversed from another vertex or in the other
@@ -551,14 +578,14 @@ number of letters on each axis is unchanged.
 
 \subsection{The choice of the polygon}\label{sec:choice}
 
-Let $T$ satisfy the closure properties of \cref{cor:knotclass} and contain a word of length at most
+Let $T$ be a knot class that contains a word of length at most
 34. We choose a word $w\in T$ in four steps.
 
 \begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*]
 \item \emph{Shortest.} Let $m$ be the least length of a word in $T$. Then $m\le34$ and $m$ is even
 (\cref{lem:parity}).
 \item \emph{Sorted axes.} Let $\#_x(w),\#_y(w),\#_z(w)$ be the numbers of letters of $w$ on each axis.
-Take any $w_1\in T$ of length $m$. A permutation of the axes (a lattice symmetry, \cref{lem:rigid}c)
+Take any word $u\in T$ of length $m$. A permutation of the axes (a lattice symmetry, \cref{lem:rigid}c)
 sorts its counts so that $\#_z\le\#_y\le\#_x$, and keeps it in $T$. Let $W$ be the set of words in $T$
 of length $m$ with $\#_z\le\#_y\le\#_x$. It is not empty.
 \item \emph{Pushed down.} Let $w^*\in W$ have the least $\psiZ$ among the words of $W$, and among those,
@@ -574,11 +601,17 @@ minimiser in Step~3. The next two lemmas show what this choice forces.
 
 \subsection{Curtains}
 
+A U-turn $a,b,-a$ can always be removed (\cref{lem:uturn}), so a shortest word has none. A curtain is a
+stretched U-turn: a few corner flips turn it into a U-turn, as long as the points behind it are free.
+So a shortest word cannot have a curtain with all those points free.
+
 \begin{definition}[Curtain]
 A \emph{curtain} in a polygon word is a stretch of $k+2$ cyclically consecutive letters, $1\le k\le
 n-2$, of the form $a,s_1,\dots,s_k,-a$, where $s_1,\dots,s_k$ are perpendicular to $a$. If the stretch
 starts at letter $i$, its \emph{interior points} are $v_{i+j}-a$ for $2\le j\le k$ (indices mod $n$).
 \end{definition}
+For $k=1$ the curtain is a U-turn and has no interior points, so the condition ``some interior point is
+a vertex'' (\dmon6 below) cannot hold: \dmon6 forbids every U-turn.
 
 So a curtain goes one step in direction $a$, wanders $k$ steps sideways, and comes back with $-a$. Its
 interior points lie one step ``behind'' the sideways stretch, as in \cref{fig:curtain}a.
@@ -621,7 +654,7 @@ the right, one position at a time; each flip is allowed because the point it use
 
 A corner flip at $v_i$ replaces $v_i$ by $v'=v_{i-1}+v_{i+1}-v_i$, the fourth corner of the square
 spanned by the two edges at $v_i$. Whether this moves $v_i$ down, up or sideways depends only on the
-two letters $p=w_{i-1}$ and $d=w_i$. \Cref{fig:corners} shows the four patterns in which the flip moves
+two letters $p=w_{i-1}$ and $q=w_i$. \Cref{fig:corners} shows the four patterns in which the flip moves
 $v_i$ down, or keeps its height and moves it south.
 
 \begin{figure}[t]
@@ -638,24 +671,24 @@ $v_i$ up or north, so they never lower a potential, and we do not use them.}
 \end{figure}
 
 \begin{lemma}[Corner lemma; \dmon7]\label{lem:corner}
-Let $w$ be the word chosen in \cref{sec:choice}, let $1\le i<n$, and put $p=w_{i-1}$, $d=w_i$. In each
-of the following four cases, the point $v'=v_{i-1}+d$ is a vertex of $w$.
+Let $w$ be the word chosen in \cref{sec:choice}, let $1\le i<n$, and put $p=w_{i-1}$, $q=w_i$. In each
+of the following four cases, the point $v'=v_{i-1}+q$ is a vertex of $w$.
 \begin{enumerate}[label=(\arabic*)]
-\item $p=\word{u}$ and $d$ is horizontal ($\word{e},\word{w},\word{n}$ or $\word{s}$): up, then horizontal.
-\item $p$ is horizontal and $d=\word{d}$: horizontal, then down.
-\item $p=\word{n}$ and $d\in\{\word{e},\word{w}\}$: north, then east or west.
-\item $p\in\{\word{e},\word{w}\}$ and $d=\word{s}$: east or west, then south.
+\item $p=\word{u}$ and $q$ is horizontal ($\word{e},\word{w},\word{n}$ or $\word{s}$): up, then horizontal.
+\item $p$ is horizontal and $q=\word{d}$: horizontal, then down.
+\item $p=\word{n}$ and $q\in\{\word{e},\word{w}\}$: north, then east or west.
+\item $p\in\{\word{e},\word{w}\}$ and $q=\word{s}$: east or west, then south.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-In each case $p\perp d$. Note that $v'=v_{i-1}+d=v_{i+1}-p$ is the fourth corner of the square with
+In each case $p\perp q$. Note that $v'=v_{i-1}+q=v_{i+1}-p$ is the fourth corner of the square with
 corners $v_{i-1},v_i,v_{i+1}$. Suppose $v'$ is not a vertex. Then the corner flip at $v_i$ is allowed
 (\cref{lem:flip}). It gives a word $w'\in T$ with the same length and the same letters, so
 $w'\in W$, and the vertices of $w'$ are those of $w$ with $v_i$ replaced by $v'$. We compare
 potentials.
 
 \emph{Cases (1) and (2).} In case (1), $z(v')=z(v_{i-1})=z(v_i)-1$, since $v_i=v_{i-1}+\word{u}$ and
-$v'=v_{i-1}+d$ with $d$ horizontal. In case (2), $z(v')=z(v_{i+1})=z(v_i)-1$, since
+$v'=v_{i-1}+q$ with $q$ horizontal. In case (2), $z(v')=z(v_{i+1})=z(v_i)-1$, since
 $v_{i+1}=v_i+\word{d}$ and $v'=v_{i+1}-p$ with $p$ horizontal. In both cases $v'$ has the height of a
 vertex of $w$ ($v_{i-1}$ or $v_{i+1}$), so $z(v')\ge z_{\min}(w)$. And $v_i$ is not a lowest
 vertex, because its neighbour $v_{i-1}$ or $v_{i+1}$ is strictly lower. Removing $v_i$ and adding $v'$ therefore
@@ -665,7 +698,7 @@ which contradicts the choice of $w$ (Step~3: $w$ has the least $\psiZ$ in $W$).
 
 \emph{Cases (3) and (4).} Both letters are horizontal, so $z(v')=z(v_i)$ and $\psiZ(w')=\psiZ(w)$. In
 case (3), $y(v')=y(v_{i-1})=y(v_i)-1$; in case (4), $y(v')=y(v_{i+1})=y(v_i)-1$, because $v'=v_{i+1}-p$
-with $p$ on the $x$-axis and $v_{i+1}=v_i+\word{s}$. As before $y_{\min}$ does not change, so $\psiY(w')=\psiY(w)-1$. Since
+with $p$ on the $x$-axis and $v_{i+1}=v_i+\word{s}$. So $y(v')$ is the $y$-coordinate of a vertex of $w$ ($v_{i-1}$ or $v_{i+1}$), hence $y(v')\ge y_{\min}(w)$; and $v_i$ is not a vertex with least $y$, because that neighbour has smaller $y$. Removing $v_i$ and adding $v'$ therefore keeps $y_{\min}(w')=y_{\min}(w)$, and $\psiY(w')=\psiY(w)-(y(v_i)-y_{\min})+(y(v')-y_{\min})=\psiY(w)-1$. Since
 $w'$ has the least $\psiZ$ too, this contradicts the choice of $w$ (Step~3: among the words with least
 $\psiZ$, $w$ has the least $\psiY$).
 \end{proof}
@@ -718,7 +751,7 @@ satisfies the condition, however, may be visited much later in the walk. This is
 exploits in \cref{sec:obligations}.
 
 \begin{theorem}[Normal form; Lean: \lean{exists\_survivor}]\label{thm:normal}
-Let $T$ have the closure properties of \cref{cor:knotclass}. If $T$ contains a word $u$, then $T$
+Let $T$ be a knot class. If $T$ contains a word $u$, then $T$
 contains a word $w$, not longer than $u$, that has length $4$ or passes \dmon1--\dmon7.
 \end{theorem}
 \begin{proof}
@@ -817,12 +850,20 @@ $v_{i+1}$, the origin, or free and allowed (\cref{fig:reach}).
 \item[Span (\dmon1, via the obligations).] If at least two obligations are pending, let $S$ be the sites
 of the obligations with a single site. For each axis $q$, let $c$ be the $q$-coordinate of the head and
 $[l,h]$ the smallest interval containing $c$, $0$ and the $q$-coordinates of $S$. Then
-$\sum_q\min(a_1,a_2)\le R-1$, where $a_1=(c-l)+(h-l)+h$ and $a_2=(h-c)+(h-l)-l$ (\cref{fig:span}).
-\item[Closing (\dmon1, \dmon2, \dmon4, \dmon5, \dmon6).] At the last step ($R=1$): $v_{i+1}=0$;
-$-d>w_0$; the obligation update runs with $R-1=0$, so the reach test fails for every obligation still
-pending (its site would have to be the origin, which is never a site), and hence none may remain; $w_0\ne-w_{n-2}$ and $w_1\ne-w_{n-1}$;
-for each axis whose most recent and first letters are opposite, the curtain that wraps around the
-origin has an interior point that is a vertex; and $\#_z\le\#_y\le\#_x$.
+$\sum_q\min(a_1,a_2)\le R-1$, where $a_1=(c-l)+(h-l)+h$ and $a_2=(h-c)+(h-l)-l$ (\cref{fig:span}). Here
+$a_1$ is the length, on the axis $q$, of the shortest path $c\to l\to h\to0$, and $a_2$ that of
+$c\to h\to l\to0$ (recall $l\le0\le h$ and $l\le c\le h$); the rest of the walk visits $l$ and $h$ in one of
+the two orders, so it makes at least $\min(a_1,a_2)$ steps on this axis.
+\item[Closing.] At the last step ($R=1$) the search checks six conditions.
+(C1, \dmon1) $v_{i+1}=0$: the walk closes.
+(C2, \dmon4) $-d>w_0$.
+(C3, \dmon6, \dmon7) No obligation is pending: the obligation update runs with $R-1=0$, so the reach
+test fails for every obligation still pending (its site would have to be the origin, which is never a
+site).
+(C4, \dmon2, \dmon6) $w_0\ne-w_{n-2}$ and $w_1\ne-w_{n-1}$: no reversal or U-turn across the origin.
+(C5, \dmon6) For each axis whose most recent and first letters are opposite, the curtain that wraps
+around the origin has an interior point that is a vertex.
+(C6, \dmon5) $\#_z\le\#_y\le\#_x$.
 \end{description}
 
 \begin{figure}[t]
@@ -860,6 +901,8 @@ will be visited or \emph{when}; this is why they are cheap.
 The search with the DMON tests is complete: every word of length $n\le34$ that passes \dmon1--\dmon7 is
 returned by the search for length $n$.
 \end{theorem}
+The search is run for every even $n\le34$, and this covers every such word: it is a polygon word
+(\dmon1, \dmon2), so its length is even by \cref{lem:parity}.
 
 \begin{remark}[Parts, a computational aside]\label{rem:parts}
 To balance the work over many computers, the runs for $n\ge28$ were split into $M$ parts. Part $r<M$
@@ -899,8 +942,9 @@ obligation keeps its site $v_m$, and now $m\ge i+2$.
 axis of $d$ is $w_j=a=-d$. The letters $w_{j+1},\dots,w_{i-1}$ are not on this axis (because $w_j$ is
 the most recent one), so $w_j\cdots w_i$ is a curtain of $w$ with $k=i-j-1\ge1$ and $k+2=i-j+1\le n$.
 By \dmon6 some interior point $v_{j+t}-a$, $2\le t\le k$, is a vertex $v_m$ of $w$, and $m\le n-1$. If
-$m\le i+1$, the point is occupied, so the curtain counts as satisfied and nothing is added. Otherwise
-$m\ge i+2$, the point is free, and it is allowed (as a vertex of $w$ other than $v_0$). So it is among
+any interior point is already occupied (for example this one, when $m\le i+1$), the curtain counts as
+satisfied, the search adds nothing, and it does not discard the walk. Otherwise every interior point is
+free; in particular $m\ge i+2$, the point $v_m$ is free, and it is allowed (as a vertex of $w$ other than $v_0$). So it is among
 the sites of the new obligation; in particular the list of allowed sites is not empty and the walk is
 not discarded.
 
@@ -951,9 +995,12 @@ at least $(h-c)+(h-l)+(0-l)=a_2$. Adding over the axes gives at most $R-1$ steps
 
 \emph{Closing} (step $i=n-1$). $v_n=0$ by \dmon1, and $-w_{n-1}>w_0$ by \dmon4. By
 \cref{lem:invariant} every pending obligation would have a site $v_m$ with $n+1\le m\le n-1$, which is
-impossible, so none is pending. $w_0=-w_{n-2}$ is excluded by the no-U-turn argument applied
-cyclically to the letters $w_{n-2},w_{n-1},w_0$, and $w_1=-w_{n-1}$ likewise to $w_{n-1},w_0,w_1$
-(\dmon6 is cyclic). For an axis whose most recent letter $w_{j_l}$ and first letter $w_{j_f}$ are
+impossible, so none is pending. Suppose $w_0=-w_{n-2}$. If $w_{n-1}$ is on the same axis, then
+$w_{n-1}=-w_{n-2}$ or $w_{n-1}=-w_0$, a reversal, which the no-reversal argument excludes (cyclically,
+with $v_n=v_0$). Otherwise $w_{n-2},w_{n-1},w_0$ is a curtain with $k=1$ (\dmon6 is cyclic), which has no
+interior points, so it violates \dmon6. In the same way, if $w_1=-w_{n-1}$, then either $w_0$ is on the
+same axis and $w_0=-w_1$ or $w_0=-w_{n-1}$ is a reversal, or $w_{n-1},w_0,w_1$ is a curtain with $k=1$,
+which violates \dmon6. For an axis whose most recent letter $w_{j_l}$ and first letter $w_{j_f}$ are
 opposite, the letters after $w_{j_l}$ and before $w_{j_f}$ are on other axes, so they form a curtain
 that wraps around the origin, with $k=(n-j_l-1)+j_f\ge1$ ($k=0$ would give $v_{n-1}=v_1$); \dmon6
 gives an interior point that is a vertex, and at the end every vertex is occupied. Finally
@@ -1016,16 +1063,22 @@ rests on the trust items (iii) and (iv), in their part about the printed word co
 Every non-trivial lattice knot has at least $24$ edges, and $\Len(3_1)=24$.
 \end{corollary}
 \begin{proof}
-Let $T_{\ne0}$ be the set of polygon words whose polygon is knotted. It has the closure properties of
-\cref{cor:knotclass}, since square moves and rigid motions keep the knot type up to mirror image, and
-the mirror image of a knotted polygon is knotted. Suppose $T_{\ne0}$ contained a word of length at most
+Let $T_{\ne0}$ be the set of polygon words whose polygon is knotted. It is a knot class, by the remark after
+\cref{cor:knotclass}. Suppose $T_{\ne0}$ contained a word of length at most
 $22$. By \cref{thm:normal} it would contain a word $w$ of length at most $22$ that is a unit square or
 passes \dmon1--\dmon7. A unit square is unknotted. By \cref{thm:pandmonium}, $w$ would be returned by
 the search for its length, but the searches for $n\le22$ return nothing (\cref{tab:runs}). So every
 knotted lattice polygon has at least $24$ edges. For the upper bound, the 24-step polygon
 $\word{eeeuuswwdnneeesswwnuwwdd}$, one of the words returned at $n=24$, has a three-crossing diagram
-whose PD code is that of the trefoil, up to relabelling and mirror image (Lean: \lean{wTre\_pd}; it is
-the polygon of \cref{fig:certex}); by (E3), \cref{sec:upper}, this polygon is a trefoil.
+whose PD code (\cref{sec:diagrams}) along $(7,13,31)$ is (Lean: \lean{wTre\_pd}; it is the polygon of
+\cref{fig:certex})
+\[ [6,3,1,4],\ [4,1,5,2],\ [2,5,3,6]. \]
+Switching every crossing turns these into $[3,1,4,6]$, $[1,5,2,4]$, $[5,3,6,2]$, which are, crossing by
+crossing, the three crossings $X_2$, $X_1$, $X_3$ of the KnotInfo code $X_1[1,5,2,4]$, $X_2[3,1,4,6]$,
+$X_3[5,3,6,2]$ of the trefoil~\cite{KnotInfo}; no renumbering of the edges is needed. So the diagram of
+this polygon is the KnotInfo diagram of the trefoil with every crossing switched, a diagram of the
+mirror image, and by (E3), \cref{sec:upper}, this polygon is a trefoil (the mirror image of the
+tabulated one, which has the same length).
 \end{proof}
 
 %=====================================================================================================
@@ -1068,12 +1121,14 @@ $\varepsilon$'s.
 
 \emph{The knot group and the map $\alpha$.} The \emph{knot group} of $K$ is the fundamental group
 $G=\pi_1(\R^3\setminus K)$. Fix an orientation of $K$ and a regular diagram with arcs $x_1,\dots,x_c$
-($c\ge1$). The Wirtinger presentation (E2; \cite[Ch.~3, Knot groups]{BZ}; \cite[Ch.~3, \S D]{Rol76}; \cite{Lic97})
+($c\ge1$). The Wirtinger presentation (E2; \cite[Ch.~3, Knot groups]{BZ}; \cite[Ch.~3, \S D]{Rol76}; \cite[Ch.~11]{Lic97})
 says that $G$ is generated by elements $x_1,\dots,x_c$, one loop around each arc, with one relation per
 crossing:
 \[ x_{\mathrm{out}}=x_{\mathrm{over}}^{\varepsilon}\,x_{\mathrm{in}}\,x_{\mathrm{over}}^{-\varepsilon}, \]
 where $x_{\mathrm{over}}$, $x_{\mathrm{in}}$, $x_{\mathrm{out}}$ are the over-arc and the incoming and
-outgoing under-arcs, and $\varepsilon=\pm1$ is the sign of the crossing. (If $c=0$, the diagram is a
+outgoing under-arcs, and $\varepsilon=\pm1$ is the sign of the crossing ($+1$ if, seen from above, the
+over-strand crosses the under-strand from right to left, and $-1$ otherwise; the sign plays no role
+below, because every element we substitute for $x_{\mathrm{over}}$ is its own inverse). (If $c=0$, the diagram is a
 simple closed curve, $K$ is unknotted, and $G\cong\Z$, generated by one loop around $K$.)
 \begin{itemize}
 \item Sending every $x_i$ to $1$ defines a homomorphism $\lambda:G\to\Z$, because both sides of every
@@ -1123,18 +1178,13 @@ this number is the same for every knot equivalent to $K$ and for $K^*$.
 
 \begin{remark}
 The classical proof checks that each Reidemeister move gives a bijection of colourings~\cite{Prz98,Liv93}.
-It needs Reidemeister's theorem that diagrams of equivalent knots are related by these moves; the proof
+It needs Reidemeister's theorem that diagrams of equivalent knots are related by these moves~\cite{Rei27},~\cite[Ch.~1]{BZ}; the proof
 above needs only the Wirtinger presentation.
 \end{remark}
 
 \subsection{The colourings of $5_2$}
 
-A \emph{PD code} (planar diagram code) describes an oriented diagram with $c$ crossings. Cut the knot at
-the $2c$ passages through crossings (over and under); the resulting pieces are the \emph{edges},
-numbered $1,\dots,2c$ along the orientation. Each crossing is written $X[a,b,c,d]$: the four edge ends
-at the crossing in counter-clockwise order, starting with the incoming edge of the under-strand. So $a$
-and $c$ are the under-strand (in and out) and $b$, $d$ are the over-strand. KnotInfo~\cite{KnotInfo}
-lists the PD code of $5_2$ as
+KnotInfo~\cite{KnotInfo} lists the PD code (\cref{sec:diagrams}) of $5_2$ as
 \[ X_1[1,5,2,4],\ X_2[3,9,4,8],\ X_3[5,1,6,10],\ X_4[7,3,8,2],\ X_5[9,7,10,6]. \]
 \Cref{fig:std52}a shows a diagram with exactly this code: the edge labels and crossing names in the
 figure can be read off and compared with the list, crossing by crossing.
@@ -1293,7 +1343,8 @@ in it the crossings are well separated from each other and from the vertices, so
 to read. The certificate program's own list uses $(1,-19,40)$; its diagram has the same five crossings,
 on the same pairs of edges, and the same PD code (Lean: \lean{w52\_pd\_eq}, \lean{fig\_pd\_eq}).
 
-\emph{Its PD code.} Number the $10$ edges of the diagram along the walk, starting at $v_0$. The PD code
+\emph{Its PD code.} Number the $10$ edges of the diagram along the walk, starting at $v_0$, as in
+\cref{sec:diagrams} (edge $1$ begins at the first passage after $v_0$). The PD code
 computed from the projection (Lean: \lean{fig\_pd\_eq}) is
 \[ [10,3,1,4],\ [6,1,7,2],\ [2,7,3,8],\ [4,9,5,10],\ [8,5,9,6]. \]
 
@@ -1336,28 +1387,38 @@ over- and under-strands are exchanged, so (a) is the mirror image of (b).}
 \end{figure}
 
 So the diagram of $|w_{36}|$ is the KnotInfo diagram of $5_2$ with every crossing switched, after
-renumbering the edges. Switching every crossing of a diagram gives a diagram of the mirror image. It
-remains to see that two diagrams with the same PD code show the same knot (E3). The argument has
+renumbering the edges. Switching every crossing of a diagram gives a diagram of the mirror image: in
+coordinates $(X,Y,H)$ with $H$ the height, the reflection $(X,Y,H)\mapsto(X,Y,-H)$ keeps the
+projection and reverses the order of the two heights at every crossing, so the reflected knot, which
+is the mirror image, has the same diagram with every crossing switched. It remains to see that two diagrams with the same PD code show the same knot (E3). The argument has
 three steps.
 \begin{enumerate}
 \item A PD code lists, for each crossing, the four edge ends in counter-clockwise order and says which
 pair is the under-strand. So it determines the \emph{rotation system} of the diagram's $4$-valent plane
 graph (the cyclic order of the edges at each vertex), together with the crossing information.
 \item A rotation system determines a connected graph embedded in the sphere $S^2$ up to an
-orientation-preserving homeomorphism of $S^2$~\cite[\S3.2, Rotation systems]{MT01}. The statement holds for
+orientation-preserving homeomorphism of $S^2$~\cite[\S3.2, Rotation systems]{MT01} (a rotation system
+determines a cellular embedding in an orientable surface; here both diagram graphs are connected and
+embedded in the plane, so that surface is the sphere for both). The statement holds for
 multigraphs, with the rotation taken on edge-ends; the diagram graphs here have parallel edges (in the
 twist region). So there is an orientation-preserving homeomorphism $g$ of $S^2=\R^2\cup\{\infty\}$
 carrying the first diagram onto the second, crossings to crossings, with the same over- and
 under-strands.
 \item A diagram determines its knot up to equivalence. Put the knot in $\R^2\times(-1,1)\subset S^3$ by the
-linear map $p\mapsto(\pi_D(p),h_D(p))$ followed by a shrinking of the height; if this map reverses
-orientation, the knot is replaced by its mirror image, which the statement allows. The projection plane
-lies inside $S^2\times[-1,1]$, a collar of a $2$-sphere in $S^3$. Two knots in the
-collar with the same projection and the same crossing information differ by moving points along the
-$[-1,1]$-fibres, keeping the order of the two heights over each crossing; such a move is induced by a
-homeomorphism of $S^3$ that preserves every fibre and is the identity near $S^2\times\{\pm1\}$ (on each
-fibre it is piecewise linear in the height; its displacement is tapered to zero outside a regular
-neighbourhood of the projected curve, and over each crossing it keeps the two strands apart). And
+linear map $p\mapsto(\pi_D(p),h_D(p))$ followed by a shrinking of the height. This map preserves
+orientation: its matrix has rows $(D_z,0,-D_x)$, $(0,D_z,-D_y)$, $(D_x,D_y,D_z)$ and determinant
+$D_z(D_x^2+D_y^2+D_z^2)$, which is $72>0$ for $D=(1,-1,4)$. So a viewer at large positive height sees
+the projection plane with its standard orientation, the one to which the counter-clockwise order of
+the PD code refers. The projection plane lies inside $S^2\times[-1,1]$, a collar of a $2$-sphere in
+$S^3$. Let $K_0$ and $K_1$ be two knots in the collar over the same curve $C$ in $S^2$, with height
+functions $h_0,h_1:C\to(-1,1)$ such that over each crossing the over-strand is higher for both, so
+the two heights over a crossing come in the same order in $K_0$ and in $K_1$. On each fibre $\{x\}\times[-1,1]$ with $x\in C$, let $\phi_x$ be the map
+that is linear on $[-1,h_0(x)]$ and on $[h_0(x),1]$ and sends $h_0(x)$ to $h_1(x)$, fixing $\pm1$ (over
+a crossing point, which carries two heights, use the map that is linear between the four points
+$-1<h_0(\text{under})<h_0(\text{over})<1$ and sends them to $-1<h_1(\text{under})<h_1(\text{over})<1$).
+Extend $\phi$ to all fibres, equal to the identity outside a small neighbourhood of $C$ and
+interpolating linearly with the distance to $C$ inside it. This is a homeomorphism of the collar,
+the identity near its boundary, that carries $K_0$ to $K_1$. And
 $g\times\mathrm{id}$ is an orientation-preserving homeomorphism of the collar that carries a knot over
 the first diagram to a knot over the second; it extends over the two complementary balls by coning
 (Alexander's trick) to an orientation-preserving homeomorphism of $S^3$. Finally, knot types in $S^3$ and
@@ -1388,8 +1449,8 @@ The Lean development (plain Lean~4.25, no Mathlib, about \num{4500} lines) prove
 theorem no_short (T : List Nat → Prop) (hT : KnotClass T) (hTop : TopHyp T)
     (hComp : CompCert) : ∀ w, T w → 36 ≤ w.length
 \end{lstlisting}
-Here $T$ is any set of words. \lean{KnotClass T} says that $T$ consists of polygon words and has the
-closure properties of \cref{cor:knotclass}. \lean{TopHyp T} says that every regular diagram of a member
+Here $T$ is any set of words. \lean{KnotClass T} says that $T$ is a knot class, (K1)--(K6) of
+\cref{sec:normal}. \lean{TopHyp T} says that every regular diagram of a member
 of $T$ has a non-constant Fox $7$-colouring. \lean{CompCert} says that every word returned by every
 part of the search passes the colouring test. For $T=T_{5_2}$ the first two hypotheses are
 \cref{cor:knotclass} and \cref{thm:fox} with \cref{lem:fiftytwo}; the third is the computation.
@@ -1415,7 +1476,8 @@ Result & Lean name & Depends on \\
 \Cref{lem:curtain,lem:corner}, \cref{thm:normal} & \lean{curtainOK\_of\_min}, \lean{cornerOK\_of\_min}, \lean{exists\_survivor} & \lean{KnotClass} \\
 \Cref{lem:state,lem:invariant}, \cref{thm:pandmonium} (PanDMONium) & \lean{search\_complete}, \lean{search\_complete\_parts} (SP/*.lean) & \lean{Survive} \\
 \Cref{thm:fox} with \cref{lem:fiftytwo} & hypothesis \lean{TopHyp} (text) & Wirtinger presentation (E2) \\
-\Cref{lem:fiftytwo} & \lean{w52\_coloring}, \lean{fig\_coloring} (the non-constant colouring; the count $49$ is not formalised) & \cref{thm:fox} \\
+\Cref{lem:fiftytwo} (49 colourings of every diagram of $5_2$) & text, not formalised & \cref{thm:fox} \\
+non-constant colouring of the diagrams of $|w_{36}|$ & \lean{w52\_coloring}, \lean{fig\_coloring} & -- \\
 \Cref{lem:certsound} & \lean{colorCheck\_sound}; \lean{square\_ok} & -- \\
 \lean{CompCert} from \num{1358} Booleans & \lean{compCert\_of\_checks} & the computation (\cref{sec:engineering}) \\
 \Cref{thm:lower} & \lean{no\_short} & all of the above \\
@@ -1439,13 +1501,6 @@ array, which the compiler updates in place. It is a line-by-line port, by the sa
 C\texttt{++} program. Where the runs are unsplit ($n\le26$), both programs visit exactly the same number
 of nodes (\cref{sec:cross}).
 
-\paragraph{A bug that the output did not show.} An early version of the Lean search looked up the wrong
-vertex for the corner test \dmon7: an off-by-one index into the reversed list of positions. The program
-still ran and returned the same words as the C\texttt{++} program at every length we tried, but it
-tested \dmon7 at the wrong point, which in principle can discard valid walks. It was caught because the
-node counts differed from the C\texttt{++} program, and the completeness proof would not have gone
-through. Comparing outputs alone does not exclude errors of this kind.
-
 %=====================================================================================================
 \section{The computation}\label{sec:engineering}
 
@@ -1456,8 +1511,7 @@ certificate program. The executable \texttt{checkpart} evaluates exactly this te
 a final line \texttt{RESULT \dots\ ok=true}, and exits with status $0$ if and only if the term is true.
 
 \paragraph{Where it ran.} The total is about \NNodes{} search nodes. Every part ran on GitHub Actions,
-which offers twenty free 4-core runners at a time for public repositories. (Lengths up to 30 and half
-of length 32 had first been run in a 4-core container; the GitHub outputs are byte-identical to those.)
+which offers twenty free 4-core runners at a time for public repositories.
 At about $5\times10^5$ nodes per second per core, most parts of length 34 took between 40 and 90
 minutes (median one hour). Length 34 used about 1060 core-hours, about sixteen hours of wall time on the
 free runners.
@@ -1501,12 +1555,7 @@ known from~\cite{JvRR11}. A missing branch of the search would show up as a miss
 \section{Discussion}\label{sec:discussion}
 
 The value $\Len(5_2)=36$ is, to our knowledge, the first exact minimal lattice length beyond the three
-reported before, and the first whose mathematical steps are checked by a proof assistant. The method
-extends. The faster, unverified version of the search (with the plane-crossing lemma, valid for prime
-knots, and a computer-checked arc lemma for composites) has been run to length 36, where it finds only
-the unknot, $3_1$, $4_1$, $5_1$ and $5_2$; this indicates that every other knot needs at least 38 steps.
-Making that statement formal needs the arc lemma and the plane-crossing lemma in Lean, and the second
-uses the prime decomposition of knots. Reaching length 40, which would settle $\Len(6_1)$, $\Len(6_2)$,
+reported before, and the first whose mathematical steps are checked by a proof assistant. Reaching length 40, which would settle $\Len(6_1)$, $\Len(6_2)$,
 $\Len(6_3)$ and $\Len(3_1\#3_1)$, all believed to be 40, needs roughly $50$ times the present
 computation, or stronger DMON tests. Finding such tests (new conditions that a well-chosen shortest
 polygon must satisfy, and that can be checked in the middle of a walk) is the most direct way to push

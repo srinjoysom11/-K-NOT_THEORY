@@ -79,7 +79,7 @@ html { scrollbar-color: var(--rule-2) var(--ground); }
 .mast-knot figcaption { display: flex; flex-direction: column; gap: calc(var(--u) * .5); margin-top: var(--u); }
 .mast-thm { font: 700 clamp(1.6rem, 2.6vw, 2.3rem)/1.1 var(--sans); font-stretch: 112%; font-variant-numeric: lining-nums; }
 .mast-thm sub { font-size: .6em; }
-.mast-word { font: .78rem/1.3 var(--mono); color: rgba(255,255,255,.82); word-break: break-all; letter-spacing: .04em; }
+.mast-word { font: .78rem/1.3 var(--mono); color: #fff; word-break: break-all; letter-spacing: .04em; }
 
 /* ---------------------------------------------------------------- layout: rail and document */
 .layout { max-width: 84rem; margin: 0 auto; padding: 0 calc(var(--u) * 5); display: grid;
@@ -165,7 +165,7 @@ math[display="block"] { margin: calc(var(--u) * 1.5) 0; overflow-x: auto; overfl
 
 /* ---------------------------------------------------------------- figures */
 .fig { margin: calc(var(--u) * 5) 0; max-width: var(--wide); }
-.fig figcaption { font: 400 .95rem/1.5 var(--serif); color: var(--ink-2); max-width: 46rem; margin-top: calc(var(--u) * 1.5); }
+.fig figcaption { font: 400 .95rem/1.5 var(--serif); color: var(--ink-2); max-width: 40rem; margin-top: calc(var(--u) * 1.5); }
 .fig-n { font: 700 .82rem/1 var(--sans); letter-spacing: .02em; color: var(--ink); margin-right: .4em; }
 .stage { background: var(--sheet); border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule); position: relative; }
 .panes { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); }
@@ -196,7 +196,7 @@ math[display="block"] { margin: calc(var(--u) * 1.5) 0; overflow-x: auto; overfl
 .nojs .stage, .nojs .ctl { display: none; }
 .fig .tablewrap { overflow-x: auto; }
 .fig table { margin: 0; }
-.mat { display: inline-grid; gap: 0 .7em; padding: 0 .5em; border-left: 1.5px solid var(--ink); border-right: 1.5px solid var(--ink);
+.mat { position: relative; display: inline-grid; gap: 0 .7em; padding: 0 .65em;
   font: 500 .95rem/1.6 var(--sans); font-variant-numeric: lining-nums tabular-nums; text-align: right; vertical-align: middle; }
 .mat span.hl { background: color-mix(in srgb, var(--c5) 35%, transparent); }
 .matrow { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--u) * 2); padding: calc(var(--u) * 2); font: 600 .9rem var(--sans); }
@@ -220,7 +220,7 @@ svg .drag:active { cursor: grabbing; }
 
 .foot { border-top: 2px solid var(--ink); max-width: 84rem; margin: 0 auto; padding: calc(var(--u) * 3) calc(var(--u) * 5) calc(var(--u) * 6);
   font: 400 .85rem/1.5 var(--sans); color: var(--ink-2); }
-.foot p { max-width: 60rem; margin: 0; }
+.foot p { max-width: 40rem; margin: 0; }
 
 
 /* ---------------------------------------------------------------- the lattice studio (3D figures) */
@@ -330,7 +330,7 @@ math[display="block"] {
 
 .doc code { hyphens: manual; -webkit-hyphens: manual; }
 
-.mast-eq { display: block; font: 400 .85rem/1.4 var(--sans); color: rgba(255,255,255,.85); margin-top: 4px; }
+.mast-eq { display: block; font: 400 .85rem/1.4 var(--sans); color: #fff; margin-top: 4px; }
 .foot-by { font-weight: 600; color: var(--ink); margin-bottom: var(--u) !important; }
 
 /* SVG focus: the UA ring would be drawn in the SVG's own (scaled) units; draw a crisp halo instead */
@@ -353,3 +353,18 @@ svg [tabindex]:focus-visible { filter: drop-shadow(0 0 1.5px var(--c0)) drop-sha
 .spantbl th, .spantbl td { padding: 3px 4px; text-align: right; border-bottom: 1px solid var(--rule); }
 .spantbl th:first-child, .spantbl td:first-child { text-align: left; }
 .spantbl tfoot td { border-bottom: 0; border-top: 1.5px solid var(--ink); }
+
+/* review fixes */
+.mat::before, .mat::after { content: ""; position: absolute; top: 0; bottom: 0; width: .3em; border: 1.5px solid var(--ink); }
+.mat::before { left: 0; border-right: 0; }
+.mat::after { right: 0; border-left: 0; }
+.doc p, .fig figcaption, .refs li, .readout, .foot p { text-wrap: pretty; }
+.studio-wrap:focus-visible { outline: 2px solid var(--c0); outline-offset: -2px; }
+#thm\:main { border: 2px solid var(--ink); padding: calc(var(--u) * 2.5) calc(var(--u) * 3); }
+#thm\:main > p:first-child { font-size: 1.12rem; }
+.pickrow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+@media (max-width: 860px) {
+  .btn { min-height: 44px; }
+  .range input { min-height: 32px; }
+  .widget > .ctl { position: sticky; bottom: 0; z-index: 3; background: var(--ground); padding-bottom: var(--u); border-top: 1px solid var(--rule); }
+}
