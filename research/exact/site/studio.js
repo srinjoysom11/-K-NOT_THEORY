@@ -300,7 +300,9 @@ export class Studio {
       if (v.z >= 1 || !L.el.textContent.trim()) { L.el.style.visibility = 'hidden'; continue; }
       L.el.style.visibility = 'visible';
       if (!L.size) L.size = [L.el.offsetWidth, L.el.offsetHeight];
-      const r = [x - L.size[0] / 2, y - L.size[1] / 2, x + L.size[0] / 2, y + L.size[1] / 2];
+      const cx = Math.max(L.size[0] / 2 + 2, Math.min(w - L.size[0] / 2 - 2, x)), cy = Math.max(L.size[1] / 2 + 2, Math.min(h - L.size[1] / 2 - 2, y));   // never past the frame
+      if (cx !== x || cy !== y) L.el.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      const r = [cx - L.size[0] / 2, cy - L.size[1] / 2, cx + L.size[0] / 2, cy + L.size[1] / 2];
       const hit = boxes.some((q) => Math.min(r[2], q[2]) - Math.max(r[0], q[0]) > 2 && Math.min(r[3], q[3]) - Math.max(r[1], q[1]) > 2);
       L.el.style.opacity = hit ? '0' : '';
       if (!hit) boxes.push(r);
