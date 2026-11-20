@@ -226,7 +226,7 @@ svg .drag:active { cursor: grabbing; }
 /* ---------------------------------------------------------------- the lattice studio (3D figures) */
 .studio { position: relative; }
 .studio-wrap { position: relative; width: 100%; overflow: hidden; touch-action: pan-y;
-  background: radial-gradient(120% 90% at 50% 20%, #ffffff 0%, #f3f5f7 70%, #eceff2 100%); }
+  background: var(--sheet); }
 .studio-canvas { display: block; width: 100%; height: 100%; }
 .studio-wrap { cursor: grab; }
 .studio-wrap:active { cursor: grabbing; }

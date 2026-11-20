@@ -237,7 +237,7 @@ drag the edge through the other strand, which can change the knot type.}
 The intuition: slide the edge $[a,b]$ across the flat triangle onto the two other sides. Nothing is
 in the way, so nothing is cut or passed through.
 
-\begin{theorem}[E1: $\Delta$-moves preserve the knot type; Reidemeister~\cite{Rei32}, see also~\cite{BZ}, Ch.~1]\label{thm:deltamove}
+\begin{theorem}[E1: $\Delta$-moves preserve the knot type; Reidemeister~{\cite[Ch.~I]{Rei32}}, see also~{\cite[Ch.~1]{BZ}}]\label{thm:deltamove}
 If $K'$ is obtained from $K$ by a $\Delta$-move, then $K'$ is equivalent to $K$.
 \end{theorem}
 \begin{proof}
@@ -305,9 +305,9 @@ identity outside $B$. This is a homeomorphism of $\R^3$ with $h(K)=K'$, and it i
 orientation-preserving because it is the identity on an open set.
 \end{proof}
 
-Reidemeister used $\Delta$-moves to found knot theory combinatorially~\cite{Rei27,Rei32}. The converse
+Reidemeister used $\Delta$-moves to found knot theory combinatorially~\cite{Rei27},~\cite[Ch.~I]{Rei32}. The converse
 (equivalent polygonal knots are related by finitely many $\Delta$-moves) also holds; it needs
-approximation results for homeomorphisms~\cite[Ch.~1]{BZ},~\cite{Moi77}. We never use it.
+approximation results for homeomorphisms~\cite[Ch.~1]{BZ},~\cite[Chs.~33--36]{Moi77}. We never use it.
 
 \begin{definition}
 $\Len(K)$ is the least $n$ such that some lattice polygon with $n$ edges has knot type $K$.
@@ -338,7 +338,7 @@ incoming edge is $b$ or $d$, whichever comes first counter-clockwise after the o
 
 \subsection{Fox colourings}\label{sec:colourings}
 
-\begin{definition}[Fox~\cite{Fox62}; see also~\cite{Prz98,Liv93}]\label{def:fox}
+\begin{definition}[Fox~\cite{Fox62}; see also~\cite{Prz98},~{\cite[\S\S3.2--3.3]{Liv93}}]\label{def:fox}
 Let $p\ge3$ be an odd number. A \emph{Fox $p$-colouring} of a diagram assigns to each arc an element of
 $\Z/p$ so that at every crossing
 \[ 2\cdot(\text{over-arc}) \equiv (\text{incoming under-arc}) + (\text{outgoing under-arc}) \pmod p. \]
@@ -361,13 +361,13 @@ also satisfy the rule; the trefoil diagram has $9$ colourings in all.}
 \item \emph{Constant colourings always exist.} If every arc has the colour $a$, then at every crossing
 $2a\equiv a+a$. So every diagram has at least $p$ colourings.
 \item \emph{The number of colourings depends only on the knot type}, and it is the same for $K$ and
-$K^*$~\cite{Fox62,Prz98,Liv93}. We prove this for $p=7$ in \cref{thm:fox}, the only case we need;
+$K^*$~\cite{Fox62,Prz98},~\cite[\S3.3]{Liv93}. We prove this for $p=7$ in \cref{thm:fox}, the only case we need;
 the same proof works for every odd prime $p$.
 \end{enumerate}
 
 So a non-constant colouring in one diagram of $K$ proves that $K$ is knotted, and that $K$ differs
 from every knot whose diagrams have only constant colourings. For an odd prime $p$, a knot has a
-non-constant $p$-colouring exactly when $p$ divides its determinant~\cite{Liv93,Prz98} (we quote this
+non-constant $p$-colouring exactly when $p$ divides its determinant~\cite[\S\S3.3--3.4]{Liv93},~\cite{Prz98} (we quote this
 only to explain the choice $p=7$; the proof does not use it). The
 determinants of $3_1,4_1,5_1,5_2$ are $3,5,5,7$. This is why $p=7$ separates $5_2$ from all other knots
 with at most five crossings: the standard diagram of $5_2$ has $49$ colourings (\cref{lem:fiftytwo}), while the
@@ -1045,7 +1045,7 @@ $20\le n\le34$) and words $\approx \WordConst\cdot\WordBase^{\,n}$ ($24\le n\le3
 knotted words). Shorter lengths are left out of the node fit because the growth factor is still
 rising there, see (b); continued to $n<20$, the fitted line lies below the counts. Exponential growth is
 expected: the number $p_n$ of lattice polygons of length $n$ satisfies $p_n^{1/n}\to\mu$ (Hammersley
-\cite{Ham61}; see \cite{MS93}), with $\mu\approx4.684$ (Clisby \cite{Cli13}), so $p_n$ grows by about
+\cite{Ham61}; see \cite[Ch.~3]{MS93}), with $\mu\approx4.684$ (Clisby \cite{Cli13}), so $p_n$ grows by about
 $\mu^2\approx21.9$ per two steps. The DMON tests cut this down to about $6$ per two steps. (b) The
 points in (a) are close to, but not exactly on, a straight line: the growth factor per two steps
 rises slowly, from \RatioFirst{} at $n=8$ to \RatioLast{} at $n=34$ (the dashed line is the fitted
@@ -1177,7 +1177,7 @@ this number is the same for every knot equivalent to $K$ and for $K^*$.
 \end{proof}
 
 \begin{remark}
-The classical proof checks that each Reidemeister move gives a bijection of colourings~\cite{Prz98,Liv93}.
+The classical proof checks that each Reidemeister move gives a bijection of colourings~\cite{Prz98},~\cite[\S3.3]{Liv93}.
 It needs Reidemeister's theorem that diagrams of equivalent knots are related by these moves~\cite{Rei27},~\cite[Ch.~1]{BZ}; the proof
 above needs only the Wirtinger presentation.
 \end{remark}

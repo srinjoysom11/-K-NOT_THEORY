@@ -39,8 +39,8 @@ export class Studio {
     this.controls.addEventListener('change', () => this.request());
     this.controls.addEventListener('start', () => { this.camTween = null; this.onUser && this.onUser(); });
     // light: soft sky + a key light that casts the shadow
-    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xb9c1ca, 1.9));
-    this.key = new THREE.DirectionalLight(0xffffff, 1.7);
+    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd4d9de, 2.5));
+    this.key = new THREE.DirectionalLight(0xffffff, 1.2);
     this.key.castShadow = opts.floor !== false;
     this.key.shadow.mapSize.set(2048, 2048);
     this.key.shadow.bias = -0.0004;
@@ -168,7 +168,7 @@ export class Studio {
     const z0 = this.box.min.z - 0.7;
     const span = Math.ceil(this.radius * 2.6);
     const cx = Math.round(this.center.x), cy = Math.round(this.center.y);
-    const plane = new THREE.Mesh(new THREE.PlaneGeometry(span * 2, span * 2), new THREE.ShadowMaterial({ opacity: 0.26 }));
+    const plane = new THREE.Mesh(new THREE.PlaneGeometry(span * 2, span * 2), new THREE.ShadowMaterial({ opacity: 0.2 }));
     plane.position.set(cx, cy, z0); plane.receiveShadow = true; g.add(plane);
     const pts = [];
     for (let i = -span; i <= span; i++) { pts.push(cx - span, cy + i, z0, cx + span, cy + i, z0, cx + i, cy - span, z0, cx + i, cy + span, z0); }
@@ -218,7 +218,7 @@ export class Studio {
   }
   // ---------------------------------------------------------------- building blocks
   material(color, opts = {}) {
-    return new THREE.MeshStandardMaterial({ color, roughness: 0.42, metalness: 0.02, transparent: true, ...opts });
+    return new THREE.MeshStandardMaterial({ color, roughness: 0.82, metalness: 0, transparent: true, ...opts });   // matte, like printed ink
   }
   /** a lattice-style tube: one cylinder per segment and a ball at every joint; returns a Group */
   rod(points, { color = INK, radius = 0.09, closed = false, userData = {}, pick = false, parent } = {}) {
