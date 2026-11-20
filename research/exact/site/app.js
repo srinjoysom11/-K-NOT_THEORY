@@ -605,7 +605,7 @@ function wReach(w) {
 
 // ========================================================================= Figure 12: span test
 function wSpan(w) {
-  const [pane] = panes(w, 1);
+  const [pane] = panes(w, 1, ['One axis, as in the caption: drag the head c and the two sites']);
   const svg = S('svg', { viewBox: '-8.6 -3.2 17.2 4.6', role: 'img', 'aria-label': 'Span test on one axis' }, pane);
   let c = 2, s1 = -4, s2 = 5;
   const read = H('div', { class: 'readout', style: 'padding:0 12px 12px' }); pane.append(read);
@@ -849,7 +849,7 @@ async function f3() {
 const via3d = (name, flat) => async (w) => { const m = await f3(); if (m) m[name](w); else if (flat) flat(w); else w.append(H('p', { class: 'hint' }, 'This interactive figure needs WebGL. The proof above is complete without it.')); };
 const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: via3d('figDelta', wDelta), trefoil: via3d('figTrefoil', wTrefoil), segsquare: via3d('figSegSquare', wSegSquare),
   flipdelta: via3d('figFlipDelta', wFlipDelta), psi: via3d('figPsi', wPsi), curtain: via3d('figCurtain', wCurtain), corners: via3d('figCorners', wCorners),
-  origin: via3d('figOrigin', wOrigin), replay: via3d('figObligation', wReplay), reach: via3d('figReach', wReach), span: via3d('figSpan', wSpan), runs: wRuns, growth: wGrowth,
+  origin: via3d('figOrigin', wOrigin), replay: via3d('figObligation', wReplay), reach: via3d('figReach', wReach), span: async (w) => { await via3d('figSpan', null)(w); wSpan(w); },   // 3D state, then the one-axis picture of the caption runs: wRuns, growth: wGrowth,
   std52: via3d('figStd52', wStd52), certex: via3d('figCertex', wCertex), pdcompare: async (w) => (await import('./figs3d.js')).figPdCompare(w),
   deltaproof: via3d('figDeltaProof'), invariant: via3d('figInvariant'), d7: async (w) => (await import('./figs3d.js')).figD7(w), deps: () => {} };
 function boot() {
