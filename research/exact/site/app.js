@@ -854,6 +854,13 @@ const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: via3d('figDelta
   deltaproof: via3d('figDeltaProof'), invariant: via3d('figInvariant'), d7: async (w) => (await import('./figs3d.js')).figD7(w), deps: () => {} };
 function boot() {
   masthead(); rail(); linkLean(); stackTables();
+  // long proofs can be folded (they start open: the page is the paper)
+  document.querySelectorAll('.doc .proof').forEach((pf) => {
+    if (pf.textContent.length < 1600) return;
+    const b = H('button', { class: 'fold', type: 'button', 'aria-expanded': 'true' }, 'Hide this proof');
+    b.addEventListener('click', () => { const f = pf.classList.toggle('folded'); b.setAttribute('aria-expanded', String(!f)); b.textContent = f ? 'Show the proof' : 'Hide this proof'; });
+    pf.prepend(b);
+  });
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting) return; io.unobserve(e.target);
     const f = WIDGETS[e.target.dataset.w];

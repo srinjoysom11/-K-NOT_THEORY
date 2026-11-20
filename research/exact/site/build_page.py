@@ -284,6 +284,30 @@ H = re.sub(r'<h4[^>]*>(.*?)</h4>', lambda m: f'<p><strong class="runin">{m.group
 H = re.sub(r'<(/?)h2([ >])', r'<\1h3\2', H)
 H = re.sub(r'<(/?)h1([ >])', r'<\1h2\2', H)
 
+# every mention of a DMON test carries its definition (hover or focus), outside MathML and tags
+DMON_DEF = {
+    "1": "DMON1 (closed walk): every letter is one of the six steps, n \u2265 4, and the walk returns to its start.",
+    "2": "DMON2 (self-avoiding): the vertices v0, ..., v(n-1) are pairwise distinct.",
+    "3": "DMON3 (lowest start): every other vertex is greater than v0 = 0 in the order first z, then y, then x.",
+    "4": "DMON4 (direction of travel): w0 < -w(n-1) in the order e < w < n < s < u < d.",
+    "5": "DMON5 (sorted axes): #z \u2264 #y \u2264 #x, the numbers of letters on each axis.",
+    "6": "DMON6 (curtains): every curtain has an interior point that is a vertex.",
+    "7": "DMON7 (corners): at each of the four corner patterns, the fourth corner v(i-1) + w(i) of the square is a vertex.",
+}
+def dmon_tips(h):
+    out, depth = [], 0
+    for part in re.split(r"(<[^>]+>)", h):
+        if part.startswith("<"):
+            if re.match(r"<math\b", part): depth += 1
+            elif part.startswith("</math"): depth -= 1
+            out.append(part)
+        elif depth == 0:
+            out.append(re.sub(r"DMON([1-7])\b", lambda m: f'<abbr class="dmon" tabindex="0" title="{html.escape(DMON_DEF[m.group(1)])}">DMON{m.group(1)}</abbr>', part))
+        else:
+            out.append(part)
+    return "".join(out)
+H = dmon_tips(H)
+
 tpl = open(os.path.join(HERE, "template.html")).read()
 title_meta = "The knot 5₂ needs 36 steps on the cubic lattice"
 toc_html = "\n".join(f'<li><a href="#{i}" data-sec="{k + 1}"><span class="toc-n">{k + 1 if not t.startswith("Acknowledgements") else ""}</span><span class="toc-t">{html.escape(t)}</span></a></li>'
