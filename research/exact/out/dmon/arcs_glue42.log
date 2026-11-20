@@ -1,2 +1,24 @@
 L=19: closures listed 960, closure types {'3_1-': 480, '3_1+': 480}, arcs with symmetries 960, displacement classes 12
 L=20: closures listed 6918, closure types {'3_1-': 3459, '3_1+': 3459}, arcs with symmetries 8496, displacement classes 20
+L=21: closures listed 55036, closure types {'3_1+': 27518, '3_1-': 27518}, arcs with symmetries 68344, displacement classes 32
+split (19,21): ordered pairs with equal displacement 4176912; pairs by (type b, type c): {('3_1-', '3_1+'): 779712, ('3_1-', '3_1-'): 1308744, ('3_1+', '3_1+'): 1308744, ('3_1+', '3_1-'): 779712}
+  rule from 25 directly identified glued polygons per type pair (a function of the pair: True):
+     ('3_1-', '3_1+') -> {'3_1#3_1-': 25}
+     ('3_1-', '3_1-') -> {'3_1#-3_1': 25}
+     ('3_1+', '3_1+') -> {'3_1#-3_1': 25}
+     ('3_1+', '3_1-') -> {'3_1#3_1+': 25}
+  glued polygons (ordered pairs) by knot type, split (19,21): {'3_1#3_1-': 779712, '3_1#-3_1': 2617488, '3_1#3_1+': 779712}
+split (20,20): ordered pairs with equal displacement 5024576; pairs by (type b, type c): {('3_1-', '3_1-'): 1363792, ('3_1-', '3_1+'): 1148496, ('3_1+', '3_1-'): 1148496, ('3_1+', '3_1+'): 1363792}
+  rule from 25 directly identified glued polygons per type pair (a function of the pair: True):
+     ('3_1-', '3_1-') -> {'3_1#-3_1': 25}
+     ('3_1-', '3_1+') -> {'3_1#3_1-': 25}
+     ('3_1+', '3_1-') -> {'3_1#3_1+': 25}
+     ('3_1+', '3_1+') -> {'3_1#-3_1': 25}
+  glued polygons (ordered pairs) by knot type, split (20,20): {'3_1#-3_1': 2727584, '3_1#3_1-': 1148496, '3_1#3_1+': 1148496}
+split (21,19): ordered pairs with equal displacement 4176912; pairs by (type b, type c): {('3_1+', '3_1-'): 779712, ('3_1+', '3_1+'): 1308744, ('3_1-', '3_1-'): 1308744, ('3_1-', '3_1+'): 779712}
+  rule from 25 directly identified glued polygons per type pair (a function of the pair: True):
+     ('3_1+', '3_1-') -> {'3_1#3_1+': 25}
+     ('3_1+', '3_1+') -> {'3_1#-3_1': 25}
+     ('3_1-', '3_1-') -> {'3_1#-3_1': 25}
+     ('3_1-', '3_1+') -> {'3_1#3_1-': 25}
+  glued polygons (ordered pairs) by knot type, split (21,19): {'3_1#3_1+': 779712, '3_1#-3_1': 2617488, '3_1#3_1-': 779712}

@@ -462,3 +462,23 @@ Identification: `identify6.py --chir`, four chunks in parallel, every word check
 The result rests on the programs and on the identification step in the same way as the n <= 38 results do (PROOF.md section 6); `bfs_limit_hits` are counted in the part logs and can only keep polygons.
 
 **Cost for planning.** n = 40: 100 runner-hours with `enum_bidir` (the earlier estimate was 75 to 85). The n = 38 `enum` run took 278 runner-hours, so the two-ended search at n = 40 is 2.8 times cheaper than `enum` was at n = 38. For n = 42 the estimate is 100 x 5.4 = about 540 runner-hours (256 parts of about 2.1 hours).
+
+### D5 at n = 42: the arc lists for 20 and 21 edges and the gluings (local, no runners; `check/arcs_glue42.py`, log `out/dmon/arcs_glue42.log`)
+
+`arcknot L | unknot_cert` for L = 20 (128 parts) and L = 21 (256 parts) was run by `arc19-enum.yml` (runs 44618021834; all parts have summary lines, bad = 0):
+
+| L | walks ending on level 0 (all have L + d >= 22) | passed to unknot_cert | shrunk to the square | left over | reduce to 24 / 26 edges | CPU-seconds (sum of part times) |
+|---|---|---|---|---|---|---|
+| 20 | 59 805 817 467 | 1 035 890 552 | 1 035 883 634 | **6918** | 6854 / 64 | 164 926 |
+| 21 | 235 576 232 430 | 5 888 505 132 | 5 888 450 096 | **55 036** | 52 268 / 2768 | 1 142 825 |
+
+(about 11.5 and 79 runner-hours, with 4 parts per 4-core job.) Knot types of the closures (`identify6.classify`, chirality included): **every one is a trefoil, half right-handed and half left-handed** (L = 19: 480/480, L = 20: 3459/3459, L = 21: 27 518/27 518). With the 8 horizontal symmetries there are 960, 8496 and 68 344 arcs, in 12, 20 and 32 displacement classes.
+Gluing for the three splits of n = 42 (ordered pairs of arcs with the same displacement; the knot type of the glued polygon is a function of the two closure types, checked by identifying 25 glued polygons directly for each of the four type pairs of each split, all in agreement):
+
+| split | ordered pairs | 3_1#-3_1 (square) | 3_1#3_1 right-handed | 3_1#3_1 left-handed |
+|---|---|---|---|---|
+| (19, 21) | 4 176 912 | 2 617 488 | 779 712 | 779 712 |
+| (20, 20) | 5 024 576 | 2 727 584 | 1 148 496 | 1 148 496 |
+| (21, 19) | 4 176 912 | 2 617 488 | 779 712 | 779 712 |
+
+**No other knot type occurs.** So, by the proposition for n = 42, the shortest polygons of length 42 with a twice-crossed plane (two occupied levels on each side) are all of type 3_1#3_1 or 3_1#-3_1, which already have Len = 40. For the types with Len = 42 only the `-stair` output at n = 42 remains to be computed (about 540 runner-hours: not launched, waiting for the user's decision).

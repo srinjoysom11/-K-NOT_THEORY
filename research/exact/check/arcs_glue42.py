@@ -83,7 +83,7 @@ def types_for(L, rows, procs):
 def glue(b, c, L1, L2):
     cc = [(x, y, -1 - z) for (x, y, z) in c]
     verts = list(b) + cc[::-1]
-    assert len(verts) == len(set(verts)) == L1 + L2 + 4
+    assert len(verts) == len(set(verts)) == L1 + L2 + 2
     return ''.join(LET[tuple(verts[(i + 1) % len(verts)][k] - verts[i][k] for k in range(3))] for i in range(len(verts)))
 
 
