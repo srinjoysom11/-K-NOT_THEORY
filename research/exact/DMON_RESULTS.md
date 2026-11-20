@@ -441,3 +441,24 @@ so b is in the list of 960 (up to the symmetries of the half-space; the list is 
 **The single-ended version of the tail finding (`-rootnb` in `enum_dmon.cpp`, a search test, pure bound).** The vertex before the root, v_{n-1}, is a free neighbour of the root among the three above it (e, n, u: DMON3), the direction m = v_{n-1} - v_n must exceed the first letter (DMON4: the reverse of the last letter is greater than the first), so the remaining walk of R1 steps from the head must reach one of these (up to three) points in R1 - 1 steps: min over the admissible free m of |head - (root + m)| + 1 <= R1.
 Instead of |head - root| <= R1 of `enum`. Output identical; nodes (`-stair -tourcap 3`): n = 24: 15 886 694 -> 14 980 645 (0.943); n = 26: 76 302 828 -> 71 549 630 (0.938); with `-aotc -aotm -aote`: 5 065 015 -> 4 722 237 (0.932) and 20 044 495 -> 18 488 147 (0.922).
 So this test alone gives only about 6 to 8 %. The much larger gain of one tail letter in `enum_bidir` (a factor 2.5 at n = 30) comes from the tail letter being a real step: the curtain and corner obligations that involve the last letters, the DMON4 test, and the distance to a concrete vertex are all checked from the start, and the first letters of the head constrain the last ones.
+
+## n = 40 with `enum_bidir` (unconfined, `-stair -tourcap 3 -aotc -aotm -alt 4`, 128 parts on GitHub Actions)
+
+Run 44616339687 (workflow `bidir-enum.yml`, source hash `enum_bidir.cpp=89047ecb285e658d` in every part log). All 128 parts completed: **59 084 survivors**, 5.437e11 nodes, **360 113 runner-seconds (100.0 runner-hours)**; parts took 30 to 48 minutes. Files: `out/bidir/n40_stair_bd.txt`, `n40_stair_bd.m128.ci_summary.txt`, per-part logs in `out/bidir/ci/`.
+Identification: `identify6.py --chir`, four chunks in parallel, every word checked to be a closed self-avoiding polygon, simplified to at most 6 crossings, Alexander polynomial and (for granny/square) the Jones sign; **ALL RESOLVED**, 0 unresolved, 0 inconsistent, no diagram with more than 6 crossings. Per word: `out/bidir/n40_stair_bd.identify6.txt`; tally `n40_stair_bd.tally.txt`:
+
+| type | words | | type | words |
+|---|---|---|---|---|
+| 0_1 | 8271 | | 6_1 (+ / -) | 32 / 32 |
+| 3_1 (+ / -) | 2549 / 2535 | | 6_2 (+ / -) | 173 / 173 |
+| 4_1 | 7568 | | 6_3 | 136 |
+| 5_1 (+ / -) | 5875 / 5871 | | 3_1#-3_1 (square) | 104 |
+| 5_2 (+ / -) | 12 882 / 12 883 | | 3_1#3_1 (granny) | 0 |
+
+(The 3_1, 4_1, 5_1, 5_2 and unknot words are polygons of length 40 of those types that `-stair` does not reduce; they are not shortest.) The `-stair` output contains no 3_1#3_1 (the granny polygons of length 40 all have a twice-crossed plane and come from the D5 glue), no knot with crossing number 7 or more, and no 8_19.
+
+**Consequence** (with the D5 proposition for the polygons that `-stair` cannot see, and the proof of PROOF.md section 2b for the rest): the knot types with Len = 40 are exactly 6_1, 6_2, 6_3, 3_1#3_1 and 3_1#-3_1 (the polygons of `out/witness40.txt` show Len <= 40 for them), and
+**every knot type other than 0_1, 3_1, 4_1, 5_1, 5_2, 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1 has Len >= 42**; in particular every knot with crossing number at least 7, and 8_19. Together with an explicit 42-edge polygon of 8_19 (the parent session's `out/witness42_8_19.txt`, on its branch) this gives Len(8_19) = 42.
+The result rests on the programs and on the identification step in the same way as the n <= 38 results do (PROOF.md section 6); `bfs_limit_hits` are counted in the part logs and can only keep polygons.
+
+**Cost for planning.** n = 40: 100 runner-hours with `enum_bidir` (the earlier estimate was 75 to 85). The n = 38 `enum` run took 278 runner-hours, so the two-ended search at n = 40 is 2.8 times cheaper than `enum` was at n = 38. For n = 42 the estimate is 100 x 5.4 = about 540 runner-hours (256 parts of about 2.1 hours).

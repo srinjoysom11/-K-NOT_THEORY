@@ -112,3 +112,8 @@ Order on Actions: (1) n=40 (running); (2) arcs L=20 (m=128) and L=21 (m=256): SU
 The user said: "Let's wait on manual decision after n=40 is done." This OVERRIDES the parent's standing instruction to launch n=42 automatically.
 After n=40 is merged: run identify_rigorous.py, send the tally to the parent AND report to the user, then STOP. Do NOT launch n=42, the 1-slab n=48 / 2-slab n=42 runs, or anything that needs more runners, and do not add or attach another repository for runners, until the user decides.
 Already submitted and left as they are (small, queued behind n=40): arc runs L=20 (m=128) and L=21 (m=256), ci/arc19_request.json, run 44618021834.
+
+## 20 Nov 11:30 UTC: n=40 DONE (user hold still in force)
+n=40 `-stair` merged: 59 084 survivors, 5.437e11 nodes, 360 113 runner-s (100 h). identify6.py --chir: ALL RESOLVED. Tally in out/bidir/n40_stair_bd.tally.txt (0_1 8271; 3_1 5084; 4_1 7568; 5_1 11746; 5_2 25765; 6_1 64; 6_2 346; 6_3 136; 3_1#-3_1 104; no 7-crossing knot, no 8_19, no granny in the -stair output). With D5: Len=40 types = 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1; all other knots (incl. every c>=7 knot and 8_19) have Len >= 42.
+Arcs L=20 (128 parts, out/dmon/arc20/) and L=21 (256 parts, out/dmon/arc21/) are on disk, NOT yet processed (gluing 19+21 and 20+20 for n=42).
+STILL ON HOLD by the user: n=42 (est. 540 runner-hours, m=256), slab runs, more runners. Local L1_n42 slab re-run: see out/dmon/slab/L1_n42.log (was still running).
