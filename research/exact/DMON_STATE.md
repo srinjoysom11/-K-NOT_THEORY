@@ -117,3 +117,16 @@ Already submitted and left as they are (small, queued behind n=40): arc runs L=2
 n=40 `-stair` merged: 59 084 survivors, 5.437e11 nodes, 360 113 runner-s (100 h). identify6.py --chir: ALL RESOLVED. Tally in out/bidir/n40_stair_bd.tally.txt (0_1 8271; 3_1 5084; 4_1 7568; 5_1 11746; 5_2 25765; 6_1 64; 6_2 346; 6_3 136; 3_1#-3_1 104; no 7-crossing knot, no 8_19, no granny in the -stair output). With D5: Len=40 types = 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1; all other knots (incl. every c>=7 knot and 8_19) have Len >= 42.
 Arcs L=20 (128 parts, out/dmon/arc20/) and L=21 (256 parts, out/dmon/arc21/) are on disk, NOT yet processed (gluing 19+21 and 20+20 for n=42).
 STILL ON HOLD by the user: n=42 (est. 540 runner-hours, m=256), slab runs, more runners. Local L1_n42 slab re-run: see out/dmon/slab/L1_n42.log (was still running).
+
+
+## FINAL NOTE (20 Nov): direction paused by the user to focus on the first paper (len52). Work stopped; nothing is running.
+DONE (all pushed to claude/dmon-experiments; details and proofs in DMON_RESULTS.md):
+* D2 axis-ordered travel (-aot/-aotc/-aotm/-aote): pure bound, ~0.26x nodes, 5.7x faster at n=28. D1 generalized curtain: lemma proved and validated (0 violations in 128 560 shortest polygons) but prunes nothing. D3, E1, E3, D4: negative or minor.
+* E9 two-ended search (enum_bidir.cpp, -alt 4): identical output, ~0.05x nodes / 16-20x faster with D2; confirmed in CI at n=34, 36 (byte-identical to the stored -prime lists); -slab L validated vs slab.cpp (L1 n=30,34; L2 n=30,34).
+* n=40 unconfined (CI): 59 084 survivors, identify6 ALL RESOLVED; with D5, Len=40 exactly for 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1; every other knot beyond 5_2 has Len >= 42; 100 runner-hours.
+* D5: 960 knotted 19-edge arcs, 6918 (L=20) and 55 036 (L=21), all trefoil closures; gluings give only 3_1#3_1 / 3_1#-3_1 at n=40 (55 728 polygons) and at n=42 (splits 19+21, 20+20, 21+19: about 13.4 million ordered pairs).
+OPEN (nothing started):
+* n=42 -stair search (est. ~540 runner-hours, m=256, command: ci/bidir_request.json with n=42, "-stair -tourcap 3 -aotc -aotm -alt 4"); needed for Len of the 7- and 8-crossing knots at 44.
+* Slab runs with enum_bidir -slab: 1-slab n=48 and 2-slab n=42 (about 85 runner-hours each; the 6_3 slab values); the local L1_n42 re-run (expected 713 words) was NOT finished and has NOT been compared (out/dmon/slab/L1_n42.log empty).
+* Census check of the granny/square counts at n=40; parent's PROOF.md section 8 (Len(8_19)=42) is on its own branch.
+No Actions runs are queued or running from this branch (last runs: 44616339687 n=40, 44618021834 arcs, both completed).
