@@ -195,8 +195,12 @@ pairwise distinct. Its \emph{polygon} $|w|$ is the union of the $n$ unit segment
 Two distinct unit lattice segments meet in at most one common endpoint (if they are perpendicular, a
 common point has integer coordinates on both axes, so it is an endpoint; parallel segments are
 disjoint or collinear, and collinear unit segments between consecutive integers meet only at a shared
-endpoint). So $|w|$ is a simple closed curve made of $n$ segments. Every lattice polygon is a
-translate of $|w|$ for some polygon word $w$: start at any vertex and read off the steps.
+endpoint). In $|w|$, adjacent segments $[v_{i-1},v_i]$ and $[v_i,v_{i+1}]$ share exactly the point
+$v_i$, and non-adjacent segments share no point, because the vertices are distinct. So $|w|$ is a
+simple closed curve made of $n$ segments. A \emph{lattice polygon} is a simple closed curve that is a
+union of finitely many unit lattice segments, each of its corners lying on exactly two of them. Every
+lattice polygon is a translate of $|w|$ for some polygon word $w$: start at any vertex and read off the
+steps.
 
 \begin{lemma}[Parity; Lean: \lean{isPolygon\_length\_even}]\label{lem:parity}
 Every polygon word has even length.
@@ -327,14 +331,16 @@ under-arc (two of them may coincide). We use orientations only to name ``incomin
 
 A \emph{PD code} (planar diagram code) describes an oriented diagram with $c$ crossings. Cut the knot at
 the $2c$ passages through crossings (over and under); the resulting pieces are the \emph{edges},
-numbered $1,\dots,2c$ along the orientation. Each crossing is written $X[a,b,c,d]$: the four edge ends
-at the crossing in counter-clockwise order, starting with the incoming edge of the under-strand. So $a$
-and $c$ are the under-strand (in and out) and $b$, $d$ are the over-strand. For the diagram of a lattice polygon we orient the knot along its word and
+numbered $1,\dots,2c$ along the orientation. Each crossing is written $X[i,j,k,l]$: the four edge ends
+at the crossing in counter-clockwise order, starting with the incoming edge of the under-strand. So $i$
+and $k$ are the under-strand (in and out) and $j$, $l$ are the over-strand. For the diagram of a lattice polygon we orient the knot along its word and
 number the edges starting at $v_0$: edge $1$ is the piece that begins at the first passage after $v_0$,
 so the piece through $v_0$ is edge $2c$. Renumbering the edges by a cyclic shift, or reversing the
-orientation, gives another PD code of the same diagram (a \emph{relabelling}). Switching every
-crossing turns $X[a,b,c,d]$ into $X[b,c,d,a]$: the over-strand becomes the under-strand, and its
-incoming edge is $b$ or $d$, whichever comes first counter-clockwise after the old under-strand.
+orientation, gives another PD code of the same diagram (a \emph{relabelling}). Switching a
+crossing makes the old over-strand the new under-strand. The over-strand passes through the crossing
+from one edge to the next, so its incoming edge is the one of $j$, $l$ whose label is one less than the
+other (mod $2c$). The switched crossing starts with that edge and keeps the counter-clockwise order:
+$X[i,j,k,l]$ becomes $X[j,k,l,i]$ if $l\equiv j+1$, and $X[l,i,j,k]$ if $j\equiv l+1$.
 
 \subsection{Fox colourings}\label{sec:colourings}
 
@@ -388,7 +394,7 @@ type, up to mirror image''. Precisely, $T$ is a knot class (Lean: \lean{KnotClas
 \end{enumerate}
 \Cref{cor:knotclass} below shows that the main example is a knot class:
 \[ T_{5_2}=\{w : w \text{ is a polygon word and } |w| \text{ has knot type } 5_2 \text{ or } 5_2^*\}. \]
-We assume that $T$ contains a word of length at most 34, and we show that it then contains a word that
+We assume that $T$ is not empty, and we show that it then contains a word that
 passes seven local tests. The tools are two moves across a unit square.
 
 \subsection{Square moves}
@@ -582,7 +588,7 @@ Let $T$ be a knot class that contains a word of length at most
 34. We choose a word $w\in T$ in four steps.
 
 \begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*]
-\item \emph{Shortest.} Let $m$ be the least length of a word in $T$. Then $m\le34$ and $m$ is even
+\item \emph{Shortest.} Let $m$ be the least length of a word in $T$. Then $m$ is even
 (\cref{lem:parity}).
 \item \emph{Sorted axes.} Let $\#_x(w),\#_y(w),\#_z(w)$ be the numbers of letters of $w$ on each axis.
 Take any word $u\in T$ of length $m$. A permutation of the axes (a lattice symmetry, \cref{lem:rigid}c)
@@ -698,7 +704,9 @@ which contradicts the choice of $w$ (Step~3: $w$ has the least $\psiZ$ in $W$).
 
 \emph{Cases (3) and (4).} Both letters are horizontal, so $z(v')=z(v_i)$ and $\psiZ(w')=\psiZ(w)$. In
 case (3), $y(v')=y(v_{i-1})=y(v_i)-1$; in case (4), $y(v')=y(v_{i+1})=y(v_i)-1$, because $v'=v_{i+1}-p$
-with $p$ on the $x$-axis and $v_{i+1}=v_i+\word{s}$. So $y(v')$ is the $y$-coordinate of a vertex of $w$ ($v_{i-1}$ or $v_{i+1}$), hence $y(v')\ge y_{\min}(w)$; and $v_i$ is not a vertex with least $y$, because that neighbour has smaller $y$. Removing $v_i$ and adding $v'$ therefore keeps $y_{\min}(w')=y_{\min}(w)$, and $\psiY(w')=\psiY(w)-(y(v_i)-y_{\min})+(y(v')-y_{\min})=\psiY(w)-1$. Since
+with $p$ on the $x$-axis and $v_{i+1}=v_i+\word{s}$. So $y(v')$ is the $y$-coordinate of a vertex of $w$ ($v_{i-1}$ or $v_{i+1}$), hence $y(v')\ge y_{\min}(w)$; and $v_i$ is not a vertex with least $y$, because that neighbour has smaller $y$. Removing $v_i$ and adding $v'$ therefore keeps $y_{\min}(w')=y_{\min}(w)$, and
+\[ \psiY(w')=\psiY(w)-\bigl(y(v_i)-y_{\min}\bigr)+\bigl(y(v')-y_{\min}\bigr)=\psiY(w)-1. \]
+ Since
 $w'$ has the least $\psiZ$ too, this contradicts the choice of $w$ (Step~3: among the words with least
 $\psiZ$, $w$ has the least $\psiY$).
 \end{proof}
@@ -1073,7 +1081,9 @@ $\word{eeeuuswwdnneeesswwnuwwdd}$, one of the words returned at $n=24$, has a th
 whose PD code (\cref{sec:diagrams}) along $(7,13,31)$ is (Lean: \lean{wTre\_pd}; it is the polygon of
 \cref{fig:certex})
 \[ [6,3,1,4],\ [4,1,5,2],\ [2,5,3,6]. \]
-Switching every crossing turns these into $[3,1,4,6]$, $[1,5,2,4]$, $[5,3,6,2]$, which are, crossing by
+In all three crossings the over-strand enters along the second entry ($3\to4$, $1\to2$, $5\to6$), so
+each $X[i,j,k,l]$ becomes $X[j,k,l,i]$. Switching every crossing turns these into $[3,1,4,6]$,
+$[1,5,2,4]$, $[5,3,6,2]$, which are, crossing by
 crossing, the three crossings $X_2$, $X_1$, $X_3$ of the KnotInfo code $X_1[1,5,2,4]$, $X_2[3,1,4,6]$,
 $X_3[5,3,6,2]$ of the trefoil~\cite{KnotInfo}; no renumbering of the edges is needed. So the diagram of
 this polygon is the KnotInfo diagram of the trefoil with every crossing switched, a diagram of the
@@ -1126,9 +1136,9 @@ says that $G$ is generated by elements $x_1,\dots,x_c$, one loop around each arc
 crossing:
 \[ x_{\mathrm{out}}=x_{\mathrm{over}}^{\varepsilon}\,x_{\mathrm{in}}\,x_{\mathrm{over}}^{-\varepsilon}, \]
 where $x_{\mathrm{over}}$, $x_{\mathrm{in}}$, $x_{\mathrm{out}}$ are the over-arc and the incoming and
-outgoing under-arcs, and $\varepsilon=\pm1$ is the sign of the crossing ($+1$ if, seen from above, the
-over-strand crosses the under-strand from right to left, and $-1$ otherwise; the sign plays no role
-below, because every element we substitute for $x_{\mathrm{over}}$ is its own inverse). (If $c=0$, the diagram is a
+outgoing under-arcs, and $\varepsilon=\pm1$ depends on the sign of the crossing and on the orientation
+chosen for the loops~\cite[Ch.~3]{BZ}. Its value plays no role below, because every element we
+substitute for $x_{\mathrm{over}}$ is its own inverse. (If $c=0$, the diagram is a
 simple closed curve, $K$ is unknotted, and $G\cong\Z$, generated by one loop around $K$.)
 \begin{itemize}
 \item Sending every $x_i$ to $1$ defines a homomorphism $\lambda:G\to\Z$, because both sides of every
@@ -1404,25 +1414,51 @@ multigraphs, with the rotation taken on edge-ends; the diagram graphs here have 
 twist region). So there is an orientation-preserving homeomorphism $g$ of $S^2=\R^2\cup\{\infty\}$
 carrying the first diagram onto the second, crossings to crossings, with the same over- and
 under-strands.
-\item A diagram determines its knot up to equivalence. Put the knot in $\R^2\times(-1,1)\subset S^3$ by the
-linear map $p\mapsto(\pi_D(p),h_D(p))$ followed by a shrinking of the height. This map preserves
-orientation: its matrix has rows $(D_z,0,-D_x)$, $(0,D_z,-D_y)$, $(D_x,D_y,D_z)$ and determinant
-$D_z(D_x^2+D_y^2+D_z^2)$, which is $72>0$ for $D=(1,-1,4)$. So a viewer at large positive height sees
-the projection plane with its standard orientation, the one to which the counter-clockwise order of
-the PD code refers. The projection plane lies inside $S^2\times[-1,1]$, a collar of a $2$-sphere in
-$S^3$. Let $K_0$ and $K_1$ be two knots in the collar over the same curve $C$ in $S^2$, with height
-functions $h_0,h_1:C\to(-1,1)$ such that over each crossing the over-strand is higher for both, so
-the two heights over a crossing come in the same order in $K_0$ and in $K_1$. On each fibre $\{x\}\times[-1,1]$ with $x\in C$, let $\phi_x$ be the map
-that is linear on $[-1,h_0(x)]$ and on $[h_0(x),1]$ and sends $h_0(x)$ to $h_1(x)$, fixing $\pm1$ (over
-a crossing point, which carries two heights, use the map that is linear between the four points
-$-1<h_0(\text{under})<h_0(\text{over})<1$ and sends them to $-1<h_1(\text{under})<h_1(\text{over})<1$).
-Extend $\phi$ to all fibres, equal to the identity outside a small neighbourhood of $C$ and
-interpolating linearly with the distance to $C$ inside it. This is a homeomorphism of the collar,
-the identity near its boundary, that carries $K_0$ to $K_1$. And
-$g\times\mathrm{id}$ is an orientation-preserving homeomorphism of the collar that carries a knot over
-the first diagram to a knot over the second; it extends over the two complementary balls by coning
-(Alexander's trick) to an orientation-preserving homeomorphism of $S^3$. Finally, knot types in $S^3$ and
-in $\R^3$ are the same~\cite[Ch.~1]{BZ},~\cite[Ch.~1]{Lic97}.
+\item A diagram determines its knot up to equivalence. We put each knot into a thin spherical shell,
+where the diagram lives on a sphere and the heights are radii.
+
+\emph{Coordinates.} The linear map $L:p\mapsto(\pi_D(p),h_D(p))$ preserves orientation: its matrix has
+rows $(D_z,0,-D_x)$, $(0,D_z,-D_y)$, $(D_x,D_y,D_z)$ and determinant $D_z(D_x^2+D_y^2+D_z^2)$, which is
+$72>0$ for $D=(1,-1,4)$. So $L(K)$ is equivalent to $K$; its projection to the first two coordinates is
+the diagram, and its third coordinate is the height. A viewer at large positive height sees the plane
+with its standard orientation, the one to which the counter-clockwise order of the PD code refers.
+
+\emph{The shell.} Let $\sigma(X,Y)=(2X,2Y,1-X^2-Y^2)/(1+X^2+Y^2)$, the inverse stereographic projection of
+the plane onto the unit sphere $S^2$; near $(0,0)$ it is close to $(X,Y)\mapsto(2X,2Y,1)$, so it carries the
+standard orientation of the plane to the orientation of $S^2$ seen from outside. Scale the heights of
+$L(K)$ into $(-1,1)$ by a positive factor, and put $\Phi(X,Y,H)=(1+H/2)\,\sigma(X,Y)$. Then $\Phi$ is a smooth
+embedding of $\R^2\times(-1,1)$ onto the open shell between the radii $1/2$ and $3/2$; it sends height to
+radius, so a crossing's over-strand goes to the outer point. Its Jacobian determinant has the same sign
+everywhere (the domain is connected and $\Phi$ is an embedding), and it is positive at the origin, so
+$\Phi$ preserves orientation. On a closed ball containing the knot, $\Phi$ is an orientation-preserving
+smooth embedding; by the disc theorem and the isotopy extension theorem~\cite[Ch.~8]{Hir76} it agrees
+there with a diffeomorphism of $\R^3$. So $\Phi(L(K))$ is equivalent to $K$. It lies in the shell over a
+curve on $S^2$ (its \emph{radial projection}), which is the diagram transported by $\sigma$.
+
+\emph{Same diagram, same knot.} Let $g$ be the homeomorphism of step~2, transported to $S^2$ by
+$\sigma$; it preserves orientation. Its radial extension $G(rx)=r\,g(x)$ ($x\in S^2$, $r\ge0$) is an
+orientation-preserving homeomorphism of $\R^3$, and it maps a knot in the shell over the first diagram
+to a knot in the shell over the second, with the same over- and under-strands. So it remains to show:
+two knots $K_0$, $K_1$ in the shell over the same curve $C\subset S^2$, with the same crossing
+information, are equivalent. Write points of the shell as $(y,t)$ with $y\in S^2$ and radius $1+t/2$,
+$t\in(-1,1)$, and let $h_0,h_1$ be the heights of $K_0,K_1$ over $C$ (two values over each crossing). We
+build a homeomorphism that moves points only along the radial fibres $\{y\}\times(-1,1)$, is the
+identity near the boundary of the shell, and carries $K_0$ to $K_1$.
+Choose disjoint small closed discs $U_x\subset S^2$ about the crossings $x$, and homeomorphisms
+$U_x\cong[-1,1]^2$ that take the under-arc and the over-arc of $C\cap U_x$ to the two axes. For
+$y=(s,s')\in U_x$ put $u_j(y)=h_j(\text{under-point }s)$ and $o_j(y)=h_j(\text{over-point }s')$
+($j=0,1$); if $U_x$ is small, $u_j<o_j$ on $U_x$, because the over-strand is higher at $x$. Let
+$\phi^x_y$ be the map of $[-1,1]$ that is linear between the points $-1<u_0(y)<o_0(y)<1$ and sends them to
+$-1<u_1(y)<o_1(y)<1$. On a neighbourhood $N$ of $C$ minus the interiors of the discs, with a retraction
+$\rho:N\to C$, let $\phi^N_y$ be the map that is linear on both sides of $h_0(\rho(y))$ and sends it to
+$h_1(\rho(y))$, fixing $\pm1$. Away from $C$ use the identity. Glue these maps with a partition of unity
+on $S^2$ subordinate to the cover by the discs, $N$, and $S^2\setminus C$. Each map is an increasing
+homeomorphism of $[-1,1]$ fixing $\pm1$, and depends continuously on $y$; a convex combination of such
+maps is again one. At a point $y\in C$ only the disc maps and $\phi^N$ are used, and each of them sends
+$h_0(y)$ to $h_1(y)$ (at a crossing, both heights), so the combination does too. Hence the glued map
+$(y,t)\mapsto(y,\phi_y(t))$ is a homeomorphism of the closed shell, the identity on its boundary
+spheres; extended by the identity outside the shell, it is a homeomorphism of $\R^3$, orientation-preserving
+because it is the identity on an open set, and it carries $K_0$ to $K_1$.
 \end{enumerate}
 Hence $\Kft$ is $5_2^*$, and $\Len(5_2)=\Len(5_2^*)\le36$. Independently, SnapPy~\cite{SnapPy}
 identifies the complement of $|w_{36}|$ as the census manifold \texttt{m015}, the complement of
@@ -1497,7 +1533,7 @@ rebuilds everything from a clean checkout and prints the axioms.
 \paragraph{The program is the proof object.} \Cref{thm:pandmonium} is proved about the very program
 that was run. The search is written in a functional style that the kernel can reason about: walk data
 in immutable lists, explicit structural recursion on the remaining steps, and a single mutable occupancy
-array, which the compiler updates in place. It is a line-by-line port, by the same author, of a
+array, which the compiler updates in place. It is a line-by-line port, by the authors, of a
 C\texttt{++} program. Where the runs are unsplit ($n\le26$), both programs visit exactly the same number
 of nodes (\cref{sec:cross}).
 
@@ -1539,7 +1575,7 @@ computations too large for the kernel. It is backed by the separate C\texttt{++}
 None of the following is needed for the proof; each one tests it.
 \begin{itemize}
 \item \textbf{A second implementation.} The C\texttt{++} enumerator in its cross-check mode implements
-the same algorithm separately (the Lean search is a port of it by the same author). For every length it
+the same algorithm separately (the Lean search is a port of it by the authors). For every length it
 returns the same set of words, and for unsplit runs ($n\le26$) exactly the same number of nodes. For
 split runs the two programs split differently, so only the words are compared.
 \item \textbf{Independent re-implementations of the definitions.} A Python implementation of the
