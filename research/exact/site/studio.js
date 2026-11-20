@@ -26,7 +26,7 @@ export class Studio {
     host.classList.add('studio'); host.__studio = this;
     this.wrap = document.createElement('div'); this.wrap.className = 'studio-wrap';
     this.wrap.style.aspectRatio = opts.aspect || '4 / 3';
-    this.wrap.setAttribute('aria-label', (opts.label || 'Interactive 3D figure') + '; drag, or use the arrow keys, to turn it');
+    this.wrap.setAttribute('aria-label', (opts.label || 'Interactive 3D figure').replace(/;\s*(drag|click)[^;]*/gi, '') + '. Drag, or use the arrow keys, to turn it.');
     this.wrap.setAttribute('role', 'group');   // focusable: the arrow keys turn the scene
     this.overlay = document.createElement('div'); this.overlay.className = 'studio-labels';
     this.wrap.append(this.overlay); host.append(this.wrap);

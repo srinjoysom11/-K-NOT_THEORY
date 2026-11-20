@@ -663,7 +663,7 @@ function wGrowth(w) {
     S('path', { d: fitPath(F.words), fill: 'none', stroke: COL[1], 'stroke-width': 1.6, opacity: .8 }, svg);
     S('rect', { x: X(F.nodes[2]), y: 26, width: X(34) - X(F.nodes[2]), height: 236, fill: COL[0], opacity: 0.05 }, svg);
     const fr = S('text', { x: X(F.nodes[2]) + 4, y: 256, class: 'lbl-s' }, svg); fr.textContent = `fit range n ≥ ${F.nodes[2]}`;
-    const dot = (n, v, col, what, sq) => { const g = S('g', { class: 'hit', tabindex: 0 }, svg); sq ? S('rect', { x: X(n) - 4, y: Y(v) - 4, width: 8, height: 8, fill: col }, g) : S('circle', { cx: X(n), cy: Y(v), r: 4.5, fill: col }, g); const show = () => { tip.innerHTML = `n = <b>${n}</b>: <b>${fmt(v)}</b> ${what}.`; }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show); };
+    const dot = (n, v, col, what, sq) => { const g = S('g', { class: 'hit', tabindex: 0, role: 'img', 'aria-label': `n = ${n}: ${fmt(v)} ${what}` }, svg); S('circle', { cx: X(n), cy: Y(v), r: 11, fill: 'transparent' }, g); sq ? S('rect', { x: X(n) - 4, y: Y(v) - 4, width: 8, height: 8, fill: col }, g) : S('circle', { cx: X(n), cy: Y(v), r: 4.5, fill: col }, g); const show = () => { tip.innerHTML = `n = <b>${n}</b>: <b>${fmt(v)}</b> ${what}.`; }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show); };
     runs.forEach((r) => dot(r.n, r.nodes, COL[0], 'search nodes'));
     runs.filter((r) => r.words).forEach((r) => dot(r.n, r.words, COL[1], 'words returned', true));
     const lg = S('g', {}, svg);
@@ -852,13 +852,32 @@ const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: via3d('figDelta
   origin: via3d('figOrigin', wOrigin), replay: via3d('figObligation', wReplay), reach: via3d('figReach', wReach), span: async (w) => { await via3d('figSpan', null)(w); wSpan(w); } /* 3D state, then the one-axis picture of the caption */, runs: wRuns, growth: wGrowth,
   std52: via3d('figStd52', wStd52), certex: via3d('figCertex', wCertex), pdcompare: async (w) => (await import('./figs3d.js')).figPdCompare(w),
   deltaproof: via3d('figDeltaProof'), invariant: via3d('figInvariant'), d7: async (w) => (await import('./figs3d.js')).figD7(w), deps: () => {} };
+function holdAnchor() {
+  let target = null, until = 0, user = false;
+  const ro = new ResizeObserver(() => { if (target && !user && performance.now() < until) target.scrollIntoView({ block: 'start', behavior: 'instant' }); });
+  ro.observe(document.querySelector('.doc'));
+  const stop = () => { user = true; };
+  ['wheel', 'touchstart', 'keydown'].forEach((ev) => addEventListener(ev, stop, { passive: true }));
+  const go = (id) => {
+    const t = document.getElementById(id); if (!t) return;
+    target = t; until = performance.now() + 4000; user = false;
+    requestAnimationFrame(() => t.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  };
+  document.addEventListener('click', (e) => {   // in-page links: land on the target and stay there while figures above it build
+    const a = e.target.closest('a[href^="#"]'); if (!a) return;
+    const id = decodeURIComponent(a.getAttribute('href').slice(1)); if (!document.getElementById(id)) return;
+    e.preventDefault(); history.pushState(null, '', '#' + id); go(id);
+  });
+  addEventListener('popstate', () => go(decodeURIComponent(location.hash.slice(1))));
+  if (location.hash) go(decodeURIComponent(location.hash.slice(1)));
+}
 function boot() {
-  masthead(); rail(); linkLean(); stackTables();
+  masthead(); rail(); linkLean(); stackTables(); holdAnchor();
   // long proofs can be folded (they start open: the page is the paper)
   document.querySelectorAll('.doc .proof').forEach((pf) => {
     if (pf.textContent.length < 1600) return;
-    const b = H('button', { class: 'fold', type: 'button', 'aria-expanded': 'true' }, 'Hide this proof');
-    b.addEventListener('click', () => { const f = pf.classList.toggle('folded'); b.setAttribute('aria-expanded', String(!f)); b.textContent = f ? 'Show the proof' : 'Hide this proof'; });
+    const b = H('button', { class: 'fold', type: 'button', 'aria-expanded': 'true' }, 'Hide the proof');
+    b.addEventListener('click', () => { const f = pf.classList.toggle('folded'); b.setAttribute('aria-expanded', String(!f)); b.textContent = f ? 'Show the proof' : 'Hide the proof'; });
     pf.prepend(b);
   });
   const io = new IntersectionObserver((es) => es.forEach((e) => {
@@ -869,7 +888,7 @@ function boot() {
       if (ns && ns.tagName === 'NOSCRIPT') e.target.innerHTML = ns.textContent;
       console.error('no widget for', e.target.dataset.w); return;
     }
-    const live = () => e.target.querySelectorAll('.readout, .side').forEach((x) => x.setAttribute('aria-live', 'polite'));   // announce state changes
+    const live = () => e.target.querySelectorAll('.readout').forEach((x) => x.setAttribute('aria-live', 'polite'));   // announce state changes
     try { const r = f && f(e.target); if (r && r.then) r.then(live, (err) => console.error(err)); else live(); } catch (err) { console.error(err); }
   }), { rootMargin: '600px 0px' });
   document.querySelectorAll('.widget[data-w]').forEach((w) => io.observe(w));

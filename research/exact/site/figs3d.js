@@ -249,7 +249,7 @@ export function figPsi(w) {
   st.frame(walk(word.join('')).slice(0, -1).concat([[0, 0, -0.3], [3, 0, 2.5]]), [0.55, -1.7, 0.6]);
   const big = H('div', { class: 'bignum' }); const sub = H('div', { class: 'readout' }); const hist = H('ol', { class: 'log' });
   const picks = H('div', { class: 'pickrow', 'aria-label': 'allowed flips' });
-  side.append(H('h5', {}, 'Height potential'), big, sub, picks, H('h5', { style: 'margin-top:14px' }, 'Flips so far'), hist);
+  side.append(H('h4', {}, 'Height potential'), big, sub, picks, H('h4', { style: 'margin-top:14px' }, 'Flips so far'), hist);
   const psiOf = (V) => { const z = V.map((v) => v[2]); const m = Math.min(...z); return [z.reduce((a, v) => a + v - m, 0), m]; };
   function flips(V) {
     const n = word.length, out = [], set = new Set(V.map(key));
@@ -274,13 +274,13 @@ export function figPsi(w) {
     st.sheet([[Math.min(...xs) - 0.6, Math.min(...ys) - 0.6, zmin], [Math.max(...xs) + 0.6, Math.min(...ys) - 0.6, zmin], [Math.max(...xs) + 0.6, Math.max(...ys) + 0.6, zmin], [Math.min(...xs) - 0.6, Math.max(...ys) + 0.6, zmin]], { color: COL[0], opacity: 0.07, parent: grp });
     if (!moving) for (const f of flips(V)) {
       const down = f.vp[2] < V[f.i][2], same = f.vp[2] === V[f.i][2];
-      const c = down ? COL[2] : same ? COL[5] : COL[1];
+      const c = down ? GOOD : '#8a929c';
       st.ball(f.vp, { color: c, radius: 0.16, hollow: true, userData: { flip: f.i }, pick: true, parent: grp });
       st.sheet([V[f.i - 1], V[f.i], V[(f.i + 1) % V.length], f.vp], { color: c, opacity: 0.12, parent: grp });
     }
     if (!moving) { picks.innerHTML = ''; flips(V).forEach((f) => { const dz = f.vp[2] - V[f.i][2]; picks.append(btn(`Flip at v${f.i} (${dz < 0 ? 'down' : dz > 0 ? 'up' : 'sideways'})`, () => doFlip(f.i))); }); }
     big.innerHTML = `ψ<sub>Z</sub> = ${psi}`;
-    sub.innerHTML = `The sum of the vertex heights above the lowest level z<sub>min</sub> = ${zmin} (the blue plane). Each ring is the fourth corner v′ of a square at a corner of the polygon where a flip is allowed: <span style="color:${COL[2]};font-weight:700">green</span> moves the vertex down and lowers ψ<sub>Z</sub> by 1, <span style="color:${COL[1]};font-weight:700">orange</span> moves it up, <span style="color:#2b8cc4;font-weight:700">blue</span> sideways. Click a ring to flip.`;
+    sub.innerHTML = `The sum of the vertex heights above the lowest level z<sub>min</sub> = ${zmin} (the blue plane). Each ring is the fourth corner v′ of a square at a corner of the polygon where a flip is allowed. A <span class="ok">green</span> ring moves the vertex down and lowers ψ<sub>Z</sub> by 1; a grey ring moves it up or sideways. Click a ring, or a button below, to flip.${zmin === 0 && word.join('') === 'eeeuwuwwdd' ? ' This is panel (a) of the caption.' : word.join('') === 'eeeuwwuwdd' ? ' This is panel (b) of the caption.' : ''}`;
     st.request();
   }
   function doFlip(i) {
@@ -308,7 +308,8 @@ export function figCurtain(w) {
   const SIDE = ['e', 'n', 'e', 's', 'e'];
   let k = 3, t = 0;
   const info = H('div', { class: 'readout' }); const walkLine = H('div', { class: 'walkline' });
-  side.append(H('h5', {}, 'The curtain lemma, step by step'), info, H('h5', { style: 'margin-top:14px' }, 'The walk now'), walkLine);
+  const stepH = H('h4');
+  side.append(stepH, info, H('h4', { style: 'margin-top:14px' }, 'The walk now'), walkLine);
   function orig() { const V = [[0, 0, 0]]; V.push([0, 0, 1]); for (let j = 0; j < k; j++) V.push(add(V[V.length - 1], U[SIDE[j]])); V.push(add(V[V.length - 1], U.d)); return V; } // v0..v_{k+2}
   function current(tt) {
     const V = orig(), a = U.u;
@@ -334,6 +335,7 @@ export function figCurtain(w) {
     info.innerHTML = t === 0 ? `A curtain with <b>k = ${k}</b>: a = up, then ${k} sideways steps s<sub>1</sub>…s<sub>${k}</sub>, then −a = down. The green rings are its interior points v<sub>j</sub> − a (2 ≤ j ≤ ${k}); suppose none is a vertex.`
       : t < k ? `<b>After ${t} flip${t > 1 ? 's' : ''}.</b> Flip ${t} replaced v<sub>${t}</sub> by v<sub>${t + 1}</sub> − a: allowed, because that ring was free. The step a now sits in position ${t}.` + (t === k - 1 ? ` Now a, s<sub>${k}</sub>, −a form a U-turn.` : '')
         : `<b>U-turn removed.</b> The polygon has two fewer steps and the same knot type. A shortest polygon cannot allow this, so one of the rings must be a vertex: DMON6.`;
+    stepH.textContent = `Step ${t + 1} of ${k + 1}` + (k === 3 ? ` · panel (${'abcd'[t]}) of the caption` : '');
     back.disabled = t === 0; next.disabled = t === k; st.request();
   }
   function step(dir) {
@@ -439,7 +441,7 @@ export function figReach(w) {
   st.frame(V, [1.2, -1.6, 1.1]);
   const steps = T.steps.map((s, i) => i).filter((i) => T.steps[i].pending.length);
   let si = steps.indexOf(8) >= 0 ? steps.indexOf(8) : 0, sel = null;
-  const head = H('h5'), info = H('div', { class: 'readout' }), nb = H('div', { class: 'readout', style: 'margin-top:10px' });
+  const head = H('h4'), info = H('div', { class: 'readout' }), nb = H('div', { class: 'readout', style: 'margin-top:10px' });
   const siteRow = H('div', { class: 'pickrow', 'aria-label': 'choose a site' });
   side.append(head, info, nb, siteRow);
   const l1 = (p, q = [0, 0, 0]) => Math.abs(p[0] - q[0]) + Math.abs(p[1] - q[1]) + Math.abs(p[2] - q[2]);
@@ -469,7 +471,7 @@ export function figReach(w) {
         st.ball(q, { color: good ? GOOD : BAD, radius: 0.07, parent: grp });
       }
       info.innerHTML = `Selected site s = (${sel.join(', ')}). The walk must go head → s → origin: at least |head − s|₁ + |s|₁ = ${d1} + ${d2} = <b>${d1 + d2}</b> steps; it has <b>${R1}</b> left. ${ok ? '<span class="ok">Reach passes.</span>' : '<span class="no">Reach fails.</span>'}`;
-      siteRow.innerHTML = ''; sites.forEach((x2) => siteRow.append(btn(`(${x2.p.join(', ')})`, () => { sel = x2.p; draw(); }, { 'aria-pressed': String(key(x2.p) === key(sel)) })));
+      siteRow.innerHTML = ''; const seenS = new Set(); sites.forEach((x2) => { if (seenS.has(key(x2.p))) return; seenS.add(key(x2.p)); siteRow.append(btn(`${x2.single ? 'corner' : 'curtain'} (${x2.p.join(', ').replace(/-/g, '−')})`, () => { sel = x2.p; draw(); }, { 'aria-pressed': String(key(x2.p) === key(sel)) })); });
       nb.innerHTML = `Neighbours of s that are free, the head or the origin (small green balls): <b>${usable}</b> of 6. ${usable >= 2 ? '<span class="ok">Room to pass through.</span>' : '<span class="no">s could be entered but not left.</span>'} Click another ring to test it.`;
     }
     st.request();
@@ -508,7 +510,7 @@ export function figStd52(w) {
   D.edgeLabels.forEach((e) => st.label([e.p[0] * 1.6, e.p[1] * 1.6, 1.0], String(e.label), 'edge'));
   const xl = D.crossings.map((c, k) => { const lp = D.crossLabels[k]; const L = st.label([lp[0] * 1.6, lp[1] * 1.6, 1.4], `X<sub>${D.crossNames[k]}</sub>`, 'xing'); L.el.tabIndex = 0; L.el.addEventListener('pointerenter', () => focusX(k)); L.el.addEventListener('focus', () => focusX(k)); return L; });
   const codeBox = H('div', { class: 'readout' }), eqs = H('div', { class: 'readout', style: 'margin-top:10px' });
-  side.append(H('h5', {}, 'The KnotInfo code'), codeBox, H('h5', { style: 'margin-top:14px' }, 'A colouring'), eqs);
+  side.append(H('h4', {}, 'The KnotInfo code'), codeBox, H('h4', { style: 'margin-top:14px' }, 'A colouring'), eqs);
   function focusX(k) {
     const X = D.pd[D.crossNames[k] - 1];
     codeBox.innerHTML = D.pd.map((X2, j) => `<div class="${j === D.crossNames[k] - 1 ? 'now' : ''}">X<sub>${j + 1}</sub>[${X2.join(', ')}]</div>`).join('') +
@@ -556,6 +558,7 @@ export function figCertex(w) {
   w.querySelector('.stage').append(mats);
   const read = readout(w);
   function row(r) {
+    if (typeof rowBtns !== 'undefined') rowBtns.forEach((b2, j) => b2.setAttribute('aria-pressed', String(j === r)));
     w.querySelectorAll('.mat span').forEach((s) => s.classList.toggle('hl', (s.parentNode.classList.contains('F') || s.parentNode.classList.contains('Fm')) && +s.dataset.r === r));
     const c = C.crossings.find((cc) => cc.e === r); ring.innerHTML = '';
     const x = D.crossPts[C.crossings.indexOf(c)]; S('circle', { cx: x[0], cy: -x[1], r: 0.36, fill: 'none', stroke: COL[5], 'stroke-width': 0.08 }, ring);
@@ -563,7 +566,7 @@ export function figCertex(w) {
     read.innerHTML = `Row ${r + 1} of F is the crossing with under-passage u<sub>${r}</sub> (ringed): over-arc ${c.overArc}, incoming under-arc ${inn}, outgoing ${r}, so 2x<sub>${c.overArc}</sub> − x<sub>${inn}</sub> − x<sub>${r}</sub> ≡ 0. The rows of LF are e<sub>1</sub> − e<sub>0</sub> and e<sub>2</sub> − e<sub>0</sub>, so every colouring is constant.`;
   }
   w.querySelectorAll('.mat.F span, .mat.Fm span').forEach((s) => s.addEventListener('pointerenter', () => row(+s.dataset.r)));
-  const c = ctlRow(w); [0, 1, 2].forEach((r) => c.append(btn(`Row ${r + 1}`, () => row(r))));
+  const c = ctlRow(w); const rowBtns = [0, 1, 2].map((r) => btn(`Row ${r + 1}`, () => row(r), { 'aria-pressed': String(r === 0) })); rowBtns.forEach((b2) => c.append(b2));
   c.append(H('span', { class: 'readout grow' }, 'Drag (a) to turn.'));
   row(0);
 }
@@ -572,7 +575,7 @@ export function figCertex(w) {
 export function figPdCompare(w) {
   const B = DATA.w36, Dd = DATA.std52, PD = DATA.pd;
   const [left, right] = stage(w, 2);
-  left.append(H('span', { class: 'pane-label' }, '(a) |w36| along (1, −1, 4)'));
+  left.append(H('span', { class: 'pane-label', html: '(a) |w<sub>36</sub>| along (1, −1, 4)' }));
   right.append(H('span', { class: 'pane-label' }, '(b) the KnotInfo diagram of 5₂'));
   let sw = false, sh = true, svgL = null;
   const svg2 = S('svg', { role: 'img', class: 'knot2d' }, right);
@@ -599,7 +602,7 @@ export function figPdCompare(w) {
     const o = D.P2[0]; S('circle', { cx: o[0], cy: -o[1], r: 0.14, fill: INK }, D.svg);
     const cur = sw ? (sh ? PD.shifted : PD.switched) : (sh ? PD.w36.map((X) => X.map((x) => (x + 5) % 10 + 1)) : PD.w36);
     const stdS = PD.std.map((X) => X.join(','));
-    tbl.innerHTML = '<thead><tr><th>code of w36</th><th>now</th><th>KnotInfo</th></tr></thead>';
+    tbl.innerHTML = '<thead><tr><th>code of w<sub>36</sub></th><th>now</th><th>KnotInfo</th></tr></thead>';
     const tb = H('tbody'); tbl.append(tb);
     cur.forEach((X, k) => { const j = stdS.indexOf(X.join(',')); tb.append(H('tr', {}, H('td', {}, `[${PD.w36[k].join(', ')}]`), H('td', { style: j >= 0 ? 'font-weight:700' : '' }, `[${X.join(', ')}]`), H('td', { html: j >= 0 ? `<span class="ok">= X<sub>${j + 1}</sub></span>` : `<span style="color:${INK2}">no match</span>` }))); });
     read.innerHTML = sw && sh ? '<span class="ok">Every crossing matches the KnotInfo code.</span> The diagram of w<sub>36</sub> is the KnotInfo diagram with every crossing switched: a diagram of the mirror image of 5<sub>2</sub>.'
@@ -628,7 +631,7 @@ export function figDeltaProof(w) {
     ['The map f', 'Cut Q into the four triangles adm, dbm, bc⁺m, c⁺am. Move m to c and stretch each triangle affinely (slider). The boundary of Q does not move, and [a, m] ∪ [m, b] becomes [a, c] ∪ [c, b].'],
     ['Coning', 'Extend f over B by coning from e₊ and e₋: points of ∂B do not move. Outside B nothing moves. This homeomorphism of ℝ³ carries K to K′: the Δ-move is an isotopy.'],
   ];
-  const head = H('h5'), text = H('div', { class: 'readout' });
+  const head = H('h4'), text = H('div', { class: 'readout' });
   side.append(head, text);
   const others = [[[-1.4, -1.0, 0.6], [-0.6, -0.5, 0.3], a], [b, [3.6, -0.5, -0.4], [4.4, -0.9, -0.9]], [[0.4, 2.6, 1.2], [1.6, 2.4, 1.4], [2.6, 2.2, 1.1]]];
   function draw() {
@@ -690,15 +693,15 @@ export function figInvariant(w) {
   const vIndex = new Map(V.map((v, m) => [key(v), m]));
   obs.forEach((o, j) => {
     o.m = Math.min(...o.sites.map((p) => vIndex.get(key(p))).filter((m) => m != null && m >= o.c + 2));
-    o.col = [COL[1], COL[0], COL[2], COL[3], COL[4], COL[5]][j % 6];
+    o.col = o.kind === 'one' ? COL[0] : COL[1];   // as in Figure 11: orange curtain, blue corner
   });
   const [pane, side] = stage(w, 2, 'stage-side'); side.classList.add('side');
   const st = new Studio(pane, { aspect: '1 / 1', shadowDir: [0.2, -0.3, 1], label: 'The walk along w and its pending obligations' });
   const grp = new THREE.Group(); st.world.add(grp);
   st.frame(V, [1.2, -1.6, 1.1]);
-  const head = H('h5'), info = H('div', { class: 'readout' });
+  const head = H('h4'), info = H('div', { class: 'readout' });
   const tl = S('svg', { class: 'timeline', role: 'img', 'aria-label': 'Timeline of the obligations: each bar runs from the step that creates an obligation to the step that removes it' });
-  side.append(head, info, H('h5', { style: 'margin-top:14px' }, 'Timeline'), tl, H('p', { class: 'hint', html: 'Each bar is one obligation, from the step that creates it to the step that removes it. The dot on the bar is its witness: the later vertex v<sub>m</sub> of w that is one of its sites. The lemma says every dot lies on or right of the dashed line i + 2.' }));
+  side.append(head, info, H('h4', { style: 'margin-top:14px' }, 'Timeline'), tl, H('p', { class: 'hint', html: 'Each bar is one obligation, from the step that creates it to the step that removes it. The dot on the bar is its witness: the later vertex v<sub>m</sub> of w that is one of its sites. The lemma says every dot lies on or right of the dashed line i + 2.' }));
   let i = 8;
   const W = 300, rowH = 13, X = (s) => 24 + (s / n) * (W - 34);
   function draw() {
@@ -715,7 +718,7 @@ export function figInvariant(w) {
     });
     head.textContent = `After step ${i} (letter ${word[i]}): ${pend.length} pending`;
     const ev = (s.events || []).map((e) => e.kind + (e.result === 'new' ? ' obligation created' : e.result === 'sat' || e.result === 'satisfied' ? ' already satisfied' : ' ' + e.result)).join('; ');
-    info.innerHTML = (pend.length ? pend.map((o) => `<span class="chip" style="background:${o.col}"></span>${o.kind === 'one' ? 'corner' : 'curtain'}, sites ${o.sites.map((p) => `(${p.join(',')})`).join(' ')}: witness v<sub>${o.m}</sub>, and ${o.m} ≥ ${i} + 2 <span class="ok">✓</span>`).join('<br>') : 'No pending obligation.') +
+    info.innerHTML = (pend.length ? pend.map((o) => `<span class="chip" style="background:${o.col}"></span>${o.kind === 'one' ? 'corner' : 'curtain'}, sites ${o.sites.map((p) => `(${p.join(',')})`).join(' ')}: witness v<sub>${o.m}</sub>, and ${o.m} ≥ ${i} + 2 <span class="ok">holds</span>`).join('<br>') : 'No pending obligation.') +
       (ev ? `<br><span style="color:${INK2}">This step: ${ev}.</span>` : '');
     // timeline
     tl.innerHTML = ''; const rows = obs.length, Ht = 30 + rows * rowH;
@@ -746,7 +749,7 @@ export function figD7(w) {
   const svg = S('svg', { viewBox: '-1.55 -1.45 3.1 2.95', role: 'img', class: 'hepta', 'aria-label': 'The heptagon with corners 0 to 6 and the mirror lines of reflections' }, pane);
   const ang = (t) => Math.PI / 2 - (t * 2 * Math.PI) / 7, pt = (t, r = 1) => [r * Math.cos(ang(t)), -r * Math.sin(ang(t))];
   let b = 1, a = 3, tt = 0, phase = 0;   // over-colour b, in-colour a, test corner t; phase = how many reflections shown
-  const head = H('h5'), info = H('div', { class: 'readout' });
+  const head = H('h4'), info = H('div', { class: 'readout' });
   side.append(head, info);
   const axis = (c, col, wdt, dash) => { const p = pt(c, 1.32), q = pt(c + 3.5, 1.32); S('line', { x1: p[0], y1: p[1], x2: q[0], y2: q[1], stroke: col, 'stroke-width': wdt, 'stroke-dasharray': dash || null, 'stroke-linecap': 'round' }, svg); };
   function arrow(from, to, col, k) {
@@ -757,42 +760,44 @@ export function figD7(w) {
     return path;
   }
   function draw() {
-    svg.innerHTML = '<defs>' + [COL[1], COL[0], COL[1], GOOD].map((c, k) => `<marker id="ah${k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="${c}"/></marker>`).join('') + '</defs>';
+    const out0 = mod(2 * b - a, 7);
+    svg.innerHTML = '<defs>' + [COL[b], COL[a], COL[b], COL[out0]].map((c, k) => `<marker id="ah${k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="${c}"/></marker>`).join('') + '</defs>';
     const P = [0, 1, 2, 3, 4, 5, 6].map((t) => pt(t));
     S('path', { d: 'M' + P.map((p) => p.join(',')).join('L') + 'Z', fill: 'rgba(0,114,178,.05)', stroke: INK, 'stroke-width': 0.025 }, svg);
     const out = mod(2 * b - a, 7);
-    axis(a, COL[0], 0.03); axis(b, COL[1], 0.045);
-    if (phase >= 4) axis(out, GOOD, 0.04, '0.08 0.05');
+    axis(a, COL[a], 0.035); axis(b, COL[b], 0.05);
+    if (phase >= 4) axis(out, COL[out], 0.04, '0.08 0.05');
     const seq = [tt, mod(2 * b - tt, 7)]; seq.push(mod(2 * a - seq[1], 7)); seq.push(mod(2 * b - seq[2], 7));
-    const cols = [COL[1], COL[0], COL[1]];
+    const cols = [COL[b], COL[a], COL[b]];
     for (let k = 0; k < Math.min(phase, 3); k++) arrow(seq[k], seq[k + 1], cols[k], k);
-    if (phase >= 4) arrow(tt, out === tt ? tt : mod(2 * out - tt, 7), GOOD, 3);
+    if (phase >= 4) arrow(tt, out === tt ? tt : mod(2 * out - tt, 7), COL[out], 3);
     P.forEach((p, t) => {
       const g = S('g', { class: 'hit', tabindex: 0, role: 'button', 'aria-label': `test corner ${t}` }, svg);
       const isT = t === tt;
-      S('circle', { cx: p[0], cy: p[1], r: 0.13, fill: isT ? INK : '#fff', stroke: INK, 'stroke-width': 0.025 }, g);
-      const tx = S('text', { x: p[0], y: p[1] + 0.055, 'text-anchor': 'middle', 'font-size': 0.15, 'font-weight': 700, fill: isT ? '#fff' : INK }, g); tx.textContent = t;
+      S('circle', { cx: p[0], cy: p[1], r: 0.13, fill: COL[t], stroke: INK, 'stroke-width': isT ? 0.06 : 0.02 }, g);
+      if (isT) S('circle', { cx: p[0], cy: p[1], r: 0.18, fill: 'none', stroke: INK, 'stroke-width': 0.025 }, g);
+      const tx = S('text', { x: p[0], y: p[1] + 0.055, 'text-anchor': 'middle', 'font-size': 0.15, 'font-weight': 700, fill: onText(COL[t]) }, g); tx.textContent = t;
       const pick = () => { tt = t; phase = 0; draw(); };
       g.addEventListener('click', pick); g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
     });
     const lab = (c, txt, col) => { const p = pt(c + 3.5, 1.42); const t = S('text', { x: p[0], y: p[1] + 0.05, 'text-anchor': 'middle', 'font-size': 0.13, 'font-weight': 700, fill: col }, svg); t.textContent = txt; };
-    lab(a, `r${sub(a)}`, COL[0]); lab(b, `r${sub(b)}`, COL[1]); if (phase >= 4 && out !== a && out !== b) lab(out, `r${sub(out)}`, GOOD);
+    lab(a, `r${sub(a)}`, COL[a] === COL[3] || COL[a] === COL[5] ? INK : COL[a]); lab(b, `r${sub(b)}`, COL[b] === COL[3] || COL[b] === COL[5] ? INK : COL[b]); if (phase >= 4 && out !== a && out !== b) lab(out, `r${sub(out)}`, INK);
     head.textContent = `Over-arc colour b = ${b}, incoming colour a = ${a}`;
     const s1 = seq[1], s2 = seq[2], s3 = seq[3];
     const lines = [
       `Click a corner to choose t, then press <b>Next</b>.`,
-      `r<sub>b</sub>(t) = 2·${b} − ${tt} ≡ <b>${s1}</b> (orange mirror).`,
-      `r<sub>a</sub>(${s1}) = 2·${a} − ${s1} ≡ <b>${s2}</b> (blue mirror).`,
+      `r<sub>b</sub>(t) = 2·${b} − ${tt} ≡ <b>${s1}</b> (the thick mirror, through corner ${b}).`,
+      `r<sub>a</sub>(${s1}) = 2·${a} − ${s1} ≡ <b>${s2}</b> (the thin mirror, through corner ${a}).`,
       `r<sub>b</sub>(${s2}) = 2·${b} − ${s2} ≡ <b>${s3}</b>. So r<sub>b</sub>r<sub>a</sub>r<sub>b</sub> sends ${tt} to ${s3}.`,
-      `One reflection does the same: r<sub>2b−a</sub> = r<sub>${out}</sub> sends ${tt} to 2·${out} − ${tt} ≡ <b>${mod(2 * out - tt, 7)}</b> (green). Its mirror is the blue mirror reflected in the orange one.`];
+      `One reflection does the same: r<sub>2b−a</sub> = r<sub>${out}</sub> sends ${tt} to 2·${out} − ${tt} ≡ <b>${mod(2 * out - tt, 7)}</b> (dashed). Its mirror, through corner ${out}, is the mirror of r<sub>a</sub> reflected in the mirror of r<sub>b</sub>.`];
     info.innerHTML = lines.slice(0, phase + 1).join('<br>') + (phase >= 4 ? `<br><br>At a crossing with over-colour ${b} and incoming colour ${a}, the Wirtinger relation needs the outgoing reflection r<sub>${out}</sub>: outgoing colour ${out}, and 2·${b} ≡ ${a} + ${out} (mod 7) <span class="ok">is the Fox rule</span>.` : '');
-    nxt.disabled = phase >= 4;
+    nxt.disabled = phase >= 4; bck.disabled = phase === 0;
   }
   const sub = (k) => '₀₁₂₃₄₅₆'[k];
-  const nxt = btn('Next', () => { phase++; draw(); });
+  const nxt = btn('Next', () => { phase++; draw(); }), bck = btn('Back', () => { phase = Math.max(0, phase - 1); draw(); });
   const sb = H('input', { type: 'range', min: 0, max: 6, value: b, 'aria-label': 'over-arc colour b' }), sa = H('input', { type: 'range', min: 0, max: 6, value: a, 'aria-label': 'incoming colour a' });
   sb.addEventListener('input', () => { b = +sb.value; phase = 0; draw(); }); sa.addEventListener('input', () => { a = +sa.value; phase = 0; draw(); });
-  const c = ctlRow(w); c.append(H('label', { class: 'range' }, 'over b', sb), H('label', { class: 'range' }, 'in a', sa), nxt, btn('Start again', () => { phase = 0; draw(); }));
+  const c = ctlRow(w); c.append(H('label', { class: 'range' }, 'over b', sb), H('label', { class: 'range' }, 'in a', sa), bck, nxt, btn('Start again', () => { phase = 0; draw(); }));
   draw();
 }
 
@@ -827,9 +832,9 @@ export function figDelta(w) {
     [['a', a, [-0.25, -0.3, 0]], ['b', b, [0.25, -0.3, 0]], ['c', c, [0, 0.3, 0.15]]].forEach(([s, q, o]) => st.label(add(q, o), s, 'tag strong'));
     st.label([strandX + 0.2, strandY, 1.15], 'another strand', 'tag');
     read.innerHTML = bad
-      ? '<span class="no">Not a Δ-move.</span> The other strand pierces the triangle (red dot). Sliding the edge across the triangle would drag it through that strand, which can change the knot type.'
-      : (slide < 1 ? '<span class="ok">A Δ-move.</span> The triangle abc meets the knot only in the edge [a, b]; the other strand passes beside it. Slide the edge across the triangle.'
-        : '<span class="ok">Done:</span> [a, b] is replaced by [a, c] ∪ [c, b]. Nothing was cut or passed through.');
+      ? '(c) <span class="no">Not a Δ-move.</span> The other strand pierces the triangle (red dot). Sliding the edge across the triangle would drag it through that strand, which can change the knot type.'
+      : (slide < 1 ? '(a) <span class="ok">A Δ-move.</span> The triangle abc meets the knot only in the edge [a, b]; the other strand passes beside it. Slide the edge across the triangle.'
+        : '(b) <span class="ok">Done:</span> [a, b] is replaced by [a, c] ∪ [c, b]. Nothing was cut or passed through.');
     st.request();
   }
   const s1 = H('input', { type: 'range', min: 0, max: 100, value: push * 100, 'aria-label': 'move c' });
@@ -850,7 +855,7 @@ export function figFlipDelta(w) {
   const grp = new THREE.Group(); st.world.add(grp);
   st.frame([[-0.6, -0.6, -0.8], [1.6, 1.0, 1.8]], [0.9, -1.6, 0.8]);
   let mode = 'flip', t = 0, k = 1;          // t = number of Delta-moves done (0, 1, 2); k = progress of the current one
-  const head = H('h5'), info = H('div', { class: 'readout' }); side.append(head, info);
+  const head = H('h4'), info = H('div', { class: 'readout' }); side.append(head, info);
   // flip: v_{i-1} = (0,0,0), v_i = (0,0,1), v_{i+1} = (1,0,1), v' = (1,0,0); outer edges leave the square in other directions
   const F = { A: [0, 0, 0], V: [0, 0, 1], B: [1, 0, 1], P: [1, 0, 0], inA: [0, -0.8, -0.5], outB: [1, 0.9, 1.4] };
   // U-turn: v_i = (0,0,0), v_{i+1} = (0,0,1), v_{i+2} = (1,0,1), v_{i+3} = (1,0,0)
@@ -887,7 +892,7 @@ export function figFlipDelta(w) {
       : ['A U-turn a, b, −a: the square v<sub>i</sub>v<sub>i+1</sub>v<sub>i+2</sub>v<sub>i+3</sub> has three sides that are edges. Every other edge meets it at most in v<sub>i</sub> or v<sub>i+3</sub>.',
         'First Δ-move: the blue triangle v<sub>i</sub>v<sub>i+1</sub>v<sub>i+2</sub> turns the two edges at v<sub>i+1</sub> into the diagonal [v<sub>i</sub>, v<sub>i+2</sub>].',
         'Second Δ-move: the green triangle v<sub>i</sub>v<sub>i+2</sub>v<sub>i+3</sub> turns the diagonal and [v<sub>i+2</sub>, v<sub>i+3</sub>] into the single edge [v<sub>i</sub>, v<sub>i+3</sub>]. The polygon is two steps shorter and has the same knot type.'];
-    head.textContent = `${mode === 'flip' ? 'Corner flip' : 'U-turn removal'}: step ${t + 1} of 3`;
+    head.textContent = `${mode === 'flip' ? 'Corner flip (top row)' : 'U-turn removal (bottom row)'}: step ${t + 1} of 3 · panel (${(mode === 'flip' ? 'abc' : 'def')[t]})`;
     info.innerHTML = T[t]; back.disabled = t === 0; next.disabled = t === 2; st.request();
   }
   const back = btn('Back', () => { t--; k = 1; draw(); });
@@ -906,7 +911,7 @@ export function figObligation(w) {
   const grp = new THREE.Group(); st.world.add(grp);
   st.frame(V, [1.2, -1.6, 1.0]);
   let ei = evSteps.indexOf(6) >= 0 ? evSteps.indexOf(6) : 0;
-  const head = H('h5'), info = H('div', { class: 'readout' }); side.append(head, info);
+  const head = H('h4'), info = H('div', { class: 'readout' }); side.append(head, info);
   function draw() {
     st.clear(grp); st.clearLabels();
     const i = evSteps[ei], s = T.steps[i];
@@ -948,9 +953,9 @@ export function figSpan(w) {
   const grp = new THREE.Group(); st.world.add(grp);
   st.frame(V, [1.2, -1.6, 1.0]);
   let si = steps.indexOf(8) >= 0 ? steps.indexOf(8) : 0;
-  const head = H('h5'), tbl = H('table', { class: 'spantbl' }), info = H('div', { class: 'readout' });
+  const head = H('h4'), tbl = H('table', { class: 'spantbl' }), info = H('div', { class: 'readout' });
   side.append(head, tbl, info);
-  const AXN = ['x', 'y', 'z'], AXC = [COL[1], COL[2], COL[0]];
+  const AXN = ['x', 'y', 'z'], AXC = [INK, INK, INK];
   function draw() {
     st.clear(grp); st.clearLabels();
     const i = steps[si], s = T.steps[i], c = s.head;

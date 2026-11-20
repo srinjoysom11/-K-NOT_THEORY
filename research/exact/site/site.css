@@ -381,6 +381,12 @@ svg [tabindex]:focus-visible { filter: drop-shadow(0 0 1.5px var(--c0)) drop-sha
 @media (max-width: 860px) { .fold { min-height: 44px; } }
 /* each section's margin numeral stays inside its own section */
 @media (min-width: 1240px) { .doc section.level1[data-n] { clip-path: inset(0 -100vw 0 -100vw); } }
-.fig table { width: 100%; }
+.fig table { width: auto; min-width: min(100%, 32rem); }
 .pane-label.static { position: static; display: block; padding: calc(var(--u) * 1.5) calc(var(--u) * 1.5) 0; }
 @media (max-width: 600px) { .mnb { white-space: normal; } }
+
+/* reserve room for a figure before it is built, so the page height changes less while reading */
+.widget[data-w]:empty { min-height: 34rem; }
+.widget[data-w="runs"]:empty, .widget[data-w="deps"]:empty { min-height: 0; }
+.side h4 { font: 700 .86rem/1.2 var(--sans); margin: 0 0 var(--u); }
+@media (max-width: 860px) { .doc [id] { scroll-margin-top: calc(var(--u) * 8); } }

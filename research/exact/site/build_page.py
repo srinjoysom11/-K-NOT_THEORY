@@ -245,14 +245,14 @@ def close_div(h, start):
         depth += 1 if m.group(0) != "</div>" else -1
         if depth == 0: return start + m.end()
     raise SystemExit("unbalanced div")
-for lab, w, cap in WEBFIGS:
+for wn, (lab, w, cap) in enumerate(WEBFIGS, 1):
     i = H.index(f'<div id="{lab}" class=')
     j = H.index('<div class="proof">', close_div(H, i))
     k = close_div(H, j)
     capH = pandoc(cap.replace("{n}", LAB[lab][1]).replace("{c}", LAB["cor:trefoil"][1])).strip()
     capH = re.sub(r"^<p>|</p>$", "", capH)
     H = H[:k] + (f'<figure class="fig webfig" data-fig="web-{w}"><div class="widget" data-w="{w}"></div>'
-                 f'<figcaption><span class="fig-n">Interactive</span> {capH}</figcaption></figure>') + H[k:]
+                 f'<figcaption><span class="fig-n">Web figure {wn}</span> {capH} (This figure exists only in the interactive edition.)</figcaption></figure>') + H[k:]
 missing = [f for f in FIGS if f not in FIG_HTML]
 if missing: print("figures without an interactive body:", missing, file=sys.stderr)
 
@@ -309,6 +309,9 @@ def dmon_tips(h):
 H = dmon_tips(H)
 # the DMON links inside the definition itself point nowhere new: plain text there
 H = re.sub(r'(<div id="def:dmon".*?</div>)', lambda m: re.sub(r'<a class="dmon"[^>]*>(DMON\d)</a>', r'\1', m.group(1)), H, count=1, flags=re.S)
+# a minus sign right after an opening bracket or a comma is a sign, not an operator: no operator spacing
+for T in ("H", "ABS"):
+    globals()[T] = re.sub(r'(<mo(?: [^>]*)?>[(,]</mo>\s*)<mo>−</mo>\s*<mn>([^<]+)</mn>', r'\1<mn>−\2</mn>', globals()[T])
 # short inline formulas keep the punctuation that follows them on the same line
 H = re.sub(r'(<math display="inline"(?:(?!</math>).){0,700}</math>)([.,;:)])', r'<span class="mnb">\1\2</span>', H, flags=re.S)
 
