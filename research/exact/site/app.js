@@ -138,6 +138,18 @@ function masthead() {
   S('rect', { x: box.x0, y: box.y0, width: box.w, height: box.h, fill: 'none' }, svg);
   drawPolyDiagram(svg, b, { colour: () => '#fff', width: 0.2, gap: 0.42 });
   const o = b.orth[0]; S('circle', { cx: o[0], cy: -o[1], r: 0.2, fill: '#fff' }, svg);
+  // with WebGL: the polygon itself, turning slowly; it settles on the view along D (the drawing above) on a click
+  f3().then(async (m) => {
+    if (!m) return;
+    const { Studio } = await import('./studio.js');
+    const host = H('div', { class: 'mast-3d' }); svg.after(host); svg.classList.add('mast-flat');
+    const st = new Studio(host, { aspect: '1 / 1', floor: false, label: 'The 36-step polygon of type 5₂, turning slowly' });
+    st.rod([...b.verts, b.verts[0]], { color: '#ffffff', radius: 0.13 });
+    st.ball(b.verts[0], { color: '#ffffff', radius: 0.24 });
+    st.frame(b.verts, [1.1, -1.5, 1.05], 1.02);
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { st.controls.autoRotate = true; st.controls.autoRotateSpeed = 0.7; st.always = true; }
+    st.onUser = () => { st.controls.autoRotate = false; };
+  });
 }
 
 // ============================================================================== Figure 1: w36
@@ -609,8 +621,11 @@ function wSpan(w) {
   const svg = S('svg', { viewBox: '-8.6 -3.2 17.2 4.6', role: 'img', 'aria-label': 'Span test on one axis' }, pane);
   let c = 2, s1 = -4, s2 = 5;
   const read = H('div', { class: 'readout', style: 'padding:0 12px 12px' }); pane.append(read);
+  new ResizeObserver(() => draw()).observe(svg);
   function draw() {
     svg.innerHTML = '';
+    const z = Math.max(1, Math.min(2.2, 640 / (svg.clientWidth || 640)));   // text and handles keep their size on narrow screens
+    svg.setAttribute('viewBox', `-8.6 ${-3.2} 17.2 ${4.6 + (z - 1) * 0.9}`);
     S('line', { x1: -8, y1: 0, x2: 8, y2: 0, stroke: INK, 'stroke-width': .05 }, svg);
     for (let x = -7; x <= 7; x++) { S('line', { x1: x, y1: -.1, x2: x, y2: .1, stroke: INK, 'stroke-width': .03 }, svg); }
     const l = Math.min(0, c, s1, s2), h = Math.max(0, c, s1, s2);
@@ -620,15 +635,16 @@ function wSpan(w) {
     route([c, h, l, 0], -1.9, a2 < a1 ? COL[0] : 'rgba(0,114,178,.35)');
     const mark = (x, lab, draggable, setter) => {
       const g = S('g', draggable ? { class: 'drag', tabindex: 0, role: 'slider', 'aria-label': `${lab}; drag or use the arrow keys` } : {}, svg);
-      S('circle', { cx: x, cy: 0, r: .22, fill: draggable ? '#fff' : INK, stroke: INK, 'stroke-width': .05 }, g);
-      const t = S('text', { x, y: .75, 'font-size': .42, 'text-anchor': 'middle', fill: INK }, g); t.textContent = lab;
+      if (draggable) S('circle', { cx: x, cy: 0, r: .55 * z, fill: 'transparent' }, g);   // a large touch target
+      S('circle', { cx: x, cy: 0, r: .22 * Math.sqrt(z), fill: draggable ? '#fff' : INK, stroke: INK, 'stroke-width': .05 }, g);
+      const t = S('text', { x, y: .72 + .3 * (z - 1), 'font-size': .42 * z, 'text-anchor': 'middle', fill: INK }, g); t.textContent = lab;
       if (draggable) {
         g.addEventListener('pointerdown', (ev) => { g.setPointerCapture(ev.pointerId); const mv = (e) => { const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; const p = pt.matrixTransform(svg.getScreenCTM().inverse()); const v = Math.max(-7, Math.min(7, Math.round(p.x))); if (v !== x) { setter(v); draw(); } }; const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); }; window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); });
         g.addEventListener('keydown', (e) => { const d = { ArrowLeft: -1, ArrowRight: 1 }[e.key]; if (d) { e.preventDefault(); setter(Math.max(-7, Math.min(7, x + d))); draw(); } });
       }
     };
-    mark(0, '0', false); mark(c, 'c (head)', true, (v) => { c = v; }); mark(s1, 'site', true, (v) => { s1 = v; }); mark(s2, 'site', true, (v) => { s2 = v; });
-    read.innerHTML = `l = ${l}, h = ${h}. Reaching l first costs <b style="color:${COL[1]}">a₁ = ${a1}</b> steps on this axis; reaching h first costs <b style="color:${COL[0]}">a₂ = ${a2}</b>. The rest of the walk uses at least <b>min(a₁, a₂) = ${Math.min(a1, a2)}</b> steps on this axis. Drag the head and the two sites.`;
+    mark(0, '0', false); mark(c, z > 1.35 ? 'c' : 'c (head)', true, (v) => { c = v; }); mark(s1, 'site', true, (v) => { s1 = v; }); mark(s2, 'site', true, (v) => { s2 = v; });
+    read.innerHTML = `l = ${String(l).replace("-", "−")}, h = ${h}. Reaching l first costs <b style="color:${COL[1]}">a₁ = ${a1}</b> steps on this axis; reaching h first costs <b style="color:${COL[0]}">a₂ = ${a2}</b>. The rest of the walk uses at least <b>min(a₁, a₂) = ${Math.min(a1, a2)}</b> steps on this axis. Drag the head and the two sites.`;
   }
   draw();
 }

@@ -153,6 +153,15 @@ export class Studio {
     this.camTween = { from, to, upFrom, upTo, t0: performance.now(), ms, done };
     this.request();
   }
+  /** narrow the field of view (nearly orthographic) or widen it back, keeping the scene fitted */
+  flatten(on, ms = 900) {
+    const f0 = this.camera.fov, f1 = on ? 5 : (this.opts.fov || 24);
+    this.tween(ms, (k) => {
+      this.camera.fov = f0 + (f1 - f0) * k; this.camera.updateProjectionMatrix();
+      const d = this.camera.position.clone().sub(this.center);
+      this.camera.position.copy(this.center).add(d.setLength(this.distance(d))); this.camera.far = Math.max(400, this.distance(d) * 3); this.camera.updateProjectionMatrix();
+    });
+  }
   aimLight(dir) {
     const d = new THREE.Vector3(...dir).normalize();
     this.key.position.copy(this.center).addScaledVector(d, this.radius * 4);
@@ -212,6 +221,8 @@ export class Studio {
     }
     if (this.controls.update()) more = true;
     if (!this.renderer && this.visible) { this.ensureRenderer(); this.resize(); }
+    this.camera.updateMatrixWorld();
+    for (const o of this.world.children) o.traverse && o.traverse((c) => { if (c.userData && c.userData.billboard) c.lookAt(this.camera.position); });   // rings face the viewer in this frame
     if (this.renderer) this.renderer.render(this.scene, this.camera);
     this.placeLabels();
     if (more || (this.always && this.visible !== false)) this.request();   // a looping scene sleeps off-screen
@@ -282,7 +293,6 @@ export class Studio {
       L.el.style.transform = `translate(${((v.x + 1) / 2) * w}px, ${((1 - v.y) / 2) * h}px) translate(-50%, -50%)`;
       L.el.style.visibility = v.z < 1 ? 'visible' : 'hidden';
     }
-    for (const o of this.world.children) o.traverse && o.traverse((c) => { if (c.userData && c.userData.billboard) c.lookAt(this.camera.position); });
   }
   clear(group = this.world) {
     while (group.children.length) { const c = group.children.pop(); c.traverse && c.traverse((x) => { x.geometry && x.geometry.dispose(); }); }
