@@ -26,26 +26,22 @@ export class Studio {
     host.classList.add('studio'); host.__studio = this;
     this.wrap = document.createElement('div'); this.wrap.className = 'studio-wrap';
     this.wrap.style.aspectRatio = opts.aspect || '4 / 3';
-    this.canvas = document.createElement('canvas'); this.canvas.className = 'studio-canvas';
-    this.canvas.setAttribute('aria-label', opts.label || 'Interactive 3D figure; drag to turn');
-    this.canvas.setAttribute('role', 'img');
+    this.wrap.setAttribute('aria-label', opts.label || 'Interactive 3D figure; drag to turn');
+    this.wrap.setAttribute('role', 'img');
     this.overlay = document.createElement('div'); this.overlay.className = 'studio-labels';
-    this.wrap.append(this.canvas, this.overlay); host.append(this.wrap);
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    this.renderer.shadowMap.enabled = opts.floor !== false;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.wrap.append(this.overlay); host.append(this.wrap);
+    this.renderer = null; this.ensureRenderer();
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(opts.fov || 24, 1, 0.1, 400);
     this.camera.up.set(0, 0, 1);
-    this.controls = new OrbitControls(this.camera, this.canvas);
+    this.controls = new OrbitControls(this.camera, this.wrap);
     Object.assign(this.controls, { enablePan: false, enableZoom: false, enableDamping: !reduced, dampingFactor: 0.1, rotateSpeed: 0.8 });
     this.controls.addEventListener('change', () => this.request());
     this.controls.addEventListener('start', () => { this.camTween = null; this.onUser && this.onUser(); });
     // light: soft sky + a key light that casts the shadow
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0xb9c1ca, 1.9));
     this.key = new THREE.DirectionalLight(0xffffff, 1.7);
-    this.key.castShadow = this.renderer.shadowMap.enabled;
+    this.key.castShadow = opts.floor !== false;
     this.key.shadow.mapSize.set(2048, 2048);
     this.key.shadow.bias = -0.0004;
     this.key.shadow.radius = 2;
@@ -56,25 +52,47 @@ export class Studio {
     this.pickables = [];
     // picking: a click (not a drag) on a pickable mesh
     let down = null;
-    this.canvas.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
-    this.canvas.addEventListener('pointerup', (e) => {
+    this.wrap.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
+    this.wrap.addEventListener('pointerup', (e) => {
       if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
       const hit = this.pick(e); if (hit && opts.onPick) opts.onPick(hit.object.userData, hit.object, e);
     });
-    this.canvas.addEventListener('pointermove', (e) => {
+    this.wrap.addEventListener('pointermove', (e) => {
       if (!opts.onHover && !opts.onPick) return;
       const hit = this.pick(e);
-      this.canvas.style.cursor = hit ? 'pointer' : 'grab';
+      this.wrap.style.cursor = hit ? 'pointer' : 'grab';
       if (opts.onHover) opts.onHover(hit ? hit.object.userData : null);
     });
     this.ro = new ResizeObserver(() => this.resize()); this.ro.observe(this.wrap);
-    this.io = new IntersectionObserver((es) => { this.visible = es[0].isIntersecting; if (this.visible) this.request(); });
+    // a page can hold only about 16 WebGL contexts: a figure far off-screen gives its context back
+    // and makes a new one when it comes near again (the scene itself is kept)
+    this.io = new IntersectionObserver((es) => {
+      this.visible = es[es.length - 1].isIntersecting;   // the newest entry wins when several arrive together
+      if (this.visible) { clearTimeout(this.dropT); this.ensureRenderer(); this.resize(); this.request(); }
+      else { clearTimeout(this.dropT); this.dropT = setTimeout(() => this.dropRenderer(), 1500); }
+    }, { rootMargin: '300px 0px' });
     this.io.observe(this.wrap);
     this.resize();
   }
+  ensureRenderer() {
+    if (this.renderer) return;
+    const c = document.createElement('canvas'); c.className = 'studio-canvas'; c.setAttribute('aria-hidden', 'true');
+    this.wrap.insertBefore(c, this.overlay); this.canvas = c;
+    const r = new THREE.WebGLRenderer({ canvas: c, antialias: true, alpha: true });
+    r.setPixelRatio(Math.min(devicePixelRatio, 2));
+    r.shadowMap.enabled = this.opts.floor !== false; r.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer = r;
+  }
+  dropRenderer() {
+    const r = this.wrap.getBoundingClientRect();
+    if (r.bottom > -300 && r.top < innerHeight + 300) { if (!this.visible) this.dropT = setTimeout(() => this.dropRenderer(), 1500); return; }   // still near: look again later
+    if (!this.renderer || this.visible) return;
+    if (this.key.shadow.map) { this.key.shadow.map.dispose(); this.key.shadow.map = null; }
+    this.renderer.dispose(); this.renderer.forceContextLoss(); this.canvas.remove(); this.renderer = null; this.canvas = null;
+  }
   pick(e) {
     if (!this.pickables.length) return null;
-    const r = this.canvas.getBoundingClientRect();
+    const r = this.wrap.getBoundingClientRect();
     const v = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     const rc = new THREE.Raycaster(); rc.setFromCamera(v, this.camera);
     const hits = rc.intersectObjects(this.pickables, false);
@@ -149,7 +167,7 @@ export class Studio {
   }
   resize() {
     const w = this.wrap.clientWidth, h = this.wrap.clientHeight; if (!w || !h) return;
-    this.renderer.setSize(w, h, false);
+    if (this.renderer) this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
     if (this.center) { const off = this.camera.position.clone().sub(this.center); if (off.lengthSq() > 1e-9) { const D = this.distance(off); this.camera.position.copy(this.center).add(off.setLength(D)); } }
     this.request();
@@ -180,7 +198,8 @@ export class Studio {
       if (this.tweens.length) more = true;
     }
     if (this.controls.update()) more = true;
-    this.renderer.render(this.scene, this.camera);
+    if (!this.renderer && this.visible) { this.ensureRenderer(); this.resize(); }
+    if (this.renderer) this.renderer.render(this.scene, this.camera);
     this.placeLabels();
     if (more || (this.always && this.visible !== false)) this.request();   // a looping scene sleeps off-screen
   }

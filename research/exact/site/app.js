@@ -847,9 +847,9 @@ async function f3() {
   return F3;
 }
 const via3d = (name, flat) => async (w) => { const m = await f3(); if (m) m[name](w); else if (flat) flat(w); else w.append(H('p', { class: 'hint' }, 'This interactive figure needs WebGL. The proof above is complete without it.')); };
-const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: wDelta, trefoil: via3d('figTrefoil', wTrefoil), segsquare: via3d('figSegSquare', wSegSquare),
-  flipdelta: wFlipDelta, psi: via3d('figPsi', wPsi), curtain: via3d('figCurtain', wCurtain), corners: via3d('figCorners', wCorners),
-  origin: via3d('figOrigin', wOrigin), replay: wReplay, reach: via3d('figReach', wReach), span: wSpan, runs: wRuns, growth: wGrowth,
+const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: via3d('figDelta', wDelta), trefoil: via3d('figTrefoil', wTrefoil), segsquare: via3d('figSegSquare', wSegSquare),
+  flipdelta: via3d('figFlipDelta', wFlipDelta), psi: via3d('figPsi', wPsi), curtain: via3d('figCurtain', wCurtain), corners: via3d('figCorners', wCorners),
+  origin: via3d('figOrigin', wOrigin), replay: via3d('figObligation', wReplay), reach: via3d('figReach', wReach), span: via3d('figSpan', wSpan), runs: wRuns, growth: wGrowth,
   std52: via3d('figStd52', wStd52), certex: via3d('figCertex', wCertex), pdcompare: async (w) => (await import('./figs3d.js')).figPdCompare(w),
   deltaproof: via3d('figDeltaProof'), invariant: via3d('figInvariant'), d7: async (w) => (await import('./figs3d.js')).figD7(w), deps: () => {} };
 function boot() {

@@ -776,3 +776,185 @@ export function figD7(w) {
   const c = ctlRow(w); c.append(H('label', { class: 'range' }, 'over b', sb), H('label', { class: 'range' }, 'in a', sa), nxt, btn('Start again', () => { phase = 0; draw(); }));
   draw();
 }
+
+// ===================================================================== Figure 2: the Delta-move (3D)
+export function figDelta(w) {
+  const a = [0, 0, 0], b = [3, 0, 0], m = [1.5, 0, 0];
+  const strandX = 2.0, strandY = 1.15;               // the other strand: a vertical line through (2, 1.15)
+  const [pane] = stage(w, 1);
+  const st = new Studio(pane, { aspect: '16 / 9', shadowDir: [0.25, -0.35, 1], label: 'A Delta-move in 3D' });
+  const grp = new THREE.Group(); st.world.add(grp);
+  st.frame([[-0.8, -0.4, -0.9], [3.8, 2.4, 0.9]], [0.35, -1.25, 1.2]);
+  let push = 0.55, slide = 0, through = false;
+  const read = readout(w);
+  const cOf = () => [1.3 + 0.4 * push, 0.5 + 1.9 * push, 0];
+  function pierced(c) {   // does the vertical line x = strandX, y = strandY meet the triangle abc (in the plane z = 0)?
+    const P = [strandX, strandY], T = [a, b, c].map((p) => [p[0], p[1]]);
+    const sgn = (p, q, r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]);
+    const d1 = sgn(T[0], T[1], P), d2 = sgn(T[1], T[2], P), d3 = sgn(T[2], T[0], P);
+    return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0));
+  }
+  function draw() {
+    st.clear(grp); st.clearLabels();
+    const c = cOf(), bad = pierced(c), p = m.map((x, i) => x + slide * (c[i] - x));
+    st.sheet([a, b, c], { color: bad ? BAD : COL[0], opacity: 0.2, parent: grp });
+    st.line([a, c, b], { color: bad ? BAD : COL[0], dashed: true, parent: grp });
+    st.tube([[-1.2, -0.5, 0.4], [-0.6, -0.2, 0.15], a], { closed: false, radius: 0.08, segments: 20, parent: grp });
+    st.tube([b, [3.7, 0.4, -0.3], [4.2, 1.1, -0.7]], { closed: false, radius: 0.08, segments: 20, parent: grp });
+    st.rod([a, p, b], { color: INK, radius: 0.08, parent: grp });
+    st.rod([[strandX, strandY, -1.2], [strandX, strandY, 1.2]], { color: '#8a929c', radius: 0.07, parent: grp });
+    st.ball([strandX, strandY, 0], { color: bad ? BAD : '#8a929c', radius: 0.09, parent: grp });
+    st.ball(c, { color: '#fff', radius: 0.09, parent: grp });
+    [['a', a, [-0.25, -0.3, 0]], ['b', b, [0.25, -0.3, 0]], ['c', c, [0, 0.3, 0.15]]].forEach(([s, q, o]) => st.label(add(q, o), s, 'tag strong'));
+    st.label([strandX + 0.2, strandY, 1.15], 'another strand', 'tag');
+    read.innerHTML = bad
+      ? '<span class="no">Not a Δ-move.</span> The other strand pierces the triangle (red dot). Sliding the edge across the triangle would drag it through that strand, which can change the knot type.'
+      : (slide < 1 ? '<span class="ok">A Δ-move.</span> The triangle abc meets the knot only in the edge [a, b]; the other strand passes beside it. Slide the edge across the triangle.'
+        : '<span class="ok">Done:</span> [a, b] is replaced by [a, c] ∪ [c, b]. Nothing was cut or passed through.');
+    st.request();
+  }
+  const s1 = H('input', { type: 'range', min: 0, max: 100, value: push * 100, 'aria-label': 'move c' });
+  const s2 = H('input', { type: 'range', min: 0, max: 100, value: 0, 'aria-label': 'slide the edge' });
+  s1.addEventListener('input', () => { push = s1.value / 100; draw(); });
+  s2.addEventListener('input', () => { slide = s2.value / 100; draw(); });
+  const c2 = ctlRow(w);
+  c2.append(H('label', { class: 'range' }, 'Move c', s1), H('label', { class: 'range' }, 'Slide the edge', s2),
+    btn('Play the move', () => st.tween(1200, (k) => { slide = k; s2.value = k * 100; draw(); })),
+    H('span', { class: 'readout grow' }, 'Move c until the triangle reaches the other strand. Drag to turn.'));
+  draw();
+}
+
+// ===================================================================== Figure 5: a flip and a U-turn as two Delta-moves (3D)
+export function figFlipDelta(w) {
+  const [pane, side] = stage(w, 2, 'stage-side'); side.classList.add('side');
+  const st = new Studio(pane, { aspect: '1 / 1', shadowDir: [0.25, -0.35, 1], label: 'A corner flip and a U-turn removal as two Delta-moves' });
+  const grp = new THREE.Group(); st.world.add(grp);
+  st.frame([[-0.6, -0.6, -0.8], [1.6, 1.0, 1.8]], [0.9, -1.6, 0.8]);
+  let mode = 'flip', t = 0, k = 1;          // t = number of Delta-moves done (0, 1, 2); k = progress of the current one
+  const head = H('h5'), info = H('div', { class: 'readout' }); side.append(head, info);
+  // flip: v_{i-1} = (0,0,0), v_i = (0,0,1), v_{i+1} = (1,0,1), v' = (1,0,0); outer edges leave the square in other directions
+  const F = { A: [0, 0, 0], V: [0, 0, 1], B: [1, 0, 1], P: [1, 0, 0], inA: [0, -0.8, -0.5], outB: [1, 0.9, 1.4] };
+  // U-turn: v_i = (0,0,0), v_{i+1} = (0,0,1), v_{i+2} = (1,0,1), v_{i+3} = (1,0,0)
+  const Ut = { A: [0, 0, 0], V: [0, 0, 1], B: [1, 0, 1], P: [1, 0, 0], inA: [-0.7, -0.6, -0.4], outB: [1.6, 0.7, -0.5] };
+  const lerp = (p, q, s) => p.map((x, i) => x + s * (q[i] - x));
+  function draw() {
+    st.clear(grp); st.clearLabels();
+    const G = mode === 'flip' ? F : Ut;
+    const tri1 = [G.A, G.V, G.B], tri2 = mode === 'flip' ? [G.A, G.P, G.B] : [G.A, G.B, G.P];
+    st.sheet(tri1, { color: COL[0], opacity: t === 0 || (t === 1 && k < 1) ? 0.24 : 0.08, parent: grp });
+    st.sheet(tri2, { color: COL[2], opacity: t >= 1 ? 0.24 : 0.08, parent: grp });
+    let path;
+    if (mode === 'flip') {
+      const mid = lerp(G.V, [0.5, 0, 0.5], t === 0 ? 0 : t === 1 ? k : 1);       // move 1: v_i slides to the diagonal
+      const mid2 = lerp([0.5, 0, 0.5], G.P, t === 2 ? k : 0);                   // move 2: the diagonal bends to v'
+      path = t < 2 ? [G.inA, G.A, mid, G.B, G.outB] : [G.inA, G.A, mid2, G.B, G.outB];
+    } else {
+      // move 1: v_{i+1} slides onto the diagonal [v_i, v_{i+2}]; move 2: the diagonal and the last side collapse onto [v_i, v_{i+3}]
+      const mid = lerp(G.V, [0.5, 0, 0.5], t === 0 ? 0 : t === 1 ? k : 1);
+      const end = lerp(G.B, [1, 0, 0.0001], t === 2 ? k : 0);
+      path = t < 2 ? [G.inA, G.A, mid, G.B, G.P, G.outB] : [G.inA, G.A, lerp(mid, [0.5, 0, 0], k), end, G.P, G.outB];
+    }
+    st.rod(path, { color: INK, radius: 0.06, parent: grp });
+    const names = mode === 'flip' ? [['v<sub>i−1</sub>', G.A], ['v<sub>i</sub>', G.V], ['v<sub>i+1</sub>', G.B], ['v′', G.P]] : [['v<sub>i</sub>', G.A], ['v<sub>i+1</sub>', G.V], ['v<sub>i+2</sub>', G.B], ['v<sub>i+3</sub>', G.P]];
+    names.forEach(([s, p], j) => {
+      const isVertex = mode === 'uturn' ? (t < 2 || j === 0 || j === 3) : (j !== 3 || t === 2) && (j !== 1 || t === 0);
+      st.ball(p, { color: INK, radius: 0.09, hollow: !isVertex, parent: grp });
+      st.label(add(p, [p[0] < 0.5 ? -0.3 : 0.3, -0.1, p[2] > 0.5 ? 0.22 : -0.22]), s, 'tag');
+    });
+    const T = mode === 'flip'
+      ? ['The corner at v<sub>i</sub>. The fourth corner v′ of the unit square Q is not a vertex, so (Lemma 3.1) every other edge meets Q at most in v<sub>i−1</sub> or v<sub>i+1</sub>; here they leave the square in other directions.',
+        'First Δ-move: the blue triangle v<sub>i−1</sub>v<sub>i</sub>v<sub>i+1</sub> meets the knot only in the two edges at v<sub>i</sub>. They are replaced by the diagonal [v<sub>i−1</sub>, v<sub>i+1</sub>].',
+        'Second Δ-move: the green triangle v<sub>i−1</sub>v′v<sub>i+1</sub> meets the knot only in the diagonal. It is replaced by [v<sub>i−1</sub>, v′] ∪ [v′, v<sub>i+1</sub>]. The corner has flipped, and the knot type is the same (Theorem 2.4).']
+      : ['A U-turn a, b, −a: the square v<sub>i</sub>v<sub>i+1</sub>v<sub>i+2</sub>v<sub>i+3</sub> has three sides that are edges. Every other edge meets it at most in v<sub>i</sub> or v<sub>i+3</sub>.',
+        'First Δ-move: the blue triangle v<sub>i</sub>v<sub>i+1</sub>v<sub>i+2</sub> turns the two edges at v<sub>i+1</sub> into the diagonal [v<sub>i</sub>, v<sub>i+2</sub>].',
+        'Second Δ-move: the green triangle v<sub>i</sub>v<sub>i+2</sub>v<sub>i+3</sub> turns the diagonal and [v<sub>i+2</sub>, v<sub>i+3</sub>] into the single edge [v<sub>i</sub>, v<sub>i+3</sub>]. The polygon is two steps shorter and has the same knot type.'];
+    head.textContent = `${mode === 'flip' ? 'Corner flip' : 'U-turn removal'}: step ${t + 1} of 3`;
+    info.innerHTML = T[t]; back.disabled = t === 0; next.disabled = t === 2; st.request();
+  }
+  const back = btn('Back', () => { t--; k = 1; draw(); });
+  const next = btn('Next Δ-move', () => { t++; st.tween(900, (x) => { k = x; draw(); }); });
+  const c = ctlRow(w);
+  c.append(seg([['flip', 'Corner flip'], ['uturn', 'U-turn removal']], 'flip', (v) => { mode = v; t = 0; k = 1; draw(); }), back, next, H('span', { class: 'readout grow' }, 'Drag to turn: the other edges may point in any direction out of the square.'));
+  draw();
+}
+
+// ===================================================================== Figure 10: obligations on the real search (3D)
+export function figObligation(w) {
+  const T = DATA.trace, V = T.verts, n = V.length, word = T.word;
+  const evSteps = T.steps.map((s, i) => i).filter((i) => (T.steps[i].events || []).length);
+  const [pane, side] = stage(w, 2, 'stage-side'); side.classList.add('side');
+  const st = new Studio(pane, { aspect: '1 / 1', shadowDir: [0.2, -0.3, 1], label: 'An obligation created by the real search' });
+  const grp = new THREE.Group(); st.world.add(grp);
+  st.frame(V, [1.2, -1.6, 1.0]);
+  let ei = evSteps.indexOf(6) >= 0 ? evSteps.indexOf(6) : 0;
+  const head = H('h5'), info = H('div', { class: 'readout' }); side.append(head, info);
+  function draw() {
+    st.clear(grp); st.clearLabels();
+    const i = evSteps[ei], s = T.steps[i];
+    st.rod(V.slice(0, i + 2), { color: INK, radius: 0.08, parent: grp });
+    st.line([...V.slice(i + 1), V[0]], { color: INK2, dashed: true, opacity: 0.7, parent: grp });
+    st.ball(V[0], { color: INK, radius: 0.15, parent: grp }); st.label(add(V[0], [-0.3, 0, -0.42]), 'origin', 'tag');
+    st.ball(V[i + 1], { color: COL[1], radius: 0.16, parent: grp }); st.label(add(V[i + 1], [-0.3, 0, 0.45]), 'head', 'tag strong');
+    const lines = [];
+    for (const e of s.events) {
+      if (e.kind === 'curtain') {
+        const j = e.j, a = U[word[j]];
+        for (let q = j + 1; q < i; q++) st.sheet([V[q], V[q + 1], add(V[q + 1], a, -1), add(V[q], a, -1)], { color: COL[1], opacity: 0.16, parent: grp });
+        st.rod([V[j], V[j + 1]], { color: COL[1], radius: 0.1, parent: grp }); st.rod([V[i], V[i + 1]], { color: COL[1], radius: 0.1, parent: grp });
+        st.label(add(V[j], add(V[j + 1], V[j], -1), 0.5).map((x, t) => x + [0.25, -0.2, 0][t]), 'a', 'tag strong');
+        st.label(add(V[i], add(V[i + 1], V[i], -1), 0.5).map((x, t) => x + [0.25, -0.2, 0][t]), '−a', 'tag strong');
+        e.sites.forEach((p) => st.ball(p, { color: COL[1], radius: 0.16, hollow: true, parent: grp }));
+        lines.push(`<b>Curtain</b> from step ${j} (letter <code>${word[j]}</code>) to step ${i} (letter <code>${word[i]}</code>), k = ${e.k}. Interior points ${e.sites.map((p) => `(${p.join(',')})`).join(', ')}: ` +
+          (e.result === 'new' ? 'none is a vertex yet, so they become <b>one obligation</b> (orange rings): the rest of the walk (dashed) must visit one of them.' : '<span class="ok">one is already a vertex</span>, so DMON6 holds and nothing is recorded.'));
+      } else {
+        st.ball(e.site, { color: COL[0], radius: 0.16, hollow: true, parent: grp });
+        lines.push(`<b>Corner</b> (DMON7) at v<sub>${i}</sub>: the point (${e.site.join(',')}) ` + (e.result === 'new' ? 'is not a vertex yet: <b>an obligation with one site</b> (blue ring).' : '<span class="ok">is already a vertex</span>.'));
+      }
+    }
+    head.textContent = `Step ${i} (letter ${word[i]}): ${s.events.length} event${s.events.length > 1 ? 's' : ''}`;
+    info.innerHTML = lines.join('<br><br>') + `<br><br>Pending after this step: <b>${s.pending.length}</b>.`;
+    back.disabled = ei === 0; next.disabled = ei === evSteps.length - 1; st.request();
+  }
+  const back = btn('Previous event', () => { ei--; draw(); }), next = btn('Next event', () => { ei++; draw(); });
+  const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow', html: `The real search along <code>${word}</code>, at each step that closes a curtain or makes a DMON7 corner. Drag to turn.` }));
+  draw();
+}
+
+// ===================================================================== Figure 12: the span test on the real search (3D + per axis)
+export function figSpan(w) {
+  const T = DATA.trace, V = T.verts, n = V.length;
+  const steps = T.steps.map((s, i) => i).filter((i) => T.steps[i].pending.length >= 2);
+  const [pane, side] = stage(w, 2, 'stage-side'); side.classList.add('side');
+  const st = new Studio(pane, { aspect: '1 / 1', shadowDir: [0.2, -0.3, 1], label: 'The span test: the box the rest of the walk must cover' });
+  const grp = new THREE.Group(); st.world.add(grp);
+  st.frame(V, [1.2, -1.6, 1.0]);
+  let si = steps.indexOf(8) >= 0 ? steps.indexOf(8) : 0;
+  const head = H('h5'), tbl = H('table', { class: 'spantbl' }), info = H('div', { class: 'readout' });
+  side.append(head, tbl, info);
+  const AXN = ['x', 'y', 'z'], AXC = [COL[1], COL[2], COL[0]];
+  function draw() {
+    st.clear(grp); st.clearLabels();
+    const i = steps[si], s = T.steps[i], c = s.head;
+    const S = s.pending.filter((o) => o.length === 1).map((o) => o[0]);
+    st.rod(V.slice(0, i + 2), { color: INK, radius: 0.07, parent: grp });
+    st.ball(V[0], { color: INK, radius: 0.15, parent: grp }); st.label(add(V[0], [-0.3, 0, -0.42]), 'origin', 'tag');
+    st.ball(c, { color: COL[1], radius: 0.16, parent: grp }); st.label(add(c, [-0.3, 0, 0.45]), 'head', 'tag strong');
+    S.forEach((p) => st.ball(p, { color: COL[0], radius: 0.16, hollow: true, parent: grp }));
+    const lo = [0, 1, 2].map((q) => Math.min(c[q], 0, ...S.map((p) => p[q]))), hi = [0, 1, 2].map((q) => Math.max(c[q], 0, ...S.map((p) => p[q])));
+    // the box [l, h] on every axis: the rest of the walk must reach both faces on each axis
+    const bx = [lo, hi], corner = (m) => [bx[m & 1][0], bx[(m >> 1) & 1][1], bx[(m >> 2) & 1][2]];
+    for (const [p, q] of [[0, 1], [2, 3], [4, 5], [6, 7], [0, 2], [1, 3], [4, 6], [5, 7], [0, 4], [1, 5], [2, 6], [3, 7]]) st.line([corner(p), corner(q)], { color: COL[5], dashed: true, parent: grp });
+    let tot = 0; const rows = [];
+    for (let q = 0; q < 3; q++) {
+      const l = lo[q], h = hi[q], cc = c[q], a1 = (cc - l) + (h - l) + h, a2 = (h - cc) + (h - l) - l, mn = Math.min(a1, a2); tot += mn;
+      rows.push(`<tr><td style="color:${AXC[q]};font-weight:700">${AXN[q]}</td><td>${cc}</td><td>[${l}, ${h}]</td><td>${a1}</td><td>${a2}</td><td><b>${mn}</b></td></tr>`);
+    }
+    tbl.innerHTML = '<thead><tr><th>axis</th><th>c</th><th>[l, h]</th><th>a₁</th><th>a₂</th><th>min</th></tr></thead><tbody>' + rows.join('') + `</tbody><tfoot><tr><td colspan="5">sum</td><td><b>${tot}</b></td></tr></tfoot>`;
+    head.textContent = `After step ${i}: ${s.pending.length} pending, ${S.length} with a single site`;
+    info.innerHTML = `The rest of the walk starts at the head, visits every single site (blue rings), and ends at the origin, so on each axis it reaches both l and h. Reaching l first costs at least a₁ = (c − l) + (h − l) + h steps on that axis; reaching h first, a₂ = (h − c) + (h − l) − l. In all it needs at least <b>${tot}</b> steps, and <b>${s.R1}</b> are left: ` + (tot <= s.R1 ? '<span class="ok">the span test passes</span>.' : '<span class="no">the walk is discarded</span>.') + ' The dashed box is [l, h] on all three axes.';
+    back.disabled = si === 0; next.disabled = si === steps.length - 1; st.request();
+  }
+  const back = btn('Earlier', () => { si--; draw(); }), next = btn('Later', () => { si++; draw(); });
+  const c = ctlRow(w); c.append(back, next, H('span', { class: 'readout grow' }, 'The span test runs while at least two obligations are pending. Drag to turn.'));
+  draw();
+}

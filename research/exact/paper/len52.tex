@@ -1017,7 +1017,7 @@ the polygon of \cref{fig:certex}); by (E3), \cref{sec:upper}, this polygon is a 
 Each returned word is a lattice polygon of some knot type. One could find each type by simplifying a
 diagram with Reidemeister moves. But we do not need to know \emph{which} knot each word is; we only
 need the binary answer ``$5_2$ or not''. Fox $7$-colourings give this answer, with a certificate that
-is easy to check.
+is checked by one product of small integer matrices (\cref{lem:certsound}).
 
 \subsection{The number of colourings is a knot invariant}
 
@@ -1026,7 +1026,7 @@ For a knot $K$, all regular diagrams of $K$ and of its mirror image $K^*$ have t
 $7$-colourings.
 \end{theorem}
 
-The idea of the proof: we describe the colourings of a diagram as the homomorphisms from the knot group
+The plan of the proof: we describe the colourings of a diagram as the homomorphisms from the knot group
 to a fixed finite group, with one extra condition. That set depends only on the group, and the group
 depends only on the knot. We first set up the three ingredients.
 
@@ -1354,6 +1354,14 @@ The name ``$5_2$'' is needed only here. If we \emph{define} $\Kft$ as the knot t
 both bounds for $\Kft$ use only the diagram of $w_{36}$ itself and do not need (E3): the lower bound
 because the non-constant colouring of that diagram is checked directly, and the upper bound by
 definition.
+
+\begin{proof}[Proof of \cref{thm:main}]
+By \cref{thm:lower}, every lattice polygon of type $5_2$ has at least $36$ edges, so
+$\Len(5_2)\ge36$. By the argument above, $|w_{36}|$ is a lattice polygon with $36$ edges of type
+$5_2^*$, so $\Len(5_2^*)\le36$; and $\Len(5_2)=\Len(5_2^*)$, because a reflection of the lattice maps a
+polygon of type $5_2^*$ to one of type $5_2$ with the same number of edges (\cref{sec:prelim}). Hence
+$\Len(5_2)=36$.
+\end{proof}
 
 %=====================================================================================================
 \section{The formalisation}\label{sec:lean}
