@@ -377,7 +377,8 @@ export function figCurtain(w) {
 // ===================================================================== Figure 8: the four corner patterns (3D)
 export function figCorners(w) {
   const [pane] = stage(w, 1);
-  const st = new Studio(pane, { aspect: '5 / 2', shadowDir: [0.2, -0.3, 1], label: 'The four corner patterns of DMON7' });
+  const narrow = (w.clientWidth || innerWidth) < 600;   // phones: the four patterns two by two
+  const st = new Studio(pane, { aspect: narrow ? '1 / 1' : '5 / 2', shadowDir: [0.2, -0.3, 1], label: 'The four corner patterns of DMON7' });
   const grp = new THREE.Group(); st.world.add(grp);
   // each pattern: previous vertex, v_i, next vertex (v' = prev + next - v_i), in its own spot
   const lower = [
@@ -391,7 +392,7 @@ export function figCorners(w) {
     { t: 'south, then east or west', P: [[0, 1, 0], [0, 0, 0], [1, 0, 0]], eff: 'ψ<sub>Y</sub> + 1: not used' },
     { t: 'east or west, then north', P: [[0, 0, 0], [1, 0, 0], [1, 1, 0]], eff: 'ψ<sub>Y</sub> + 1: not used' }];
   let set = lower, kf = 0;
-  const offset = (i) => [i * 2.6, 0, 0];
+  const offset = (i) => (narrow ? [(i % 2) * 2.6, 0, -(i >> 1) * 2.6] : [i * 2.6, 0, 0]);
   function draw() {
     st.clear(grp); st.clearLabels();
     set.forEach((c, i) => {
@@ -416,7 +417,7 @@ export function figCorners(w) {
     st.request();
   }
   const strip = H('div', { class: 'capstrip' }); pane.append(strip);
-  st.frame([[-0.7, -0.4, -0.4], [8.6, 1.4, 1.8]], [0.25, -1.5, 0.75], 1.06);
+  st.frame(narrow ? [[-0.7, -0.4, -3.0], [3.4, 1.4, 2.2]] : [[-0.7, -0.4, -0.4], [8.6, 1.4, 1.8]], [0.25, -1.5, 0.75], 1.06);
   const ctl = ctlRow(w);
   let flipped = false;
   const play = btn('Flip all four', () => {
@@ -439,7 +440,7 @@ export function figOrigin(w) {
   const xs = V.map((v) => v[0]), ys = V.map((v) => v[1]);
   st.sheet([[Math.min(...xs) - 0.8, Math.min(...ys) - 0.8, 0], [Math.max(...xs) + 0.8, Math.min(...ys) - 0.8, 0], [Math.max(...xs) + 0.8, Math.max(...ys) + 0.8, 0], [Math.min(...xs) - 0.8, Math.max(...ys) + 0.8, 0]], { color: COL[0], opacity: 0.08 });
   st.frame(V, [1.2, -1.7, 0.7]);
-  st.label(add(V[0], [-0.2, 0, -0.45]), 'v<sub>0</sub> = 0, lowest', 'tag');
+  st.label(add(V[0], [0.5, 0.6, -0.5]), 'v<sub>0</sub>', 'tag');
   const lw0 = st.label(V[0], '', 'tag strong first'), lwl = st.label(V[0], '', 'tag strong last');
   const away = (d) => (d === 'u' || d === 'd' ? [-1.5, -0.4, 0] : d === 'e' || d === 'w' ? [0, -1.1, -0.35] : [-1.1, 0, -0.35]);
   const cone = (p, dir, color) => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.38, 18), st.material(color)); m.position.set(...p); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(...dir)); ends.add(m); };
@@ -452,14 +453,14 @@ export function figOrigin(w) {
   const order = 'ewnsud';
   function draw() {
     const w0 = fwd ? word[0] : REV[word[n - 1]], last = fwd ? word[n - 1] : REV[word[0]], ml = REV[last];
-    lw0.el.innerHTML = `first step: w<sub>0</sub> = ${w0}`; lwl.el.innerHTML = `last step comes from: −w<sub>n−1</sub> = ${ml}`;
+    lw0.el.innerHTML = `w<sub>0</sub> = ${w0}`; lwl.el.innerHTML = `−w<sub>n−1</sub> = ${ml}`;
     lw0.pos.set(...add(add(V[0], U[w0], 0.6), away(w0))); lwl.pos.set(...add(add(V[0], U[ml], 0.6), away(ml)));
     st.clear(ends);
     const A = add(V[0], U[w0]), Z = add(V[0], U[ml]);
     st.rod([V[0], A], { color: COL[1], radius: 0.11, parent: ends }); st.rod([Z, V[0]], { color: COL[0], radius: 0.11, parent: ends });
     cone(add(V[0], U[w0], 0.6), U[w0], COL[1]); cone(add(V[0], U[ml], 0.45), U[REV[ml]], COL[0]);
     const ok = order.indexOf(w0) < order.indexOf(ml);
-    read.innerHTML = `<b>DMON3:</b> every other vertex is greater than v<sub>0</sub> = 0 in the order “first z, then y, then x”: it lies above the blue plane z = 0, or on it with y > 0, or on it with y = 0 and x > 0. <b>DMON4:</b> reading ${fwd ? 'forwards' : 'backwards'}, w<sub>0</sub> = <code>${w0}</code> and −w<sub>n−1</sub> = <code>${ml}</code>; in the order ${'ewnsud'.split('').map((l) => `<span class="ordl${l === w0 ? ' o1' : l === ml ? ' o0' : ''}">${l}</span>`).join(' &lt; ')}, ${w0} ${ok ? '<' : '>'} ${ml}, so ${ok ? '<span class="ok">DMON4 holds</span>' : '<span class="no">DMON4 fails</span>'}. The bead shows the direction of travel.`;
+    read.innerHTML = `<b>DMON3:</b> every other vertex is greater than v<sub>0</sub> = 0 in the order “first z, then y, then x”: it lies above the blue plane z = 0, or on it with y > 0, or on it with y = 0 and x > 0. <b>DMON4:</b> reading ${fwd ? 'forwards' : 'backwards'}, the first step (orange) is w<sub>0</sub> = <code>${w0}</code> and the last step (blue) arrives from −w<sub>n−1</sub> = <code>${ml}</code>; in the order ${'ewnsud'.split('').map((l) => `<span class="ordl${l === w0 ? ' o1' : l === ml ? ' o0' : ''}">${l}</span>`).join(' &lt; ')}, ${w0} ${ok ? '<' : '>'} ${ml}, so ${ok ? '<span class="ok">DMON4 holds</span>' : '<span class="no">DMON4 fails</span>'}. The bead shows the direction of travel.`;
     st.request();
   }
   const c = ctlRow(w); c.append(seg([['f', 'Read forwards'], ['b', 'Read backwards']], 'f', (v) => { fwd = v === 'f'; s0 = performance.now(); draw(); }), H('span', { class: 'readout grow' }, 'Drag to turn.'));
