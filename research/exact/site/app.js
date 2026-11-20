@@ -144,6 +144,8 @@ function masthead() {
     const { Studio } = await import('./studio.js');
     const host = H('div', { class: 'mast-3d' }); svg.after(host); svg.classList.add('mast-flat');
     const st = new Studio(host, { aspect: '1 / 1', floor: false, label: 'The 36-step polygon of type 5₂, turning slowly' });
+    const rim = st.rod([...b.verts, b.verts[0]], { color: '#0a3d63', radius: 0.17 });   // a dark rim behind each tube gives depth where strands cross
+    rim.traverse((o) => { if (o.material) { o.material = o.material.clone(); o.material.side = st.THREE_BACK; o.material.roughness = 1; } });
     st.rod([...b.verts, b.verts[0]], { color: '#ffffff', radius: 0.13 });
     st.ball(b.verts[0], { color: '#ffffff', radius: 0.24 });
     st.frame(b.verts, [1.1, -1.5, 1.05], 1.02);
@@ -180,7 +182,7 @@ async function wPolygon(w) {
     if (v === 'proj') { view.viewAlong(b.D); read.innerHTML = 'Seen along <b>D</b>, the polygon <b>is</b> its diagram (b): the same five crossings, the same arcs.'; }
     else { view.viewAlong([1, -1.35, 0.95]); read.innerHTML = 'Drag to turn the polygon. Point at an arc label in (b) to find that arc in space.'; }
   });
-  c.append(mode, read);
+  c.append(mode, read); if (!view) mode.style.display = 'none';   // no 3D view to turn without WebGL
   read.innerHTML = view ? 'Drag to turn the polygon. Point at an arc label in (b) to find that arc in space.' : 'Interactive 3D needs WebGL; the diagram (b) is fully interactive.';
   const hl = (arc) => { segs.forEach((s) => s.setAttribute('opacity', arc == null || s.dataset.arc == arc ? 1 : 0.18)); view && view.highlight(arc == null ? null : +arc); };
   lg.querySelectorAll('g').forEach((g) => {
@@ -661,7 +663,7 @@ function wGrowth(w) {
   const [a, b] = panes(w, 2, ['(a) nodes and words per length', '(b) growth per two steps']);
   const runs = DATA.runs.filter((r) => r.n >= 6), F = DATA.fits;
   let logScale = true;
-  const svg = S('svg', { viewBox: '0 0 420 300', role: 'img', 'aria-label': 'Search nodes and returned words per length' }, a);
+  const svg = S('svg', { viewBox: '0 -18 420 318', role: 'img', 'aria-label': 'Search nodes and returned words per length' }, a);
   const tip = H('div', { class: 'readout', style: 'padding:0 12px 12px;min-height:2.9em' }, 'Point at a dot to read its value.'); a.append(tip);
   function draw() {
     svg.innerHTML = '';
@@ -678,7 +680,7 @@ function wGrowth(w) {
     S('path', { d: fitPath(F.nodes), fill: 'none', stroke: COL[0], 'stroke-width': 1.6, opacity: .8 }, svg);
     S('path', { d: fitPath(F.words), fill: 'none', stroke: COL[1], 'stroke-width': 1.6, opacity: .8 }, svg);
     S('rect', { x: X(F.nodes[2]), y: 26, width: X(34) - X(F.nodes[2]), height: 236, fill: COL[0], opacity: 0.05 }, svg);
-    const fr = S('text', { x: X(F.nodes[2]) + 4, y: 256, class: 'lbl-s' }, svg); fr.textContent = `fit range n ≥ ${F.nodes[2]}`;
+    const fr = S('text', { x: X(F.nodes[2]) + 4, y: 40, class: 'lbl-s' }, svg); fr.textContent = `fit range n ≥ ${F.nodes[2]}`;
     const dot = (n, v, col, what, sq) => { const g = S('g', { class: 'hit', tabindex: 0, role: 'img', 'aria-label': `n = ${n}: ${fmt(v)} ${what}` }, svg); S('circle', { cx: X(n), cy: Y(v), r: 11, fill: 'transparent' }, g); sq ? S('rect', { x: X(n) - 4, y: Y(v) - 4, width: 8, height: 8, fill: col }, g) : S('circle', { cx: X(n), cy: Y(v), r: 4.5, fill: col }, g); const show = () => { tip.innerHTML = `n = <b>${n}</b>: <b>${fmt(v)}</b> ${what}.`; }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show); };
     runs.forEach((r) => dot(r.n, r.nodes, COL[0], 'search nodes'));
     runs.filter((r) => r.words).forEach((r) => dot(r.n, r.words, COL[1], 'words returned', true));
@@ -695,7 +697,7 @@ function wGrowth(w) {
   S('path', { d: 'M' + rat.map(([n, v]) => `${X2(n)},${Y2(v)}`).join('L'), fill: 'none', stroke: COL[0], 'stroke-width': 1.5 }, svg2);
   rat.forEach(([n, v]) => S('circle', { cx: X2(n), cy: Y2(v), r: 3.5, fill: COL[0] }, svg2));
   b.append(H('div', { class: 'readout', style: 'padding:0 12px 12px' }, `Not a constant: the factor rises from ${rat[0][1].toFixed(1)} to ${rat[rat.length - 1][1].toFixed(1)}.`));
-  const ctl = ctlRow(w); ctl.append(seg([['log', 'Logarithmic scale'], ['lin', 'Linear scale']], 'log', (v) => { logScale = v === 'log'; draw(); }),
+  const ctl = ctlRow(w); ctl.append(seg([['log', 'Logarithmic scale'], ['lin', 'Linear scale']], 'log', (v) => { logScale = v === 'log'; draw(); tip.innerHTML = logScale ? 'Point at a dot to read its value. On this scale exponential growth is a straight line.' : 'On a linear scale almost everything happens at the last two lengths: n = 34 alone has 85% of all nodes. The words, tens of millions of times fewer, lie on the axis.'; }),
     H('span', { class: 'readout grow' }, `Solid lines: least-squares fits of log(count) against n on the shaded range (nodes from n = ${F.nodes[2]}, words from n = ${F.words[2]}, the first length with knotted words). The dashed line continues the node fit to short lengths: there the counts lie above it, because the growth factor per step is still rising (panel b), so these lengths are left out of the fit.`));
   draw();
 }

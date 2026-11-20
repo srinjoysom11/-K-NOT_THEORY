@@ -25,12 +25,16 @@ export class Studio {
     this.host = host;
     host.classList.add('studio'); host.__studio = this;
     this.wrap = document.createElement('div'); this.wrap.className = 'studio-wrap';
-    this.wrap.style.aspectRatio = opts.aspect || '4 / 3';
+    let asp = opts.aspect || '4 / 3';
+    const [aw, ah] = asp.split('/').map(Number);
+    if (innerWidth < 600 && aw / ah > 1.25) asp = '1 / 1';   // phones: wide stages become square so the scene is not tiny
+    this.wrap.style.aspectRatio = asp;
     this.wrap.setAttribute('aria-label', (opts.label || 'Interactive 3D figure').replace(/;\s*(drag|click)[^;]*/gi, '') + '. Drag, or use the arrow keys, to turn it.');
     this.wrap.setAttribute('role', 'group');   // focusable: the arrow keys turn the scene
     this.overlay = document.createElement('div'); this.overlay.className = 'studio-labels';
     this.wrap.append(this.overlay); host.append(this.wrap);
     this.renderer = null; this.ensureRenderer();
+    this.THREE_BACK = THREE.BackSide;
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(opts.fov || 24, 1, 0.1, 400);
     this.camera.up.set(0, 0, 1);
@@ -283,15 +287,23 @@ export class Studio {
   label(p, html, cls = '') {
     const el = document.createElement('div'); el.className = 'studio-label ' + cls; el.innerHTML = html;
     this.overlay.append(el);
-    const L = { el, pos: new THREE.Vector3(...p) }; this.labels.push(L); this.request(); return L;
+    const L = { el, pos: new THREE.Vector3(...p) }; this.labels.push(L); new MutationObserver(() => { L.size = null; }).observe(el, { childList: true, characterData: true, subtree: true }); this.request(); return L;
   }
   clearLabels() { this.overlay.innerHTML = ''; this.labels = []; }
   placeLabels() {
-    const w = this.wrap.clientWidth, h = this.wrap.clientHeight;
-    for (const L of this.labels) {
-      const v = L.pos.clone().project(this.camera);
-      L.el.style.transform = `translate(${((v.x + 1) / 2) * w}px, ${((1 - v.y) / 2) * h}px) translate(-50%, -50%)`;
-      L.el.style.visibility = v.z < 1 ? 'visible' : 'hidden';
+    const w = this.wrap.clientWidth, h = this.wrap.clientHeight, boxes = [];
+    // strong labels (and badges) first; a label that would cover one already placed fades out in this view
+    const order = [...this.labels].sort((p, q) => (/strong|badge|xing|chip3/.test(q.el.className) ? 1 : 0) - (/strong|badge|xing|chip3/.test(p.el.className) ? 1 : 0));
+    for (const L of order) {
+      const v = L.pos.clone().project(this.camera), x = ((v.x + 1) / 2) * w, y = ((1 - v.y) / 2) * h;
+      L.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      if (v.z >= 1 || !L.el.textContent.trim()) { L.el.style.visibility = 'hidden'; continue; }
+      L.el.style.visibility = 'visible';
+      if (!L.size) L.size = [L.el.offsetWidth, L.el.offsetHeight];
+      const r = [x - L.size[0] / 2, y - L.size[1] / 2, x + L.size[0] / 2, y + L.size[1] / 2];
+      const hit = boxes.some((q) => Math.min(r[2], q[2]) - Math.max(r[0], q[0]) > 2 && Math.min(r[3], q[3]) - Math.max(r[1], q[1]) > 2);
+      L.el.style.opacity = hit ? '0' : '';
+      if (!hit) boxes.push(r);
     }
   }
   clear(group = this.world) {
