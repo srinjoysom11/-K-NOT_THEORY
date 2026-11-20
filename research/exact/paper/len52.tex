@@ -433,10 +433,21 @@ sides are edges of $|w|$. The fourth side $[v_i,v_{i+3}]$ is not an edge of $|w|
 $[v_{i-1},v_i]$ and $[v_i,v_{i+1}]$, and $v_{i+3}=v_{i-1}$ would mean the polygon has only the four
 vertices $v_i,\dots,v_{i+3}$, so $n=4$. By \cref{lem:segsquare} every other edge meets $Q$ at most in a
 corner, and only at $v_i$ or $v_{i+3}$ (the vertices $v_{i+1},v_{i+2}$ have no other edges). Two
-$\Delta$-moves: the triangle $v_iv_{i+1}v_{i+2}$ turns two edges into the diagonal $[v_i,v_{i+2}]$
-(\cref{fig:flipdelta}e), and then the triangle $v_iv_{i+2}v_{i+3}$ turns the diagonal and
-$[v_{i+2},v_{i+3}]$ into $[v_i,v_{i+3}]$ (\cref{fig:flipdelta}f). Each triangle meets the current
-knot only in the edges it replaces, by the same argument as in \cref{lem:flip}.
+$\Delta$-moves, each in the reverse form of the definition (two edges $[a,c]\cup[c,b]$ become one
+edge $[a,b]$).
+\begin{enumerate}
+\item The triangle $\Delta_1=v_iv_{i+1}v_{i+2}$ turns $[v_i,v_{i+1}]\cup[v_{i+1},v_{i+2}]$ into the
+diagonal $[v_i,v_{i+2}]$ (\cref{fig:flipdelta}e). It meets $|w|$ only in these two edges: the side
+$[v_{i+2},v_{i+3}]$ meets $\Delta_1$ only in $v_{i+2}$, because $v_{i+3}$ is the corner of $Q$ opposite to
+$v_{i+1}$ and is not in $\Delta_1$; every other edge meets $Q$ at most in $v_i$ or $v_{i+3}$, so it meets
+$\Delta_1$ at most in $v_i$. Both points lie on the two replaced edges.
+\item The triangle $\Delta_2=v_iv_{i+2}v_{i+3}$ turns $[v_i,v_{i+2}]\cup[v_{i+2},v_{i+3}]$ into
+$[v_i,v_{i+3}]$ (\cref{fig:flipdelta}f). The current knot consists of these two segments and the edges
+of $|w|$ other than the three sides of $Q$; each of those meets $Q$ at most in $v_i$ or $v_{i+3}$, and
+both points lie on the two replaced segments. So $\Delta_2$ meets the current knot only in the
+replaced segments.
+\end{enumerate}
+The result is $|w'|$, and by \cref{thm:deltamove} it has the same knot type as $|w|$.
 \end{proof}
 
 \begin{figure}[t]
