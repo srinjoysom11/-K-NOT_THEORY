@@ -12,7 +12,6 @@ FIG_HTML = {
     "fig:polygon": fig("polygon", "polygon36"),
     "fig:delta": fig("delta", "delta"),
     "fig:trefoil": fig("trefoil", "trefoil3"),
-    "fig:segsquare": fig("segsquare", "segsquare"),
     "fig:flipdelta": fig("flipdelta", "flipdelta"),
     "fig:psi": fig("psi", "psi"),
     "fig:curtain": fig("curtain", "curtain"),

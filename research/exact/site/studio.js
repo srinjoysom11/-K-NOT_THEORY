@@ -10,6 +10,15 @@ export const ease = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
 export const COL = ['#0072b2', '#d55e00', '#009e73', '#cc79a7', '#7a5230', '#56b4e9', '#7f7f7f'];
 export const INK = '#14171b';
 
+// cel style: two-tone toon shading with ink outlines (an inverted hull drawn behind each solid)
+let GRAD = null;
+function gradMap() {
+  if (!GRAD) { GRAD = new THREE.DataTexture(new Uint8Array([165, 165, 165, 255, 222, 222, 222, 255, 255, 255, 255, 255]), 3, 1, THREE.RGBAFormat); GRAD.minFilter = GRAD.magFilter = THREE.NearestFilter; GRAD.needsUpdate = true; }
+  return GRAD;
+}
+const HULL = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide });
+export const HULL_MAT = HULL;
+
 export function hasGL() {
   if (new URLSearchParams(location.search).has('nogl')) return false;
   try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
@@ -22,6 +31,8 @@ export class Studio {
    */
   constructor(host, opts = {}) {
     this.opts = opts;
+    this.cel = !!opts.cel; if (this.cel) opts.floor = false;
+    this.hullW = opts.hull || 0.045;   // outline thickness, in lattice units
     this.host = host;
     host.classList.add('studio'); host.__studio = this;
     this.wrap = document.createElement('div'); this.wrap.className = 'studio-wrap';
@@ -43,8 +54,8 @@ export class Studio {
     this.controls.addEventListener('change', () => this.request());
     this.controls.addEventListener('start', () => { this.camTween = null; this.onUser && this.onUser(); });
     // light: soft sky + a key light that casts the shadow
-    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd4d9de, 2.5));
-    this.key = new THREE.DirectionalLight(0xffffff, 1.2);
+    this.scene.add(this.cel ? new THREE.AmbientLight(0xffffff, 1.55) : new THREE.HemisphereLight(0xffffff, 0xd4d9de, 2.5));
+    this.key = new THREE.DirectionalLight(0xffffff, this.cel ? 2.1 : 1.2);
     this.key.castShadow = opts.floor !== false;
     this.key.shadow.mapSize.set(2048, 2048);
     this.key.shadow.bias = -0.0004;
@@ -233,10 +244,11 @@ export class Studio {
   }
   // ---------------------------------------------------------------- building blocks
   material(color, opts = {}) {
+    if (this.cel) return new THREE.MeshToonMaterial({ color, gradientMap: gradMap(), transparent: true, ...opts });
     return new THREE.MeshStandardMaterial({ color, roughness: 0.82, metalness: 0, transparent: true, ...opts });   // matte, like printed ink
   }
   /** a lattice-style tube: one cylinder per segment and a ball at every joint; returns a Group */
-  rod(points, { color = INK, radius = 0.09, closed = false, userData = {}, pick = false, parent } = {}) {
+  rod(points, { color = INK, radius = 0.09, closed = false, userData = {}, pick = false, parent, hull = true } = {}) {
     const g = new THREE.Group(); g.userData = userData;
     const mat = this.material(color);
     const cyl = new THREE.CylinderGeometry(radius, radius, 1, 20, 1, true), sph = new THREE.SphereGeometry(radius, 20, 14);
@@ -247,8 +259,12 @@ export class Studio {
       const c = new THREE.Mesh(cyl, mat); c.scale.set(1, L, 1); c.position.copy(A).add(B).multiplyScalar(0.5);
       c.quaternion.setFromUnitVectors(up, B.clone().sub(A).normalize()); c.castShadow = true; c.userData = userData; g.add(c);
       if (pick) this.pickables.push(c);
+      if (this.cel && hull) { const h = new THREE.Mesh(cyl, HULL); const k = 1 + this.hullW / radius; h.scale.set(k, L, k); h.position.copy(c.position); h.quaternion.copy(c.quaternion); h.userData.hull = true; g.add(h); }
     }
-    for (const p of P) { const s = new THREE.Mesh(sph, mat); s.position.copy(p); s.castShadow = true; s.userData = userData; g.add(s); if (pick) this.pickables.push(s); }
+    for (const p of P) {
+      const s = new THREE.Mesh(sph, mat); s.position.copy(p); s.castShadow = true; s.userData = userData; g.add(s); if (pick) this.pickables.push(s);
+      if (this.cel && hull) { const h = new THREE.Mesh(sph, HULL); h.scale.setScalar(1 + this.hullW / radius); h.position.copy(p); h.userData.hull = true; g.add(h); }
+    }
     (parent || this.world).add(g); this.request(); return g;
   }
   /** a smooth closed tube through points */
@@ -256,15 +272,28 @@ export class Studio {
     const curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p)), closed, 'centripetal');
     const geo = new THREE.TubeGeometry(curve, segments || points.length * 3, radius, 14, closed);
     const mesh = new THREE.Mesh(geo, this.material(color)); mesh.castShadow = true; mesh.userData = userData;
+    if (this.cel) { const h = new THREE.Mesh(new THREE.TubeGeometry(curve, segments || points.length * 3, radius + this.hullW, 14, closed), HULL); h.userData.hull = true; mesh.add(h); }
     (parent || this.world).add(mesh); if (pick) this.pickables.push(mesh); this.request(); return mesh;
   }
   ball(p, { color = INK, radius = 0.12, hollow = false, userData = {}, pick = false, parent } = {}) {
     let mesh;
-    if (hollow) {
+    if (hollow && this.cel) {   // a paper-white disc in an ink ring, facing the viewer
+      mesh = new THREE.Group();
+      const bb = new THREE.Group(); bb.userData.billboard = true; mesh.add(bb);
+      const disc = new THREE.Mesh(new THREE.CircleGeometry(radius, 40), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.85, depthWrite: false }));
+      const ring = new THREE.Mesh(new THREE.RingGeometry(radius * 0.78, radius * 1.12, 48), new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide }));
+      const edge = new THREE.Mesh(new THREE.RingGeometry(radius * 0.7, radius * 1.22, 48), new THREE.MeshBasicMaterial({ color: INK, side: THREE.DoubleSide }));
+      edge.position.z = -0.004; ring.position.z = 0.002; disc.position.z = -0.006;
+      bb.add(disc, edge, ring);
+      mesh.userData.disc = disc; mesh.userData.ring = ring;
+    } else if (hollow) {
       mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 22, 16), this.material(color, { opacity: 0.18, depthWrite: false }));
       const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, radius * 0.16, 10, 40), new THREE.MeshBasicMaterial({ color }));
       ring.userData.billboard = true; mesh.add(ring);
-    } else { mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 22, 16), this.material(color)); mesh.castShadow = true; }
+    } else {
+      mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 22, 16), this.material(color)); mesh.castShadow = true;
+      if (this.cel) { const h = new THREE.Mesh(new THREE.SphereGeometry(radius + this.hullW, 22, 16), HULL); h.userData.hull = true; mesh.add(h); }
+    }
     mesh.position.set(...p); mesh.userData = userData;
     (parent || this.world).add(mesh); if (pick) this.pickables.push(mesh); this.request(); return mesh;
   }
