@@ -20,6 +20,18 @@ colors:
   rule-strong: "rgba(20, 23, 27, .32)"
   bad: "#c0281b"
   good: "#00805c"
+  pastel-blue: "#a9d0ec"
+  pastel-blue-2: "#84bbe2"
+  pastel-blue-3: "#5f9fd1"
+  pastel-sky: "#cfe9f8"
+  pastel-vermilion: "#f6bf9b"
+  pastel-vermilion-2: "#ee9d6c"
+  pastel-green: "#a6dcc6"
+  pastel-green-2: "#6fc4a4"
+  pastel-pink: "#eec6dc"
+  pastel-umber: "#dcc4ad"
+  pastel-grey: "#d9dcdf"
+  pastel-red: "#f2a3a0"
 typography:
   display:
     fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
@@ -115,7 +127,10 @@ Full palette, committed to one programme: the seven Fox colours carry every chro
 
 ### Neutral
 - **Ground** (cool white page), **Sheet** (pure white figure stages and definitions), **Ink** and **Ink Soft** (text), **Rule** and **Rule Strong** (hairlines, scrollbar).
-- **Good** and **Bad** for verdicts in figure readouts ("passes", "fails", "balanced").
+- **Good** and **Bad** for verdicts (drawn ticks and crosses, coloured = / ≠).
+
+### Pastel tints (figure art only)
+Inside figures the Z/7 colours appear as pastel tints (`PAS` in `anim.js`): pastel blue in three steps, sky, vermilion in two, green in two, pink, umber, grey, and a soft red for a failing state. Every pastel shape carries a bold ink edge, so the tints never have to carry contrast alone. The meaning of a hue is the same as in the paper (orange = first step / l-first route, blue = last step / h-first route, green = lowers psi_Z, blue = lowers psi_Y).
 
 ### Named rules
 **The One Programme Rule.** A colour on the page always means the same as in the paper: the arc colour of a Fox colouring, or the section it belongs to. No decorative colour outside Z/7.
@@ -145,7 +160,7 @@ Full palette, committed to one programme: the seven Fox colours carry every chro
 
 ## Elevation & Depth
 
-Flat. Depth exists only inside the 3D figures (three.js, lit tubes). Everything else is separated by rules and by the sheet/ground contrast. No shadows.
+Flat. Depth exists only inside the figures (three.js scenes and the axonometric SVG). Everything else is separated by rules and by the sheet/ground contrast. No shadows on the page; the floating psi labels in Figure 7 use a hard 3px ink offset, like a print register, not a blur.
 
 ## Shapes
 
@@ -158,6 +173,19 @@ Square, 1px ink border, white; hover tints the sheet; pressed (`aria-pressed="tr
 
 ### Figure instrument
 Stage (sheet, 2px ink rule above, hairline below) → controls row → readout (Archivo, verdict words coloured good/bad) → caption. Every figure keeps a static fallback (`figs/*.svg`) for no-script, and a no-WebGL path.
+
+### Math without words
+A figure holds symbols, numbers and pane labels (a), (b), ... and no sentences: no readouts that explain, no hints, no side text. The caption carries the words. A control is a short verb ("Play", "Push down", "Reset") or a symbol.
+
+### Two art styles
+- **Cel-shaded 3D for whole polygons** (DMON1, 2, 3, 6, 7; Figures 7 and 8): `Studio({ cel: true })` uses toon materials with a 3-step gradient, an inverted-hull ink outline (`hullW` 0.045), no floor, and hollow vertices drawn as billboard discs with an ink ring and a colour ring.
+- **Flat axonometric for local pictures and the search** (DMON4, 5; Figures 9-11; web figure 3): SVG through `Flat` in `anim.js`, screen axes x = (0.94, −0.34), y = (0.56, 0.42), z = (0, 1); rods are an ink casing around a pastel core, painted back to front by depth x − 1.679y + 1.045z (no two lattice points coincide).
+
+### Animatics
+`player()` in `anim.js`: one clock per figure; autoplays when visible (IntersectionObserver), loops with a hold on the last frame, and has a square play/pause button and a thin scrubber, both wordless (aria-labelled). Scrubbing pauses. Under reduced motion it shows the last frame, paused. Easing: out-cubic for moves, a small overshoot (`pop`) for things that appear.
+
+### "Not convinced?"
+A `details.nc` fold at the end of a short proof, closed by default; its summary is an outlined label button with a chevron.
 
 ### The lattice studio (3D figures)
 Every figure about a knot in space is a real 3D scene (`studio.js`): matte lit tubes on a pale studio ground, and a lattice floor that receives the knot's true shadow, so the shadow is a knot diagram. Labels are HTML pinned to 3D points (Archivo, white chip). Picking is a click on an object; dragging turns the scene; the wheel always scrolls the page. Camera moves and object moves are eased (exponential out) and skipped under reduced motion. The camera fits the drawn points exactly. 2D diagrams use one renderer (`knot2d`): orthographic view along D, round joins, a white casing at each gap, crossings ringed, labels placed clear of strands.
@@ -183,5 +211,6 @@ A 7% tint of the section colour with a hairline outline; the name in Archivo. De
 
 ### Don't
 - Don't add a colour outside the programme, a shadow, a gradient or a rounded corner.
-- Don't put a label above a heading, or use glyphs as icons (verdicts are words; ticks are drawn in SVG).
+- Don't put a label above a heading, or use glyphs as icons (ticks and crosses are drawn in SVG).
+- Don't write sentences inside a figure.
 - Don't let figure content or math widen the page on a phone.

@@ -102,6 +102,11 @@ def expand(t):
     return t
 
 FIGS = []
+# figures whose interactive version shows something other than the printed panel get their own caption here
+CAP_WEB = {
+    "fig:obligation": r"An obligation, in the real search for the 24-step trefoil of \cref{cor:trefoil}. The step $-a$ to the head closes a curtain begun at $v_j$ by the step $a$, and the curtain unrolls. Its interior points (rings) are not yet vertices, so \dmon6 is neither satisfied nor violated: the search records them as one obligation. The rest of the walk (dashed) visits one of them, which discharges the obligation, and returns to the origin.",
+    "fig:corners": r"The four corner patterns of \dmon7, on a real knot: a $40$-step polygon of type $5_2$ (the polygon $|w_{36}|$ with two bumps added and pushed up a little; every move used is a corner flip or the reverse of a U-turn removal, so the knot type is kept). Each ring is the fourth corner $v'$ of a corner in one of the four patterns, and $v'$ is free. Green: pattern (1) up, then horizontal, or (2) horizontal, then down; the flip lowers $\psiZ$ by $1$. Blue: pattern (3) north, then east or west, or (4) east or west, then south; the flip keeps the height and lowers $\psiY$ by $1$. The four remaining patterns move $v_i$ up or north, so they never lower a potential. Click a ring to flip it, or push the polygon all the way down: then no ring is left, as \dmon7 demands of the chosen word.",
+}
 
 
 def fig_marker(m):
@@ -109,6 +114,7 @@ def fig_marker(m):
     lab = re.search(r"\\label\{([^}]*)\}", env).group(1)
     cap = re.search(r"\\caption\{(.*)\}\s*\\label", env, re.S)
     cap = cap.group(1) if cap else ""
+    if lab in CAP_WEB: cap = CAP_WEB[lab]
     FIGS.append(lab)
     extra = ""
     if lab == "tab:deps":
@@ -117,6 +123,8 @@ def fig_marker(m):
     return f"\n\nFIGSTART@{lab}@\n\n{cap}\n\nFIGCAPEND\n{extra}\nFIGEND\n\n"
 
 body = re.sub(r"\\begin\{(figure|table)\}.*?\\end\{\1\}", fig_marker, body, flags=re.S)
+# "Not convinced?" folds: details the reader opens on demand (the PDF prints them inline)
+body = re.sub(r"\\begin\{notconvinced\}(.*?)\\end\{notconvinced\}", lambda m: "\n\nNCSTART\n\n" + m.group(1) + "\n\nNCEND\n\n", body, flags=re.S)
 body = re.sub(r"\\begin\{enumerate\}\[[^\]]*\]", r"\\begin{enumerate}", body)
 body = re.sub(r"\\begin\{description\}\[[^\]]*\]", r"\\begin{description}", body)
 body = body.replace("\\centering", "").replace("\\small", "")
@@ -192,6 +200,9 @@ for m in tok.finditer(H):
         out.append(f'<div{ida} class="{m.group(3)} thm"><p><strong>{m.group(4)} {num}</strong>')
 out.append(H[pos:]); H = "".join(out)
 
+H = H.replace("<p>NCSTART</p>", '<details class="nc"><summary>Not convinced?</summary>')
+H = re.sub(r"<p>NCEND\s*(\S*)</p>", lambda m: "</details>" + (f'<p class="qed-line">{m.group(1)}</p>' if m.group(1) else ""), H)
+
 # section numbers in headings
 c1 = 0; c2 = 0
 def head(m):
@@ -235,9 +246,9 @@ H = re.sub(r"<p>FIGSTART@([^@]*)@</p>(.*?)<p>FIGCAPEND</p>(.*?)<p>FIGEND</p>", f
 H = re.sub(r"<figcaption>(.*?)</figcaption>", lambda m: "<figcaption>" + re.sub(r"</?p>", " ", m.group(1)) + "</figcaption>", H, flags=re.S)
 # figures that exist only on the web: inserted right after the proof of the statement they illustrate
 WEBFIGS = [
-    ("thm:deltamove", "deltaproof", "The proof of Theorem\u00a0{n}, step by step: the quadrilateral $Q$, the ball $B$, the map $f$ that moves $m$ to $c$, and the coning that extends it. Every point named in the proof is labelled."),
-    ("lem:invariant", "invariant", "Lemma\u00a0{n} along a real search: the 24-step trefoil of Corollary\u00a0{c}. After each step every pending obligation has a site that is a later vertex $v_m$ of the word, with $m\\ge i+2$. Use the arrow keys."),
-    ("thm:fox", "d7", "Step\u00a02 of the proof of Theorem\u00a0{n}: why a crossing relation of the Wirtinger presentation becomes the Fox rule. Reflecting the mirror of $r_a$ in the mirror of $r_b$ gives the mirror of $r_{{2b-a}}$, so $r_br_ar_b=r_{{2b-a}}$."),
+    ("thm:deltamove", "deltaproof", "The proof of Theorem\u00a0{num}, step by step. $\\Delta$: the move. $Q$: the quadrilateral $adbc^+$. $B$: the bipyramid over $Q$ with apexes $e_\\pm$. $f$: $m$ moves to $c$ and the four triangles of $Q$ stretch with it; the boundary of $Q$ stays put. Cone: each segment from $e_+$ or $e_-$ to a point $x$ of $Q$ goes to the segment to $f(x)$, so the points inside $B$ (orange) move along, while the segments to $\\partial Q$ and every point outside $B$ (grey) stay put. This is a motion of all of space that carries $[a,b]$ to $[a,c]\\cup[c,b]$."),
+    ("def:dmon", "dmon", "The seven DMON tests on the polygon $|w_{36}|$. DMON1: the walk returns to its start. DMON2: it never steps onto a vertex it has already visited. DMON3: a plane rises to the lowest level, a strip slides to the lowest row on it, and a bead slides to the first vertex on that row: the start $v_0$. DMON4: the first step (orange) comes before the reverse of the last step (blue) in the order $\\texttt{e}<\\texttt{w}<\\texttt{n}<\\texttt{s}<\\texttt{u}<\\texttt{d}$; read backwards, it does not. DMON5: the steps sorted by axis, $\\#_z\\le\\#_y\\le\\#_x$. DMON6: a curtain unrolls below a sideways stretch, and its interior points that are vertices fill in. DMON7: at a corner pattern, the fourth corner of the square is a vertex."),
+    ("lem:invariant", "invariant", "Lemma\u00a0{num} along a real search: the 24-step trefoil of Corollary\u00a0{cor}. The head walks the word. Each pending obligation shows its sites (rings) and its witness, a later vertex $v_m$ of the word (filled), tied to the head by a dotted line; when the head reaches it, the obligation is removed. Below, each bar is one obligation, from the step that makes it to the step that removes it, and its dot is the witness: it never lies left of the dashed line $i+2$."),
 ]
 def close_div(h, start):
     depth = 0
@@ -247,9 +258,12 @@ def close_div(h, start):
     raise SystemExit("unbalanced div")
 for wn, (lab, w, cap) in enumerate(WEBFIGS, 1):
     i = H.index(f'<div id="{lab}" class=')
-    j = H.index('<div class="proof">', close_div(H, i))
-    k = close_div(H, j)
-    capH = pandoc(cap.replace("{n}", LAB[lab][1]).replace("{c}", LAB["cor:trefoil"][1])).strip()
+    e = close_div(H, i)
+    if H[e:].lstrip().startswith('<div class="proof">'):   # after the proof of a statement; right after a definition
+        k = close_div(H, H.index('<div class="proof">', e))
+    else:
+        k = e
+    capH = pandoc(cap.replace("{num}", LAB[lab][1]).replace("{cor}", LAB["cor:trefoil"][1])).strip()
     capH = re.sub(r"^<p>|</p>$", "", capH)
     H = H[:k] + (f'<figure class="fig webfig" data-fig="web-{w}"><div class="widget" data-w="{w}"></div>'
                  f'<figcaption><span class="fig-n">Web figure {wn}</span> {capH} (This figure exists only in the interactive edition.)</figcaption></figure>') + H[k:]

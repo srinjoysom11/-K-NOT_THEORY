@@ -6,24 +6,26 @@ figures (`paper/figs/make_figs.py`, `site/build_data.py`).
 
 | Paper figure | Interactive version |
 |---|---|
-| (all 3D figures) | One "lattice studio" (`site/studio.js`): lit tubes, a lattice floor that catches the real shadow of the knot (so the shadow is a diagram), labels pinned to 3D points, click to act, drag to turn. The wheel never zooms; it scrolls the page. Without WebGL the flat versions in `app.js` are used. |
-| Fig. 1 polygon w36 and its diagram | 3D polygon with its shadow, and (b) the diagram along D = (1,-1,4) (orthographic view, casings at the gaps, crossings ringed). "Look along D" turns the camera until (a) is (b). Pointing at an arc in either panel finds it in the other; click pins it. |
-| Fig. 2 Delta-move | 3D: the edge [a, b], the triangle abc and another strand. Move c until the triangle reaches the strand (it turns red: not a Delta-move); "Play the move" sweeps the edge across the triangle. |
-| Theorem 2.4 (web only) | The proof step by step in 3D: Q, the bipyramid B with e+ and e-, the four triangles of f with m sliding to c, coning. |
-| Fig. 3 crossing rule, trefoil colouring | Inset (a): the rule at one crossing. (b) A trefoil tube; click a strand to add 1 to its colour; a badge on each crossing checks 2 over = in + out (mod p); p = 3 or 7; the number of colourings is counted. |
-| Fig. 4 segment and square | 3D lattice, the square Q and a unit segment E moved by lattice steps along any axis; E ∩ Q (empty / corner / side) is drawn and named. |
-| Fig. 5 flip and U-turn as two Delta-moves | 3D step-through of both lemmas: each Delta-move is animated across its half-square, with the proof's labels; the outer edges leave the square in other directions. |
-| Fig. 6 potential psi_Z | The paper's polygon eeeuwuwwdd in 3D with vertex heights; rings mark allowed flips (green lowers psi_Z); a click animates the flip and logs psi_Z. |
-| Fig. 7 curtain lemma | 3D curtain with k = 2..5 and turning sideways steps; the k-1 flips are animated with the proof's labels v_j and v_j - a, then the U-turn is removed. |
-| Fig. 8 four corner patterns | The four patterns side by side in 3D with their squares; "Flip all four" animates v_i to v'; the other four patterns can be shown for comparison. |
-| Fig. 9 DMON4 | w36 in 3D with the plane through v0; a bead travels in the chosen direction; first and last letters and the DMON4 verdict. |
-| Fig. 10 obligations | The real search (n = 24) at each step that closes a curtain or makes a DMON7 corner: the curtain is shaded with its steps a and -a, its interior points become one obligation (rings), the rest of the walk is dashed. |
-| Fig. 11 reach | The real search state in 3D; click a site ring: its lattice route head -> s -> origin, the count against the steps left, and its free neighbours. |
-| Lemma 4.4 (web only) | Arrow-key stepper along the real search: pending obligations as rings, each witness v_m labelled, and a timeline (bars from creation to removal, witness dots right of the line i + 2). |
-| Fig. 12 span | The real search state in 3D with the single sites and the box [l, h] on all three axes; a table gives c, l, h, a1, a2 and min per axis and compares the sum with the steps left (the numbers equal the search's own). |
-| Table 1, Fig. 13 growth | Log/linear plot; the fits are drawn on their fit range (shaded) and the node fit continues dashed to short lengths, with the reason the short lengths are left out. |
-| Fig. 14 standard 5_2 | 3D tube whose shadow is the KnotInfo diagram; edge and crossing labels; pointing at X_k shows its PD tuple; sliders a, b browse the 49 colourings with the five crossing checks. |
-| Theorem 5.1 (web only) | The heptagon: choose over-colour b, in-colour a and a corner t; step through r_b, r_a, r_b and compare with the single reflection r_{2b-a}; ends with the Fox rule. |
-| Fig. 15 certificate example | 3D polygon and its diagram along (7,13,31); rows of F linked to the ringed crossing; L and LF. |
-| Fig. 16 PD comparison | The diagram of w36 drawn with the same renderer as Fig. 1, labels +6 as in the caption, an arrow for the direction of travel; "switch all crossings" turns every row into a KnotInfo crossing. |
+| Style | Math without words: a figure carries pane labels (a), (b), ..., symbols and numbers, and no sentences; the words are in the caption. Whole polygons are cel-shaded 3D (pastel toon shading, ink outlines; `studio.js` with `cel: true`). Local pictures and search animatics are flat axonometric SVG (`anim.js`, class `Flat`). Animatics autoplay in a loop when visible, with a wordless play/pause button and scrubber; under reduced motion they show the last frame, paused. |
+| (all 3D figures) | One "lattice studio" (`site/studio.js`): lit tubes, labels pinned to 3D points, click to act, drag to turn. The wheel never zooms; it scrolls the page. Without WebGL the flat versions in `app.js` are used. |
+| Fig. 1 polygon w36 and its diagram | (a) 3D polygon with its shadow, (b) the diagram along D = (1,-1,4). "Look along D" turns the camera until (a) is (b). Pointing at an arc in either panel finds it in the other. |
+| Fig. 2 Delta-move | (a)-(c): the edge [a, b], the triangle abc and another strand; sliders c and [a, b]; the triangle turns red when it meets the strand; "Play" sweeps the edge across the triangle. |
+| Theorem 2.4 (web figure 1) | The proof in steps Delta, Q, B, f, cone. In the cone step every segment from e+ or e- to a point of Q is drawn (orange) and follows the slider m -> c, so one sees the motion of segments become an isotopy of B; grey points outside B stay put. |
+| Fig. 3 crossing rule, trefoil colouring | (a) the rule 2b = a + c (mod p); (b) a trefoil tube, click a strand to add 1; badges check each crossing; the number of colourings is shown. |
+| Paper Lemma "segment and square" | Deleted from the paper (now a one-line fact); no figure. |
+| Fig. 4 flip and U-turn as two Delta-moves | 3D step-through (a)-(f), each Delta-move animated across its half-square. |
+| Fig. 5 potential psi_Z | eeeuwuwwdd in 3D with height chips; psi_Z floats in the scene; a click on a ring animates the flip; the chain of values (9 -> 8 -> ...) grows below. |
+| Fig. 6 curtain lemma | k = 2..5; the walk line shows the letters and the length; the k-1 flips are animated, then the U-turn collapses (the two steps shrink into place) instead of vanishing. |
+| Fig. 7 four corner patterns | A real 40-step 5_2 (w36 with two bumps added), cel-shaded, with psi_Z and psi_Y floating above it. Green rings (patterns 1, 2) lower psi_Z, blue rings (patterns 3, 4) lower psi_Y; a click flips the corner and pops "-1" on the value. "Push down" flips until no ring is left (DMON7). |
+| Definition 3.10 DMON (web figure 2) | A gallery of seven wordless animatics, one per DMON test: DMON1-3, 6, 7 cel-shaded 3D, DMON4-5 flat. |
+| Fig. 8 DMON3 and DMON4 at the origin | Cel-shaded w36 on the pastel lowest plane; orange w0 and blue -w_{n-1}; the ruler e < w < n < s < u < d with the verdict; (a) forwards, (b) backwards. |
+| Fig. 9 obligations | Flat animatic: the walk grows, the curtain unrolls, its interior points become one obligation, the dashed rest of the walk discharges it. |
+| Fig. 10 reach | Flat animatic: (a) the L1 staircase head -> s -> origin spends tokens against the steps left; (b) the free neighbours of s and the enter/leave arrows. |
+| Fig. 11 span | Flat animatic: the three axes, the routes l-first (orange) and h-first (blue) with a1, a2, the minimum boxed, then the sum against the steps left. |
+| Lemma 4.4 (web figure 3) | Flat animatic along the real n = 24 search: pending obligations, witnesses tied to the head, and a timeline with the line i + 2. |
+| Fig. 12 growth | Log/linear plot with the fits; (b) the growth factor per two steps with the fitted 2.493^2. |
+| Corollary 4.5 | The proof ends "Since 24-edge trefoils exist, that is the minimal length", with a "Not convinced?" fold that gives the 24-step trefoil. |
+| Fig. 13 standard 5_2 | 3D tube; pointing at X_k shows its PD tuple; sliders a, b browse the 49 colourings with the five crossing checks (coloured = / !=). |
+| Fig. 14 certificate example | 3D polygon and its diagram along (7,13,31); rows of F linked to the ringed crossing and its equation. |
+| Fig. 15 PD comparison | The diagram of w36 with labels +6; "Switch crossings" turns every row into a KnotInfo crossing; a k / 5 count. |
 | Table 2 dependencies | Clickable dependency list: each result links to its section and to its Lean source on GitHub. |
