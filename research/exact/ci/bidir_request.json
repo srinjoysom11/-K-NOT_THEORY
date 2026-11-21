@@ -1,1 +1,1 @@
-{"runs": [{"n": 40, "m": 128, "opts": "-stair -tourcap 3 -aotc -aotm -alt 4", "tag": "stair_bd"}]}
+{"runs": [{"n": 42, "m": 256, "opts": "-stair -tourcap 3 -aotc -aotm -alt 4", "tag": "stair_bd"}]}

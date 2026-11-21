@@ -130,3 +130,6 @@ OPEN (nothing started):
 * Slab runs with enum_bidir -slab: 1-slab n=48 and 2-slab n=42 (about 85 runner-hours each; the 6_3 slab values); the local L1_n42 re-run (expected 713 words) was NOT finished and has NOT been compared (out/dmon/slab/L1_n42.log empty).
 * Census check of the granny/square counts at n=40; parent's PROOF.md section 8 (Len(8_19)=42) is on its own branch.
 No Actions runs are queued or running from this branch (last runs: 44616339687 n=40, 44618021834 arcs, both completed).
+
+## 21 Nov: the USER lifted the hold ("Start the jobs for n=42 and queue the lean verification for it and the new dmons as well")
+n=42 unconfined launched: ci/bidir_request.json = {n:42, m:256, "-stair -tourcap 3 -aotc -aotm -alt 4", tag stair_bd}; estimate ~540 runner-hours (parts ~2.1 h). Workflow bidir-enum.yml commits out/bidir/n42_stair_bd.txt + summary when all 256 parts are in. Then: identify6.py --chir on the union (use 4 chunks), tally, Len(7_x / 8_x) consequences.
