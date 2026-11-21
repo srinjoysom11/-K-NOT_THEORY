@@ -482,3 +482,40 @@ Gluing for the three splits of n = 42 (ordered pairs of arcs with the same displ
 | (21, 19) | 4 176 912 | 2 617 488 | 779 712 | 779 712 |
 
 **No other knot type occurs.** So, by the proposition for n = 42, the shortest polygons of length 42 with a twice-crossed plane (two occupied levels on each side) are all of type 3_1#3_1 or 3_1#-3_1, which already have Len = 40. For the types with Len = 42 only the `-stair` output at n = 42 remains to be computed (about 540 runner-hours: not launched, waiting for the user's decision).
+
+## Lean verification of the new devices (`lean_dmon/`, requested by the user on 21 Nov)
+
+The user asked that only the correctness of the new DMONs be verified in Lean (not the n = 42 result itself).
+New Lake package `lean_dmon/` (Lean 4.25.0, no Mathlib). It imports only `Len52.Spec` from the frozen `lean/`, which is not changed.
+CI: `.github/workflows/dmon-lean.yml` (official toolchain with digest check, forbidden-construct grep, axioms, differential test).
+Built locally without errors; axioms of all main theorems: `propext`, `Classical.choice`, `Quot.sound` only (`gc_polygon`: `propext`, `Quot.sound`).
+
+**D2, axis-ordered travel: `Dmon.aot_sound` (AxisTravel.lean).** `AotOk p t e N S multis cdef useM useC` is the test `aot_ok` / `axis_need` of
+`enum_bidir.cpp` with head letters p, tail letters t, tail end e (the one-ended `enum_dmon.cpp` test is t = [], e = 0), single sites S,
+multi-site obligations, plane-crossing debts `cdef`, and the flags `-aotm` (useM), `-aotc` (useC). Theorem: if w = p ++ q ++ t is a polygon word
+of length N with countAxis z <= y <= x, the middle part q visits every single site and one site of every multi-site obligation, and has at least
+`cdef A` letters along A, then `AotOk` holds. So the test never rejects a prefix of such a word, which is the claim "pure bound, output unchanged".
+Proof in four steps (all in Lean): (1) a walk needs at least |a - b| letters along A to go from coordinate a to b (`coord_bound`);
+(2) two visited points are visited one after the other, so the walk costs at least the sum of three distances (`two_visits`, `travel_two`); applied to
+the lowest and highest coordinate this gives `travel c0 ct l H` (`extreme_bound`), and with an extra site of an obligation, the multi-site term
+(`tA_le`); (3) the final count along each axis is even (`count_even`) and the three counts add to N (`count_sum`); (4) rounding up to even and the
+ordering z <= y <= x give z' + y' + x' <= N (`aot_sound`).
+*Hypotheses (not proved in Lean):* that the sites are visited by the middle part (obligation invariant, E9 section 2) and `cdef A` <= letters along A
+(for `-aotc` this is the plane-crossing debt of Lemma 3).
+*Faithfulness:* the Lean definitions follow the C++ line by line; `tests/gen_diff.py` compares Lean `AotOk` with a literal Python port of the C++
+test on 400 random inputs per seed (seeds 1-4: identical answers, 78 accepted, 322 rejected for seed 1); CI repeats it for 8 seeds.
+
+**D1, generalized curtain: `Dmon.gc_polygon`, `Dmon.gc_shortest` (GC.lean).** A window at the start of the word is `a :: (mid ++ rev a :: rest)` (`gcw`);
+`GCClosed` says some v_j - a, 2 <= j <= m - 1 (m - 1 = |mid|), is a vertex of R = {v_0, v_{m+1}, ..., v_{n-1}}. `gc_polygon`: for a polygon with
+n >= 6 and a window that is not closed up, the word `mid ++ rest` is a polygon (closed, all vertices different, n - 2 letters). This is the part of
+the GC proof that checks closing up and self-avoidance (vertex k of the new word is v_{k+1} - a before the far end of the window and v_{k+2} after it).
+`gc_shortest`: if T is a `KnotClass` (rotation-closed, all words polygons) that is also closed under the GC replacement (`GCStep T`), then every word of
+T of minimal length passes `GCOK`, the condition at all cyclic windows (a window is put at the start by `rotN`). So the search may delete every word
+that violates GC.
+*Hypothesis (not proved in Lean):* `GCStep T`, the isotopy of section D1 (replacing the polygon by the shorter polygon keeps the knot type), same status as
+the `flip` and `uturn` fields of `KnotClass`.
+
+**Not covered by Lean.** The variants `-aotx`, `-aott`, `-slab`; the two-ended search order of E9 (each word visited once, the other tests on two-ended
+prefixes: argued in E9 section 2 only); the plane-crossing rule `-stair` and `cdef`; the D5 arc gluing; the knot identifications at n = 40 and n = 42.
+The negative or minor items (D3, D4, E1, E3, E11) are not part of any run and were not formalized. The existing `lean/` proof still covers only the
+DMON-only search up to n = 34 and does not contain any of the devices above.

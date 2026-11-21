@@ -1,0 +1,55 @@
+name: dmon-lean
+# Builds the Lean proofs about the new search devices (research/exact/lean_dmon) with the official Lean 4.25.0
+# release, checks the sources for forbidden constructs, prints the axioms of the main theorems and runs the
+# differential test of the Lean test against a Python port of the C++ test.
+# The frozen development research/exact/lean is only imported (module Len52.Spec), never changed.
+on:
+  push:
+    branches: [claude/dmon-experiments]
+    paths: ['research/exact/lean_dmon/**', '.github/workflows/dmon-lean.yml']
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: install Lean 4.25.0
+        run: |
+          curl -sSL -o /tmp/lean.tar.zst https://github.com/leanprover/lean4/releases/download/v4.25.0/lean-4.25.0-linux.tar.zst
+          sha256sum /tmp/lean.tar.zst
+          # compare with the digest GitHub records for the official release asset; stop on any mismatch
+          official=$(curl -sS -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/leanprover/lean4/releases/tags/v4.25.0 \
+            | python3 -c 'import json,sys; print(next(a["digest"] for a in json.load(sys.stdin)["assets"] if a["name"] == "lean-4.25.0-linux.tar.zst"))')
+          echo "official release digest: $official"
+          test "$official" = "sha256:$(sha256sum /tmp/lean.tar.zst | cut -c1-64)"
+          mkdir -p /opt/lean && tar --zstd -xf /tmp/lean.tar.zst -C /opt/lean
+          echo /opt/lean/lean-4.25.0-linux/bin >> "$GITHUB_PATH"
+      - name: forbidden constructs
+        working-directory: research/exact/lean_dmon
+        run: |
+          ! grep -rnE '\bsorry\b|\badmit\b|^\s*axiom |native_decide|implemented_by|@\[extern|\bunsafe\b|ofReduceBool|skipKernelTC|set_option\s+debug|\bopaque\b|\bpartial\b' Dmon/ Dmon.lean
+      - name: imported definitions (frozen Len52.Spec)
+        run: sha256sum research/exact/lean/Len52/Spec.lean research/exact/lean/lean-toolchain
+      - name: build and print axioms
+        working-directory: research/exact/lean_dmon
+        run: |
+          lake build Dmon
+          cat > /tmp/ax.lean <<'L'
+          import Dmon
+          #print axioms Dmon.aot_sound
+          #print axioms Dmon.tA_le
+          #print axioms Dmon.gc_polygon
+          #print axioms Dmon.gc_shortest
+          L
+          lake env lean /tmp/ax.lean | tee axioms.txt
+          ! grep -E 'sorryAx|ofReduceBool' axioms.txt
+      - name: differential test (Lean AotOk vs Python port of enum_bidir.cpp aot_ok)
+        working-directory: research/exact/lean_dmon
+        run: |
+          for seed in 1 2 3 4 5 6 7 8; do
+            python3 tests/gen_diff.py $seed
+            lake env lean tests/Diff.lean > /tmp/diff_lean.txt
+            diff /tmp/diff_lean.txt tests/diff_expected.txt
+          done
+          echo "Lean and Python agree on 8 x 400 random cases"

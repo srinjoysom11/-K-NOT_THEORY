@@ -133,3 +133,10 @@ No Actions runs are queued or running from this branch (last runs: 44616339687 n
 
 ## 21 Nov: the USER lifted the hold ("Start the jobs for n=42 and queue the lean verification for it and the new dmons as well")
 n=42 unconfined launched: ci/bidir_request.json = {n:42, m:256, "-stair -tourcap 3 -aotc -aotm -alt 4", tag stair_bd}; estimate ~540 runner-hours (parts ~2.1 h). Workflow bidir-enum.yml commits out/bidir/n42_stair_bd.txt + summary when all 256 parts are in. Then: identify6.py --chir on the union (use 4 chunks), tally, Len(7_x / 8_x) consequences.
+
+## 22 Nov: Lean verification of the new devices (user: "Then only Lean verify that the new DMONs are correct.")
+The user narrowed the Lean request to the correctness of the new devices (not n = 42). Done in the new package `lean_dmon/` (frozen `lean/` untouched; only `Len52.Spec` imported):
+`Dmon.aot_sound` (D2, one- and two-ended, -aotm, -aotc with cdef as hypothesis) and `Dmon.gc_polygon` / `Dmon.gc_shortest` (D1; topological step `GCStep` as hypothesis).
+Local build OK, standard axioms only, differential test vs the C++ formula identical on 1600 random cases. CI: `.github/workflows/dmon-lean.yml` on this branch (new file; the parent's lean-*.yml are unchanged).
+Details, hypotheses and what is not covered: DMON_RESULTS.md last section, `lean_dmon/README.md`.
+The n=42 run (run 44961220166, push 166a063) was still queued at the time of writing.

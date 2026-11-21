@@ -1,0 +1,12 @@
+{"version": "1.1.0",
+ "packagesDir": ".lake/packages",
+ "packages":
+ [{"type": "path",
+   "scope": "",
+   "name": "len52",
+   "manifestFile": "lake-manifest.json",
+   "inherited": false,
+   "dir": "../lean",
+   "configFile": "lakefile.toml"}],
+ "name": "dmon",
+ "lakeDir": ".lake"}

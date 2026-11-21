@@ -1,0 +1,12 @@
+name = "dmon"
+version = "0.1.0"
+defaultTargets = ["Dmon"]
+
+# Only `Len52.Spec` is used (the audited definitions of words, polygons, countAxis, ...).
+# Nothing under ../lean is modified.
+[[require]]
+name = "len52"
+path = "../lean"
+
+[[lean_lib]]
+name = "Dmon"
