@@ -10,6 +10,15 @@ export const ease = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
 export const COL = ['#0072b2', '#d55e00', '#009e73', '#cc79a7', '#7a5230', '#56b4e9', '#7f7f7f'];
 export const INK = '#14171b';
 
+// cel style: two-tone toon shading with ink outlines (an inverted hull drawn behind each solid)
+let GRAD = null;
+function gradMap() {
+  if (!GRAD) { GRAD = new THREE.DataTexture(new Uint8Array([165, 165, 165, 255, 222, 222, 222, 255, 255, 255, 255, 255]), 3, 1, THREE.RGBAFormat); GRAD.minFilter = GRAD.magFilter = THREE.NearestFilter; GRAD.needsUpdate = true; }
+  return GRAD;
+}
+const HULL = new THREE.MeshBasicMaterial({ color: INK, side: THREE.BackSide });
+export const HULL_MAT = HULL;
+
 export function hasGL() {
   if (new URLSearchParams(location.search).has('nogl')) return false;
   try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
@@ -22,15 +31,21 @@ export class Studio {
    */
   constructor(host, opts = {}) {
     this.opts = opts;
+    this.cel = !!opts.cel; if (this.cel) opts.floor = false;
+    this.hullW = opts.hull || 0.045;   // outline thickness, in lattice units
     this.host = host;
     host.classList.add('studio'); host.__studio = this;
     this.wrap = document.createElement('div'); this.wrap.className = 'studio-wrap';
-    this.wrap.style.aspectRatio = opts.aspect || '4 / 3';
+    let asp = opts.aspect || '4 / 3';
+    const [aw, ah] = asp.split('/').map(Number);
+    if (innerWidth < 600 && aw / ah > 1.25) asp = '1 / 1';   // phones: wide stages become square so the scene is not tiny
+    this.wrap.style.aspectRatio = asp;
     this.wrap.setAttribute('aria-label', (opts.label || 'Interactive 3D figure').replace(/;\s*(drag|click)[^;]*/gi, '') + '. Drag, or use the arrow keys, to turn it.');
     this.wrap.setAttribute('role', 'group');   // focusable: the arrow keys turn the scene
     this.overlay = document.createElement('div'); this.overlay.className = 'studio-labels';
     this.wrap.append(this.overlay); host.append(this.wrap);
     this.renderer = null; this.ensureRenderer();
+    this.THREE_BACK = THREE.BackSide;
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(opts.fov || 24, 1, 0.1, 400);
     this.camera.up.set(0, 0, 1);
@@ -39,8 +54,8 @@ export class Studio {
     this.controls.addEventListener('change', () => this.request());
     this.controls.addEventListener('start', () => { this.camTween = null; this.onUser && this.onUser(); });
     // light: soft sky + a key light that casts the shadow
-    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd4d9de, 2.5));
-    this.key = new THREE.DirectionalLight(0xffffff, 1.2);
+    this.scene.add(this.cel ? new THREE.AmbientLight(0xffffff, 1.55) : new THREE.HemisphereLight(0xffffff, 0xd4d9de, 2.5));
+    this.key = new THREE.DirectionalLight(0xffffff, this.cel ? 2.1 : 1.2);
     this.key.castShadow = opts.floor !== false;
     this.key.shadow.mapSize.set(2048, 2048);
     this.key.shadow.bias = -0.0004;
@@ -153,6 +168,15 @@ export class Studio {
     this.camTween = { from, to, upFrom, upTo, t0: performance.now(), ms, done };
     this.request();
   }
+  /** narrow the field of view (nearly orthographic) or widen it back, keeping the scene fitted */
+  flatten(on, ms = 900) {
+    const f0 = this.camera.fov, f1 = on ? 5 : (this.opts.fov || 24);
+    this.tween(ms, (k) => {
+      this.camera.fov = f0 + (f1 - f0) * k; this.camera.updateProjectionMatrix();
+      const d = this.camera.position.clone().sub(this.center);
+      this.camera.position.copy(this.center).add(d.setLength(this.distance(d))); this.camera.far = Math.max(400, this.distance(d) * 3); this.camera.updateProjectionMatrix();
+    });
+  }
   aimLight(dir) {
     const d = new THREE.Vector3(...dir).normalize();
     this.key.position.copy(this.center).addScaledVector(d, this.radius * 4);
@@ -212,16 +236,19 @@ export class Studio {
     }
     if (this.controls.update()) more = true;
     if (!this.renderer && this.visible) { this.ensureRenderer(); this.resize(); }
+    this.camera.updateMatrixWorld();
+    for (const o of this.world.children) o.traverse && o.traverse((c) => { if (c.userData && c.userData.billboard) c.lookAt(this.camera.position); });   // rings face the viewer in this frame
     if (this.renderer) this.renderer.render(this.scene, this.camera);
     this.placeLabels();
     if (more || (this.always && this.visible !== false)) this.request();   // a looping scene sleeps off-screen
   }
   // ---------------------------------------------------------------- building blocks
   material(color, opts = {}) {
+    if (this.cel) return new THREE.MeshToonMaterial({ color, gradientMap: gradMap(), transparent: true, ...opts });
     return new THREE.MeshStandardMaterial({ color, roughness: 0.82, metalness: 0, transparent: true, ...opts });   // matte, like printed ink
   }
   /** a lattice-style tube: one cylinder per segment and a ball at every joint; returns a Group */
-  rod(points, { color = INK, radius = 0.09, closed = false, userData = {}, pick = false, parent } = {}) {
+  rod(points, { color = INK, radius = 0.09, closed = false, userData = {}, pick = false, parent, hull = true } = {}) {
     const g = new THREE.Group(); g.userData = userData;
     const mat = this.material(color);
     const cyl = new THREE.CylinderGeometry(radius, radius, 1, 20, 1, true), sph = new THREE.SphereGeometry(radius, 20, 14);
@@ -232,8 +259,12 @@ export class Studio {
       const c = new THREE.Mesh(cyl, mat); c.scale.set(1, L, 1); c.position.copy(A).add(B).multiplyScalar(0.5);
       c.quaternion.setFromUnitVectors(up, B.clone().sub(A).normalize()); c.castShadow = true; c.userData = userData; g.add(c);
       if (pick) this.pickables.push(c);
+      if (this.cel && hull) { const h = new THREE.Mesh(cyl, HULL); const k = 1 + this.hullW / radius; h.scale.set(k, L, k); h.position.copy(c.position); h.quaternion.copy(c.quaternion); h.userData.hull = true; g.add(h); }
     }
-    for (const p of P) { const s = new THREE.Mesh(sph, mat); s.position.copy(p); s.castShadow = true; s.userData = userData; g.add(s); if (pick) this.pickables.push(s); }
+    for (const p of P) {
+      const s = new THREE.Mesh(sph, mat); s.position.copy(p); s.castShadow = true; s.userData = userData; g.add(s); if (pick) this.pickables.push(s);
+      if (this.cel && hull) { const h = new THREE.Mesh(sph, HULL); h.scale.setScalar(1 + this.hullW / radius); h.position.copy(p); h.userData.hull = true; g.add(h); }
+    }
     (parent || this.world).add(g); this.request(); return g;
   }
   /** a smooth closed tube through points */
@@ -241,15 +272,28 @@ export class Studio {
     const curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p)), closed, 'centripetal');
     const geo = new THREE.TubeGeometry(curve, segments || points.length * 3, radius, 14, closed);
     const mesh = new THREE.Mesh(geo, this.material(color)); mesh.castShadow = true; mesh.userData = userData;
+    if (this.cel) { const h = new THREE.Mesh(new THREE.TubeGeometry(curve, segments || points.length * 3, radius + this.hullW, 14, closed), HULL); h.userData.hull = true; mesh.add(h); }
     (parent || this.world).add(mesh); if (pick) this.pickables.push(mesh); this.request(); return mesh;
   }
   ball(p, { color = INK, radius = 0.12, hollow = false, userData = {}, pick = false, parent } = {}) {
     let mesh;
-    if (hollow) {
+    if (hollow && this.cel) {   // a paper-white disc in an ink ring, facing the viewer
+      mesh = new THREE.Group();
+      const bb = new THREE.Group(); bb.userData.billboard = true; mesh.add(bb);
+      const disc = new THREE.Mesh(new THREE.CircleGeometry(radius, 40), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.85, depthWrite: false }));
+      const ring = new THREE.Mesh(new THREE.RingGeometry(radius * 0.78, radius * 1.12, 48), new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide }));
+      const edge = new THREE.Mesh(new THREE.RingGeometry(radius * 0.7, radius * 1.22, 48), new THREE.MeshBasicMaterial({ color: INK, side: THREE.DoubleSide }));
+      edge.position.z = -0.004; ring.position.z = 0.002; disc.position.z = -0.006;
+      bb.add(disc, edge, ring);
+      mesh.userData.disc = disc; mesh.userData.ring = ring;
+    } else if (hollow) {
       mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 22, 16), this.material(color, { opacity: 0.18, depthWrite: false }));
       const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, radius * 0.16, 10, 40), new THREE.MeshBasicMaterial({ color }));
       ring.userData.billboard = true; mesh.add(ring);
-    } else { mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 22, 16), this.material(color)); mesh.castShadow = true; }
+    } else {
+      mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 22, 16), this.material(color)); mesh.castShadow = true;
+      if (this.cel) { const h = new THREE.Mesh(new THREE.SphereGeometry(radius + this.hullW, 22, 16), HULL); h.userData.hull = true; mesh.add(h); }
+    }
     mesh.position.set(...p); mesh.userData = userData;
     (parent || this.world).add(mesh); if (pick) this.pickables.push(mesh); this.request(); return mesh;
   }
@@ -272,17 +316,26 @@ export class Studio {
   label(p, html, cls = '') {
     const el = document.createElement('div'); el.className = 'studio-label ' + cls; el.innerHTML = html;
     this.overlay.append(el);
-    const L = { el, pos: new THREE.Vector3(...p) }; this.labels.push(L); this.request(); return L;
+    const L = { el, pos: new THREE.Vector3(...p) }; this.labels.push(L); new MutationObserver(() => { L.size = null; }).observe(el, { childList: true, characterData: true, subtree: true }); this.request(); return L;
   }
   clearLabels() { this.overlay.innerHTML = ''; this.labels = []; }
   placeLabels() {
-    const w = this.wrap.clientWidth, h = this.wrap.clientHeight;
-    for (const L of this.labels) {
-      const v = L.pos.clone().project(this.camera);
-      L.el.style.transform = `translate(${((v.x + 1) / 2) * w}px, ${((1 - v.y) / 2) * h}px) translate(-50%, -50%)`;
-      L.el.style.visibility = v.z < 1 ? 'visible' : 'hidden';
+    const w = this.wrap.clientWidth, h = this.wrap.clientHeight, boxes = [];
+    // strong labels (and badges) first; a label that would cover one already placed fades out in this view
+    const order = [...this.labels].sort((p, q) => (/strong|badge|xing|chip3/.test(q.el.className) ? 1 : 0) - (/strong|badge|xing|chip3/.test(p.el.className) ? 1 : 0));
+    for (const L of order) {
+      const v = L.pos.clone().project(this.camera), x = ((v.x + 1) / 2) * w, y = ((1 - v.y) / 2) * h;
+      L.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      if (v.z >= 1 || !L.el.textContent.trim()) { L.el.style.visibility = 'hidden'; continue; }
+      L.el.style.visibility = 'visible';
+      if (!L.size) L.size = [L.el.offsetWidth, L.el.offsetHeight];
+      const cx = Math.max(L.size[0] / 2 + 2, Math.min(w - L.size[0] / 2 - 2, x)), cy = Math.max(L.size[1] / 2 + 2, Math.min(h - L.size[1] / 2 - 2, y));   // never past the frame
+      if (cx !== x || cy !== y) L.el.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      const r = [cx - L.size[0] / 2, cy - L.size[1] / 2, cx + L.size[0] / 2, cy + L.size[1] / 2];
+      const hit = boxes.some((q) => Math.min(r[2], q[2]) - Math.max(r[0], q[0]) > 2 && Math.min(r[3], q[3]) - Math.max(r[1], q[1]) > 2);
+      L.el.style.opacity = hit ? '0' : '';
+      if (!hit) boxes.push(r);
     }
-    for (const o of this.world.children) o.traverse && o.traverse((c) => { if (c.userData && c.userData.billboard) c.lookAt(this.camera.position); });
   }
   clear(group = this.world) {
     while (group.children.length) { const c = group.children.pop(); c.traverse && c.traverse((x) => { x.geometry && x.geometry.dispose(); }); }

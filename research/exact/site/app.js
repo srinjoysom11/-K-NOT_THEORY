@@ -138,6 +138,20 @@ function masthead() {
   S('rect', { x: box.x0, y: box.y0, width: box.w, height: box.h, fill: 'none' }, svg);
   drawPolyDiagram(svg, b, { colour: () => '#fff', width: 0.2, gap: 0.42 });
   const o = b.orth[0]; S('circle', { cx: o[0], cy: -o[1], r: 0.2, fill: '#fff' }, svg);
+  // with WebGL: the polygon itself, turning slowly; it settles on the view along D (the drawing above) on a click
+  f3().then(async (m) => {
+    if (!m) return;
+    const { Studio } = await import('./studio.js');
+    const host = H('div', { class: 'mast-3d' }); svg.after(host); svg.classList.add('mast-flat');
+    const st = new Studio(host, { aspect: '1 / 1', floor: false, label: 'The 36-step polygon of type 5₂, turning slowly' });
+    const rim = st.rod([...b.verts, b.verts[0]], { color: '#0a3d63', radius: 0.17 });   // a dark rim behind each tube gives depth where strands cross
+    rim.traverse((o) => { if (o.material) { o.material = o.material.clone(); o.material.side = st.THREE_BACK; o.material.roughness = 1; } });
+    st.rod([...b.verts, b.verts[0]], { color: '#ffffff', radius: 0.13 });
+    st.ball(b.verts[0], { color: '#ffffff', radius: 0.24 });
+    st.frame(b.verts, [1.1, -1.5, 1.05], 1.02);
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { st.controls.autoRotate = true; st.controls.autoRotateSpeed = 0.7; st.always = true; }
+    st.onUser = () => { st.controls.autoRotate = false; };
+  });
 }
 
 // ============================================================================== Figure 1: w36
@@ -168,7 +182,7 @@ async function wPolygon(w) {
     if (v === 'proj') { view.viewAlong(b.D); read.innerHTML = 'Seen along <b>D</b>, the polygon <b>is</b> its diagram (b): the same five crossings, the same arcs.'; }
     else { view.viewAlong([1, -1.35, 0.95]); read.innerHTML = 'Drag to turn the polygon. Point at an arc label in (b) to find that arc in space.'; }
   });
-  c.append(mode, read);
+  c.append(mode, read); if (!view) mode.style.display = 'none';   // no 3D view to turn without WebGL
   read.innerHTML = view ? 'Drag to turn the polygon. Point at an arc label in (b) to find that arc in space.' : 'Interactive 3D needs WebGL; the diagram (b) is fully interactive.';
   const hl = (arc) => { segs.forEach((s) => s.setAttribute('opacity', arc == null || s.dataset.arc == arc ? 1 : 0.18)); view && view.highlight(arc == null ? null : +arc); };
   lg.querySelectorAll('g').forEach((g) => {
@@ -271,49 +285,6 @@ function wTrefoil(w) {
   ctl.append(seg([['3', 'p = 3'], ['7', 'p = 7']], '3', (v) => { p = +v; x = x.map((a) => mod(a, p)); draw(); }), btn('Constant colouring', () => { x = [0, 0, 0]; draw(); }), btn('Colours 0, 1, 2', () => { x = [0, 1, 2]; draw(); }));
   w.append(H('p', { class: 'hint' }, 'Click an arc to add 1 to its colour (mod p). At each crossing, twice the over-arc must equal the sum of the two under-arcs.'), read);
   draw();
-}
-
-// ======================================================================= Figure 4: segment and square
-function wSegSquare(w) {
-  const [pane] = panes(w, 1);
-  const svg = S('svg', { viewBox: '-190 -170 380 290', role: 'img', 'aria-label': 'A unit segment and a unit square' }, pane);
-  const s = 95, iso = (x, y, z) => [(x - y) * 0.866 * s, (x + y) * 0.5 * s - z * s];
-  const grid = S('g', {}, svg);
-  for (let i = -1; i <= 2; i++) { const a = iso(i, -1, 0), b = iso(i, 2, 0), c = iso(-1, i, 0), d = iso(2, i, 0); S('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: RULE }, grid); S('line', { x1: c[0], y1: c[1], x2: d[0], y2: d[1], stroke: RULE }, grid); }
-  const sq = [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]].map((p) => iso(...p));
-  S('path', { d: 'M' + sq.join('L') + 'Z', fill: 'rgba(0,114,178,.16)', stroke: COL[0], 'stroke-width': 1.5 }, svg);
-  sq.forEach((p) => S('circle', { cx: p[0], cy: p[1], r: 3, fill: COL[0] }, svg));
-  const tq = S('text', { class: 'lbl', x: iso(0.5, 0.15, 0)[0] + 6, y: iso(0.5, 0.15, 0)[1] + 4 }, svg); tq.textContent = 'Q';
-  const segG = S('g', {}, svg), hit = S('g', {}, svg);
-  let p = [1, 1, 0], ax = 2;
-  const read = H('div', { class: 'readout' });
-  function inter() {
-    const q = p.slice(); q[ax] += 1;
-    if (ax === 2) { if (p[2] <= 0 && 0 <= q[2] && p[0] >= 0 && p[0] <= 1 && p[1] >= 0 && p[1] <= 1) return ['corner', [[p[0], p[1], 0]]]; return ['empty', []]; }
-    if (p[2] !== 0) return ['empty', []];
-    const o = 1 - ax; // other horizontal axis
-    if (p[o] < 0 || p[o] > 1) return ['empty', []];
-    const lo = Math.max(p[ax], 0), hi = Math.min(q[ax], 1);
-    if (hi < lo) return ['empty', []];
-    const A = p.slice(), B = p.slice(); A[ax] = lo; B[ax] = hi;
-    return hi > lo ? ['side', [A, B]] : ['corner', [A]];
-  }
-  function draw() {
-    segG.innerHTML = ''; hit.innerHTML = '';
-    const q = p.slice(); q[ax] += 1; const A = iso(...p), B = iso(...q);
-    S('line', { x1: A[0], y1: A[1], x2: B[0], y2: B[1], stroke: INK, 'stroke-width': 5, 'stroke-linecap': 'round' }, segG);
-    S('circle', { cx: A[0], cy: A[1], r: 5, fill: INK }, segG); S('circle', { cx: B[0], cy: B[1], r: 5, fill: INK }, segG);
-    const [kind, pts] = inter();
-    if (kind === 'side') { const a = iso(...pts[0]), b = iso(...pts[1]); S('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: COL[1], 'stroke-width': 8, 'stroke-linecap': 'round', opacity: .85 }, hit); }
-    if (kind === 'corner') { const a = iso(...pts[0]); S('circle', { cx: a[0], cy: a[1], r: 9, fill: 'none', stroke: COL[1], 'stroke-width': 3 }, hit); }
-    read.innerHTML = `Segment from (${p.join(', ')}) to (${q.join(', ')}). <b>E ∩ Q is ${kind === 'empty' ? 'empty' : kind === 'side' ? 'a whole side' : 'a corner'}.</b> Whatever you try, the segment never meets an interior point of the square.`;
-  }
-  const ctl = ctlRow(w);
-  ctl.append(seg([['0', 'along x'], ['1', 'along y'], ['2', 'along z']], '2', (v) => { ax = +v; draw(); }));
-  const mv = H('div', { class: 'seg', role: 'group', 'aria-label': 'move the segment one step' });
-  for (const l of 'ewnsud') mv.append(btn(l, () => { p = vadd(p, U[l]); p = p.map((v) => Math.max(-2, Math.min(3, v))); draw(); }, { 'aria-label': `move ${l}` }));
-  ctl.append(H('span', { class: 'readout' }, 'Move:'), mv);
-  w.append(read); draw();
 }
 
 // ========================================================== Figure 5: flip and U-turn as Delta-moves
@@ -502,137 +473,6 @@ function wOrigin(w) {
   w.append(read); draw();
 }
 
-// ============================================================ Figure 10: obligations, a replay
-async function wReplay(w) {
-  const T = DATA.trace, n = T.verts.length;
-  const [p3, side] = panes(w, 2, ['the walk in space', null]);
-  side.classList.add('side');
-  const G = await gl();
-  let view = null;
-  if (G) {
-    const canvas = H('canvas', { class: 'gl', 'aria-label': 'Replay of the search along a 24-step word; drag to turn' }); p3.append(canvas);
-    view = new G.LatticeView(canvas, { verts: T.verts, pieces: T.verts.map((_, i) => [i, 0, 1, 0]), colourOf: () => INK, radius: .085 });
-  } else p3.append(H('p', { class: 'hint', style: 'padding:24px' }, 'The 3D replay needs WebGL; the step log on the right is complete.'));
-  const head = H('h5', {}, ''); const info = H('div', { class: 'readout' }); const bars = H('div', { class: 'bars' }); const log = H('ol', { class: 'log' });
-  side.append(head, info, bars, log);
-  T.steps.forEach((s) => {
-    const ev = s.events.map((e) => e.kind === 'curtain' ? `curtain from step ${e.j} (k = ${e.k}): ${e.result === 'new' ? 'new obligation' : e.result === 'satisfied' ? 'an interior point is a vertex' : 'dead end'}` : `corner: ${e.result === 'new' ? 'new obligation' : 'v′ is a vertex'}`);
-    if (s.discharged.length) ev.unshift(`visits a site: ${s.discharged.length} obligation${s.discharged.length > 1 ? 's' : ''} discharged`);
-    log.append(H('li', { 'data-i': s.i, html: `<b>${s.i + 1}. ${s.letter}</b> ${ev.join('; ') || '<span style="color:' + INK2 + '">no event</span>'}` }));
-  });
-  let i = 0, timer = null;
-  const slider = H('input', { type: 'range', min: 1, max: n, value: 1, 'aria-label': 'step' });
-  function draw() {
-    const s = T.steps[i - 1];
-    head.textContent = `Step ${i} of ${n}: letter ${s.letter}`;
-    info.innerHTML = `Steps left after this one: <b>${s.R1}</b>. Pending obligations: <b>${s.pending.length}</b>.` + (s.span != null ? ` Span test needs <b>${s.span}</b> ≤ ${s.R1}.` : '');
-    bars.innerHTML = '';
-    s.pending.forEach((ob, k) => {
-      const r = s.reach[k];
-      bars.append(H('div', { class: 'bar', style: `--sc:${ob.length === 1 ? COL[0] : COL[1]}`, html: `<span>${ob.length === 1 ? 'corner / single' : 'curtain, ' + ob.length + ' sites'}</span><i><b style="width:${Math.min(100, r / Math.max(1, s.R1) * 100)}%"></b></i><span>${r} ≤ ${s.R1}</span>` }));
-    });
-    if (!s.pending.length) bars.append(H('div', { class: 'readout' }, i === n ? 'The walk is closed and no obligation is pending: the word is returned.' : 'No pending obligation.'));
-    log.querySelectorAll('li').forEach((li) => li.classList.toggle('now', +li.dataset.i === i - 1));
-    const now = log.querySelector('li.now'); if (now) now.scrollIntoView({ block: 'nearest' });
-    if (view) {
-      view.showUpTo(i);
-      const mk = [{ p: s.head, kind: 'head', colour: COL[1] }];
-      s.pending.forEach((ob) => ob.forEach((p) => mk.push({ p, kind: 'site', colour: ob.length === 1 ? COL[0] : COL[1] })));
-      s.discharged.forEach((ob) => ob.forEach((p) => { if (key(p) === key(s.head)) mk.push({ p, kind: 'done', colour: COL[2] }); }));
-      view.setMarkers(mk);
-    }
-    slider.value = i;
-  }
-  const go = (k) => { i = Math.max(1, Math.min(n, k)); draw(); };
-  const play = btn('Play', () => {
-    if (timer) { clearInterval(timer); timer = null; play.textContent = 'Play'; return; }
-    if (i >= n) i = 0; play.textContent = 'Pause';
-    timer = setInterval(() => { if (i >= n) { clearInterval(timer); timer = null; play.textContent = 'Play'; return; } go(i + 1); }, reduced ? 1600 : 700);
-  });
-  slider.addEventListener('input', () => go(+slider.value));
-  const ctl = ctlRow(w);
-  ctl.append(play, btn('Back', () => go(i - 1)), btn('Next', () => go(i + 1)), H('label', { class: 'range' }, 'Step', slider),
-    H('span', { class: 'readout grow', html: `The search walking along <code>${T.word}</code>. Rings: sites of pending obligations (orange: curtain, blue: single site). Bars: the reach test, distance to a site and home versus the steps left.` }));
-  go(9);
-}
-
-// ======================================================================== Figure 11: reach test
-function wReach(w) {
-  const [a, b] = panes(w, 2, ['(a) distance', '(b) room to pass through']);
-  const svg = S('svg', { viewBox: '-0.8 -5.6 8.6 6.6', role: 'img', 'aria-label': 'Reach test: drag the site s' }, a);
-  let s = [5, 2], head = [1, 4], R1 = 13;
-  const read = H('div', { class: 'readout', style: 'padding:0 12px 12px' }); a.append(read);
-  function draw() {
-    svg.innerHTML = '';
-    for (let x = 0; x <= 7; x++) S('line', { x1: x, y1: .3, x2: x, y2: -5.3, stroke: RULE, 'stroke-width': .02 }, svg);
-    for (let y = 0; y <= 5; y++) S('line', { x1: -.3, y1: -y, x2: 7.3, y2: -y, stroke: RULE, 'stroke-width': .02 }, svg);
-    const d = Math.abs(head[0] - s[0]) + Math.abs(head[1] - s[1]) + Math.abs(s[0]) + Math.abs(s[1]);
-    const ok = d <= R1;
-    S('path', { d: `M${P(head)}L${s[0]},${-head[1]}L${P(s)}L0,${-s[1]}L0,0`, fill: 'none', stroke: ok ? INK2 : BAD, 'stroke-width': .05, 'stroke-dasharray': '.12 .08' }, svg);
-    S('circle', { cx: 0, cy: 0, r: .14, fill: INK }, svg); const to = S('text', { x: .2, y: .45, 'font-size': .32, fill: INK }, svg); to.textContent = 'origin';
-    S('circle', { cx: head[0], cy: -head[1], r: .16, fill: COL[1] }, svg); const th = S('text', { x: head[0], y: -head[1] - .3, 'font-size': .32, 'text-anchor': 'middle', fill: INK }, svg); th.textContent = 'head';
-    const g = S('g', { class: 'drag', tabindex: 0, role: 'slider', 'aria-label': 'site s; drag or use the arrow keys' }, svg);
-    S('circle', { cx: s[0], cy: -s[1], r: .2, fill: '#fff', stroke: COL[1], 'stroke-width': .07 }, g); const ts = S('text', { x: s[0] + .3, y: -s[1] + .12, 'font-size': .34, fill: INK }, g); ts.textContent = 's';
-    g.addEventListener('pointerdown', (ev) => { g.setPointerCapture(ev.pointerId); const mv = (e) => { const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; const p = pt.matrixTransform(svg.getScreenCTM().inverse()); const ns = [Math.max(0, Math.min(7, Math.round(p.x))), Math.max(0, Math.min(5, Math.round(-p.y)))]; if (key(ns) !== key(s)) { s = ns; draw(); } }; const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); }; window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); });
-    g.addEventListener('keydown', (e) => { const dd = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key]; if (dd) { e.preventDefault(); s = [Math.max(0, Math.min(7, s[0] + dd[0])), Math.max(0, Math.min(5, s[1] + dd[1]))]; draw(); svg.querySelector('.drag').focus(); } });
-    read.innerHTML = `|head − s|₁ + |s|₁ = ${Math.abs(head[0] - s[0]) + Math.abs(head[1] - s[1])} + ${Math.abs(s[0]) + Math.abs(s[1])} = <b>${d}</b>; steps left R − 1 = <b>${R1}</b>. ${ok ? '<span class="ok">Passes.</span>' : '<span class="no">Fails: no completion can visit s in time.</span>'}`;
-  }
-  const sl = H('input', { type: 'range', min: 4, max: 16, value: R1, 'aria-label': 'steps left' });
-  sl.addEventListener('input', () => { R1 = +sl.value; draw(); });
-  a.append(H('div', { class: 'ctl', style: 'padding:0 12px 12px' }, H('label', { class: 'range' }, 'Steps left', sl)));
-  // (b) neighbours
-  const svg2 = S('svg', { viewBox: '-1.9 -1.7 3.8 3.4', role: 'img', 'aria-label': 'The six neighbours of the site; click to occupy or free' }, b);
-  const iso = (x, y, z) => [(x - y) * 0.75, -((x + y) * 0.42 + z * 0.95)];
-  const nb = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
-  const occ = [true, true, true, true, true, false];
-  const read2 = H('div', { class: 'readout', style: 'padding:0 12px 12px' }); b.append(read2);
-  function draw2() {
-    svg2.innerHTML = '';
-    nb.forEach((d, k) => { const q = iso(...d); S('line', { x1: 0, y1: 0, x2: q[0], y2: q[1], stroke: RULE, 'stroke-width': .03 }, svg2); });
-    nb.forEach((d, k) => {
-      const q = iso(...d), g = S('g', { class: 'hit', tabindex: 0, role: 'button', 'aria-label': `neighbour ${'ewnsud'[k]}: ${occ[k] ? 'occupied' : 'free'}; press to change` }, svg2);
-      S('circle', { cx: q[0], cy: q[1], r: .16, fill: occ[k] ? INK : '#fff', stroke: INK, 'stroke-width': .04 }, g);
-      const t = S('text', { x: q[0] + .2, y: q[1] - .15, 'font-size': .2, fill: INK2 }, g); t.textContent = 'ewnsud'[k];
-      const act = () => { occ[k] = !occ[k]; draw2(); svg2.querySelectorAll('g')[k].focus(); };
-      g.addEventListener('click', act); g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); } });
-    });
-    S('circle', { cx: 0, cy: 0, r: .17, fill: '#fff', stroke: COL[1], 'stroke-width': .06 }, svg2);
-    const free = occ.filter((o) => !o).length;
-    read2.innerHTML = `Usable neighbours of s (free, the head, or the origin): <b>${free}</b>. ${free >= 2 ? '<span class="ok">Passes: the walk can enter s by one and leave by another.</span>' : '<span class="no">Fails: s can be entered but not left.</span>'} Click a neighbour to occupy or free it.`;
-  }
-  draw(); draw2();
-}
-
-// ========================================================================= Figure 12: span test
-function wSpan(w) {
-  const [pane] = panes(w, 1); pane.append(H('span', { class: 'pane-label static' }, 'One axis, as in the caption: drag the head c and the two sites'));
-  const svg = S('svg', { viewBox: '-8.6 -3.2 17.2 4.6', role: 'img', 'aria-label': 'Span test on one axis' }, pane);
-  let c = 2, s1 = -4, s2 = 5;
-  const read = H('div', { class: 'readout', style: 'padding:0 12px 12px' }); pane.append(read);
-  function draw() {
-    svg.innerHTML = '';
-    S('line', { x1: -8, y1: 0, x2: 8, y2: 0, stroke: INK, 'stroke-width': .05 }, svg);
-    for (let x = -7; x <= 7; x++) { S('line', { x1: x, y1: -.1, x2: x, y2: .1, stroke: INK, 'stroke-width': .03 }, svg); }
-    const l = Math.min(0, c, s1, s2), h = Math.max(0, c, s1, s2);
-    const a1 = (c - l) + (h - l) + h, a2 = (h - c) + (h - l) - l;
-    const route = (pts, y0, col) => { let d = ''; pts.forEach((x, k) => { d += (k ? 'L' : 'M') + `${x},${y0 - k * .28}`; if (k + 1 < pts.length) d += `L${x},${y0 - (k + 1) * .28}`; }); S('path', { d, fill: 'none', stroke: col, 'stroke-width': .07, 'stroke-linejoin': 'round' }, svg); S('circle', { cx: pts[0], cy: y0, r: .12, fill: col }, svg); };
-    route([c, l, h, 0], -.6, a1 <= a2 ? COL[1] : 'rgba(213,94,0,.35)');
-    route([c, h, l, 0], -1.9, a2 < a1 ? COL[0] : 'rgba(0,114,178,.35)');
-    const mark = (x, lab, draggable, setter) => {
-      const g = S('g', draggable ? { class: 'drag', tabindex: 0, role: 'slider', 'aria-label': `${lab}; drag or use the arrow keys` } : {}, svg);
-      S('circle', { cx: x, cy: 0, r: .22, fill: draggable ? '#fff' : INK, stroke: INK, 'stroke-width': .05 }, g);
-      const t = S('text', { x, y: .75, 'font-size': .42, 'text-anchor': 'middle', fill: INK }, g); t.textContent = lab;
-      if (draggable) {
-        g.addEventListener('pointerdown', (ev) => { g.setPointerCapture(ev.pointerId); const mv = (e) => { const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; const p = pt.matrixTransform(svg.getScreenCTM().inverse()); const v = Math.max(-7, Math.min(7, Math.round(p.x))); if (v !== x) { setter(v); draw(); } }; const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); }; window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); });
-        g.addEventListener('keydown', (e) => { const d = { ArrowLeft: -1, ArrowRight: 1 }[e.key]; if (d) { e.preventDefault(); setter(Math.max(-7, Math.min(7, x + d))); draw(); } });
-      }
-    };
-    mark(0, '0', false); mark(c, 'c (head)', true, (v) => { c = v; }); mark(s1, 'site', true, (v) => { s1 = v; }); mark(s2, 'site', true, (v) => { s2 = v; });
-    read.innerHTML = `l = ${l}, h = ${h}. Reaching l first costs <b style="color:${COL[1]}">a₁ = ${a1}</b> steps on this axis; reaching h first costs <b style="color:${COL[0]}">a₂ = ${a2}</b>. The rest of the walk uses at least <b>min(a₁, a₂) = ${Math.min(a1, a2)}</b> steps on this axis. Drag the head and the two sites.`;
-  }
-  draw();
-}
-
 // ============================================================ Table 1 and Figure 13: the runs
 function wRuns(w) {
   const t = H('table', {}, H('thead', {}, H('tr', {}, ...['n', 'parts', 'nodes', 'words'].map((x) => H('th', { style: x === 'n' || x === 'parts' ? '' : 'text-align:right' }, x)))));
@@ -642,11 +482,11 @@ function wRuns(w) {
   w.append(H('div', { class: 'tablewrap' }, t));
 }
 function wGrowth(w) {
-  const [a, b] = panes(w, 2, ['(a) nodes and words per length', '(b) growth per two steps']);
+  const [a, b] = panes(w, 2, ['(a)', '(b)']);
   const runs = DATA.runs.filter((r) => r.n >= 6), F = DATA.fits;
   let logScale = true;
-  const svg = S('svg', { viewBox: '0 0 420 300', role: 'img', 'aria-label': 'Search nodes and returned words per length' }, a);
-  const tip = H('div', { class: 'readout', style: 'padding:0 12px 12px;min-height:2.9em' }, 'Point at a dot to read its value.'); a.append(tip);
+  const svg = S('svg', { viewBox: '0 -18 420 318', role: 'img', 'aria-label': 'Search nodes and returned words per length' }, a);
+  const tip = H('div', { class: 'readout tipline', style: 'padding:0 12px 12px;min-height:1.6em' }); a.append(tip);
   function draw() {
     svg.innerHTML = '';
     const X = (n) => 46 + (n - 6) / 28 * 350, ymax = 2e12;
@@ -654,7 +494,7 @@ function wGrowth(w) {
     for (let n = 6; n <= 34; n += 4) { S('line', { x1: X(n), y1: 26, x2: X(n), y2: 262, stroke: RULE }, svg); const t = S('text', { x: X(n), y: 280, 'text-anchor': 'middle', class: 'lbl-s' }, svg); t.textContent = n; }
     const ticks = logScale ? [1, 1e2, 1e4, 1e6, 1e8, 1e10, 1e12] : [0, 5e11, 1e12, 1.5e12, 2e12];
     ticks.forEach((v) => { S('line', { x1: 46, y1: Y(v), x2: 396, y2: Y(v), stroke: RULE }, svg); const t = S('text', { x: 40, y: Y(v) + 4, 'text-anchor': 'end', class: 'lbl-s' }, svg); if (logScale) t.innerHTML = v === 1 ? '1' : `10<tspan dy="-5" font-size="8">${Math.log10(v)}</tspan>`; else t.textContent = v === 0 ? '0' : `${v / 1e12}·10¹²`; });
-    const tl = S('text', { x: 221, y: 297, 'text-anchor': 'middle', class: 'lbl-s' }, svg); tl.textContent = 'length n';
+    const tl = S('text', { x: 221, y: 297, 'text-anchor': 'middle', class: 'lbl-s', 'font-style': 'italic' }, svg); tl.textContent = 'n';
     const fitPath = ([C, q, n0, n1]) => { let d = ''; for (let n = n0; n <= n1; n += 0.25) d += (d ? 'L' : 'M') + `${X(n)},${Y(C * q ** n)}`; return d; };
     // the fits use only the long runs (nodes: n = 20..34; words: n = 24..34, the lengths with knotted words);
     // the dashed continuation shows how far the short runs fall from the fitted law
@@ -662,8 +502,7 @@ function wGrowth(w) {
     S('path', { d: fitPath(F.nodes), fill: 'none', stroke: COL[0], 'stroke-width': 1.6, opacity: .8 }, svg);
     S('path', { d: fitPath(F.words), fill: 'none', stroke: COL[1], 'stroke-width': 1.6, opacity: .8 }, svg);
     S('rect', { x: X(F.nodes[2]), y: 26, width: X(34) - X(F.nodes[2]), height: 236, fill: COL[0], opacity: 0.05 }, svg);
-    const fr = S('text', { x: X(F.nodes[2]) + 4, y: 256, class: 'lbl-s' }, svg); fr.textContent = `fit range n ≥ ${F.nodes[2]}`;
-    const dot = (n, v, col, what, sq) => { const g = S('g', { class: 'hit', tabindex: 0, role: 'img', 'aria-label': `n = ${n}: ${fmt(v)} ${what}` }, svg); S('circle', { cx: X(n), cy: Y(v), r: 11, fill: 'transparent' }, g); sq ? S('rect', { x: X(n) - 4, y: Y(v) - 4, width: 8, height: 8, fill: col }, g) : S('circle', { cx: X(n), cy: Y(v), r: 4.5, fill: col }, g); const show = () => { tip.innerHTML = `n = <b>${n}</b>: <b>${fmt(v)}</b> ${what}.`; }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show); };
+    const dot = (n, v, col, what, sq) => { const g = S('g', { class: 'hit', tabindex: 0, role: 'img', 'aria-label': `n = ${n}: ${fmt(v)} ${what}` }, svg); S('circle', { cx: X(n), cy: Y(v), r: 11, fill: 'transparent' }, g); sq ? S('rect', { x: X(n) - 4, y: Y(v) - 4, width: 8, height: 8, fill: col }, g) : S('circle', { cx: X(n), cy: Y(v), r: 4.5, fill: col }, g); const show = () => { tip.innerHTML = `<i>n</i> = <b>${n}</b> &nbsp; <span style="color:${col}">${sq ? '■' : '●'}</span> <b>${fmt(v)}</b>`; }; g.addEventListener('pointerenter', show); g.addEventListener('focus', show); };
     runs.forEach((r) => dot(r.n, r.nodes, COL[0], 'search nodes'));
     runs.filter((r) => r.words).forEach((r) => dot(r.n, r.words, COL[1], 'words returned', true));
     const lg = S('g', {}, svg);
@@ -675,12 +514,10 @@ function wGrowth(w) {
   for (let v = 5; v <= 7; v += 0.5) { S('line', { x1: 44, y1: Y2(v), x2: 280, y2: Y2(v), stroke: RULE }, svg2); const t = S('text', { x: 38, y: Y2(v) + 4, 'text-anchor': 'end', class: 'lbl-s' }, svg2); t.textContent = v.toFixed(1); }
   for (let n = 8; n <= 32; n += 6) { const t = S('text', { x: X2(n), y: 280, 'text-anchor': 'middle', class: 'lbl-s' }, svg2); t.textContent = n; }
   const q2 = F.nodes[1] ** 2; S('line', { x1: 44, y1: Y2(q2), x2: 280, y2: Y2(q2), stroke: COL[0], 'stroke-dasharray': '4 3' }, svg2);
-  const tq = S('text', { x: 50, y: Y2(q2) - 6, class: 'lbl-s' }, svg2); tq.textContent = `fitted factor ${q2.toFixed(2)}`;
+  const tq = S('text', { x: 50, y: Y2(q2) - 6, class: 'lbl-s' }, svg2); tq.textContent = `${F.nodes[1].toFixed(3)}² = ${q2.toFixed(2)}`;
   S('path', { d: 'M' + rat.map(([n, v]) => `${X2(n)},${Y2(v)}`).join('L'), fill: 'none', stroke: COL[0], 'stroke-width': 1.5 }, svg2);
   rat.forEach(([n, v]) => S('circle', { cx: X2(n), cy: Y2(v), r: 3.5, fill: COL[0] }, svg2));
-  b.append(H('div', { class: 'readout', style: 'padding:0 12px 12px' }, `Not a constant: the factor rises from ${rat[0][1].toFixed(1)} to ${rat[rat.length - 1][1].toFixed(1)}.`));
-  const ctl = ctlRow(w); ctl.append(seg([['log', 'Logarithmic scale'], ['lin', 'Linear scale']], 'log', (v) => { logScale = v === 'log'; draw(); }),
-    H('span', { class: 'readout grow' }, `Solid lines: least-squares fits of log(count) against n on the shaded range (nodes from n = ${F.nodes[2]}, words from n = ${F.words[2]}, the first length with knotted words). The dashed line continues the node fit to short lengths: there the counts lie above it, because the growth factor per step is still rising (panel b), so these lengths are left out of the fit.`));
+  const ctl = ctlRow(w); ctl.append(seg([['log', 'log'], ['lin', 'linear']], 'log', (v) => { logScale = v === 'log'; tip.innerHTML = ''; draw(); }));
   draw();
 }
 
@@ -847,11 +684,12 @@ async function f3() {
   return F3;
 }
 const via3d = (name, flat) => async (w) => { const m = await f3(); if (m) m[name](w); else if (flat) flat(w); else w.append(H('p', { class: 'hint' }, 'This interactive figure needs WebGL. The proof above is complete without it.')); };
-const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: via3d('figDelta', wDelta), trefoil: via3d('figTrefoil', wTrefoil), segsquare: via3d('figSegSquare', wSegSquare),
+const viaSearch = (name) => async (w) => (await import('./search.js'))[name](w);   // the search animatics are flat: no WebGL needed
+const WIDGETS = { polygon: via3d('figPolygon', wPolygon), delta: via3d('figDelta', wDelta), trefoil: via3d('figTrefoil', wTrefoil),
   flipdelta: via3d('figFlipDelta', wFlipDelta), psi: via3d('figPsi', wPsi), curtain: via3d('figCurtain', wCurtain), corners: via3d('figCorners', wCorners),
-  origin: via3d('figOrigin', wOrigin), replay: via3d('figObligation', wReplay), reach: via3d('figReach', wReach), span: async (w) => { await via3d('figSpan', null)(w); wSpan(w); } /* 3D state, then the one-axis picture of the caption */, runs: wRuns, growth: wGrowth,
+  origin: via3d('figOrigin', wOrigin), replay: viaSearch('figObligation'), reach: viaSearch('figReach'), span: viaSearch('figSpan'), runs: wRuns, growth: wGrowth,
   std52: via3d('figStd52', wStd52), certex: via3d('figCertex', wCertex), pdcompare: async (w) => (await import('./figs3d.js')).figPdCompare(w),
-  deltaproof: via3d('figDeltaProof'), invariant: via3d('figInvariant'), d7: async (w) => (await import('./figs3d.js')).figD7(w), deps: () => {} };
+  deltaproof: via3d('figDeltaProof'), invariant: viaSearch('figInvariant'), dmon: async (w) => (await import('./dmon.js')).figDmon(w), deps: () => {} };
 function holdAnchor() {
   let target = null, until = 0, user = false;
   const ro = new ResizeObserver(() => { if (target && !user && performance.now() < until) target.scrollIntoView({ block: 'start', behavior: 'instant' }); });

@@ -47,6 +47,7 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
+\newenvironment{notconvinced}{\par\emph{Not convinced?} }{\par}
 \newcommand{\Len}{\operatorname{Len}}
 \newcommand{\word}[1]{\texttt{#1}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -105,7 +106,7 @@ been studied since the 1990s, both in geometric knot theory and because lattice 
 standard model of ring polymers in statistical physics~\cite{Diao93,Sch09,JvRR11}.
 
 Upper bounds are easy in principle: exhibit a polygon. Simulated annealing and other stochastic
-searches have produced short polygons for all knots with up to ten crossings~\cite{Sch09,JvRR11}.
+searches have produced short polygons for all knots with up to ten crossings~\cite{Sch09}.
 Lower bounds are hard. Diao proved in 1993 that every non-trivial knot needs at least 24 sticks and
 that the trefoil attains this~\cite{Diao93}. Scharein, Ishihara, Arsuaga, Diao, Shimokawa and
 Vazquez reported that the figure-eight knot needs 30 sticks and the cinquefoil $5_1$ needs
@@ -376,7 +377,7 @@ the same proof works for every odd prime $p$.
 
 So a non-constant colouring in one diagram of $K$ proves that $K$ is knotted, and that $K$ differs
 from every knot whose diagrams have only constant colourings. For an odd prime $p$, a knot has a
-non-constant $p$-colouring exactly when $p$ divides its determinant~\cite[\S\S3.3--3.4]{Liv93},~\cite{Prz98} (we quote this
+non-constant $p$-colouring exactly when $p$ divides its determinant~\cite[\S\S3.3--3.4]{Liv93} (we quote this
 only to explain the choice $p=7$; the proof does not use it). The
 determinants of $3_1,4_1,5_1,5_2$ are $3,5,5,7$. This is why $p=7$ separates $5_2$ from all other knots
 with at most five crossings: the standard diagram of $5_2$ has $49$ colourings (\cref{lem:fiftytwo}), while the
@@ -404,33 +405,9 @@ passes seven local tests. The tools are two moves across a unit square.
 
 \subsection{Square moves}
 
-\begin{lemma}[Segment and square]\label{lem:segsquare}
-Let $Q$ be a closed unit lattice square (the convex hull of $q,q+a,q+a+b,q+b$ with $q\in\Z^3$ and $a\perp
-b$ unit vectors) and let $E$ be a closed unit lattice segment. Then $E\cap Q$ is empty, a corner of
-$Q$, or a whole side of $Q$.
-\end{lemma}
-\begin{proof}
-Let $H$ be the plane of $Q$; it is a coordinate plane at an integer level of the third axis.
-\emph{Case 1: $E$ is perpendicular to $H$} (\cref{fig:segsquare}a). Then $E$ runs along the third
-axis between two consecutive integers, and $H$ sits at an integer level of that axis, so $E\cap H$ is
-empty or one endpoint of $E$. That endpoint is a lattice point, and the only lattice points of $Q$ are
-its four corners. \emph{Case 2: $E$ lies in $H$} (\cref{fig:segsquare}b). In the two coordinates of
-$H$, write $Q=[q_1,q_1+1]\times[q_2,q_2+1]$, and say $E$ is parallel to the first axis, at the integer
-height $y_E$ on the second axis. If $y_E\notin\{q_2,q_2+1\}$, then $E\cap Q=\emptyset$. Otherwise
-$E\cap Q$ is the intersection of $E$ with the side of $Q$ on the line $y=y_E$, that is, of two unit
-intervals with integer endpoints on one line; such intervals meet in nothing, in one common endpoint (a
-corner of $Q$), or in the whole interval (a side of $Q$). The case of $E$ parallel to the second axis is
-the same with the two axes exchanged. \emph{Case 3: $E$ is parallel to $H$ but not in it}
-(\cref{fig:segsquare}c). Then $E\cap Q=\emptyset$.
-\end{proof}
+A moment's thought reveals the one fact about squares that we need: \emph{a closed unit lattice segment
+meets a closed unit lattice square in nothing, in a corner of the square, or in a whole side of it.}
 
-\begin{figure}[t]
-\centering
-\FigSegSquare
-\caption{\Cref{lem:segsquare}: a unit lattice segment meets a unit lattice square in nothing, a
-corner, or a whole side, never in an interior point of the square.}
-\label{fig:segsquare}
-\end{figure}
 
 \begin{lemma}[Corner flip]\label{lem:flip}
 Let $w$ be a polygon word and $1\le i<n$ with $w_{i-1}\perp w_i$. Put $v'=v_{i-1}+w_i$ and suppose that
@@ -442,7 +419,7 @@ replaced by $v'$, and $|w'|$ has the same knot type as $|w|$.
 The walk of $w'$ agrees with that of $w$ up to $v_{i-1}$. It then goes to $v_{i-1}+w_i=v'$, then to
 $v'+w_{i-1}=v_{i-1}+w_i+w_{i-1}=v_{i+1}$, and agrees with $w$ afterwards. Its vertices are distinct
 because $v'$ is new. Let $Q$ be the unit square with corners $v_{i-1},v_i,v_{i+1},v'$
-(\cref{fig:flipdelta}a). By \cref{lem:segsquare}, every edge of $|w|$ meets $Q$ in nothing, a corner or
+(\cref{fig:flipdelta}a). By the fact above, every edge of $|w|$ meets $Q$ in nothing, a corner or
 a side. A side of $Q$ through $v'$ is not an edge of $|w|$, since $v'$ is not a vertex. So the only
 edges of $|w|$ that contain a side of $Q$ are $[v_{i-1},v_i]$ and $[v_i,v_{i+1}]$. Every other edge
 meets $Q$ at most in a corner, and that corner is $v_{i-1}$ or $v_{i+1}$ (the vertex $v_i$ has only the
@@ -468,7 +445,7 @@ $v_{i+3}=v_i+a+b-a=v_i+b$. They are distinct, and $n-2\ge4$. Let $Q$ be the squa
 $v_i,v_{i+1},v_{i+2},v_{i+3}$, all of them vertices of $|w|$ (\cref{fig:flipdelta}d). Three of its
 sides are edges of $|w|$. The fourth side $[v_i,v_{i+3}]$ is not an edge of $|w|$: the edges at $v_i$ are
 $[v_{i-1},v_i]$ and $[v_i,v_{i+1}]$, and $v_{i+3}=v_{i-1}$ would mean the polygon has only the four
-vertices $v_i,\dots,v_{i+3}$, so $n=4$. By \cref{lem:segsquare} every other edge meets $Q$ at most in a
+vertices $v_i,\dots,v_{i+3}$, so $n=4$. By the fact above, every other edge meets $Q$ at most in a
 corner, and only at $v_i$ or $v_{i+3}$ (the vertices $v_{i+1},v_{i+2}$ have no other edges). Two
 $\Delta$-moves, each in the reverse form of the definition (two edges with a common endpoint become
 one edge).
@@ -902,13 +879,6 @@ that are left.}
 \label{fig:span}
 \end{figure}
 
-\paragraph{Why reach and span are the right tests.} An obligation says ``some site must be a later
-vertex''. Reach asks the two weakest things that this implies for one obligation: the site can be
-reached and the walk can still get home, and the site can be passed through. Span combines several
-single-site obligations: all of them must be visited by one walk of $R-1$ steps, which must therefore
-cover the whole range of their coordinates on each axis. Neither test needs to know \emph{which} site
-will be visited or \emph{when}; this is why they are cheap.
-
 \subsection{The PanDMONium theorem}
 
 \begin{theorem}[PanDMONium; Lean: \lean{search\_complete}]\label{thm:pandmonium}
@@ -1029,13 +999,6 @@ So no test discards a prefix of $w$, and by \cref{lem:state} the search follows 
 returns it.
 \end{proof}
 
-\begin{remark}
-In the Lean proof the program works with points packed into natural numbers and an occupancy array.
-The proof checks that every point the tests look at (vertices, their neighbours, sites and the
-neighbours of sites) lies in the region $|x|,|y|\le31$, $-3\le z\le28$ where the packing is injective;
-this follows from the bound $|v_j|_1\le17$.
-\end{remark}
-
 \subsection{The size of the search, and a new proof that $\Len(3_1)=24$}
 
 \Cref{tab:runs} lists the runs. For lengths $n\le26$ the search ran in one part; for $n=28,30,32,34$
@@ -1060,7 +1023,7 @@ least-squares fits of $\log y$ against $n$: nodes $\approx \NodeConst\cdot \Node
 $20\le n\le34$) and words $\approx \WordConst\cdot\WordBase^{\,n}$ ($24\le n\le34$, the lengths with
 knotted words). Shorter lengths are left out of the node fit because the growth factor is still
 rising there, see (b); continued to $n<20$, the fitted line lies below the counts. Exponential growth is
-expected: the number $p_n$ of lattice polygons of length $n$ satisfies $p_n^{1/n}\to\mu$ (Hammersley
+expected: the number $p_n$ of lattice polygons of length $n$ (zero for odd $n$) satisfies $p_n^{1/n}\to\mu$ along even $n$ (Hammersley
 \cite{Ham61}; see \cite[\S3.2]{MS93}), with $\mu\approx4.684$ (Clisby \cite{Cli13}), so $p_n$ grows by about
 $\mu^2\approx21.9$ per two steps. The DMON tests cut this down to about $6$ per two steps. (b) The
 points in (a) are close to, but not exactly on, a straight line: the growth factor per two steps
@@ -1084,7 +1047,9 @@ Let $T_{\ne0}$ be the set of polygon words whose polygon is knotted. It is a kno
 $22$. By \cref{thm:normal} it would contain a word $w$ of length at most $22$ that is a unit square or
 passes \dmon1--\dmon7. A unit square is unknotted. By \cref{thm:pandmonium}, $w$ would be returned by
 the search for its length, but the searches for $n\le22$ return nothing (\cref{tab:runs}). So every
-knotted lattice polygon has at least $24$ edges. For the upper bound, the 24-step polygon
+knotted lattice polygon has at least $24$ edges. Since $24$-edge trefoils exist, that is the minimal length.
+\begin{notconvinced}
+The 24-step polygon
 $\word{eeeuuswwdnneeesswwnuwwdd}$, one of the words returned at $n=24$, has a three-crossing diagram
 whose PD code (\cref{sec:diagrams}) along $(7,13,31)$ is (Lean: \lean{wTre\_pd}; it is the polygon of
 \cref{fig:certex})
@@ -1097,6 +1062,7 @@ $X_3[5,3,6,2]$ of the trefoil~\cite{KnotInfo}; no renumbering of the edges is ne
 this polygon is the KnotInfo diagram of the trefoil with every crossing switched, a diagram of the
 mirror image, and by (E3), \cref{sec:upper}, this polygon is a trefoil (the mirror image of the
 tabulated one, which has the same length).
+\end{notconvinced}
 \end{proof}
 
 %=====================================================================================================
@@ -1150,7 +1116,7 @@ substitute for $x_{\mathrm{over}}$ is its own inverse. (If $c=0$, the projection
 injective on $K$, so $K$ is the graph of a continuous height function $f$ over the simple closed polygon
 $C=\pi(K)$ in the plane. Extend $f$ continuously to the whole plane (Tietze's extension theorem). The
 shear $(X,Y,H)\mapsto(X,Y,H-f(X,Y))$ is an orientation-preserving homeomorphism of $\R^3$ that maps $K$
-onto $C$, and by the Schoenflies theorem for polygons~\cite[Ch.~3]{Moi77} $C$ bounds a disc in the plane. So $K$ is
+onto $C$, and by the Schoenflies theorem for polygons~\cite[Ch.~4]{Moi77} $C$ bounds a disc in the plane. So $K$ is
 unknotted, and $G\cong\Z$, generated by one loop around $K$.)
 \begin{itemize}
 \item Sending every $x_i$ to $1$ defines a homomorphism $\lambda:G\to\Z$, because both sides of every
@@ -1418,14 +1384,18 @@ three steps.
 \item A PD code lists, for each crossing, the four edge ends in counter-clockwise order and says which
 pair is the under-strand. So it determines the \emph{rotation system} of the diagram's $4$-valent plane
 graph (the cyclic order of the edges at each vertex), together with the crossing information.
-\item A rotation system determines a connected graph embedded in the sphere $S^2$ up to an
-orientation-preserving homeomorphism of $S^2$~\cite[\S3.2, Rotation systems]{MT01} (a rotation system
+\item A rotation system determines a connected graph embedded in the sphere $S^2$ up to a
+homeomorphism of $S^2$ that maps vertices to vertices and edge ends to the corresponding edge
+ends~\cite[\S3.2, Rotation systems]{MT01} (a rotation system
 determines a cellular embedding in an orientable surface; here both diagram graphs are connected and
 embedded in the plane, so that surface is the sphere for both). The statement holds for
 multigraphs, with the rotation taken on edge-ends; the diagram graphs here have parallel edges (in the
-twist region). So there is an orientation-preserving homeomorphism $g$ of $S^2=\R^2\cup\{\infty\}$
+twist region). So there is a homeomorphism $g$ of $S^2=\R^2\cup\{\infty\}$
 carrying the first diagram onto the second, crossings to crossings, with the same over- and
-under-strands.
+under-strands. This $g$ preserves orientation: if it reversed it, it would carry the
+counter-clockwise order of the four edge ends at a crossing $x$ to the clockwise order at $g(x)$.
+But both PD codes list the same four edge ends in counter-clockwise order at $x$ and at $g(x)$, and a
+cyclic order of four distinct ends is not equal to its reverse.
 \item A diagram determines its knot up to equivalence. We put each knot into a thin spherical shell,
 where the diagram lives on a sphere and the heights are radii.
 
@@ -1526,7 +1496,7 @@ means proved in this paper and entering Lean as a hypothesis.}
 Result & Lean name & Depends on \\
 \midrule
 \Cref{lem:parity} (parity) & \lean{isPolygon\_length\_even} & -- \\
-\Cref{lem:flip,lem:uturn,lem:rigid}, \cref{cor:knotclass} & hypothesis \lean{KnotClass} (text) & \cref{thm:deltamove} (E1), \cref{lem:segsquare} \\
+\Cref{lem:flip,lem:uturn,lem:rigid}, \cref{cor:knotclass} & hypothesis \lean{KnotClass} (text) & \cref{thm:deltamove} (E1) \\
 \dmon1--\dmon7 (\cref{def:dmon}) & \lean{IsPolygon}, \lean{LexPos}, \lean{CurtainOK}, \lean{CornerOK}, \lean{Survive} & definitions \\
 \Cref{lem:curtain,lem:corner}, \cref{thm:normal} & \lean{curtainOK\_of\_min}, \lean{cornerOK\_of\_min}, \lean{exists\_survivor} & \lean{KnotClass} \\
 \Cref{lem:state,lem:invariant}, \cref{thm:pandmonium} (PanDMONium) & \lean{search\_complete}, \lean{search\_complete\_parts} (SP/*.lean) & \lean{Survive} \\
