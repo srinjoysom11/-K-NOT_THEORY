@@ -1,0 +1,124 @@
+# Benchmarks of the DMON2 prototypes (research/exact/dmon2/*.cpp) on GitHub Actions.
+# A new workflow on branch claude/great-einstein-snvnnb; no other workflow is changed.
+# Started by pushing a change to research/exact/dmon2/bench_request.json, for example
+#   {"label": "adapt1", "runs": [
+#     {"src": "enum_y.cpp", "n": 32, "m": 8, "opts": "-aotp -adapt 1", "tag": "ad1"}]}
+# Every run is split into m parts (-part r m). Common options -alt 4 -stair -tourcap 3 -aotc -aotm
+# -threads 4 are always added. Each job records nodes, survivors, seconds and the sha256 of its sorted
+# output; the collect job writes research/exact/dmon2/bench/ci/<label>/ and a summary table.
+name: dmon2-bench
+on:
+  push:
+    branches: [claude/great-einstein-snvnnb]
+    paths: [research/exact/dmon2/bench_request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      label: ${{ steps.m.outputs.label }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, re
+          req = json.load(open('research/exact/dmon2/bench_request.json'))
+          label = req["label"]; assert re.fullmatch(r"[A-Za-z0-9_.-]+", label)
+          inc = []
+          for r in req["runs"]:
+              assert re.fullmatch(r"[A-Za-z0-9_]+\.cpp", r["src"]) and re.fullmatch(r"[A-Za-z0-9_]+", r["tag"])
+              assert re.fullmatch(r"[-A-Za-z0-9 ._]*", r.get("opts", ""))
+              for k in range(r.get("m", 1)):
+                  inc.append({"src": r["src"], "n": int(r["n"]), "m": int(r.get("m", 1)), "r": k,
+                              "opts": r.get("opts", ""), "tag": r["tag"]})
+          assert 0 < len(inc) <= 128, len(inc)
+          print("matrix=" + json.dumps({"include": inc}))
+          print("label=" + label)
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        working-directory: research/exact/dmon2
+        run: g++ -O3 -march=native -std=c++17 -pthread -o prog ${{ matrix.src }}
+      - name: run
+        working-directory: research/exact/dmon2
+        run: |
+          base=${{ matrix.tag }}_n${{ matrix.n }}.part${{ matrix.r }}_${{ matrix.m }}
+          s=$(date +%s.%N)
+          ./prog ${{ matrix.n }} -alt 4 -stair -tourcap 3 -aotc -aotm -threads 4 ${{ matrix.opts }} -part ${{ matrix.r }} ${{ matrix.m }} -out $base.txt 2> $base.log
+          e=$(date +%s.%N)
+          sort $base.txt > $base.sorted
+          echo "seconds=$(echo "$e - $s" | bc) src=${{ matrix.src }} srcsha=$(sha256sum ${{ matrix.src }} | cut -c1-16) opts=${{ matrix.opts }} outsha=$(sha256sum $base.sorted | cut -c1-16) words=$(wc -l < $base.sorted) commit=$GITHUB_SHA" >> $base.log
+          cat $base.log
+          mkdir -p parts && mv $base.log parts/ && mv $base.sorted parts/$base.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.tag }}_n${{ matrix.n }}.part${{ matrix.r }}_${{ matrix.m }}
+          path: research/exact/dmon2/parts/
+          retention-days: 14
+  collect:
+    needs: [plan, run]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: summarise and commit
+        env:
+          LABEL: ${{ needs.plan.outputs.label }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            d=research/exact/dmon2/bench/ci/$LABEL
+            mkdir -p $d
+            cp artifacts/*.log $d/ 2>/dev/null || true
+            python3 - "$d" <<'PY'
+          import glob, os, re, sys, collections, hashlib
+          d = sys.argv[1]
+          agg = collections.OrderedDict()
+          for f in sorted(glob.glob(d + "/*.log")):
+              g = re.match(r"(\w+)_n(\d+)\.part(\d+)_(\d+)\.log$", os.path.basename(f))
+              if not g: continue
+              key = (g[1], int(g[2]), int(g[4]))
+              t = open(f).read()
+              a = agg.setdefault(key, {"parts": 0, "nodes": 0, "surv": 0, "sec": 0.0, "sha": []})
+              a["parts"] += 1
+              for k, pat in (("nodes", r"nodes=(\d+)"), ("surv", r"survivors=(\d+)")):
+                  m = re.search(pat, t); a[k] += int(m[1]) if m else 0
+              m = re.search(r"seconds=([\d.]+)", t); a["sec"] += float(m[1]) if m else 0
+              tf = "artifacts/" + os.path.basename(f)[:-4] + ".txt"
+              if os.path.exists(tf): a["sha"].extend(w.strip() for w in open(tf) if w.strip())
+          with open(d + "/SUMMARY.txt", "w") as out:
+              out.write("tag n parts nodes survivors runner_seconds words union_sha (compare union_sha between tags: same word set)\n")
+              for (tag, n, mm), a in agg.items():
+                  ws = sorted(set(a["sha"]))
+                  sh = hashlib.sha256("".join(w + "\n" for w in ws).encode()).hexdigest()[:16]
+                  out.write(f"{tag} {n} {a['parts']}/{mm} {a['nodes']} {a['surv']} {a['sec']:.0f} {len(ws)} {sh}\n")
+          print(open(d + "/SUMMARY.txt").read())
+          PY
+            git add research/exact/dmon2/bench
+            git commit -q -m "dmon2-bench: results of $LABEL (run $GITHUB_RUN_ID)" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1

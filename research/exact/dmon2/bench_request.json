@@ -1,0 +1,89 @@
+{
+ "label": "r1_adapt_dmon2",
+ "runs": [
+  {
+   "src": "enum_y.cpp",
+   "n": 32,
+   "m": 1,
+   "opts": "",
+   "tag": "base"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 34,
+   "m": 2,
+   "opts": "",
+   "tag": "base"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 32,
+   "m": 1,
+   "opts": "-aotp",
+   "tag": "aotp"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 34,
+   "m": 2,
+   "opts": "-aotp",
+   "tag": "aotp"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 32,
+   "m": 1,
+   "opts": "-face -plane4 -aotp -crank",
+   "tag": "dm2"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 34,
+   "m": 2,
+   "opts": "-face -plane4 -aotp -crank",
+   "tag": "dm2"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 32,
+   "m": 1,
+   "opts": "-aotp -adapt 1",
+   "tag": "ad1"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 34,
+   "m": 2,
+   "opts": "-aotp -adapt 1",
+   "tag": "ad1"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 32,
+   "m": 1,
+   "opts": "-face -plane4 -aotp -crank -adapt 1",
+   "tag": "ad1all"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 34,
+   "m": 2,
+   "opts": "-face -plane4 -aotp -crank -adapt 1",
+   "tag": "ad1all"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 32,
+   "m": 1,
+   "opts": "-aotp -adapt 3",
+   "tag": "ad3"
+  },
+  {
+   "src": "enum_y.cpp",
+   "n": 34,
+   "m": 2,
+   "opts": "-aotp -adapt 3",
+   "tag": "ad3"
+  }
+ ]
+}
