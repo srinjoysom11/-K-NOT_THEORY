@@ -1,1 +1,36 @@
-{"runs": [{"n": 42, "m": 256, "opts": "-stair -tourcap 3 -aotc -aotm -alt 4", "tag": "stair_bd"}]}
+{
+ "runs": [
+  {
+   "n": 42,
+   "m": 256,
+   "from": 167,
+   "to": 168,
+   "opts": "-stair -tourcap 3 -aotc -aotm -alt 4",
+   "tag": "stair_bd"
+  },
+  {
+   "n": 42,
+   "m": 256,
+   "from": 185,
+   "to": 186,
+   "opts": "-stair -tourcap 3 -aotc -aotm -alt 4",
+   "tag": "stair_bd"
+  },
+  {
+   "n": 42,
+   "m": 256,
+   "from": 188,
+   "to": 189,
+   "opts": "-stair -tourcap 3 -aotc -aotm -alt 4",
+   "tag": "stair_bd"
+  },
+  {
+   "n": 42,
+   "m": 256,
+   "from": 192,
+   "to": 256,
+   "opts": "-stair -tourcap 3 -aotc -aotm -alt 4",
+   "tag": "stair_bd"
+  }
+ ]
+}
