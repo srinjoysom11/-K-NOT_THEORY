@@ -1,89 +1,9 @@
-{
- "label": "r1_adapt_dmon2",
+{"label": "r2_tour_n36",
  "runs": [
-  {
-   "src": "enum_y.cpp",
-   "n": 32,
-   "m": 1,
-   "opts": "",
-   "tag": "base"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 34,
-   "m": 2,
-   "opts": "",
-   "tag": "base"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 32,
-   "m": 1,
-   "opts": "-aotp",
-   "tag": "aotp"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 34,
-   "m": 2,
-   "opts": "-aotp",
-   "tag": "aotp"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 32,
-   "m": 1,
-   "opts": "-face -plane4 -aotp -crank",
-   "tag": "dm2"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 34,
-   "m": 2,
-   "opts": "-face -plane4 -aotp -crank",
-   "tag": "dm2"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 32,
-   "m": 1,
-   "opts": "-aotp -adapt 1",
-   "tag": "ad1"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 34,
-   "m": 2,
-   "opts": "-aotp -adapt 1",
-   "tag": "ad1"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 32,
-   "m": 1,
-   "opts": "-face -plane4 -aotp -crank -adapt 1",
-   "tag": "ad1all"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 34,
-   "m": 2,
-   "opts": "-face -plane4 -aotp -crank -adapt 1",
-   "tag": "ad1all"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 32,
-   "m": 1,
-   "opts": "-aotp -adapt 3",
-   "tag": "ad3"
-  },
-  {
-   "src": "enum_y.cpp",
-   "n": 34,
-   "m": 2,
-   "opts": "-aotp -adapt 3",
-   "tag": "ad3"
-  }
- ]
-}
+  {"src": "enum_t.cpp", "n": 34, "m": 2, "opts": "", "tag": "base"},
+  {"src": "enum_t.cpp", "n": 34, "m": 2, "opts": "-face -plane4 -aotp -crank -adapt 1", "tag": "ad1all"},
+  {"src": "enum_t.cpp", "n": 34, "m": 2, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw", "tag": "z1"},
+  {"src": "enum_t.cpp", "n": 36, "m": 8, "opts": "", "tag": "base"},
+  {"src": "enum_t.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1", "tag": "ad1all"},
+  {"src": "enum_t.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw", "tag": "z1"}
+ ]}
