@@ -112,6 +112,8 @@ jobs:
               out.write("tag n parts nodes survivors runner_seconds words union_sha (compare union_sha between tags: same word set)\n")
               for (tag, n, mm), a in agg.items():
                   ws = sorted(set(a["sha"]))
+                  with open(f"{d}/{tag}_n{n}.words.txt", "w") as wf:
+                      wf.write("".join(w + "\n" for w in ws))
                   sh = hashlib.sha256("".join(w + "\n" for w in ws).encode()).hexdigest()[:16]
                   out.write(f"{tag} {n} {a['parts']}/{mm} {a['nodes']} {a['surv']} {a['sec']:.0f} {len(ws)} {sh}\n")
           print(open(d + "/SUMMARY.txt").read())

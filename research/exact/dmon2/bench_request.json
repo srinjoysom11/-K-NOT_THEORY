@@ -1,6 +1,4 @@
-{"label": "r5_enumv_F",
+{"label": "r6_n42_F",
  "runs": [
-  {"src": "enum_v.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 18", "tag": "F"},
-  {"src": "enum_v.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1", "tag": "Ftau"},
-  {"src": "enum_v.cpp", "n": 38, "m": 16, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 19", "tag": "F"}
+  {"src": "enum_v.cpp", "n": 42, "m": 128, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 21", "tag": "F"}
  ]}
