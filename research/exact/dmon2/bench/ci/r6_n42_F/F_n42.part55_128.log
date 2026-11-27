@@ -1,0 +1,3 @@
+walk calls=129881115 with_ray=40023544 dead=83871318 sitefull=0 sitefull_by_ray=0 limit=19 limit_with_ray=1 skip=0 states=19119876286
+fulltests=256331032 N=42 alt=4 tasks=6020 part=55/128 nodes=256698152 closed=36686 candidates=6391 survivors=252 bfs_limit_hits=87 tour_giveups=155629234 tau_decided=182676 tau_rayobs=163205 tau_leafcuts=968
+seconds=999.776259235 src=enum_v.cpp srcsha=4cec47416127db7f opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 21 outsha=dc966a79b9b27d13 words=252 commit=2f4ee0dbad205ead1217e275dcc54e7aaf7a239f
