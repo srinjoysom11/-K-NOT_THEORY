@@ -24,7 +24,15 @@ PL homeomorphisms of S^3, but assumes it ("any proof would have to penetrate the
 theory"). He also passes from Delta-moves to Reidemeister moves "with a little careful thought", without
 a proof. So Lickorish is not a source for Phase 3; we must write that proof ourselves (see Phase 3).
 The final paper states the theorems for Delta-equivalence and quotes the agreement with PL ambient
-isotopy precisely (Burde and Zieschang, *Knots*, Ch. 1), saying that the Lean proof does not use it.
+isotopy precisely: Burde and Zieschang, *Knots* (2nd ed.), Proposition 1.10 (equivalence of (1) an
+orientation-preserving PL homeomorphism of S^3, (2) PL ambient isotopy, (3) Delta-moves, their
+Definitions 1.6-1.7). Their proof uses the Alexander-Schoenflies theorem 1.8, which they quote without
+proof. The paper says that the Lean proof does not use Proposition 1.10.
+
+Burde and Zieschang also only indicate the step from Delta-moves to Reidemeister moves (Proposition 1.14:
+"This again is easily verified (Figure 1.10)"). So no source we have writes that step in full; Phase 3
+must write it. Their Definition 1.11 (regular projection) and Definition 1.6 with its Remark
+(degenerate triangles allowed while the polygon stays simple) are the definitions to follow.
 
 ## 2. What may be assumed
 
@@ -51,6 +59,9 @@ The books are local copies; never commit them.
   ball pairs.
 * Moise, *Geometric Topology in Dimensions 2 and 3*: the PL Schoenflies theorem in R^3. This is needed
   only for Phase 6.
+* Burde and Zieschang, *Knots*, 2nd ed. (book page p is PDF page p + 12): Ch. 1 B-C (Delta-moves,
+  Prop. 1.10, regular projections, Reidemeister moves), Ch. 3 B (Wirtinger presentation, for the
+  quandle invariants), Ch. 7 (composition and uniqueness of prime decomposition, for Phase 6).
 * The existing 5_2 proof, research/exact/lean/. It is frozen: do not edit it. Copy and adapt its code
   into lean42/, keeping the git history of the copied ideas in the commit messages.
 * The search being proved: research/exact/dmon2/enum_v.cpp. Its rules and their paper proofs are in
@@ -74,8 +85,8 @@ Each phase ends with a commit that builds with `lake build` and has no `sorry`.
    * **Theorem.** If two polygons in general position are Delta-equivalent, their diagrams are related
      by Reidemeister moves and planar isotopy. Prove it by subdividing every Delta-move into small
      Delta-moves in general position, then checking each small move case by case (the triangle's
-     projection meets at most one other edge, or one crossing). Lickorish only indicates this; a written
-     proof is in Burde and Zieschang, Ch. 1, and in Murasugi, *Knot Theory and Its Applications*, Ch. 4.
+     projection meets at most one other edge, or one crossing). Lickorish (Ch. 1) and Burde-Zieschang
+     (Prop. 1.14) only indicate this, so the case analysis is ours to write.
    * A simpler route, to be preferred if it works: do not build diagrams at all. Define the colouring
      count of a polygon directly from its projection in one fixed rational direction d (arcs between
      undercrossings, one relation per crossing), prove it is unchanged by a Delta-move whose triangle is
