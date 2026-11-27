@@ -1,0 +1,2 @@
+N=42 alt=4 tasks=6021 part=35/256 nodes=3403928226 closed=18434 candidates=3949 survivors=114 bfs_limit_hits=14 tour_giveups=1066808601
+seconds=1636 src=enum_t.cpp srcsha=f369e20fecf809d7 opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw words=114 commit=82e96192f15329c01474ad6663e3e8b72c70be80
