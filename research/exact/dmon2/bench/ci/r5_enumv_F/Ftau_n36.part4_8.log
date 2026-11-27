@@ -1,0 +1,2 @@
+fulltests=677211894 N=36 alt=4 tasks=5832 part=4/8 nodes=678865756 closed=22498 candidates=4120 survivors=323 bfs_limit_hits=40 tour_giveups=223201986 tau_decided=427453 tau_rayobs=278328 tau_leafcuts=311
+seconds=217.858928879 src=enum_v.cpp srcsha=4cec47416127db7f opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 outsha=317f7bff26327ea9 words=323 commit=f850989b0b08c7d927d1260d60491dd42dde6700
