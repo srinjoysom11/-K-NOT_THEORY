@@ -1,5 +1,5 @@
-{"label": "r3_enumz_n36",
+{"label": "r4_walk_n36",
  "runs": [
-  {"src": "enum_t.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw", "tag": "z1"},
-  {"src": "enum_z.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw", "tag": "z2"}
+  {"src": "enum_g.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1 -walk 8 18", "tag": "gw"},
+  {"src": "enum_g.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1", "tag": "ad1all"}
  ]}
