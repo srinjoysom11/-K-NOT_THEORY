@@ -548,7 +548,7 @@ The 270 words are the only ones whose diagram does not simplify to at most 6 cro
 
 ## DMON2 candidates (parent session's `dmon2/enum_t.cpp`): validation and speed, `out/dmon2/val1/` (run 45950625444)
 
-z1 = `-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw` added to the production options `-alt 4 -stair -tourcap 3 -aotc -aotm` (ad1all is z1 without the last five options; z1 gives the same words and fewer or equal nodes' time).
+z1 = `-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw` added to the production options `-alt 4 -stair -tourcap 3 -aotc -aotm` (ad1all is z1 without the last five options; z1 gives the same words as ad1all, the extra options only make a node cheaper).
 
 Yardstick, fixed before the run: (1) exact local tests at n = 24 to 30; (2) the rule predicates on the identified lists at the lengths where new types first occur; (3) one full n = 36 run; (4) the real n = 42 on 8 parts. Rule for adopting it for a larger n: every z1 word is a production word; the n = 36 type set equals the production one with 5_2 present; the n = 42 time ratio is at least 2.5.
 
