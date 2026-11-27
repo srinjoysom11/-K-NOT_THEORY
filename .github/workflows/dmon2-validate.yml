@@ -1,0 +1,120 @@
+# Validation and benchmark of the DMON2 prototypes (research/exact/dmon2/*.cpp, written in another session,
+# copied here unchanged) on a chosen set of parts. A new workflow on branch claude/dmon-experiments only.
+# Started by pushing a change to research/exact/ci/dmon2_request.json:
+#   {"label": "val1", "runs": [{"src": "enum_t.cpp", "n": 36, "m": 8, "opts": "-face -plane4 -aotp -crank -adapt 1", "tag": "ad1all"},
+#                              {"src": "enum_t.cpp", "n": 42, "m": 256, "parts": [2, 15], "opts": "...", "tag": "z1"}]}
+# ("parts" selects some of the m parts; otherwise all.) Common options -alt 4 -stair -tourcap 3 -aotc -aotm
+# -threads 4 are always added, so a run with "opts": "" is the production search. Every job first checks the
+# build on n = 24 (same output as the stored production words, and ad1all == z1 as sets), then runs one part.
+# The last job commits the sorted words and logs of every part to research/exact/out/dmon2/<label>/.
+name: dmon2-validate
+on:
+  push:
+    branches: [claude/dmon-experiments]
+    paths: [research/exact/ci/dmon2_request.json]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      label: ${{ steps.m.outputs.label }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, re
+          req = json.load(open('research/exact/ci/dmon2_request.json'))
+          label = req["label"]; assert re.fullmatch(r"[A-Za-z0-9_.-]+", label)
+          inc = []
+          for r in req["runs"]:
+              assert re.fullmatch(r"enum_[a-z]+\.cpp", r["src"]) and re.fullmatch(r"[A-Za-z0-9_]+", r["tag"])
+              assert re.fullmatch(r"[-A-Za-z0-9 ._]*", r.get("opts", ""))
+              m = int(r["m"])
+              for k in r.get("parts", range(m)):
+                  assert 0 <= k < m
+                  inc.append({"src": r["src"], "n": int(r["n"]), "m": m, "r": int(k), "opts": r.get("opts", ""), "tag": r["tag"]})
+          assert 0 < len(inc) <= 128, len(inc)
+          print("matrix=" + json.dumps({"include": inc}))
+          print("label=" + label)
+          PY
+  run:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: build and self-test
+        working-directory: research/exact
+        run: |
+          g++ -O3 -march=native -std=c++17 -pthread -o prog dmon2/${{ matrix.src }}
+          C="-alt 4 -stair -tourcap 3 -aotc -aotm -threads 4"
+          AD="-face -plane4 -aotp -crank -adapt 1"
+          ./prog 24 $C -out t_base.txt 2> /dev/null; diff <(sort t_base.txt) <(sort out/dmon/n24_base.txt)
+          ./prog 24 $C $AD -out t_ad.txt 2> /dev/null
+          ./prog 24 $C $AD -tourcap 0 -mstonly -ax1d -hk 5 -hkw -out t_z1.txt 2> /dev/null
+          diff <(sort t_ad.txt) <(sort t_z1.txt); comm -13 <(sort t_base.txt) <(sort t_ad.txt) | wc -l
+      - name: run
+        working-directory: research/exact
+        run: |
+          base=${{ matrix.tag }}_n${{ matrix.n }}.part${{ matrix.r }}_${{ matrix.m }}
+          s=$(date +%s)
+          ./prog ${{ matrix.n }} -alt 4 -stair -tourcap 3 -aotc -aotm -threads 4 ${{ matrix.opts }} -part ${{ matrix.r }} ${{ matrix.m }} -out $base.txt 2> $base.log
+          e=$(date +%s)
+          sort $base.txt > $base.sorted
+          echo "seconds=$((e-s)) src=${{ matrix.src }} srcsha=$(sha256sum dmon2/${{ matrix.src }} | cut -c1-16) opts=${{ matrix.opts }} words=$(wc -l < $base.sorted) commit=$GITHUB_SHA" >> $base.log
+          cat $base.log
+          mkdir -p parts && mv $base.log parts/ && mv $base.sorted parts/$base.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.tag }}_n${{ matrix.n }}.part${{ matrix.r }}_${{ matrix.m }}
+          path: research/exact/parts/
+          retention-days: 30
+  collect:
+    needs: [plan, run]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: commit
+        env:
+          LABEL: ${{ needs.plan.outputs.label }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5 6 7 8; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset -q --hard FETCH_HEAD
+            d=research/exact/out/dmon2/$LABEL
+            mkdir -p $d
+            cp artifacts/*.txt artifacts/*.log $d/ 2>/dev/null || true
+            python3 - "$d" <<'PY'
+          import glob, re, sys
+          d = sys.argv[1]; rows = []
+          for f in sorted(glob.glob(d + "/*.log")):
+              t = open(f).read()
+              g = re.search(r"nodes=(\d+)", t); s = re.search(r"seconds=(\d+)", t); w = re.search(r"words=(\d+)", t)
+              rows.append((f.split("/")[-1][:-4], int(g[1]) if g else -1, int(s[1]) if s else -1, int(w[1]) if w else -1))
+          with open(d + "/SUMMARY.txt", "w") as o:
+              o.write("part nodes seconds words\n")
+              for r in rows: o.write("%s %d %d %d\n" % r)
+          PY
+            git add research/exact/out/dmon2
+            git commit -q -m "exact: dmon2-validate parts from GitHub Actions run $GITHUB_RUN_ID" || exit 0
+            git push origin HEAD:"$GITHUB_REF_NAME" && exit 0
+            sleep $((RANDOM % 30 + 10))
+          done
+          exit 1
