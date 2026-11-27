@@ -17,8 +17,14 @@ For each target knot K, given by an explicit witness polygon w_K, and for its mi
 "Equivalent" must be defined inside Lean, not assumed. Take Reidemeister's own definition of PL knot
 equivalence: two closed simple polygons in Q^3 are equivalent if they are joined by a finite sequence of
 Delta-moves. A Delta-move replaces an edge [a, b] by the two edges [a, c], [c, b], or the reverse, when
-the closed triangle abc meets the polygon only in [a, b] (or in [a, c] ∪ [c, b]). Lickorish, Chapter 1,
-works with this definition and proves Reidemeister's theorem from it.
+the closed triangle abc meets the polygon only in [a, b] (or in [a, c] ∪ [c, b]).
+
+Lickorish (Ch. 1, pp. 2-3) states that this relation agrees with equivalence by orientation-preserving
+PL homeomorphisms of S^3, but assumes it ("any proof would have to penetrate the technicalities of PL
+theory"). He also passes from Delta-moves to Reidemeister moves "with a little careful thought", without
+a proof. So Lickorish is not a source for Phase 3; we must write that proof ourselves (see Phase 3).
+The final paper states the theorems for Delta-equivalence and quotes the agreement with PL ambient
+isotopy precisely (Burde and Zieschang, *Knots*, Ch. 1), saying that the Lean proof does not use it.
 
 ## 2. What may be assumed
 
@@ -67,7 +73,14 @@ Each phase ends with a commit that builds with `lake build` and has no `sorry`.
      R1, R2 and R3 on it.
    * **Theorem.** If two polygons in general position are Delta-equivalent, their diagrams are related
      by Reidemeister moves and planar isotopy. Prove it by subdividing every Delta-move into small
-     Delta-moves in general position (Lickorish, proof of Theorem 1.8).
+     Delta-moves in general position, then checking each small move case by case (the triangle's
+     projection meets at most one other edge, or one crossing). Lickorish only indicates this; a written
+     proof is in Burde and Zieschang, Ch. 1, and in Murasugi, *Knot Theory and Its Applications*, Ch. 4.
+   * A simpler route, to be preferred if it works: do not build diagrams at all. Define the colouring
+     count of a polygon directly from its projection in one fixed rational direction d (arcs between
+     undercrossings, one relation per crossing), prove it is unchanged by a Delta-move whose triangle is
+     in general position for d, and prove that every Delta-move between polygons in general position
+     factors into such moves. This avoids planar isotopy and PD codes.
    * Also needed: every polygon is Delta-equivalent to one in general position by an arbitrarily small
      move, and the diagram does not depend on that choice up to Reidemeister moves.
 4. **Colouring invariants.**
