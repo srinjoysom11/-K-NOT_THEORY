@@ -1,0 +1,2 @@
+N=36 alt=4 tasks=5881 part=3/8 nodes=724233519 closed=24772 candidates=5739 survivors=532 bfs_limit_hits=45 tour_giveups=174932717
+seconds=372.416182138 src=enum_g.cpp srcsha=43794eaad895c5af opts=-face -plane4 -aotp -crank -adapt 1 outsha=be6c1143e9d9e136 words=532 commit=2f17022a2f0c593cdeb548449ef6ab0f411a10bc
