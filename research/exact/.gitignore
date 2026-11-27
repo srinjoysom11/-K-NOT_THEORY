@@ -20,3 +20,4 @@ enum_s
 out/slab/local/
 out/arcslab/local/
 out/dmon/arc19/*.tmp
+out/bidir/n42_stair_bd.identify6.txt

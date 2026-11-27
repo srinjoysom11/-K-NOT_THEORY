@@ -519,3 +519,29 @@ the `flip` and `uturn` fields of `KnotClass`.
 prefixes: argued in E9 section 2 only); the plane-crossing rule `-stair` and `cdef`; the D5 arc gluing; the knot identifications at n = 40 and n = 42.
 The negative or minor items (D3, D4, E1, E3, E11) are not part of any run and were not formalized. The existing `lean/` proof still covers only the
 DMON-only search up to n = 34 and does not contain any of the devices above.
+
+## n = 42 with `enum_bidir` (unconfined, `-stair -tourcap 3 -aotc -aotm -alt 4`, 256 parts on GitHub Actions): complete, and the types
+
+Run 44961220166 (commit 166a063, source hash `enum_bidir.cpp=eaaf37d9a337a12b` in every part log) produced 189 parts; the other 67 (167, 185, 188, 192-255) never received a runner and were cancelled by GitHub after 24 hours in the queue (see `DMON_STATE.md`, 25 Nov). They were requested again with the same options and source (run 45719620864); the collect job merged all 256 parts: **193 200 survivors, 3.422e12 nodes, 2 444 057 runner-seconds (678.9 runner-hours)**, `out/bidir/n42_stair_bd.txt`, summary `n42_stair_bd.m256.ci_summary.txt`, part files in `out/bidir/ci/`.
+
+Identification: `identify6.py --chir`, four chunks in parallel. Every word was checked to be a closed self-avoiding polygon of 42 edges (193 200 of 193 200, the identified word set equals the survivor file), 0 INCONSISTENT, 0 errors. Tally (`n42_stair_bd.tally.txt`; per word `n42_stair_bd.identify6.txt.gz`):
+
+| type | words |
+|---|---|
+| 5_2 (+ / -) | 38 641 / 38 606 |
+| 0_1 | 31 721 |
+| 4_1 | 20 861 |
+| 5_1 (+ / -) | 14 398 / 14 384 |
+| 3_1 (- / +) | 7 890 / 7 879 |
+| 6_1 (+ / -) | 4 644 / 4 644 |
+| 3_1#-3_1 (square) | 2 664 |
+| 6_2 (+ / -) | 1 673 / 1 673 |
+| 3_1#3_1 (granny, + / -) | 1 098 / 1 098 |
+| 6_3 | 1 056 |
+| not in the 6-crossing table | 270 |
+
+The 270 words are the only ones whose diagram does not simplify to at most 6 crossings. All 270 simplify to 8 crossings, with Alexander polynomial 1 - t + t^3 - t^5 + t^6 and Jones-type polynomial f(A) = A^12 + A^20 - A^32 (135 words) or its mirror image A^-12 + A^-20 - A^-32 (135 words), the invariants of the torus knot T(3,4) = 8_19 (checked here with `identify6.ir.best_diagram` and `f_poly`; that 8_19 is the only knot with at most 8 crossings with these two polynomials is taken from the standard knot tables, not computed here). Words: `out/bidir/n42_stair_bd.8_19_candidates.txt`.
+
+**Consequence (conditional on the completeness of the n = 42 search: PROOF.md section 2b for `-stair`, and the D5 proposition for the polygons it cannot see, section D5 above; none of this is formalised in Lean).** The types of the shortest polygons of length 42 are among 0_1, 3_1, 4_1, 5_1, 5_2, 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1 and 8_19. Of these only 8_19 was not found at length <= 40, so the 270 words give Len(8_19) <= 42 (the polygons are explicit), and with the empty 8_19 column at n <= 40 this gives Len(8_19) = 42. Every other knot, in particular all 7-crossing knots and the 8-crossing knots other than 8_19, has Len >= 44. The upper bounds Len <= 44 for 7_1, 7_3, 7_4, 7_7 and 8_20 given by the parent session would then make these five equal to 44; those upper bounds are not checked here.
+
+**Cost for planning.** The n = 42 run took 678.9 runner-hours with the production options, against the estimate of 540. For n = 44 the growth of 6.5 to 6.8 per two edges gives about 4 400 runner-hours with these options.
