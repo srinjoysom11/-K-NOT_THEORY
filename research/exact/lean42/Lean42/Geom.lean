@@ -64,12 +64,12 @@ theorem mem_tri {a b c x : Pt} :
       have hv0 : v = 0 := by linarith
       subst hu0; subst hv0
       refine ⟨b, ?_, ?_⟩
-      · unfold seg at *; rw [convexHull_pair]; exact left_mem_segment ℚ b c
+      · exact left_mem_segment ℚ b c
       · rw [segment_eq_image']
         exact ⟨0, ⟨le_refl _, zero_le_one⟩, by simp⟩
     · have hpos : 0 < u + v := lt_of_le_of_ne (by linarith) (Ne.symm h)
       refine ⟨b + (v / (u + v)) • (c - b), ?_, ?_⟩
-      · rw [convexHull_pair, segment_eq_image']
+      · rw [segment_eq_image']
         exact ⟨v / (u + v), ⟨by positivity, by rw [div_le_one hpos]; linarith⟩, rfl⟩
       · rw [segment_eq_image']
         refine ⟨u + v, ⟨by linarith, huv⟩, ?_⟩
@@ -100,11 +100,15 @@ theorem tri_swap_bc (a b c : Pt) : tri a b c = tri a c b := by
   rw [mem_tri, mem_tri]
   constructor
   · rintro ⟨u, v, hu, hv, huv, rfl⟩
-    exact ⟨v, u, hv, hu, by linarith, by ext i; simp only [Pi.add_apply, Pi.smul_apply,
-      Pi.sub_apply, smul_eq_mul]; ring⟩
+    refine ⟨v, u, hv, hu, by linarith, ?_⟩
+    ext i
+    simp only [Pi.add_apply, Pi.smul_apply, Pi.sub_apply, smul_eq_mul]
+    ring
   · rintro ⟨u, v, hu, hv, huv, rfl⟩
-    exact ⟨v, u, hv, hu, by linarith, by ext i; simp only [Pi.add_apply, Pi.smul_apply,
-      Pi.sub_apply, smul_eq_mul]; ring⟩
+    refine ⟨v, u, hv, hu, by linarith, ?_⟩
+    ext i
+    simp only [Pi.add_apply, Pi.smul_apply, Pi.sub_apply, smul_eq_mul]
+    ring
 
 /-! ## Injective affine maps -/
 

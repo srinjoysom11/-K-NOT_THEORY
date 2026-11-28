@@ -81,19 +81,19 @@ theorem exists_between (ups los : List (ℚ × Bool))
   · by_cases hl : los = []
     · exact ⟨0, by simp [hu], by simp [hl]⟩
     · obtain ⟨l0, hl0, hmax⟩ := Finset.exists_max_image los.toFinset (fun l => l.1)
-        (List.toFinset_nonempty_iff.2 hl)
+        ((List.toFinset_nonempty_iff _).2 hl)
       refine ⟨l0.1 + 1, by simp [hu], fun l hlm => Or.inl ?_⟩
       have := hmax l (List.mem_toFinset.2 hlm)
       linarith
   · obtain ⟨u0, hu0, hmin⟩ := Finset.exists_min_image ups.toFinset (fun u => u.1)
-      (List.toFinset_nonempty_iff.2 hu)
+      ((List.toFinset_nonempty_iff _).2 hu)
     have hu0' := List.mem_toFinset.1 hu0
     by_cases hl : los = []
     · refine ⟨u0.1 - 1, fun u hum => Or.inl ?_, by simp [hl]⟩
       have := hmin u (List.mem_toFinset.2 hum)
       linarith
     · obtain ⟨l0, hl0, hmax⟩ := Finset.exists_max_image los.toFinset (fun l => l.1)
-        (List.toFinset_nonempty_iff.2 hl)
+        ((List.toFinset_nonempty_iff _).2 hl)
       have hl0' := List.mem_toFinset.1 hl0
       rcases h u0 hu0' l0 hl0' with hlt | ⟨heq, hl2, hu2⟩
       · refine ⟨(l0.1 + u0.1) / 2, fun u hum => Or.inl ?_, fun l hlm => Or.inl ?_⟩
@@ -105,7 +105,7 @@ theorem exists_between (ups los : List (ℚ × Bool))
           rcases lt_or_eq_of_le hm with hlt | heq'
           · exact Or.inl hlt
           · right
-            refine ⟨heq'.symm, ?_⟩
+            refine ⟨heq', ?_⟩
             rcases h u hum l0 hl0' with h1 | ⟨_, _, h3⟩
             · exfalso; linarith
             · exact h3
@@ -135,7 +135,6 @@ theorem fm_sound {k : ℕ} (cs : List (Con (k + 1))) (x : Fin (k + 1) → ℚ)
     have hv := Con.val_split c0 x
     rw [hz, zero_mul, zero_add] at hv
     rw [holds_iff] at h ⊢
-    simp only [Con.tail] at h ⊢
     rw [← hv]
     exact h
   · have hP := hx p hp
@@ -151,7 +150,7 @@ theorem fm_sound {k : ℕ} (cs : List (Con (k + 1))) (x : Fin (k + 1) → ℚ)
     have h1 : 0 < -n.coef 0 := by linarith
     simp only [Con.combine, Bool.or_eq_true]
     rcases hP with ⟨hs1, hv1⟩ | ⟨hs1, hv1⟩ <;> rcases hN with ⟨hs2, hv2⟩ | ⟨hs2, hv2⟩
-    · left; refine ⟨Or.inl hs1 |> fun h => by simp [hs1], ?_⟩; nlinarith
+    · left; refine ⟨by simp [hs1], ?_⟩; nlinarith
     · left; refine ⟨by simp [hs1], ?_⟩; nlinarith
     · left; refine ⟨by simp [hs2], ?_⟩; nlinarith
     · right; refine ⟨by simp [hs1, hs2], ?_⟩; nlinarith

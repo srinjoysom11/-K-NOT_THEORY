@@ -63,7 +63,6 @@ theorem chain_append_pair (l : List Pt) (a h : Pt) :
     | cons y l' =>
       simp only [List.cons_append, chain] at ih ⊢
       rw [ih]
-      simp
 
 theorem chain_map {φ : Pt → Pt} (l : List Pt) :
     chain (l.map φ) = (chain l).map (Prod.map φ φ) := by
@@ -75,6 +74,7 @@ theorem chain_map {φ : Pt → Pt} (l : List Pt) :
     | cons b l' =>
       simp only [List.map_cons, chain] at ih ⊢
       rw [ih]
+      rfl
 
 theorem edges_map (φ : Pt → Pt) (L : List Pt) :
     edges (L.map φ) = (edges L).map (Prod.map φ φ) := by
@@ -141,7 +141,6 @@ theorem edges_eq_zip (L : List Pt) : edges L = L.zip (L.rotate 1) := by
           rw [← ih c a]
           rfl
       rw [key b R a]
-      rfl
 
 theorem edges_perm_rotate (L : List Pt) : (edges (L.rotate 1)).Perm (edges L) := by
   cases L with
@@ -159,7 +158,7 @@ theorem edges_perm_rotate (L : List Pt) : (edges (L.rotate 1)).Perm (edges L) :=
       rw [this]
       have h2 : chain (h :: t ++ [a]) = chain (h :: (t ++ [a])) := by simp
       rw [h2]
-      exact (List.perm_append_singleton _ _).symm
+      exact (List.perm_append_singleton _ _)
 
 theorem mem_edges_rotate {L : List Pt} {e : Pt × Pt} : e ∈ edges (L.rotate 1) ↔ e ∈ edges L :=
   (edges_perm_rotate L).mem_iff
@@ -169,7 +168,7 @@ theorem mem_edges_rotate_iter {L : List Pt} {e : Pt × Pt} (k : ℕ) :
   induction k generalizing L with
   | zero => simp
   | succ k ih =>
-    rw [← List.rotate_rotate, ih, mem_edges_rotate] 
+    rw [← List.rotate_rotate, mem_edges_rotate, ih]
 
 theorem edges_fst (L : List Pt) : (edges L).map Prod.fst = L := by
   rw [edges_eq_zip]
