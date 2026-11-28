@@ -57,12 +57,15 @@ theorem isAffInj_symMat {f : ℕ → ℕ} (hf : IsSym f) : IsAffInj (symMat f) :
     have hxy' : symMat f x = symMat f y := hxy
     ext i
     fin_cases i
-    · have a := (key x).1; have b := (key y).1; simp only [hxy'] at a; simpa [a] using b.symm ▸ a
-    · have a := (key x).2.1; have b := (key y).2.1; simp only [hxy'] at a; simpa [a] using b.symm ▸ a
-    · have a := (key x).2.2; have b := (key y).2.2; simp only [hxy'] at a; simpa [a] using b.symm ▸ a
+    · show x 0 = y 0
+      rw [(key x).1, (key y).1, hxy']
+    · show x 1 = y 1
+      rw [(key x).2.1, (key y).2.1, hxy']
+    · show x 2 = y 2
+      rw [(key x).2.2, (key y).2.2, hxy']
   · intro x; simp
 
-theorem IsSym.comp {f g : ℕ → ℕ} (hf : IsSym f) (hg : IsSym g) : IsSym (g ∘ f) := by
+theorem Spec.IsSym.comp {f g : ℕ → ℕ} (hf : IsSym f) (hg : IsSym g) : IsSym (g ∘ f) := by
   refine ⟨fun d hd => hg.1 _ (hf.1 d hd), fun a b ha hb h => hf.2.1 a b ha hb
     (hg.2.1 _ _ (hf.1 a ha) (hf.1 b hb) h), fun d hd => ?_⟩
   simp only [Function.comp]
@@ -129,7 +132,6 @@ theorem wpoly_rotate1 (d : ℕ) (ds : List ℕ) (hc : usum (d :: ds) = 0) :
     have : (0 : Pt) = upt d + -upt d := by simp
     simp only [ptwalk_cons, ptwalk_nil, zero_add]
     rw [this, ptwalk_translate]
-    simp
   have h3 : wpoly (d :: ds) = 0 :: ptwalk (upt d) ds := by simp [wpoly]
   simp only [rotate1]
   rw [h2, h3]
@@ -219,13 +221,18 @@ theorem wpoly_rev {w : List ℕ} (hw : ∀ d ∈ w, d < 6) (hc : usum w = 0) (d 
   have h2 : pfull 0 w = wpoly w ++ [0] := by simp [pfull, wpoly, hc]
   have h3 : wpoly w = 0 :: ptwalk (upt d) ds := by simp [wpoly, hdd]
   rw [h1, h2, h3, hdd]
-  simp only [List.reverse_append, List.reverse_cons, List.reverse_singleton, List.singleton_append,
-    List.cons_append, List.length_cons, Nat.add_sub_cancel]
-  rw [List.dropLast_cons_of_ne_nil (by simp)]
-  rw [List.dropLast_concat]
-  have : (ptwalk (upt d) ds).reverse.length = ds.length := by simp [ptwalk_length]
-  rw [← this, List.rotate_append_length_eq]
-  simp
+  have e1 : ((0 :: ptwalk (upt d) ds ++ [0]).reverse).dropLast = 0 :: (ptwalk (upt d) ds).reverse := by
+    simp only [List.reverse_append, List.reverse_cons, List.reverse_nil, List.nil_append,
+      List.singleton_append, List.cons_append]
+    rw [List.dropLast_cons_of_ne_nil (by simp), List.dropLast_concat]
+  have e2 : ((0 :: ptwalk (upt d) ds).reverse).rotate ((d :: ds).length - 1) =
+      0 :: (ptwalk (upt d) ds).reverse := by
+    have : ((0 :: ptwalk (upt d) ds).reverse) = (ptwalk (upt d) ds).reverse ++ [0] := by simp
+    rw [this]
+    have hl : (ptwalk (upt d) ds).reverse.length = (d :: ds).length - 1 := by
+      simp [ptwalk_length]
+    rw [← hl, List.rotate_append_length_eq]; simp
+  rw [e1, e2]
 
 theorem isPolygon_rev {w : List ℕ} (h : IsPolygon w) : IsPolygon (revWord w) := by
   have hw := h

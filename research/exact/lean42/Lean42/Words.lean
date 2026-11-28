@@ -46,7 +46,8 @@ theorem toPt_inj : Function.Injective toPt := by
   have h2 := congrFun h 2
   simp [toPt] at h0 h1 h2
   cases a; cases b
-  simp [h0, h1, h2]
+  simp only [V3.mk.injEq]
+  exact ⟨h0, h1, h2⟩
 
 theorem isLat_toPt (v : V3) : IsLat (toPt v) := by
   intro j; fin_cases j
@@ -156,7 +157,7 @@ theorem vtx_aux (v : V3) (w : List ℕ) (j : ℕ) (hj : j ≤ w.length) :
     | zero => simp [vertsFrom]
     | succ j =>
       simp only [vertsFrom, List.getD_cons_succ, List.take_succ_cons, usum_cons]
-      rw [ih _ _ (by simpa using hj), toPt_add, add_assoc]
+      rw [ih _ _ (by simpa using hj), toPt_add, add_assoc]; rfl
 
 theorem toPt_vtx (w : List ℕ) (j : ℕ) (hj : j ≤ w.length) :
     toPt (vtx w j) = usum (w.take j) := by
@@ -234,7 +235,7 @@ theorem simple_wpoly {w : List ℕ} (h : IsPolygon w) : Simple (wpoly w) :=
 /-- the linear map of Q^3 that sends e_x, e_y, e_z to the unit vectors of directions f 0, f 2, f 4 -/
 def symMat (f : ℕ → ℕ) (x : Pt) : Pt := x 0 • upt (f 0) + x 1 • upt (f 2) + x 2 • upt (f 4)
 
-theorem IsSym.rev_eq {f : ℕ → ℕ} (hf : IsSym f) {d : ℕ} (hd : d < 6) : f (rev d) = rev (f d) :=
+theorem Spec.IsSym.rev_eq {f : ℕ → ℕ} (hf : IsSym f) {d : ℕ} (hd : d < 6) : f (rev d) = rev (f d) :=
   hf.2.2 d hd
 
 theorem symMat_upt {f : ℕ → ℕ} (hf : IsSym f) {d : ℕ} (hd : d < 6) :
@@ -252,6 +253,23 @@ theorem symMat_upt {f : ℕ → ℕ} (hf : IsSym f) {d : ℕ} (hd : d < 6) :
   have r4 : upt (f 5) = - upt (f 4) := by
     have : f 5 = rev (f 4) := by simpa [rev] using h5
     rw [this, upt_rev (hf.1 4 (by norm_num))]
-  interval_cases d <;> simp [symMat, upt, toPt, unit] <;> first | rfl | (simp [r0, r2, r4]) | skip
+  have m0 : symMat f (e3 0) = upt (f 0) := by simp [symMat, e3_apply]
+  have m1 : symMat f (e3 1) = upt (f 2) := by simp [symMat, e3_apply]
+  have m2 : symMat f (e3 2) = upt (f 4) := by simp [symMat, e3_apply]
+  have mneg : ∀ x : Pt, symMat f (-x) = - symMat f x := by
+    intro x; simp [symMat, neg_smul]; abel
+  have u0 : upt 0 = e3 0 := by ext i; fin_cases i <;> simp [upt, toPt, unit, e3_apply]
+  have u1 : upt 1 = -e3 0 := by ext i; fin_cases i <;> simp [upt, toPt, unit, e3_apply]
+  have u2 : upt 2 = e3 1 := by ext i; fin_cases i <;> simp [upt, toPt, unit, e3_apply]
+  have u3 : upt 3 = -e3 1 := by ext i; fin_cases i <;> simp [upt, toPt, unit, e3_apply]
+  have u4 : upt 4 = e3 2 := by ext i; fin_cases i <;> simp [upt, toPt, unit, e3_apply]
+  have u5 : upt 5 = -e3 2 := by ext i; fin_cases i <;> simp [upt, toPt, unit, e3_apply]
+  interval_cases d
+  · rw [u0, m0]
+  · rw [u1, mneg, m0, r0]
+  · rw [u2, m1]
+  · rw [u3, mneg, m1, r2]
+  · rw [u4, m2]
+  · rw [u5, mneg, m2, r4]
 
 end Lean42

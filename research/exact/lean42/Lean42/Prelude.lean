@@ -12,3 +12,4 @@ import Mathlib.Logic.Relation
 import Mathlib.Data.Rat.Cast.Order
 import Mathlib.Algebra.Order.Field.Rat
 import Mathlib.Data.Fin.VecNotation
+import Mathlib.Tactic.IntervalCases

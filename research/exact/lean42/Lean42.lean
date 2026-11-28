@@ -7,3 +7,6 @@ import Lean42.Lat
 import Lean42.Spec
 import Lean42.Square
 import Lean42.Moves
+import Lean42.Words
+import Lean42.Ops
+import Lean42.Flip

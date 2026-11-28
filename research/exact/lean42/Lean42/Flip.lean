@@ -52,7 +52,7 @@ theorem uturn_cyc {F : Frame} (hF : F.Ok) {X Y : List Pt} (R : List Pt)
     intro h
     have := congrArg List.length hrot.1
     rw [List.length_rotate, h] at this
-    simp at this; omega
+    simp at this h6; omega
   have h := uturn_equiv hF hR hP'
   refine (Equiv.rotate _ X.length).trans ?_
   rw [hrot.1]
@@ -127,11 +127,11 @@ theorem flip_wpoly (pre post : List ℕ) (a b : ℕ) (hw : IsPolygon (pre ++ a :
     · have := hc
       simp only [usum_append, usum_cons] at this ⊢
       rw [← this]; abel
-  · rw [e1, e2]
+  · rw [e1]
     have hY : (∃ Y'', ptwalk (usum pre + upt a + upt b) post = F.C :: Y'') ∨
         (ptwalk (usum pre + upt a + upt b) post = [] ∧ ∃ X', ptwalk 0 pre = F.C :: X') := by
       cases post with
-      | cons d post' => left; exact ⟨_, by simp [hFC]⟩
+      | cons d post' => left; exact ⟨ptwalk (usum pre + upt a + upt b + upt d) post', by simp [hFC]⟩
       | nil =>
         right
         refine ⟨by simp, ?_⟩
@@ -187,7 +187,7 @@ theorem uturn_wpoly (pre post : List ℕ) (a b : ℕ) (hw : IsPolygon (pre ++ a 
     have hY : (∃ Y'', ptwalk (usum pre + upt b) post = F.D :: Y'') ∨
         (ptwalk (usum pre + upt b) post = [] ∧ ∃ X', ptwalk 0 pre = F.D :: X') := by
       cases post with
-      | cons d post' => left; exact ⟨_, by simp [hFD]⟩
+      | cons d post' => left; exact ⟨ptwalk (usum pre + upt b + upt d) post', by simp [hFD]⟩
       | nil =>
         right
         refine ⟨by simp, ?_⟩
@@ -201,8 +201,11 @@ theorem uturn_wpoly (pre post : List ℕ) (a b : ℕ) (hw : IsPolygon (pre ++ a 
         | cons d pre' => exact ⟨ptwalk (0 + upt d) pre', by simp [hD0]⟩
     obtain ⟨R, hR⟩ := uturn_rot_data (ptwalk 0 pre) (ptwalk (usum pre + upt b) post)
       F.A F.B F.C F.D hY
+    have h6' : 6 ≤ (ptwalk 0 pre ++ usum pre :: (usum pre + upt a) :: (usum pre + upt a + upt b) ::
+        ptwalk (usum pre + upt b) post).length := by
+      rw [← e1]; unfold wpoly; rw [ptwalk_length]; exact h6
     have key := uturn_cyc hF R hR (by rw [hFA, hFB, hFC]; exact hlat)
-      (by rw [hFA, hFB, hFC]; sorry)
+      (by rw [hFA, hFB, hFC]; exact h6')
     rw [hFA, hFB, hFC] at key
     exact key
 
