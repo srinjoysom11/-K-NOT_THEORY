@@ -1,0 +1,5 @@
+extra directions: 120
+example (9 dirs non-injective) L=15: ueeeeeeeenuwssedd
+cert_fail=0 cert_states=2688403 cert_maxdepth=4
+L=15 arcs=17986112 nongeodesic=17969728 nonInj_axis=4606170 nonInj_9=1848944 nonInj_9+ext=128931
+t=200.147351718

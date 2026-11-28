@@ -1,0 +1,19 @@
+extra directions: 120
+example (9 dirs non-injective) L=16: ueeeeeeeeenuwssedd
+NO CERTIFICATE L=16: ueeeeuuenndwswssdd
+NO CERTIFICATE L=16: ueennuuunwddsseedd
+NO CERTIFICATE L=16: ueneeunuessdwwnndd
+NO CERTIFICATE L=16: ueneeuunnedswwssdd
+NO CERTIFICATE L=16: ueneeuuuesddwwnndd
+NO CERTIFICATE L=16: uennnuueendwsswwdd
+NO CERTIFICATE L=16: uennnuuenedswswwdd
+NO CERTIFICATE L=16: uennnuuunwddsseedd
+NO CERTIFICATE L=16: uueenenuwwsddssssd
+NO CERTIFICATE L=16: uueenenuwswddssswd
+NO CERTIFICATE L=16: uueenneuswwddsswsd
+NO CERTIFICATE L=16: uueenneuswwddssswd
+NO CERTIFICATE L=16: uueennuwwsdedssswd
+NO CERTIFICATE L=16: uueennuuwsdddssesd
+cert_fail=14 cert_states=30242168 cert_maxdepth=5
+L=16 arcs=69028657 nongeodesic=68995889 nonInj_axis=19674371 nonInj_9=8665794 nonInj_9+ext=738367
+t=2267.412700756
