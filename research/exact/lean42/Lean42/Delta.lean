@@ -116,9 +116,8 @@ theorem Simple.map {φ : Pt → Pt} (hφ : IsAffInj φ) {L : List Pt} (h : Simpl
   rw [← hφ.seg_image] at hx hx'
   obtain ⟨y, hy, rfl⟩ := hx
   obtain ⟨y', hy', hyy⟩ := hx'
-  have := hφ.injective hyy
-  subst this
-  have h1 := hok y hy hy'
+  have hy'' : y' = y := hφ.injective hyy
+  have h1 := hok y hy (hy'' ▸ hy')
   simp only [hφ.injective.eq_iff]
   exact h1
 
@@ -126,16 +125,15 @@ theorem DeltaMove.map {φ : Pt → Pt} (hφ : IsAffInj φ) {P Q : List Pt} (h : 
     DeltaMove (P.map φ) (Q.map φ) := by
   obtain ⟨a, b, c, R, rfl, rfl, hP, hQ, hT⟩ := h
   refine ⟨φ a, φ b, φ c, R.map φ, by simp, by simp, hP.map hφ, hQ.map hφ, ?_⟩
-  have h1 : (a :: b :: R).map φ = φ a :: φ b :: R.map φ := by simp
-  rw [← h1, pset_map hφ, ← hφ.tri_image, ← hφ.seg_image, ← Set.image_inter hφ.injective, hT]
+  rw [pset_map hφ, ← hφ.tri_image, ← hφ.seg_image, ← Set.image_inter hφ.injective, hT]
 
 theorem Step.map {φ : Pt → Pt} (hφ : IsAffInj φ) {P Q : List Pt} (h : Step P Q) :
     Step (P.map φ) (Q.map φ) := by
   cases h with
   | delta h => exact Step.delta (h.map hφ)
-  | rot P => rw [← List.map_rotate]; exact Step.rot _
-  | rev P => rw [← List.map_reverse]; exact Step.rev _
-  | trans P t =>
+  | rot => rw [List.map_rotate]; exact Step.rot _
+  | rev => rw [List.map_reverse]; exact Step.rev _
+  | trans t =>
     obtain ⟨M, t0, hM, hφ'⟩ := hφ
     have : (P.map (· + t)).map φ = (P.map φ).map (· + M t) := by
       simp only [List.map_map]
