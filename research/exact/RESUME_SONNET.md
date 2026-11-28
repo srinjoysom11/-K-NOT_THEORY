@@ -35,8 +35,8 @@ Flags of the planned runs (common options are added by the workflow):
 ## Runs in flight or planned (update this list)
 | label | what | parts | status |
 |---|---|---|---|
-| U2_n42 | U2, n = 42, `-walk 8 23` | 128 | submitted 28 Nov (pushed as commit ed105e0); about 7 runner-hours expected; the parent saw Actions run 46141037085 queued at 11:41 UTC |
-| U2_n44 | U2, n = 44 | 256 | NOT submitted: submit after U2_n42 matches F (see below) and after the user's decision is confirmed |
+| U2_n42 | U2, n = 42, `-walk 8 23` | 128 | DONE (run 46141037085): 1.336e10 nodes, 24 767 runner-s, 59 072 words, union sha ecb2500910219fb8 = F's (0 difference), none outside production; gate for n = 44 passed |
+| U2_n44 | U2, n = 44 | 256 | NOT submitted: waits for the user's own confirmation (the gate U2_n42 = F is passed); estimate 40 to 55 runner-hours; the n = 42 parts took at most 400 s, so 256 parts are plenty |
 | U2_n46 | U2, n = 46 | 1024, as 4 requests of 256 parts (`parts` lists) | planned: choose the part count from the largest n = 44 part; submit in waves so that no job waits 24 hours |
 
 ## How to check a finished run
