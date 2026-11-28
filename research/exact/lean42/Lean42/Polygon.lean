@@ -20,6 +20,14 @@
   The conditions are stated with the quantifier "for all edges e, e'" over lists, and the
   geometric part (`PairOK`) is an existence statement of linear-programming type, so it is
   decidable; the program is in `Lean42.Decide`.
+  Rational versus real.  Everything here is over ℚ.  The notions agree with the real ones: a nonempty
+  intersection of rational segments and triangles (a polytope cut out of ℚ^k by finitely many
+  rational linear equalities and inequalities in the parameters) contains a rational point, because
+  its vertices are rational (they solve square rational linear systems); likewise "x is not an
+  endpoint" is witnessed by a rational parameter in an open interval.  So a rational polygon is
+  simple over ℚ iff it is simple over ℝ, and a rational triangle is free of a rational polygon over
+  ℚ iff it is free over ℝ.  (The decision procedure of `Lean42.FM` is the formal version of this
+  statement: it finds rational parameters by Fourier-Motzkin elimination, which is exact over ℚ.)
 -/
 import Lean42.Geom
 
