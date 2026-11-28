@@ -10,3 +10,4 @@ import Lean42.Moves
 import Lean42.Words
 import Lean42.Ops
 import Lean42.Flip
+import Lean42.Knot
