@@ -119,15 +119,18 @@ def okAdj (e e' : Pt × Pt) : Bool :=
   let (d, d', den, _) := pdata e e'
   decide (den ≠ 0 ∨ 0 < d.1 * d'.1 + d.2 * d'.2)
 
-/-- the polygon is in general position for the projection (B-Z Def. 1.11) -/
-def genericB (L : List Pt) : Bool :=
+/-- every pair of edges is generic -/
+def pairsOk (L : List Pt) : Bool :=
   let es := edges L
   let n := es.length
-  ((List.range n).all fun i => (List.range n).all fun j =>
+  (List.range n).all fun i => (List.range n).all fun j =>
     if i < j then
       (if adjacentIdx n i j then okAdj es[i]! es[j]! else okNonAdj es[i]! es[j]!)
-    else true) &&
-  decide (((evs L).map fun e => (e.edge, e.par)).Nodup)
+    else true
+
+/-- the polygon is in general position for the projection (B-Z Def. 1.11) -/
+def genericB (L : List Pt) : Bool :=
+  pairsOk L && decide (((evs L).map fun e => (e.edge, e.par)).Nodup)
 
 /-! ## Quandle colourings -/
 
@@ -206,5 +209,119 @@ def letterCode : Char → ℕ
   | 'e' => 0 | 'w' => 1 | 'n' => 2 | 's' => 3 | 'u' => 4 | _ => 5
 
 def strWord (s : String) : List ℕ := s.toList.map letterCode
+
+
+/-! ## Invariance under translation: the diagram is the same up to the translation of the plane -/
+
+theorem pdata_translate (t : Pt) (e e' : Pt × Pt) :
+    pdata (Prod.map (· + t) (· + t) e) (Prod.map (· + t) (· + t) e') = pdata e e' := by
+  simp only [pdata, proj, Prod.map, Pi.add_apply, Prod.mk.injEq]
+  refine ⟨⟨?_, ?_⟩, ⟨?_, ?_⟩, ?_, ?_, ?_⟩ <;> ring
+
+theorem params_translate (t : Pt) (e e' : Pt × Pt) :
+    params (Prod.map (· + t) (· + t) e) (Prod.map (· + t) (· + t) e') = params e e' := by
+  unfold params
+  rw [pdata_translate]
+
+theorem pairEvents_translate (t : Pt) (i j : ℕ) (e e' : Pt × Pt) :
+    pairEvents i j (Prod.map (· + t) (· + t) e) (Prod.map (· + t) (· + t) e') =
+      pairEvents i j e e' := by
+  unfold pairEvents
+  rw [pdata_translate, params_translate]
+  simp only [Prod.map, Pi.add_apply]
+  have h1 : ∀ s : ℚ, (e.1 2 + t 2) + s * ((e.2 2 + t 2) - (e.1 2 + t 2)) =
+      (e.1 2 + s * (e.2 2 - e.1 2)) + t 2 := fun s => by ring
+  have h2 : ∀ s : ℚ, (e'.1 2 + t 2) + s * ((e'.2 2 + t 2) - (e'.1 2 + t 2)) =
+      (e'.1 2 + s * (e'.2 2 - e'.1 2)) + t 2 := fun s => by ring
+  simp only [h1, h2, add_lt_add_iff_right]
+
+theorem getElem!_map' {α β : Type} [Inhabited α] [Inhabited β] (f : α → β) (l : List α) (i : ℕ)
+    (hi : i < l.length) : (l.map f)[i]! = f l[i]! := by
+  simp [List.getElem!_eq_getElem?_getD, List.getElem?_map, List.getElem?_eq_getElem hi]
+
+theorem allEvents_translate (t : Pt) (L : List Pt) :
+    allEvents (L.map (· + t)) = allEvents L := by
+  unfold allEvents
+  simp only [edges_map, List.length_map]
+  apply List.flatMap_congr
+  intro i hi
+  apply List.flatMap_congr
+  intro j hj
+  have hi' := List.mem_range.1 hi
+  have hj' := List.mem_range.1 hj
+  by_cases h : i < j ∧ adjacentIdx (edges L).length i j = false
+  · simp only [h, and_self, if_true]
+    rw [getElem!_map' _ _ _ hi', getElem!_map' _ _ _ hj']
+    exact pairEvents_translate t i j _ _
+  · simp only [h, if_false]
+
+theorem evs_translate (t : Pt) (L : List Pt) : evs (L.map (· + t)) = evs L := by
+  unfold evs; rw [allEvents_translate]
+
+theorem okAdj_translate (t : Pt) (e e' : Pt × Pt) :
+    okAdj (Prod.map (· + t) (· + t) e) (Prod.map (· + t) (· + t) e') = okAdj e e' := by
+  unfold okAdj; rw [pdata_translate]
+
+theorem okNonAdj_translate (t : Pt) (e e' : Pt × Pt) :
+    okNonAdj (Prod.map (· + t) (· + t) e) (Prod.map (· + t) (· + t) e') = okNonAdj e e' := by
+  unfold okNonAdj; rw [pdata_translate, params_translate]
+
+theorem pairsOk_translate (t : Pt) (L : List Pt) : pairsOk (L.map (· + t)) = pairsOk L := by
+  unfold pairsOk
+  simp only [edges_map, List.length_map]
+  rw [Bool.eq_iff_iff]
+  simp only [List.all_eq_true, List.mem_range]
+  have key : ∀ i < (edges L).length, ∀ j < (edges L).length,
+      (if i < j then
+        (if adjacentIdx (edges L).length i j then
+          okAdj ((edges L).map (Prod.map (· + t) (· + t)))[i]! ((edges L).map (Prod.map (· + t) (· + t)))[j]!
+        else okNonAdj ((edges L).map (Prod.map (· + t) (· + t)))[i]! ((edges L).map (Prod.map (· + t) (· + t)))[j]!)
+      else true) =
+      (if i < j then
+        (if adjacentIdx (edges L).length i j then okAdj (edges L)[i]! (edges L)[j]!
+        else okNonAdj (edges L)[i]! (edges L)[j]!)
+      else true) := by
+    intro i hi j hj
+    by_cases h : i < j
+    · simp only [h, if_true]
+      rw [getElem!_map' _ _ _ hi, getElem!_map' _ _ _ hj]
+      split_ifs
+      · exact okAdj_translate t _ _
+      · exact okNonAdj_translate t _ _
+    · simp only [h, if_false]
+  constructor
+  · intro H i hi j hj; rw [← key i hi j hj]; exact H i hi j hj
+  · intro H i hi j hj; rw [key i hi j hj]; exact H i hi j hj
+
+/-- genericity is unchanged by translation -/
+theorem genericB_translate (t : Pt) (L : List Pt) : genericB (L.map (· + t)) = genericB L := by
+  unfold genericB
+  rw [evs_translate, pairsOk_translate]
+
+/-- the number of colourings is unchanged by translating the polygon -/
+theorem col_translate (Q : Type) [Quandle Q] [Fintype Q] [DecidableEq Q] (t : Pt) (L : List Pt) :
+    col Q (L.map (· + t)) = col Q L := by
+  unfold col; rw [evs_translate]
+
+/-! ## The invariant: the pair of colouring counts of the two orientations -/
+
+/-- `inv Q L`: the multiset `{col Q L, col Q L.reverse}`; it does not depend on the orientation
+    of the polygon, so reversal invariance is automatic. -/
+def inv (Q : Type) [Quandle Q] [Fintype Q] [DecidableEq Q] (L : List Pt) : Multiset ℕ :=
+  col Q L ::ₘ {col Q L.reverse}
+
+/-- reversal does not change the invariant -/
+theorem inv_reverse (Q : Type) [Quandle Q] [Fintype Q] [DecidableEq Q] (L : List Pt) :
+    inv Q L.reverse = inv Q L := by
+  unfold inv
+  rw [List.reverse_reverse]
+  have := Multiset.cons_swap (col Q L) (col Q L.reverse) 0
+  simpa using this.symm
+
+/-- translation does not change the invariant -/
+theorem inv_translate (Q : Type) [Quandle Q] [Fintype Q] [DecidableEq Q] (t : Pt) (L : List Pt) :
+    inv Q (L.map (· + t)) = inv Q L := by
+  unfold inv
+  rw [← List.map_reverse, col_translate, col_translate]
 
 end Lean42

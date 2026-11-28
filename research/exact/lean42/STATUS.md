@@ -29,6 +29,8 @@ No `sorry`, no `native_decide`, no new axioms: `#print axioms knotClass` gives
 | `Flip.lean` | corner flip and U-turn removal on words (`flip_wpoly`, `uturn_wpoly`). |
 | `Knot.lean` | `KnotType P` and **`knotClass : KnotClass (KnotType P)`** for an arbitrary polygon `P` (all six fields); `knotType_of_equiv`, `knotType_of_equiv_mirror`: the class contains `P` and its mirror image. |
 | `Decide.lean` | `simpleB`/`simple_iff`: `Simple` is decidable; `deltaB`/`deltaMove_iff`: the Delta-move at the first edge is decided by a program (Fourier-Motzkin). Checked by `#eval` on small examples (unit square: simple; self-crossing pentagon: not; Delta over a free triangle: true, over a triangle crossing an edge: false, apex on the edge (bisection): true, apex on the line outside the edge: false). |
+| `Diagram.lean` | Phase 3/4 step A and B: fixed rational projection, genericity (B-Z 1.11, decidable `genericB`), crossing events, colourings by a Mathlib `Quandle` (`col`), Alexander quandles `AlexQ`, `inv Q L = {col L, col L.reverse}`; proved: `inv_reverse`, `inv_translate`, `genericB_translate`. |
+| `DiagramCheck.lean` | `#guard` checks of `col` against an independent Python computation (3_1, 4_1). |
 | `Check.lean` | `#print axioms` of all main theorems: `[propext, Classical.choice, Quot.sound]`. |
 
 ## Decisions
@@ -111,3 +113,11 @@ Remarks: linear Alexander quandles over a prime field do not separate 3_1 from 8
 Cost for Phase 7: the count of colourings by A(n,t) is the size of the kernel of a matrix over Z/n;
 brute force n^arcs is impossible, so Phase 7 needs a verified Smith-normal-form count (or a
 certificate: a basis of the solution module plus a proof that it is complete).
+
+## Phase 3/4 progress (this run)
+* A done: `Diagram.lean`. B partly: reversal and translation invariance proved; rotation of the vertex
+  list not proved (about 300 lines, see PHASE3_PLAN.md C0).
+* C not started: full case analysis and estimates in `PHASE3_PLAN.md` (5000-7000 lines of Lean;
+  the long parts are C2c, the local geometry of an elementary Delta-move, and C3, perturbation).
+  Decision needed from the coordinator before continuing (see report).
+* D done: quandle choice and tables above.
