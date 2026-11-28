@@ -1,12 +1,29 @@
-# J_next: enum_u.cpp (from dmon2/enum_v.cpp), working notes
+# J_next: enum_u, working notes
 
-Final source: enum_u_final.cpp (= enum_u.cpp). Base flags F: F.sh (walk 8 N/2). Best: F + `-gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 N/2+2`.
-Reference words (from enum_v, F): N=24 21 words sha256 12be80af..., 26: 26 / 3e80935c..., 28: 12 / 2f08cf5e...,
-30: 52 / 2afd0fae..., 32: 248 / 1673400e..., 34 (F = best): 467 / c78546f6.... All variants byte-identical.
+## Fixed source
+`enum_u_fixed.cpp` (binary `enum_u_fixed`). It is round 2 (`enum_u_final2.cpp`) plus two fixes:
 
-Final timings (user s, idle machine, results2.txt, Z_* rows): N=28 F 3.06-3.22 / best 1.00-1.07; N=30 F 18.6-18.9 /
-best 4.96-5.41; N=32 F 83.6-85.0 / best 20.7-21.5; N=34 (loaded machine, older binary) F 301 / best 79.
-Nodes F -> best: 1.10M -> 0.395M, 5.26M -> 1.84M, 18.9M -> 6.90M, 70.6M -> 26.2M.
+1. **Stale dead first letters (the bug that lost words).** `w3_dfsc` / `w3_dfsf` now set `w_dead1 = 0` when they enter the root. Before, if the root returned at once (a one-step walk Hd -> Tl, possible when no obligation is pending), it kept the dead-letter mask of the previous GW3 call. `-w3inc` then pruned the head child that had those letters.
+2. **Heuristic cache at the epoch wrap.** `ghH` is now cleared when the 24-bit epoch wraps. This bug never showed up: it needs more than 16.7M GW3 calls in one Search object.
 
-Nothing running. Next step: per-state cost of w3_dfsc (now ~46% of time), GW3 prep (16%), setup (14%).
-Copied into the repository by the coordinator (dmon2/enum_u.cpp, dmon2/wip_J/).
+`enum_diag.cpp`: the same source with `-target WORD` (follow one word and print the test that kills it, plus the TRUEWALK check of the true middle walk inside GW3) and `-targetpre` (follow the word only down to the split depth, then search that task in full). `enum_bug` is the old source with the same options.
+
+## Flags
+- U1 (round 1) = F + `-gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 N/2+2`
+- U2 (round 2) = F + `-gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 4 -w3inc 2 -walk 8 N/2+2`
+
+## Verification after the fix (`results2.txt`, rows `X_fix_*`, `W_*`)
+- N = 24, 26, 28, 30, 32, 34: U1 and U2 are byte-identical to the F reference files `ref_N.txt`.
+- N = 36: U2 gives 2312 words, sha256 b33f059d1597efb9 (the sha the coordinator gave for F). It recovers the 2 words that the old U lost (`verifyU/u36.txt`).
+- The three N = 40 words: found again, both along their own construction (`-target`) and in a full search of their tasks (`-targetpre`). Before the fix, that full search of the two tasks lost 2 of them.
+
+## Timings (user seconds)
+
+| N | F | U2 | U1 | U2 nodes |
+|---|---|---|---|---|
+| 30 | 15.8 | 3.55 | 3.97 | 1,836,461 |
+| 32 | 69.1 | 14.9 | 16.2 | 6,902,227 |
+| 34 | 378 (F, earlier) | 62.2 | 68.5 | 26,209,303 |
+| 36 | — | 340 | — | 122,717,449 |
+
+Nothing of mine is running now.
