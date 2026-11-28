@@ -1,0 +1,19 @@
+walk calls=26726276 with_ray=3548256 dead=16547389 sitefull=0 sitefull_by_ray=0 limit=3 limit_with_ray=0 skip=0 states=926092203
+w3 R1=8 calls=362373 dead=143469 (0.396) states/call=4.0 limit=0 states/dead=5.0 states/alive=3.3
+w3 R1=9 calls=439522 dead=180945 (0.412) states/call=4.5 limit=0 states/dead=5.6 states/alive=3.8
+w3 R1=10 calls=532881 dead=229869 (0.431) states/call=5.2 limit=0 states/dead=6.5 states/alive=4.3
+w3 R1=11 calls=663802 dead=304950 (0.459) states/call=5.8 limit=0 states/dead=7.2 states/alive=4.7
+w3 R1=12 calls=850858 dead=416589 (0.490) states/call=6.7 limit=0 states/dead=8.2 states/alive=5.2
+w3 R1=13 calls=1132740 dead=591807 (0.522) states/call=7.8 limit=0 states/dead=9.4 states/alive=6.1
+w3 R1=14 calls=1500310 dead=822740 (0.548) states/call=9.7 limit=0 states/dead=11.5 states/alive=7.5
+w3 R1=15 calls=1945638 dead=1098999 (0.565) states/call=12.4 limit=0 states/dead=14.8 states/alive=9.4
+w3 R1=16 calls=2362321 dead=1358709 (0.575) states/call=16.8 limit=0 states/dead=20.0 states/alive=12.5
+w3 R1=17 calls=2642208 dead=1518964 (0.575) states/call=22.7 limit=0 states/dead=27.2 states/alive=16.7
+w3 R1=18 calls=2667666 dead=1513695 (0.567) states/call=32.5 limit=0 states/dead=39.3 states/alive=23.6
+w3 R1=19 calls=2443705 dead=1357701 (0.556) states/call=46.2 limit=0 states/dead=56.4 states/alive=33.4
+w3 R1=20 calls=1991182 dead=1057430 (0.531) states/call=68.1 limit=0 states/dead=85.7 states/alive=48.2
+w3 R1=21 calls=1428267 dead=700480 (0.490) states/call=98.9 limit=0 states/dead=130.1 states/alive=68.9
+w3 R1=22 calls=2669884 dead=2158123 (0.808) states/call=107.3 limit=3 states/dead=100.1 states/alive=137.7
+w3inc witness_reused=5206775 deadfirst_pruned=3851228
+fulltests=34814223 N=40 alt=4 tasks=5949 part=24/64 nodes=45827193 closed=40382 candidates=7904 survivors=415 bfs_limit_hits=102 tour_giveups=29019188 tau_decided=38685 tau_rayobs=29893 tau_leafcuts=879
+seconds=105 src=enum_u.cpp srcsha=e75ac27b1a664c9c opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 20 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 22 words=415 commit=fef0f882f3d3c46ad8bfd7f7b262c441a3d20b7a
