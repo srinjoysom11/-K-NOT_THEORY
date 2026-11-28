@@ -1,0 +1,18 @@
+walk calls=9362392 with_ray=1352686 dead=5976744 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=328183315
+w3 R1=8 calls=126059 dead=46660 (0.370) states/call=4.0 limit=0 states/dead=5.3 states/alive=3.2
+w3 R1=9 calls=151231 dead=59873 (0.396) states/call=4.5 limit=0 states/dead=6.0 states/alive=3.5
+w3 R1=10 calls=187538 dead=79427 (0.424) states/call=5.3 limit=0 states/dead=7.0 states/alive=4.0
+w3 R1=11 calls=236291 dead=107494 (0.455) states/call=6.1 limit=0 states/dead=8.0 states/alive=4.4
+w3 R1=12 calls=303559 dead=144993 (0.478) states/call=7.2 limit=0 states/dead=9.4 states/alive=5.1
+w3 R1=13 calls=395826 dead=202027 (0.510) states/call=8.6 limit=0 states/dead=10.9 states/alive=6.1
+w3 R1=14 calls=526065 dead=283177 (0.538) states/call=10.5 limit=0 states/dead=13.1 states/alive=7.5
+w3 R1=15 calls=683099 dead=386600 (0.566) states/call=13.3 limit=0 states/dead=16.1 states/alive=9.6
+w3 R1=16 calls=845645 dead=492877 (0.583) states/call=17.9 limit=0 states/dead=21.6 states/alive=12.6
+w3 R1=17 calls=958427 dead=565790 (0.590) states/call=25.0 limit=0 states/dead=30.1 states/alive=17.7
+w3 R1=18 calls=972789 dead=566697 (0.583) states/call=37.2 limit=0 states/dead=45.0 states/alive=26.2
+w3 R1=19 calls=864831 dead=484598 (0.560) states/call=55.7 limit=0 states/dead=68.9 states/alive=39.0
+w3 R1=20 calls=651871 dead=333428 (0.511) states/call=85.1 limit=0 states/dead=110.0 states/alive=58.9
+w3 R1=21 calls=1402200 dead=1166142 (0.832) states/call=89.5 limit=0 states/dead=83.1 states/alive=121.1
+w3inc witness_reused=1725848 deadfirst_pruned=1234282
+fulltests=12628817 N=38 alt=4 tasks=5941 part=7/32 nodes=16633090 closed=16316 candidates=3448 survivors=227 bfs_limit_hits=28 tour_giveups=10460760 tau_decided=9676 tau_rayobs=7173 tau_leafcuts=80
+seconds=16.203930605 src=enum_u.cpp srcsha=e75ac27b1a664c9c opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 21 outsha=f9f22dd8b6ff609b words=227 commit=580b9524ac9218890dea7de6f70af2c77862f734

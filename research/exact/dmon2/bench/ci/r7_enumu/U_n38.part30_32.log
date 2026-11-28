@@ -1,0 +1,18 @@
+walk calls=7479440 with_ray=1386644 dead=4970841 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=256033857
+w3 R1=8 calls=76587 dead=28094 (0.367) states/call=3.7 limit=0 states/dead=5.0 states/alive=2.9
+w3 R1=9 calls=95476 dead=37610 (0.394) states/call=3.9 limit=0 states/dead=5.2 states/alive=3.1
+w3 R1=10 calls=124333 dead=53504 (0.430) states/call=4.5 limit=0 states/dead=5.8 states/alive=3.5
+w3 R1=11 calls=165878 dead=77274 (0.466) states/call=5.2 limit=0 states/dead=6.7 states/alive=4.0
+w3 R1=12 calls=223048 dead=110892 (0.497) states/call=6.3 limit=0 states/dead=7.8 states/alive=4.8
+w3 R1=13 calls=300301 dead=158164 (0.527) states/call=7.7 limit=0 states/dead=9.5 states/alive=5.8
+w3 R1=14 calls=398253 dead=220842 (0.555) states/call=9.9 limit=0 states/dead=11.9 states/alive=7.4
+w3 R1=15 calls=505709 dead=287914 (0.569) states/call=13.1 limit=0 states/dead=15.9 states/alive=9.3
+w3 R1=16 calls=622622 dead=366816 (0.589) states/call=17.7 limit=0 states/dead=21.3 states/alive=12.5
+w3 R1=17 calls=715919 dead=429979 (0.601) states/call=24.4 limit=0 states/dead=29.3 states/alive=17.0
+w3 R1=18 calls=749373 dead=447722 (0.597) states/call=35.7 limit=0 states/dead=42.9 states/alive=25.1
+w3 R1=19 calls=699215 dead=407535 (0.583) states/call=52.9 limit=0 states/dead=64.2 states/alive=37.1
+w3 R1=20 calls=555258 dead=298706 (0.538) states/call=79.7 limit=0 states/dead=100.1 states/alive=55.9
+w3 R1=21 calls=1293581 dead=1091902 (0.844) states/call=79.8 limit=0 states/dead=73.2 states/alive=115.6
+w3inc witness_reused=1271012 deadfirst_pruned=954504
+fulltests=10042192 N=38 alt=4 tasks=5941 part=30/32 nodes=13091892 closed=7904 candidates=1426 survivors=77 bfs_limit_hits=10 tour_giveups=8529425 tau_decided=13568 tau_rayobs=10554 tau_leafcuts=141
+seconds=19.147744461 src=enum_u.cpp srcsha=e75ac27b1a664c9c opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 21 outsha=5abead4909f01a00 words=77 commit=580b9524ac9218890dea7de6f70af2c77862f734
