@@ -655,6 +655,48 @@ theorem R3_core (M0 : Q → Matrix Q Q ℕ) (PZ : Matrix Q Q ℕ) (Bf Cf εx εy
   intro i j k l
   exact R3_tensor Bf Cf εx εy εz hs ox i j k l
 
+theorem tr_shape (PX A1 A2 PY B1 B2 PZ C1 C2 PW : Matrix Q Q ℕ) :
+    Matrix.trace (PX * (A1 * (A2 * (PY * (B1 * (B2 * (PZ * (C1 * (C2 * PW))))))))) =
+      Matrix.trace ((PW * PX * (A1 * A2) * PY) * (B1 * B2) * PZ * (C1 * C2) * 1) := by
+  have h : PX * (A1 * (A2 * (PY * (B1 * (B2 * (PZ * (C1 * (C2 * PW)))))))) =
+      (PX * (A1 * (A2 * (PY * (B1 * (B2 * (PZ * (C1 * C2))))))))  * PW := by
+    simp only [mul_assoc]
+  rw [h, Matrix.trace_mul_comm]
+  simp only [mul_assoc, mul_one]
+
+theorem Pm_ite (c : Prop) [Decidable c] (M N : Matrix Q Q ℕ) (A B : Matrix Q Q ℕ) :
+    A * (if c then M else 0) * B = if c then A * M * B else 0 := by
+  split_ifs <;> simp
+
 end r3
+
+section r3main
+variable {ν : Type} [DecidableEq ν] {Q : Type} [Quandle Q] [Fintype Q] [DecidableEq Q]
+
+/-- **R3.**  Three crossings x (top strand over middle strand), y (top over bottom), z (middle over
+    bottom).  On the top strand the events at x and y are adjacent, on the middle strand the events at x
+    (under) and z (over), on the bottom strand those at y and z (both under).  Exchanging the two events on
+    each of the three strands does not change the number of colourings, provided the signs fit the
+    geometry: `sx = sy` iff the middle strand meets x before z exactly when the bottom strand meets y
+    before z.  (This is the case for every actual R3 move; reversing the direction of a strand changes both
+    the order of its two events and the signs of its two crossings.)
+    The cyclic order of the three pairs in the code is (top, middle, bottom). -/
+theorem R3a [Inhabited Q] (X Y Z W : List (GEv ν)) (a1 a2 b1 b2 c1 c2 : GEv ν) (x y z : ν)
+    (hxy : x ≠ y) (hxz : x ≠ z) (hyz : y ≠ z)
+    (hA1 : a1.over = true) (hA2 : a2.over = true)
+    (hA : (a1.cid = x ∧ a2.cid = y) ∨ (a1.cid = y ∧ a2.cid = x))
+    (hB : (b1.over = false ∧ b1.cid = x ∧ b2.over = true ∧ b2.cid = z) ∨
+          (b1.over = true ∧ b1.cid = z ∧ b2.over = false ∧ b2.cid = x))
+    (hC1 : c1.over = false) (hC2 : c2.over = false)
+    (hC : (c1.cid = y ∧ c2.cid = z) ∨ (c1.cid = z ∧ c2.cid = y))
+    (hsign : ((if b1.over = false then b1.pos else b2.pos) = (if c1.cid = y then c1.pos else c2.pos)) ↔
+        (decide (b1.over = false) = decide (c1.cid = y)))
+    (hrest : ∀ e ∈ X ++ (Y ++ (Z ++ W)), e.cid ≠ x ∧ e.cid ≠ y ∧ e.cid ≠ z) :
+    colG Q (X ++ a1 :: a2 :: (Y ++ b1 :: b2 :: (Z ++ c1 :: c2 :: W))) =
+      colG Q (X ++ a2 :: a1 :: (Y ++ b2 :: b1 :: (Z ++ c2 :: c1 :: W))) := by
+  sorry
+
+end r3main
+
 
 end Lean42
