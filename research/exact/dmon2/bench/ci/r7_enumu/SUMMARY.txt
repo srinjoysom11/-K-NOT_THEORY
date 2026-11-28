@@ -1,0 +1,3 @@
+tag n parts nodes survivors runner_seconds words union_sha (compare union_sha between tags: same word set)
+U 36 16/16 122773397 2310 173 2310 1563b1e10b015bd6
+U 38 32/32 459613685 7037 644 7037 79c99e785b071970

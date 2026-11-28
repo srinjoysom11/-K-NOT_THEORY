@@ -1,0 +1,18 @@
+walk calls=6752140 with_ray=1177387 dead=4447391 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=229131215
+w3 R1=8 calls=67480 dead=25237 (0.374) states/call=3.6 limit=0 states/dead=4.9 states/alive=2.8
+w3 R1=9 calls=86290 dead=34648 (0.402) states/call=4.2 limit=0 states/dead=5.5 states/alive=3.2
+w3 R1=10 calls=108782 dead=45078 (0.414) states/call=4.9 limit=0 states/dead=6.5 states/alive=3.8
+w3 R1=11 calls=137507 dead=60558 (0.440) states/call=5.7 limit=0 states/dead=7.6 states/alive=4.2
+w3 R1=12 calls=174307 dead=79977 (0.459) states/call=6.6 limit=0 states/dead=8.8 states/alive=4.8
+w3 R1=13 calls=229663 dead=111460 (0.485) states/call=7.6 limit=0 states/dead=10.1 states/alive=5.3
+w3 R1=14 calls=314380 dead=161999 (0.515) states/call=8.9 limit=0 states/dead=11.3 states/alive=6.3
+w3 R1=15 calls=427116 dead=231364 (0.542) states/call=10.8 limit=0 states/dead=13.5 states/alive=7.5
+w3 R1=16 calls=560787 dead=322181 (0.575) states/call=14.2 limit=0 states/dead=17.6 states/alive=9.7
+w3 R1=17 calls=667550 dead=394807 (0.591) states/call=20.3 limit=0 states/dead=24.8 states/alive=13.8
+w3 R1=18 calls=704989 dead=417748 (0.593) states/call=31.3 limit=0 states/dead=38.3 states/alive=21.2
+w3 R1=19 calls=661306 dead=384000 (0.581) states/call=49.1 limit=0 states/dead=60.4 states/alive=33.4
+w3 R1=20 calls=523921 dead=280862 (0.536) states/call=77.9 limit=0 states/dead=99.2 states/alive=53.2
+w3 R1=21 calls=1189933 dead=999343 (0.840) states/call=84.0 limit=0 states/dead=78.2 states/alive=114.4
+w3inc witness_reused=1203311 deadfirst_pruned=835211
+fulltests=9186036 N=38 alt=4 tasks=5941 part=2/32 nodes=11929430 closed=8209 candidates=1917 survivors=119 bfs_limit_hits=7 tour_giveups=7717257 tau_decided=7812 tau_rayobs=7203 tau_leafcuts=112
+seconds=20.732625129 src=enum_u.cpp srcsha=e75ac27b1a664c9c opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 21 outsha=7b7fb1f80da91000 words=119 commit=580b9524ac9218890dea7de6f70af2c77862f734

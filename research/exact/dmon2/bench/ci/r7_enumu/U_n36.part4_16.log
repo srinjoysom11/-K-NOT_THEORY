@@ -1,0 +1,17 @@
+walk calls=4963756 with_ray=669924 dead=3156898 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=144886635
+w3 R1=8 calls=79079 dead=29048 (0.367) states/call=3.6 limit=0 states/dead=4.8 states/alive=3.0
+w3 R1=9 calls=96593 dead=38067 (0.394) states/call=4.0 limit=0 states/dead=5.2 states/alive=3.1
+w3 R1=10 calls=123137 dead=52676 (0.428) states/call=4.7 limit=0 states/dead=6.1 states/alive=3.6
+w3 R1=11 calls=159893 dead=73970 (0.463) states/call=5.5 limit=0 states/dead=7.0 states/alive=4.1
+w3 R1=12 calls=211274 dead=105386 (0.499) states/call=6.8 limit=0 states/dead=8.6 states/alive=5.1
+w3 R1=13 calls=273018 dead=143715 (0.526) states/call=8.6 limit=0 states/dead=10.5 states/alive=6.4
+w3 R1=14 calls=356402 dead=200632 (0.563) states/call=11.1 limit=0 states/dead=13.3 states/alive=8.4
+w3 R1=15 calls=438852 dead=255624 (0.582) states/call=14.8 limit=0 states/dead=17.3 states/alive=11.3
+w3 R1=16 calls=511590 dead=303358 (0.593) states/call=21.1 limit=0 states/dead=24.5 states/alive=16.1
+w3 R1=17 calls=530385 dead=310384 (0.585) states/call=30.5 limit=0 states/dead=35.5 states/alive=23.4
+w3 R1=18 calls=485199 dead=270460 (0.557) states/call=45.7 limit=0 states/dead=54.3 states/alive=34.9
+w3 R1=19 calls=373390 dead=188275 (0.504) states/call=67.3 limit=0 states/dead=83.4 states/alive=50.8
+w3 R1=20 calls=715209 dead=575568 (0.805) states/call=75.9 limit=0 states/dead=70.4 states/alive=98.4
+w3inc witness_reused=894640 deadfirst_pruned=700806
+fulltests=6875677 N=36 alt=4 tasks=5832 part=4/16 nodes=9057432 closed=10247 candidates=2104 survivors=139 bfs_limit_hits=29 tour_giveups=5613006 tau_decided=11910 tau_rayobs=8965 tau_leafcuts=257
+seconds=13.825773128 src=enum_u.cpp srcsha=e75ac27b1a664c9c opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 20 outsha=be4af899c83d1544 words=139 commit=580b9524ac9218890dea7de6f70af2c77862f734

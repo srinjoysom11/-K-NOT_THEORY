@@ -1,0 +1,18 @@
+walk calls=9693978 with_ray=1868583 dead=6141637 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=311128135
+w3 R1=8 calls=125395 dead=49420 (0.394) states/call=3.9 limit=0 states/dead=5.0 states/alive=3.1
+w3 R1=9 calls=156321 dead=64931 (0.415) states/call=4.4 limit=0 states/dead=5.6 states/alive=3.5
+w3 R1=10 calls=196266 dead=85572 (0.436) states/call=5.1 limit=0 states/dead=6.5 states/alive=4.0
+w3 R1=11 calls=253341 dead=117470 (0.464) states/call=5.7 limit=0 states/dead=7.1 states/alive=4.5
+w3 R1=12 calls=334960 dead=165225 (0.493) states/call=6.6 limit=0 states/dead=8.1 states/alive=5.1
+w3 R1=13 calls=451103 dead=236272 (0.524) states/call=7.9 limit=0 states/dead=9.5 states/alive=6.0
+w3 R1=14 calls=610236 dead=338054 (0.554) states/call=10.1 limit=0 states/dead=12.0 states/alive=7.7
+w3 R1=15 calls=781367 dead=445311 (0.570) states/call=13.2 limit=0 states/dead=15.6 states/alive=10.0
+w3 R1=16 calls=939196 dead=549568 (0.585) states/call=18.4 limit=0 states/dead=21.7 states/alive=13.8
+w3 R1=17 calls=1015751 dead=594466 (0.585) states/call=25.5 limit=0 states/dead=30.1 states/alive=19.1
+w3 R1=18 calls=988164 dead=565958 (0.573) states/call=37.9 limit=0 states/dead=45.0 states/alive=28.2
+w3 R1=19 calls=843407 dead=463256 (0.549) states/call=55.0 limit=0 states/dead=66.6 states/alive=40.9
+w3 R1=20 calls=619863 dead=312262 (0.504) states/call=81.6 limit=0 states/dead=103.3 states/alive=59.7
+w3 R1=21 calls=1254067 dead=1029331 (0.821) states/call=85.9 limit=0 states/dead=78.6 states/alive=119.3
+w3inc witness_reused=1778121 deadfirst_pruned=1362576
+fulltests=12789190 N=38 alt=4 tasks=5941 part=18/32 nodes=16911601 closed=14724 candidates=3265 survivors=306 bfs_limit_hits=25 tour_giveups=10760604 tau_decided=23458 tau_rayobs=18768 tau_leafcuts=256
+seconds=29.135485831 src=enum_u.cpp srcsha=e75ac27b1a664c9c opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 21 outsha=76499edfc7590efe words=306 commit=580b9524ac9218890dea7de6f70af2c77862f734
