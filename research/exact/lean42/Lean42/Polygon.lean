@@ -139,8 +139,8 @@ theorem edges_eq_zip (L : List Pt) : edges L = L.zip (L.rotate 1) := by
           intro a
           simp only [List.cons_append, chain, List.zip_cons_cons]
           rw [← ih c a]
-          rfl
       rw [key b R a]
+      rfl
 
 theorem edges_perm_rotate (L : List Pt) : (edges (L.rotate 1)).Perm (edges L) := by
   cases L with
