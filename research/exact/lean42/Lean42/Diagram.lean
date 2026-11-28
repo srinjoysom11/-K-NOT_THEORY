@@ -174,6 +174,7 @@ variable {n : ℕ} {t s : ZMod n} {h : t * s = 1}
 
 instance [NeZero n] : Fintype (AlexQ n t s h) := inferInstanceAs (Fintype (ZMod n))
 instance : DecidableEq (AlexQ n t s h) := inferInstanceAs (DecidableEq (ZMod n))
+instance : Inhabited (AlexQ n t s h) := ⟨(0 : ZMod n)⟩
 
 /-- `x ◃ y = (1 - t) x + t y`: an Alexander quandle (`t` a unit with inverse `s`). -/
 instance : Quandle (AlexQ n t s h) where
