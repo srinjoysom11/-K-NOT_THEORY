@@ -1,0 +1,20 @@
+walk calls=56376252 with_ray=11578870 dead=34038139 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=2543921273
+w3 R1=8 calls=169939 dead=114342 (0.673) states/call=6.8 limit=0 states/dead=4.9 states/alive=10.6
+w3 R1=9 calls=213948 dead=147357 (0.689) states/call=7.5 limit=0 states/dead=5.5 states/alive=11.9
+w3 R1=10 calls=273440 dead=190809 (0.698) states/call=8.7 limit=0 states/dead=6.6 states/alive=13.4
+w3 R1=11 calls=359524 dead=254900 (0.709) states/call=9.2 limit=0 states/dead=7.3 states/alive=14.0
+w3 R1=12 calls=508285 dead=362413 (0.713) states/call=9.6 limit=0 states/dead=7.8 states/alive=14.0
+w3 R1=13 calls=744371 dead=519971 (0.699) states/call=10.1 limit=0 states/dead=8.8 states/alive=12.9
+w3 R1=14 calls=1188328 dead=810495 (0.682) states/call=10.6 limit=0 states/dead=10.0 states/alive=12.1
+w3 R1=15 calls=1890122 dead=1221991 (0.647) states/call=11.6 limit=0 states/dead=11.9 states/alive=11.1
+w3 R1=16 calls=3049756 dead=1969831 (0.646) states/call=13.5 limit=0 states/dead=14.6 states/alive=11.7
+w3 R1=17 calls=4395619 dead=2747013 (0.625) states/call=17.0 limit=0 states/dead=19.3 states/alive=13.0
+w3 R1=18 calls=5750594 dead=3611714 (0.628) states/call=23.4 limit=0 states/dead=27.2 states/alive=17.1
+w3 R1=19 calls=6370129 dead=3880594 (0.609) states/call=33.9 limit=0 states/dead=40.6 states/alive=23.4
+w3 R1=20 calls=6113196 dead=3615119 (0.591) states/call=51.6 limit=0 states/dead=62.6 states/alive=35.5
+w3 R1=21 calls=5041151 dead=2837526 (0.563) states/call=78.8 limit=0 states/dead=97.9 states/alive=54.2
+w3 R1=22 calls=3501636 dead=1793357 (0.512) states/call=122.1 limit=0 states/dead=157.1 states/alive=85.3
+w3 R1=23 calls=6091298 dead=4736499 (0.778) states/call=144.8 limit=0 states/dead=140.5 states/alive=160.0
+w3inc witness_reused=6417445 deadfirst_pruned=7896899 w3fast_big_reruns=0 witness_before_setup=5490708 repaired=0
+fulltests=73736713 N=42 alt=4 tasks=6020 part=49/128 nodes=96101054 closed=32492 candidates=5911 survivors=161 bfs_limit_hits=20 tour_giveups=60498037 tau_decided=36013 tau_rayobs=32574 tau_leafcuts=167
+seconds=156 src=enum_u.cpp srcsha=37ab3543266481b7 opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 21 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 4 -w3inc 2 -walk 8 23 words=161 commit=ed105e0fe2cf2a45e71412bb04357f1b7d31379a
