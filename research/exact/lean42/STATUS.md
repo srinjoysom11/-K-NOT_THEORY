@@ -27,7 +27,9 @@ No `sorry`, no `native_decide`, no new axioms: `#print axioms knotClass` gives
 | `Words.lean` | polygon of a word (`wpoly`), `isPolygon_iff`, `latPoly_wpoly`, `simple_wpoly`, `symMat` (linear map of a lattice symmetry). |
 | `Ops.lean` | rotation, reversal, symmetry on polygons: `IsPolygon` preserved and polygons `Equiv`. |
 | `Flip.lean` | corner flip and U-turn removal on words (`flip_wpoly`, `uturn_wpoly`). |
-| `Knot.lean` | `KnotType P` and **`knotClass : KnotClass (KnotType P)`** for an arbitrary polygon `P` (all six fields). |
+| `Knot.lean` | `KnotType P` and **`knotClass : KnotClass (KnotType P)`** for an arbitrary polygon `P` (all six fields); `knotType_of_equiv`, `knotType_of_equiv_mirror`: the class contains `P` and its mirror image. |
+| `Decide.lean` | `simpleB`/`simple_iff`: `Simple` is decidable; `deltaB`/`deltaMove_iff`: the Delta-move at the first edge is decided by a program (Fourier-Motzkin). Checked by `#eval` on small examples (unit square: simple; self-crossing pentagon: not; Delta over a free triangle: true, over a triangle crossing an edge: false, apex on the edge (bisection): true, apex on the line outside the edge: false). |
+| `Check.lean` | `#print axioms` of all main theorems: `[propext, Classical.choice, Quot.sound]`. |
 
 ## Decisions
 1. **Translation is a generator of `Equiv`** (with Delta-moves, rotation, reversal). By
@@ -48,6 +50,9 @@ No `sorry`, no `native_decide`, no new axioms: `#print axioms knotClass` gives
 3. `Simple` is stated as "any two different edges meet only in common endpoints", with distinct
    vertices; consecutive edges then share exactly their common vertex and others are disjoint.
 
-## In progress / next
-* `Decide.lean` (decidable `Simple` and Delta-condition from `FM.lean`, with equivalence proofs).
-* Then Phase 3 is out of scope of this run.
+## Not done / next
+* Translation by Delta-moves (decision 1) and rotations by Delta-moves (decision 2) are *not*
+  proved; both are avoided as explained above.
+* `Decide.lean` is not optimised (36 Fourier-Motzkin systems per edge in `badB`); it is meant as the
+  verified specification of the decision procedure.
+* Phase 3 (diagrams, Reidemeister) is the next stage.

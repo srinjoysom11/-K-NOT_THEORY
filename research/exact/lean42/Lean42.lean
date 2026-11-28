@@ -12,3 +12,4 @@ import Lean42.Ops
 import Lean42.Flip
 import Lean42.Knot
 import Lean42.Decide
+import Lean42.Check

@@ -158,6 +158,40 @@ theorem knotClass (P : List Pt) : KnotClass (KnotType P) where
     rw [hru]
     exact ⟨hpoly, f, hf, heq.symm.trans hE⟩
 
+/-! ## The class contains the target and its mirror image -/
+
+theorem isSym_id : IsSym id := ⟨fun d hd => hd, fun _ _ _ _ h => h, fun _ _ => rfl⟩
+
+theorem symMat_id (x : Pt) : symMat id x = x := by
+  ext i; fin_cases i <;> simp [symMat, upt, toPt, unit]
+
+/-- the symmetry `z ↦ -z` on direction codes: exchange u (4) and d (5) -/
+def zflip (d : ℕ) : ℕ := if d = 4 then 5 else if d = 5 then 4 else d
+
+theorem isSym_zflip : IsSym zflip := by
+  refine ⟨fun d hd => ?_, fun a b ha hb h => ?_, fun d hd => ?_⟩
+  · unfold zflip; split_ifs <;> omega
+  · unfold zflip at h; split_ifs at h <;> omega
+  · interval_cases d <;> simp [zflip, rev]
+
+theorem symMat_zflip (x : Pt) : symMat zflip x = mirror x := by
+  ext i; fin_cases i <;> simp [symMat, mirror, zflip, upt, toPt, unit]
+
+/-- a polygon equivalent to `P` is in the class of `P` -/
+theorem knotType_of_equiv {P : List Pt} {w : List ℕ} (hw : IsPolygon w)
+    (h : Equiv (wpoly w) P) : KnotType P w := by
+  refine ⟨hw, id, isSym_id, ?_⟩
+  have e : P.map (symMat id) = P := by
+    rw [List.map_congr_left (fun x _ => symMat_id x)]; exact List.map_id P
+  rw [e]; exact h
+
+/-- a polygon equivalent to the mirror image of `P` is in the class of `P` -/
+theorem knotType_of_equiv_mirror {P : List Pt} {w : List ℕ} (hw : IsPolygon w)
+    (h : Equiv (wpoly w) (P.map mirror)) : KnotType P w := by
+  refine ⟨hw, zflip, isSym_zflip, ?_⟩
+  have : P.map (symMat zflip) = P.map mirror := List.map_congr_left (fun x _ => symMat_zflip x)
+  rw [this]; exact h
+
 #print axioms knotClass
 
 end Lean42
