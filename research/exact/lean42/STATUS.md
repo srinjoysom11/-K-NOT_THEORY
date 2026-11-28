@@ -56,3 +56,37 @@ No `sorry`, no `native_decide`, no new axioms: `#print axioms knotClass` gives
 * `Decide.lean` is not optimised (36 Fourier-Motzkin systems per edge in `badB`); it is meant as the
   verified specification of the decision procedure.
 * Phase 3 (diagrams, Reidemeister) is the next stage.
+
+## Phase 4a: choice of the quandles (computed; scripts in `tools/`)
+Data used: the n = 44 witnesses of 7_1..7_7 and 8_20 are **not in the repository**, so the knot
+types were represented by the minimal-diagram seed words of `research/data/seeds.json` (84-102 edges),
+by `out/witness40.txt` (6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1), `out/witness42_8_19.txt` and the unknot.
+Counts of quandle colourings are knot invariants, so any representative will do; as a test, the
+counts are identical for three different projections and for both orientations of the polygon
+(`tools/quandle_counts.py`, Smith normal form over Z/p^k, CRT for composite n). The Lean definitions
+of `Lean42/Diagram.lean` reproduce the Python counts (`DiagramCheck.lean`).
+
+Quandles: Alexander quandles A(n,t) = (Z/n, x*y = (1-t)x + t y), t a unit (dihedral R_n = A(n,-1)).
+The mirror image of K has the counts of K for t^-1. A single quandle q "separates" K from tau if
+{c_K(q), c_K(q^-1)} and {c_tau(q), c_tau(q^-1)} are disjoint (this covers both chiralities).
+Every pair (target, survivor type) is separated by some A(n,t) with n <= 30 (`tools/quandle_cover.py`).
+A set cover of the pairs {7_1..7_7, 8_20} x {0_1,3_1,4_1,5_1,5_2,6_1,6_2,6_3,3_1#3_1,3_1#-3_1,8_19}
+and {8_19} x (same without 8_19) needs 8 quandles (exhaustive search: no cover with at most 7
+quandles of modulus <= 26). Choice (greedy, all moduli <= 15):
+
+  A(15,2), A(7,6), A(5,4), A(7,2), A(13,12), A(9,2), A(11,3), A(13,2).
+
+Counts (a/b: counts for t and t^-1 when they differ; here all equal):
+
+
+Checks on the survivors: all 59,072 words of `dmon2/bench/ci/r6_n42_F/F_n42.words.txt` are generic for
+the projection of `Diagram.lean` (0 failures; `tools/quandle_survivors.py`, 163 s) and their count vectors
+(8 quandles and their inverses) take only 8 distinct values, all equal to vectors of the types
+{0_1, 3_1, 4_1, 5_1, 5_2, 6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1, 8_19} (no unknown vector). None of the
+7_1..7_7, 8_20 vectors, nor their mirror vectors, occurs among them. 8_19 occurs (it is a survivor type
+at n = 42), which is expected: the 8_19 lower bound is for n <= 40.
+Remarks: linear Alexander quandles over a prime field do not separate 3_1 from 8_20; A(9,2) does
+(27 against 81), as does A(15,2) in the table. 8_19 vs 3_1 needs A(13,2) (13 against 169).
+Cost for Phase 7: the count of colourings by A(n,t) is the size of the kernel of a matrix over Z/n;
+brute force n^arcs is impossible, so Phase 7 needs a verified Smith-normal-form count (or a
+certificate: a basis of the solution module plus a proof that it is complete).
