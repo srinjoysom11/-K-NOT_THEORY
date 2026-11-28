@@ -351,6 +351,310 @@ theorem R1 [Inhabited Q] (X Y : List (GEv ν)) (e1 e2 : GEv ν) (hc : e1.cid = e
     simp only [List.map_append, List.prod_append]
   simp only [key]
 
+theorem R2_core (PX PY PZ : Matrix Q Q ℕ) (B1 B2 : Q → Q → Matrix Q Q ℕ)
+    (h : ∀ o, B1 o o * B2 o o = 1) :
+    ∑ o1 : Q, ∑ o2 : Q, Matrix.trace (PX * (Pm o1 * (Pm o2 * (PY * (B1 o1 o2 * (B2 o1 o2 * PZ)))))) =
+      Matrix.trace (PX * (PY * PZ)) := by
+  have step : ∀ o1 o2 : Q, Matrix.trace (PX * (Pm o1 * (Pm o2 * (PY * (B1 o1 o2 * (B2 o1 o2 * PZ)))))) =
+      if o1 = o2 then Matrix.trace (PX * (Pm o1 * (PY * (B1 o1 o1 * (B2 o1 o1 * PZ))))) else 0 := by
+    intro o1 o2
+    rw [← mul_assoc (Pm o1) (Pm o2), Pm_mul_Pm]
+    by_cases hh : o1 = o2
+    · subst hh; simp
+    · simp [hh]
+  simp only [step, Finset.sum_ite_eq, Finset.mem_univ, if_true]
+  have : ∀ o : Q, Matrix.trace (PX * (Pm o * (PY * (B1 o o * (B2 o o * PZ))))) =
+      Matrix.trace (PX * Pm o * (PY * PZ)) := by
+    intro o
+    rw [← mul_assoc (B1 o o), h o, one_mul, mul_assoc PX]
+  simp only [this]
+  rw [tr_sum_Pm]
+
+/-- **R2.** Two over events of two crossings, adjacent on one strand, and the two under events of the
+    same crossings, adjacent on another strand (in either order), with opposite signs: the four events
+    can be removed. -/
+theorem R2 [Inhabited Q] (X Y Z : List (GEv ν)) (a1 a2 b1 b2 : GEv ν)
+    (ha1 : a1.over = true) (ha2 : a2.over = true) (hb1 : b1.over = false) (hb2 : b2.over = false)
+    (hc12 : a1.cid ≠ a2.cid)
+    (hb : (b1.cid = a1.cid ∧ b2.cid = a2.cid) ∨ (b1.cid = a2.cid ∧ b2.cid = a1.cid))
+    (hs : b1.pos ≠ b2.pos)
+    (hrest : ∀ e ∈ X ++ (Y ++ Z), e.cid ≠ a1.cid ∧ e.cid ≠ a2.cid) :
+    colG Q (X ++ a1 :: a2 :: (Y ++ b1 :: b2 :: Z)) = colG Q (X ++ (Y ++ Z)) := by
+  set c1 := a1.cid with hc1
+  set c2 := a2.cid with hc2
+  have h1n : c1 ∉ names (X ++ (Y ++ Z)) := by
+    rw [names_mem]; rintro ⟨e, he, h⟩; exact (hrest e he).1 h
+  have h2n : c2 ∉ names (X ++ (Y ++ Z)) := by
+    rw [names_mem]; rintro ⟨e, he, h⟩; exact (hrest e he).2 h
+  have hperm : (names (X ++ a1 :: a2 :: (Y ++ b1 :: b2 :: Z))).Perm
+      (c1 :: c2 :: names (X ++ (Y ++ Z))) := by
+    apply List.perm_of_nodup_nodup_toFinset_eq (List.nodup_dedup _)
+      (List.nodup_cons.2 ⟨by simp [hc12, h1n], List.nodup_cons.2 ⟨h2n, List.nodup_dedup _⟩⟩)
+    ext n
+    simp only [List.mem_toFinset]
+    show n ∈ names _ ↔ n ∈ c1 :: c2 :: names _
+    rw [names_mem, List.mem_cons, List.mem_cons, names_mem]
+    constructor
+    · rintro ⟨e, he, rfl⟩
+      simp only [List.mem_append, List.mem_cons] at he
+      rcases he with he | rfl | rfl | he | rfl | rfl | he
+      · exact Or.inr (Or.inr ⟨e, by simp [he], rfl⟩)
+      · exact Or.inl rfl
+      · exact Or.inr (Or.inl rfl)
+      · exact Or.inr (Or.inr ⟨e, by simp [he], rfl⟩)
+      · rcases hb with hb | hb
+        · exact Or.inl hb.1
+        · exact Or.inr (Or.inl hb.1)
+      · rcases hb with hb | hb
+        · exact Or.inr (Or.inl hb.2)
+        · exact Or.inl hb.2
+      · exact Or.inr (Or.inr ⟨e, by simp [he], rfl⟩)
+    · rintro (rfl | rfl | ⟨e, he, rfl⟩)
+      · exact ⟨a1, by simp, rfl⟩
+      · exact ⟨a2, by simp, rfl⟩
+      · exact ⟨e, by simp only [List.mem_append, List.mem_cons] at he ⊢; tauto, rfl⟩
+  unfold colG
+  rw [sumOver_perm _ hperm (List.nodup_dedup _)]
+  simp only [sumOver]
+  -- the inner sum over c2, then the outer over c1
+  have e1 : ∀ o1 : Q, ∑ o2 : Q, sumOver (fun oc => gtr oc (X ++ a1 :: a2 :: (Y ++ b1 :: b2 :: Z)))
+        (names (X ++ (Y ++ Z))) (Function.update (Function.update (fun _ : ν => (default : Q)) c1 o1) c2 o2)
+      = sumOver (fun oc' => ∑ o2 : Q, gtr (Function.update oc' c2 o2)
+          (X ++ a1 :: a2 :: (Y ++ b1 :: b2 :: Z))) (names (X ++ (Y ++ Z)))
+          (Function.update (fun _ : ν => (default : Q)) c1 o1) :=
+    fun o1 => sumOver_sum_comm _ _ h2n _
+  simp only [e1]
+  rw [sumOver_sum_comm _ _ h1n]
+  have key : ∀ oc' : ν → Q, ∑ o1 : Q, ∑ o2 : Q,
+      gtr (Function.update (Function.update oc' c1 o1) c2 o2)
+        (X ++ a1 :: a2 :: (Y ++ b1 :: b2 :: Z)) = gtr oc' (X ++ (Y ++ Z)) := by
+    intro oc'
+    set ocu : Q → Q → ν → Q := fun o1 o2 => Function.update (Function.update oc' c1 o1) c2 o2
+      with hocu
+    have hu1 : ∀ o1 o2, ocu o1 o2 c1 = o1 := fun o1 o2 => by
+      simp [hocu, Function.update_of_ne hc12]
+    have hu2 : ∀ o1 o2, ocu o1 o2 c2 = o2 := fun o1 o2 => by simp [hocu]
+    have hmap : ∀ (L : List (GEv ν)), (∀ e ∈ L, e.cid ≠ c1 ∧ e.cid ≠ c2) → ∀ o1 o2,
+        L.map (evMat (ocu o1 o2)) = L.map (evMat oc') := by
+      intro L hL o1 o2
+      simp only [hocu]
+      rw [map_evMat_update (Function.update oc' c1 o1) o2 (fun e he => (hL e he).2),
+        map_evMat_update oc' o1 (fun e he => (hL e he).1)]
+    have hXr : ∀ e ∈ X, e.cid ≠ c1 ∧ e.cid ≠ c2 := fun e he =>
+      hrest e (List.mem_append.2 (Or.inl he))
+    have hYr : ∀ e ∈ Y, e.cid ≠ c1 ∧ e.cid ≠ c2 := fun e he =>
+      hrest e (List.mem_append.2 (Or.inr (List.mem_append.2 (Or.inl he))))
+    have hZr : ∀ e ∈ Z, e.cid ≠ c1 ∧ e.cid ≠ c2 := fun e he =>
+      hrest e (List.mem_append.2 (Or.inr (List.mem_append.2 (Or.inr he))))
+    have ea1 : ∀ o1 o2, evMat (ocu o1 o2) a1 = Pm o1 := fun o1 o2 => by
+      simp [evMat, ha1, ← hc1, hu1]
+    have ea2 : ∀ o1 o2, evMat (ocu o1 o2) a2 = Pm o2 := fun o1 o2 => by
+      simp [evMat, ha2, ← hc2, hu2]
+    have hp2 : b2.pos = !b1.pos := by
+      cases h1 : b1.pos <;> cases h2 : b2.pos <;> simp_all
+    have hB : ∀ o : Q, evMat (ocu o o) b1 * evMat (ocu o o) b2 = 1 := by
+      intro o
+      have c1' : ocu o o b1.cid = o := by
+        rcases hb with ⟨h1, _⟩ | ⟨h1, _⟩ <;> simp [h1, hu1, hu2]
+      have c2' : ocu o o b2.cid = o := by
+        rcases hb with ⟨_, h2⟩ | ⟨_, h2⟩ <;> simp [h2, hu1, hu2]
+      simp only [evMat, hb1, hb2, c1', c2', hp2]
+      simp only [Bool.false_eq_true, if_false]
+      exact Um_mul_Um_inv _ o
+    have core := R2_core (X.map (evMat oc')).prod (Y.map (evMat oc')).prod
+      (Z.map (evMat oc')).prod (fun o1 o2 => evMat (ocu o1 o2) b1)
+      (fun o1 o2 => evMat (ocu o1 o2) b2) hB
+    have lhs : ∀ o1 o2, gtr (ocu o1 o2) (X ++ a1 :: a2 :: (Y ++ b1 :: b2 :: Z)) =
+        Matrix.trace ((X.map (evMat oc')).prod * (Pm o1 * (Pm o2 * ((Y.map (evMat oc')).prod *
+          (evMat (ocu o1 o2) b1 * (evMat (ocu o1 o2) b2 * (Z.map (evMat oc')).prod)))))) := by
+      intro o1 o2
+      unfold gtr
+      simp only [List.map_append, List.map_cons, List.prod_append, List.prod_cons,
+        hmap X hXr, hmap Y hYr, hmap Z hZr, ea1, ea2]
+    simp only [hocu] at lhs
+    simp only [lhs]
+    rw [core]
+    simp only [gtr, List.map_append, List.prod_append, mul_assoc]
+  simp only [key]
+
 end code
+
+/-! ## R3: the tensor identities -/
+
+section r3
+variable {Q : Type} [Quandle Q] [Fintype Q] [DecidableEq Q]
+
+theorem UP_apply (e : Bool) (a o b0 b1 : Q) :
+    (Um e a * Pm o) b0 b1 = if b1 = o ∧ ac e a b0 = o then 1 else 0 := by
+  simp only [Matrix.mul_apply, Um, Pm, Matrix.of_apply]
+  rw [Finset.sum_eq_single (ac e a b0)]
+  · by_cases h1 : b1 = o <;> by_cases h2 : ac e a b0 = o <;> simp [h1, h2]
+  · intro b _ hb; simp [hb]
+  · simp
+
+theorem PU_apply (e : Bool) (a o b0 b1 : Q) :
+    (Pm o * Um e a) b0 b1 = if b0 = o ∧ b1 = ac e a o then 1 else 0 := by
+  simp only [Matrix.mul_apply, Um, Pm, Matrix.of_apply]
+  rw [Finset.sum_eq_single o]
+  · by_cases h1 : b0 = o <;> by_cases h2 : b1 = ac e a o <;> simp [h1, h2]
+  · intro b _ hb; simp [hb]
+  · simp
+
+theorem UU_apply (e f : Bool) (a o c0 c2 : Q) :
+    (Um e a * Um f o) c0 c2 = if c2 = ac f o (ac e a c0) then 1 else 0 := by
+  simp only [Matrix.mul_apply, Um, Matrix.of_apply]
+  rw [Finset.sum_eq_single (ac e a c0)]
+  · simp
+  · intro b _ hb; simp [hb]
+  · simp
+
+/-- the matrix of the pair of events on the middle strand: under at x (sign `εx`, over colour `α`),
+    over at z (colour `oz`), in this order if `Bf`, in the other order otherwise -/
+def XB (Bf : Bool) (εx : Bool) (α oz : Q) : Matrix Q Q ℕ :=
+  if Bf then Um εx α * Pm oz else Pm oz * Um εx α
+
+/-- the matrix of the pair of events on the lower strand: under at y (sign `εy`, over colour `α`) and
+    under at z (sign `εz`, over colour `oz`), y first if `Cf` -/
+def YC (Cf : Bool) (εy εz : Bool) (α oz : Q) : Matrix Q Q ℕ :=
+  if Cf then Um εy α * Um εz oz else Um εz oz * Um εy α
+
+theorem tensor_key1 (εx εy εz : Bool) (h : εx = εy) (α b0 c0 : Q) :
+    ac εz (ac εx α b0) (ac εy α c0) = ac εy α (ac εz b0 c0) := by
+  rw [ac_hom εy εz α b0 c0, h]
+
+theorem tensor_key2 (εx εy εz : Bool) (h : εy = !εx) (α b0 c0 : Q) :
+    ac εy α (ac εz (ac εx α b0) c0) = ac εz b0 (ac εy α c0) := by
+  rw [ac_hom εy εz α (ac εx α b0) c0, h, ac_ac_inv]
+
+/-- **The identity behind R3.**  Swapping the two events on each of the two strands does not change the
+    sum over the colour `oz` of the crossing of these two strands, as a tensor. -/
+theorem R3_tensor (Bf Cf εx εy εz : Bool) (hs : (εx = εy) ↔ (Bf = Cf)) (α : Q) (b0 b1 c0 c2 : Q) :
+    ∑ oz : Q, XB Bf εx α oz b0 b1 * YC Cf εy εz α oz c0 c2 =
+      ∑ oz : Q, XB (!Bf) εx α oz b0 b1 * YC (!Cf) εy εz α oz c0 c2 := by
+  have e1 : (εx = εy) → εx = εy := id
+  cases Bf <;> cases Cf
+  · -- Bf = false, Cf = false : εx = εy
+    have h : εx = εy := hs.2 rfl
+    simp only [XB, YC, Bool.not_false, if_true, Bool.false_eq_true, if_false, PU_apply, UP_apply,
+      UU_apply]
+    rw [Finset.sum_eq_single b0, Finset.sum_eq_single b1]
+    · by_cases hb : b1 = ac εx α b0
+      · subst hb
+        simp only [and_self, if_true, one_mul, true_and]
+        have := tensor_key1 εx εy εz h α b0 c0
+        simp [this]
+      · simp [hb, eq_comm]
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+  · -- Bf = false, Cf = true : εy = !εx
+    have h : εy = !εx := by
+      have : ¬ (εx = εy) := fun h' => by simpa using hs.1 h'
+      cases εx <;> cases εy <;> simp_all
+    simp only [XB, YC, Bool.not_false, Bool.not_true, if_true, Bool.false_eq_true, if_false,
+      PU_apply, UP_apply, UU_apply]
+    rw [Finset.sum_eq_single b0, Finset.sum_eq_single b1]
+    · by_cases hb : b1 = ac εx α b0
+      · subst hb
+        simp only [and_self, if_true, one_mul, true_and]
+        have := tensor_key2 εx εy εz h α b0 c0
+        simp [this]
+      · simp [hb, eq_comm]
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+  · -- Bf = true, Cf = false : εy = !εx
+    have h : εy = !εx := by
+      have : ¬ (εx = εy) := fun h' => by simpa using hs.1 h'
+      cases εx <;> cases εy <;> simp_all
+    simp only [XB, YC, Bool.not_false, Bool.not_true, if_true, Bool.false_eq_true, if_false,
+      PU_apply, UP_apply, UU_apply]
+    rw [Finset.sum_eq_single b1, Finset.sum_eq_single b0]
+    · by_cases hb : b1 = ac εx α b0
+      · subst hb
+        simp only [and_self, if_true, one_mul, true_and]
+        have := tensor_key2 εx εy εz h α b0 c0
+        simp [this]
+      · simp [hb, eq_comm]
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+  · -- Bf = true, Cf = true : εx = εy
+    have h : εx = εy := hs.2 rfl
+    simp only [XB, YC, Bool.not_false, Bool.not_true, if_true, Bool.false_eq_true, if_false,
+      PU_apply, UP_apply, UU_apply]
+    rw [Finset.sum_eq_single b1, Finset.sum_eq_single b0]
+    · by_cases hb : b1 = ac εx α b0
+      · subst hb
+        simp only [and_self, if_true, one_mul, true_and]
+        have := tensor_key1 εx εy εz h α b0 c0
+        simp [this]
+      · simp [hb, eq_comm]
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+    · intro o _ ho; by_cases h1 : b0 = o <;> by_cases h2 : b1 = o <;> simp_all [eq_comm]
+    · simp
+
+theorem trace_expand (N M1 X Y : Matrix Q Q ℕ) :
+    Matrix.trace (N * X * M1 * Y) =
+      ∑ l, ∑ k, ∑ j, ∑ i, N l i * M1 j k * (X i j * Y k l) := by
+  simp only [Matrix.trace, Matrix.diag_apply, Matrix.mul_apply, Finset.sum_mul]
+  apply Finset.sum_congr rfl; intro l _
+  apply Finset.sum_congr rfl; intro k _
+  apply Finset.sum_congr rfl; intro j _
+  apply Finset.sum_congr rfl; intro i _
+  ring
+
+theorem tensor_trace {ι : Type} [Fintype ι] (M0 M1 M2 : Matrix Q Q ℕ)
+    (Xf Yf Xf' Yf' : ι → Matrix Q Q ℕ)
+    (h : ∀ i j k l, ∑ z, Xf z i j * Yf z k l = ∑ z, Xf' z i j * Yf' z k l) :
+    ∑ z, Matrix.trace (M0 * Xf z * M1 * Yf z * M2) =
+      ∑ z, Matrix.trace (M0 * Xf' z * M1 * Yf' z * M2) := by
+  have cyc : ∀ X Y : Matrix Q Q ℕ, Matrix.trace (M0 * X * M1 * Y * M2) =
+      ∑ l, ∑ k, ∑ j, ∑ i, (M2 * M0) l i * M1 j k * (X i j * Y k l) := by
+    intro X Y
+    rw [← trace_expand, Matrix.trace_mul_comm]
+    simp only [mul_assoc]
+  have step : ∀ (Xg Yg : ι → Matrix Q Q ℕ), ∑ z, Matrix.trace (M0 * Xg z * M1 * Yg z * M2) =
+      ∑ l, ∑ k, ∑ j, ∑ i, (M2 * M0) l i * M1 j k * ∑ z, (Xg z i j * Yg z k l) := by
+    intro Xg Yg
+    simp only [cyc, Finset.mul_sum]
+    rw [Finset.sum_comm]
+    apply Finset.sum_congr rfl; intro l _
+    rw [Finset.sum_comm]
+    apply Finset.sum_congr rfl; intro k _
+    rw [Finset.sum_comm]
+    apply Finset.sum_congr rfl; intro j _
+    rw [Finset.sum_comm]
+  rw [step Xf Yf, step Xf' Yf']
+  simp only [h]
+
+
+theorem R3_core (M0 : Q → Matrix Q Q ℕ) (PZ : Matrix Q Q ℕ) (Bf Cf εx εy εz : Bool)
+    (hs : (εx = εy) ↔ (Bf = Cf)) :
+    ∑ ox : Q, ∑ oy : Q, ∑ oz : Q, Matrix.trace
+      ((if ox = oy then M0 ox else 0) * XB Bf εx ox oz * PZ * YC Cf εy εz oy oz * 1) =
+    ∑ ox : Q, ∑ oy : Q, ∑ oz : Q, Matrix.trace
+      ((if ox = oy then M0 ox else 0) * XB (!Bf) εx ox oz * PZ * YC (!Cf) εy εz oy oz * 1) := by
+  have step : ∀ (Bm : Q → Q → Matrix Q Q ℕ) (Cm : Q → Q → Matrix Q Q ℕ) (ox oy oz : Q),
+      Matrix.trace ((if ox = oy then M0 ox else 0) * Bm ox oz * PZ * Cm oy oz * 1) =
+      if ox = oy then Matrix.trace (M0 ox * Bm ox oz * PZ * Cm ox oz * 1) else 0 := by
+    intro Bm Cm ox oy oz
+    by_cases h : ox = oy
+    · subst h; simp
+    · simp [h]
+  simp only [step]
+  apply Finset.sum_congr rfl; intro ox _
+  rw [Finset.sum_comm]
+  conv_rhs => rw [Finset.sum_comm]
+  simp only [Finset.sum_ite_eq, Finset.mem_univ, if_true]
+  apply tensor_trace
+  intro i j k l
+  exact R3_tensor Bf Cf εx εy εz hs ox i j k l
+
+end r3
 
 end Lean42
