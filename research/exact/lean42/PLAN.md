@@ -115,9 +115,15 @@ Each phase ends with a commit that builds with `lake build` and has no `sorry`.
 6. **The plane lemma.**
    * The C++ production run uses Lemma 3 (`-stair`), which needs primeness. Without it the search costs
      about 3.5-3.7 times as much.
-   * A version without primeness (Lemma 3*: a side that is a graph over the plane in some direction must
-     be a geodesic, proved by an explicit embedded disk) is being measured.
-   * If Lemma 3* is enough, prove it with Delta-moves.
+   * A version without primeness is measured (dmon2/wip_K/REPORT.md, LEADS3 row 21): Lemma 3* (a side
+     that projects injectively to the plane along some direction is a geodesic, by the curtain disk) plus
+     Lemma 5* (a computer lemma: every non-geodesic half-space arc of at most L* edges moves by Delta-moves
+     over unit squares to an injective one; certificates for L* = 16) plus rule S4 recover all of
+     `-stair`'s pruning at n = 28..32. Formalising it needs: the curtain isotopy as explicit Delta-moves,
+     the certificate checker (a list of square moves plus a decidable injectivity test), and the
+     minimality argument. No Schoenflies theorem, no primeness.
+   * L* <= 18, so at n = 42 S4 is weaker than `-stair`; its cost there is being measured. If the loss is
+     small, use this route.
    * Otherwise, formalise:
      * PL Schoenflies in R^3 (Moise);
      * the uniqueness of unknotted ball-arc pairs;
