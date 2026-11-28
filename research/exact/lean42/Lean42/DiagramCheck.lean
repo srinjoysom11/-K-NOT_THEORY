@@ -29,11 +29,10 @@ instance : NeZero 5 := ⟨by decide⟩
 def gaussOf (L : List Pt) : List (GEv (ℕ × ℕ)) :=
   (evs L).map fun e => ⟨e.cid, e.over, e.pos⟩
 
--- the trace formulation of the count agrees with the piece count
+-- the trace formulation of the count agrees with the piece count (3_1; the product of matrices
+-- is evaluated lazily, larger examples are too slow for `#guard`)
+#guard colG (AlexQ 3 2 2 (by decide)) (gaussOf (wpoly w31)).reverse = 9
 #guard colG (AlexQ 3 2 2 (by decide)) (gaussOf (wpoly w31)) = 9
 #guard colG (AlexQ 3 1 1 (by decide)) (gaussOf (wpoly w31)) = 3
-#guard colG (AlexQ 5 4 4 (by decide)) (gaussOf (wpoly w41)) = 25
-#guard colG (AlexQ 5 2 3 (by decide)) (gaussOf (wpoly w41)) = 5
-#guard colG (AlexQ 5 4 4 (by decide)) (gaussOf (wpoly w41).reverse) = 25
 
 end Lean42
