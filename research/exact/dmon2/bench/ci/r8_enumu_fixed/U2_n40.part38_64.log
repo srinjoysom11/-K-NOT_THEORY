@@ -1,0 +1,19 @@
+walk calls=27848919 with_ray=2835202 dead=17004778 sitefull=0 sitefull_by_ray=0 limit=4 limit_with_ray=0 skip=0 states=1060939566
+w3 R1=8 calls=230134 dead=155966 (0.678) states/call=6.9 limit=0 states/dead=5.1 states/alive=10.7
+w3 R1=9 calls=292937 dead=202661 (0.692) states/call=7.8 limit=0 states/dead=6.0 states/alive=12.0
+w3 R1=10 calls=369362 dead=258074 (0.699) states/call=9.3 limit=0 states/dead=7.5 states/alive=13.6
+w3 R1=11 calls=469095 dead=334682 (0.713) states/call=10.4 limit=0 states/dead=8.7 states/alive=14.7
+w3 R1=12 calls=611618 dead=435839 (0.713) states/call=11.8 limit=0 states/dead=10.3 states/alive=15.3
+w3 R1=13 calls=841749 dead=601388 (0.714) states/call=12.7 limit=0 states/dead=11.5 states/alive=15.4
+w3 R1=14 calls=1197799 dead=847418 (0.707) states/call=13.9 limit=0 states/dead=13.3 states/alive=15.6
+w3 R1=15 calls=1696000 dead=1202709 (0.709) states/call=16.4 limit=0 states/dead=16.1 states/alive=17.1
+w3 R1=16 calls=2192004 dead=1524861 (0.696) states/call=21.3 limit=0 states/dead=21.6 states/alive=20.6
+w3 R1=17 calls=2556507 dead=1745413 (0.683) states/call=29.3 limit=0 states/dead=30.3 states/alive=27.1
+w3 R1=18 calls=2599666 dead=1701233 (0.654) states/call=42.2 limit=0 states/dead=44.8 states/alive=37.2
+w3 R1=19 calls=2339500 dead=1464008 (0.626) states/call=60.7 limit=0 states/dead=66.0 states/alive=51.8
+w3 R1=20 calls=1837619 dead=1073492 (0.584) states/call=88.3 limit=0 states/dead=98.9 states/alive=73.3
+w3 R1=21 calls=1248840 dead=657971 (0.527) states/call=126.9 limit=0 states/dead=149.9 states/alive=101.3
+w3 R1=22 calls=2328104 dead=1830382 (0.786) states/call=125.6 limit=4 states/dead=117.8 states/alive=154.2
+w3inc witness_reused=1450776 deadfirst_pruned=3928790 w3fast_big_reruns=0 witness_before_setup=4069304 repaired=0
+fulltests=35941515 N=40 alt=4 tasks=5949 part=38/64 nodes=47639284 closed=52616 candidates=11867 survivors=552 bfs_limit_hits=108 tour_giveups=29861881 tau_decided=18530 tau_rayobs=16524 tau_leafcuts=30
+seconds=69.816417676 src=enum_u.cpp srcsha=37ab3543266481b7 opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 4 -w3inc 2 -walk 8 22 outsha=5f18afda582cf1ea words=552 commit=9da2d4525a82a323bd3a7fc4c52ac09b40bcfa7f
