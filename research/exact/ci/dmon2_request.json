@@ -1,12 +1,12 @@
 {
- "label": "F_n40",
+ "label": "U_n40",
  "runs": [
   {
-   "src": "enum_v.cpp",
+   "src": "enum_u.cpp",
    "n": 40,
    "m": 64,
-   "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 20",
-   "tag": "F"
+   "opts": "-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 20 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 22",
+   "tag": "U"
   }
  ]
 }
