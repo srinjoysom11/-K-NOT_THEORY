@@ -27,3 +27,12 @@
 | 36 | — | 340 | — | 122,717,449 |
 
 Nothing of mine is running now.
+
+## Round 3: UG (primeness-free plane rules merged)
+enum_ug.cpp = enum_u_fixed.cpp + patch_ug1.py + patch_ug2.py (K's patch.py / patch2.py with the file names changed and one
+anchor adapted to the cinf line). FG.sh = F.sh with -stair replaced by -stairg 1 -arcmin 16.
+UG = FG.sh + U2 flags. Words = U2 = F at N = 24..32 (byte-identical), and at N = 34 with -arcmin 16 and with -arcmin 17.
+Nodes UG/U2: 24 37,835/39,004; 26 104,745/106,819; 28 386,871/395,112; 30 1,816,384/1,836,461; 32 6,821,836/6,902,227;
+34 60,124,525 (M=16) and 26,008,496 (M=17) / 26,209,303. Time (user s) N=30 3.77-3.86 vs 3.51-3.67; N=32 15.6 vs 14.7-15.0;
+N=34 150.3 (M=16), 65.8 (M=17) vs 63.5. Incremental GW3 setup: only 13% of calls have the parent's B table (17% the same
+site set): not implemented.

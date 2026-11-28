@@ -655,6 +655,29 @@ theorem R3_core (M0 : Q → Matrix Q Q ℕ) (PZ : Matrix Q Q ℕ) (Bf Cf εx εy
   intro i j k l
   exact R3_tensor Bf Cf εx εy εz hs ox i j k l
 
+theorem R3_core' (M0 : Q → Matrix Q Q ℕ) (PZ : Matrix Q Q ℕ) (Bf Cf εx εy εz : Bool)
+    (hs : (εx = εy) ↔ (Bf = Cf)) :
+    ∑ ox : Q, ∑ oy : Q, ∑ oz : Q, Matrix.trace
+      ((if ox = oy then M0 ox else 0) * YC Cf εy εz oy oz * PZ * XB Bf εx ox oz * 1) =
+    ∑ ox : Q, ∑ oy : Q, ∑ oz : Q, Matrix.trace
+      ((if ox = oy then M0 ox else 0) * YC (!Cf) εy εz oy oz * PZ * XB (!Bf) εx ox oz * 1) := by
+  have step : ∀ (Bm : Q → Q → Matrix Q Q ℕ) (Cm : Q → Q → Matrix Q Q ℕ) (ox oy oz : Q),
+      Matrix.trace ((if ox = oy then M0 ox else 0) * Cm oy oz * PZ * Bm ox oz * 1) =
+      if ox = oy then Matrix.trace (M0 ox * Cm ox oz * PZ * Bm ox oz * 1) else 0 := by
+    intro Bm Cm ox oy oz
+    by_cases h : ox = oy
+    · subst h; simp
+    · simp [h]
+  simp only [step]
+  apply Finset.sum_congr rfl; intro ox _
+  rw [Finset.sum_comm]
+  conv_rhs => rw [Finset.sum_comm]
+  simp only [Finset.sum_ite_eq, Finset.mem_univ, if_true]
+  apply tensor_trace
+  intro i j k l
+  have := R3_tensor Bf Cf εx εy εz hs ox k l i j
+  simpa [mul_comm] using this
+
 theorem tr_shape (PX A1 A2 PY B1 B2 PZ C1 C2 PW : Matrix Q Q ℕ) :
     Matrix.trace (PX * (A1 * (A2 * (PY * (B1 * (B2 * (PZ * (C1 * (C2 * PW))))))))) =
       Matrix.trace ((PW * PX * (A1 * A2) * PY) * (B1 * B2) * PZ * (C1 * C2) * 1) := by
@@ -669,6 +692,53 @@ theorem Pm_ite (c : Prop) [Decidable c] (M A B : Matrix Q Q ℕ) :
   split_ifs <;> simp
 
 end r3
+
+section rename
+variable {ν ν' : Type} [DecidableEq ν] [DecidableEq ν'] {Q : Type} [Quandle Q] [Fintype Q]
+  [DecidableEq Q]
+
+/-- rename the crossings of an event -/
+def GEv.rename (σ : ν → ν') (e : GEv ν) : GEv ν' := ⟨σ e.cid, e.over, e.pos⟩
+
+theorem evMat_rename (σ : ν → ν') (oc : ν' → Q) (e : GEv ν) :
+    evMat oc (e.rename σ) = evMat (oc ∘ σ) e := by
+  simp [evMat, GEv.rename]
+
+theorem gtr_rename (σ : ν → ν') (oc : ν' → Q) (G : List (GEv ν)) :
+    gtr oc (G.map (GEv.rename σ)) = gtr (oc ∘ σ) G := by
+  unfold gtr
+  simp only [List.map_map]
+  congr 2
+
+theorem sumOver_rename (σ : ν → ν') (hσ : Function.Injective σ) (F : (ν → Q) → ℕ) (l : List ν)
+    (oc : ν' → Q) :
+    sumOver (fun oc' : ν' → Q => F (oc' ∘ σ)) (l.map σ) oc = sumOver F l (oc ∘ σ) := by
+  induction l generalizing oc with
+  | nil => rfl
+  | cons c l ih =>
+    simp only [List.map_cons, sumOver]
+    apply Finset.sum_congr rfl; intro o _
+    rw [ih, Function.update_comp_eq_of_injective _ hσ]
+
+theorem names_rename (σ : ν → ν') (hσ : Function.Injective σ) (G : List (GEv ν)) :
+    names (G.map (GEv.rename σ)) = (names G).map σ := by
+  unfold names
+  rw [List.map_map]
+  have h : (GEv.cid ∘ GEv.rename σ) = σ ∘ GEv.cid := rfl
+  rw [h, ← List.map_map, List.dedup_map_of_injective hσ]
+
+/-- **Renaming the crossings by an injective map does not change the count.** -/
+theorem colG_rename [Inhabited Q] [Inhabited Q] (σ : ν → ν') (hσ : Function.Injective σ)
+    (G : List (GEv ν)) : colG Q (G.map (GEv.rename σ)) = colG Q G := by
+  unfold colG
+  rw [names_rename σ hσ]
+  have : (fun oc : ν' → Q => gtr oc (G.map (GEv.rename σ))) =
+      fun oc' => (fun oc : ν → Q => gtr oc G) (oc' ∘ σ) :=
+    funext fun oc => gtr_rename σ oc G
+  rw [this]
+  exact sumOver_rename σ hσ (fun oc : ν → Q => gtr oc G) (names G) _
+
+end rename
 
 section r3main
 variable {ν : Type} [DecidableEq ν] {Q : Type} [Quandle Q] [Fintype Q] [DecidableEq Q]
@@ -913,7 +983,168 @@ theorem R3a [Inhabited Q] (X Y Z W : List (GEv ν)) (a1 a2 b1 b2 c1 c2 : GEv ν)
   exact R3_core (fun ox => (W.map (evMat oc')).prod * (X.map (evMat oc')).prod * Pm ox *
     (Y.map (evMat oc')).prod) (Z.map (evMat oc')).prod Bf Cf εx εy εz hsign
 
+/-- **R3.**  Three crossings x (top strand over middle strand), y (top over bottom), z (middle over
+    bottom).  On the top strand the events at x and y are adjacent, on the middle strand the events at x
+    (under) and z (over), on the bottom strand those at y and z (both under).  Exchanging the two events on
+    each of the three strands does not change the number of colourings, provided the signs fit the
+    geometry: `sx = sy` iff the middle strand meets x before z exactly when the bottom strand meets y
+    before z.  (This is the case for every actual R3 move; reversing the direction of a strand changes both
+    the order of its two events and the signs of its two crossings.)
+    The cyclic order of the three pairs in the code is (top, bottom, middle). -/
+theorem R3b [Inhabited Q] (X Y Z W : List (GEv ν)) (a1 a2 b1 b2 c1 c2 : GEv ν) (x y z : ν)
+    (hxy : x ≠ y) (hxz : x ≠ z) (hyz : y ≠ z)
+    (hA1 : a1.over = true) (hA2 : a2.over = true)
+    (hA : (a1.cid = x ∧ a2.cid = y) ∨ (a1.cid = y ∧ a2.cid = x))
+    (hB : (b1.over = false ∧ b1.cid = x ∧ b2.over = true ∧ b2.cid = z) ∨
+          (b1.over = true ∧ b1.cid = z ∧ b2.over = false ∧ b2.cid = x))
+    (hC1 : c1.over = false) (hC2 : c2.over = false)
+    (hC : (c1.cid = y ∧ c2.cid = z) ∨ (c1.cid = z ∧ c2.cid = y))
+    (hsign : ((if b1.over = false then b1.pos else b2.pos) = (if c1.cid = y then c1.pos else c2.pos)) ↔
+        (decide (b1.over = false) = decide (c1.cid = y)))
+    (hrest : ∀ e ∈ X ++ (Y ++ (Z ++ W)), e.cid ≠ x ∧ e.cid ≠ y ∧ e.cid ≠ z) :
+    colG Q (X ++ a1 :: a2 :: (Y ++ c1 :: c2 :: (Z ++ b1 :: b2 :: W))) =
+      colG Q (X ++ a2 :: a1 :: (Y ++ c2 :: c1 :: (Z ++ b2 :: b1 :: W))) := by
+  set εx : Bool := if b1.over = false then b1.pos else b2.pos with hεx
+  set εy : Bool := if c1.cid = y then c1.pos else c2.pos with hεy
+  set εz : Bool := if c1.cid = z then c1.pos else c2.pos with hεz
+  set Bf : Bool := decide (b1.over = false) with hBf
+  set Cf : Bool := decide (c1.cid = y) with hCf
+  set R := names (X ++ (Y ++ (Z ++ W))) with hRdef
+  have hxR : x ∉ R := by rw [hRdef, names_mem]; rintro ⟨e, he, h⟩; exact (hrest e he).1 h
+  have hyR : y ∉ R := by rw [hRdef, names_mem]; rintro ⟨e, he, h⟩; exact (hrest e he).2.1 h
+  have hzR : z ∉ R := by rw [hRdef, names_mem]; rintro ⟨e, he, h⟩; exact (hrest e he).2.2 h
+  have hRnd : R.Nodup := List.nodup_dedup _
+  have h1 : a1.cid = x ∨ a1.cid = y := by rcases hA with ⟨h, _⟩ | ⟨h, _⟩ <;> simp [h]
+  have h2 : a2.cid = x ∨ a2.cid = y := by rcases hA with ⟨_, h⟩ | ⟨_, h⟩ <;> simp [h]
+  have h3 : b1.cid = x ∨ b1.cid = z := by rcases hB with ⟨_, h, _⟩ | ⟨_, h, _⟩ <;> simp [h]
+  have h4 : b2.cid = x ∨ b2.cid = z := by rcases hB with ⟨_, _, _, h⟩ | ⟨_, _, _, h⟩ <;> simp [h]
+  have h5 : c1.cid = y ∨ c1.cid = z := by rcases hC with ⟨h, _⟩ | ⟨h, _⟩ <;> simp [h]
+  have h6 : c2.cid = y ∨ c2.cid = z := by rcases hC with ⟨_, h⟩ | ⟨_, h⟩ <;> simp [h]
+  have hx : a1.cid = x ∨ a2.cid = x := by
+    rcases hA with ⟨h, _⟩ | ⟨_, h⟩ <;> simp [h]
+  have hy : a1.cid = y ∨ a2.cid = y := by
+    rcases hA with ⟨_, h⟩ | ⟨h, _⟩ <;> simp [h]
+  have hz : b1.cid = z ∨ b2.cid = z := by
+    rcases hB with ⟨_, _, _, h⟩ | ⟨_, h, _⟩ <;> simp [h]
+  have hzC : c1.cid = z ∨ c2.cid = z := by
+    rcases hC with ⟨_, h⟩ | ⟨h, _⟩ <;> simp [h]
+  have hswap : ∀ n, (n = y ∨ n = x ∨ n = z ∨ n ∈ R) ↔ (n = x ∨ n = y ∨ n = z ∨ n ∈ R) := fun n =>
+    ⟨fun h => by rcases h with h | h | h | h <;> simp [h],
+     fun h => by rcases h with h | h | h | h <;> simp [h]⟩
+  have hmemG : ∀ n, n ∈ names (X ++ a1 :: a2 :: (Y ++ c1 :: c2 :: (Z ++ b1 :: b2 :: W))) ↔
+      n = x ∨ n = y ∨ n = z ∨ n ∈ R := fun n =>
+    (mem3_shape X Y Z W a1 a2 c1 c2 b1 b2 y x z h1.symm h2.symm h5 h6 h3 h4 hy hx hzC n).trans
+      (hswap n)
+  have hmemG' : ∀ n, n ∈ names (X ++ a2 :: a1 :: (Y ++ c2 :: c1 :: (Z ++ b2 :: b1 :: W))) ↔
+      n = x ∨ n = y ∨ n = z ∨ n ∈ R := fun n =>
+    (mem3_shape X Y Z W a2 a1 c2 c1 b2 b1 y x z h2.symm h1.symm h6 h5 h4 h3 hy.symm hx.symm
+      hzC.symm n).trans (hswap n)
+  rw [colG_three _ x y z R hxR hyR hzR (perm_of_mem3 _ x y z R hRnd hxR hyR hzR hxy hxz hyz hmemG),
+    colG_three _ x y z R hxR hyR hzR (perm_of_mem3 _ x y z R hRnd hxR hyR hzR hxy hxz hyz hmemG')]
+  congr 1
+  funext oc'
+  obtain ⟨ocu, hocu⟩ : ∃ ocu : Q → Q → Q → ν → Q, ∀ ox oy oz, ocu ox oy oz =
+      Function.update (Function.update (Function.update oc' x ox) y oy) z oz :=
+    ⟨_, fun _ _ _ => rfl⟩
+  simp only [← hocu]
+  have hux : ∀ ox oy oz, ocu ox oy oz x = ox := fun ox oy oz => by
+    rw [hocu, Function.update_of_ne hxz, Function.update_of_ne hxy, Function.update_self]
+  have huy : ∀ ox oy oz, ocu ox oy oz y = oy := fun ox oy oz => by
+    rw [hocu, Function.update_of_ne hyz, Function.update_self]
+  have huz : ∀ ox oy oz, ocu ox oy oz z = oz := fun ox oy oz => by
+    rw [hocu, Function.update_self]
+  have hmapc : ∀ L : List (GEv ν), (∀ e ∈ L, e.cid ≠ x ∧ e.cid ≠ y ∧ e.cid ≠ z) →
+      ∀ ox oy oz, L.map (evMat (ocu ox oy oz)) = L.map (evMat oc') := by
+    intro L hL ox oy oz
+    rw [hocu]
+    rw [map_evMat_update (Function.update (Function.update oc' x ox) y oy) oz
+        (fun e he => (hL e he).2.2),
+      map_evMat_update (Function.update oc' x ox) oy (fun e he => (hL e he).2.1),
+      map_evMat_update oc' ox (fun e he => (hL e he).1)]
+  have hXr : ∀ e ∈ X, e.cid ≠ x ∧ e.cid ≠ y ∧ e.cid ≠ z := fun e he =>
+    hrest e (List.mem_append.2 (Or.inl he))
+  have hYr : ∀ e ∈ Y, e.cid ≠ x ∧ e.cid ≠ y ∧ e.cid ≠ z := fun e he =>
+    hrest e (List.mem_append.2 (Or.inr (List.mem_append.2 (Or.inl he))))
+  have hZr : ∀ e ∈ Z, e.cid ≠ x ∧ e.cid ≠ y ∧ e.cid ≠ z := fun e he =>
+    hrest e (List.mem_append.2 (Or.inr (List.mem_append.2 (Or.inr
+      (List.mem_append.2 (Or.inl he))))))
+  have hWr : ∀ e ∈ W, e.cid ≠ x ∧ e.cid ≠ y ∧ e.cid ≠ z := fun e he =>
+    hrest e (List.mem_append.2 (Or.inr (List.mem_append.2 (Or.inr
+      (List.mem_append.2 (Or.inr he))))))
+  have eo : ∀ (oc : ν → Q) (e : GEv ν), e.over = true → evMat oc e = Pm (oc e.cid) := by
+    intro oc e h; simp [evMat, h]
+  have eu : ∀ (oc : ν → Q) (e : GEv ν), e.over = false → evMat oc e = Um e.pos (oc e.cid) := by
+    intro oc e h; simp [evMat, h]
+  -- the pairs
+  have fA : ∀ ox oy oz, evMat (ocu ox oy oz) a1 * evMat (ocu ox oy oz) a2 =
+        (if ox = oy then Pm ox else 0) ∧
+      evMat (ocu ox oy oz) a2 * evMat (ocu ox oy oz) a1 = (if ox = oy then Pm ox else 0) := by
+    intro ox oy oz
+    have Pm' : ∀ a b : Q, Pm b * Pm a = if a = b then Pm a else 0 := fun a b => by
+      rw [Pm_comm, Pm_mul_Pm]
+    rcases hA with ⟨e1, e2⟩ | ⟨e1, e2⟩
+    · rw [eo _ _ hA1, eo _ _ hA2, e1, e2, hux, huy]
+      exact ⟨Pm_mul_Pm _ _, Pm' _ _⟩
+    · rw [eo _ _ hA1, eo _ _ hA2, e1, e2, hux, huy]
+      exact ⟨Pm' _ _, Pm_mul_Pm _ _⟩
+  have fB : ∀ ox oy oz, evMat (ocu ox oy oz) b1 * evMat (ocu ox oy oz) b2 = XB Bf εx ox oz ∧
+      evMat (ocu ox oy oz) b2 * evMat (ocu ox oy oz) b1 = XB (!Bf) εx ox oz := by
+    intro ox oy oz
+    rcases hB with ⟨o1, c1', o2, c2'⟩ | ⟨o1, c1', o2, c2'⟩
+    · have hBf' : Bf = true := by rw [hBf]; simp [o1]
+      have hεx' : εx = b1.pos := by rw [hεx]; simp [o1]
+      rw [eu _ _ o1, eo _ _ o2, c1', c2', hux, huz, hBf', hεx']
+      simp [XB]
+    · have hBf' : Bf = false := by rw [hBf]; simp [o1]
+      have hεx' : εx = b2.pos := by rw [hεx]; simp [o1]
+      rw [eo _ _ o1, eu _ _ o2, c1', c2', hux, huz, hBf', hεx']
+      simp [XB]
+  have fC : ∀ ox oy oz, evMat (ocu ox oy oz) c1 * evMat (ocu ox oy oz) c2 = YC Cf εy εz oy oz ∧
+      evMat (ocu ox oy oz) c2 * evMat (ocu ox oy oz) c1 = YC (!Cf) εy εz oy oz := by
+    intro ox oy oz
+    rcases hC with ⟨d1, d2⟩ | ⟨d1, d2⟩
+    · have hCf' : Cf = true := by rw [hCf]; simp [d1]
+      have hεy' : εy = c1.pos := by rw [hεy]; simp [d1]
+      have hεz' : εz = c2.pos := by
+        have : ¬ c1.cid = z := by rw [d1]; exact hyz
+        rw [hεz]; simp [this]
+      rw [eu _ _ hC1, eu _ _ hC2, d1, d2, huy, huz, hCf', hεy', hεz']
+      simp [YC]
+    · have hCf' : Cf = false := by
+        have : ¬ c1.cid = y := by rw [d1]; exact Ne.symm hyz
+        rw [hCf]; simp [this]
+      have hεy' : εy = c2.pos := by
+        have : ¬ c1.cid = y := by rw [d1]; exact Ne.symm hyz
+        rw [hεy]; simp [this]
+      have hεz' : εz = c1.pos := by rw [hεz]; simp [d1]
+      rw [eu _ _ hC1, eu _ _ hC2, d1, d2, huy, huz, hCf', hεy', hεz']
+      simp [YC]
+  have eG : ∀ ox oy oz, gtr (ocu ox oy oz) (X ++ a1 :: a2 :: (Y ++ c1 :: c2 :: (Z ++ b1 :: b2 :: W))) =
+      Matrix.trace ((if ox = oy then (W.map (evMat oc')).prod * (X.map (evMat oc')).prod * Pm ox *
+          (Y.map (evMat oc')).prod else 0) * YC Cf εy εz oy oz * (Z.map (evMat oc')).prod *
+        XB Bf εx ox oz * 1) := by
+    intro ox oy oz
+    rw [gtr_shape, hmapc X hXr, hmapc Y hYr, hmapc Z hZr, hmapc W hWr, (fA ox oy oz).1,
+      (fC ox oy oz).1, (fB ox oy oz).1, Pm_ite]
+  have eG' : ∀ ox oy oz, gtr (ocu ox oy oz) (X ++ a2 :: a1 :: (Y ++ c2 :: c1 :: (Z ++ b2 :: b1 :: W))) =
+      Matrix.trace ((if ox = oy then (W.map (evMat oc')).prod * (X.map (evMat oc')).prod * Pm ox *
+          (Y.map (evMat oc')).prod else 0) * YC (!Cf) εy εz oy oz * (Z.map (evMat oc')).prod *
+        XB (!Bf) εx ox oz * 1) := by
+    intro ox oy oz
+    rw [gtr_shape, hmapc X hXr, hmapc Y hYr, hmapc Z hZr, hmapc W hWr, (fA ox oy oz).2,
+      (fC ox oy oz).2, (fB ox oy oz).2, Pm_ite]
+  simp only [eG, eG']
+  exact R3_core' (fun ox => (W.map (evMat oc')).prod * (X.map (evMat oc')).prod * Pm ox *
+    (Y.map (evMat oc')).prod) (Z.map (evMat oc')).prod Bf Cf εx εy εz hsign
+
 end r3main
 
+
+#print axioms colG_rotate
+#print axioms colG_rename
+#print axioms R1
+#print axioms R2
+#print axioms R3a
+#print axioms R3b
 
 end Lean42

@@ -15,3 +15,4 @@ import Lean42.Decide
 import Lean42.Check
 import Lean42.Diagram
 import Lean42.DiagramCheck
+import Lean42.Gauss

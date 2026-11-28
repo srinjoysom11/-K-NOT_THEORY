@@ -7,6 +7,7 @@
 -/
 import Lean42.Diagram
 import Lean42.Words
+import Lean42.Gauss
 
 namespace Lean42
 
@@ -23,5 +24,16 @@ instance : NeZero 5 := ⟨by decide⟩
 #guard col (AlexQ 5 4 4 (by decide)) (wpoly w41) = 25
 #guard col (AlexQ 5 4 4 (by decide)) (wpoly w41).reverse = 25
 #guard col (AlexQ 5 2 3 (by decide)) (wpoly w41) = 5
+
+/-- the signed Gauss code of the diagram of a polygon (from the globally sorted events) -/
+def gaussOf (L : List Pt) : List (GEv (ℕ × ℕ)) :=
+  (evs L).map fun e => ⟨e.cid, e.over, e.pos⟩
+
+-- the trace formulation of the count agrees with the piece count
+#guard colG (AlexQ 3 2 2 (by decide)) (gaussOf (wpoly w31)) = 9
+#guard colG (AlexQ 3 1 1 (by decide)) (gaussOf (wpoly w31)) = 3
+#guard colG (AlexQ 5 4 4 (by decide)) (gaussOf (wpoly w41)) = 25
+#guard colG (AlexQ 5 2 3 (by decide)) (gaussOf (wpoly w41)) = 5
+#guard colG (AlexQ 5 4 4 (by decide)) (gaussOf (wpoly w41).reverse) = 25
 
 end Lean42
