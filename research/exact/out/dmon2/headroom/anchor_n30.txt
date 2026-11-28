@@ -1,0 +1,4 @@
+ANCHOR band nodes=1040836 plain_walk_dead=844302 no_single=2 single=196532 pairs_after_local=981520 pairs_alive=405537 all_pairs_dead=2631 (of which no local pair=0) VIOLATIONS(useful node pruned): any=0 anchor=0
+ANCHOR R=15 nodes=68779 plain_dead=0 single=68777 anchor_all_dead=940
+ANCHOR R=16 nodes=658718 plain_dead=589786 single=68932 anchor_all_dead=923
+ANCHOR R=17 nodes=313339 plain_dead=254516 single=58823 anchor_all_dead=768
