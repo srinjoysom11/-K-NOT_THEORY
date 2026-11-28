@@ -88,11 +88,21 @@ def certificate(arc, A, p, dirs, lim=20000, ext=4):
             seen.add(b); Q.append((b, d + 1))
     return None
 
-def justify(word, M, use_f2):
+def one_max(arc, A, p):
+    """Lemma M: the height along the normal (into the side) never descends and then ascends again"""
+    sigma = 1 if arc[0][A] > p else -1
+    h = [sigma * q[A] for q in arc]; down = False
+    for k in range(1, len(h)):
+        if h[k] < h[k - 1]: down = True
+        elif h[k] > h[k - 1] and down: return False
+    return True
+
+def justify(word, M, use_f2, use_m=False):
     """reason string if the polygon violates Lemma 3* (direct, D9 or DX), Lemma 5* (side < M edges with a certificate), or F2"""
     for A, p, sides in twice_crossed(word):
         for sigma, arc in sides:
             if geodesic(arc): continue
+            if use_m and one_max(arc, A, p): return f'LM axis{A} plane{p}+1/2 side{sigma:+d} len{len(arc)-1}'
             v = inj_any(arc, A, p, D9)
             if v: return f'L3* axis{A} plane{p}+1/2 side{sigma:+d} len{len(arc)-1} dir{v}'
             if len(arc) - 1 < M:

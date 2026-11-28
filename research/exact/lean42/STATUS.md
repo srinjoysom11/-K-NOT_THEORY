@@ -121,3 +121,20 @@ certificate: a basis of the solution module plus a proof that it is complete).
   the long parts are C2c, the local geometry of an elementary Delta-move, and C3, perturbation).
   Decision needed from the coordinator before continuing (see report).
 * D done: quandle choice and tables above.
+
+## Phase 3/4, state at the end of this run
+* Done (no sorry): `Gauss.lean` (see PHASE3_PLAN.md): signed Gauss codes, `colG` as a trace,
+  `colG_rotate`, `colG_rename`, `R1`, `R2`, `R3a`, `R3b` for any `Quandle`; `Diagram.lean`
+  (projection, genericity, events, `inv`, translation and reversal invariance);
+  `DiagramCheck.lean` (`#guard`: piece count and trace count agree with Python on 3_1, 4_1).
+* Target polygons P_K (representatives; any representative of K is fine): the words of
+  `research/data/seeds.json` for 7_1..7_7, 8_19, 8_20 (84-102 edges, minimal diagrams), and for the
+  survivor types `out/witness40.txt` (6_1, 6_2, 6_3, 3_1#3_1, 3_1#-3_1), `out/witness42_8_19.txt`.
+  The 44-edge witnesses of 7_x and 8_20 are not in the repository.
+* In progress: the bridge polygon -> Gauss code with intrinsic crossing names, so that rotation and
+  translation of the vertex list become `colG_rotate` / `colG_rename` (about 200 lines, plan in
+  PHASE3_PLAN.md, section "Update").
+* Exact next step: define `evsOn`/`gauss` for `List Pt` with `cid = (over edge, under edge)`,
+  prove `edges (L.rotate 1) = (edges L).rotate 1` and `gauss (L.rotate 1) = (gauss L).rotate k`
+  under distinct keys, then `inv_rotate`; after that the geometric part C2 (case list in
+  PHASE3_PLAN.md) with the direction route decided in the verdict above.

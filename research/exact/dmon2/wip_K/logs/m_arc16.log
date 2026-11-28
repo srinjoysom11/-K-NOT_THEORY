@@ -1,0 +1,8 @@
+extra directions: 120
+example (9 dirs non-injective) L=16: ueeeeeeuendwwussdd
+example (9 dirs non-injective) L=16: ueeeeeeunwdwwussdd
+example (9 dirs non-injective) L=16: ueeeeeeunndwsussdd
+onemax_nongeodesic=59931050
+cert_retry_ok=0 cert_fail=0 cert_states=1860054 cert_maxdepth=4
+L=16 arcs=69028657 nongeodesic=68995889 nonInj_axis=1330523 nonInj_9=1038469 nonInj_9+ext=147192
+t=179

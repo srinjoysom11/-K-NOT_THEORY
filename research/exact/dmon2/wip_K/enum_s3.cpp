@@ -95,7 +95,7 @@ static bool CYCLEAF = false;   /* -cycleaf: apply -face/-plane4/-crank to the fi
 static int TAUORD = 0; static std::vector<int> TORD[MAXN];   /* order of the pairs j (k >= 1): 0 = j ascending; 1 = j = 0, 1, then by max(k+j, N-1-j) */
 static bool WALK = false; static int WALK_LO = 0, WALK_HI = -1, GWGAP = 99, GW3LET = 99; static unsigned long long GWLIM = 100000; static bool W3HDP = false;   /* -walk LO HI: GW3 walk bound for LO <= R1 <= HI */
 static int TAU = 0; static bool TAUZ = true, TAUAX = true;   /* -tau 1: x->-x symmetry breaking with ray obligation; -tau 2: UNSOUND oracle (ignores rho) */
-static bool PRIME = false, STAIR = false, AOTC = false; static int STAIRG = -1, ARCMIN = 0; static bool S3LEAF = true; static const char *DUMPCAND = nullptr, *DUMPCLOSED = nullptr;   /* -prime / -stair: plane-crossing lemma (prime knots, PROOF.md Lemma 3); -aotc: per-axis plane debt in -aot */
+static bool PRIME = false, STAIR = false, AOTC = false; static int STAIRG = -1, ARCMIN = 0; static bool ONEMAX = false; static bool S3LEAF = true; static const char *DUMPCAND = nullptr, *DUMPCLOSED = nullptr;   /* -prime / -stair: plane-crossing lemma (prime knots, PROOF.md Lemma 3); -aotc: per-axis plane debt in -aot */
 
 static signed char CX[NS], CY[NS], CZ[NS];
 static unsigned char ALLOWED[NS];
@@ -228,6 +228,7 @@ struct Search {
     struct StairSave { int rm[3]; int cd[3]; int lev[3]; };
     static inline bool nonmono(int m) { return (m & (m >> 1) & 0x15) != 0; }
     int owed(int A) const {
+        int dx[64];
         int t = 0, mn = cmn[A] < nlo[A] ? cmn[A] : nlo[A], mx = cmx[A] > nhi[A] ? cmx[A] : nhi[A];
         for (int p = mn; p < mx; p++) {
             int c = crs[A][p + 32], req = (p > mn && p < mx - 1) ? 4 : 2;
@@ -242,6 +243,17 @@ struct Search {
             }
             if (A == 2 && zr4 && p == 0) req = 4;
             t += c >= req ? (c & 1) : req - c;
+            if (ONEMAX && STAIRG >= 0) { const int o4 = c >= 4 ? (c & 1) : 4 - c, o2 = c >= 2 ? (c & 1) : 2 - c; dx[p - mn] = req == 4 ? 0 : o4 - o2; }
+        }
+        /* S5 (-onemax, Lemma M): a non-geodesic side of a twice-crossed plane has two maxima of its normal height, so a
+           plane strictly inside that side is crossed >= 4 times.  For mx - mn >= 2 this asks a 4-crossed plane among
+           {mn, mn+1} (lower side of every plane above mn is non-geodesic) and among {mx-2, mx-1}. */
+        if (ONEMAX && STAIRG >= 0 && mx - mn >= 2) {
+            const int L0 = 0, L1 = 1, H0 = mx - 2 - mn, H1 = mx - 1 - mn;
+            const int eL = dx[L0] < dx[L1] ? dx[L0] : dx[L1], eH = dx[H0] < dx[H1] ? dx[H0] : dx[H1];
+            int e = eL + eH;
+            for (int q = L0; q <= L1; q++) if (q == H0 || q == H1) { if (dx[q] < e) e = dx[q]; }
+            t += e;
         }
         return t;
     }
@@ -315,6 +327,11 @@ struct Search {
         if (m - 1 == mdist(av[0], av[m - 1])) return false;          /* geodesic */
         if (m - 1 < ARCMIN) return true;                              /* short non-geodesic side: certificate (Lemma 5*) */
         const int sigma = coord(A, av[0]) > p ? 1 : -1;
+        if (ONEMAX) {   /* Lemma M: the normal height rises, then falls (no descent followed by an ascent) */
+            bool down = false, two = false;
+            for (int k = 1; k < m && !two; k++) { int dh = sigma * (coord(A, av[k]) - coord(A, av[k - 1])); if (dh < 0) down = true; else if (dh > 0 && down) two = true; }
+            if (!two) return true;
+        }
         if (inj_dir(av, m, A, p, sigma, 0, 0)) return true;
         if (STAIRG >= 9) for (int a = -1; a <= 1; a++) for (int b = -1; b <= 1; b++) if ((a || b) && inj_dir(av, m, A, p, sigma, a, b)) return true;
         return false;
@@ -1687,6 +1704,7 @@ int main(int argc, char **argv) {
         else if (a == "-stairg") { STAIRG = atoi(argv[++i]); PRIME = true; }
         else if (a == "-nos3leaf") S3LEAF = false;
         else if (a == "-arcmin") ARCMIN = atoi(argv[++i]);
+        else if (a == "-onemax") ONEMAX = true;
         else if (a == "-dumpcand") DUMPCAND = argv[++i];
         else if (a == "-dumpclosed") DUMPCLOSED = argv[++i];
         else if (a == "-nomst") NOMST = true;

@@ -125,3 +125,53 @@ related by Reidemeister moves) as a quoted textbook theorem [Burde-Zieschang Pro
 Thm 1.5 + 1.8; both only sketch the proof], and formalise only C0, C1, plus the diagram of each
 witness and survivor (computed): the statement of the main theorem then has this one named
 hypothesis; (b) formalise C2/C3 only for lattice-generic situations.
+
+## Update: Gauss codes (done) and the verdict on the symbolic projection direction
+
+### Done: `Lean42/Gauss.lean` (no sorry; axioms propext, Classical.choice, Quot.sound)
+The colouring count is `colG Q G = sum over oc of trace(prod of event matrices)` for a signed Gauss
+code G (cyclic list of events with crossing name, over/under, sign), Q any Mathlib `Quandle`.
+Proved: `colG_rotate` (cyclic rotation), `colG_rename` (injective renaming of crossing names),
+`R1`, `R2` (over pair + under pair of opposite signs, either order), `R3a`/`R3b` (the three pairs in
+cyclic order top-middle-bottom resp. top-bottom-middle; the sign hypothesis `sx = sy iff (B first iff C
+first)` is exactly what an actual R3 move satisfies: reversing a strand reverses its pair and flips two
+signs). Planar moves change nothing on Gauss codes. The count agrees with the piece count of
+`Diagram.lean` on the checked examples (`DiagramCheck.lean`, `gaussOf`).
+Remaining in step 1 (about 200 lines): the Gauss code of a polygon with *intrinsic* crossing names
+(cid = (over edge, under edge) as point pairs) and events listed edge by edge, so that
+`gauss (L.rotate 1) = (gauss L).rotate k` is a structural statement (flatMap over the rotated edge list;
+`edges (L.rotate 1) = (edges L).rotate 1` follows from `edges_cons_cons`, `chain_append_pair`), and
+`gauss (L.map (. + t)) = (gauss L).map (rename by translating the edge pairs)`; then `inv` for
+polygons gets rotation and translation invariance from `colG_rotate`, `colG_rename`. Rotation needs
+the keys (edge, parameter) to be distinct, i.e. genericity (sorting ties).
+
+### Verdict on the symbolic direction d(eps) = (eps, eps^3, 1)
+* True and useful: all degree-2 monomials of (eps, eps^3, 1) are distinct powers of eps (eps^2, eps^4,
+  eps^6, eps, eps^3, 1), so every nonzero quadratic form and every nonzero linear form is a nonzero
+  polynomial in eps. The non-generic directions of a simple polygon are zero sets of polynomials
+  (vertex on edge: plane; triple point: quadric cone; overlapping collinear projections: plane). So
+  every simple polygon is generic for d(eps), the diagram is defined for every polygon of an Equiv
+  chain, and Step 4 (perturbing intermediate polygons) disappears. Signs are decided by the lowest
+  coefficient; over a Delta-triangle Lemma H (constant sign of an affine height) holds in any
+  ordered field. If P is strictly generic for the rational direction d0, its Gauss code for d(eps)
+  equals that for d0 (all conditions are open; constant coefficients decide).
+* Cost, the risk you named is real: a Delta-triangle is subdivided with rational 3D points, whose
+  eps-projections are `standard + eps*...` with only three terms, and two diagram features that have the
+  same d0-projection but differ at order eps (a cluster) cannot be separated by cell boundaries
+  chosen at the standard level: the line through the cluster point must be chosen with the right
+  first-order tilt, and clusters may be separated only at order eps^2 or eps^3. This adds a layer of
+  cases (feature clusters, recursion in the order of separation) to the elementary-move analysis of C2c;
+  I estimate +50 percent on C2c (1000-1500 lines) and an ordered-field infrastructure on Q[eps]
+  (about 400 lines), against about 1500 lines for Step 4. Not a clear win.
+* Alternative economy (recommended to evaluate first): one rational direction d generic for all
+  polygons of a given chain (a rational point of the curve (e, e^3, 1) outside the finitely many bad
+  roots: explicit and decidable). Then every Delta-move of the chain is a move between d-generic
+  polygons, the subdivision points can be chosen generic for d (all in the rational field, no clusters),
+  so Step 4 disappears and C2c keeps its 15 cases. What is lost: the invariant is then computed for
+  direction d, not the fixed direction d0 of Diagram.lean, so one needs direction independence for a
+  single polygon generic for both: a wall-crossing analysis along the segment from d0 to d (finitely many
+  walls: vertex through an edge projection = R2-type, triple point = R3, vertex-vertex and parallel
+  coincidences = planar), about 800-1200 lines, reusing the R-moves of Gauss.lean. So the
+  alternative costs about the same as the symbolic route but stays over Q.
+* Recommendation: take the common-generic-direction route plus wall crossing, unless the symbolic route
+  is wanted for elegance. Either way, finish the polygon-to-Gauss-code bridge first.

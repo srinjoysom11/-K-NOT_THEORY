@@ -71,7 +71,7 @@ static bool inj_exact(int m, int a, int b, int c) {
 
 /* certificate search: moves of the arc inside z >= 1 with fixed end vertices (corner flips, +2 and -2 moves), breadth
    first, at most CLIM states and length <= L + CEXT; success when some state is injective along a direction of D. */
-static int CLIM = 20000, CEXT = 4; static unsigned long long cert_fail = 0, cert_states = 0, cert_maxdepth = 0;
+static int CLIM = 20000, CEXT = 4; static unsigned long long cert_retry = 0, cert_fail = 0, cert_states = 0, cert_maxdepth = 0;
 typedef std::vector<signed char> Arc;   /* x,y,z triples */
 static bool arc_inj_any(const Arc &a) {
     int m = (int)a.size() / 3; static int qx[200], qy[200], qz[200];
@@ -140,7 +140,7 @@ static void leaf(int m) {   /* m vertices, L = m - 1 edges */
     cnt_ax++;
     for (int a = -1; a <= 1; a++) for (int b = -1; b <= 1; b++) if ((a || b) && inj(m, a, b, 1)) return;
     cnt_9++;
-    if (EXT) { for (auto &v : E) if (inj_exact(m, v.a, v.b, v.c)) return; cnt_ext++; if (!certify(m)) { cert_fail++; printf("NO CERTIFICATE L=%d: u", L); for (int k = 0; k < m - 1; k++) printf("%c", "ewnsud"[let[k]]); printf("d\n"); } if (cnt_ext <= 0) { printf("ext-example L=%d: u", L); for (int k = 0; k < m - 1; k++) printf("%c", "ewnsud"[let[k]]); printf("d\n"); } }
+    if (EXT) { for (auto &v : E) if (inj_exact(m, v.a, v.b, v.c)) return; cnt_ext++; if (!certify(m) && !([&]{ int a = CLIM, b = CEXT; CLIM = 400000; CEXT = 6; bool r = certify(m); CLIM = a; CEXT = b; if (r) cert_retry++; return r; })()) { cert_fail++; printf("NO CERTIFICATE L=%d: u", L); for (int k = 0; k < m - 1; k++) printf("%c", "ewnsud"[let[k]]); printf("d\n"); } if (cnt_ext <= 0) { printf("ext-example L=%d: u", L); for (int k = 0; k < m - 1; k++) printf("%c", "ewnsud"[let[k]]); printf("d\n"); } }
     if (cnt_9 <= 5) { printf("example (9 dirs non-injective) L=%d: u", L); for (int k = 0; k < m - 1; k++) printf("%c", "ewnsud"[let[k]]); printf("d\n"); }
 }
 static void dfs(int k, bool seenH, bool seenNS) {   /* k = index of current vertex; letters let[0..k-1] */
@@ -185,6 +185,6 @@ int main(int argc, char **argv) {
     px[0] = py[0] = 0; pz[0] = 1; occ[32][32][1] = 1;
     dfs(0, false, false);
     if (SELF) printf("selfcheck mismatches=%llu\n", selfbad);
-    printf("cert_fail=%llu cert_states=%llu cert_maxdepth=%llu\n", cert_fail, cert_states, cert_maxdepth);
+    printf("cert_retry_ok=%llu cert_fail=%llu cert_states=%llu cert_maxdepth=%llu\n", cert_retry, cert_fail, cert_states, cert_maxdepth);
     printf("L=%d arcs=%llu nongeodesic=%llu nonInj_axis=%llu nonInj_9=%llu nonInj_9+ext=%llu\n", L, cnt_end, cnt_ng, cnt_ax, cnt_9, cnt_ext);
 }
