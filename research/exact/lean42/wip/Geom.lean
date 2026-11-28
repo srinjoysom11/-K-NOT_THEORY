@@ -94,6 +94,18 @@ theorem mid_mem_tri (a b c : Pt) : b ∈ tri a b c := seg_subset_tri_ab a b c (r
 theorem right_mem_tri (a b c : Pt) : c ∈ tri a b c :=
   mem_tri.2 ⟨0, 1, le_refl _, zero_le_one, by norm_num, by simp⟩
 
+/-- A triangle does not depend on the order of its last two vertices. -/
+theorem tri_swap_bc (a b c : Pt) : tri a b c = tri a c b := by
+  ext x
+  rw [mem_tri, mem_tri]
+  constructor
+  · rintro ⟨u, v, hu, hv, huv, rfl⟩
+    exact ⟨v, u, hv, hu, by linarith, by ext i; simp only [Pi.add_apply, Pi.smul_apply,
+      Pi.sub_apply, smul_eq_mul]; ring⟩
+  · rintro ⟨u, v, hu, hv, huv, rfl⟩
+    exact ⟨v, u, hv, hu, by linarith, by ext i; simp only [Pi.add_apply, Pi.smul_apply,
+      Pi.sub_apply, smul_eq_mul]; ring⟩
+
 /-! ## Injective affine maps -/
 
 /-- φ is `x ↦ M x + t` with `M` an injective ℚ-linear map. -/
