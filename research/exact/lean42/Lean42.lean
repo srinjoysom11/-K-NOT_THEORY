@@ -3,3 +3,7 @@ import Lean42.Geom
 import Lean42.FM
 import Lean42.Polygon
 import Lean42.Delta
+import Lean42.Lat
+import Lean42.Spec
+import Lean42.Square
+import Lean42.Moves

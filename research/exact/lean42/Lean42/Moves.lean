@@ -21,6 +21,7 @@
   polygon has at least 5 vertices, does not contain the side `DA` (`free_uturn`).
 -/
 import Lean42.Square
+import Lean42.Delta
 
 namespace Lean42
 
@@ -44,10 +45,10 @@ theorem flip_equiv {F : Frame} (hF : F.Ok) {R : List Pt}
   simp only [List.mem_cons, not_or] at hD
   obtain ⟨hDA, hDB, hDC, hDR⟩ := hD
   have hBn : F.B ∉ F.C :: (R ++ [F.A]) := by
-    simp only [List.mem_cons, List.mem_append, List.mem_singleton, not_or]
+    simp only [List.mem_cons, List.mem_append, List.not_mem_nil, or_false, not_or]
     exact ⟨hBC, hBR, fun h => hAB h.symm⟩
   have hDn : F.D ∉ F.C :: (R ++ [F.A]) := by
-    simp only [List.mem_cons, List.mem_append, List.mem_singleton, not_or]
+    simp only [List.mem_cons, List.mem_append, List.not_mem_nil, or_false, not_or]
     exact ⟨hDC, hDR, hDA⟩
   have hTfree : ∀ e ∈ T, ∀ x, x ∈ seg e.1 e.2 → x ∈ F.Sq →
       (x = F.A ∨ x = F.C) ∧ (x = e.1 ∨ x = e.2) := by
@@ -112,7 +113,7 @@ theorem flip_equiv {F : Frame} (hF : F.Ok) {R : List Pt}
     exact ⟨Or.inr this, Or.inl this⟩
   have hQ2 : Simple (F.A :: F.D :: F.C :: R) := by
     refine ⟨?_, ?_, ?_⟩
-    · simp at h4 ⊢; omega
+    · simp at h4 ⊢
     · simp only [List.nodup_cons, List.mem_cons, not_or]
       exact ⟨⟨Ne.symm hDA, hAC, hAR⟩, ⟨hDC, hDR⟩, hCR, hRnd⟩
     · rw [hE2]
@@ -173,11 +174,11 @@ theorem uturn_equiv {F : Frame} (hF : F.Ok) {R : List Pt} (hR : R ≠ [])
   have hCn1 : F.C ∉ F.D :: r0 :: R' := by
     simp only [List.mem_cons, not_or]; exact ⟨hCD, hCr, hCR⟩
   have hBn2 : F.B ∉ r0 :: R' ++ [F.A] := by
-    simp only [List.mem_cons, List.mem_append, List.mem_singleton, not_or]
-    exact ⟨hBr, hBR, fun h => hAB h.symm⟩
+    simp only [List.mem_cons, List.mem_append, List.not_mem_nil, or_false, not_or]
+    exact ⟨⟨hBr, hBR⟩, fun h => hAB h.symm⟩
   have hCn2 : F.C ∉ r0 :: R' ++ [F.A] := by
-    simp only [List.mem_cons, List.mem_append, List.mem_singleton, not_or]
-    exact ⟨hCr, hCR, fun h => hAC h.symm⟩
+    simp only [List.mem_cons, List.mem_append, List.not_mem_nil, or_false, not_or]
+    exact ⟨⟨hCr, hCR⟩, fun h => hAC h.symm⟩
   have hAn1 : F.A ∉ F.D :: r0 :: R' := by
     simp only [List.mem_cons, not_or]; exact ⟨hAD, hAr, hAR⟩
   have hT5 : ∀ e ∈ T, ¬ (e.1 = F.D ∧ e.2 = F.A) := by

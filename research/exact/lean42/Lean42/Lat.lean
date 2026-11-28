@@ -133,7 +133,7 @@ theorem edge_det {p q p' q' x : Pt} (hp : IsLat p) (hp' : IsLat p')
     have hp' : p' = p + (1 : ℚ) • e3 j := vec_eq_of j
       (fun i hi => by simp [e3_apply, hi, (hoff i hi).symm]) (by simp [e3_apply, hm, hm'])
     constructor
-    · rw [hp']; ext i; simp [e3_apply]; split_ifs <;> simp_all
+    · rw [hp']; ext i; simp [e3_apply]
     · rw [hp']
   · have : m - 1 = m' := by
       have := int_adj (m - 1) m' (x j) (by rw [hxj, hm]; push_cast; linarith)
@@ -145,7 +145,7 @@ theorem edge_det {p q p' q' x : Pt} (hp : IsLat p) (hp' : IsLat p')
     have hp' : p' = p + (-1 : ℚ) • e3 j := vec_eq_of j
       (fun i hi => by simp [e3_apply, hi, (hoff i hi).symm]) (by simp [e3_apply, hm, hm']; ring)
     constructor
-    · rw [hp']; ext i; simp [e3_apply]; split_ifs <;> simp_all
+    · rw [hp']; ext i; simp [e3_apply]
     · rw [hp']
   · have : m = m' := by
       have := int_adj (m - 1) (m' - 1) (x j) (by rw [hxj, hm]; push_cast; linarith)
@@ -183,7 +183,7 @@ theorem lat_pt_on_edge {p q x : Pt} (hp : IsLat p) (h : UStep p q) (hx : x ∈ s
       · right; rw [e] at hw; simp at hw; linarith
   rcases hl with rfl | rfl
   · left; funext i; rw [hxl' i]; simp
-  · right; funext i; rw [hxl' i]; simp [e3_apply]; split_ifs <;> simp
+  · right; funext i; rw [hxl' i]; simp [e3_apply]
 
 /-! ## Lattice polygons -/
 

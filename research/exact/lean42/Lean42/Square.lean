@@ -96,7 +96,7 @@ theorem eq01_of_int {a z : ℤ} {τ s : ℚ} (h0 : 0 ≤ τ) (h1 : τ ≤ 1) (hs
   exact not_int_of_mid hp hl hs z h
 
 /-- the side case: σ strictly inside -/
-theorem side_case {A p q x : Pt} {k1 k2 : Fin 3} {s1 s2 σ τ : ℚ} (hk : k1 ≠ k2)
+theorem side_case {A p x : Pt} {k1 k2 : Fin 3} {s1 s2 σ τ : ℚ} (hk : k1 ≠ k2)
     (hs1 : s1 = 1 ∨ s1 = -1) (hs2 : s2 = 1 ∨ s2 = -1) (hA : IsLat A) (hp : IsLat p)
     {k : Fin 3} {s : ℚ} (hs : s = 1 ∨ s = -1)
     (hxe : x ∈ seg p (p + s • e3 k)) (hσ0 : 0 < σ) (hσ1 : σ < 1) (hτ0 : 0 ≤ τ) (hτ1 : τ ≤ 1)
@@ -107,7 +107,7 @@ theorem side_case {A p q x : Pt} {k1 k2 : Fin 3} {s1 s2 σ τ : ℚ} (hk : k1 �
               (p = A + s2 • e3 k2 + s1 • e3 k1 ∧ p + s • e3 k = A + s2 • e3 k2))) := by
   have hx1 : ∀ i, x i = A i + σ * s1 * (if i = k1 then 1 else 0)
       + τ * s2 * (if i = k2 then 1 else 0) := by
-    intro i; rw [hx]; simp [e3_apply]; ring
+    intro i; rw [hx]; simp [e3_apply]
   obtain ⟨a, ha⟩ := hA k1
   obtain ⟨a2, ha2⟩ := hA k2
   have hxk1 : x k1 = a + σ * s1 := by rw [hx1 k1]; simp [hk, ha]
@@ -175,24 +175,23 @@ theorem lat_edge_square {F : Frame} (hF : F.Ok) {p q x : Pt} (hp : IsLat p) (hu 
       have hτl : τ < 1 := lt_of_le_of_ne hτ1 hτ.2
       have hx' : x = F.A + τ • (F.s2 • e3 F.k2) + σ • (F.s1 • e3 F.k1) := by
         rw [hxeq]; abel
-      have hC := @Frame.C_eq F
       right
       rcases side_case hF.ne.symm hF.h2 hF.h1 hF.lat hp hs hx hτp hτl hσ0 hσ1 hx' with
         ⟨_, h | h⟩ | ⟨_, h | h⟩
-      · simp only [Frame.IsSide, Frame.D]; tauto
-      · simp only [Frame.IsSide, Frame.D]; tauto
-      · simp only [Frame.IsSide, Frame.B, Frame.C]; rw [add_right_comm] at h; tauto
-      · simp only [Frame.IsSide, Frame.B, Frame.C]; rw [add_right_comm] at h; tauto
+      · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ⟨h.1, h.2⟩))))))
+      · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ⟨h.1, h.2⟩))))))
+      · exact Or.inr (Or.inr (Or.inl ⟨h.1, by rw [h.2]; rfl⟩))
+      · exact Or.inr (Or.inr (Or.inr (Or.inl ⟨by rw [h.1]; rfl, h.2⟩)))
   · push_neg at hσ
     have hσp : 0 < σ := lt_of_le_of_ne hσ0 (Ne.symm hσ.1)
     have hσl : σ < 1 := lt_of_le_of_ne hσ1 hσ.2
     right
     rcases side_case hF.ne hF.h1 hF.h2 hF.lat hp hs hx hσp hσl hτ0 hτ1 hxeq with
       ⟨_, h | h⟩ | ⟨_, h | h⟩
-    · simp only [Frame.IsSide, Frame.B]; tauto
-    · simp only [Frame.IsSide, Frame.B]; tauto
-    · simp only [Frame.IsSide, Frame.C, Frame.D]; rw [add_right_comm] at h; tauto
-    · simp only [Frame.IsSide, Frame.C, Frame.D]; rw [add_right_comm] at h; tauto
+    · exact Or.inl ⟨h.1, h.2⟩
+    · exact Or.inr (Or.inl ⟨h.1, h.2⟩)
+    · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ⟨h.1, by rw [h.2, Frame.C_eq]⟩)))))
+    · exact Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ⟨by rw [h.1, Frame.C_eq], h.2⟩))))
 
 /-! ## The square meets the lattice edges only at corners or along sides -/
 
@@ -249,8 +248,8 @@ theorem free_uturn {F : Frame} (hF : F.Ok) {e : Pt × Pt} (hu : UStep e.1 e.2) (
     · exact h1 h.1
     · exact h1 h.1
     · exact h3 h.2
-    · exact h4 h.2
     · exact h2 h.1
+    · exact h4 h.2
     · exact h5 h
     · exact h6 h
 
