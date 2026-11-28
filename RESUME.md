@@ -6,7 +6,7 @@ needs. Read the one you are resuming first, then the files it points to. Branch:
 
 | Line of work | Handoff file |
 |---|---|
-| Lean 4 proof of the knot invariant (Phase 3 next) | `research/exact/lean42/RESUME.md` (and `STATUS.md`, `PHASE3_PLAN.md`, `PLAN.md` there) |
+| Lean 4 proof of the knot invariant (Phase 3 next) | `research/exact/lean42/RESUME.md` (and `STATUS.md`, `PHASE3_PLAN.md`, `PLAN.md` there); the n = 42 search in Lean: `research/exact/lean42/N42_PLAN.md` |
 | Search speedup U2 (`enum_u.cpp`), agent J | `research/exact/dmon2/wip_J/RESUME.md` |
 | Primeness-free replacement for `-stair` (Lemmas 3*, 5*, M), agent K | `research/exact/dmon2/wip_K/RESUME.md` |
 | Doom ceiling of bounds (how much a stronger bound can still cut) | `research/exact/dmon2/wip_doom/RESUME.md` |
