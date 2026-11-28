@@ -227,4 +227,204 @@ theorem simple_iff (L : List Pt) : Simple L ↔ simpleB L = true := by
 
 instance : DecidablePred Simple := fun L => decidable_of_iff _ (simple_iff L).symm
 
+/-! ## A triangle and an edge -/
+
+/-- the constraint `a t + b u + c v + d ≤ 0` (`< 0` if `st`) in the variables (t, u, v) -/
+def c3 (a b c d : ℚ) (st : Bool) : Con 3 := ⟨![a, b, c], d, st⟩
+
+theorem c3_holds (a b c d : ℚ) (st : Bool) (w : Fin 3 → ℚ) :
+    (c3 a b c d st).Holds w ↔
+      (if st then a * w 0 + b * w 1 + c * w 2 + d < 0 else a * w 0 + b * w 1 + c * w 2 + d ≤ 0) := by
+  unfold Con.Holds Con.val c3
+  simp [Fin.sum_univ_three]
+
+/-- parameters (t, u, v): the point `p + t (q - p)` of the segment `[p,q]` (0 ≤ t ≤ 1) is the point
+    `a + u (b - a) + v (c - a)` of the triangle (u, v ≥ 0, u + v ≤ 1) -/
+def triSegSys (a b c p q : Pt) : List (Con 3) :=
+  [c3 (-1) 0 0 0 false, c3 1 0 0 (-1) false, c3 0 (-1) 0 0 false, c3 0 0 (-1) 0 false,
+   c3 0 1 1 (-1) false] ++
+  (List.finRange 3).flatMap fun i =>
+    [c3 (q i - p i) (-(b i - a i)) (-(c i - a i)) (p i - a i) false,
+     c3 (-(q i - p i)) (b i - a i) (c i - a i) (-(p i - a i)) false]
+
+/-- the strict condition `x_i < r_i` (`sgn = false`) or `x_i > r_i` (`sgn = true`) for
+    `x = p + t (q - p)` -/
+def neC (p q r : Pt) (i : Fin 3) (sgn : Bool) : Con 3 :=
+  if sgn then c3 (-(q i - p i)) 0 0 (r i - p i) true else c3 (q i - p i) 0 0 (p i - r i) true
+
+theorem neC_holds (p q r : Pt) (i : Fin 3) (sgn : Bool) (w : Fin 3 → ℚ) :
+    (neC p q r i sgn).Holds w ↔
+      (if sgn then r i < p i + w 0 * (q i - p i) else p i + w 0 * (q i - p i) < r i) := by
+  unfold neC
+  cases sgn <;> simp only [c3_holds, if_true, Bool.false_eq_true, if_false] <;>
+    constructor <;> intro h <;> linarith
+
+theorem triSegSys_holds (a b c p q : Pt) (w : Fin 3 → ℚ) :
+    (∀ k ∈ triSegSys a b c p q, k.Holds w) ↔
+      (0 ≤ w 0 ∧ w 0 ≤ 1 ∧ 0 ≤ w 1 ∧ 0 ≤ w 2 ∧ w 1 + w 2 ≤ 1 ∧
+        ∀ i, p i + w 0 * (q i - p i) = a i + w 1 * (b i - a i) + w 2 * (c i - a i)) := by
+  simp only [triSegSys, List.forall_mem_append, List.mem_cons, List.mem_flatMap,
+    List.mem_finRange, true_and, forall_eq_or_imp, List.not_mem_nil, or_false,
+    forall_exists_index]
+  have key : ∀ x y z d : ℚ, (c3 x y z d false).Holds w ↔ x * w 0 + y * w 1 + z * w 2 + d ≤ 0 := by
+    intro x y z d; rw [c3_holds]; simp
+  constructor
+  · rintro ⟨⟨h1, h2, h3, h4, h5⟩, h6⟩
+    have h5' := h5 _ rfl
+    rw [key] at h1 h2 h3 h4 h5'
+    refine ⟨by linarith, by linarith, by linarith, by linarith, by linarith, fun i => ?_⟩
+    have a1 := h6 _ i (Or.inl rfl)
+    have b1 := h6 _ i (Or.inr rfl)
+    rw [key] at a1 b1
+    linarith
+  · rintro ⟨h1, h2, h3, h4, h5, h6⟩
+    refine ⟨⟨?_, ?_, ?_, ?_, ?_⟩, ?_⟩
+    · rw [key]; linarith
+    · rw [key]; linarith
+    · rw [key]; linarith
+    · rw [key]; linarith
+    · intro k hk; subst hk; rw [key]; linarith
+    · intro x i hx
+      have := h6 i
+      rcases hx with rfl | rfl <;> rw [key] <;> linarith
+
+/-- the directions of the strict inequalities -/
+def choices : List (Fin 3 × Bool) := (List.finRange 3).flatMap fun i => [(i, false), (i, true)]
+
+theorem mem_choices (i : Fin 3) (s : Bool) : (i, s) ∈ choices := by
+  cases s <;> simp [choices]
+
+/-- there is a point of the triangle `abc` and of the segment `[p,q]` different from `a` and `b` -/
+def badB (a b c p q : Pt) : Bool :=
+  choices.any fun c1 => choices.any fun c2 =>
+    feasible 3 (triSegSys a b c p q ++ [neC p q a c1.1 c1.2, neC p q b c2.1 c2.2])
+
+theorem badB_iff (a b c p q : Pt) :
+    badB a b c p q = true ↔ ∃ x, x ∈ tri a b c ∧ x ∈ seg p q ∧ x ≠ a ∧ x ≠ b := by
+  unfold badB
+  simp only [List.any_eq_true, decide_eq_true_eq, feasible_iff]
+  constructor
+  · rintro ⟨c1, -, c2, -, w, hw⟩
+    have hbase := (triSegSys_holds a b c p q w).1
+      (fun k hk => hw k (List.mem_append.2 (Or.inl hk)))
+    have h1 := hw (neC p q a c1.1 c1.2) (by simp)
+    have h2 := hw (neC p q b c2.1 c2.2) (by simp)
+    rw [neC_holds] at h1 h2
+    obtain ⟨t0, t1, u0, v0, uv, heq⟩ := hbase
+    refine ⟨p + w 0 • (q - p), mem_tri.2 ⟨w 1, w 2, u0, v0, uv, ?_⟩,
+      mem_seg.2 ⟨w 0, t0, t1, rfl⟩, ?_, ?_⟩
+    · ext i; simpa using heq i
+    · intro h
+      have := congrFun h c1.1
+      simp only [Pi.add_apply, Pi.smul_apply, Pi.sub_apply, smul_eq_mul] at this
+      cases hs : c1.2 <;> rw [hs] at h1 <;> simp at h1 <;> linarith
+    · intro h
+      have := congrFun h c2.1
+      simp only [Pi.add_apply, Pi.smul_apply, Pi.sub_apply, smul_eq_mul] at this
+      cases hs : c2.2 <;> rw [hs] at h2 <;> simp at h2 <;> linarith
+  · rintro ⟨x, hx, hx', hxa, hxb⟩
+    obtain ⟨u, v, hu, hv, huv, hxe⟩ := mem_tri.1 hx
+    obtain ⟨t, ht0, ht1, hxt⟩ := mem_seg.1 hx'
+    obtain ⟨i, hi⟩ := Function.ne_iff.1 hxa
+    obtain ⟨j, hj⟩ := Function.ne_iff.1 hxb
+    have hxi : x i = p i + t * (q i - p i) := by rw [hxt]; simp
+    have hxj : x j = p j + t * (q j - p j) := by rw [hxt]; simp
+    refine ⟨(i, decide (a i < x i)), mem_choices _ _, (j, decide (b j < x j)), mem_choices _ _,
+      ![t, u, v], ?_⟩
+    have hbase : ∀ k ∈ triSegSys a b c p q, k.Holds ![t, u, v] := by
+      rw [triSegSys_holds]
+      refine ⟨by simpa using ht0, by simpa using ht1, by simpa using hu, by simpa using hv,
+        by simpa using huv, fun k => ?_⟩
+      have := congrFun (hxt.symm.trans hxe) k
+      simpa using this
+    intro k hk
+    rw [List.mem_append] at hk
+    rcases hk with hk | hk
+    · exact hbase k hk
+    · simp only [List.mem_cons, List.not_mem_nil, or_false] at hk
+      rcases hk with rfl | rfl
+      · rw [neC_holds]
+        simp only [Matrix.cons_val_zero]
+        by_cases h : a i < x i
+        · simp [h]; linarith
+        · simp [h]; exact lt_of_le_of_ne (not_lt.1 h) hi |> fun h' => by linarith
+      · rw [neC_holds]
+        simp only [Matrix.cons_val_zero]
+        by_cases h : b j < x j
+        · simp [h]; linarith
+        · simp [h]; exact lt_of_le_of_ne (not_lt.1 h) hj |> fun h' => by linarith
+
+/-- the triangle `abc` meets the edge `e` at most in `a`, `b` -/
+def freeB (a b c : Pt) (e : Pt × Pt) : Bool := !badB a b c e.1 e.2
+
+theorem freeB_iff (a b c : Pt) (e : Pt × Pt) :
+    freeB a b c e = true ↔ ∀ x, x ∈ tri a b c → x ∈ seg e.1 e.2 → x = a ∨ x = b := by
+  unfold freeB
+  rw [Bool.not_eq_true', ← Bool.not_eq_true, badB_iff]
+  constructor
+  · intro h x hx hx'
+    by_contra hc
+    push_neg at hc
+    exact h ⟨x, hx, hx', hc.1, hc.2⟩
+  · rintro h ⟨x, hx, hx', h1, h2⟩
+    rcases h x hx hx' with h | h
+    · exact h1 h
+    · exact h2 h
+
+/-- the decision procedure for the Delta-move of the first edge: both polygons are simple and the
+    triangle meets every other edge only in `a`, `b`. -/
+def deltaB (a b c : Pt) (R : List Pt) : Bool :=
+  simpleB (a :: b :: R) && simpleB (a :: c :: b :: R) &&
+    (edges (a :: b :: R)).all fun e => decide (e = (a, b)) || freeB a b c e
+
+theorem deltaMove_cons_iff (a b c : Pt) (R : List Pt) :
+    DeltaMove (a :: b :: R) (a :: c :: b :: R) ↔
+      Simple (a :: b :: R) ∧ Simple (a :: c :: b :: R) ∧
+        tri a b c ∩ pset (a :: b :: R) = seg a b := by
+  constructor
+  · rintro ⟨a', b', c', R', h1, h2, hP, hQ, hT⟩
+    simp only [List.cons.injEq] at h1 h2
+    obtain ⟨rfl, rfl, rfl⟩ := h1
+    obtain ⟨-, rfl, -⟩ := h2
+    exact ⟨hP, hQ, hT⟩
+  · rintro ⟨hP, hQ, hT⟩
+    exact ⟨a, b, c, R, rfl, rfl, hP, hQ, hT⟩
+
+/-- **The Delta-move is decidable**: for the polygon `a :: b :: R` and the apex `c`, the move
+    `a :: b :: R → a :: c :: b :: R` of `DeltaMove` is decided by the program `deltaB`. -/
+theorem deltaMove_iff (a b c : Pt) (R : List Pt) :
+    DeltaMove (a :: b :: R) (a :: c :: b :: R) ↔ deltaB a b c R = true := by
+  rw [deltaMove_cons_iff]
+  unfold deltaB
+  simp only [Bool.and_eq_true, List.all_eq_true, Bool.or_eq_true, decide_eq_true_eq,
+    ← simple_iff]
+  have hab : (a, b) ∈ edges (a :: b :: R) := by rw [edges_cons_cons]; simp
+  constructor
+  · rintro ⟨hP, hQ, hT⟩
+    refine ⟨⟨hP, hQ⟩, fun e he => ?_⟩
+    by_cases hee : e = (a, b)
+    · exact Or.inl hee
+    · right
+      rw [freeB_iff]
+      intro x hx hxe
+      have hxP : x ∈ tri a b c ∩ pset (a :: b :: R) := ⟨hx, e, he, hxe⟩
+      rw [hT] at hxP
+      exact (hP.2.2 (a, b) hab e he (Ne.symm hee) x hxP hxe).1
+  · rintro ⟨⟨hP, hQ⟩, h⟩
+    refine ⟨hP, hQ, ?_⟩
+    ext x
+    constructor
+    · rintro ⟨hx, e, he, hxe⟩
+      rcases h e he with h | h
+      · rw [h] at hxe; exact hxe
+      · rcases (freeB_iff a b c e).1 h x hx hxe with h' | h'
+        · rw [h']; exact left_mem_seg a b
+        · rw [h']; exact right_mem_seg a b
+    · intro hx
+      exact ⟨seg_subset_tri_ab a b c hx, (a, b), hab, hx⟩
+
+#print axioms simple_iff
+#print axioms deltaMove_iff
+#print axioms feasible_iff
+
 end Lean42
