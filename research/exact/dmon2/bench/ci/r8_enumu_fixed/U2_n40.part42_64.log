@@ -1,0 +1,19 @@
+walk calls=18674538 with_ray=2945944 dead=11742268 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=798445624
+w3 R1=8 calls=113017 dead=75369 (0.667) states/call=7.1 limit=0 states/dead=5.3 states/alive=10.8
+w3 R1=9 calls=140230 dead=95914 (0.684) states/call=8.0 limit=0 states/dead=6.0 states/alive=12.2
+w3 R1=10 calls=172539 dead=118603 (0.687) states/call=9.3 limit=0 states/dead=7.3 states/alive=13.8
+w3 R1=11 calls=214014 dead=150520 (0.703) states/call=10.1 limit=0 states/dead=8.2 states/alive=14.6
+w3 R1=12 calls=275944 dead=192477 (0.698) states/call=11.0 limit=0 states/dead=9.4 states/alive=14.6
+w3 R1=13 calls=383236 dead=267528 (0.698) states/call=11.4 limit=0 states/dead=10.2 states/alive=14.0
+w3 R1=14 calls=565866 dead=381764 (0.675) states/call=11.9 limit=0 states/dead=11.6 states/alive=12.6
+w3 R1=15 calls=850750 dead=572485 (0.673) states/call=13.3 limit=0 states/dead=13.4 states/alive=13.0
+w3 R1=16 calls=1209801 dead=805514 (0.666) states/call=16.3 limit=0 states/dead=17.2 states/alive=14.4
+w3 R1=17 calls=1560844 dead=1044906 (0.669) states/call=21.7 limit=0 states/dead=23.4 states/alive=18.3
+w3 R1=18 calls=1773270 dead=1172364 (0.661) states/call=31.3 limit=0 states/dead=34.6 states/alive=24.9
+w3 R1=19 calls=1774767 dead=1154684 (0.651) states/call=47.0 limit=0 states/dead=52.5 states/alive=36.8
+w3 R1=20 calls=1548159 dead=964553 (0.623) states/call=74.4 limit=0 states/dead=84.5 states/alive=57.7
+w3 R1=21 calls=1159591 dead=668854 (0.577) states/call=114.5 limit=0 states/dead=132.6 states/alive=89.8
+w3 R1=22 calls=2545651 dead=2080311 (0.817) states/call=128.4 limit=0 states/dead=122.0 states/alive=156.8
+w3inc witness_reused=1277634 deadfirst_pruned=2529921 w3fast_big_reruns=0 witness_before_setup=2390437 repaired=0
+fulltests=24967199 N=40 alt=4 tasks=5949 part=42/64 nodes=32567421 closed=27014 candidates=5762 survivors=311 bfs_limit_hits=30 tour_giveups=20600670 tau_decided=14240 tau_rayobs=13508 tau_leafcuts=141
+seconds=46.284870547 src=enum_u.cpp srcsha=37ab3543266481b7 opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 4 -w3inc 2 -walk 8 22 outsha=02e872bb70c45aca words=311 commit=9da2d4525a82a323bd3a7fc4c52ac09b40bcfa7f

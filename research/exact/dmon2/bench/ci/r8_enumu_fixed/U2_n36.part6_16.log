@@ -1,0 +1,17 @@
+walk calls=2861067 with_ray=482472 dead=1955652 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=86476835
+w3 R1=8 calls=19947 dead=13339 (0.669) states/call=6.8 limit=0 states/dead=4.8 states/alive=10.6
+w3 R1=9 calls=24468 dead=16907 (0.691) states/call=7.3 limit=0 states/dead=5.4 states/alive=11.7
+w3 R1=10 calls=30717 dead=21857 (0.712) states/call=8.2 limit=0 states/dead=6.3 states/alive=12.7
+w3 R1=11 calls=40005 dead=29204 (0.730) states/call=8.8 limit=0 states/dead=7.0 states/alive=13.6
+w3 R1=12 calls=53068 dead=38914 (0.733) states/call=10.1 limit=0 states/dead=8.4 states/alive=14.8
+w3 R1=13 calls=71606 dead=52130 (0.728) states/call=10.8 limit=0 states/dead=9.4 states/alive=14.7
+w3 R1=14 calls=103184 dead=76040 (0.737) states/call=12.5 limit=0 states/dead=11.4 states/alive=15.8
+w3 R1=15 calls=144125 dead=105677 (0.733) states/call=15.0 limit=0 states/dead=14.1 states/alive=17.5
+w3 R1=16 calls=199824 dead=148283 (0.742) states/call=20.4 limit=0 states/dead=19.8 states/alive=22.0
+w3 R1=17 calls=239958 dead=173538 (0.723) states/call=29.1 limit=0 states/dead=29.0 states/alive=29.5
+w3 R1=18 calls=250036 dead=173894 (0.695) states/call=45.2 limit=0 states/dead=46.1 states/alive=43.1
+w3 R1=19 calls=215918 dead=138273 (0.640) states/call=70.1 limit=0 states/dead=74.3 states/alive=62.7
+w3 R1=20 calls=637170 dead=543428 (0.853) states/call=68.0 limit=0 states/dead=62.7 states/alive=98.4
+w3inc witness_reused=60598 deadfirst_pruned=350828 w3fast_big_reruns=0 witness_before_setup=406873 repaired=0
+fulltests=4162081 N=36 alt=4 tasks=5832 part=6/16 nodes=5386781 closed=4762 candidates=1057 survivors=93 bfs_limit_hits=2 tour_giveups=3428204 tau_decided=4947 tau_rayobs=4008 tau_leafcuts=55
+seconds=5.817773810 src=enum_u.cpp srcsha=37ab3543266481b7 opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 4 -w3inc 2 -walk 8 20 outsha=f26c56457535d66b words=93 commit=9da2d4525a82a323bd3a7fc4c52ac09b40bcfa7f

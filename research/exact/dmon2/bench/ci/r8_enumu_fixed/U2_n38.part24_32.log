@@ -1,0 +1,18 @@
+walk calls=6641848 with_ray=1246662 dead=4357857 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=215436337
+w3 R1=8 calls=43555 dead=28873 (0.663) states/call=7.1 limit=0 states/dead=5.3 states/alive=10.6
+w3 R1=9 calls=53843 dead=36515 (0.678) states/call=7.9 limit=0 states/dead=6.0 states/alive=11.9
+w3 R1=10 calls=65767 dead=45571 (0.693) states/call=9.1 limit=0 states/dead=7.3 states/alive=13.3
+w3 R1=11 calls=83748 dead=58939 (0.704) states/call=9.9 limit=0 states/dead=8.1 states/alive=14.2
+w3 R1=12 calls=113417 dead=80929 (0.714) states/call=10.3 limit=0 states/dead=8.8 states/alive=14.1
+w3 R1=13 calls=160010 dead=113269 (0.708) states/call=10.9 limit=0 states/dead=9.7 states/alive=13.8
+w3 R1=14 calls=235338 dead=165853 (0.705) states/call=12.2 limit=0 states/dead=11.5 states/alive=14.0
+w3 R1=15 calls=328806 dead=226763 (0.690) states/call=14.4 limit=0 states/dead=14.2 states/alive=14.9
+w3 R1=16 calls=447818 dead=311682 (0.696) states/call=18.3 limit=0 states/dead=18.5 states/alive=17.9
+w3 R1=17 calls=542431 dead=372629 (0.687) states/call=24.4 limit=0 states/dead=25.2 states/alive=22.7
+w3 R1=18 calls=592852 dead=403742 (0.681) states/call=35.6 limit=0 states/dead=37.3 states/alive=32.0
+w3 R1=19 calls=564416 dead=370800 (0.657) states/call=53.2 limit=0 states/dead=57.3 states/alive=45.4
+w3 R1=20 calls=452592 dead=275208 (0.608) states/call=82.9 limit=0 states/dead=92.6 states/alive=67.9
+w3 R1=21 calls=1195832 dead=1008006 (0.843) states/call=77.5 limit=0 states/dead=71.8 states/alive=107.8
+w3inc witness_reused=283248 deadfirst_pruned=867562 w3fast_big_reruns=0 witness_before_setup=902345 repaired=0
+fulltests=9124257 N=38 alt=4 tasks=5941 part=24/32 nodes=11972138 closed=9528 candidates=2139 survivors=243 bfs_limit_hits=8 tour_giveups=7583902 tau_decided=7714 tau_rayobs=6960 tau_leafcuts=75
+seconds=15.001337142 src=enum_u.cpp srcsha=37ab3543266481b7 opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 4 -w3inc 2 -walk 8 21 outsha=06e9e964a322aa9e words=243 commit=9da2d4525a82a323bd3a7fc4c52ac09b40bcfa7f
