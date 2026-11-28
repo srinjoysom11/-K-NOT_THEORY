@@ -11,3 +11,4 @@ import Lean42.Words
 import Lean42.Ops
 import Lean42.Flip
 import Lean42.Knot
+import Lean42.Decide
