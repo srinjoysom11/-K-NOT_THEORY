@@ -1,0 +1,75 @@
+--- enum_u.cpp	2026-11-28 11:27:16.834193390 +0000
++++ /tmp/claude-0/-home-user--K-NOT-THEORY/3cb4b54a-fd55-5f00-b74c-5b7e57676d03/scratchpad/doom/enum_doom.cpp	2026-11-28 11:47:29.093688902 +0000
+@@ -105,10 +105,10 @@
+ struct Stats {
+     unsigned long long ntest = 0, nodes = 0, closed = 0, cand = 0, surv = 0, bfs_over = 0, giveup = 0, taudec = 0, tauob = 0, tauleaf = 0;
+     unsigned long long w3r[MAXN + 1][5] = {}; unsigned long long w3s[MAXN + 1][16][3] = {}; unsigned long long w3rep = 0, w3wit2 = 0, w3big = 0, w3wit = 0, w3d1 = 0, w3xcalls = 0, w3xdead = 0, w3xstates = 0, w3calls = 0, w3dead = 0, w3full = 0, w3fullray = 0, w3over = 0, w3overray = 0, w3skip = 0, w3states = 0, w3ray = 0;
+-    unsigned long long rej[4][MAXN + 1]; unsigned long long dep[MAXN + 1]; unsigned long long slk[MAXN + 1][MAXN + 1];   /* 0 no site (curtain/corner) 1 site unreachable 2 aot 3 tour/mst, by remaining steps */
++    unsigned long long rej[4][MAXN + 1]; unsigned long long dep[MAXN + 1]; unsigned long long xa[MAXN + 1], xd[MAXN + 1], xb[MAXN + 1], sw[MAXN + 1], sd[MAXN + 1], sb[MAXN + 1], pc[MAXN + 1], pk[MAXN + 1], pn[MAXN + 1]; unsigned long long slk[MAXN + 1][MAXN + 1];   /* 0 no site (curtain/corner) 1 site unreachable 2 aot 3 tour/mst, by remaining steps */
+     Stats() { memset(rej, 0, sizeof rej); memset(dep, 0, sizeof dep); memset(slk, 0, sizeof slk); }
+     void add(const Stats &o) { ntest += o.ntest; nodes += o.nodes; taudec += o.taudec; tauob += o.tauob; tauleaf += o.tauleaf; w3calls += o.w3calls; w3wit += o.w3wit; w3big += o.w3big; w3wit2 += o.w3wit2; w3rep += o.w3rep; w3d1 += o.w3d1; for (int r = 0; r <= MAXN; r++) for (int q = 0; q < 5; q++) w3r[r][q] += o.w3r[r][q]; for (int r = 0; r <= MAXN; r++) for (int a = 0; a < 16; a++) for (int q = 0; q < 3; q++) w3s[r][a][q] += o.w3s[r][a][q]; w3xcalls += o.w3xcalls; w3xdead += o.w3xdead; w3xstates += o.w3xstates; w3dead += o.w3dead; w3full += o.w3full; w3fullray += o.w3fullray; w3over += o.w3over; w3overray += o.w3overray; w3skip += o.w3skip; w3states += o.w3states; w3ray += o.w3ray; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup;
+-        for (int q = 0; q < 4; q++) for (int r = 0; r <= MAXN; r++) rej[q][r] += o.rej[q][r]; for (int r = 0; r <= MAXN; r++) { dep[r] += o.dep[r]; for (int q = 0; q <= MAXN; q++) slk[r][q] += o.slk[r][q]; } }
++        for (int q = 0; q < 4; q++) for (int r = 0; r <= MAXN; r++) rej[q][r] += o.rej[q][r]; for (int r = 0; r <= MAXN; r++) { dep[r] += o.dep[r]; pc[r] += o.pc[r]; sw[r] += o.sw[r]; xa[r] += o.xa[r]; xd[r] += o.xd[r]; xb[r] += o.xb[r]; sd[r] += o.sd[r]; sb[r] += o.sb[r]; pk[r] += o.pk[r]; pn[r] += o.pn[r]; for (int q = 0; q <= MAXN; q++) slk[r][q] += o.slk[r][q]; } }
+ };
+ 
+ /* ---------- leaf reduction: breadth-first search over neutral BFACF moves ---------- */
+@@ -1550,6 +1550,17 @@
+     int wiC[MAXN + 2][MAXN + 2], wiL[MAXN + 2]; unsigned wiDead[MAXN + 2]; bool wiOk[MAXN + 2];
+     const int *w_cand = nullptr; int w_candlen = 0, w_cand_t = -1;
+     int w_flen = 0, w_slack = 0;
++    long long xs_bud; int xs_R;
++    int xs_go(int q, unsigned mask, int d) {   /* exact: self-avoiding, exactly xs_R steps, all obligations hit */
++        if (--xs_bud < 0) return 2;
++        for (int k = 0; k < 6; k++) { int r = q + DELTA[k];
++            if (r == Tl) { if (d + 1 == xs_R && mask == w_full) return 1; continue; }
++            if (d + 1 >= xs_R || occ[r] || !ALLOWED[r]) continue;
++            unsigned m2 = mask | (gcS[r] == gcep ? gcM[r] : 0);
++            if (d + 1 + w_hc(r, m2) > xs_R) continue;
++            occ[r] = 1; int v = xs_go(r, m2, d + 1); occ[r] = 0; if (v) return v; }
++        return 0;
++    }
+     int w3_dfs(int q, unsigned mask, int d, int l1, int l2) {
+         if (++w_states > (unsigned long long)GWLIM || w_ins > (GHC * 3 >> 2) - 8) return -1;
+         int nb[6], hv[6], kd[6]; unsigned nm[6]; int c = 0;
+@@ -1718,6 +1729,7 @@
+             st.w3xstates += w_states - s0;
+             if (v == 0) st.w3xdead++;
+         }
++        if (v == 1 && R1 <= 24) { xs_bud = 300000; xs_R = R1; int x = xs_go(Hd, 0, 0); st.xa[R1]++; if (x == 0) st.xd[R1]++; if (x == 2) st.xb[R1]++; }
+         st.w3states += w_states; st.w3r[R1][0]++; st.w3r[R1][1] += (v == 0); st.w3r[R1][2] += w_states; st.w3r[R1][3] += (v < 0); if (v == 0) st.w3r[R1][4] += w_states; { int sl = w_slack < 15 ? w_slack : 15; st.w3s[R1][sl][0]++; st.w3s[R1][sl][1] += (v == 0); st.w3s[R1][sl][2] += w_states; }
+         if (v < 0) { st.w3over++; if (raypend) st.w3overray++; }
+         if (v == 0) st.w3dead++;
+@@ -2082,7 +2094,7 @@
+             if (ok && !probe) { int sl = (R - 1) - mdist(Hd, Tl); if (sl >= 0 && sl <= MAXN) st.slk[R - 1][sl]++; }
+             if (ok && !probe) {
+                 if (t + 1 == split_depth && collect) collect->emplace_back(code, code + t + 1);
+-                else dfs();
++                else { unsigned long long c0 = st.closed, k0 = st.cand; int sv = 3; if (R - 1 <= 16 && t >= replay_len) { saw_bud = 200000; sv = saw_go(Hd, R - 1, Tl); } dfs(); if (t >= replay_len) { st.pn[R - 1]++; if (sv == 0) st.sw[R - 1]++; if (sv == 2) st.sb[R - 1]++; if (sv == 0 && st.closed > c0) st.sd[R - 1]++; if (st.closed > c0) st.pc[R - 1]++; if (st.cand > k0) st.pk[R - 1]++; } }
+             }
+             for (int B = 0; B < 3; B++) { nlo[B] = svlo[B]; nhi[B] = svhi[B]; }
+             if (fchg || zr4 != szr4) for (int B = 0; B < 3; B++) cdef[B] = svcd[B];
+@@ -2093,6 +2105,15 @@
+             if (PRIME) plane_undo(A, smn, smx, sdef, pl);
+             return ok;
+     }
++    long long saw_bud;
++    int saw_go(int q, int r, int tl) {
++        if (--saw_bud < 0) return 2;
++        for (int d = 0; d < 6; d++) { int nq = q + DELTA[d];
++            if (r == 1) { if (nq == tl) return 1; continue; }
++            if (occ[nq] || mdist(nq, tl) > r - 1) continue;
++            occ[nq] = 1; int v = saw_go(nq, r - 1, tl); occ[nq] = 0; if (v) return v; }
++        return 0;
++    }
+     void dfs() {
+         int t = H + T, R = N - t;
+         if (R == 1) { closing(); return; }
+@@ -2365,6 +2386,8 @@
+     if (WALK && REJSTATS) for (int r = 0; r <= MAXN; r++) if (total.w3r[r][0]) { fprintf(stderr, "w3slack R1=%d (slack:calls/dead/states_per_call)", r); for (int a = 0; a < 16; a++) if (total.w3s[r][a][0]) fprintf(stderr, " %d:%llu/%.2f/%.0f", a, total.w3s[r][a][0], total.w3s[r][a][1] / (double)total.w3s[r][a][0], total.w3s[r][a][2] / (double)total.w3s[r][a][0]); fprintf(stderr, "\n"); }
+     if (W3INC) fprintf(stderr, "w3inc witness_reused=%llu deadfirst_pruned=%llu w3fast_big_reruns=%llu witness_before_setup=%llu repaired=%llu\n", total.w3wit, total.w3d1, total.w3big, total.w3wit2, total.w3rep);
+     if (WALKX) fprintf(stderr, "walkx calls=%llu dead=%llu states=%llu\n", total.w3xcalls, total.w3xdead, total.w3xstates);
++    for (int r = 0; r <= MAXN; r++) if (total.xa[r]) fprintf(stderr, "exact R1=%d gw3_alive=%llu exact_dead=%.4f budget=%.4f\n", r, total.xa[r], total.xd[r] / (double)total.xa[r], total.xb[r] / (double)total.xa[r]);
++    for (int r = 0; r <= MAXN; r++) if (total.pn[r]) fprintf(stderr, "doom R=%d nodes=%llu with_closure=%.4f with_candidate=%.5f saw_infeasible=%.4f saw_budget=%.4f BUG=%llu\n", r, total.pn[r], total.pc[r] / (double)total.pn[r], total.pk[r] / (double)total.pn[r], total.sw[r] / (double)total.pn[r], total.sb[r] / (double)total.pn[r], total.sd[r]);
+     fprintf(stderr, "fulltests=%llu ", total.ntest);
+     fprintf(stderr, "N=%d alt=%d tasks=%zu part=%d/%d nodes=%llu closed=%llu candidates=%llu survivors=%llu bfs_limit_hits=%llu tour_giveups=%llu tau_decided=%llu tau_rayobs=%llu tau_leafcuts=%llu\n",
+             N, ALT, tasks.size(), PART_R, PART_M, total.nodes, total.closed, total.cand, total.surv, total.bfs_over, total.giveup, total.taudec, total.tauob, total.tauleaf);
