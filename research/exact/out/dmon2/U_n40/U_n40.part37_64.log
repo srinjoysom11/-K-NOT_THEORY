@@ -1,0 +1,19 @@
+walk calls=31949605 with_ray=3342059 dead=19106121 sitefull=0 sitefull_by_ray=0 limit=0 limit_with_ray=0 skip=0 states=1050776403
+w3 R1=8 calls=473593 dead=178615 (0.377) states/call=4.0 limit=0 states/dead=5.3 states/alive=3.3
+w3 R1=9 calls=568605 dead=227050 (0.399) states/call=4.7 limit=0 states/dead=6.0 states/alive=3.8
+w3 R1=10 calls=684055 dead=285111 (0.417) states/call=5.6 limit=0 states/dead=7.1 states/alive=4.5
+w3 R1=11 calls=820658 dead=359659 (0.438) states/call=6.3 limit=0 states/dead=7.9 states/alive=5.1
+w3 R1=12 calls=1018769 dead=473518 (0.465) states/call=7.0 limit=0 states/dead=8.6 states/alive=5.6
+w3 R1=13 calls=1290955 dead=635901 (0.493) states/call=8.0 limit=0 states/dead=9.7 states/alive=6.2
+w3 R1=14 calls=1716138 dead=901859 (0.526) states/call=9.3 limit=0 states/dead=11.2 states/alive=7.2
+w3 R1=15 calls=2250339 dead=1236903 (0.550) states/call=11.5 limit=0 states/dead=13.7 states/alive=8.7
+w3 R1=16 calls=2880419 dead=1634487 (0.567) states/call=15.1 limit=0 states/dead=18.0 states/alive=11.3
+w3 R1=17 calls=3331170 dead=1908940 (0.573) states/call=20.4 limit=0 states/dead=24.4 states/alive=15.1
+w3 R1=18 calls=3461623 dead=1964964 (0.568) states/call=29.2 limit=0 states/dead=35.3 states/alive=21.2
+w3 R1=19 calls=3172092 dead=1751865 (0.552) states/call=41.7 limit=0 states/dead=51.1 states/alive=30.2
+w3 R1=20 calls=2519023 dead=1305844 (0.518) states/call=63.1 limit=0 states/dead=80.5 states/alive=44.3
+w3 R1=21 calls=1704241 dead=790216 (0.464) states/call=94.6 limit=0 states/dead=128.6 states/alive=65.3
+w3 R1=22 calls=2634434 dead=2027698 (0.770) states/call=118.8 limit=0 states/dead=116.0 states/alive=128.3
+w3inc witness_reused=6564278 deadfirst_pruned=4978402
+fulltests=41857938 N=40 alt=4 tasks=5949 part=37/64 nodes=55658292 closed=67023 candidates=15033 survivors=1147 bfs_limit_hits=264 tour_giveups=33940288 tau_decided=14114 tau_rayobs=12661 tau_leafcuts=458
+seconds=98 src=enum_u.cpp srcsha=e75ac27b1a664c9c opts=-face -plane4 -aotp -crank -adapt 1 -tourcap 0 -mstonly -ax1d -hk 5 -hkw -cycleaf -tau 1 -tauz 1 -tauax 1 -walk 8 20 -gwv 1 -walkc 2 -pre1 -w3ent 2 -w3nb 3 -w3inc 1 -walk 8 22 words=1147 commit=fef0f882f3d3c46ad8bfd7f7b262c441a3d20b7a
