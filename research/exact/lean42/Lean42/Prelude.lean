@@ -14,3 +14,5 @@ import Mathlib.Algebra.Order.Field.Rat
 import Mathlib.Data.Fin.VecNotation
 import Mathlib.Tactic.IntervalCases
 import Mathlib.Algebra.Quandle
+import Mathlib.LinearAlgebra.Matrix.Trace
+import Mathlib.Data.Matrix.Mul
