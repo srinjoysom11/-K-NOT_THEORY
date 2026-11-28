@@ -80,6 +80,8 @@ static bool FACE = false, PLANE4 = false, AOTP = false, CRANK = false; static in
 static int ORACLE = 0; static bool TSTAT = false; static bool AX1D = false; static int JK = 0, JCAP = 50, JMIN = 2; static bool JONLY = false, MSTONLY = false; static int HKK = 0; static bool HKW = false;
 static bool CYCLEAF = false;   /* -cycleaf: apply -face/-plane4/-crank to the finished polygon cyclically (also through the closing letter) */
 static int TAUORD = 0; static std::vector<int> TORD[MAXN];   /* order of the pairs j (k >= 1): 0 = j ascending; 1 = j = 0, 1, then by max(k+j, N-1-j) */
+static int GWKU = 6;   /* -gwk K: GW3 uses at most K (<= 6) pending obligations */
+static int W3FAST = 0;   /* -w3fast 1: compact GW3 tables (w3_fast), same answers */
 static int W3TURN = 0;   /* -w3turn 1 (with -gwv, -walkc): heading-dependent +2 in the GW3 heuristic (see w_hvk) */
 static int W3NB = 0;   /* -w3nb 1|2 (with -gwv): GW3 site-to-site distances enter (1) / also leave (2) a site through a free neighbour */
 static int W3ENT = 0;   /* -w3ent 1 (with -gwv): in GW3 the distance to the tail end is taken through a usable entry cell (a free neighbour of Tl, or Hd, not entered by the reverse of the tail's second letter) */
@@ -102,10 +104,10 @@ static inline int mdist(int a, int b) { return abs(CX[a] - CX[b]) + abs(CY[a] - 
 
 struct Stats {
     unsigned long long ntest = 0, nodes = 0, closed = 0, cand = 0, surv = 0, bfs_over = 0, giveup = 0, taudec = 0, tauob = 0, tauleaf = 0;
-    unsigned long long w3r[MAXN + 1][5] = {}; unsigned long long w3s[MAXN + 1][16][3] = {}; unsigned long long w3wit = 0, w3d1 = 0, w3xcalls = 0, w3xdead = 0, w3xstates = 0, w3calls = 0, w3dead = 0, w3full = 0, w3fullray = 0, w3over = 0, w3overray = 0, w3skip = 0, w3states = 0, w3ray = 0;
+    unsigned long long w3r[MAXN + 1][5] = {}; unsigned long long w3s[MAXN + 1][16][3] = {}; unsigned long long w3rep = 0, w3wit2 = 0, w3big = 0, w3wit = 0, w3d1 = 0, w3xcalls = 0, w3xdead = 0, w3xstates = 0, w3calls = 0, w3dead = 0, w3full = 0, w3fullray = 0, w3over = 0, w3overray = 0, w3skip = 0, w3states = 0, w3ray = 0;
     unsigned long long rej[4][MAXN + 1]; unsigned long long dep[MAXN + 1]; unsigned long long slk[MAXN + 1][MAXN + 1];   /* 0 no site (curtain/corner) 1 site unreachable 2 aot 3 tour/mst, by remaining steps */
     Stats() { memset(rej, 0, sizeof rej); memset(dep, 0, sizeof dep); memset(slk, 0, sizeof slk); }
-    void add(const Stats &o) { ntest += o.ntest; nodes += o.nodes; taudec += o.taudec; tauob += o.tauob; tauleaf += o.tauleaf; w3calls += o.w3calls; w3wit += o.w3wit; w3d1 += o.w3d1; for (int r = 0; r <= MAXN; r++) for (int q = 0; q < 5; q++) w3r[r][q] += o.w3r[r][q]; for (int r = 0; r <= MAXN; r++) for (int a = 0; a < 16; a++) for (int q = 0; q < 3; q++) w3s[r][a][q] += o.w3s[r][a][q]; w3xcalls += o.w3xcalls; w3xdead += o.w3xdead; w3xstates += o.w3xstates; w3dead += o.w3dead; w3full += o.w3full; w3fullray += o.w3fullray; w3over += o.w3over; w3overray += o.w3overray; w3skip += o.w3skip; w3states += o.w3states; w3ray += o.w3ray; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup;
+    void add(const Stats &o) { ntest += o.ntest; nodes += o.nodes; taudec += o.taudec; tauob += o.tauob; tauleaf += o.tauleaf; w3calls += o.w3calls; w3wit += o.w3wit; w3big += o.w3big; w3wit2 += o.w3wit2; w3rep += o.w3rep; w3d1 += o.w3d1; for (int r = 0; r <= MAXN; r++) for (int q = 0; q < 5; q++) w3r[r][q] += o.w3r[r][q]; for (int r = 0; r <= MAXN; r++) for (int a = 0; a < 16; a++) for (int q = 0; q < 3; q++) w3s[r][a][q] += o.w3s[r][a][q]; w3xcalls += o.w3xcalls; w3xdead += o.w3xdead; w3xstates += o.w3xstates; w3dead += o.w3dead; w3full += o.w3full; w3fullray += o.w3fullray; w3over += o.w3over; w3overray += o.w3overray; w3skip += o.w3skip; w3states += o.w3states; w3ray += o.w3ray; closed += o.closed; cand += o.cand; surv += o.surv; bfs_over += o.bfs_over; giveup += o.giveup;
         for (int q = 0; q < 4; q++) for (int r = 0; r <= MAXN; r++) rej[q][r] += o.rej[q][r]; for (int r = 0; r <= MAXN; r++) { dep[r] += o.dep[r]; for (int q = 0; q <= MAXN; q++) slk[r][q] += o.slk[r][q]; } }
 };
 
@@ -955,7 +957,29 @@ struct Search {
                 *(v16s *)&w_D[j][c << 4] = dx + dy + dz;
             }
         }
-        if (W3NB) {
+        if (W3NB >= 4) {
+            /* -w3nb 4: the same bounds in closed form. Entering site j from site i: |i - j| + 2 unless a free neighbour of j
+               lies toward i; leaving i toward j: |i - j| + 2 unless a free neighbour of i lies toward j (the cap for a site
+               with no free neighbour is dropped: the bound is only weaker there). */
+            for (int u = 0; u < 6; u++) for (int i = 0; i < mp; i++) {
+                const int a = i < w_m ? w_cell[i] + DELTA[u] : -1;
+                w_F[u][i] = (a >= 0 && a != Tl && !(cinf[a] & 0x80)) ? (short)-1 : (short)0;
+            }
+            const v16s z0 = (v16s){}, two = (v16s){} + (short)2;
+            for (int j = 0; j < w_m; j++) {
+                const v16s X = (v16s){} + (short)w_sx[j], Y = (v16s){} + (short)w_sy[j], Z = (v16s){} + (short)w_sz[j];
+                const v16s Fj0 = (v16s){} + w_F[0][j], Fj1 = (v16s){} + w_F[1][j], Fj2 = (v16s){} + w_F[2][j], Fj3 = (v16s){} + w_F[3][j], Fj4 = (v16s){} + w_F[4][j], Fj5 = (v16s){} + w_F[5][j];
+                for (int c = 0; c < nv; c++) {
+                    const v16s dx = *(v16s *)&w_X[c << 4] - X, dy = *(v16s *)&w_Y[c << 4] - Y, dz = *(v16s *)&w_Z[c << 4] - Z;   /* i - j */
+                    const v16s okE = ((dx > z0) & Fj0) | ((dx < z0) & Fj1) | ((dy > z0) & Fj2) | ((dy < z0) & Fj3) | ((dz > z0) & Fj4) | ((dz < z0) & Fj5);
+                    const v16s okX = ((dx < z0) & *(v16s *)&w_F[0][c << 4]) | ((dx > z0) & *(v16s *)&w_F[1][c << 4]) | ((dy < z0) & *(v16s *)&w_F[2][c << 4])
+                                   | ((dy > z0) & *(v16s *)&w_F[3][c << 4]) | ((dz < z0) & *(v16s *)&w_F[4][c << 4]) | ((dz > z0) & *(v16s *)&w_F[5][c << 4]);
+                    v16s &D = *(v16s *)&w_D[j][c << 4];
+                    D = D + (two & ~(okE & okX));
+                }
+                w_D[j][j] = 0;
+            }
+        } else if (W3NB) {
             /* -w3nb: a walk from site i to another site j enters j from a free allowed neighbour b of j (i itself if adjacent),
                so its length is >= |i - b| + 1; with -w3nb 2 it also leaves i through a free allowed neighbour a of i:
                length >= |a - j| + 1. Distances are capped at 2000 (any value > R1 acts the same). */
@@ -1296,6 +1320,7 @@ struct Search {
     int w3_dfsc(int q, unsigned mask, int d, int l1, int l2, unsigned a) {
         if (++w_states > (unsigned long long)GWLIM || w_cins > (GHC * 3 >> 2) - 8) return -1;
         wpc[d] = q;
+        if (d == 0) w_dead1 = 0;   /* FIX: no first letter is known dead unless the root loop below proves it (an early return at the root used to leave the previous call's value) */
         int nb[6], hv[6], kd[6]; unsigned nm[6], na[6]; int c = 0;
         for (int k = 0; k < 6; k++) {
             if (k == (l1 ^ 1) || k == (l2 ^ 1)) continue;
@@ -1325,6 +1350,176 @@ struct Search {
         }
         for (int i = 0; i < c; i++) { int v = w3_dfsc(nb[i], nm[i], d + 1, kd[i], l1, na[i]); if (v) return v; }
         return 0;
+    }
+    /* -w3fast 1: the same search as w3_dfsc with compact tables. fH: cache (cell, visited set) -> heuristic h and the three
+       1-D travel bounds of wc_pass (64-bit entries: epoch 15 | key 23 | tz 6 | ty 6 | tx 6 | h 8; a value that does not fit
+       is not cached). fM: memo (64-bit: epoch 20 | key 29 | step counts 15), FMS entries; on overflow the call is re-run
+       with the large table FMB, so the answer never depends on the table size. */
+    std::vector<unsigned long long> fH, fMs, fMb; unsigned f_ep = 0; int f_hins = 0, f_mins = 0, f_mlim = 0; unsigned f_mmask = 0; unsigned long long *fM = nullptr;
+    static const int FHS = 4096, FMS = 8192, FMB = 1 << 17;
+    inline void f_get(int r, unsigned m2, int &h, int &tx, int &ty, int &tz) {
+        const unsigned key = (unsigned)r * 64 + m2; unsigned hsh = (key * 2654435761u) >> 20;
+        const unsigned long long ep = f_ep & 0x7fff;
+        for (int probe = 0; probe < 8; probe++) {
+            unsigned long long &e = fH[hsh];
+            if ((e >> 49) != ep) break;
+            if (((e >> 26) & 0x7fffff) == key) { h = (int)(e & 0xff); tx = (int)(e >> 8 & 63); ty = (int)(e >> 14 & 63); tz = (int)(e >> 20 & 63); return; }
+            hsh = (hsh + 1) & (FHS - 1);
+        }
+        h = w_h(r, m2);
+        const unsigned rem = w_full & ~m2;
+        tx = trav(CX[r], w_tx, std::min(std::min((int)CX[r], w_tx), (int)wc_L[0][rem]), std::max(std::max((int)CX[r], w_tx), (int)wc_H[0][rem]));
+        ty = trav(CY[r], w_ty, std::min(std::min((int)CY[r], w_ty), (int)wc_L[1][rem]), std::max(std::max((int)CY[r], w_ty), (int)wc_H[1][rem]));
+        tz = trav(CZ[r], w_tz, std::min(std::min((int)CZ[r], w_tz), (int)wc_L[2][rem]), std::max(std::max((int)CZ[r], w_tz), (int)wc_H[2][rem]));
+        if (h > 255 || tx > 63 || ty > 63 || tz > 63 || f_hins >= (FHS * 3 >> 2)) return;
+        unsigned long long &e = fH[hsh];
+        if ((e >> 49) == ep) return;   /* 8 probes full: do not cache */
+        e = (ep << 49) | ((unsigned long long)key << 26) | ((unsigned long long)tz << 20) | ((unsigned long long)ty << 14) | ((unsigned long long)tx << 8) | (unsigned long long)h;
+        f_hins++;
+    }
+    inline int f_memo(unsigned key, unsigned a) {   /* 1 new or improved, 0 dominated, -2 table full */
+        unsigned hsh = (key * 2654435761u) & f_mmask;
+        const unsigned long long ep = f_ep & 0xfffff;
+        for (;;) {
+            unsigned long long &e = fM[hsh];
+            if ((e >> 44) != ep) { if (++f_mins > f_mlim) return -2; e = (ep << 44) | ((unsigned long long)key << 15) | a; return 1; }
+            if (((e >> 15) & 0x1fffffff) == key) { if (cle((unsigned)(e & 0x7fff), a)) return 0; e = (e & ~0x7fffull) | a; return 1; }
+            hsh = (hsh + 1) & f_mmask;
+        }
+    }
+    int w3_dfsf(int q, unsigned mask, int d, int l1, int l2, unsigned a) {
+        if (++w_states > (unsigned long long)GWLIM) return -1;
+        wpc[d] = q;
+        if (d == 0) w_dead1 = 0;   /* FIX: no first letter is known dead unless the root loop below proves it (an early return at the root used to leave the previous call's value) */
+        int nb[6], hv[6], kd[6]; unsigned nm[6], na[6]; int c = 0;
+        const int c3 = cnt[0] + cnt[1] + cnt[2];
+        for (int k = 0; k < 6; k++) {
+            if (k == (l1 ^ 1) || k == (l2 ^ 1)) continue;
+            const int r = q + DELTA[k];
+            if (r == Tl) {
+                if (mask != w_full) continue;
+                if (w3_t0 >= 0 && (k == (w3_t0 ^ 1) || l1 == (w3_t0 ^ 1))) continue;
+                if (w3_t1 >= 0 && k == (w3_t1 ^ 1)) continue;
+                w_fl = d + 1; wpc[d + 1] = Tl;
+                return 1;
+            }
+            const unsigned ci_ = cinf[r]; if (ci_ & 0x80) continue;
+            const unsigned m2 = mask | ci_;
+            int h, tx, ty, tz; f_get(r, m2, h, tx, ty, tz);
+            if (d + 1 + h > w_R) continue;
+            const unsigned a2 = a + (1u << (5 * (k >> 1)));
+            {   /* = wc_pass(r, m2, a2, d + 1) with the cached travel bounds */
+                int fx = cnt[0] + (int)(a2 & 31) + tx, fy = cnt[1] + (int)(a2 >> 5 & 31) + ty, fz = cnt[2] + (int)(a2 >> 10 & 31) + tz;
+                if (fx < aotL[0]) fx = aotL[0]; if (fy < aotL[1]) fy = aotL[1]; if (fz < aotL[2]) fz = aotL[2];
+                if (fx + fy + fz - c3 > w_R) { w_ckill++; continue; }
+                const int y = fy > fz ? fy : fz, x = fx > y ? fx : y;
+                if (x + y + fz > N) { w_ckill++; continue; }
+            }
+            const int mr = f_memo((((unsigned)r * 37 + (unsigned)((l1 < 6 ? l1 : 0) * 6 + k) + 1) << 6) | m2, a2);
+            if (mr == 0) continue;
+            if (mr < 0) return -2;
+            int b = c - 1; while (b >= 0 && hv[b] > h) { nb[b + 1] = nb[b]; hv[b + 1] = hv[b]; nm[b + 1] = nm[b]; kd[b + 1] = kd[b]; na[b + 1] = na[b]; b--; }
+            nb[b + 1] = r; hv[b + 1] = h; nm[b + 1] = m2; kd[b + 1] = k; na[b + 1] = a2; c++;
+        }
+        if (d == 0) {
+            unsigned live = 0; for (int i = 0; i < c; i++) live |= 1u << kd[i];
+            w_dead1 = 63u & ~live;
+            for (int i = 0; i < c; i++) { int v = w3_dfsf(nb[i], nm[i], 1, kd[i], l1, na[i]); if (v) return v; w_dead1 |= 1u << kd[i]; }
+            return 0;
+        }
+        for (int i = 0; i < c; i++) { int v = w3_dfsf(nb[i], nm[i], d + 1, kd[i], l1, na[i]); if (v) return v; }
+        return 0;
+    }
+    int w3_fast(int l1, int l2) {   /* small memo first; on overflow the large one (fresh epoch, same search) */
+        if (fH.empty()) { fH.assign(FHS, 0); fMs.assign(FMS, 0); fMb.assign(FMB, 0); }
+        if (((++f_ep) & 0x7fff) == 0) { std::fill(fH.begin(), fH.end(), 0); std::fill(fMs.begin(), fMs.end(), 0); std::fill(fMb.begin(), fMb.end(), 0); ++f_ep; }
+        f_hins = 0; f_mins = 0; fM = fMs.data(); f_mmask = FMS - 1; f_mlim = FMS * 3 / 4;
+        const unsigned long long s0 = w_states;
+        int v = w3_dfsf(Hd, 0, 0, l1, l2, 0);
+        if (v == -2) {
+            st.w3big++; w_states = s0;
+            if (((++f_ep) & 0x7fff) == 0) { std::fill(fH.begin(), fH.end(), 0); std::fill(fMs.begin(), fMs.end(), 0); std::fill(fMb.begin(), fMb.end(), 0); ++f_ep; }
+            f_hins = 0; f_mins = 0; fM = fMb.data(); f_mmask = FMB - 1; f_mlim = GHC * 3 / 4 - 8;   /* the limit of w3_dfsc */
+            v = w3_dfsf(Hd, 0, 0, l1, l2, 0);
+            if (v == -2) v = -1;
+        }
+        return v;
+    }
+    /* -w3inc 2: before any GW3 setup, is the candidate C[0] = Hd .. C[len] = Tl a genuine walk of the relaxation (letters and
+       junctions, free allowed cells, a site of EVERY pending obligation) whose step counts G_q = max(aotL_q, cnt_q + steps_q)
+       pass the -walkc tests? Then every prefix of it passes every test of w3_dfsc (the heuristics are lower bounds for genuine
+       walks, the -walkc bounds of each prefix are <= G), so the search would find a walk: the call is alive. */
+    std::vector<unsigned> wg_ep; unsigned wg_epc = 0;
+    bool wit_genuine(const int *C, int len, int R1, const int *nw, int nn) {
+        if (len > R1 || len < 1 || C[0] != Hd || C[len] != Tl) return false;
+        if (wg_ep.empty()) wg_ep.assign(NS, 0);
+        if (++wg_epc == 0) { std::fill(wg_ep.begin(), wg_ep.end(), 0); wg_epc = 1; }
+        int l1 = H >= 1 ? Lt(H - 1) : 7, l2 = H >= 2 ? Lt(H - 2) : 7;
+        const int t0 = T >= 1 ? Lt(-T) : -1, t1 = T >= 2 ? Lt(-T + 1) : -1;
+        int sc[3] = {0, 0, 0};
+        for (int i = 1; i <= len; i++) {
+            const int df = C[i] - C[i - 1]; int k = -1;
+            for (int u = 0; u < 6; u++) if (DELTA[u] == df) { k = u; break; }
+            if (k < 0 || k == (l1 ^ 1) || k == (l2 ^ 1)) return false;
+            sc[k >> 1]++;
+            if (i == len) {
+                if (t0 >= 0 && (k == (t0 ^ 1) || l1 == (t0 ^ 1))) return false;
+                if (t1 >= 0 && k == (t1 ^ 1)) return false;
+                break;
+            }
+            if (C[i] == Tl || (cinf[C[i]] & 0x80)) return false;
+            wg_ep[C[i]] = wg_epc;
+            l2 = l1; l1 = k;
+        }
+        for (int a = 0; a < nn; a++) {
+            const Ob &ob = obs[nw[a]]; bool hit = false;
+            for (int u = 0; u < ob.cnt && !hit; u++) hit = wg_ep[ob.site[u]] == wg_epc;
+            if (!hit) return false;
+        }
+        int G[3];
+        for (int q = 0; q < 3; q++) { G[q] = cnt[q] + sc[q]; if (G[q] < aotL[q]) G[q] = aotL[q]; }
+        if (G[0] + G[1] + G[2] - cnt[0] - cnt[1] - cnt[2] > R1) return false;
+        const int y = G[1] > G[2] ? G[1] : G[2], x = G[0] > y ? G[0] : y;
+        return x + y + G[2] <= N;
+    }
+    /* -w3inc 3: repaired witnesses. The parent's walk W (wiC[tt-1], length L) is cut at a vertex W[j] near the new end and
+       joined to it by a monotone (shortest) path, for each of the 6 axis orders; each candidate is checked by wit_genuine. */
+    int w_rep_t = -1, w_rep_side = 0;
+    int w_mpath(int a, int b, int ord, int *out) {   /* cells after a up to b, axis order ord (0..5); returns the count */
+        static const int P3[6][3] = {{0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 0, 1}, {2, 1, 0}};
+        int n = 0, c = a;
+        for (int z = 0; z < 3; z++) {
+            const int A = P3[ord][z]; int dlt = coord(A, b) - coord(A, c);
+            const int st_ = DELTA[2 * A + (dlt < 0 ? 1 : 0)];
+            while (dlt != 0) { c += st_; out[n++] = c; dlt += dlt > 0 ? -1 : 1; }
+        }
+        return n;
+    }
+    bool w_repair(int tt, int R1, const int *nw, int nn) {
+        const int *W = wiC[tt - 1]; const int L = wiL[tt - 1];
+        int cb[2 * MAXN + 8];
+        if (w_rep_side == 0) {
+            for (int j = 2; j <= L - 1 && j <= 6; j++) {
+                const int D = mdist(Hd, W[j]); if (D > j - 1) continue;
+                for (int o = 0; o < 6; o++) {
+                    cb[0] = Hd; int n = 1 + w_mpath(Hd, W[j], o, cb + 1);
+                    for (int i = j + 1; i <= L; i++) cb[n++] = W[i];
+                    if (wit_genuine(cb, n - 1, R1, nw, nn)) { wiL[tt] = n - 1; memcpy(wiC[tt], cb, n * sizeof(int)); wiDead[tt] = 0; wiOk[tt] = true; return true; }
+                    if (D <= 1) break;   /* a path of <= 1 step is the same for every order */
+                }
+            }
+        } else {
+            for (int j = L - 2; j >= 0 && j >= L - 6; j--) {
+                const int D = mdist(W[j], Tl); if (D > L - j - 1) continue;
+                for (int o = 0; o < 6; o++) {
+                    for (int i = 0; i <= j; i++) cb[i] = W[i];
+                    int n = j + 1 + w_mpath(W[j], Tl, o, cb + j + 1);
+                    if (wit_genuine(cb, n - 1, R1, nw, nn)) { wiL[tt] = n - 1; memcpy(wiC[tt], cb, n * sizeof(int)); wiDead[tt] = 0; wiOk[tt] = true; return true; }
+                    if (D <= 1) break;
+                }
+            }
+        }
+        return false;
     }
     /* -w3inc: does the candidate walk C[0] = Hd, ..., C[len] = Tl pass every test of w3_dfsc (memo aside)? Then w3_dfsc
        would find a walk, so the call is alive. */
@@ -1394,6 +1589,17 @@ struct Search {
     bool gwalk3(int R1, const int *nw, int nn) {   /* true = dead (enum_g's gwalk2 in W3 mode, depth-first) */
         if (ghT.empty()) { ghT.assign(GHC, 0); ghH.assign(GHC >> 1, 0); gcS.assign(NS, 0); gcM.assign(NS, 0); }
         st.w3calls++;
+        if (W3INC >= 2 && WALKC >= 2 && SLAB < 0 && AOT && AXES && w_cand_t == H + T) {
+            const int tt = H + T;
+            if (wit_genuine(w_cand, w_candlen, R1, nw, nn)) {
+                st.w3wit2++; wiL[tt] = w_candlen; memmove(wiC[tt], w_cand, (w_candlen + 1) * sizeof(int)); wiDead[tt] = 0; wiOk[tt] = true; w_cand_t = -1;
+                return false;
+            }
+        }
+        if (W3INC >= 3 && WALKC >= 2 && SLAB < 0 && AOT && AXES && w_rep_t == H + T) {
+            const int tt = H + T; w_rep_t = -1;
+            if (wiOk[tt - 1] && w_repair(tt, R1, nw, nn)) { st.w3rep++; w_cand_t = -1; return false; }
+        }
         int cell[64]; unsigned long long msk[4 * MAXN]; int m = 0, k = 0;
         bool raypend = false;
         for (int a = 0; a < nn; a++) if (nw[a] == rayidx) { raypend = true; st.w3ray++; break; }
@@ -1433,13 +1639,13 @@ struct Search {
             for (int i = 0; i < k && !dom; i++) { if (i == j) continue; unsigned long long a = msk[i]; if ((a & ~b) == 0 && (a != b || i < j)) dom = true; }
             if (!dom) { keep[kk] = b; ksz[kk] = __builtin_popcountll(b); kk++; }
         }
-        if (kk > GWK) {
+        if (kk > GWKU) {
             for (int a = 1; a < kk; a++) { unsigned long long x = keep[a]; int y = ksz[a], b = a - 1; while (b >= 0 && ksz[b] > y) { keep[b + 1] = keep[b]; ksz[b + 1] = ksz[b]; b--; } keep[b + 1] = x; ksz[b + 1] = y; }
-            kk = GWK;
+            kk = GWKU;
         }
         if (++gcep == 0) { std::fill(gcS.begin(), gcS.end(), 0); gcep = 1; }
         CinfClear cclr{this}; w_ncl = 0;
-        if ((++gh_ep & 0xffffff) == 0) { std::fill(ghT.begin(), ghT.end(), 0); gh_ep++; }
+        if ((++gh_ep & 0xffffff) == 0) { std::fill(ghT.begin(), ghT.end(), 0); std::fill(ghH.begin(), ghH.end(), 0); gh_ep++; }   /* FIX: also clear the heuristic cache at the epoch wrap */
         w_k = kk; w_full = (1u << kk) - 1; w_R = R1; w_tx = CX[Tl]; w_ty = CY[Tl]; w_tz = CZ[Tl];
         unsigned long long used = 0; for (int j = 0; j < kk; j++) used |= keep[j];
         if (W3ENT >= 3 && GWV) { if (!ent_build()) { st.w3dead++; return true; } }
@@ -1457,6 +1663,9 @@ struct Search {
             if (W3ENT >= 2) {   /* the vertex before the entry cell c: a free allowed neighbour c2 of c (or Hd), c2 != Tl, and the
                                    letter c2 -> c is not the reverse of the first tail letter (U-turn across the junction) */
                 const int t0 = T >= 1 ? Lt(-T) : -1; w_ne2 = 0;
+                if (wg_ep.empty()) wg_ep.assign(NS, 0);
+                if (++wg_epc == 0) { std::fill(wg_ep.begin(), wg_ep.end(), 0); wg_epc = 1; }
+                const unsigned e2_stamp = wg_epc;
                 for (int i = 0; i < 6; i++) {
                     if (t1 >= 0 && i == (t1 ^ 1)) continue;
                     const int c = Tl - DELTA[i];
@@ -1467,8 +1676,9 @@ struct Search {
                         if (t0 >= 0 && k2 == (t0 ^ 1)) continue;
                         const int c2 = c - DELTA[k2];
                         if (c2 == Tl || (c2 != Hd && (cinf[c2] & 0x80))) continue;
-                        bool dup = false; for (int j = 0; j < w_ne2; j++) if (w_fx[j] == CX[c2] && w_fy[j] == CY[c2] && w_fz[j] == CZ[c2]) { dup = true; break; }
-                        if (!dup) { w_fx[w_ne2] = CX[c2]; w_fy[w_ne2] = CY[c2]; w_fz[w_ne2] = CZ[c2]; w_ne2++; }
+                        if (wg_ep.empty()) wg_ep.assign(NS, 0);
+                        const bool dup = wg_ep[c2] == e2_stamp;
+                        if (!dup) { wg_ep[c2] = e2_stamp; w_fx[w_ne2] = CX[c2]; w_fy[w_ne2] = CY[c2]; w_fz[w_ne2] = CZ[c2]; w_ne2++; }
                     }
                 }
                 for (int i = 0; i < 16; i++) { if (i < w_ne) { v_ex[i] = w_ex[i]; v_ey[i] = w_ey[i]; v_ez[i] = w_ez[i]; } else v_ex[i] = v_ey[i] = v_ez[i] = 1000; }
@@ -1494,7 +1704,7 @@ struct Search {
             if (W3INC && w_cand_t == tt && wit_pass(w_cand, w_candlen, l1, l2)) {   /* the parent's walk, cut by the step, still passes */
                 st.w3wit++; v = 1; wiL[tt] = w_candlen; memmove(wiC[tt], w_cand, (w_candlen + 1) * sizeof(int)); wiDead[tt] = 0; wiOk[tt] = true;
             } else {
-                v = w3_dfsc(Hd, 0, 0, l1, l2, 0);
+                v = (W3FAST && WALKC >= 2 && w_hdp) ? w3_fast(l1, l2) : w3_dfsc(Hd, 0, 0, l1, l2, 0);
                 if (W3INC && v == 1) { wiL[tt] = w_fl; memcpy(wiC[tt], wpc, (w_fl + 1) * sizeof(int)); wiDead[tt] = w_dead1; wiOk[tt] = true; }
             }
             w_cand_t = -1;
@@ -1502,7 +1712,7 @@ struct Search {
         else v = WALKX == 1 && R1 >= WALKX_LO && R1 <= WALKX_HI ? (gxT.empty() ? gxT.assign(GHC, XE{0, 0, 0, 0}) : (void)0, w_xins = 0, w3_dfsx(Hd, 0, 0, l1, l2)) : w3_dfs(Hd, 0, 0, l1, l2);
         if (WALKX == 2 && v == 1 && w_flen < R1 && R1 >= WALKX_LO && R1 <= WALKX_HI) {   /* the walk found is too short: search for one of exactly R1 steps */
             if (gxT.empty()) gxT.assign(GHC, XE{0, 0, 0, 0});
-            if ((++gh_ep & 0xffffff) == 0) { std::fill(ghT.begin(), ghT.end(), 0); gh_ep++; }
+            if ((++gh_ep & 0xffffff) == 0) { std::fill(ghT.begin(), ghT.end(), 0); std::fill(ghH.begin(), ghH.end(), 0); gh_ep++; }   /* FIX: also clear the heuristic cache at the epoch wrap */
             st.w3xcalls++; w_xins = 0; w_hins = 0; const unsigned long long s0 = w_states;
             v = w3_dfsx(Hd, 0, 0, l1, l2);
             st.w3xstates += w_states - s0;
@@ -1863,6 +2073,7 @@ struct Search {
                     if (wiDead[t] >> d & 1) { ok = false; st.w3d1++; }
                     else if (wiL[t] >= 2 && wiC[t][1] == nx) { w_cand = wiC[t] + 1; w_candlen = wiL[t] - 1; w_cand_t = t + 1; }
                 } else if (wiL[t] >= 2 && wiC[t][wiL[t] - 1] == nx) { w_cand = wiC[t]; w_candlen = wiL[t] - 1; w_cand_t = t + 1; }
+                if (ok && W3INC >= 3) { w_rep_t = t + 1; w_rep_side = side; }
             }
             if (ok && PRE1 && AOT && AXES && SLAB < 0 && t + 1 > SPLIT && !trust && !pre1_ok(pend[t], npend[t])) { ok = false; st.rej[2][R - 1]++; }
             if (ok) { if (!trust) st.ntest++; trust_step = trust; ok = update2(side, li, nx, ofa, ola, R - 1); trust_step = false; }
@@ -2075,6 +2286,8 @@ int main(int argc, char **argv) {
         else if (a == "-hkw") HKW = true;
         else if (a == "-walk") { WALK = true; WALK_LO = atoi(argv[++i]); WALK_HI = atoi(argv[++i]); W3HDP = true; }
         else if (a == "-walkx") { WALKX = atoi(argv[++i]); if (i + 2 < argc && argv[i + 1][0] != '-') { WALKX_LO = atoi(argv[++i]); WALKX_HI = atoi(argv[++i]); } }
+        else if (a == "-gwk") GWKU = atoi(argv[++i]);
+        else if (a == "-w3fast") W3FAST = atoi(argv[++i]);
         else if (a == "-w3turn") W3TURN = atoi(argv[++i]);
         else if (a == "-w3nb") W3NB = atoi(argv[++i]);
         else if (a == "-w3ent") W3ENT = atoi(argv[++i]);
@@ -2150,7 +2363,7 @@ int main(int argc, char **argv) {
     { unsigned long long ck = 0; (void)ck; }
     if (WALK) for (int r = 0; r <= MAXN; r++) if (total.w3r[r][0]) fprintf(stderr, "w3 R1=%d calls=%llu dead=%llu (%.3f) states/call=%.1f limit=%llu states/dead=%.1f states/alive=%.1f\n", r, total.w3r[r][0], total.w3r[r][1], total.w3r[r][1] / (double)total.w3r[r][0], total.w3r[r][2] / (double)total.w3r[r][0], total.w3r[r][3], total.w3r[r][4] / (double)(total.w3r[r][1] + 1e-9), (total.w3r[r][2] - total.w3r[r][4]) / (double)(total.w3r[r][0] - total.w3r[r][1] + 1e-9));
     if (WALK && REJSTATS) for (int r = 0; r <= MAXN; r++) if (total.w3r[r][0]) { fprintf(stderr, "w3slack R1=%d (slack:calls/dead/states_per_call)", r); for (int a = 0; a < 16; a++) if (total.w3s[r][a][0]) fprintf(stderr, " %d:%llu/%.2f/%.0f", a, total.w3s[r][a][0], total.w3s[r][a][1] / (double)total.w3s[r][a][0], total.w3s[r][a][2] / (double)total.w3s[r][a][0]); fprintf(stderr, "\n"); }
-    if (W3INC) fprintf(stderr, "w3inc witness_reused=%llu deadfirst_pruned=%llu\n", total.w3wit, total.w3d1);
+    if (W3INC) fprintf(stderr, "w3inc witness_reused=%llu deadfirst_pruned=%llu w3fast_big_reruns=%llu witness_before_setup=%llu repaired=%llu\n", total.w3wit, total.w3d1, total.w3big, total.w3wit2, total.w3rep);
     if (WALKX) fprintf(stderr, "walkx calls=%llu dead=%llu states=%llu\n", total.w3xcalls, total.w3xdead, total.w3xstates);
     fprintf(stderr, "fulltests=%llu ", total.ntest);
     fprintf(stderr, "N=%d alt=%d tasks=%zu part=%d/%d nodes=%llu closed=%llu candidates=%llu survivors=%llu bfs_limit_hits=%llu tour_giveups=%llu tau_decided=%llu tau_rayobs=%llu tau_leafcuts=%llu\n",
