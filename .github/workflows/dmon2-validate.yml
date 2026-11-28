@@ -37,7 +37,7 @@ jobs:
               for k in r.get("parts", range(m)):
                   assert 0 <= k < m
                   inc.append({"src": r["src"], "n": int(r["n"]), "m": m, "r": int(k), "opts": r.get("opts", ""), "tag": r["tag"]})
-          assert 0 < len(inc) <= 256, len(inc)
+          assert 0 < len(inc) <= 128, len(inc)
           print("matrix=" + json.dumps({"include": inc}))
           print("label=" + label)
           PY

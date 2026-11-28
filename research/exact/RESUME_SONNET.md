@@ -36,8 +36,10 @@ Flags of the planned runs (common options are added by the workflow):
 | label | what | parts | status |
 |---|---|---|---|
 | U2_n42 | U2, n = 42, `-walk 8 23` | 128 | DONE (run 46141037085): 1.336e10 nodes, 24 767 runner-s, 59 072 words, union sha ecb2500910219fb8 = F's (0 difference), none outside production; gate for n = 44 passed |
-| U2_n44 | U2, n = 44 | 256 | NOT submitted: waits for the user's own confirmation (the gate U2_n42 = F is passed); estimate 40 to 55 runner-hours; the n = 42 parts took at most 400 s, so 256 parts are plenty |
-| U2_n46 | U2, n = 46 | 1024, as 4 requests of 256 parts (`parts` lists) | planned: choose the part count from the largest n = 44 part; submit in waves so that no job waits 24 hours |
+| U2_n44 | U2, n = 44, `-walk 8 24` | m = 256, two requests with the same label (parts 0-127, then 128-255) | NOT submitted. The parent relayed (twice) that the user wants it, and the gate U2_n42 = F has passed, but this session's permission system refused the submission both times (28 Nov), and the user has not confirmed it in this session. Whoever continues: ask the user for an explicit go-ahead, then submit wave 1 (parts 0-127), and wave 2 when wave 1 is mostly through so that no job waits 24 hours; estimate 40 to 55 runner-hours in total, the n = 42 parts took at most 400 s |
+| U2_n46 | U2, n = 46, `-walk 8 25` | m = 1024 (revise from the largest n = 44 part, each part under 355 minutes), eight requests of 128 parts (`parts` lists) | planned: waves after n = 44 |
+
+The matrix limit of the workflow stays at 128 jobs per request (an edit to 256 was made and reverted on 28 Nov): use `parts` lists of at most 128.
 
 ## How to check a finished run
 1. All m parts present (`SUMMARY.txt` lists them; missing ones were cancelled in the queue: submit them again with `parts`).
